@@ -1,1 +1,241 @@
 {% extends "panel/index.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Planning view</h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+  <div class="col-xs-12">
+    <form role="form" method=post action="/views/planning">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#query-interface">Query interface <span class="fa fa-angle-double-down"></span></a>
+          </h3>
+        </div>
+        <div id="query-interface" class="panel-collapse collapse">
+          <!-- NPPF's query filter -->
+          <div class="row query-sources">
+            <div class="col-xs-3 query-source-names">
+              <label>NPPFs (<input type="checkbox" name="nppf_notin_check"><span class="label-text"><b>Not in)</b></span></label>
+              <select name="nppfs" data-placeholder="Select several options..." class="chosen-select" multiple="" tabidex="-1">
+              </select>
+            </div>
+          </div>
+          <!-- Start and stop -->
+          <div class="row">
+            {% include "eboa_nav/start_stop.html" %}
+            <div>
+              <span onclick="vboa.add_start_stop('more-start-stop-query-events')">
+                <span class="glyphicon glyphicon-plus"></span>
+              </span>
+            </div>
+          </div>
+          <div id="more-start-stop-query-events">
+          </div>
+          <div class="row">
+            {% include "eboa_nav/ingestion_time.html" %}
+            <div>
+              <span onclick="vboa.add_ingestion_time('more-ingestion-time-query-events')">
+                <span class="glyphicon glyphicon-plus"></span>
+              </span>
+            </div>
+          </div>
+          <!-- Ingestion time -->
+          <div id="more-ingestion-time-query-events">
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <!-- /.col-lg-6 (nested) -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Imaging plan
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <table width="100%" class="table table-striped table-bordered table-hover" id="imaging_details">
+          <thead>
+            <tr>
+              <th>Satellite</th>
+              <th>Orbit</th>
+              <th>Start</th>
+              <th>Stop</th>
+              <th>Duration (s)</th>
+              <th>Duration (m)</th>
+              <th>Imaging mode</th>
+              <th>Record type</th>
+              <th>Parameters</th>
+              <th>Plan file</th>
+              <th>Details</th>
+              <th>UUID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in planning_events["imaging"]["prime_events"] %}
+            <tr>
+              {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+              {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
+              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+              <td>{{ satellite }}</td>
+              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+              <td>{{ orbit }}</td>
+              <td>{{ event.start.isoformat() }}</td>
+              <td>{{ event.stop.isoformat() }}</td>
+              <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+              <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+              {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
+              <td>{{ imaging_mode }}</td>
+              {% set record_type = event.eventTexts|selectattr("name", "equalto", "record_type")|map(attribute='value')|first|string %}
+              <td>{{ record_type }}</td>
+              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+              <td>
+                {% include "views/parameters.html" %}
+              </td>
+              <td><a href="/eboa_nav/query-source/{{ original_imaging.source.source_uuid }}">{{ original_imaging.source.name }}</a></td>
+              <td><a href="/eboa_nav/query-event-links/{{ original_imaging.event_uuid }}"><i class="fa fa-link"></i></a></td>
+              <td>{{ original_imaging.event_uuid }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Satellite</th>
+              <th>Orbit</th>
+              <th>Start</th>
+              <th>Stop</th>
+              <th>Duration (s)</th>
+              <th>Duration (m)</th>
+              <th>Imaging mode</th>
+              <th>Record type</th>
+              <th>Parameters</th>
+              <th>Plan file</th>
+              <th>Details</th>
+              <th>UUID</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+  </div>
+  <!-- /.row (nested) -->
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <!-- /.col-lg-6 (nested) -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Playback plan
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <table width="100%" class="table table-striped table-bordered table-hover" id="playback_details">
+          <thead>
+            <tr>
+              <th>Satellite</th>
+              <th>Orbit</th>
+              <th>Station</th>
+              <th>Start</th>
+              <th>Stop</th>
+              <th>Duration (s)</th>
+              <th>Duration (m)</th>
+              <th>Playback type</th>
+              <th>Parameters</th>
+              <th>Plan file</th>
+              <th>Details</th>
+              <th>UUID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in planning_events["playback"]["prime_events"] %}
+            <tr>
+              {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+              {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+              <td>{{ satellite }}</td>
+              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+              <td>{{ orbit }}</td>
+              {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+              <td>{{ station }}</td>
+              <td>{{ event.start.isoformat() }}</td>
+              <td>{{ event.stop.isoformat() }}</td>
+              <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+              <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+              {% set playback_type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
+              <td>{{ playback_type }}</td>
+              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+              <td>
+                {% include "views/parameters.html" %}
+              </td>
+              <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
+              <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+              <td>{{ original_playback.event_uuid }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Satellite</th>
+              <th>Orbit</th>
+              <th>Station</th>
+              <th>Start</th>
+              <th>Stop</th>
+              <th>Duration (s)</th>
+              <th>Duration (m)</th>
+              <th>Playback type</th>
+              <th>Parameters</th>
+              <th>Plan file</th>
+              <th>Details</th>
+              <th>UUID</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+  </div>
+  <!-- /.row (nested) -->
+</div>
+<!-- /.planning-view -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Timeline of the planning
+  </div>
+  <!-- /.panel-heading -->
+  <div class="panel-body">
+    <div id="planning_timeline">
+    </div>
+  </div>
+  <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+      {% include "js/imaging_planning_to_timeline.js" %}
+      {% include "js/playback_planning_to_timeline.js" %}
+
+      var events = imaging_events.concat(playback_events)
+
+      var groups = [];
+      var items = [];
+      
+      vboa.prepare_events_data_for_timeline(events, items, groups);
+
+      vboa.display_timeline("planning_timeline", items, groups);
+    </script>
+{% endblock %}

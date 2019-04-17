@@ -1,0 +1,6 @@
+{% if parameters|length > 0 %}
+{% for value in parameters[0]["values"] %}
+{{ value["name"] + "=" + value["value"]|int|string }}
+<br/>
+{% endfor %}
+{% endif %}
