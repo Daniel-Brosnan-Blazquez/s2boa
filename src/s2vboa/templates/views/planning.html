@@ -36,17 +36,6 @@
           </div>
           <div id="more-start-stop-query-events">
           </div>
-          <div class="row">
-            {% include "eboa_nav/ingestion_time.html" %}
-            <div>
-              <span onclick="vboa.add_ingestion_time('more-ingestion-time-query-events')">
-                <span class="glyphicon glyphicon-plus"></span>
-              </span>
-            </div>
-          </div>
-          <!-- Ingestion time -->
-          <div id="more-ingestion-time-query-events">
-          </div>
           <div>
             <button type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
           </div>
@@ -57,6 +46,9 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
+    {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_value("satellite") %}
+    {% set imaging_by_units = planning_events["imaging"]["prime_events"]|sort(attribute="start")|events_group_by_value("satellite") %}
+    {% set playback_by_units = planning_events["playback"]["prime_events"]|sort(attribute="start")|events_group_by_value("satellite") %}
     <!-- /.col-lg-6 (nested) -->
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -64,68 +56,121 @@
       </div>
       <!-- /.panel-heading -->
       <div class="panel-body">
-        <table width="100%" class="table table-striped table-bordered table-hover" id="imaging_details">
-          <thead>
-            <tr>
-              <th>Satellite</th>
-              <th>Orbit</th>
-              <th>Start</th>
-              <th>Stop</th>
-              <th>Duration (s)</th>
-              <th>Duration (m)</th>
-              <th>Imaging mode</th>
-              <th>Record type</th>
-              <th>Parameters</th>
-              <th>Plan file</th>
-              <th>Details</th>
-              <th>UUID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for event in planning_events["imaging"]["prime_events"] %}
-            <tr>
-              {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
-              {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
-              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-              <td>{{ satellite }}</td>
-              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
-              <td>{{ orbit }}</td>
-              <td>{{ event.start.isoformat() }}</td>
-              <td>{{ event.stop.isoformat() }}</td>
-              <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
-              <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
-              {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
-              <td>{{ imaging_mode }}</td>
-              {% set record_type = event.eventTexts|selectattr("name", "equalto", "record_type")|map(attribute='value')|first|string %}
-              <td>{{ record_type }}</td>
-              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
-              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
-              <td>
-                {% include "views/parameters.html" %}
-              </td>
-              <td><a href="/eboa_nav/query-source/{{ original_imaging.source.source_uuid }}">{{ original_imaging.source.name }}</a></td>
-              <td><a href="/eboa_nav/query-event-links/{{ original_imaging.event_uuid }}"><i class="fa fa-link"></i></a></td>
-              <td>{{ original_imaging.event_uuid }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th>Satellite</th>
-              <th>Orbit</th>
-              <th>Start</th>
-              <th>Stop</th>
-              <th>Duration (s)</th>
-              <th>Duration (m)</th>
-              <th>Imaging mode</th>
-              <th>Record type</th>
-              <th>Parameters</th>
-              <th>Plan file</th>
-              <th>Details</th>
-              <th>UUID</th>
-            </tr>
-          </tfoot>
-        </table>
+        <div>
+          <div class="col-lg-12">
+            <h3>Statistics</h3>
+          </div>
+          <p>
+            <b>Total Average:</b> Average considering all the orbits covered by this reporting period <br/>
+            <b>Net Average:</b> Average considering just those orbits where there is a planned imaging <br/>
+            <b>Orbits covered by the reporting period:</b> <br/>
+          </p>
+          {% for unit in orbpre_by_units %}
+          <p style="text-indent: 1em">
+            {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
+            Mission {{ unit }}: {{ orbits[0]|int }} - {{ orbits[-1]|int }} ({{ orbits|length }}) <br/>
+          </p>
+          {% endfor %}
+          
+          <p>
+            <b>Orbits used to acquire sensing during the reporting period:</b> <br/>
+          </p>
+
+          {% for unit in imaging_by_units %}
+          <p style="text-indent: 1em">
+            {% set orbits = imaging_by_units[unit]|map(attribute="eventDoubles")|selectattr_map("name", "==", "start_orbit")|map(attribute="value")|unique|list %}
+            Mission {{ unit }}: {{ orbits[0]|int }} - {{ orbits[-1]|int }} ({{ orbits|length }}) <br/>
+          </p>
+          {% endfor %}
+          
+          {% for unit in imaging_by_units %}
+          {% set imaging_by_mode = imaging_by_units[unit]|events_group_by_value("imaging_mode") %}
+          <p>
+            The following table shows the <b>statistics for the planned imagings for the {{ unit }} mission</b>:
+          </p> 
+          <table align="center" class="table table-striped table-bordered table-hover table-static">
+            <thead>
+              <tr>
+                <th>Imaging mode</th>
+                <th>Duration (m)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for imaging_mode in imaging_by_mode %}
+              <tr>
+                <td>{{ imaging_mode }}</td>
+                
+                <td>{{ ((imaging_by_mode[imaging_mode]|get_timeline_duration) / 60)|round(3) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endfor %}
+        </div>
+        <div>
+          <table width="100%" class="table table-striped table-bordered table-hover table-search" id="imaging_details">
+            <thead>
+              <tr>
+                <th>Satellite</th>
+                <th>Orbit</th>
+                <th>Start</th>
+                <th>Stop</th>
+                <th>Duration (s)</th>
+                <th>Duration (m)</th>
+                <th>Imaging mode</th>
+                <th>Record type</th>
+                <th>Parameters</th>
+                <th>Plan file</th>
+                <th>Details</th>
+                <th>UUID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for event in planning_events["imaging"]["prime_events"] %}
+              <tr>
+                {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+                {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
+                {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+                <td>{{ satellite }}</td>
+                {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+                <td>{{ orbit }}</td>
+                <td>{{ event.start.isoformat() }}</td>
+                <td>{{ event.stop.isoformat() }}</td>
+                <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+                <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+                {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
+                <td>{{ imaging_mode }}</td>
+                {% set record_type = event.eventTexts|selectattr("name", "equalto", "record_type")|map(attribute='value')|first|string %}
+                <td>{{ record_type }}</td>
+                {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+                {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+                <td>
+                  {% include "views/parameters.html" %}
+                </td>
+                <td><a href="/eboa_nav/query-source/{{ original_imaging.source.source_uuid }}">{{ original_imaging.source.name }}</a></td>
+                <td><a href="/eboa_nav/query-event-links/{{ original_imaging.event_uuid }}"><i class="fa fa-link"></i></a></td>
+                <td>{{ original_imaging.event_uuid }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Satellite</th>
+                <th>Orbit</th>
+                <th>Start</th>
+                <th>Stop</th>
+                <th>Duration (s)</th>
+                <th>Duration (m)</th>
+                <th>Imaging mode</th>
+                <th>Record type</th>
+                <th>Parameters</th>
+                <th>Plan file</th>
+                <th>Details</th>
+                <th>UUID</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
       <!-- /.panel-body -->
     </div>
@@ -141,7 +186,7 @@
       </div>
       <!-- /.panel-heading -->
       <div class="panel-body">
-        <table width="100%" class="table table-striped table-bordered table-hover" id="playback_details">
+        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback_details">
           <thead>
             <tr>
               <th>Satellite</th>

@@ -22,6 +22,44 @@ bp = Blueprint("views", __name__, url_prefix="/views")
 query = Query()
 engine = Engine()
 
+def query_orbpre_events():
+    """
+    Query predicted orbit events.
+    """
+    current_app.logger.debug("Query predicted orbit events")
+
+    kwargs = {}
+
+    if request.method == "POST":
+
+        if request.form["start"] != "":
+            kwargs["start_filters"] = []
+            i = 0
+            operators = request.form.getlist("start_operator")
+            for start in request.form.getlist("start"):
+                kwargs["start_filters"].append({"date": start, "op": operators[i]})
+                i+=1
+            # end for
+        # end if
+        if request.form["stop"] != "":
+            kwargs["stop_filters"] = []
+            i = 0
+            operators = request.form.getlist("stop_operator")
+            for stop in request.form.getlist("stop"):
+                kwargs["stop_filters"].append({"date": stop, "op": operators[i]})
+                i+=1
+            # end for
+        # end if
+    # end if
+    
+    ####
+    # Query predicted orbit events
+    ####
+    kwargs["gauge_names"] = {"filter": ["ORBIT_PREDICTION"], "op": "in"}
+    events = query.get_events(**kwargs)
+
+    return events
+
 @bp.route("/planning", methods=["GET", "POST"])
 def show_planning():
     """
@@ -31,7 +69,9 @@ def show_planning():
 
     planning_events = query_planning_events()
 
-    return render_template("views/planning.html", planning_events=planning_events)
+    orbpre_events = query_orbpre_events()
+
+    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request)
 
 def query_planning_events():
     """
@@ -77,17 +117,6 @@ def query_planning_events():
             for stop in request.form.getlist("stop"):
                 kwargs_imaging["stop_filters"].append({"date": stop, "op": operators[i]})
                 kwargs_playback["stop_filters"].append({"date": stop, "op": operators[i]})
-                i+=1
-            # end for
-        # end if
-        if request.form["ingestion_time"] != "":
-            kwargs_imaging["ingestion_time_filters"] = []
-            kwargs_playback["ingestion_time_filters"] = []
-            i = 0
-            operators = request.form.getlist("ingestion_time_operator")
-            for ingestion_time in request.form.getlist("ingestion_time"):
-                kwargs_imaging["ingestion_time_filters"].append({"date": ingestion_time, "op": operators[i]})
-                kwargs_playback["ingestion_time_filters"].append({"date": ingestion_time, "op": operators[i]})
                 i+=1
             # end for
         # end if
