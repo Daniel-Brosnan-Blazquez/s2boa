@@ -20,7 +20,7 @@ function create_playback_tooltip_text(satellite, orbit, start, stop, playback_ty
 };
 
 var playback_events = [
-    {% for event in planning_events["playback"]["prime_events"] %}
+    {% for event in events %}
     {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
     {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
