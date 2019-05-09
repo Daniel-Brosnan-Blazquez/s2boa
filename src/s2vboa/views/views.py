@@ -8,6 +8,9 @@ module s2vboa
 # Import python utilities
 import sys
 import json
+import datetime
+from dateutil import parser
+
 # Import flask utilities
 from flask import Blueprint, flash, g, current_app, redirect, render_template, request, url_for
 from flask_debugtoolbar import DebugToolbarExtension
@@ -22,7 +25,7 @@ bp = Blueprint("views", __name__, url_prefix="/views")
 query = Query()
 engine = Engine()
 
-def query_orbpre_events():
+def query_orbpre_events(start_filter = None, stop_filter = None):
     """
     Query predicted orbit events.
     """
@@ -30,28 +33,16 @@ def query_orbpre_events():
 
     kwargs = {}
 
-    if request.method == "POST":
-
-        if request.form["start"] != "":
-            kwargs["start_filters"] = []
-            i = 0
-            operators = request.form.getlist("start_operator")
-            for start in request.form.getlist("start"):
-                kwargs["start_filters"].append({"date": start, "op": operators[i]})
-                i+=1
-            # end for
-        # end if
-        if request.form["stop"] != "":
-            kwargs["stop_filters"] = []
-            i = 0
-            operators = request.form.getlist("stop_operator")
-            for stop in request.form.getlist("stop"):
-                kwargs["stop_filters"].append({"date": stop, "op": operators[i]})
-                i+=1
-            # end for
-        # end if
+    # Start filter
+    if start_filter:
+        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
     # end if
     
+    # Stop filter
+    if stop_filter:
+        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+    # end if
+
     ####
     # Query predicted orbit events
     ####
@@ -67,13 +58,64 @@ def show_planning():
     """
     current_app.logger.debug("Planning view")
 
-    planning_events = query_planning_events()
+    # Initialize reporting period (today - 2 days, today + 5 days)
+    start_filter = {
+        "date": (parser.parse(datetime.datetime.today().strftime("%Y-%m-%d")) - datetime.timedelta(days=2)).isoformat(),
+        "operator": "<"
+    }
+    stop_filter = {
+        "date": (parser.parse(datetime.datetime.today().strftime("%Y-%m-%d")) - datetime.timedelta(days=5)).isoformat(),
+        "operator": ">"
+    }
 
-    orbpre_events = query_orbpre_events()
+    show = {}
+    show["timeline"]=True
+    show["table_details"]=True
+    show["map"]=True
 
-    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request)
+    if request.method == "POST":
 
-def query_planning_events():
+        if request.form["start"] != "":
+            start_filter = {
+                "date": request.form["stop"],
+                "operator": "<"
+            }
+        else:
+            start_filter = None
+        # end if
+        if request.form["stop"] != "":
+            stop_filter = {
+                "date": request.form["start"],
+                "operator": ">"
+            }
+        else:
+            stop_filter = None
+        # end if
+
+        if not "show_planning_timeline" in request.form:
+            show["timeline"] = False
+        else:
+            show["timeline"]=True
+        # end if
+        if not "show_planning_table_details" in request.form:
+            show["table_details"] = False
+        else:
+            show["table_details"]=True
+        # end if
+        if not "show_planning_map" in request.form:
+            show["map"] = False
+        else:
+            show["map"]=True
+        # end if
+    # end if
+
+    planning_events = query_planning_events(start_filter, stop_filter)
+
+    orbpre_events = query_orbpre_events(start_filter, stop_filter)
+
+    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show)
+
+def query_planning_events(start_filter = None, stop_filter = None):
     """
     Query planning events.
     """
@@ -84,42 +126,16 @@ def query_planning_events():
     kwargs_imaging = {}
     kwargs_playback = {}
 
-    if request.method == "POST":
-        if "nppfs" in request.form and request.form["nppfs"] != "":
-            op="notin"
-            if not "nppf_notin_check" in request.form:
-                op="in"
-            # end if
-            kwargs["sources"] = {"filter": [], "op": op}
-            i = 0
-            for nppf in request.form.getlist("nppfs"):
-                kwargs["sources"]["filter"].append(nppf)
-                i+=1
-            # end for
-        # end if
-
-        if request.form["start"] != "":
-            kwargs_imaging["start_filters"] = []
-            kwargs_playback["start_filters"] = []
-            i = 0
-            operators = request.form.getlist("start_operator")
-            for start in request.form.getlist("start"):
-                kwargs_imaging["start_filters"].append({"date": start, "op": operators[i]})
-                kwargs_playback["start_filters"].append({"date": start, "op": operators[i]})
-                i+=1
-            # end for
-        # end if
-        if request.form["stop"] != "":
-            kwargs_imaging["stop_filters"] = []
-            kwargs_playback["stop_filters"] = []
-            i = 0
-            operators = request.form.getlist("stop_operator")
-            for stop in request.form.getlist("stop"):
-                kwargs_imaging["stop_filters"].append({"date": stop, "op": operators[i]})
-                kwargs_playback["stop_filters"].append({"date": stop, "op": operators[i]})
-                i+=1
-            # end for
-        # end if
+    # Start filter
+    if start_filter:
+        kwargs_imaging["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+    # end if
+    
+    # Stop filter
+    if stop_filter:
+        kwargs_imaging["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
     # end if
     
     ####
