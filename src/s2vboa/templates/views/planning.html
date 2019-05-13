@@ -17,10 +17,14 @@
           </h3>
         </div>
         <div id="query-interface" class="panel-collapse collapse">
+          <!-- Missions -->
+          {% include "views/missions.html" %}
           <!-- Start and stop -->
           <div class="row">
             {% include "eboa_nav/start_stop_without_operators.html" %}
           </div>
+          <!-- Orbits -->
+          {% include "views/start_stop_orbits.html" %}
           <div>
             <button type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
           </div>
@@ -44,6 +48,7 @@
     </form>
   </div>
 </div>
+{% include "views/header.html" %}
 {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
 {% set imaging_by_units = planning_events["imaging"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
 {% set playback_by_units = planning_events["playback"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}

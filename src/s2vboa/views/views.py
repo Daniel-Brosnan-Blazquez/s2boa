@@ -25,7 +25,7 @@ bp = Blueprint("views", __name__, url_prefix="/views")
 query = Query()
 engine = Engine()
 
-def query_orbpre_events(start_filter = None, stop_filter = None):
+def query_orbpre_events(start_filter = None, stop_filter = None, mission = None):
     """
     Query predicted orbit events.
     """
@@ -41,6 +41,14 @@ def query_orbpre_events(start_filter = None, stop_filter = None):
     # Stop filter
     if stop_filter:
         kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+    # end if
+
+    # Mission
+    if mission:
+        kwargs["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
+                                    "type": "text",
+                                    "value": {"op": "like", "value": mission}
+                                }]
     # end if
 
     ####
@@ -67,6 +75,7 @@ def show_planning():
         "date": (parser.parse(datetime.datetime.today().strftime("%Y-%m-%d")) - datetime.timedelta(days=5)).isoformat(),
         "operator": ">"
     }
+    mission = "S2_"
 
     show = {}
     show["timeline"]=True
@@ -75,21 +84,69 @@ def show_planning():
 
     if request.method == "POST":
 
+        if request.form["mission"] != "":
+            mission = request.form["mission"]
+        # end if
+
         if request.form["start"] != "":
             start_filter = {
                 "date": request.form["stop"],
                 "operator": "<"
             }
-        else:
-            start_filter = None
+        elif request.form["stop_orbit"] != "":
+            orbpre_events = query.get_events(gauge_names = {"filter": ["ORBIT_PREDICTION"], "op": "in"},
+                                            value_filters = [{"name": {"op": "like", "str": "orbit"},
+                                                              "type": "double",
+                                                              "value": {"op": "==", "value": request.form["stop_orbit"]}
+                                                          },
+                                                             {"name": {"op": "like", "str": "satellite"},
+                                                              "type": "text",
+                                                              "value": {"op": "like", "value": mission}
+                                                          }])
+            
+            if len(orbpre_events) > 0:
+                orbpre_event = orbpre_events[0]
+                start_filter = {
+                    "date": orbpre_event.stop.isoformat(),
+                    "operator": "<"
+                }
+            # end if
+            if request.form["start_orbit"] == "":
+                stop_filter = {
+                    "date": (orbpre_event.stop - datetime.timedelta(days=5)).isoformat(),
+                    "operator": ">"
+                }
+            # end if
         # end if
         if request.form["stop"] != "":
             stop_filter = {
                 "date": request.form["start"],
                 "operator": ">"
             }
-        else:
-            stop_filter = None
+        elif request.form["start_orbit"] != "":
+            orbpre_events = query.get_events(gauge_names = {"filter": ["ORBIT_PREDICTION"], "op": "in"},
+                                            value_filters = [{"name": {"op": "like", "str": "orbit"},
+                                                              "type": "double",
+                                                              "value": {"op": "==", "value": request.form["start_orbit"]}
+                                                          },
+                                                             {"name": {"op": "like", "str": "satellite"},
+                                                              "type": "text",
+                                                              "value": {"op": "like", "value": mission}
+                                                          }])
+            
+            if len(orbpre_events) > 0:
+                orbpre_event = orbpre_events[0]
+                stop_filter = {
+                    "date": orbpre_event.start.isoformat(),
+                    "operator": ">"
+                }
+            # end if
+            if request.form["stop_orbit"] == "":
+                start_filter = {
+                    "date": (orbpre_event.start + datetime.timedelta(days=5)).isoformat(),
+                    "operator": "<"
+                }
+            # end if
         # end if
 
         if not "show_planning_timeline" in request.form:
@@ -109,13 +166,16 @@ def show_planning():
         # end if
     # end if
 
-    planning_events = query_planning_events(start_filter, stop_filter)
+    planning_events = query_planning_events(start_filter, stop_filter, mission)
 
-    orbpre_events = query_orbpre_events(start_filter, stop_filter)
+    orbpre_events = query_orbpre_events(start_filter, stop_filter, mission)
 
-    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show)
+    reporting_start = stop_filter["date"]
+    reporting_stop = start_filter["date"]
 
-def query_planning_events(start_filter = None, stop_filter = None):
+    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop)
+
+def query_planning_events(start_filter = None, stop_filter = None, mission = None):
     """
     Query planning events.
     """
@@ -137,6 +197,20 @@ def query_planning_events(start_filter = None, stop_filter = None):
         kwargs_imaging["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
         kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
     # end if
+
+
+    # Mission
+    if mission:
+        kwargs_imaging["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
+                                    "type": "text",
+                                    "value": {"op": "like", "value": mission}
+                                }]
+        kwargs_playback["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
+                                    "type": "text",
+                                    "value": {"op": "like", "value": mission}
+                                }]
+    # end if
+
     
     ####
     # Query imaging
