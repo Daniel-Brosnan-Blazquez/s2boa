@@ -111,7 +111,7 @@ def show_planning():
                     "operator": "<"
                 }
             # end if
-            if request.form["start_orbit"] == "":
+            if len(orbpre_events) > 0 and request.form["start_orbit"] == "":
                 stop_filter = {
                     "date": (orbpre_event.stop - datetime.timedelta(days=5)).isoformat(),
                     "operator": ">"
@@ -141,7 +141,7 @@ def show_planning():
                     "operator": ">"
                 }
             # end if
-            if request.form["stop_orbit"] == "":
+            if len(orbpre_events) > 0 and request.form["stop_orbit"] == "":
                 start_filter = {
                     "date": (orbpre_event.start + datetime.timedelta(days=5)).isoformat(),
                     "operator": "<"

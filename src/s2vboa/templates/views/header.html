@@ -14,7 +14,7 @@
         <div>
           <h3><u>Reporting period details for mission {{ unit }}</u></h3>
         </div>
-        <div class="row">
+        <div class="row row2">
           <table align="left" class="table table-striped table-bordered table-hover table-static">
             <tr>
               <td></td>
@@ -36,6 +36,29 @@
         {% endfor %}
       </div>
       <!-- /.panel-body -->
+      {% elif reporting_start != None and reporting_stop != None %}
+      <div class="panel-body">
+        <div>
+          <h3><u>Reporting period details</u></h3>
+        </div>
+        <div class="row row2">
+          <br/>
+          <p style="text-indent: 1em">There is no information for setting the orbit period.</p>
+          <br/>
+          <table align="left" class="table table-striped table-bordered table-hover table-static">
+            <tr>
+              <td></td>
+              <th>Period start</th>
+              <th>Period stop</th>
+            </tr>
+            <tr>
+              <th>Time information</th>
+              <td>{{ reporting_start }}</td>
+              <td>{{ reporting_stop }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
       {% else %}      
       <div>
         <br/>
