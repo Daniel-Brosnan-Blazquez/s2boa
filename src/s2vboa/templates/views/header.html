@@ -1,71 +1,69 @@
 <div class="row">
-  <div class="col-xs-12">
-    <!-- /.col-lg-6 (nested) -->
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Reporting header
-      </div>
-      {% if orbpre_events|length > 0 and reporting_start != None and reporting_stop != None %}
-      {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-        {% for unit in orbpre_by_units %}
-        {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
-        <div>
-          <h3><u>Reporting period details for mission {{ unit }}</u></h3>
-        </div>
-        <div class="row row2">
-          <table align="left" class="table table-striped table-bordered table-hover table-static">
-            <tr>
-              <td></td>
-              <th>Period start</th>
-              <th>Period stop</th>
-            </tr>
-            <tr>
-              <th>Orbit information</th>
-              <td>{{ orbits[0]|int }}</td>
-              <td>{{ orbits[-1]|int }}</td>
-            </tr>
-            <tr>
-              <th>Time information</th>
-              <td>{{ reporting_start }}</td>
-              <td>{{ reporting_stop }}</td>
-            </tr>
-          </table>
-        </div>
-        {% endfor %}
-      </div>
-      <!-- /.panel-body -->
-      {% elif reporting_start != None and reporting_stop != None %}
-      <div class="panel-body">
-        <div>
-          <h3><u>Reporting period details</u></h3>
-        </div>
-        <div class="row row2">
-          <br/>
-          <p style="text-indent: 1em">There is no information for setting the orbit period.</p>
-          <br/>
-          <table align="left" class="table table-striped table-bordered table-hover table-static">
-            <tr>
-              <td></td>
-              <th>Period start</th>
-              <th>Period stop</th>
-            </tr>
-            <tr>
-              <th>Time information</th>
-              <td>{{ reporting_start }}</td>
-              <td>{{ reporting_stop }}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      {% else %}      
-      <div>
-        <br/>
-        <p style="text-indent: 1em">There is not enough information for setting the reporting header.</p>
-        <br/>
-      </div>
-      {% endif %}
+  <!-- /.col-lg-6 (nested) -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Reporting header
     </div>
+    {% if orbpre_events|length > 0 and reporting_start != None and reporting_stop != None %}
+    {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+      {% for unit in orbpre_by_units %}
+      {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
+      <div>
+        <h3><u>Reporting period details for mission {{ unit }}</u></h3>
+      </div>
+      <div class="row row2">
+        <table align="left" class="table table-striped table-bordered table-hover table-static">
+          <tr>
+            <td></td>
+            <th>Period start</th>
+            <th>Period stop</th>
+          </tr>
+          <tr>
+            <th>Orbit information</th>
+            <td>{{ orbits[0]|int }}</td>
+            <td>{{ orbits[-1]|int }}</td>
+          </tr>
+          <tr>
+            <th>Time information</th>
+            <td>{{ reporting_start }}</td>
+            <td>{{ reporting_stop }}</td>
+          </tr>
+        </table>
+      </div>
+      {% endfor %}
+    </div>
+    <!-- /.panel-body -->
+    {% elif reporting_start != None and reporting_stop != None %}
+    <div class="panel-body">
+      <div>
+        <h3><u>Reporting period details</u></h3>
+      </div>
+      <div class="row row2">
+        <br/>
+        <p style="text-indent: 1em">There is no information for setting the orbit period.</p>
+        <br/>
+        <table align="left" class="table table-striped table-bordered table-hover table-static">
+          <tr>
+            <td></td>
+            <th>Period start</th>
+            <th>Period stop</th>
+          </tr>
+          <tr>
+            <th>Time information</th>
+            <td>{{ reporting_start }}</td>
+            <td>{{ reporting_stop }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% else %}      
+    <div>
+      <br/>
+      <p style="text-indent: 1em">There is not enough information for setting the reporting header.</p>
+      <br/>
+    </div>
+    {% endif %}
   </div>
 </div>

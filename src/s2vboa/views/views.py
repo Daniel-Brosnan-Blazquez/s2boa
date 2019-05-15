@@ -79,6 +79,7 @@ def show_planning():
 
     show = {}
     show["timeline"]=True
+    show["x_time"]=True
     show["table_details"]=True
     show["map"]=True
 
@@ -153,6 +154,11 @@ def show_planning():
             show["timeline"] = False
         else:
             show["timeline"]=True
+        # end if
+        if not "show_planning_x_time_evolution" in request.form:
+            show["x_time"] = False
+        else:
+            show["x_time"]=True
         # end if
         if not "show_planning_table_details" in request.form:
             show["table_details"] = False
