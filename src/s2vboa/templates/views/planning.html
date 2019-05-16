@@ -743,7 +743,8 @@
 
   vboa.display_x_time("plan_imaging_x_time_evolution", items, groups, options);
 
-  {% with events = planning_events["playback"]["prime_events"] %}
+  {% set msi_playbacks = planning_events["playback"]["prime_events"]|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
+  {% with events = msi_playbacks %}
   {% include "js/playback_planning_to_xy.js" %}
   {% endwith %}
 
