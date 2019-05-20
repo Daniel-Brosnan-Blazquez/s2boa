@@ -8,7 +8,7 @@
     {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
     <!-- /.panel-heading -->
     <div class="panel-body">
-      {% for unit in orbpre_by_units %}
+      {% for unit in orbpre_by_units|list|sort %}
       {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
       <div>
         <h3><u>Reporting period details for mission {{ unit }}</u></h3>
