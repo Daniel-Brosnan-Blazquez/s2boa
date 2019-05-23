@@ -20,7 +20,7 @@ function create_imaging_tooltip_text(satellite, orbit, start, stop, imaging_mode
 };
 
 var imaging_events = [
-    {% for event in planning_events["imaging"]["prime_events"] %}
+    {% for event in events %}
     {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
     {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
