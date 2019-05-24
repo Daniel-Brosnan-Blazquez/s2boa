@@ -13,7 +13,7 @@ setup(name="s2boa",
       url="https://bitbucket.org/dbrosnan/s2boa/",
       author="Daniel Brosnan",
       author_email="daniel.brosnan@deimos-space.com",
-      packages=["s2vboa"],
+      packages=find_packages(),
       python_requires='>=3',
       install_requires=[
           "Flask",
