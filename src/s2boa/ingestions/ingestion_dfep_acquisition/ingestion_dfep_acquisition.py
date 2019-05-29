@@ -450,7 +450,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         sensing_stops_in_iso_8601.sort()
         sensing_stop = sensing_stops_in_iso_8601[-1]
         # Add 1 scene at the end
-        corrected_sensing_stop = str(functions.convert_from_datetime_gps_to_datetime_utc(parser.parse(sensing_stop)) + datetime.timedelta(seconds=3.608))
+        corrected_sensing_stop = str(functions.convert_from_datetime_gps_to_datetime_utc(parser.parse(sensing_stop)))
 
         # The data comes in pairs of VCIDs
         # 4 - 20
@@ -502,6 +502,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 gaps = received_datablocks
             # end if
             for gap in gaps:
+                start = gap["start"]
+                stop = gap["stop"] + datetime.timedelta(seconds=3.608)
                 status = "INCOMPLETE"
                 band_detector = functions.get_band_detector(apid_number)
 
@@ -514,8 +516,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "name": "ISP_GAP",
                         "system": station
                     },
-                    "start": str(gap["start"]),
-                    "stop": str(gap["stop"]),
+                    "start": str(start),
+                    "stop": str(stop),
                     "values": [{
                         "name": "details",
                         "type": "object",
@@ -557,8 +559,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 # Insert segment for associating the ISP gap
                 timeline_isp_gaps.append({
                     "id": "ISP_GAP_" + str(isp_gap_iterator),
-                    "start": gap["start"],
-                    "stop": gap["stop"]
+                    "start": start,
+                    "stop": stop
                 })
 
                 isp_gap_iterator += 1    
@@ -806,6 +808,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         # Create the ISP_VALIDITY events
         for received_datablock in received_datablocks:
+            start = received_datablock["start"]
+            stop = received_datablock["stop"] + datetime.timedelta(seconds=3.608)
             sensing_orbit = ""
             links_isp_validity = []
             links_isp_completeness = []
@@ -835,7 +839,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             # end if
             
             # ISP validity event reference
-            isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(received_datablock["start"])
+            isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(start)
 
             isp_gaps_intersected = ingestion_functions.intersect_timelines([received_datablock], merged_timeline_isp_gaps)
 
@@ -872,8 +876,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "system": station
                 },
                 "links": links_isp_validity,
-                "start": str(received_datablock["start"]),
-                "stop": str(received_datablock["stop"]),
+                "start": str(start),
+                "stop": str(stop),
                 "values": [{
                     "name": "details",
                     "type": "object",
@@ -927,8 +931,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "system": satellite
                     },
                     "links": links_isp_completeness,
-                    "start": str(received_datablock["start"]),
-                    "stop": str(received_datablock["stop"]),
+                    "start": str(start),
+                    "stop": str(stop),
                     "values": [{
                         "name": "details",
                         "type": "object",

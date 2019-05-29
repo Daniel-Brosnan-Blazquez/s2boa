@@ -966,7 +966,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check specific ISP_VALIDITY
         specific_isp_validity1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
                                                                                  Event.start == "2018-07-21T18:51:28.225563",
-                                                                                 Event.stop == "2018-07-21T18:55:26.338495").all()
+                                                                                 Event.stop == "2018-07-21T18:55:29.946495").all()
 
         assert len(specific_isp_validity1) == 1
 
@@ -984,14 +984,14 @@ class TestDfepIngestion(unittest.TestCase):
         # Check specific ISP_VALIDITY
         isp_completeness_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
                                                                                  Event.start == "2018-07-21T18:51:28.225563",
-                                                                                 Event.stop == "2018-07-21T18:55:26.338495").all()
+                                                                                 Event.stop == "2018-07-21T18:55:29.946495").all()
 
         assert len(isp_completeness_event1) == 1
 
         # Check specific ISP_VALIDITY
         isp_completeness_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2",
                                                                                  Event.start == "2018-07-21T18:51:28.225563",
-                                                                                 Event.stop == "2018-07-21T18:55:26.338495").all()
+                                                                                 Event.stop == "2018-07-21T18:55:29.946495").all()
 
         assert len(isp_completeness_event2) == 1
 

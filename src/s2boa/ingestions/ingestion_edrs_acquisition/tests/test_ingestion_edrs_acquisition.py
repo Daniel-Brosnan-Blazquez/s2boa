@@ -397,7 +397,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check specific RAW_ISP_VALIDITY
         specific_raw_isp_validity1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "RAW_ISP_VALIDITY",
                                                                                  Event.start == "2018-07-21T05:22:08.947423",
-                                                                                 Event.stop == "2018-07-21T05:40:36").all()
+                                                                                 Event.stop == "2018-07-21T05:40:39.608000").all()
 
         assert len(specific_raw_isp_validity1) == 1
 
@@ -478,7 +478,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check definite ISP_GAP
         isp_gap_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                                  Event.start == "2018-07-21T05:22:08.947423",
-                                                                                 Event.stop == "2018-07-21T05:40:36").all()
+                                                                                 Event.stop == "2018-07-21T05:40:39.608000").all()
 
         assert len(isp_gap_event1) == 1
 
@@ -608,7 +608,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         isp_gap_event3 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                                  Event.start == "2018-07-21T05:35:36",
-                                                                                 Event.stop == "2018-07-21T05:40:36").all()
+                                                                                 Event.stop == "2018-07-21T05:40:39.608000").all()
 
         assert len(isp_gap_event3) == 1
 

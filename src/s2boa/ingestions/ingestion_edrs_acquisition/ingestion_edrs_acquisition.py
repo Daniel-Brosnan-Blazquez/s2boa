@@ -370,7 +370,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Sort list
         sensing_stops_in_iso_8601.sort()
         sensing_stop = sensing_stops_in_iso_8601[-1]
-        corrected_sensing_stop = functions.convert_from_gps_to_utc(sensing_stop)
+        corrected_sensing_stop = str(parser.parse(functions.convert_from_gps_to_utc(sensing_stop)) + datetime.timedelta(seconds=3.608))
 
         # APID configuration
         apid_conf = functions.get_vcid_apid_configuration(vcid_number)
