@@ -16,13 +16,6 @@ setup(name="s2boa",
       packages=find_packages(),
       python_requires='>=3',
       install_requires=[
-          "Flask",
-          "Flask-DebugToolbar"
-      ],
-      tests_require=[
-          "nose",
-          "before_after",
-          "coverage",
-          "termcolor"
+          "vboa"
       ],
       test_suite='nose.collector')
