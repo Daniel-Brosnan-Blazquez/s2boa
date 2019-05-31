@@ -23,7 +23,7 @@
           <!-- Orbits -->
           {% include "views/start_stop_orbits.html" %}
           <div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+            <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
           </div>
           <div>
             <label>
@@ -65,7 +65,7 @@
       <div>
         <h3><u>Summary</u></h3>
       </div>
-      
+
       {% for unit in (imaging_by_units|list|sort + playback_by_units|list|sort + ["S2"])|unique %}
       {% set imaging = [] %}
       {% set playback = [] %}
@@ -163,13 +163,13 @@
     </div>
     <!-- /.row (nested) -->
     {% else %}
-    
+
     <div>
       <br/>
       {% if orbpre_by_units|length == 0 and imaging_by_units|length > 0 %}
-      <p style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+      <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
       {% else %}
-      <p style="text-indent: 1em">There are no imaging operations during the requested period.</p>
+      <p id="summary-no-imaging" style="text-indent: 1em">There are no imaging operations during the requested period.</p>
       {% endif %}
       <br/>
     </div>
@@ -192,7 +192,7 @@
           <b>Total Average:</b> Average considering all the orbits covered by this reporting period <br/>
           <b>Net Average:</b> Average considering just those orbits where there is a planned imaging <br/>
         </p>
-        
+
         {% for unit in imaging_by_units|list|sort + ["S2"] %}
 
         {% set orbpre = [] %}
@@ -230,7 +230,7 @@
         <p style="text-indent: 1em">
           Mission {{ unit }}: {{ reporting_orbits[0]|int }} - {{ reporting_orbits[-1]|int }} ({{ reporting_orbits|length }}) <br/>
         </p>
-        
+
         <p>
           <b>Orbits used to acquire sensing during the reporting period:</b> <br/>
         </p>
@@ -241,7 +241,7 @@
         {% endif %}
         <p>
           <b>The following tables shows the statistics for the planned imagings</b>:
-        </p> 
+        </p>
         <table align="center" class="table table-striped table-bordered table-hover table-static">
           <tr>
             <th>Imaging mode</th>
@@ -251,7 +251,7 @@
           {% for imaging_mode in imaging_by_mode %}
           <tr>
             <td>{{ imaging_mode }}</td>
-            
+
             <td>{{ ((imaging_by_mode[imaging_mode]|get_timeline_duration) / 60)|round(3) }}</td>
           </tr>
           {% endfor %}
@@ -303,7 +303,7 @@
         </p>
         <p style="text-indent: 1em">
           The times are corrected with the latest predicted orbit information available.
-        </p> 
+        </p>
         <br/>
         <br/>
 
@@ -378,9 +378,9 @@
     <div>
       <br/>
       {% if orbpre_by_units|length == 0 and imaging_by_units|length > 0 %}
-      <p style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+      <p id="imaging-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
       {% else %}
-      <p style="text-indent: 1em">There are no imaging operations during the requested period.</p>
+      <p id="imaging-no-imaging" style="text-indent: 1em">There are no imaging operations during the requested period.</p>
       {% endif %}
       <br/>
     </div>
@@ -403,7 +403,7 @@
           <b>Total Average:</b> Average considering all the orbits covered by this reporting period <br/>
           <b>Net Average:</b> Average considering just those orbits where there is a planned playback <br/>
         </p>
-        
+
         {% for unit in playback_by_units|list|sort + ["S2"] %}
 
         {% set orbpre = [] %}
@@ -441,7 +441,7 @@
         <p style="text-indent: 1em">
           Mission {{ unit }}: {{ reporting_orbits[0]|int }} - {{ reporting_orbits[-1]|int }} ({{ reporting_orbits|length }}) <br/>
         </p>
-        
+
         <p>
           <b>Orbits used to acquire sensing during the reporting period:</b> <br/>
         </p>
@@ -466,7 +466,7 @@
           {% set used_orbits = playback_by_station[station]|map(attribute="eventDoubles")|selectattr_map("name", "==", "start_orbit")|map(attribute="value")|unique|list %}
           <tr>
             <td class="highlight">{{ station }}</td>
-            
+
             <td>{{ (((playback_by_station[station]|get_timeline_duration) / 60) / reporting_orbits|length )|round(3) }}</td>
             <td>{{ (((playback_by_station[station]|get_timeline_duration) / 60) / used_orbits|length )|round(3) }}</td>
             <td>{{ ((playback_by_station[station]|get_timeline_minimum_duration) / 60)|round(3) }}</td>
@@ -505,78 +505,80 @@
       {% set playback_by_station = planning_events["playback"]["prime_events"]|events_group_by_text_value("station") %}
 
       {% if "N/A" in playback_by_station %}
-      <div>
-        <h3 style="color:red"><u>Table of playbacks not covered by any ground station schedule</u></h3>
+      <div id="playback-not-covered">
+        <div>
+          <h3 style="color:red"><u>Table of playbacks not covered by any ground station schedule</u></h3>
+          <br/>
+        </div>
+        <p>
+          The following table shows the list of planned playbacks <b style="color:red"> not covered by any ground station schedule</b> for <b>all missions</b>:
+          <br/>
+        </p>
+        <p style="text-indent: 1em">
+          The times are corrected with the latest predicted orbit information available.
+        </p>
         <br/>
-      </div>
-      <p>
-        The following table shows the list of planned playbacks <b style="color:red"> not covered by any ground station schedule</b> for <b>all missions</b>:
         <br/>
-      </p>
-      <p style="text-indent: 1em">
-        The times are corrected with the latest predicted orbit information available.
-      </p> 
-      <br/>
-      <br/>
 
-      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback_details">
-        <thead>
-          <tr>
-            <th>Satellite</th>
-            <th>Orbit</th>
-            <th>Start</th>
-            <th>Stop</th>
-            <th>Duration (s)</th>
-            <th>Duration (m)</th>
-            <th>Playback type</th>
-            <th>Parameters</th>
-            <th>Plan file</th>
-            <th>Details</th>
-            <th>UUID</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for event in playback_by_station["N/A"]|sort(attribute="start") %}
-          <tr>
-            {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
-            {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
-            {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-            <td>{{ satellite }}</td>
-            {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
-            <td>{{ orbit }}</td>
-            <td><b style="color:red">{{ event.start.isoformat() }}</b></td>
-            <td><b style="color:red">{{ event.stop.isoformat() }}</b></td>
-            <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
-            <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
-            {% set playback_type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
-            <td>{{ playback_type }}</td>
-            {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
-            {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
-            <td>
-              {% include "views/parameters.html" %}
-            </td>
-            <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
-            <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
-            <td>{{ original_playback.event_uuid }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>Satellite</th>
-            <th>Orbit</th>
-            <th>Start</th>
-            <th>Stop</th>
-            <th>Duration (s)</th>
-            <th>Duration (m)</th>
-            <th>Playback type</th>
-            <th>Parameters</th>
-            <th>Plan file</th>
-            <th>Details</th>
-            <th>UUID</th>
-          </tr>
-        </tfoot>
-      </table>
+        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback_details">
+          <thead>
+            <tr>
+              <th>Satellite</th>
+              <th>Orbit</th>
+              <th>Start</th>
+              <th>Stop</th>
+              <th>Duration (s)</th>
+              <th>Duration (m)</th>
+              <th>Playback type</th>
+              <th>Parameters</th>
+              <th>Plan file</th>
+              <th>Details</th>
+              <th>UUID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in playback_by_station["N/A"]|sort(attribute="start") %}
+            <tr>
+              {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+              {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+              <td>{{ satellite }}</td>
+              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+              <td>{{ orbit }}</td>
+              <td><b style="color:red">{{ event.start.isoformat() }}</b></td>
+              <td><b style="color:red">{{ event.stop.isoformat() }}</b></td>
+              <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+              <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+              {% set playback_type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
+              <td>{{ playback_type }}</td>
+              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+              <td>
+                {% include "views/parameters.html" %}
+              </td>
+              <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
+              <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+              <td>{{ original_playback.event_uuid }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Satellite</th>
+              <th>Orbit</th>
+              <th>Start</th>
+              <th>Stop</th>
+              <th>Duration (s)</th>
+              <th>Duration (m)</th>
+              <th>Playback type</th>
+              <th>Parameters</th>
+              <th>Plan file</th>
+              <th>Details</th>
+              <th>UUID</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
       {% endif %}
 
       {% if show["x_time"] %}
@@ -601,10 +603,10 @@
       </p>
       <p style="text-indent: 1em">
         The times are corrected with the latest predicted orbit information available.
-      </p> 
+      </p>
       <p style="text-indent: 1em">
         The playbacks are linked to its corresponding station using the station or DFEP schedule information.
-      </p> 
+      </p>
       <br/>
       <br/>
 
@@ -678,9 +680,9 @@
     <div>
       <br/>
       {% if orbpre_by_units|length == 0 and playback_by_units|length > 0 %}
-      <p style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+      <p id="playback-no-orbrpe" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
       {% else %}
-      <p style="text-indent: 1em">There are no playback operations during the requested period.</p>
+      <p id="playback-no-playback" style="text-indent: 1em">There are no playback operations during the requested period.</p>
       {% endif %}
       <br/>
     </div>
@@ -698,7 +700,7 @@
     <div class="panel-body">
       {% if planning_events["imaging"]["prime_events"]|length == 0 and planning_events["playback"]["prime_events"]|length == 0 %}
       <div id="planning_timeline">
-        <p>There are no planning events during the requested period.</p>
+        <p id="timeline-no-planning">There are no planning events during the requested period.</p>
       </div>
       {% else %}
       <div id="planning_timeline">
@@ -726,7 +728,7 @@
 
   var groups = [];
   var items = [];
-  
+
   vboa.prepare_events_data_for_timeline(events, items, groups);
 
   vboa.display_timeline("planning_timeline", items, groups);
@@ -738,7 +740,7 @@
 
   var groups = [];
   var items = [];
-  
+
   var options = vboa.prepare_events_data_for_xy(imaging_events, items, groups, "Duration of imaging operation (m)");
 
   vboa.display_x_time("plan_imaging_x_time_evolution", items, groups, options);
@@ -750,7 +752,7 @@
 
   var groups = [];
   var items = [];
-  
+
   var options = vboa.prepare_events_data_for_xy(playback_events, items, groups, "Duration of playback operation (m)");
 
   vboa.display_x_time("plan_playback_x_time_evolution", items, groups, options);

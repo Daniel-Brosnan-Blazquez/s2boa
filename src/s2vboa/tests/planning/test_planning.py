@@ -12,33 +12,35 @@ import time
 import subprocess
 import datetime
 import s2vboa.tests.planning.aux_functions as functions
+import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver import ActionChains,TouchActions
 from selenium.webdriver.common.keys import Keys
 
 # Import engine of the DDBB
 import eboa.engine.engine as eboa_engine
+import eboa.ingestion.eboa_ingestion as ingestion
+import eboa.triggering.eboa_triggering as triggering
 from eboa.engine.engine import Engine
 from eboa.engine.query import Query
 from eboa.datamodel.base import Session, engine, Base
 from eboa.engine.errors import UndefinedEventLink, DuplicatedEventLinkRef, WrongPeriod, SourceAlreadyIngested, WrongValue, OddNumberOfCoordinates, EboaResourcesPathNotAvailable, WrongGeometry
-
-# Import datamodel
-from eboa.datamodel.dim_signatures import DimSignature
-from eboa.datamodel.alerts import Alert
-from eboa.datamodel.events import Event, EventLink, EventKey, EventText, EventDouble, EventObject, EventGeometry, EventBoolean, EventTimestamp
-from eboa.datamodel.gauges import Gauge
-from eboa.datamodel.sources import Source, SourceStatus
-from eboa.datamodel.explicit_refs import ExplicitRef, ExplicitRefGrp, ExplicitRefLink
-from eboa.datamodel.annotations import Annotation, AnnotationCnf, AnnotationText, AnnotationDouble, AnnotationObject, AnnotationGeometry, AnnotationBoolean, AnnotationTimestamp
+from eboa.debugging import debug
 
 
-class TestEngine(unittest.TestCase):
+class TestPlanningView(unittest.TestCase):
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('window-size=1920,1080')
+    driver = webdriver.Chrome(options=options)
+    driver.implicitly_wait(5)
+
     def setUp(self):
         # Create the engine to manage the data
         self.engine_eboa = Engine()
@@ -50,56 +52,121 @@ class TestEngine(unittest.TestCase):
         # Clear all tables before executing the test
         self.query_eboa.clear_db()
 
-        self.options = Options()
-        self.options.headless = True
-
-
-
     def tearDown(self):
-        # Make sure the browser is closed
-        subprocess.call(["pkill", "firefox"])
-
         # Close connections to the DDBB
         self.engine_eboa.close_session()
         self.query_eboa.close_session()
         self.session.close()
 
+    @classmethod
+    def tearDownClass(self):
+        self.driver.quit()
+
     def test_planning_no_data(self):
 
-        # Create a new instance of the Firefox driver
-        driver = webdriver.Firefox(options=self.options)
+        wait = WebDriverWait(self.driver,5);
 
-        wait = WebDriverWait(driver,30);
+        self.driver.get("http://localhost:5000/views/planning")
 
-        driver.get("http://localhost:5000/views/planning")
+        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", timeline = True, table_details = True, evolution = True, map = True)
 
-        # screenshot_path = os.path.dirname(os.path.abspath(__file__)) + "/screenshots/planning/"
-        #
-        # if not os.path.exists(screenshot_path):
-        #     os.makedirs(screenshot_path)
-        #
-        # driver.save_screenshot(screenshot_path + "test.png")
+        # Check header generated
+        header_no_data = wait.until(EC.visibility_of_element_located((By.ID,"header-no-data")))
 
-        functions.query(driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", timeline = True, table_details = True, evolution = True, map = True)
+        assert header_no_data
 
-        reporting = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div")
+        summary_no_data = wait.until(EC.visibility_of_element_located((By.ID,"summary-no-imaging")))
 
-        assert functions.is_empty(reporting) is True
+        assert summary_no_data
 
-        summary = driver.find_element_by_xpath("/html/body/div[1]/div/div[4]/div")
+        imaging_no_data = wait.until(EC.visibility_of_element_located((By.ID,"imaging-no-imaging")))
 
-        assert functions.is_empty(summary) is True
+        assert imaging_no_data
 
-        imaging = driver.find_element_by_xpath("/html/body/div[1]/div/div[5]/div")
+        playback_no_data = wait.until(EC.visibility_of_element_located((By.ID,"playback-no-playback")))
 
-        assert functions.is_empty(imaging) is True
+        assert playback_no_data
 
-        playback = driver.find_element_by_xpath("/html/body/div[1]/div/div[6]/div")
+        timeline_no_data = wait.until(EC.visibility_of_element_located((By.ID,"timeline-no-planning")))
 
-        assert functions.is_empty(playback) is True
+        assert timeline_no_data
 
-        timeline = driver.find_element_by_xpath("/html/body/div[1]/div/div[7]/div")
+    def test_planning_only_nppf_and_orbpre(self):
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        assert functions.is_empty(timeline) is True
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
 
-        driver.quit
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start = "2018-07-20T00:00:14", stop = "2018-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
+
+        #Check table no playback exists
+
+        playback_not_covered = self.driver.find_element_by_id("playback-not-covered")
+
+        assert playback_not_covered
+
+    def test_planning_whole(self):
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_MPL_SPSGS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2_SRA_EDRS_A.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", timeline = True, table_details = True, evolution = True, map = True)
+
+        header_table = self.driver.find_element_by_id("header-table")
+
+        orbit_start = header_table.find_element_by_xpath("tbody/tr[td//text() = 'Orbit information']/td[1]")
+
+        assert orbit_start.text == "16066"
+
+        orbit_stop = header_table.find_element_by_xpath("tbody/tr[td//text() = 'Orbit information']/td[2]")
+
+        assert orbit_stop.text == "16072"
+
+        time_start = header_table.find_element_by_xpath("tbody/tr[td//text() = 'Time information']/td[1]")
+
+        assert time_start.text == "2018-07-01T00:00:00"
+
+        time_stop = header_table.find_element_by_xpath("tbody/tr[td//text() = 'Time information']/td[2]")
+
+        assert time_stop.text == "2018-07-31T23:59:59"
