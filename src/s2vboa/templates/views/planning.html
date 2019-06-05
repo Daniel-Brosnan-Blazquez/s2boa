@@ -287,7 +287,7 @@
           <h3><u>Graph with the evolution of the duration of the imaging operations</u></h3>
           <br/>
         </div>
-        <div id="plan_imaging_x_time_evolution">
+        <div id="imaging-x-time-evolution">
         </div>
       </div>
       {% endif %}
@@ -587,7 +587,7 @@
           <h3><u>Graph with the evolution of the duration of the playback operations for MSI</u></h3>
           <br/>
         </div>
-        <div id="plan_playback_x_time_evolution">
+        <div id="playback-x-time-evolution">
         </div>
       </div>
       {% endif %}
@@ -724,7 +724,10 @@
   {% include "js/playback_planning_to_timeline.js" %}
   {% endwith %}
 
-  var events = imaging_events.concat(playback_events)
+  var imaging_timeline_events = imaging_events;
+  var playback_timeline_events = playback_events;
+
+  var events = imaging_timeline_events.concat(playback_timeline_events)
 
   var groups = [];
   var items = [];
@@ -741,9 +744,11 @@
   var groups = [];
   var items = [];
 
-  var options = vboa.prepare_events_data_for_xy(imaging_events, items, groups, "Duration of imaging operation (m)");
+  var imaging_xy_events = imaging_events;
 
-  vboa.display_x_time("plan_imaging_x_time_evolution", items, groups, options);
+  var options = vboa.prepare_events_data_for_xy(imaging_xy_events, items, groups, "Duration of imaging operation (m)");
+
+  vboa.display_x_time("imaging-x-time-evolution", items, groups, options);
 
   {% set msi_playbacks = planning_events["playback"]["prime_events"]|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
   {% with events = msi_playbacks %}
@@ -753,9 +758,11 @@
   var groups = [];
   var items = [];
 
-  var options = vboa.prepare_events_data_for_xy(playback_events, items, groups, "Duration of playback operation (m)");
+  var playback_xy_events = playback_events;
 
-  vboa.display_x_time("plan_playback_x_time_evolution", items, groups, options);
+  var options = vboa.prepare_events_data_for_xy(playback_xy_events, items, groups, "Duration of playback operation (m)");
+
+  vboa.display_x_time("playback-x-time-evolution", items, groups, options);
 
   {% endif %}
 </script>

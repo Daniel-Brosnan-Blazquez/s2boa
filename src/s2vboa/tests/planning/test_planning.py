@@ -364,141 +364,149 @@ class TestPlanningView(unittest.TestCase):
 
         assert maximum.text == "20.151"
 
-        # # Graph duration imagings
-        #
-        # event1 = self.query_eboa.get_events(start_filters = [{"date": "2018-07-20T17:28:56.736288", "op": "=="}],
-        #                                     stop_filters = [{"date": "2018-07-20T17:48:46.333653", "op": "=="}])
-        # event1_duration = (event1.stop_date - event1.start_date)
-        #
-        # assert self.driver.execute_script('return imaging_xy_events;') == [{
-        #     "id": "cd111a92-8756-11e9-8dd3-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 17:28:56.736288",
-        #     "y": "19.826622750000002",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + event1.uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16068</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T17:28:56.736288</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T17:48:46.333653</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>TEST</td>" +
-        #                 "<tr><td>Record type</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },{
-        #     "id": "cd10f458-8756-11e9-a297-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 16:05:09.432097",
-        #     "y": "6.175066866666667",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16067</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T16:05:09.432097</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T16:11:19.936109</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>RAW</td>" +
-        #                 "<tr><td>Record type</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },{
-        #     "id": "cd10cef6-8756-11e9-a162-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 15:49:02.890406",
-        #     "y": "15.369803216666666",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16067</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T15:49:02.890406</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T16:04:25.078599</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>VICARIOUS_CAL</td>" +
-        #                 "<tr><td>Record type</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },{
-        #     "id": "cd10aa0c-8756-11e9-aa19-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 15:48:09.150610",
-        #     "y": "0.34286855000000005",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16067</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T15:48:09.150610</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T15:48:29.722723</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_CLOSE</td>" +
-        #                 "<tr><td>Record type</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },{
-        #     "id": "cd108450-8756-11e9-a05b-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 14:27:50.784884",
-        #     "y": "20.151175683333335",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16066</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T14:27:50.784884</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T14:47:59.855425</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_OPEN</td>" +
-        #                 "<tr><td>Record type</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },{
-        #     "id": "cd105fb6-8756-11e9-a9d4-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 14:10:02.951732",
-        #     "y": "6.118657633333333",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16066</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T14:10:02.951732</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T14:16:10.071190</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>SUN_CAL</td>" +
-        #                 "<tr><td>Record type</td><td>NRT</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },{
-        #     "id": "cd103a9c-8756-11e9-abbb-000000001402",
-        #     "group": "S2A",
-        #     "x": "2018-07-20 14:07:32.793311",
-        #     "y": "1.4268956000000002",
-        #     "tooltip":  "<table border='1'>" +
-        #                 "<tr><td>UUID</td><td>" + uuid + "</td>" +
-        #                 "<tr><td>Satellite</td><td>S2A</td>" +
-        #                 "<tr><td>Orbit</td><td>16066</td>" +
-        #                 "<tr><td>Start</td><td>2018-07-20T14:07:32.793311</td>" +
-        #                 "<tr><td>Stop</td><td>2018-07-20T14:08:58.407047</td>" +
-        #                 "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
-        #                 "<tr><td>Imaging mode</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Record type</td><td>NOMINAL</td>" +
-        #                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
-        #                 '<tr><td>Details</td><td><a href="' + link_to_details + '"><i class="fa fa-link"></i></a></td>' +
-        #                 "</tr></table>"
-        #
-        # },]
+        # Graph duration imagings
 
-        ## Imaging details
+        events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"})
+
+        imaging_xy_events = [
+        {
+            "id": str(events[0].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 17:28:56.736288",
+            "y": "19.826622750000002",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(events[0].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16068</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T17:28:56.736288</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T17:48:46.333653</td>" +
+                        "<tr><td>Duration(m)</td><td>19.827</td>" +
+                        "<tr><td>Imaging mode</td><td>TEST</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        },
+        {
+            "id": str(events[1].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 16:05:09.432097",
+            "y": "6.175066866666667",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(events[1].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T16:05:09.432097</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T16:11:19.936109</td>" +
+                        "<tr><td>Duration(m)</td><td>6.175</td>" +
+                        "<tr><td>Imaging mode</td><td>RAW</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        },
+        {
+            "id": str(events[2].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 15:49:02.890406",
+            "y": "15.369803216666666",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(events[2].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T15:49:02.890406</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T16:04:25.078599</td>" +
+                        "<tr><td>Duration(m)</td><td>15.370</td>" +
+                        "<tr><td>Imaging mode</td><td>VICARIOUS_CAL</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        },
+        {
+            "id": str(events[3].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 15:48:09.150610",
+            "y": "0.34286855000000005",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(events[3].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T15:48:09.150610</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T15:48:29.722723</td>" +
+                        "<tr><td>Duration(m)</td><td>0.343</td>" +
+                        "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_CLOSE</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        },
+        {
+            "id": str(events[4].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 14:27:50.784884",
+            "y": "20.151175683333335",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(events[4].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:27:50.784884</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:47:59.855425</td>" +
+                        "<tr><td>Duration(m)</td><td>20.151</td>" +
+                        "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_OPEN</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        },
+        {
+            "id": str(events[5].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 14:10:02.951732",
+            "y": "6.118657633333333",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>"+ str(events[5].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:10:02.951732</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:16:10.071190</td>" +
+                        "<tr><td>Duration(m)</td><td>6.119</td>" +
+                        "<tr><td>Imaging mode</td><td>SUN_CAL</td>" +
+                        "<tr><td>Record type</td><td>NRT</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        },
+        {
+            "id": str(events[6].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 14:07:32.793311",
+            "y": "1.4268956000000002",
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(events[6].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:07:32.793311</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:08:58.407047</td>" +
+                        "<tr><td>Duration(m)</td><td>1.427</td>" +
+                        "<tr><td>Imaging mode</td><td>NOMINAL</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[6].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
+        }
+        ]
+
+        assert sorted(self.driver.execute_script('return imaging_xy_events;'), key=lambda k: k['y']) == sorted(imaging_xy_events, key=lambda k: k["y"])
+
+        # Imaging details
 
         imaging_details_table = self.driver.find_element_by_id("imaging-details-table")
 
@@ -680,7 +688,77 @@ class TestPlanningView(unittest.TestCase):
 
         assert maximum.text == "15.625"
 
+        # Graph duration playbacks
 
+        playback_events = []
+        events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
+
+        for event in events:
+            for value in event.get_structured_values()[0]["values"]:
+                if value["name"] == "playback_type" and "SAD" not in value["value"]:
+                    playback_events.append(event)
+
+        playback_xy_events = [{
+            "id": str(playback_events[0].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 23:30:09.608524",
+            "y": "15.625495066666668",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[0].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16071</td>" +
+                "<tr><td>Start</td><td>2018-07-20T23:30:09.608524</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T23:45:47.138228</td>" +
+                "<tr><td>Duration(m)</td><td>15.626</td>" +
+                "<tr><td>Playback type</td><td>NRT</td>" +
+                "<tr><td>Playback mean</td><td>OCP</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[1].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 15:41:58.393742",
+            "y": "11.644958966666668",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[1].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16067</td>" +
+                "<tr><td>Start</td><td>2018-07-20T15:41:58.393742</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T15:53:37.091280</td>" +
+                "<tr><td>Duration(m)</td><td>11.645</td>" +
+                "<tr><td>Playback type</td><td>RT</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[2].event_uuid),
+            "group": "S2A",
+            "x": "2018-07-20 14:02:38.392053",
+            "y": "11.697489133333333",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[2].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16066</td>" +
+                "<tr><td>Start</td><td>2018-07-20T14:02:38.392053</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T14:14:20.241401</td>" +
+                "<tr><td>Duration(m)</td><td>11.697</td>" +
+                "<tr><td>Playback type</td><td>NOMINAL</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        }
+        ]
+
+        print(self.driver.execute_script('return playback_xy_events;')[0])
+        print(self.driver.execute_script('return playback_xy_events;')[1])
+        print(self.driver.execute_script('return playback_xy_events;')[2])
+
+        assert sorted(self.driver.execute_script('return playback_xy_events;'), key=lambda k:k["id"]) == sorted(playback_xy_events, key=lambda k:k["id"])
 
         ## Playback details
 
@@ -729,3 +807,68 @@ class TestPlanningView(unittest.TestCase):
         playback_details_uuid = playback_details_table.find_element_by_xpath("tbody/tr[1]/td[12]").text
 
         assert re.match("........-....-....-....-............", playback_details_uuid)
+
+        # Timeline
+
+        imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"})
+
+        imaging_timeline_events = [
+        {
+            "id": imaging_events[0].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 14:07:32.793311",
+            "stop": "2018-07-20 14:08:58.407047",
+            "tooltip": create_imaging_tooltip_text("S2A", "16066", "2018-07-20T14:07:32.793311", "2018-07-20T14:08:58.407047", "NOMINAL", "NOMINAL", "S2A_NPPF.EOF", "5e9b55a4-8783-11e9-bf29-000000002a0a", "/eboa_nav/query-event-links/5e9b55a4-8783-11e9-bf29-000000002a0a")
+        },
+        {
+            "id": imaging_events[1].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 14:10:02.951732",
+            "stop": "2018-07-20 14:16:10.071190",
+            "tooltip": create_imaging_tooltip_text("S2A", "16066", "2018-07-20T14:10:02.951732", "2018-07-20T14:16:10.071190", "SUN_CAL", "NRT", "S2A_NPPF.EOF", "5e9bb928-8783-11e9-9b27-000000002a0a", "/eboa_nav/query-event-links/5e9bb928-8783-11e9-9b27-000000002a0a")
+        },
+        {
+            "id": imaging_events[2].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 14:27:50.784884",
+            "stop": "2018-07-20 14:47:59.855425",
+            "tooltip": create_imaging_tooltip_text("S2A", "16066", "2018-07-20T14:27:50.784884", "2018-07-20T14:47:59.855425", "DARK_CAL_CSM_OPEN", "NOMINAL", "S2A_NPPF.EOF", "5e9d6450-8783-11e9-b011-000000002a0a", "/eboa_nav/query-event-links/5e9d6450-8783-11e9-b011-000000002a0a")
+        },
+        {
+            "id": imaging_events[3].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 15:48:09.150610",
+            "stop": "2018-07-20 15:48:29.722723",
+            "tooltip": create_imaging_tooltip_text("S2A", "16067", "2018-07-20T15:48:09.150610", "2018-07-20T15:48:29.722723", "DARK_CAL_CSM_CLOSE", "NOMINAL", "S2A_NPPF.EOF", "5e9d8b74-8783-11e9-9a87-000000002a0a", "/eboa_nav/query-event-links/5e9d8b74-8783-11e9-9a87-000000002a0a")
+        },
+        {
+            "id": imaging_events[4].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 15:49:02.890406",
+            "stop": "2018-07-20 16:04:25.078599",
+            "tooltip": create_imaging_tooltip_text("S2A", "16067", "2018-07-20T15:49:02.890406", "2018-07-20T16:04:25.078599", "VICARIOUS_CAL", "NOMINAL", "S2A_NPPF.EOF", "5e9ec69c-8783-11e9-8e74-000000002a0a", "/eboa_nav/query-event-links/5e9ec69c-8783-11e9-8e74-000000002a0a")
+        },
+        {
+            "id": imaging_events[5].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 16:05:09.432097",
+            "stop": "2018-07-20 16:11:19.936109",
+            "tooltip": create_imaging_tooltip_text("S2A", "16067", "2018-07-20T16:05:09.432097", "2018-07-20T16:11:19.936109", "RAW", "NOMINAL", "S2A_NPPF.EOF", "5e9eebbe-8783-11e9-b142-000000002a0a", "/eboa_nav/query-event-links/5e9eebbe-8783-11e9-b142-000000002a0a")
+        },
+        {
+            "id": imaging_events[6].event_uuid,
+            "group": "S2A",
+            "timeline": "PLANNED_CUT_IMAGING",
+            "start": "2018-07-20 17:28:56.736288",
+            "stop": "2018-07-20 17:48:46.333653",
+            "tooltip": create_imaging_tooltip_text("S2A", "16068", "2018-07-20T17:28:56.736288", "2018-07-20T17:48:46.333653", "TEST", "NOMINAL", "S2A_NPPF.EOF", "5e9f10b8-8783-11e9-be52-000000002a0a", "/eboa_nav/query-event-links/5e9f10b8-8783-11e9-be52-000000002a0a")
+        }
+    ]
+
+    playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
