@@ -97,7 +97,7 @@
         <div>
           <h4><u>{{ title[0] }}</u></h4>
         </div>
-        <table align="center" class="table table-striped table-bordered table-hover table-static">
+        <table id = "summary-table-{{unit}}" align="center" class="table table-striped table-bordered table-hover table-static">
           {% set total_imaging_duration = imaging|get_timeline_duration %}
           {% set total_playback_duration = playback|get_timeline_duration %}
           <tr>
@@ -227,7 +227,7 @@
         <p>
           <b>Orbits covered by the reporting period:</b> <br/>
         </p>
-        <p style="text-indent: 1em">
+        <p id="imaging-reporting-orbits" style="text-indent: 1em">
           Mission {{ unit }}: {{ reporting_orbits[0]|int }} - {{ reporting_orbits[-1]|int }} ({{ reporting_orbits|length }}) <br/>
         </p>
 
@@ -235,14 +235,14 @@
           <b>Orbits used to acquire sensing during the reporting period:</b> <br/>
         </p>
 
-        <p style="text-indent: 1em">
+        <p id="imaging-used-orbits" style="text-indent: 1em">
           Mission {{ unit }}: {{ used_orbits[0]|int }} - {{ used_orbits[-1]|int }} ({{ used_orbits|length }}) <br/>
         </p>
         {% endif %}
         <p>
           <b>The following tables shows the statistics for the planned imagings</b>:
         </p>
-        <table align="center" class="table table-striped table-bordered table-hover table-static">
+        <table id="imaging-mode-duration-table-{{unit}}" align="center" class="table table-striped table-bordered table-hover table-static">
           <tr>
             <th>Imaging mode</th>
             <th>Duration (m)</th>
@@ -256,7 +256,7 @@
           </tr>
           {% endfor %}
         </table>
-        <table align="center" class="table table-striped table-bordered table-hover table-static">
+        <table id="imaging-total-duration-table-{{unit}}" align="center" class="table table-striped table-bordered table-hover table-static">
           <tr>
             <th>Total(m):</th>
             <td>{{ ((imaging|get_timeline_duration) / 60)|round(3) }}</td>
@@ -307,7 +307,7 @@
         <br/>
         <br/>
 
-        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="imaging_details">
+        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="imaging-details-table">
           <thead>
             <tr>
               <th>Satellite</th>
@@ -438,7 +438,7 @@
         <p>
           <b>Orbits covered by the reporting period:</b> <br/>
         </p>
-        <p style="text-indent: 1em">
+        <p id="playback-reporting-orbits" style="text-indent: 1em">
           Mission {{ unit }}: {{ reporting_orbits[0]|int }} - {{ reporting_orbits[-1]|int }} ({{ reporting_orbits|length }}) <br/>
         </p>
 
@@ -446,14 +446,14 @@
           <b>Orbits used to acquire sensing during the reporting period:</b> <br/>
         </p>
 
-        <p style="text-indent: 1em">
+        <p id="playback-used-orbits" style="text-indent: 1em">
           Mission {{ unit }}: {{ used_orbits[0]|int }} - {{ used_orbits[-1]|int }} ({{ used_orbits|length }}) <br/>
         </p>
         {% endif %}
         <p>
           <b>The following table shows the statistics for the planned playbacks per orbit and station</b>:
         </p>
-        <table align="center" class="table table-striped table-bordered table-hover table-static">
+        <table id="playback-station-duration-{{unit}}" align="center" class="table table-striped table-bordered table-hover table-static">
           <tr>
             <th>Station</th>
             <th>Total Average Duration (m)</th>
@@ -477,7 +477,7 @@
         <p>
           <b>The following table shows the statistics for the planned playbacks per orbit</b>:
         </p>
-        <table align="center" class="table table-striped table-bordered table-hover table-static">
+        <table id="playback-total-duration-{{unit}}" align="center" class="table table-striped table-bordered table-hover table-static">
           <tr>
             <th>Total(m):</th>
             <td>{{ ((playback|get_timeline_duration) / 60)|round(3) }}</td>
@@ -520,7 +520,7 @@
         <br/>
         <br/>
 
-        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback_details">
+        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback-details-table">
           <thead>
             <tr>
               <th>Satellite</th>
@@ -610,7 +610,7 @@
       <br/>
       <br/>
 
-      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback_details">
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback-details-table">
         <thead>
           <tr>
             <th>Satellite</th>
