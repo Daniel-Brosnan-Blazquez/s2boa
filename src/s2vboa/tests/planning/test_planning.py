@@ -1138,3 +1138,109 @@ class TestPlanningView(unittest.TestCase):
         }]
 
         assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
+
+    def test_planning_query(self):
+
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_MPL_SPSGS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2_SRA_EDRS_A.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path)
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        wait = WebDriverWait(self.driver,5);
+
+#functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Only start
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start = "2030-07-01T00:00:00")
+
+        #assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+        # Only stop
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", stop = "2008-07-31T23:59:59")
+
+        #assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+        #Only period
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start = "2008-07-31T23:59:59", stop = "2008-07-31T23:59:59")
+
+        assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+        # Only start_orbit
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start_orbit = "16600")
+
+        assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+        # Only stop_orbit
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", stop_orbit = "17800")
+
+        functions.page_loaded(self.driver, wait, "header-no-data")
+
+        #Only orbits
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start_orbit = "17800", stop_orbit = "17800")
+
+        functions.page_loaded(self.driver, wait, "header-no-data")
+
+        # No filter
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver,wait)
+
+        assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+        # Different mission
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver,wait, mission = "S2B")
+
+        assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+        # No graphs
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver,wait, timeline = False, table_details = False, evolution = False, map = False)
+
+        assert functions.page_loaded(self.driver, wait, "header-no-data")

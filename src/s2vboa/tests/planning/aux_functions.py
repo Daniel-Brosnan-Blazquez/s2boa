@@ -20,13 +20,14 @@ from selenium.webdriver import ActionChains,TouchActions
 from selenium.webdriver.common.keys import Keys
 
 
-def query(driver, wait, mission, start = None, stop = None, start_orbit = None, stop_orbit = None, timeline = True, table_details = True, evolution = True, map = True):
+def query(driver, wait, mission = None, start = None, stop = None, start_orbit = None, stop_orbit = None, timeline = True, table_details = True, evolution = True, map = True):
 
     driver.find_element_by_partial_link_text("Query interface").click()
 
     # Extend mission selector and choose mission
-    mission_select = Select(driver.find_element_by_id("mission"))
-    mission_select.select_by_visible_text(mission)
+    if mission is not None:
+        mission_select = Select(driver.find_element_by_id("mission"))
+        mission_select.select_by_visible_text(mission)
 
     if start is not None:
         # Select start date
@@ -46,7 +47,7 @@ def query(driver, wait, mission, start = None, stop = None, start_orbit = None, 
         driver.find_element_by_id("start-orbit").send_keys(start_orbit)
     # end if
 
-    if start_orbit is not None:
+    if stop_orbit is not None:
         driver.find_element_by_id("stop-orbit").send_keys(stop_orbit)
     # end if
 
@@ -71,3 +72,10 @@ def query(driver, wait, mission, start = None, stop = None, start_orbit = None, 
     # end if
 
     driver.find_element_by_id("query-submit-button").click()
+
+def page_loaded(driver, wait, id):
+    try:
+        driver.find_element_by_id(id)
+    except NoSuchElementException:
+        return False
+    return True
