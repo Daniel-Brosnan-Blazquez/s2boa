@@ -44,6 +44,7 @@ class TestEngine(unittest.TestCase):
     def tearDown(self):
         # Close connections to the DDBB
         self.engine_eboa.close_session()
+        self.query_eboa.close_session()
         self.session.close()
 
     def test_insert_station_acquisition_report(self):

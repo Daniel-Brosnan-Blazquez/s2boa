@@ -43,6 +43,12 @@ class TestEngine(unittest.TestCase):
         # Clear all tables before executing the test
         self.query_eboa.clear_db()
 
+    def tearDown(self):
+        # Close connections to the DDBB
+        self.engine_eboa.close_session()
+        self.query_eboa.close_session()
+        self.session.close()
+
     def test_mpl_fs_only(self):
 
         filename = "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF"

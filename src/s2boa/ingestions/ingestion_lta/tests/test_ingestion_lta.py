@@ -43,6 +43,12 @@ class TestEngine(unittest.TestCase):
         # Clear all tables before executing the test
         self.query_eboa.clear_db()
 
+    def tearDown(self):
+        # Close connections to the DDBB
+        self.engine_eboa.close_session()
+        self.query_eboa.close_session()
+        self.session.close()
+
     def test_rep_lta(self):
 
         filename = "S2__OPER_REP_OPLTA__EPA__20180721T130015_RIPPED.EOF"

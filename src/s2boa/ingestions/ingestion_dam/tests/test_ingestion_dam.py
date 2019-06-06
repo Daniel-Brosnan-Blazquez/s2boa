@@ -43,6 +43,12 @@ class TestEngine(unittest.TestCase):
         # Clear all tables before executing the test
         self.query_eboa.clear_db()
 
+    def tearDown(self):
+        # Close connections to the DDBB
+        self.engine_eboa.close_session()
+        self.query_eboa.close_session()
+        self.session.close()
+
     def test_rep_dam_only(self):
 
         filename = "S2__OPER_REP_OPDAM2_PDMC_20180721T110502_ONLY.EOF"

@@ -138,15 +138,21 @@ def _correct_planning_events(orbpre_events, planning_events):
     return corrected_planning_events
 
 @debug
-def _generate_corrected_planning_events(satellite, validity_start, validity_stop, list_of_events, query):
+def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query):
     """
     """
     # Get planning events to correct their timings
     planning_gauges = query.get_gauges(dim_signatures = {"filter": ["NPPF_" + satellite], "op": "in"})
 
     planning_events = query.get_events(gauge_uuids = {"filter": [gauge.gauge_uuid for gauge in planning_gauges], "op": "in"},
-                                       start_filters = [{"date": validity_start, "op": ">"}],
-                                       stop_filters = [{"date": validity_stop, "op": "<"}])
+                                       value_filters = [{"name": {"str": "start_orbit", "op": "like"},
+                                                         "type": "double",
+                                                         "value": {"value": start_orbit, "op": ">="}}])
+
+    planning_events = query.get_events(event_uuids = {"filter": [event.event_uuid for event in planning_events], "op": "in"},
+                                       value_filters = [{"name": {"str": "stop_orbit", "op": "like"},
+                                                         "type": "double",
+                                                         "value": {"value": stop_orbit, "op": "<="}}])
 
     events = _correct_planning_events(list_of_events, planning_events)
 
@@ -271,8 +277,11 @@ def process_file(file_path, engine, query):
     # Generate orbit predicted events
     _generate_orbpre_events(xpath_xml, source, list_of_events)
 
+    start_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[1]/Absolute_Orbit")[0].text))
+    stop_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last()]/Absolute_Orbit")[0].text))
+
     # Generate corrected planning events
-    corrected_planning_events = _generate_corrected_planning_events(satellite, validity_start, validity_stop, list_of_events, query)
+    corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query)
 
     # Build the xml
     data = {"operations": [{
