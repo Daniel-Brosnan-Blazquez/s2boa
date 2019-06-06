@@ -1139,6 +1139,7 @@ class TestPlanningView(unittest.TestCase):
 
         assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
 
+    #Only one date (start or stop) crashes
     def test_planning_query(self):
 
         filename = "S2A_NPPF.EOF"
@@ -1171,8 +1172,7 @@ class TestPlanningView(unittest.TestCase):
 
         wait = WebDriverWait(self.driver,5);
 
-#functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", timeline = True, table_details = True, evolution = True, map = True)
-
+        #Crashes
         # Only start
 
         self.driver.get("http://localhost:5000/views/planning")
@@ -1181,6 +1181,7 @@ class TestPlanningView(unittest.TestCase):
 
         #assert functions.page_loaded(self.driver, wait, "header-no-data")
 
+        #Crashes
         # Only stop
 
         self.driver.get("http://localhost:5000/views/planning")
