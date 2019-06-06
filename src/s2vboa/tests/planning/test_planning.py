@@ -1136,11 +1136,9 @@ class TestPlanningView(unittest.TestCase):
                 '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
                 "</tr></table>"
         }]
-<<<<<<< HEAD
 
         assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
 
-    #Only one date (start or stop) crashes
     def test_planning_query(self):
 
         filename = "S2A_NPPF.EOF"
@@ -1173,23 +1171,21 @@ class TestPlanningView(unittest.TestCase):
 
         wait = WebDriverWait(self.driver,5);
 
-        #Crashes
         # Only start
 
         self.driver.get("http://localhost:5000/views/planning")
 
         functions.query(self.driver, wait, "S2A", start = "2030-07-01T00:00:00")
 
-        #assert functions.page_loaded(self.driver, wait, "header-no-data")
+        assert functions.page_loaded(self.driver, wait, "header-no-data")
 
-        #Crashes
         # Only stop
 
         self.driver.get("http://localhost:5000/views/planning")
 
         functions.query(self.driver, wait, "S2A", stop = "2008-07-31T23:59:59")
 
-        #assert functions.page_loaded(self.driver, wait, "header-no-data")
+        assert functions.page_loaded(self.driver, wait, "header-no-data")
 
         #Only period
 
@@ -1246,7 +1242,3 @@ class TestPlanningView(unittest.TestCase):
         functions.query(self.driver,wait, timeline = False, table_details = False, evolution = False, map = False)
 
         assert functions.page_loaded(self.driver, wait, "header-no-data")
-=======
-
-        assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
->>>>>>> 0d7c159aa00d507c43133e245f21bb22e50d7a5c
