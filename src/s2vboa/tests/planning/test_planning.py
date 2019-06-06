@@ -118,6 +118,56 @@ class TestPlanningView(unittest.TestCase):
 
         assert playback_not_covered
 
+        # Not covered details
+
+        not_covered_table = self.driver.find_element_by_id("playback-not-covered-table")
+
+        not_covered_satellite = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[1]").text
+
+        assert not_covered_satellite == "S2A"
+
+        not_covered_orbit = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[2]").text
+
+        assert not_covered_orbit == "16066"
+
+        not_covered_start = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[3]").text
+
+        assert not_covered_start == "2018-07-20T14:02:38.392053"
+
+        not_covered_stop = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[4]").text
+
+        assert not_covered_stop == "2018-07-20T14:14:20.241401"
+
+        not_covered_duration_s = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[5]").text
+
+        assert not_covered_duration_s == "701.849"
+
+        not_covered_duration_m = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[6]").text
+
+        assert not_covered_duration_m == "11.697"
+
+        not_covered_playback_type = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[7]").text
+
+        assert not_covered_playback_type == "NOMINAL"
+
+        not_covered_parameters = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[8]").text
+
+        assert not_covered_parameters == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
+
+        not_covered_plan_file = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[9]").text
+
+        assert not_covered_plan_file == "S2A_NPPF.EOF"
+
+        not_covered_uuid = not_covered_table.find_element_by_xpath("tbody/tr[1]/td[11]").text
+
+        assert re.match("........-....-....-....-............", not_covered_uuid)
+
+        #Not covered number of playbacks
+
+        playbacks_number = len(not_covered_table.find_elements_by_xpath("tbody/tr"))
+
+        assert playbacks_number == 6
+
     def test_planning_whole(self):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -156,19 +206,19 @@ class TestPlanningView(unittest.TestCase):
         # Header
         header_table = self.driver.find_element_by_id("header-table")
 
-        orbit_start = header_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Orbit information')]]/td[1]")
+        orbit_start = header_table.find_element_by_xpath("tbody/tr[th[text() = 'Orbit information']]/td[1]")
 
         assert orbit_start.text == "16066"
 
-        orbit_stop = header_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Orbit information')]]/td[2]")
+        orbit_stop = header_table.find_element_by_xpath("tbody/tr[th[text() = 'Orbit information']]/td[2]")
 
         assert orbit_stop.text == "16072"
 
-        time_start = header_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Time information')]]/td[1]")
+        time_start = header_table.find_element_by_xpath("tbody/tr[th[text() = 'Time information']]/td[1]")
 
         assert time_start.text == "2018-07-01T00:00:00"
 
-        time_stop = header_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Time information')]]/td[2]")
+        time_stop = header_table.find_element_by_xpath("tbody/tr[th[text() = 'Time information']]/td[2]")
 
         assert time_stop.text == "2018-07-31T23:59:59"
 
@@ -178,31 +228,31 @@ class TestPlanningView(unittest.TestCase):
 
         summary_S2A_table = self.driver.find_element_by_id("summary-table-S2A")
 
-        RT_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of planned RT imagings (%):')]]/td[1]")
+        RT_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned RT imagings (%):']]/td[1]")
 
         assert RT_imagings.text == "0.000"
 
-        NRT_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of planned NRT imagings (%):')]]/td[1]")
+        NRT_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned NRT imagings (%):']]/td[1]")
 
         assert NRT_imagings.text == "8.815"
 
-        nominal_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of planned Nominal imagings (%):')]]/td[1]")
+        nominal_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned Nominal imagings (%):']]/td[1]")
 
         assert nominal_imagings.text == "91.185"
 
-        XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of playbacks through the X-Band (%):')]]/td[1]")
+        XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the X-Band (%):']]/td[1]")
 
         assert XBand_playbacks.text == "59.902"
 
-        OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of playbacks through the OCP (%):')]]/td[1]")
+        OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the OCP (%):']]/td[1]")
 
         assert OCP_playbacks.text == "40.098"
 
-        duration_XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Average duration of playbacks through X-Band (minutes):')]]/td[1]")
+        duration_XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through X-Band (minutes):']]/td[1]")
 
         assert duration_XBand_playbacks.text == "5.836"
 
-        duration_OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Average duration of playbacks through OCP (minutes):')]]/td[1]")
+        duration_OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through OCP (minutes):']]/td[1]")
 
         assert duration_OCP_playbacks.text == "7.813"
 
@@ -210,31 +260,31 @@ class TestPlanningView(unittest.TestCase):
 
         summary_all_missions_table = self.driver.find_element_by_id("summary-table-S2")
 
-        RT_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of planned RT imagings (%):')]]/td[1]")
+        RT_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned RT imagings (%):']]/td[1]")
 
         assert RT_imagings.text == "0.000"
 
-        NRT_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of planned NRT imagings (%):')]]/td[1]")
+        NRT_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned NRT imagings (%):']]/td[1]")
 
         assert NRT_imagings.text == "8.815"
 
-        nominal_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of planned Nominal imagings (%):')]]/td[1]")
+        nominal_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned Nominal imagings (%):']]/td[1]")
 
         assert nominal_imagings.text == "91.185"
 
-        XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of playbacks through the X-Band (%):')]]/td[1]")
+        XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the X-Band (%):']]/td[1]")
 
         assert XBand_playbacks.text == "59.902"
 
-        OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Percentage of playbacks through the OCP (%):')]]/td[1]")
+        OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the OCP (%):']]/td[1]")
 
         assert OCP_playbacks.text == "40.098"
 
-        duration_XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Average duration of playbacks through X-Band (minutes):')]]/td[1]")
+        duration_XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through X-Band (minutes):']]/td[1]")
 
         assert duration_XBand_playbacks.text == "5.836"
 
-        duration_OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Average duration of playbacks through OCP (minutes):')]]/td[1]")
+        duration_OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through OCP (minutes):']]/td[1]")
 
         assert duration_OCP_playbacks.text == "7.813"
 
@@ -254,31 +304,31 @@ class TestPlanningView(unittest.TestCase):
 
         mode_S2A_duration_table = self.driver.find_element_by_id("imaging-mode-duration-table-S2A")
 
-        duration_nominal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'NOMINAL')]]/td[2]")
+        duration_nominal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'NOMINAL']]/td[2]")
 
         assert duration_nominal.text == "1.427"
 
-        duration_sun_cal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SUN_CAL')]]/td[2]")
+        duration_sun_cal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'SUN_CAL']]/td[2]")
 
         assert duration_sun_cal.text == "6.119"
 
-        duration_dark_cal_csm_open = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[tD//text()[contains(., 'DARK_CAL_CSM_OPEN')]]/td[2]")
+        duration_dark_cal_csm_open = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_OPEN']]/td[2]")
 
         assert duration_dark_cal_csm_open.text == "20.151"
 
-        duration_dark_cal_csm_close = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'DARK_CAL_CSM_CLOSE')]]/td[2]")
+        duration_dark_cal_csm_close = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_CLOSE']]/td[2]")
 
         assert duration_dark_cal_csm_close.text == "0.343"
 
-        duration_vicarious_cal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'VICARIOUS_CAL')]]/td[2]")
+        duration_vicarious_cal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'VICARIOUS_CAL']]/td[2]")
 
         assert duration_vicarious_cal.text == "15.37"
 
-        duration_raw = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'RAW')]]/td[2]")
+        duration_raw = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'RAW']]/td[2]")
 
         assert duration_raw.text == "6.175"
 
-        duration_test = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'TEST')]]/td[2]")
+        duration_test = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'TEST']]/td[2]")
 
         assert duration_test.text == "19.827"
 
@@ -286,23 +336,23 @@ class TestPlanningView(unittest.TestCase):
 
         total_S2A_duration_table = self.driver.find_element_by_id("imaging-total-duration-table-S2A")
 
-        total_duration = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total(m):')]]/td[1]")
+        total_duration = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
         assert total_duration.text == "69.411"
 
-        total_average = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total average(m):')]]/td[1]")
+        total_average = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
         assert total_average.text == "9.916"
 
-        net_average = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Net average(m):')]]/td[1]")
+        net_average = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
         assert net_average.text == "23.137"
 
-        minimum = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Minimum(m):')]]/td[1]")
+        minimum = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
         assert minimum.text == "0.343"
 
-        maximum = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Maximum(m):')]]/td[1]")
+        maximum = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
         assert maximum.text == "20.151"
 
@@ -312,31 +362,31 @@ class TestPlanningView(unittest.TestCase):
 
         mode_all_missions_duration_table = self.driver.find_element_by_id("imaging-mode-duration-table-S2A")
 
-        duration_nominal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'NOMINAL')]]/td[2]")
+        duration_nominal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'NOMINAL']]/td[2]")
 
         assert duration_nominal.text == "1.427"
 
-        duration_sun_cal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SUN_CAL')]]/td[2]")
+        duration_sun_cal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'SUN_CAL']]/td[2]")
 
         assert duration_sun_cal.text == "6.119"
 
-        duration_dark_cal_csm_open = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[tD//text()[contains(., 'DARK_CAL_CSM_OPEN')]]/td[2]")
+        duration_dark_cal_csm_open = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_OPEN']]/td[2]")
 
         assert duration_dark_cal_csm_open.text == "20.151"
 
-        duration_dark_cal_csm_close = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'DARK_CAL_CSM_CLOSE')]]/td[2]")
+        duration_dark_cal_csm_close = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_CLOSE']]/td[2]")
 
         assert duration_dark_cal_csm_close.text == "0.343"
 
-        duration_vicarious_cal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'VICARIOUS_CAL')]]/td[2]")
+        duration_vicarious_cal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'VICARIOUS_CAL']]/td[2]")
 
         assert duration_vicarious_cal.text == "15.37"
 
-        duration_raw = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'RAW')]]/td[2]")
+        duration_raw = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'RAW']]/td[2]")
 
         assert duration_raw.text == "6.175"
 
-        duration_test = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td//text()[contains(., 'TEST')]]/td[2]")
+        duration_test = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'TEST']]/td[2]")
 
         assert duration_test.text == "19.827"
 
@@ -344,23 +394,23 @@ class TestPlanningView(unittest.TestCase):
 
         total_all_missions_duration_table = self.driver.find_element_by_id("imaging-total-duration-table-S2A")
 
-        total_duration = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total(m):')]]/td[1]")
+        total_duration = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
         assert total_duration.text == "69.411"
 
-        total_average = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total average(m):')]]/td[1]")
+        total_average = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
         assert total_average.text == "9.916"
 
-        net_average = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Net average(m):')]]/td[1]")
+        net_average = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
         assert net_average.text == "23.137"
 
-        minimum = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Minimum(m):')]]/td[1]")
+        minimum = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
         assert minimum.text == "0.343"
 
-        maximum = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Maximum(m):')]]/td[1]")
+        maximum = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
         assert maximum.text == "20.151"
 
@@ -368,20 +418,22 @@ class TestPlanningView(unittest.TestCase):
 
         events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"})
 
+        events.sort(key=lambda x:x.start)
+
         imaging_xy_events = [
         {
             "id": str(events[0].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 17:28:56.736288",
-            "y": "19.826622750000002",
+            "x": "2018-07-20 14:07:32.793311",
+            "y": "1.4268956000000002",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[0].event_uuid) + "</td>" +
                         "<tr><td>Satellite</td><td>S2A</td>" +
-                        "<tr><td>Orbit</td><td>16068</td>" +
-                        "<tr><td>Start</td><td>2018-07-20T17:28:56.736288</td>" +
-                        "<tr><td>Stop</td><td>2018-07-20T17:48:46.333653</td>" +
-                        "<tr><td>Duration(m)</td><td>19.827</td>" +
-                        "<tr><td>Imaging mode</td><td>TEST</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:07:32.793311</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:08:58.407047</td>" +
+                        "<tr><td>Duration(m)</td><td>1.427</td>" +
+                        "<tr><td>Imaging mode</td><td>NOMINAL</td>" +
                         "<tr><td>Record type</td><td>NOMINAL</td>" +
                         "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
@@ -391,17 +443,17 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[1].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 16:05:09.432097",
-            "y": "6.175066866666667",
+            "x": "2018-07-20 14:10:02.951732",
+            "y": "6.118657633333333",
             "tooltip":  "<table border='1'>" +
-                        "<tr><td>UUID</td><td>" + str(events[1].event_uuid) + "</td>" +
+                        "<tr><td>UUID</td><td>"+ str(events[1].event_uuid) + "</td>" +
                         "<tr><td>Satellite</td><td>S2A</td>" +
-                        "<tr><td>Orbit</td><td>16067</td>" +
-                        "<tr><td>Start</td><td>2018-07-20T16:05:09.432097</td>" +
-                        "<tr><td>Stop</td><td>2018-07-20T16:11:19.936109</td>" +
-                        "<tr><td>Duration(m)</td><td>6.175</td>" +
-                        "<tr><td>Imaging mode</td><td>RAW</td>" +
-                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:10:02.951732</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:16:10.071190</td>" +
+                        "<tr><td>Duration(m)</td><td>6.119</td>" +
+                        "<tr><td>Imaging mode</td><td>SUN_CAL</td>" +
+                        "<tr><td>Record type</td><td>NRT</td>" +
                         "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
                         "</tr></table>"
@@ -410,16 +462,16 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[2].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 15:49:02.890406",
-            "y": "15.369803216666666",
+            "x": "2018-07-20 14:27:50.784884",
+            "y": "20.151175683333335",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[2].event_uuid) + "</td>" +
                         "<tr><td>Satellite</td><td>S2A</td>" +
-                        "<tr><td>Orbit</td><td>16067</td>" +
-                        "<tr><td>Start</td><td>2018-07-20T15:49:02.890406</td>" +
-                        "<tr><td>Stop</td><td>2018-07-20T16:04:25.078599</td>" +
-                        "<tr><td>Duration(m)</td><td>15.370</td>" +
-                        "<tr><td>Imaging mode</td><td>VICARIOUS_CAL</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:27:50.784884</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:47:59.855425</td>" +
+                        "<tr><td>Duration(m)</td><td>20.151</td>" +
+                        "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_OPEN</td>" +
                         "<tr><td>Record type</td><td>NOMINAL</td>" +
                         "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
@@ -448,16 +500,16 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[4].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:27:50.784884",
-            "y": "20.151175683333335",
+            "x": "2018-07-20 15:49:02.890406",
+            "y": "15.369803216666666",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[4].event_uuid) + "</td>" +
                         "<tr><td>Satellite</td><td>S2A</td>" +
-                        "<tr><td>Orbit</td><td>16066</td>" +
-                        "<tr><td>Start</td><td>2018-07-20T14:27:50.784884</td>" +
-                        "<tr><td>Stop</td><td>2018-07-20T14:47:59.855425</td>" +
-                        "<tr><td>Duration(m)</td><td>20.151</td>" +
-                        "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_OPEN</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T15:49:02.890406</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T16:04:25.078599</td>" +
+                        "<tr><td>Duration(m)</td><td>15.370</td>" +
+                        "<tr><td>Imaging mode</td><td>VICARIOUS_CAL</td>" +
                         "<tr><td>Record type</td><td>NOMINAL</td>" +
                         "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
@@ -467,17 +519,17 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[5].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:10:02.951732",
-            "y": "6.118657633333333",
+            "x": "2018-07-20 16:05:09.432097",
+            "y": "6.175066866666667",
             "tooltip":  "<table border='1'>" +
-                        "<tr><td>UUID</td><td>"+ str(events[5].event_uuid) + "</td>" +
+                        "<tr><td>UUID</td><td>" + str(events[5].event_uuid) + "</td>" +
                         "<tr><td>Satellite</td><td>S2A</td>" +
-                        "<tr><td>Orbit</td><td>16066</td>" +
-                        "<tr><td>Start</td><td>2018-07-20T14:10:02.951732</td>" +
-                        "<tr><td>Stop</td><td>2018-07-20T14:16:10.071190</td>" +
-                        "<tr><td>Duration(m)</td><td>6.119</td>" +
-                        "<tr><td>Imaging mode</td><td>SUN_CAL</td>" +
-                        "<tr><td>Record type</td><td>NRT</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T16:05:09.432097</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T16:11:19.936109</td>" +
+                        "<tr><td>Duration(m)</td><td>6.175</td>" +
+                        "<tr><td>Imaging mode</td><td>RAW</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
                         "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
                         "</tr></table>"
@@ -486,16 +538,16 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[6].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:07:32.793311",
-            "y": "1.4268956000000002",
+            "x": "2018-07-20 17:28:56.736288",
+            "y": "19.826622750000002",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[6].event_uuid) + "</td>" +
                         "<tr><td>Satellite</td><td>S2A</td>" +
-                        "<tr><td>Orbit</td><td>16066</td>" +
-                        "<tr><td>Start</td><td>2018-07-20T14:07:32.793311</td>" +
-                        "<tr><td>Stop</td><td>2018-07-20T14:08:58.407047</td>" +
-                        "<tr><td>Duration(m)</td><td>1.427</td>" +
-                        "<tr><td>Imaging mode</td><td>NOMINAL</td>" +
+                        "<tr><td>Orbit</td><td>16068</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T17:28:56.736288</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T17:48:46.333653</td>" +
+                        "<tr><td>Duration(m)</td><td>19.827</td>" +
+                        "<tr><td>Imaging mode</td><td>TEST</td>" +
                         "<tr><td>Record type</td><td>NOMINAL</td>" +
                         "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(events[6].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
@@ -504,7 +556,7 @@ class TestPlanningView(unittest.TestCase):
         }
         ]
 
-        assert sorted(self.driver.execute_script('return imaging_xy_events;'), key=lambda k: k['y']) == sorted(imaging_xy_events, key=lambda k: k["y"])
+        assert self.driver.execute_script('return imaging_xy_events;') == imaging_xy_events
 
         # Imaging details
 
@@ -570,35 +622,35 @@ class TestPlanningView(unittest.TestCase):
 
         playback_S2A_station_duration = self.driver.find_element_by_id("playback-station-duration-S2A")
 
-        SGS_total_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[2]")
+        SGS_total_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[2]")
 
         assert SGS_total_average.text == "3.335"
 
-        SGS_net_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[3]")
+        SGS_net_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[3]")
 
         assert SGS_net_average.text == "11.671"
 
-        SGS_minimum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[4]")
+        SGS_minimum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[4]")
 
         assert SGS_minimum.text == "11.645"
 
-        SGS_maximum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[5]")
+        SGS_maximum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[5]")
 
         assert SGS_maximum.text == "11.697"
 
-        EDRS_total_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[2]")
+        EDRS_total_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[2]")
 
         assert EDRS_total_average.text == "2.232"
 
-        EDRS_net_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[3]")
+        EDRS_net_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[3]")
 
         assert EDRS_net_average.text == "15.625"
 
-        EDRS_minimum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[4]")
+        EDRS_minimum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[4]")
 
         assert EDRS_minimum.text == "15.625"
 
-        EDRS_maximum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[5]")
+        EDRS_maximum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[5]")
 
         assert EDRS_maximum.text == "15.625"
 
@@ -606,23 +658,23 @@ class TestPlanningView(unittest.TestCase):
 
         playback_S2A_total_duration = self.driver.find_element_by_id("playback-total-duration-S2A")
 
-        total_duration = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total(m):')]]/td[1]")
+        total_duration = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
         assert total_duration.text == "38.968"
 
-        total_average = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total average(m):')]]/td[1]")
+        total_average = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
         assert total_average.text == "5.567"
 
-        net_average = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Net average(m):')]]/td[1]")
+        net_average = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
         assert net_average.text == "12.989"
 
-        minimum = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Minimum(m):')]]/td[1]")
+        minimum = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
         assert minimum.text == "11.645"
 
-        maximum = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Maximum(m):')]]/td[1]")
+        maximum = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
         assert maximum.text == "15.625"
 
@@ -632,35 +684,35 @@ class TestPlanningView(unittest.TestCase):
 
         playback_all_station_duration = self.driver.find_element_by_id("playback-station-duration-S2")
 
-        SGS_total_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[2]")
+        SGS_total_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[2]")
 
         assert SGS_total_average.text == "3.335"
 
-        SGS_net_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[3]")
+        SGS_net_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[3]")
 
         assert SGS_net_average.text == "11.671"
 
-        SGS_minimum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[4]")
+        SGS_minimum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[4]")
 
         assert SGS_minimum.text == "11.645"
 
-        SGS_maximum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'SGS_')]]/td[5]")
+        SGS_maximum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[5]")
 
         assert SGS_maximum.text == "11.697"
 
-        EDRS_total_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[2]")
+        EDRS_total_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[2]")
 
         assert EDRS_total_average.text == "2.232"
 
-        EDRS_net_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[3]")
+        EDRS_net_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[3]")
 
         assert EDRS_net_average.text == "15.625"
 
-        EDRS_minimum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[4]")
+        EDRS_minimum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[4]")
 
         assert EDRS_minimum.text == "15.625"
 
-        EDRS_maximum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td//text()[contains(., 'EDRS')]]/td[5]")
+        EDRS_maximum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[5]")
 
         assert EDRS_maximum.text == "15.625"
 
@@ -668,50 +720,51 @@ class TestPlanningView(unittest.TestCase):
 
         playback_all_total_duration = self.driver.find_element_by_id("playback-total-duration-S2")
 
-        total_duration = playback_all_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total(m):')]]/td[1]")
+        total_duration = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
         assert total_duration.text == "38.968"
 
-        total_average = playback_all_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Total average(m):')]]/td[1]")
+        total_average = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
         assert total_average.text == "5.567"
 
-        net_average = playback_all_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Net average(m):')]]/td[1]")
+        net_average = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
         assert net_average.text == "12.989"
 
-        minimum = playback_all_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Minimum(m):')]]/td[1]")
+        minimum = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
         assert minimum.text == "11.645"
 
-        maximum = playback_all_total_duration.find_element_by_xpath("tbody/tr[th//text()[contains(., 'Maximum(m):')]]/td[1]")
+        maximum = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
         assert maximum.text == "15.625"
 
         # Graph duration playbacks
 
-        playback_events = []
-        events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
+        playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
+                                                        value_filters = [{"name": {"str": "playback_type", "op": "like"},
+                                                                        "type": "text",
+                                                                        "value": {"op": "in", "value": ["NOMINAL", "REGULAR", "RT", "NRT"]}}])
 
-        for event in events:
-            for value in event.get_structured_values()[0]["values"]:
-                if value["name"] == "playback_type" and "SAD" not in value["value"]:
-                    playback_events.append(event)
+        playback_events.sort(key=lambda x:x.start)
 
-        playback_xy_events = [{
+        playback_xy_events = [
+        {
             "id": str(playback_events[0].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 23:30:09.608524",
-            "y": "15.625495066666668",
+            "x": "2018-07-20 14:02:38.392053",
+            "y": "11.697489133333333",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[0].event_uuid) + "</td>" +
                 "<tr><td>Satellite</td><td>S2A</td>" +
-                "<tr><td>Orbit</td><td>16071</td>" +
-                "<tr><td>Start</td><td>2018-07-20T23:30:09.608524</td>" +
-                "<tr><td>Stop</td><td>2018-07-20T23:45:47.138228</td>" +
-                "<tr><td>Duration(m)</td><td>15.626</td>" +
-                "<tr><td>Playback type</td><td>NRT</td>" +
-                "<tr><td>Playback mean</td><td>OCP</td>" +
+                "<tr><td>Orbit</td><td>16066</td>" +
+                "<tr><td>Station</td><td>SGS_</td>" +
+                "<tr><td>Start</td><td>2018-07-20T14:02:38.392053</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T14:14:20.241401</td>" +
+                "<tr><td>Duration(m)</td><td>11.697</td>" +
+                "<tr><td>Playback type</td><td>NOMINAL</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                 '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
                 "</tr></table>"
@@ -725,6 +778,7 @@ class TestPlanningView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(playback_events[1].event_uuid) + "</td>" +
                 "<tr><td>Satellite</td><td>S2A</td>" +
                 "<tr><td>Orbit</td><td>16067</td>" +
+                "<tr><td>Station</td><td>SGS_</td>" +
                 "<tr><td>Start</td><td>2018-07-20T15:41:58.393742</td>" +
                 "<tr><td>Stop</td><td>2018-07-20T15:53:37.091280</td>" +
                 "<tr><td>Duration(m)</td><td>11.645</td>" +
@@ -737,28 +791,25 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(playback_events[2].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:02:38.392053",
-            "y": "11.697489133333333",
+            "x": "2018-07-20 23:30:09.608524",
+            "y": "15.625495066666668",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[2].event_uuid) + "</td>" +
                 "<tr><td>Satellite</td><td>S2A</td>" +
-                "<tr><td>Orbit</td><td>16066</td>" +
-                "<tr><td>Start</td><td>2018-07-20T14:02:38.392053</td>" +
-                "<tr><td>Stop</td><td>2018-07-20T14:14:20.241401</td>" +
-                "<tr><td>Duration(m)</td><td>11.697</td>" +
-                "<tr><td>Playback type</td><td>NOMINAL</td>" +
-                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Orbit</td><td>16071</td>" +
+                "<tr><td>Station</td><td>EDRS</td>" +
+                "<tr><td>Start</td><td>2018-07-20T23:30:09.608524</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T23:45:47.138228</td>" +
+                "<tr><td>Duration(m)</td><td>15.626</td>" +
+                "<tr><td>Playback type</td><td>NRT</td>" +
+                "<tr><td>Playback mean</td><td>OCP</td>" +
                 "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
                 '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
                 "</tr></table>"
         }
         ]
 
-        print(self.driver.execute_script('return playback_xy_events;')[0])
-        print(self.driver.execute_script('return playback_xy_events;')[1])
-        print(self.driver.execute_script('return playback_xy_events;')[2])
-
-        assert sorted(self.driver.execute_script('return playback_xy_events;'), key=lambda k:k["id"]) == sorted(playback_xy_events, key=lambda k:k["id"])
+        assert self.driver.execute_script('return playback_xy_events;') == playback_xy_events
 
         ## Playback details
 
@@ -812,63 +863,278 @@ class TestPlanningView(unittest.TestCase):
 
         imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"})
 
+        imaging_events.sort(key=lambda x:x.start)
+
         imaging_timeline_events = [
+
         {
-            "id": imaging_events[0].event_uuid,
+            "id": str(imaging_events[0].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 14:07:32.793311",
             "stop": "2018-07-20 14:08:58.407047",
-            "tooltip": create_imaging_tooltip_text("S2A", "16066", "2018-07-20T14:07:32.793311", "2018-07-20T14:08:58.407047", "NOMINAL", "NOMINAL", "S2A_NPPF.EOF", "5e9b55a4-8783-11e9-bf29-000000002a0a", "/eboa_nav/query-event-links/5e9b55a4-8783-11e9-bf29-000000002a0a")
+            "tooltip": "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(imaging_events[0].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:07:32.793311</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:08:58.407047</td>" +
+                        "<tr><td>Duration(m)</td><td>1.427</td>" +
+                        "<tr><td>Imaging mode</td><td>NOMINAL</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
         },
         {
-            "id": imaging_events[1].event_uuid,
+            "id": str(imaging_events[1].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 14:10:02.951732",
             "stop": "2018-07-20 14:16:10.071190",
-            "tooltip": create_imaging_tooltip_text("S2A", "16066", "2018-07-20T14:10:02.951732", "2018-07-20T14:16:10.071190", "SUN_CAL", "NRT", "S2A_NPPF.EOF", "5e9bb928-8783-11e9-9b27-000000002a0a", "/eboa_nav/query-event-links/5e9bb928-8783-11e9-9b27-000000002a0a")
+            "tooltip": "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(imaging_events[1].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:10:02.951732</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:16:10.071190</td>" +
+                        "<tr><td>Duration(m)</td><td>6.119</td>" +
+                        "<tr><td>Imaging mode</td><td>SUN_CAL</td>" +
+                        "<tr><td>Record type</td><td>NRT</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
         },
         {
-            "id": imaging_events[2].event_uuid,
+            "id": str(imaging_events[2].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 14:27:50.784884",
             "stop": "2018-07-20 14:47:59.855425",
-            "tooltip": create_imaging_tooltip_text("S2A", "16066", "2018-07-20T14:27:50.784884", "2018-07-20T14:47:59.855425", "DARK_CAL_CSM_OPEN", "NOMINAL", "S2A_NPPF.EOF", "5e9d6450-8783-11e9-b011-000000002a0a", "/eboa_nav/query-event-links/5e9d6450-8783-11e9-b011-000000002a0a")
+            "tooltip": "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(imaging_events[2].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16066</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T14:27:50.784884</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T14:47:59.855425</td>" +
+                        "<tr><td>Duration(m)</td><td>20.151</td>" +
+                        "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_OPEN</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
         },
         {
-            "id": imaging_events[3].event_uuid,
+            "id": str(imaging_events[3].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 15:48:09.150610",
             "stop": "2018-07-20 15:48:29.722723",
-            "tooltip": create_imaging_tooltip_text("S2A", "16067", "2018-07-20T15:48:09.150610", "2018-07-20T15:48:29.722723", "DARK_CAL_CSM_CLOSE", "NOMINAL", "S2A_NPPF.EOF", "5e9d8b74-8783-11e9-9a87-000000002a0a", "/eboa_nav/query-event-links/5e9d8b74-8783-11e9-9a87-000000002a0a")
+            "tooltip":  "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(imaging_events[3].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T15:48:09.150610</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T15:48:29.722723</td>" +
+                        "<tr><td>Duration(m)</td><td>0.343</td>" +
+                        "<tr><td>Imaging mode</td><td>DARK_CAL_CSM_CLOSE</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
         },
         {
-            "id": imaging_events[4].event_uuid,
+            "id": str(imaging_events[4].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 15:49:02.890406",
             "stop": "2018-07-20 16:04:25.078599",
-            "tooltip": create_imaging_tooltip_text("S2A", "16067", "2018-07-20T15:49:02.890406", "2018-07-20T16:04:25.078599", "VICARIOUS_CAL", "NOMINAL", "S2A_NPPF.EOF", "5e9ec69c-8783-11e9-8e74-000000002a0a", "/eboa_nav/query-event-links/5e9ec69c-8783-11e9-8e74-000000002a0a")
+            "tooltip": "<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(imaging_events[4].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T15:49:02.890406</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T16:04:25.078599</td>" +
+                        "<tr><td>Duration(m)</td><td>15.370</td>" +
+                        "<tr><td>Imaging mode</td><td>VICARIOUS_CAL</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
         },
         {
-            "id": imaging_events[5].event_uuid,
+            "id": str(imaging_events[5].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 16:05:09.432097",
             "stop": "2018-07-20 16:11:19.936109",
-            "tooltip": create_imaging_tooltip_text("S2A", "16067", "2018-07-20T16:05:09.432097", "2018-07-20T16:11:19.936109", "RAW", "NOMINAL", "S2A_NPPF.EOF", "5e9eebbe-8783-11e9-b142-000000002a0a", "/eboa_nav/query-event-links/5e9eebbe-8783-11e9-b142-000000002a0a")
+            "tooltip": "<table border='1'>" +
+                        "<tr><td>UUID</td><td>"+ str(imaging_events[5].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16067</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T16:05:09.432097</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T16:11:19.936109</td>" +
+                        "<tr><td>Duration(m)</td><td>6.175</td>" +
+                        "<tr><td>Imaging mode</td><td>RAW</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
+
         },
         {
-            "id": imaging_events[6].event_uuid,
+            "id": str(imaging_events[6].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
             "start": "2018-07-20 17:28:56.736288",
             "stop": "2018-07-20 17:48:46.333653",
-            "tooltip": create_imaging_tooltip_text("S2A", "16068", "2018-07-20T17:28:56.736288", "2018-07-20T17:48:46.333653", "TEST", "NOMINAL", "S2A_NPPF.EOF", "5e9f10b8-8783-11e9-be52-000000002a0a", "/eboa_nav/query-event-links/5e9f10b8-8783-11e9-be52-000000002a0a")
-        }
-    ]
+            "tooltip":"<table border='1'>" +
+                        "<tr><td>UUID</td><td>" + str(imaging_events[6].event_uuid) + "</td>" +
+                        "<tr><td>Satellite</td><td>S2A</td>" +
+                        "<tr><td>Orbit</td><td>16068</td>" +
+                        "<tr><td>Start</td><td>2018-07-20T17:28:56.736288</td>" +
+                        "<tr><td>Stop</td><td>2018-07-20T17:48:46.333653</td>" +
+                        "<tr><td>Duration(m)</td><td>19.827</td>" +
+                        "<tr><td>Imaging mode</td><td>TEST</td>" +
+                        "<tr><td>Record type</td><td>NOMINAL</td>" +
+                        "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                        '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(imaging_events[6].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                        "</tr></table>"
 
-    playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
+        }
+        ]
+
+        assert self.driver.execute_script('return imaging_timeline_events;') == imaging_timeline_events
+
+        playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
+
+        playback_events.sort(key=lambda x:x.start)
+
+        playback_timeline_events = [
+        {
+            "id": str(playback_events[0].event_uuid),
+            "group": "S2A",
+            "timeline": "PLANNED_PLAYBACK",
+            "start": "2018-07-20 14:02:38.392053",
+            "stop": "2018-07-20 14:14:20.241401",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[0].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16066</td>" +
+                "<tr><td>Station</td><td>SGS_</td>" +
+                "<tr><td>Start</td><td>2018-07-20T14:02:38.392053</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T14:14:20.241401</td>" +
+                "<tr><td>Duration(m)</td><td>11.697</td>" +
+                "<tr><td>Playback type</td><td>NOMINAL</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[1].event_uuid),
+            "group": "S2A",
+            "timeline": "PLANNED_PLAYBACK",
+            "start": "2018-07-20 14:14:31.243397",
+            "stop": "2018-07-20 14:14:31.243397",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[1].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16066</td>" +
+                "<tr><td>Station</td><td>SGS_</td>" +
+                "<tr><td>Start</td><td>2018-07-20T14:14:31.243397</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T14:14:31.243397</td>" +
+                "<tr><td>Duration(m)</td><td>0.000</td>" +
+                "<tr><td>Playback type</td><td>HKTM_SAD</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[2].event_uuid),
+            "group": "S2A",
+            "timeline": "PLANNED_PLAYBACK",
+            "start": "2018-07-20 15:41:58.393742",
+            "stop": "2018-07-20 15:53:37.091280",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[2].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16067</td>" +
+                "<tr><td>Station</td><td>SGS_</td>" +
+                "<tr><td>Start</td><td>2018-07-20T15:41:58.393742</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T15:53:37.091280</td>" +
+                "<tr><td>Duration(m)</td><td>11.645</td>" +
+                "<tr><td>Playback type</td><td>RT</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[3].event_uuid),
+            "group": "S2A",
+            "timeline": "PLANNED_PLAYBACK",
+            "start": "2018-07-20 15:53:48.098255",
+            "stop": "2018-07-20 15:53:48.098255",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[3].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16067</td>" +
+                "<tr><td>Station</td><td>SGS_</td>" +
+                "<tr><td>Start</td><td>2018-07-20T15:53:48.098255</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T15:53:48.098255</td>" +
+                "<tr><td>Duration(m)</td><td>0.000</td>" +
+                "<tr><td>Playback type</td><td>HKTM_SAD</td>" +
+                "<tr><td>Playback mean</td><td>XBAND</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[4].event_uuid),
+            "group": "S2A",
+            "timeline": "PLANNED_PLAYBACK",
+            "start": "2018-07-20 23:30:09.608524",
+            "stop": "2018-07-20 23:45:47.138228",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[4].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16071</td>" +
+                "<tr><td>Station</td><td>EDRS</td>" +
+                "<tr><td>Start</td><td>2018-07-20T23:30:09.608524</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T23:45:47.138228</td>" +
+                "<tr><td>Duration(m)</td><td>15.626</td>" +
+                "<tr><td>Playback type</td><td>NRT</td>" +
+                "<tr><td>Playback mean</td><td>OCP</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        },
+        {
+            "id": str(playback_events[5].event_uuid),
+            "group": "S2A",
+            "timeline": "PLANNED_PLAYBACK",
+            "start": "2018-07-20 23:45:58.144267",
+            "stop": "2018-07-20 23:45:58.144267",
+            "tooltip": "<table border='1'>" +
+                "<tr><td>UUID</td><td>" + str(playback_events[5].event_uuid) + "</td>" +
+                "<tr><td>Satellite</td><td>S2A</td>" +
+                "<tr><td>Orbit</td><td>16071</td>" +
+                "<tr><td>Station</td><td>EDRS</td>" +
+                "<tr><td>Start</td><td>2018-07-20T23:45:58.144267</td>" +
+                "<tr><td>Stop</td><td>2018-07-20T23:45:58.144267</td>" +
+                "<tr><td>Duration(m)</td><td>0.000</td>" +
+                "<tr><td>Playback type</td><td>SAD</td>" +
+                "<tr><td>Playback mean</td><td>OCP</td>" +
+                "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td>" +
+                '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
+                "</tr></table>"
+        }]
+
+        assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
