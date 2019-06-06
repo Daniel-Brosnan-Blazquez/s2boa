@@ -13,78 +13,69 @@ import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver import ActionChains,TouchActions
 from selenium.webdriver.common.keys import Keys
 
 
-def query(driver, wait, mission, start = None, stop = None, start_orbit = None, stop_orbit = None, timeline = True, table_details = True, evolution = True, map = True):
+def query(driver, wait, mission = None, start = None, stop = None, start_orbit = None, stop_orbit = None, timeline = True, table_details = True, evolution = True, map = True):
 
-    missions = {"S2_": "1", "S2A": "2", "S2B": 3}
-
-    driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[1]/h3/a").click()
+    driver.find_element_by_partial_link_text("Query interface").click()
 
     # Extend mission selector and choose mission
-    driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[1]/div/select").click()
-    driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[1]/div/select/option[" + missions[mission] + "]").click()
+    if mission is not None:
+        mission_select = Select(driver.find_element_by_id("mission"))
+        mission_select.select_by_visible_text(mission)
 
     if start is not None:
         # Select start date
-        startTime = driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[2]/div[1]/div/input")
+        startTime = driver.find_element_by_id("start-input")
         ActionChains(driver).double_click(startTime).perform()
         startTime.send_keys(start)
     #   end if
 
     if stop is not None:
         # Select stop date
-        stopTime = driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[2]/div[2]/div/input")
+        stopTime = driver.find_element_by_id("stop-input")
         ActionChains(driver).double_click(stopTime).perform()
         stopTime.send_keys(stop)
     # end if
 
     if start_orbit is not None:
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[3]/div[1]/div/input").send_keys(start_orbit)
+        driver.find_element_by_id("start-orbit").send_keys(start_orbit)
     # end if
 
-    if start_orbit is not None:
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[3]/div[2]/div/input").send_keys(stop_orbit)
+    if stop_orbit is not None:
+        driver.find_element_by_id("stop-orbit").send_keys(stop_orbit)
     # end if
 
     if timeline is not True:
         # Click on show timeline
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[5]/label").click()
+        driver.find_element_by_id("show-planning-timeline").click()
     # end if
 
     if table_details is not True:
         # Click on show table_details
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[6]/label").click()
+        driver.find_element_by_id("show-planning-table-details").click()
     # end if
 
     if evolution is not True:
         # Click on show evolution
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[7]/label").click()
+        driver.find_element_by_id("show-planning-x-time-evolution").click()
     # end if
 
     if map is not True:
         # Click on show map
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[8]/label").click()
+        driver.find_element_by_id("show-planning-map").click()
     # end if
 
-    driver.save_screenshot("query.png")
-    driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div/form/div/div[2]/div[4]/button").click()
+    driver.find_element_by_id("query-submit-button").click()
 
-def is_empty(section):
-    texts = ["There is no information for setting the orbit period.",
-             "There are no imaging operations during the requested period.",
-             "There are no playback operations during the requested period.",
-             "There are no planning events during the requested period."]
+def page_loaded(driver, wait, id):
     try:
-        ret_text = section.find_element_by_xpath("/html/body/div[1]/div/div[4]/div/div[2]/p").text
+        driver.find_element_by_id(id)
     except NoSuchElementException:
         return False
-    if [ret_text == text for text in texts]:
-        return True
-    else:
-        return False
+    return True
