@@ -520,7 +520,7 @@
         <br/>
         <br/>
 
-        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback-details-table">
+        <table width="100%" class="table table-striped table-bordered table-hover table-search" id="playback-not-covered-table">
           <thead>
             <tr>
               <th>Satellite</th>
@@ -716,11 +716,12 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
+  {% include "js/planning_functions.js" %}
   {% if show["timeline"] and (planning_events["imaging"]["prime_events"]|length > 0 or planning_events["playback"]["prime_events"]|length > 0) %}
-  {% with events = planning_events["imaging"]["prime_events"] %}
+  {% with events = planning_events["imaging"]["prime_events"]|sort(attribute="start") %}
   {% include "js/imaging_planning_to_timeline.js" %}
   {% endwith %}
-  {% with events = planning_events["playback"]["prime_events"] %}
+  {% with events = planning_events["playback"]["prime_events"]|sort(attribute="start") %}
   {% include "js/playback_planning_to_timeline.js" %}
   {% endwith %}
 
@@ -737,7 +738,7 @@
   vboa.display_timeline("planning_timeline", items, groups);
   {% endif %}
   {% if show["x_time"] and (planning_events["imaging"]["prime_events"]|length > 0 or planning_events["playback"]["prime_events"]|length > 0) %}
-  {% with events = planning_events["imaging"]["prime_events"] %}
+  {% with events = planning_events["imaging"]["prime_events"]|sort(attribute="start") %}
   {% include "js/imaging_planning_to_xy.js" %}
   {% endwith %}
 
@@ -751,7 +752,7 @@
   vboa.display_x_time("imaging-x-time-evolution", items, groups, options);
 
   {% set msi_playbacks = planning_events["playback"]["prime_events"]|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
-  {% with events = msi_playbacks %}
+  {% with events = msi_playbacks|sort(attribute="start") %}
   {% include "js/playback_planning_to_xy.js" %}
   {% endwith %}
 
