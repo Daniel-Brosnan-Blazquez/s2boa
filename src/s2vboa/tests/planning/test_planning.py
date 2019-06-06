@@ -1136,6 +1136,7 @@ class TestPlanningView(unittest.TestCase):
                 '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(playback_events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td>' +
                 "</tr></table>"
         }]
+<<<<<<< HEAD
 
         assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
 
@@ -1245,3 +1246,7 @@ class TestPlanningView(unittest.TestCase):
         functions.query(self.driver,wait, timeline = False, table_details = False, evolution = False, map = False)
 
         assert functions.page_loaded(self.driver, wait, "header-no-data")
+=======
+
+        assert self.driver.execute_script('return playback_timeline_events;') == playback_timeline_events
+>>>>>>> 0d7c159aa00d507c43133e245f21bb22e50d7a5c
