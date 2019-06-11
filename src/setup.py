@@ -16,6 +16,7 @@ setup(name="s2boa",
       packages=find_packages(),
       python_requires='>=3',
       install_requires=[
-          "vboa"
+          "vboa",
+          "astropy"
       ],
       test_suite='nose.collector')

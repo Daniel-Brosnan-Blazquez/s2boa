@@ -203,67 +203,48 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 "name": "PLAYBACK_COMPLETENESS",
                 "back_ref": "PLANNED_PLAYBACK"
             })
+
+            planned_playback_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_playback_uuid]})
+            playback_planning_completeness_generation_times.append(planned_playback_event[0].source.generation_time)
+
+            # Insert the linked COMPLETENESS event for the automatic completeness check
+            planning_event_values = corrected_planned_playback.get_structured_values()
+            planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"}
+            ]
+
             if downlink_mode == "SAD":
-                channels = ["2"]
+                start = corrected_planned_playback.start + datetime.timedelta(seconds=3)
+                stop = start + datetime.timedelta(seconds=2)
             elif downlink_mode == "HKTM":
                 # HKTM
-                channels = ["1"]
+                start = corrected_planned_playback.start + datetime.timedelta(seconds=2)
+                stop = start
             else:
-                channels = ["1","2"]
+                start = corrected_planned_playback.start + datetime.timedelta(seconds=3)
+                stop = corrected_planned_playback.stop - datetime.timedelta(seconds=3)
             # end if
-            for data_channel in channels:
-                value = {
-                    "name": "playback_completeness_began_channel_" + data_channel,
-                    "type": "object",
-                    "values": []
-                }
-                exit_status = engine.insert_event_values(planned_playback_uuid, value)
 
-                if exit_status["inserted"] == True:
 
-                    planned_playback_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_playback_uuid]})
-                    playback_planning_completeness_generation_times.append(planned_playback_event[0].source.generation_time)
-
-                    # Insert the linked COMPLETENESS event for the automatic completeness check
-                    planning_event_values = corrected_planned_playback.get_structured_values()
-                    planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                        {"name": "status",
-                         "type": "text",
-                         "value": "MISSING"}
-                    ]
-
-                    if downlink_mode == "SAD":
-                        start = corrected_planned_playback.start + datetime.timedelta(seconds=3)
-                        stop = start + datetime.timedelta(seconds=2)
-                    elif downlink_mode == "HKTM":
-                        # HKTM
-                        start = corrected_planned_playback.start + datetime.timedelta(seconds=2)
-                        stop = start
-                    else:
-                        start = corrected_planned_playback.start + datetime.timedelta(seconds=3)
-                        stop = corrected_planned_playback.stop - datetime.timedelta(seconds=3)
-                    # end if
-                    
-
-                    playback_planning_completeness_operation["events"].append({
-                        "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                            "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_" + data_channel,
-                            "system": satellite
-                        },
-                        "start": str(start),
-                        "stop": str(stop),
-                        "links": [
-                            {
-                                "link": str(planned_playback_uuid),
-                                "link_mode": "by_uuid",
-                                "name": "PLAYBACK_COMPLETENESS",
-                                "back_ref": "PLANNED_PLAYBACK"
-                            }],
-                        "values": planning_event_values
-                    })
-                # end if
-            # end for
+            playback_planning_completeness_operation["events"].append({
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_" + channel,
+                    "system": satellite
+                },
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "links": [
+                    {
+                        "link": str(planned_playback_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PLAYBACK_COMPLETENESS",
+                        "back_ref": "PLANNED_PLAYBACK"
+                    }],
+                "values": planning_event_values
+            })
         # end for
 
         playback_validity_event = {
@@ -516,8 +497,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "name": "ISP_GAP",
                         "system": station
                     },
-                    "start": str(start),
-                    "stop": str(stop),
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
                     "values": [{
                         "name": "details",
                         "type": "object",
@@ -592,8 +573,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "name": "ISP_GAP",
                     "system": station
                 },
-                "start": str(start),
-                "stop": str(stop),
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
                 "values": [{
                     "name": "details",
                     "type": "object",
@@ -681,8 +662,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "name": "ISP_GAP",
                     "system": station
                 },
-                "start": str(start),
-                "stop": str(stop),
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
                 "values": [{
                     "name": "details",
                     "type": "object",
@@ -761,48 +742,40 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         # Initialize the completeness
         for corrected_planned_imaging in corrected_planned_imagings:
+            planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
             for channel in ["1","2"]:
-                value = {
-                    "name": "isp_completeness_began_channel_" + channel,
-                    "type": "object",
-                    "values": []
-                }
-                planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
-                exit_status = engine.insert_event_values(planned_imaging_uuid, value)
-                if exit_status["inserted"] == True:
 
-                    planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-                    isp_planning_completeness_generation_times.append(planned_imaging_event[0].source.generation_time)
-                    
-                    # Insert the linked COMPLETENESS event for the automatic completeness check
-                    planning_event_values = corrected_planned_imaging.get_structured_values()
-                    planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                        {"name": "status",
-                         "type": "text",
-                         "value": "MISSING"}
-                    ]
+                planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
+                isp_planning_completeness_generation_times.append(planned_imaging_event[0].source.generation_time)
 
-                    start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
-                    stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
+                # Insert the linked COMPLETENESS event for the automatic completeness check
+                planning_event_values = corrected_planned_imaging.get_structured_values()
+                planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"}
+                ]
 
-                    isp_planning_completeness_operation["events"].append({
-                        "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                            "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_" + channel,
-                            "system": satellite
-                        },
-                        "start": str(start),
-                        "stop": str(stop),
-                        "links": [
-                            {
-                                "link": str(planned_imaging_uuid),
-                                "link_mode": "by_uuid",
-                                "name": "ISP_COMPLETENESS",
-                                "back_ref": "PLANNED_IMAGING"
-                            }],
-                        "values": planning_event_values
-                    })
-                # end if
+                start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
+                stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
+
+                isp_planning_completeness_operation["events"].append({
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                        "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_" + channel,
+                        "system": satellite
+                    },
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
+                    "links": [
+                        {
+                            "link": str(planned_imaging_uuid),
+                            "link_mode": "by_uuid",
+                            "name": "ISP_COMPLETENESS",
+                            "back_ref": "PLANNED_IMAGING"
+                        }],
+                    "values": planning_event_values
+                })
             # end for
         # end for
 
@@ -876,8 +849,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "system": station
                 },
                 "links": links_isp_validity,
-                "start": str(start),
-                "stop": str(stop),
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
                 "values": [{
                     "name": "details",
                     "type": "object",
@@ -931,8 +904,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "system": satellite
                     },
                     "links": links_isp_completeness,
-                    "start": str(start),
-                    "stop": str(stop),
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
                     "values": [{
                         "name": "details",
                         "type": "object",
@@ -968,7 +941,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
     # end for
 
     # Insert completeness operation for the completeness analysis of the plan
-    if len(isp_planning_completeness_operation["events"]) > 0:
+    if len(isp_planning_completeness_operation["events"]) > 0:        
         isp_planning_completeness_event_starts = [event["start"] for event in isp_planning_completeness_operation["events"]]
         isp_planning_completeness_event_starts.sort()
         isp_planning_completeness_event_stops = [event["stop"] for event in isp_planning_completeness_operation["events"]]
@@ -1149,6 +1122,10 @@ def process_file(file_path, engine, query):
     # Build the xml
     data = {}
     data["operations"] = list_of_planning_operations
+
+    # Generate the footprint of the events
+    list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
+    
     data["operations"].append({
         "mode": "insert",
         "dim_signature": {
@@ -1158,7 +1135,7 @@ def process_file(file_path, engine, query):
         },
         "source": source,
         "explicit_references": list_of_explicit_references,
-        "events": list_of_events,
+        "events": list_of_events_with_footprint,
         "annotations": list_of_annotations
     })
 

@@ -91,7 +91,7 @@ class TestEngine(unittest.TestCase):
             'type': 'object',
             'name': 'details',
             'values': [{
-                "value": "2018-07-21 11:03:17.080882",
+                "value": "2018-07-21T11:03:17.080882",
                 "type": "timestamp",
                 "name": "cataloging_time"
                     }]
@@ -179,7 +179,7 @@ class TestEngine(unittest.TestCase):
             'type': 'object',
             'name': 'details',
             'values': [{
-                "value": "2018-07-21 11:02:36.601190",
+                "value": "2018-07-21T11:02:36.601190",
                 "type": "timestamp",
                 "name": "cataloging_time"
                     }]

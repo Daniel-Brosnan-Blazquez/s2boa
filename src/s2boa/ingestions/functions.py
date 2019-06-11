@@ -10,11 +10,129 @@ module eboa
 import math
 import datetime
 from dateutil import parser
+import subprocess
+import os
+from tempfile import mkstemp
+
+# Import astropy
+from astropy.time import Time
 
 import eboa.ingestion.functions as ingestion_functions
+import eboa.engine.functions as eboa_functions
+
+# Import eboa query
+from eboa.engine.query import Query
 
 # Import debugging
 from eboa.debugging import debug
+
+# Import logging
+from eboa.logging import Log
+import logging
+
+logger = Log().logger
+
+###########
+# Functions for helping with geometries
+###########
+def correct_list_of_coordinates_for_ds (list_of_coordinates):
+    """
+    Method to correct the format of a given list of coordinates for a datastrip
+    :param list_of_coordinates: list with coordinates
+    :type list_of_coordinates: list
+
+    :return: list_of_coordinates
+    :rtype: str
+
+    """
+    if type(list_of_coordinates) != list:
+        raise
+    # end if
+    result_list_of_coordinates = []
+    # Minimum accpeted number of coordinates is 2
+    if len(list_of_coordinates) > 1:
+        first_longitude = list_of_coordinates[0]
+        first_latitude = list_of_coordinates[1]
+        result_list_of_coordinates.append(first_longitude)
+        result_list_of_coordinates.append(first_latitude)
+        i = 1
+        while i < len(list_of_coordinates)/2:
+            longitude = list_of_coordinates[i*2]
+            if longitude == first_longitude:
+                break
+            elif ((i*2) + 1) < len(list_of_coordinates):
+                latitude = list_of_coordinates[(i*2) + 1]
+                result_list_of_coordinates.append(longitude)
+                result_list_of_coordinates.append(latitude)
+            # end if
+            i += 1
+        # end while
+        result_list_of_coordinates.append(first_longitude)
+        result_list_of_coordinates.append(first_latitude)
+    # end if
+        
+    return result_list_of_coordinates
+
+def correct_list_of_coordinates_for_gr_tl (list_of_coordinates):
+    """
+    Method to correct the format of a given list of coordinates for a granule or a tile
+    :param list_of_coordinates: list with coordinates
+    :type list_of_coordinates: list
+
+    :return: list_of_coordinates
+    :rtype: str
+
+    """
+    if type(list_of_coordinates) != list:
+        raise
+    # end if
+    result_list_of_coordinates = []
+    # Minimum accpeted number of coordinates is 2
+    if len(list_of_coordinates) > 1:
+        first_longitude = list_of_coordinates[0]
+        first_latitude = list_of_coordinates[1]
+        result_list_of_coordinates.append(first_longitude)
+        result_list_of_coordinates.append(first_latitude)
+        i = 1
+        while i < len(list_of_coordinates)/2:
+            longitude = list_of_coordinates[i*3]
+            if longitude == first_longitude:
+                break
+            elif ((i*3) + 1) < len(list_of_coordinates):
+                latitude = list_of_coordinates[(i*3) + 1]
+                result_list_of_coordinates.append(longitude)
+                result_list_of_coordinates.append(latitude)
+            # end if
+            i += 1
+        # end while
+        result_list_of_coordinates.append(first_longitude)
+        result_list_of_coordinates.append(first_latitude)
+    # end if
+        
+    return result_list_of_coordinates
+
+def list_of_coordinates_to_str_geometry (list_of_coordinates):
+    """
+    Method to receive a string of coordinates and return the same list but with a correct format
+    :param list_of_coordinates: list with coordinates
+    :type list_of_coordinates: list
+
+    :return: geometry
+    :rtype: str
+
+    """
+    result_geometry = ""
+    i = 0
+    for coordinate in list_of_coordinates:
+        if i == 0:
+            result_geometry = coordinate
+        else:
+            result_geometry = result_geometry + " " + coordinate
+        # end if
+        i += 1
+    # end for
+        
+    return result_geometry
 
 ###
 # Acquisition ingestion_functions.' helpers
@@ -42,7 +160,7 @@ def convert_from_gps_to_utc(date):
     else:
         correction = -16
 
-    return str(date_datetime + datetime.timedelta(seconds=correction))
+    return (date_datetime + datetime.timedelta(seconds=correction)).isoformat()
 
 # Uncomment for debugging reasons
 #@debug
@@ -509,47 +627,38 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "back_ref": "PLANNED_IMAGING"
             })
 
-            value = {
-                "name": "processing_completeness_" + level+ "_began",
-                "type": "object",
-                "values": []
-            }
-            exit_status = engine.insert_event_values(planned_imaging_uuid, value)
-            if exit_status["inserted"] == True:
+            planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
+            planning_processing_completeness_generation_time = planned_imaging_event[0].source.generation_time.isoformat()
 
-                planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-                planning_processing_completeness_generation_time = planned_imaging_event[0].source.generation_time.isoformat()
+            # Insert the linked COMPLETENESS event for the automatic completeness check
+            planning_event_values = corrected_planned_imaging.get_structured_values()
+            planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"}
+            ]
 
-                # Insert the linked COMPLETENESS event for the automatic completeness check
-                planning_event_values = corrected_planned_imaging.get_structured_values()
-                planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                    {"name": "status",
-                     "type": "text",
-                     "value": "MISSING"}
-                ]
+            # Add margin of 4 seconds to each side of the segment to avoid false alerts
+            start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
+            stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
 
-                # Add margin of 4 seconds to each side of the segment to avoid false alerts
-                start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
-                stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
-
-                planning_processing_completeness_operation["events"].append({
-                    "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                        "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level,
-                        "system": satellite
-                    },
-                    "start": start.isoformat(),
-                    "stop": stop.isoformat(),
-                    "links": [
-                        {
-                            "link": str(planned_imaging_uuid),
-                            "link_mode": "by_uuid",
-                            "name": "PROCESSING_COMPLETENESS",
-                            "back_ref": "PLANNED_IMAGING"
-                        }],
-                    "values": planning_event_values
-                })
-            # end if
+            planning_processing_completeness_operation["events"].append({
+                "gauge": {
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level,
+                    "system": satellite
+                },
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "links": [
+                    {
+                        "link": str(planned_imaging_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "PLANNED_IMAGING"
+                    }],
+                "values": planning_event_values
+            })
         # end if
 
         # Obtain ISP_VALIDITY events
@@ -585,47 +694,38 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "back_ref": "ISP_VALIDITY"
             })
 
-            value = {
-                "name": "received_imaging_completeness_" + level+ "_began",
-                "type": "object",
-                "values": []
-            }
-            exit_status = engine.insert_event_values(isp_validity_uuid, value)
-            if exit_status["inserted"] == True:
+            isp_validity_processing_completeness_generation_time = isp_validity.source.generation_time.isoformat()
 
-                isp_validity_processing_completeness_generation_time = isp_validity.source.generation_time.isoformat()
+            # Insert the linked COMPLETENESS event for the automatic completeness check
+            isp_validity_values = isp_validity.get_structured_values()
+            isp_validity_values[0]["values"] = [value for value in isp_validity_values[0]["values"] if value["name"] != "status"] + [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"}
+            ]
 
-                # Insert the linked COMPLETENESS event for the automatic completeness check
-                isp_validity_values = isp_validity.get_structured_values()
-                isp_validity_values[0]["values"] = [value for value in isp_validity_values[0]["values"] if value["name"] != "status"] + [
-                    {"name": "status",
-                     "type": "text",
-                     "value": "MISSING"}
-                ]
+            # Add margin of 6 second to each side of the segment to avoid false alerts
+            start = isp_validity.start + datetime.timedelta(seconds=6)
+            stop = isp_validity.stop - datetime.timedelta(seconds=6)
 
-                # Add margin of 6 second to each side of the segment to avoid false alerts
-                start = isp_validity.start + datetime.timedelta(seconds=6)
-                stop = isp_validity.stop - datetime.timedelta(seconds=6)
+            isp_validity_processing_completeness_operation["events"].append({
+                "gauge": {
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
+                    "system": satellite
+                },
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "links": [
+                    {
+                        "link": str(isp_validity_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "ISP_VALIDITY"
+                    }],
+                "values": isp_validity_values
+            })
 
-                isp_validity_processing_completeness_operation["events"].append({
-                    "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                        "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
-                        "system": satellite
-                    },
-                    "start": start.isoformat(),
-                    "stop": stop.isoformat(),
-                    "links": [
-                        {
-                            "link": str(isp_validity_uuid),
-                            "link_mode": "by_uuid",
-                            "name": "PROCESSING_COMPLETENESS",
-                            "back_ref": "ISP_VALIDITY"
-                        }],
-                    "values": isp_validity_values
-                })
-
-            # end if
         # end if
 
         links_planning_processing_completeness.append({
@@ -988,48 +1088,39 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "back_ref": "PLANNED_IMAGING"
             })
 
-            value = {
-                "name": "processing_completeness_" + level + "_began",
-                "type": "object",
-                "values": []
-            }
+            corrected_planned_imaging_uuid = [event_link.event_uuid_link for event_link in planned_imaging.eventLinks if event_link.name == "TIME_CORRECTION"][0]
+            corrected_planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [corrected_planned_imaging_uuid]})
 
-            exit_status = engine.insert_event_values(planned_imaging_uuid, value)
-            if exit_status["inserted"] == True:
-                corrected_planned_imaging_uuid = [event_link.event_uuid_link for event_link in planned_imaging.eventLinks if event_link.name == "TIME_CORRECTION"][0]
-                corrected_planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [corrected_planned_imaging_uuid]})
+            planning_processing_completeness_generation_time = planned_imaging.source.generation_time.isoformat()
 
-                planning_processing_completeness_generation_time = planned_imaging.source.generation_time.isoformat()
+            planning_event_values = planned_imaging.get_structured_values()
+            planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"}
+            ]
 
-                planning_event_values = planned_imaging.get_structured_values()
-                planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                    {"name": "status",
-                     "type": "text",
-                     "value": "MISSING"}
-                ]
+            # Add margin of 4 seconds to each side of the segment to avoid false alerts
+            start = corrected_planned_imaging_event[0].start + datetime.timedelta(seconds=4)
+            stop = corrected_planned_imaging_event[0].stop - datetime.timedelta(seconds=4)
 
-                # Add margin of 4 seconds to each side of the segment to avoid false alerts
-                start = corrected_planned_imaging_event[0].start + datetime.timedelta(seconds=4)
-                stop = corrected_planned_imaging_event[0].stop - datetime.timedelta(seconds=4)
-
-                planning_processing_completeness_operation["events"].append({
-                    "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                        "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level + "",
-                        "system": satellite
-                    },
-                    "start": start.isoformat(),
-                    "stop": stop.isoformat(),
-                    "links": [
-                        {
-                            "link": str(planned_imaging_uuid),
-                            "link_mode": "by_uuid",
-                            "name": "PROCESSING_COMPLETENESS",
-                            "back_ref": "PLANNED_IMAGING"
-                        }],
-                    "values": planning_event_values
-                })
-            # end if
+            planning_processing_completeness_operation["events"].append({
+                "gauge": {
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level + "",
+                    "system": satellite
+                },
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "links": [
+                    {
+                        "link": str(planned_imaging_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "PLANNED_IMAGING"
+                    }],
+                "values": planning_event_values
+            })
         # end if
 
         # Received Imaging Completeness
@@ -1057,47 +1148,38 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "back_ref": "ISP_VALIDITY"
             })
 
-            value = {
-                "name": "received_imaging_completeness_" + level+ "_began",
-                "type": "object",
-                "values": []
-            }
-            exit_status = engine.insert_event_values(isp_validity_uuid, value)
-            if exit_status["inserted"] == True:
+            isp_validity_processing_completeness_generation_time = isp_validity.source.generation_time.isoformat()
 
-                isp_validity_processing_completeness_generation_time = isp_validity.source.generation_time.isoformat()
+            # Insert the linked COMPLETENESS event for the automatic completeness check
+            isp_validity_values = isp_validity.get_structured_values()
+            isp_validity_values[0]["values"] = [value for value in isp_validity_values[0]["values"] if value["name"] != "status"] + [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"}
+            ]
 
-                # Insert the linked COMPLETENESS event for the automatic completeness check
-                isp_validity_values = isp_validity.get_structured_values()
-                isp_validity_values[0]["values"] = [value for value in isp_validity_values[0]["values"] if value["name"] != "status"] + [
-                    {"name": "status",
-                     "type": "text",
-                     "value": "MISSING"}
-                ]
+            # Add margin of 6 second to each side of the segment to avoid false alerts
+            start = isp_validity.start + datetime.timedelta(seconds=6)
+            stop = isp_validity.stop - datetime.timedelta(seconds=6)
 
-                # Add margin of 6 second to each side of the segment to avoid false alerts
-                start = isp_validity.start + datetime.timedelta(seconds=6)
-                stop = isp_validity.stop - datetime.timedelta(seconds=6)
+            isp_validity_processing_completeness_operation["events"].append({
+                "gauge": {
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
+                    "system": satellite
+                },
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "links": [
+                    {
+                        "link": str(isp_validity_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "ISP_VALIDITY"
+                    }],
+                "values": isp_validity_values
+            })
 
-                isp_validity_processing_completeness_operation["events"].append({
-                    "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                        "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
-                        "system": satellite
-                    },
-                    "start": start.isoformat(),
-                    "stop": stop.isoformat(),
-                    "links": [
-                        {
-                            "link": str(isp_validity_uuid),
-                            "link_mode": "by_uuid",
-                            "name": "PROCESSING_COMPLETENESS",
-                            "back_ref": "ISP_VALIDITY"
-                        }],
-                    "values": isp_validity_values
-                })
-
-            # end if
         # end if
 
         links_planning_processing_completeness.append({
@@ -1328,3 +1410,258 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
 
     return general_status
 # end def
+
+####
+# EOP CFI
+####
+def build_orbpre_file(start, stop, satellite, orbpre_events = None):
+    """
+    Method to generate an orbpre file from data inside the DDBB
+    """
+    
+    (_, orbpre_file_path) = mkstemp()
+
+    f= open(orbpre_file_path,"w+")
+
+    header = '''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+    <Earth_Explorer_File>
+    
+    <Earth_Explorer_Header>
+    <Fixed_Header>
+    <File_Name>{}_OPER_MPL_ORBPRE_{}_{}_0001</File_Name>
+    <File_Description>FOS Predicted Orbit File</File_Description>
+    <Notes></Notes>
+    <Mission>SENTINEL {}</Mission>
+    <File_Class>OPER</File_Class>
+    <File_Type>MPL_ORBPRE</File_Type>
+    <Validity_Period>
+    <Validity_Start>UTC={}</Validity_Start>
+    <Validity_Stop>UTC={}</Validity_Stop>
+    </Validity_Period>
+    <File_Version>0001</File_Version>
+    <Source>
+    <System>FOS</System>
+    <Creator>NAPEOS</Creator>
+    <Creator_Version>3.0</Creator_Version>
+    <Creation_Date>UTC={}</Creation_Date>
+    </Source>
+    </Fixed_Header>
+    <Variable_Header>
+    <Ref_Frame>EARTH_FIXED</Ref_Frame>
+    <Time_Reference>UTC</Time_Reference>
+    </Variable_Header>
+    </Earth_Explorer_Header>
+    '''.format(satellite, start, stop, satellite, start, stop, datetime.datetime.now().isoformat())
+
+    f.write(header)
+    
+    if orbpre_events == None:
+        query = Query()
+
+        stop_query = (parser.parse(stop) + datetime.timedelta(minutes=100)).isoformat()
+
+        orbpre_events = query.get_events(gauge_names = {"filter": "ORBIT_PREDICTION", "op": "like"},
+                                         start_filters = [{"date": stop_query, "op": "<"}],
+                                         stop_filters = [{"date": start, "op": ">"}],
+                                         value_filters = [{"name": {"str": "satellite", "op": "like"},
+                                                           "type": "text",
+                                                           "value": {"value": satellite, "op": "=="}}])
+
+        orbpre_events.sort(key=lambda x:x.start)
+
+        number_of_orbpre_events = len(orbpre_events)
+
+        datablock_begin = '''
+        <Data_Block type="xml">
+        <List_of_OSVs count="{}">
+        '''.format(number_of_orbpre_events)
+
+        f.write(datablock_begin)        
+
+        for event in orbpre_events:
+            tai = [value.value for value in event.eventTimestamps if value.name == "tai"][0].isoformat()
+            utc = event.start.isoformat()
+            ut1 = [value.value for value in event.eventTimestamps if value.name == "ut1"][0].isoformat()
+            orbit = [value.value for value in event.eventDoubles if value.name == "orbit"][0]
+            x = [value.value for value in event.eventDoubles if value.name == "x"][0]
+            y = [value.value for value in event.eventDoubles if value.name == "y"][0]
+            z = [value.value for value in event.eventDoubles if value.name == "z"][0]
+            vx = [value.value for value in event.eventDoubles if value.name == "vx"][0]
+            vy = [value.value for value in event.eventDoubles if value.name == "vy"][0]
+            vz = [value.value for value in event.eventDoubles if value.name == "vz"][0]
+            quality = [value.value for value in event.eventDoubles if value.name == "quality"][0]
+            osv = '''
+            <OSV>
+            <TAI>TAI={}</TAI>
+            <UTC>UTC={}</UTC>
+            <UT1>UT1={}</UT1>
+            <Absolute_Orbit>+{}</Absolute_Orbit>
+            <X unit="m">{}</X>
+            <Y unit="m">{}</Y>
+            <Z unit="m">{}</Z>
+            <VX unit="m/s">{}</VX>
+            <VY unit="m/s">{}</VY>
+            <VZ unit="m/s">{}</VZ>
+            <Quality>{}</Quality>
+            </OSV>
+            '''.format(tai, utc, ut1, orbit, x, y, z, vx, vy, vz, quality)
+            f.write(osv)        
+        # end for
+
+        query.close_session()
+    else:
+        number_of_orbpre_events = len(orbpre_events)
+
+        datablock_begin = '''
+        <Data_Block type="xml">
+        <List_of_OSVs count="{}">
+        '''.format(number_of_orbpre_events)
+
+        f.write(datablock_begin)        
+
+        for event in orbpre_events:
+            tai = [value["value"] for value in event["values"][0]["values"] if value["name"] == "tai"][0]
+            utc = event["start"]
+            ut1 = [value["value"] for value in event["values"][0]["values"] if value["name"] == "ut1"][0]
+            orbit = [value["value"] for value in event["values"][0]["values"] if value["name"] == "orbit"][0]
+            x = [value["value"] for value in event["values"][0]["values"] if value["name"] == "x"][0]
+            y = [value["value"] for value in event["values"][0]["values"] if value["name"] == "y"][0]
+            z = [value["value"] for value in event["values"][0]["values"] if value["name"] == "z"][0]
+            vx = [value["value"] for value in event["values"][0]["values"] if value["name"] == "vx"][0]
+            vy = [value["value"] for value in event["values"][0]["values"] if value["name"] == "vy"][0]
+            vz = [value["value"] for value in event["values"][0]["values"] if value["name"] == "vz"][0]
+            quality = [value["value"] for value in event["values"][0]["values"] if value["name"] == "quality"][0]
+            osv = '''
+            <OSV>
+            <TAI>TAI={}</TAI>
+            <UTC>UTC={}</UTC>
+            <UT1>UT1={}</UT1>
+            <Absolute_Orbit>+{}</Absolute_Orbit>
+            <X unit="m">{}</X>
+            <Y unit="m">{}</Y>
+            <Z unit="m">{}</Z>
+            <VX unit="m/s">{}</VX>
+            <VY unit="m/s">{}</VY>
+            <VZ unit="m/s">{}</VZ>
+            <Quality>{}</Quality>
+            </OSV>
+            '''.format(tai, utc, ut1, orbit, x, y, z, vx, vy, vz, quality)
+            f.write(osv)        
+        # end for        
+    # end if
+        
+    file_end = '''
+    </List_of_OSVs>
+    </Data_Block>
+    </Earth_Explorer_File>
+    '''
+
+    f.write(file_end)
+        
+    f.close()
+
+    return (number_of_orbpre_events, orbpre_file_path)
+
+def associate_footprints(events, satellite, orbpre_events = None):
+    FNULL = open(os.devnull, 'w')
+    
+    if not type(events) == list:
+        raise EventsStructureIncorrect("The parameter events has to be a list. Received events {}".format(events))
+    # end if
+
+    if len(events) == 0:
+        return []
+    # end if
+    
+    events_with_footprint = []
+    
+    t0 = Time("2000-01-01T00:00:00", format='isot', scale='utc')
+
+    swath_definition_file_path = eboa_functions.get_resources_path() + "/SDF_MSI.xml"
+
+    events.sort(key=lambda x:x["start"])    
+    
+    (number_of_orbpre_events, orbpre_file_path) = build_orbpre_file(events[0]["start"], events[-1]["stop"], satellite, orbpre_events)
+
+    if number_of_orbpre_events > 1:
+        for event in events:
+
+            if not type(event) == dict:
+                raise EventsStructureIncorrect("The items of the events list has to be a dict. Received item {}".format(event))
+            # end if
+
+            footprint_details = []
+            if "values" in event.keys() and len(event["values"]) == 1 and "values" in event["values"][0]:
+                footprint_details = [value for value in event["values"][0]["values"] if value["name"] == "footprint_details"]
+            # end if
+            event_with_footprint = event.copy()
+
+            if len(footprint_details) == 0:
+                start = Time(event["start"], format='isot', scale='utc')
+                stop = Time(event["stop"], format='isot', scale='utc')
+                start_mjd = start.mjd - t0.mjd
+                stop_mjd = stop.mjd - t0.mjd
+                # The footprint is created if the segment duration is less than 100 minutes (other segments are discarded as they are not interesting)
+                if (stop_mjd - start_mjd) < 0.0695:
+                    iterations = int(((stop_mjd - start_mjd) * 24 * 60 * 60) / 3.608) + 1
+                    if iterations > 200:
+                        iterations = 200
+                    # end if
+                    get_footprint_command = "get_footprint -b {} -e {} -o '{} {}' -s {} -n {}".format(start_mjd, stop_mjd, orbpre_file_path, orbpre_file_path, swath_definition_file_path, iterations)
+                    try:
+                        footprint = subprocess.check_output(get_footprint_command, shell=True, stderr=FNULL)
+
+                        # Prepare footprint
+                        footprint = footprint.decode("utf-8").replace(" \n", "").replace(",", " ")
+
+                        list_coordinates = footprint.split(" ")
+
+                        # Postgis (for at least version 2.5.1) accepts a minimum number of 8 coordinates for a polygon. So, when the number of coordinates is 4 they are just duplicated
+                        if len(list_coordinates) == 4:
+                            footprint = footprint + " " + list_coordinates[2] + " " + list_coordinates[3] + " " + list_coordinates[0] + " " + list_coordinates[1]
+                        else:
+                            footprint = footprint + " " + list_coordinates[0] + " " + list_coordinates[1]
+                        # end if
+                        if len(footprint) > 0:
+
+                            if not ("values" in event.keys() and len(event["values"]) == 1 and "values" in event["values"][0]):
+                                event_with_footprint["values"] = [{
+                                    "name": "details",
+                                    "type": "object",
+                                    "values": []
+                                }]
+                            # end if
+
+
+                            footprint_object = [{"name": "footprint",
+                                                 "type": "geometry",
+                                                 "value": footprint}]
+                            event_with_footprint["values"][0]["values"].append({
+                                "name": "footprint_details",
+                                "type": "object",
+                                "values": footprint_object
+                            })
+
+                            if logger.getEffectiveLevel() == logging.DEBUG:
+                                footprint_object.append({"name": "get_footprint_command",
+                                                         "type": "text",
+                                                         "value": get_footprint_command})
+                            # end if
+                        # end if
+                    except subprocess.CalledProcessError:
+                        logger.error("The footprint of the events could not be built because the command {} ended in error".format(get_footprint_command))
+                    # end if
+                # end if
+            # end if
+            events_with_footprint.append(event_with_footprint)
+
+        # end for
+    else:
+        events_with_footprint = events
+        logger.error("The footprint of the events could not be built because there is not enough orbit prediction information")
+    # end if
+#    os.remove(orbpre_file_path)
+
+    FNULL.close()
+    
+    return events_with_footprint

@@ -373,6 +373,10 @@ def process_file(file_path, engine, query):
         if source["validity_stop"] < event_stops[-1]:
             source["validity_stop"] = event_stops[-1]
         # end if
+
+        # Generate the footprint of the events
+        list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
+        
         list_of_operations.append({
             "mode": "insert",
             "dim_signature": {
@@ -383,7 +387,7 @@ def process_file(file_path, engine, query):
             "source": source,
             "annotations": list_of_annotations,
             "explicit_references": list_of_explicit_references,
-            "events": list_of_events,
+            "events": list_of_events_with_footprint,
             })
 
      # end if

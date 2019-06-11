@@ -79,7 +79,7 @@ class TestEngine(unittest.TestCase):
             'name': 'details',
             'values': [{'type': 'timestamp',
                 'name': 'long_term_archiving_time',
-                'value': '2018-07-21 01:00:10'
+                'value': '2018-07-21T01:00:10'
                 }]
         }]
 

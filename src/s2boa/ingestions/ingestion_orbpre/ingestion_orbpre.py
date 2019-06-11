@@ -19,6 +19,7 @@ from lxml import etree, objectify
 
 # Import ingestion_functions.helpers
 import eboa.ingestion.functions as ingestion_functions
+import s2boa.ingestions.functions as functions
 
 # Import debugging
 from eboa.debugging import debug
@@ -126,8 +127,8 @@ def _correct_planning_events(orbpre_events, planning_events):
                 "name": "TIME_CORRECTION",
                 "back_ref": "PLANNED_EVENT"
             }],
-            "start": str(corrected_start),
-            "stop": str(corrected_stop),
+            "start": corrected_start.isoformat(),
+            "stop": corrected_stop.isoformat(),
             "values": planning_event_values
         }
 
@@ -187,6 +188,8 @@ def _generate_orbpre_events(xpath_xml, source, list_of_events):
         # end if
         i += 1
 
+        tai = orbpre_record.xpath("TAI")[0].text.split("=")[1]
+        ut1 = orbpre_record.xpath("UT1")[0].text.split("=")[1]
         orbit = int(orbpre_record.xpath("Absolute_Orbit")[0].text)
         x = orbpre_record.xpath("X")[0].text
         y = orbpre_record.xpath("Y")[0].text
@@ -194,6 +197,7 @@ def _generate_orbpre_events(xpath_xml, source, list_of_events):
         vx = orbpre_record.xpath("VX")[0].text
         vy = orbpre_record.xpath("VY")[0].text
         vz = orbpre_record.xpath("VZ")[0].text
+        quality = orbpre_record.xpath("Quality")[0].text
 
         # Orbit predicted event
         orbpre_event = {
@@ -209,6 +213,12 @@ def _generate_orbpre_events(xpath_xml, source, list_of_events):
                 "name": "orbit_information",
                 "type": "object",
                 "values": [
+                    {"name": "tai",
+                     "type": "timestamp",
+                     "value": tai},
+                    {"name": "ut1",
+                     "type": "timestamp",
+                     "value": ut1},
                     {"name": "orbit",
                      "type": "double",
                      "value": str(orbit)},
@@ -232,7 +242,10 @@ def _generate_orbpre_events(xpath_xml, source, list_of_events):
                      "value": vz},
                     {"name": "satellite",
                      "type": "text",
-                     "value": satellite}
+                     "value": satellite},
+                    {"name": "quality",
+                     "type": "double",
+                     "value": quality}
                 ]
             }]
         }
@@ -283,6 +296,9 @@ def process_file(file_path, engine, query):
     # Generate corrected planning events
     corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query)
 
+    # Generate the footprint of the events
+    corrected_planning_events_with_footprint = functions.associate_footprints(corrected_planning_events, satellite, list_of_events)
+    
     # Build the xml
     data = {"operations": [{
         "mode": "insert",
@@ -302,7 +318,7 @@ def process_file(file_path, engine, query):
             "version": version
         },
         "source": source,
-        "events": corrected_planning_events
+        "events": corrected_planning_events_with_footprint
     }]}
 
     os.remove(new_file_path)

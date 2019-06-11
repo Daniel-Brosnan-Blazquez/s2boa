@@ -80,6 +80,16 @@ class TestEngine(unittest.TestCase):
             "type": "object",
             "values": [
                 {
+                    "name": "tai",
+                    "type": "timestamp",
+                    "value": "2018-07-21T09:51:28.776833"
+                },
+                {
+                    "name": "ut1",
+                    "type": "timestamp",
+                    "value": "2018-07-21T09:50:51.845800"
+                },
+                {
                     "name": "orbit",
                     "type": "double",
                     "value": "16078.0"
@@ -118,12 +128,25 @@ class TestEngine(unittest.TestCase):
                     "name": "satellite",
                     "type": "text",
                     "value": "S2A"
+                },
+                {
+                    "name": "quality",
+                    "type": "double",
+                    "value": "0.0"
                 }
             ]            
         }]
 
     def test_obrpre_with_plan(self):
 
+        previous_logging_level = None
+        if "EBOA_LOG_LEVEL" in os.environ:
+            previous_logging_level = os.environ["EBOA_LOG_LEVEL"]
+        # end if
+
+        # Set log level to INFO to avoid the value get_footprint_command
+        os.environ["EBOA_LOG_LEVEL"] = "INFO"
+        
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
@@ -171,8 +194,8 @@ class TestEngine(unittest.TestCase):
         assert len(events) == 8
 
         #Check definite event
-        definite_event = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN_CORRECTION", "op": "like"},
-                                                    start_filters = [{"date": "2018-07-21T10:12:51.322615", "op": "=="}])
+        definite_event = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "like"},
+                                                    start_filters = [{"date": "2018-07-21T10:37:19.534390", "op": "=="}])
 
         assert definite_event[0].get_structured_values() == [{
             "name": "details",
@@ -181,12 +204,12 @@ class TestEngine(unittest.TestCase):
                 {
                     "name": "start_request",
                     "type": "text",
-                    "value": "MPXBSBOP"
+                    "value": "MPMMPBSA"
                 },
                 {
                     "name": "stop_request",
                     "type": "text",
-                    "value": "MPXBOPSB"
+                    "value": "MPMMPBSA"
                 },
                 {
                     "name": "start_orbit",
@@ -196,7 +219,7 @@ class TestEngine(unittest.TestCase):
                 {
                     "name": "start_angle",
                     "type": "double",
-                    "value": "78.863"
+                    "value": "166.2002"
                 },
                 {
                     "name": "stop_orbit",
@@ -206,7 +229,7 @@ class TestEngine(unittest.TestCase):
                 {
                     "name": "stop_angle",
                     "type": "double",
-                    "value": "168.1295"
+                    "value": "166.2002"
                 },
                 {
                     "name": "satellite",
@@ -219,6 +242,22 @@ class TestEngine(unittest.TestCase):
                     "value": "XBAND"
                 },
                 {
+                    "name": "playback_type",
+                    "type": "text",
+                    "value": "SAD"
+                },
+                {
+                    "name": "parameters",
+                    "type": "object",
+                    "values": [
+                        {
+                            "name": "MEM_FREE",
+                            "type": "double",
+                            "value": "0.0"
+                        }
+                    ]
+                },
+                {
                     "name": "status_correction",
                     "type": "text",
                     "value": "TIME_CORRECTED"
@@ -226,12 +265,29 @@ class TestEngine(unittest.TestCase):
                 {
                     "name": "delta_start",
                     "type": "double",
-                    "value": "-4.891615"
+                    "value": "-5.10339"
                 },
                 {
                     "name": "delta_stop",
                     "type": "double",
-                    "value": "-5.111649"
+                    "value": "-5.10339"
+                },
+                {
+                    "name": "footprint_details",
+                    "type": "object",
+                    "values": [
+                        {
+                            "name": "footprint",
+                            "type": "geometry",
+                            "value": "POLYGON ((1.562179 13.283699, -1.035809 13.852637, -1.035809 13.852637, 1.562179 13.283699))"
+                        }
+                    ]
                 }
             ]
         }]
+
+        if previous_logging_level:
+            os.environ["EBOA_LOG_LEVEL"] = previous_logging_level
+        else:
+            del os.environ["EBOA_LOG_LEVEL"]
+        # end if

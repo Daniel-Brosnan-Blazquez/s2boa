@@ -79,7 +79,7 @@ class TestEngine(unittest.TestCase):
             'name': 'details',
             'values': [{'type': 'timestamp',
                 'name': 'dhus_dissemination_time',
-                'value': '2018-07-21 08:54:48'
+                'value': '2018-07-21T08:54:48'
                 }]
         }]
 

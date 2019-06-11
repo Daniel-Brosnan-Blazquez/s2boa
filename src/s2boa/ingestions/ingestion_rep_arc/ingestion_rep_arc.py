@@ -139,12 +139,12 @@ def process_file(file_path, engine, query):
             list_of_lat_long_coordinates.remove("")
         # end if
         if "_DS_" in item_id:
-            corrected_list_of_coordinates = list(reversed(ingestion_functions.correct_list_of_coordinates_for_ds(list_of_lat_long_coordinates)))
+            corrected_list_of_coordinates = list(reversed(functions.correct_list_of_coordinates_for_ds(list_of_lat_long_coordinates)))
         else:
-            corrected_list_of_coordinates = list(reversed(ingestion_functions.correct_list_of_coordinates_for_gr_tl(list_of_lat_long_coordinates)))
+            corrected_list_of_coordinates = list(reversed(functions.correct_list_of_coordinates_for_gr_tl(list_of_lat_long_coordinates)))
         # end if
 
-        corrected_footprint = ingestion_functions.list_of_coordinates_to_str_geometry(corrected_list_of_coordinates)
+        corrected_footprint = functions.list_of_coordinates_to_str_geometry(corrected_list_of_coordinates)
         if corrected_footprint != "":
             footprint_annotation = {
             "explicit_reference": item_id,
@@ -389,6 +389,9 @@ def process_file(file_path, engine, query):
             source_processing["validity_stop"] = event_stops[-1]
         # end if
 
+        # Generate the footprint of the events
+        list_of_events_for_processing_with_footprint = functions.associate_footprints(list_of_events_for_processing, satellite)
+
         list_of_operations.append({
             "mode": "insert",
             "dim_signature": {
@@ -399,7 +402,7 @@ def process_file(file_path, engine, query):
             "source": source_processing,
             "annotations": list_of_annotations_for_processing,
             "explicit_references": list_of_explicit_references_for_processing,
-            "events": list_of_events_for_processing
+            "events": list_of_events_for_processing_with_footprint
         })
     # end if
 

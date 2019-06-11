@@ -214,8 +214,8 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                             "name": "PLAYBACK_COMPLETENESS",
                             "back_ref": "PLAYBACK_VALIDITY"
                         }],
-                    "start": str(planned_playback.start),
-                    "stop": str(planned_playback.stop),
+                    "start": planned_playback.start.isoformat(),
+                    "stop": planned_playback.stop.isoformat(),
                     "values": [{
                         "name": "details",
                         "type": "object",
@@ -370,7 +370,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Sort list
         sensing_stops_in_iso_8601.sort()
         sensing_stop = sensing_stops_in_iso_8601[-1]
-        corrected_sensing_stop = str(parser.parse(functions.convert_from_gps_to_utc(sensing_stop)) + datetime.timedelta(seconds=3.608))
+        corrected_sensing_stop = (parser.parse(functions.convert_from_gps_to_utc(sensing_stop)) + datetime.timedelta(seconds=3.608)).isoformat()
 
         # APID configuration
         apid_conf = functions.get_vcid_apid_configuration(vcid_number)
@@ -715,42 +715,34 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # If there are found planned imaging events, the MSI will be linked to the plan and its segment will be removed from the completeness
         if len(corrected_planned_imagings) > 0:
             for corrected_planned_imaging in corrected_planned_imagings:
-                value = {
-                    "name": "isp_completeness_began_channel_" + channel,
-                    "type": "object",
-                    "values": []
-                }
                 planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
-                exit_status = engine.insert_event_values(planned_imaging_uuid, value)
-                if exit_status["inserted"] == True:
-                    planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-                    isp_planning_completeness_generation_times.append(planned_imaging_event[0].source.generation_time)
-                    # Insert the linked COMPLETENESS event for the automatic completeness check
-                    planning_event_values = corrected_planned_imaging.get_structured_values()
-                    planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                        {"name": "status",
-                         "type": "text",
-                         "value": "MISSING"}
-                    ]
+                planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
+                isp_planning_completeness_generation_times.append(planned_imaging_event[0].source.generation_time)
+                # Insert the linked COMPLETENESS event for the automatic completeness check
+                planning_event_values = corrected_planned_imaging.get_structured_values()
+                planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"}
+                ]
 
-                    isp_planning_completeness_operation["events"].append({
-                        "gauge": {
-                            "insertion_type": "SIMPLE_UPDATE",
-                            "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_" + channel,
-                            "system": satellite
-                        },
-                        "start": str(corrected_planned_imaging.start),
-                        "stop": str(corrected_planned_imaging.stop),
-                        "links": [
-                            {
-                                "link": str(planned_imaging_uuid),
-                                "link_mode": "by_uuid",
-                                "name": "ISP_COMPLETENESS",
-                                "back_ref": "PLANNED_IMAGING"
-                            }],
-                        "values": planning_event_values
-                    })
-                # end if
+                isp_planning_completeness_operation["events"].append({
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                        "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_" + channel,
+                        "system": satellite
+                    },
+                    "start": corrected_planned_imaging.start.isoformat(),
+                    "stop": corrected_planned_imaging.stop.isoformat(),
+                    "links": [
+                        {
+                            "link": str(planned_imaging_uuid),
+                            "link_mode": "by_uuid",
+                            "name": "ISP_COMPLETENESS",
+                            "back_ref": "PLANNED_IMAGING"
+                        }],
+                    "values": planning_event_values
+                })
             # end for
 
             # Build the ISP_VALIDITY events
@@ -812,8 +804,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "system": "EDRS"
                     },
                     "links": links,
-                    "start": str(isp_validity_valid_segment["start"]),
-                    "stop": str(isp_validity_valid_segment["stop"]),
+                    "start": isp_validity_valid_segment["start"].isoformat(),
+                    "stop": isp_validity_valid_segment["stop"].isoformat(),
                     "values": [{
                         "name": "details",
                         "type": "object",
@@ -874,8 +866,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                             "name": "COMPLETENESS",
                             "back_ref": "ISP_VALIDITY"
                         }],
-                    "start": str(isp_validity_valid_segment["start"]),
-                    "stop": str(isp_validity_valid_segment["stop"]),
+                    "start": isp_validity_valid_segment["start"].isoformat(),
+                    "stop": isp_validity_valid_segment["stop"].isoformat(),
                     "values": [{
                         "name": "details",
                         "type": "object",
@@ -926,9 +918,9 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         isp_planning_completeness_operation["source"] = {
             "name": source["name"],
-            "generation_time": str(generation_time),
-            "validity_start": str(isp_planning_completeness_event_starts[0]),
-            "validity_stop": str(isp_planning_completeness_event_stops[-1])
+            "generation_time": generation_time.isoformat(),
+            "validity_start": isp_planning_completeness_event_starts[0],
+            "validity_stop": isp_planning_completeness_event_stops[-1]
         }
 
         list_of_planning_operations.append(isp_planning_completeness_operation)
@@ -1104,6 +1096,10 @@ def process_file(file_path, engine, query):
     # Build the xml
     data = {}
     data["operations"] = list_of_planning_operations
+
+    # Generate the footprint of the events
+    list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
+    
     data["operations"].append({
         "mode": "insert",
         "dim_signature": {
@@ -1113,7 +1109,7 @@ def process_file(file_path, engine, query):
         },
         "source": source,
         "explicit_references": list_of_explicit_references,
-        "events": list_of_events,
+        "events": list_of_events_with_footprint,
         "annotations": list_of_annotations
     })
 
