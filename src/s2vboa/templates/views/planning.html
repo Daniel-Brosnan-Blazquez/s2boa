@@ -370,6 +370,20 @@
           </tfoot>
         </table>
       </div>
+      {% if show["map"] %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Map of footprints related to the planned imagings
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+          <div id="planned-imagings-map">
+          </div>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+      <!-- /.panel -->
+      {% endif %}      
       {% endif %}
     </div>
     <!-- /.panel-body -->
@@ -672,6 +686,21 @@
           </tr>
         </tfoot>
       </table>
+      <br/>
+      {% if show["map"] %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Map of footprints related to the planned playbacks
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+          <div id="planned-playbacks-map">
+          </div>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+      <!-- /.panel -->
+      {% endif %}
       {% endif %}
     </div>
     <!-- /.panel-body -->
@@ -766,5 +795,25 @@
   vboa.display_x_time("playback-x-time-evolution", items, groups, options);
 
   {% endif %}
+  
+  {% if show["map"] and planning_events["imaging"]["prime_events"]|length > 0 %}
+
+  {% with events = planning_events["imaging"]["prime_events"] %}
+  {% include "js/imaging_planning_to_map.js" %}
+  {% endwith %}
+  var polygons = [];
+  vboa.prepare_events_geometries_for_map(imaging_geometries, polygons);
+  vboa.display_map("planned-imagings-map", polygons);  
+
+  {% with events = planning_events["playback"]["prime_events"] %}
+  {% include "js/playback_planning_to_map.js" %}
+  {% endwith %}
+  var polygons = [];
+  vboa.prepare_events_geometries_for_map(playback_geometries, polygons);
+  vboa.display_map("planned-playbacks-map", polygons);  
+
+  
+  {% endif %}
+  
 </script>
 {% endblock %}

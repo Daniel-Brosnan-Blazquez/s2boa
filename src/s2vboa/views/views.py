@@ -187,12 +187,16 @@ def show_planning():
 
     planning_events = query_planning_events(start_filter, stop_filter, mission)
 
+    imaging_geometries = [{"event": event, "geometries": engine.geometries_to_wkt(event.eventGeometries)} for event in planning_events["imaging"]["prime_events"] if len(event.eventGeometries) > 0]
+
+    playback_geometries = [{"event": event, "geometries": engine.geometries_to_wkt(event.eventGeometries)} for event in planning_events["playback"]["prime_events"] if len(event.eventGeometries) > 0]    
+    
     orbpre_events = query_orbpre_events(start_filter, stop_filter, mission)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop)
+    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, imaging_geometries=imaging_geometries, playback_geometries=playback_geometries)
 
 def query_planning_events(start_filter = None, stop_filter = None, mission = None):
     """
