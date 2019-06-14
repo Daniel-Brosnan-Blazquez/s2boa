@@ -49,7 +49,7 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 2
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
+                                                       validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
                                                        generation_time_filters = [{"date": "2018-07-20T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
@@ -58,7 +58,7 @@ class TestEngine(unittest.TestCase):
         assert len(definite_source1) == 1
 
         definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
+                                                       validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
                                                        generation_time_filters = [{"date": "2018-07-20T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
@@ -167,7 +167,7 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 3
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
+                                                       validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
                                                        generation_time_filters = [{"date": "2018-07-20T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
@@ -176,7 +176,7 @@ class TestEngine(unittest.TestCase):
         assert len(definite_source1) == 1
 
         definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
+                                                       validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
                                                        generation_time_filters = [{"date": "2018-07-20T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
