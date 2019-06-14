@@ -59,35 +59,12 @@ def query_orbpre_events(start_filter = None, stop_filter = None, mission = None)
 
     return events
 
-@bp.route("/planning", methods=["GET", "POST"])
-def show_planning():
-    """
-    Planning view for the Sentinel-2 mission.
-    """
-    current_app.logger.debug("Planning view")
+def get_start_stop_filters(window_size):
 
-    # Initialize reporting period (today - 2 days, today + 5 days)
-    start_filter = {
-        "date": (parser.parse(datetime.datetime.today().strftime("%Y-%m-%d")) - datetime.timedelta(days=2)).isoformat(),
-        "operator": "<"
-    }
-    stop_filter = {
-        "date": (parser.parse(datetime.datetime.today().strftime("%Y-%m-%d")) - datetime.timedelta(days=5)).isoformat(),
-        "operator": ">"
-    }
-    mission = "S2_"
-
-    show = {}
-    show["timeline"]=True
-    show["x_time"]=True
-    show["table_details"]=True
-    show["map"]=True
-
+    start_filter = None
+    stop_filter = None
+    
     if request.method == "POST":
-
-        if request.form["mission"] != "":
-            mission = request.form["mission"]
-        # end if
 
         if request.form["start"] != "":
             stop_filter = {
@@ -96,7 +73,7 @@ def show_planning():
             }
             if request.form["stop"] == "":
                 start_filter = {
-                    "date": (parser.parse(request.form["start"]) + datetime.timedelta(days=5)).isoformat(),
+                    "date": (parser.parse(request.form["start"]) + datetime.timedelta(days=window_size)).isoformat(),
                     "operator": "<"
                 }
             # end if            
@@ -120,7 +97,7 @@ def show_planning():
             # end if
             if len(orbpre_events) > 0 and request.form["stop_orbit"] == "":
                 start_filter = {
-                    "date": (orbpre_event.start + datetime.timedelta(days=5)).isoformat(),
+                    "date": (orbpre_event.start + datetime.timedelta(days=window_size)).isoformat(),
                     "operator": "<"
                 }
             # end if
@@ -133,7 +110,7 @@ def show_planning():
             }
             if request.form["start"] == "":
                 stop_filter = {
-                    "date": (parser.parse(request.form["stop"]) - datetime.timedelta(days=5)).isoformat(),
+                    "date": (parser.parse(request.form["stop"]) - datetime.timedelta(days=window_size)).isoformat(),
                     "operator": ">"
                 }
             # end if
@@ -157,12 +134,153 @@ def show_planning():
             # end if
             if len(orbpre_events) > 0 and request.form["start_orbit"] == "":
                 stop_filter = {
-                    "date": (orbpre_event.stop - datetime.timedelta(days=5)).isoformat(),
+                    "date": (orbpre_event.stop - datetime.timedelta(days=window_size)).isoformat(),
                     "operator": ">"
                 }
             # end if
         # end if
 
+    # end if
+
+    return start_filter, stop_filter
+
+
+@bp.route("/planning", methods=["GET", "POST"])
+def show_planning():
+    """
+    Planning view for the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Planning view")
+
+    # Initialize reporting period (now - 2 days, now + 5 days)
+    start_filter = {
+        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) + datetime.timedelta(days=5)).isoformat(),
+        "operator": "<"
+    }
+    stop_filter = {
+        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=2)).isoformat(),
+        "operator": ">"
+    }
+    mission = "S2_"
+
+    show = {}
+    define_what_to_show_planning(show)
+
+    start_filter_calculated, stop_filter_calculated = get_start_stop_filters(7)
+
+    if start_filter_calculated != None:
+        start_filter = start_filter_calculated
+    # end if
+
+    if stop_filter_calculated != None:
+        stop_filter = stop_filter_calculated
+    # end if
+
+    if request.method == "POST":
+
+        if request.form["mission"] != "":
+            mission = request.form["mission"]
+        # end if
+        
+    # end if
+
+    return query_planning_and_render(start_filter, stop_filter, mission, show)
+
+@bp.route("/sliding-planning-parameters", methods=["GET", "POST"])
+def show_sliding_planning_parameters():
+    """
+    Planning view for the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Sliding planning view with parameters")
+
+    window_delay = float(request.args.get("window_delay"))
+    window_size = float(request.args.get("window_size"))
+    repeat_cycle = float(request.args.get("repeat_cycle"))
+    mission = request.args.get("mission")
+
+    show = {}
+    define_what_to_show_planning(show)
+
+    start_filter = {
+        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=window_delay)).isoformat(),
+        "operator": "<"
+    }
+    stop_filter = {
+        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
+        "operator": ">"
+    }
+
+    sliding_window = {
+        "window_delay": window_delay,
+        "window_size": window_size,
+        "repeat_cycle": repeat_cycle,
+        "mission": mission
+    }
+
+    return query_planning_and_render(start_filter, stop_filter, mission, show, sliding_window)
+    
+@bp.route("/sliding-planning", methods=["GET", "POST"])
+def show_sliding_planning():
+    """
+    Planning view for the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Sliding planning view")
+
+    window_delay=-5
+    window_size=7
+    repeat_cycle=1
+    
+    mission = "S2_"
+
+    show = {}
+    define_what_to_show_planning(show)
+
+    if request.method == "POST":
+
+        if request.form["mission"] != "":
+            mission = request.form["mission"]
+        # end if
+
+        if request.form["planning_window_delay"] != "":
+            window_delay = request.form["planning_window_delay"]
+        # end if
+
+        if request.form["planning_window_size"] != "":
+            window_size = request.form["planning_window_size"]
+        # end if
+
+        if request.form["planning_repeat_cycle"] != "":
+            repeat_cycle = request.form["planning_repeat_cycle"]
+        # end if
+
+    # end if
+
+    start_filter = {
+        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=window_delay)).isoformat(),
+        "operator": "<"
+    }
+    stop_filter = {
+        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
+        "operator": ">"
+    }
+
+    sliding_window = {
+        "window_delay": window_delay,
+        "window_size": window_size,
+        "repeat_cycle": repeat_cycle,
+        "mission": mission
+    }
+
+    return query_planning_and_render(start_filter, stop_filter, mission, show, sliding_window)
+
+def define_what_to_show_planning(show):
+
+    show["timeline"]=True
+    show["x_time"]=True
+    show["table_details"]=True
+    show["map"]=True
+
+    if request.method == "POST":
         if not "show_planning_timeline" in request.form:
             show["timeline"] = False
         else:
@@ -184,6 +302,8 @@ def show_planning():
             show["map"]=True
         # end if
     # end if
+    
+def query_planning_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None):
 
     planning_events = query_planning_events(start_filter, stop_filter, mission)
 
@@ -192,7 +312,7 @@ def show_planning():
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop)
+    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window)
 
 def query_planning_events(start_filter = None, stop_filter = None, mission = None):
     """
