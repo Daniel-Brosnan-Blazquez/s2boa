@@ -30,7 +30,8 @@ from eboa.debugging import debug
 from eboa.logging import Log
 import logging
 
-logger = Log().logger
+logging_module = Log(name = __name__)
+logger = logging_module.logger
 
 ###########
 # Functions for helping with geometries

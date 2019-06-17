@@ -28,7 +28,7 @@ from eboa.debugging import debug
 # Import logging
 from eboa.logging import Log
 
-logging_module = Log()
+logging_module = Log(name = __name__)
 logger = logging_module.logger
 
 version = "1.0"
