@@ -59,7 +59,7 @@ def query_orbpre_events(start_filter = None, stop_filter = None, mission = None)
 
     return events
 
-def get_start_stop_filters(window_size):
+def get_start_stop_filters(window_size, mission):
 
     start_filter = None
     stop_filter = None
@@ -154,11 +154,11 @@ def show_planning():
 
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
-        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) + datetime.timedelta(days=5)).isoformat(),
+        "date": (datetime.datetime.now() + datetime.timedelta(days=5)).isoformat(),
         "operator": "<"
     }
     stop_filter = {
-        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=2)).isoformat(),
+        "date": (datetime.datetime.now() - datetime.timedelta(days=2)).isoformat(),
         "operator": ">"
     }
     mission = "S2_"
@@ -166,7 +166,7 @@ def show_planning():
     show = {}
     define_what_to_show_planning(show)
 
-    start_filter_calculated, stop_filter_calculated = get_start_stop_filters(7)
+    start_filter_calculated, stop_filter_calculated = get_start_stop_filters(7, mission)
 
     if start_filter_calculated != None:
         start_filter = start_filter_calculated
@@ -202,11 +202,11 @@ def show_sliding_planning_parameters():
     define_what_to_show_planning(show)
 
     start_filter = {
-        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=window_delay)).isoformat(),
+        "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
         "operator": "<"
     }
     stop_filter = {
-        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
+        "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
         "operator": ">"
     }
 
@@ -256,11 +256,11 @@ def show_sliding_planning():
     # end if
 
     start_filter = {
-        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=window_delay)).isoformat(),
+        "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
         "operator": "<"
     }
     stop_filter = {
-        "date": (parser.parse(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")) - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
+        "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
         "operator": ">"
     }
 
