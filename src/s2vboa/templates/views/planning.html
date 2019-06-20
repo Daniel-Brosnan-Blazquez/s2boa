@@ -286,8 +286,8 @@
         <div>
           <h4><u>{{ title[0] }}</u></h4>
         </div>
-        {% set reporting_orbits = orbpre|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
-        {% set used_orbits = imaging|map(attribute="eventDoubles")|selectattr_map("name", "==", "start_orbit")|map(attribute="value")|unique|list %}
+        {% set reporting_orbits = orbpre|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "orbit")|map(attribute="value")|unique|list %}
+        {% set used_orbits = imaging|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|unique|list %}
         {% if unit != "S2" %}
         <p>
           <b>Orbits covered by the reporting period:</b> <br/>
@@ -511,8 +511,8 @@
         <div>
           <h4><u>{{ title[0] }}</u></h4>
         </div>
-        {% set reporting_orbits = orbpre|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
-        {% set used_orbits = playback|map(attribute="eventDoubles")|selectattr_map("name", "==", "start_orbit")|map(attribute="value")|unique|list %}
+        {% set reporting_orbits = orbpre|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "orbit")|map(attribute="value")|unique|list %}
+        {% set used_orbits = playback|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|unique|list %}
         {% if unit != "S2" %}
         <p>
           <b>Orbits covered by the reporting period:</b> <br/>
@@ -542,7 +542,7 @@
           </tr>
           {% set playback_by_station = playback|events_group_by_text_value("station") %}
           {% for station in playback_by_station %}
-          {% set used_orbits = playback_by_station[station]|map(attribute="eventDoubles")|selectattr_map("name", "==", "start_orbit")|map(attribute="value")|unique|list %}
+          {% set used_orbits = playback_by_station[station]|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|unique|list %}
           <tr>
             <td class="highlight">{{ station }}</td>
 

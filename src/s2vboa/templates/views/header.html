@@ -9,7 +9,7 @@
     <!-- /.panel-heading -->
     <div class="panel-body">
       {% for unit in orbpre_by_units|list|sort %}
-      {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|selectattr_map("name", "==", "orbit")|map(attribute="value")|unique|list %}
+      {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "orbit")|map(attribute="value")|unique|list %}
       <div>
         <h3><u>Reporting period details for mission {{ unit }}</u></h3>
       </div>
