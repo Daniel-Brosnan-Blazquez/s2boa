@@ -186,7 +186,7 @@ def show_planning():
 
     return query_planning_and_render(start_filter, stop_filter, mission, show)
 
-@bp.route("/sliding-planning-parameters", methods=["GET", "POST"])
+@bp.route("/sliding_planning_parameters", methods=["GET", "POST"])
 def show_sliding_planning_parameters():
     """
     Planning view for the Sentinel-2 mission.
@@ -219,7 +219,7 @@ def show_sliding_planning_parameters():
 
     return query_planning_and_render(start_filter, stop_filter, mission, show, sliding_window)
     
-@bp.route("/sliding-planning", methods=["GET", "POST"])
+@bp.route("/sliding_planning", methods=["GET", "POST"])
 def show_sliding_planning():
     """
     Planning view for the Sentinel-2 mission.

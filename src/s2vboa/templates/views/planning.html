@@ -67,7 +67,7 @@
             </form>
           </div>
           <div class="tab-pane" id="planning-sliding-window">          
-            <form role="form" method=post action="/views/sliding-planning">            
+            <form role="form" method=post action="/views/sliding_planning">            
               <div>
                 <!-- Default values message -->
                 <div class="row">
@@ -886,7 +886,7 @@
   "mission": "{{ sliding_window['mission'] }}"
   }
   var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
-  vboa.update_view(parameters, repeat_cycle, "/views/sliding-planning-parameters");
+  vboa.update_view(parameters, repeat_cycle, "/views/sliding_planning_parameters");
   {% endif %}
   
 </script>
