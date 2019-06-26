@@ -1470,6 +1470,8 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
 
         orbpre_events.sort(key=lambda x:x.start)
 
+        logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0].start.isoformat(), orbpre_events[-1].start.isoformat()))
+        
         number_of_orbpre_events = len(orbpre_events)
 
         datablock_begin = '''
@@ -1520,6 +1522,8 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
 
         f.write(datablock_begin)        
 
+        logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0]["start"], orbpre_events[-1]["start"]))
+        
         for event in orbpre_events:
             tai = [value["value"] for value in event["values"][0]["values"] if value["name"] == "tai"][0]
             utc = event["start"]
@@ -1563,6 +1567,8 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
 
     return (number_of_orbpre_events, orbpre_file_path)
 
+# Uncomment for debugging reasons
+# @debug
 def associate_footprints(events, satellite, orbpre_events = None):
     FNULL = open(os.devnull, 'w')
     
@@ -1571,8 +1577,12 @@ def associate_footprints(events, satellite, orbpre_events = None):
     # end if
 
     if len(events) == 0:
+        logger.debug("There are no events for associating footprints")
         return []
     # end if
+    logger.debug("There are {} events for associating footprints".format(len(events)))
+
+    logger.debug("The events for associating footprints cover from {} to {}".format(events[0]["start"], events[-1]["stop"]))
     
     events_with_footprint = []
     
@@ -1651,6 +1661,8 @@ def associate_footprints(events, satellite, orbpre_events = None):
                     except subprocess.CalledProcessError:
                         logger.error("The footprint of the events could not be built because the command {} ended in error".format(get_footprint_command))
                     # end if
+                else:
+                    logger.debug("There event with start {} and stop {} is too large".format(event["start"], event["stop"]))
                 # end if
             # end if
             events_with_footprint.append(event_with_footprint)
@@ -1660,9 +1672,11 @@ def associate_footprints(events, satellite, orbpre_events = None):
         events_with_footprint = events
         logger.error("The footprint of the events could not be built because there is not enough orbit prediction information")
     # end if
-#    os.remove(orbpre_file_path)
+    os.remove(orbpre_file_path)
 
     FNULL.close()
+
+    logger.debug("The number of events generated after associating the footprint is {}".format(len(events_with_footprint)))
     
     return events_with_footprint
 
