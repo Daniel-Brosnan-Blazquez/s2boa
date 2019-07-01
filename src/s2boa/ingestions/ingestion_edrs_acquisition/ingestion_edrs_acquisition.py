@@ -918,6 +918,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         isp_planning_completeness_operation["source"] = {
             "name": source["name"],
+            "reception_time": source["reception_time"],
             "generation_time": generation_time.isoformat(),
             "validity_start": isp_planning_completeness_event_starts[0],
             "validity_stop": isp_planning_completeness_event_stops[-1]
@@ -1003,17 +1004,19 @@ def _generate_pass_information(xpath_xml, source, engine, query, list_of_annotat
 
     return
 
-def process_file(file_path, engine, query):
+def process_file(file_path, engine, query, reception_time):
     """
     Function to process the file and insert its relevant information
     into the DDBB of the eboa
 
     :param file_path: path to the file to be processed
     :type file_path: str
-    :param engine: object to access the engine of the EBOA
+    :param engine: Engine instance
     :type engine: Engine
-    :param query: object to access the query interface of the EBOA
+    :param query: Query instance
     :type query: Query
+    :param reception_time: time of the reception of the file by the triggering
+    :type reception_time: str
     """
     list_of_events = []
     list_of_planning_operations = []
@@ -1073,6 +1076,7 @@ def process_file(file_path, engine, query):
 
     source = {
         "name": file_name,
+        "reception_time": reception_time,
         "generation_time": generation_time,
         "validity_start": validity_start,
         "validity_stop": validity_stop

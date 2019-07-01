@@ -69,12 +69,12 @@ def get_start_stop_filters(window_size, mission):
         if request.form["start"] != "":
             stop_filter = {
                 "date": request.form["start"],
-                "operator": ">"
+                "operator": ">="
             }
             if request.form["stop"] == "":
                 start_filter = {
                     "date": (parser.parse(request.form["start"]) + datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": "<"
+                    "operator": "<="
                 }
             # end if            
         elif request.form["start_orbit"] != "":
@@ -92,13 +92,13 @@ def get_start_stop_filters(window_size, mission):
                 orbpre_event = orbpre_events[0]
                 stop_filter = {
                     "date": orbpre_event.start.isoformat(),
-                    "operator": ">"
+                    "operator": ">="
                 }
             # end if
             if len(orbpre_events) > 0 and request.form["stop_orbit"] == "":
                 start_filter = {
                     "date": (orbpre_event.start + datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": "<"
+                    "operator": "<="
                 }
             # end if
         # end if
@@ -106,12 +106,12 @@ def get_start_stop_filters(window_size, mission):
         if request.form["stop"] != "":
             start_filter = {
                 "date": request.form["stop"],
-                "operator": "<"
+                "operator": "<="
             }
             if request.form["start"] == "":
                 stop_filter = {
                     "date": (parser.parse(request.form["stop"]) - datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": ">"
+                    "operator": ">="
                 }
             # end if
         elif request.form["stop_orbit"] != "":
@@ -129,13 +129,13 @@ def get_start_stop_filters(window_size, mission):
                 orbpre_event = orbpre_events[0]
                 start_filter = {
                     "date": orbpre_event.stop.isoformat(),
-                    "operator": "<"
+                    "operator": "<="
                 }
             # end if
             if len(orbpre_events) > 0 and request.form["start_orbit"] == "":
                 stop_filter = {
                     "date": (orbpre_event.stop - datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": ">"
+                    "operator": ">="
                 }
             # end if
         # end if
@@ -155,11 +155,11 @@ def show_planning():
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": (datetime.datetime.now() + datetime.timedelta(days=5)).isoformat(),
-        "operator": "<"
+        "operator": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=2)).isoformat(),
-        "operator": ">"
+        "operator": ">="
     }
     mission = "S2_"
 
@@ -203,11 +203,11 @@ def show_sliding_planning_parameters():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<"
+        "operator": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">"
+        "operator": ">="
     }
 
     sliding_window = {
@@ -257,11 +257,11 @@ def show_sliding_planning():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<"
+        "operator": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">"
+        "operator": ">="
     }
 
     sliding_window = {

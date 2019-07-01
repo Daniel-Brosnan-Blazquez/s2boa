@@ -54,7 +54,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_OPLTA__EPA__20180721T130015_RIPPED.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_lta.ingestion_lta", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_lta.ingestion_lta", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

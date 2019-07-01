@@ -20,7 +20,7 @@ from eboa.engine.query import Query
 # Import ingestion
 import eboa.ingestion.eboa_ingestion as ingestion
 
-class TestEngine(unittest.TestCase):
+class TestOrbpre(unittest.TestCase):
     def setUp(self):
         # Create the engine to manage the data
         self.engine_eboa = Engine()
@@ -39,7 +39,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -150,14 +150,14 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

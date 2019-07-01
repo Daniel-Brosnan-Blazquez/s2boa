@@ -52,7 +52,7 @@ class TestEngine(unittest.TestCase):
 
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path, "2018-01-01T00:00:00")
 
 
         # Check number of events generated
@@ -186,9 +186,9 @@ class TestEngine(unittest.TestCase):
         orbpre_file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + orbpre_filename
         nppf_file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + nppf_filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", nppf_file_path)
-        ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", orbpre_file_path)
-        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", nppf_file_path, "2018-01-01T00:00:00")
+        ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", orbpre_file_path, "2018-01-01T00:00:00")
+        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path, "2018-01-01T00:00:00")
 
         #Check status is correctly taken
         definite_status = self.session.query(EventText).join(Event,Gauge).filter(Gauge.name == "STATION_REPORT",
@@ -219,7 +219,7 @@ class TestEngine(unittest.TestCase):
         filename = "REPORT_WITH_VALIDITY_PERIOD_NOT_COVERING.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path, "2018-01-01T00:00:00")
         
         period = self.session.query(Source).filter(Source.validity_start >= "2018-07-24T08:53:17",
                                                                                  Source.validity_stop <= "2018-07-24T09:05:17").all()
@@ -231,7 +231,7 @@ class TestEngine(unittest.TestCase):
         filename = "REPORT_WITH_NOK_CHARATERIZED_STATUS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path, "2018-01-01T00:00:00")
 
         nok_event = self.session.query(EventText).join(Event,Gauge).filter(Gauge.name == "STATION_REPORT",
                                                                                  Event.start == "2018-07-24T21:51:07",

@@ -924,6 +924,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         # Source for the completeness planning operation adjusting the validity to the events
         planning_processing_completeness_operation["source"] = {
             "name": source["name"],
+            "reception_time": source["reception_time"],
             "generation_time": planning_processing_completeness_generation_time,
             "validity_start": completeness_event_starts[0],
             "validity_stop": completeness_event_stops[-1]
@@ -941,6 +942,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         # Source for the completeness received imaging operation adjusting the validity to the events
         isp_validity_processing_completeness_operation["source"] = {
             "name": source["name"],
+            "reception_time": source["reception_time"],
             "generation_time": isp_validity_processing_completeness_generation_time,
             "validity_start": completeness_event_starts[0],
             "validity_stop": completeness_event_stops[-1]
@@ -1380,6 +1382,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             # Source for the completeness planning operation adjusting the validity to the events
             planning_processing_completeness_operation["source"] = {
                 "name": source["name"],
+                "reception_time": source["reception_time"],
                 "generation_time": planning_processing_completeness_generation_time,
                 "validity_start": completeness_event_starts[0],
                 "validity_stop": completeness_event_stops[-1]
@@ -1397,6 +1400,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             # Source for the completeness received imaging operation adjusting the validity to the events
             isp_validity_processing_completeness_operation["source"] = {
                 "name": source["name"],
+                "reception_time": source["reception_time"],
                 "generation_time": isp_validity_processing_completeness_generation_time,
                 "validity_start": completeness_event_starts[0],
                 "validity_stop": completeness_event_stops[-1]
@@ -1470,6 +1474,10 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
 
         orbpre_events.sort(key=lambda x:x.start)
 
+        if len(orbpre_events) == 0:
+            return (0,"")
+        # end if
+        
         logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0].start.isoformat(), orbpre_events[-1].start.isoformat()))
         
         number_of_orbpre_events = len(orbpre_events)
@@ -1515,6 +1523,12 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
     else:
         number_of_orbpre_events = len(orbpre_events)
 
+        if len(orbpre_events) == 0:
+            return (0,"")
+        # end if
+        
+        logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0]["start"], orbpre_events[-1]["start"]))
+        
         datablock_begin = '''
         <Data_Block type="xml">
         <List_of_OSVs count="{}">
@@ -1668,13 +1682,14 @@ def associate_footprints(events, satellite, orbpre_events = None):
             events_with_footprint.append(event_with_footprint)
 
         # end for
+        os.remove(orbpre_file_path)
+        
+        FNULL.close()
+
     else:
         events_with_footprint = events
         logger.error("The footprint of the events could not be built because there is not enough orbit prediction information")
     # end if
-    os.remove(orbpre_file_path)
-
-    FNULL.close()
 
     logger.debug("The number of events generated after associating the footprint is {}".format(len(events_with_footprint)))
     

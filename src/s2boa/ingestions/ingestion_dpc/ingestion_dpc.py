@@ -37,17 +37,19 @@ logger = logging_module.logger
 
 version = "1.0"
 
-def process_file(file_path, engine, query):
+def process_file(file_path, engine, query, reception_time):
     """
     Function to process the file and insert its relevant information
     into the DDBB of the eboa
 
     :param file_path: path to the file to be processed
     :type file_path: str
-    :param engine: object to access the engine of the EBOA
+    :param engine: Engine instance
     :type engine: Engine
-    :param query: object to access the query interface of the EBOA
+    :param query: Query instance
     :type query: Query
+    :param reception_time: time of the reception of the file by the triggering
+    :type reception_time: str
     """
     file_name = os.path.basename(file_path)
 
@@ -93,6 +95,7 @@ def process_file(file_path, engine, query):
     # Source for the main operation
     source = {
         "name": file_name,
+        "reception_time": reception_time,
         "generation_time": creation_date,
         "validity_start": validity_start,
         "validity_stop": validity_stop
@@ -396,6 +399,7 @@ def process_file(file_path, engine, query):
     if len(list_of_configuration_events) > 0:
         source = {
             "name": file_name,
+            "reception_time": reception_time,
             "generation_time": creation_date
         }
 

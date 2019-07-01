@@ -31,7 +31,7 @@ from eboa.datamodel.annotations import Annotation, AnnotationCnf, AnnotationText
 # Import ingestion
 import eboa.ingestion.eboa_ingestion as ingestion
 
-class TestEngine(unittest.TestCase):
+class TestDam(unittest.TestCase):
     def setUp(self):
         # Create the engine to manage the data
         self.engine_eboa = Engine()
@@ -54,7 +54,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_OPDAM2_PDMC_20180721T110502_ONLY.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dam.ingestion_dam", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dam.ingestion_dam", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -152,14 +152,14 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_N0206.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_OPDAM2_PDMC_20180721T110502_WITH_REP_ARC.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dam.ingestion_dam", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dam.ingestion_dam", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

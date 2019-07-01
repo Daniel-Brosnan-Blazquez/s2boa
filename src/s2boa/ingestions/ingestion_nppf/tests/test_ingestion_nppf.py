@@ -53,7 +53,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -925,7 +925,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF_DATATAKE_CUT_BY_RECORDS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
         # Check number of events generated
         events = self.session.query(Event).all()
@@ -957,7 +957,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
         # Check number of events generated
         events = self.session.query(Event).all()
@@ -967,7 +967,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF_SAME_PERIOD_BUT_NO_EVENTS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path)
+        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
         # Check number of events generated
         events = self.session.query(Event).all()
