@@ -27,6 +27,9 @@ from eboa.debugging import debug
 # Import logging
 from eboa.logging import Log
 
+# Import query
+from eboa.engine.query import Query
+
 logging_module = Log(name = __name__)
 logger = logging_module.logger
 
@@ -294,17 +297,38 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop
     }
 
+    # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
+    # This is for registrering the ingestion progress
+    query_general_source = Query()
+    session_progress = query_general_source.session
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
+                                                               processors = {"filter": "", "op": "like"},
+                                                               processor_version_filters = [{"str": "", "op": "=="}])
+
+    if len(general_source_progress) > 0:
+        general_source_progress = general_source_progress[0]
+    # end if
+    
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
+
     # Generate orbit predicted events
     _generate_orbpre_events(xpath_xml, source, list_of_events)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 30)
+    
     start_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[1]/Absolute_Orbit")[0].text))
     stop_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last()]/Absolute_Orbit")[0].text))
 
     # Generate corrected planning events
     corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
+    
     # Generate the footprint of the events
     corrected_planning_events_with_footprint = functions.associate_footprints(corrected_planning_events, satellite, list_of_events)
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
     
     # Build the xml
     data = {"operations": [{
@@ -330,4 +354,8 @@ def process_file(file_path, engine, query, reception_time):
 
     os.remove(new_file_path)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
+
+    query.close_session()
+    
     return data

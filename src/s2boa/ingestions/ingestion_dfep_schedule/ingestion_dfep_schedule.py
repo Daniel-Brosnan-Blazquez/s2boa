@@ -17,6 +17,7 @@ from lxml import etree
 
 # Import ingestion_functions.helpers
 import eboa.ingestion.functions as ingestion_functions
+import s2boa.ingestions.functions as functions
 
 # Import query
 from eboa.engine.query import Query
@@ -26,6 +27,9 @@ from eboa.debugging import debug
 
 # Import logging
 from eboa.logging import Log
+
+# Import query
+from eboa.engine.query import Query
 
 logging_module = Log(name = __name__)
 logger = logging_module.logger
@@ -161,9 +165,26 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop
     }
 
+    # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
+    # This is for registrering the ingestion progress
+    query_general_source = Query()
+    session_progress = query_general_source.session
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
+                                                               processors = {"filter": "", "op": "like"},
+                                                               processor_version_filters = [{"str": "", "op": "=="}])
+
+    if len(general_source_progress) > 0:
+        general_source_progress = general_source_progress[0]
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
+    
     # Generate dfep schedule events
     _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_events)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    
     # Build the xml
     data = {"operations": [{
         "mode": "insert_and_erase",
@@ -176,4 +197,8 @@ def process_file(file_path, engine, query, reception_time):
         "events": list_of_events
     }]}
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
+
+    query.close_session()
+    
     return data

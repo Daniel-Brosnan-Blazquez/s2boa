@@ -34,6 +34,17 @@ logging_module = Log(name = __name__)
 logger = logging_module.logger
 
 ###########
+# Functions for controling the ingestion
+###########
+def insert_ingestion_progress(session, source, progress):
+    if source:
+        source.processor_progress = progress
+        session.commit()
+    # end if
+
+    return
+    
+###########
 # Functions for helping with geometries
 ###########
 def correct_list_of_coordinates_for_ds (list_of_coordinates):

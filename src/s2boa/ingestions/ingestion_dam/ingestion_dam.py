@@ -31,6 +31,9 @@ from eboa.debugging import debug
 # Import logging
 from eboa.logging import Log
 
+# Import query
+from eboa.engine.query import Query
+
 logging_module = Log(name = __name__)
 logger = logging_module.logger
 
@@ -81,7 +84,21 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop
     }
 
+    # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
+    # This is for registrering the ingestion progress
+    query_general_source = Query()
+    session_progress = query_general_source.session
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
+                                                               processors = {"filter": "", "op": "like"},
+                                                               processor_version_filters = [{"str": "", "op": "=="}])
 
+    if len(general_source_progress) > 0:
+        general_source_progress = general_source_progress[0]
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
+    
     for product in xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct"):
         #Obtain the product ID
         product_id = product.xpath("product_id")[0].text
@@ -204,6 +221,8 @@ def process_file(file_path, engine, query, reception_time):
         #end if
     # end for
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    
     data = {"operations": [{
         "mode": "insert",
         "dim_signature": {
@@ -218,4 +237,8 @@ def process_file(file_path, engine, query, reception_time):
 
     os.remove(new_file_path)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
+
+    query.close_session()
+    
     return data

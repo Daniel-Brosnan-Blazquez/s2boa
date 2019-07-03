@@ -31,6 +31,9 @@ from eboa.debugging import debug
 # Import logging
 from eboa.logging import Log
 
+# Import query
+from eboa.engine.query import Query
+
 logging_module = Log(name = __name__)
 logger = logging_module.logger
 
@@ -108,6 +111,22 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop
     }
 
+
+    # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
+    # This is for registrering the ingestion progress
+    query_general_source = Query()
+    session_progress = query_general_source.session
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
+                                                               processors = {"filter": "", "op": "like"},
+                                                               processor_version_filters = [{"str": "", "op": "=="}])
+
+    if len(general_source_progress) > 0:
+        general_source_progress = general_source_progress[0]
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
+    
     # Insert the datatake_annotation
     datatake_annotation = {
     "explicit_reference": datastrip_id,
@@ -127,6 +146,8 @@ def process_file(file_path, engine, query, reception_time):
     }
     list_of_annotations.append(datatake_annotation)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 20)
+    
     # Loop over all the ItemMetadata
     for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata"):
 
@@ -248,7 +269,8 @@ def process_file(file_path, engine, query, reception_time):
         # end if
     # end for
 
-
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
+    
     processing_validity_db = query.get_events(explicit_refs = {"op": "like", "filter": datastrip_id},
                                               gauge_names = {"op": "like", "filter": "PROCESSING_VALIDITY"})
 
@@ -380,6 +402,8 @@ def process_file(file_path, engine, query, reception_time):
 
     # end if
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
+    
     # Adjust sources / operations
     if len(list_of_events_for_processing) > 0:
         event_starts = [event["start"] for event in list_of_events_for_processing]
@@ -410,6 +434,8 @@ def process_file(file_path, engine, query, reception_time):
         })
     # end if
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    
     list_of_operations.append({
         "mode": "insert",
         "dim_signature": {
@@ -425,4 +451,8 @@ def process_file(file_path, engine, query, reception_time):
 
     os.remove(new_file_path)
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
+
+    query.close_session()
+    
     return data

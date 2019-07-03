@@ -32,6 +32,9 @@ from eboa.debugging import debug
 # Import logging
 from eboa.logging import Log
 
+# Import query
+from eboa.engine.query import Query
+
 logging_module = Log(name = __name__)
 logger = logging_module.logger
 
@@ -101,6 +104,22 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop
     }
 
+
+    # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
+    # This is for registrering the ingestion progress
+    query_general_source = Query()
+    session_progress = query_general_source.session
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
+                                                               processors = {"filter": "", "op": "like"},
+                                                               processor_version_filters = [{"str": "", "op": "=="}])
+
+    if len(general_source_progress) > 0:
+        general_source_progress = general_source_progress[0]
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
+    
     # Loop through each output node that contains a datastrip (excluding the auxiliary data)
     for output_msi in xpath_xml("/Earth_Explorer_File/Data_Block/SUP_WORKPLAN_REPORT/SPECIFIC_HEADER/SYNTHESIS_INFO/Product_Report/*[contains(name(),'Output_Products') and boolean(child::DATA_STRIP_ID)]") :
 
@@ -329,6 +348,8 @@ def process_file(file_path, engine, query, reception_time):
         processed_datastrips[ds_output] = None
     # end for
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 50)
+    
     for mrf in mrf_list:
         # Only if the mrf does not exist in the DB
         mrfsDB = query.get_events(explicit_refs = {"op": "like", "filter": mrf.find("Id").text})
@@ -364,6 +385,8 @@ def process_file(file_path, engine, query, reception_time):
         # end if
     # end for
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
+    
     # Adjust the validity period to the events in the operation
     if len(list_of_events) > 0:
         event_starts = [event["start"] for event in list_of_events]
@@ -393,7 +416,9 @@ def process_file(file_path, engine, query, reception_time):
             "events": list_of_events_with_footprint,
             })
 
-     # end if
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
 
     # Adjust the validity period to the events in the operation
     if len(list_of_configuration_events) > 0:
@@ -420,10 +445,16 @@ def process_file(file_path, engine, query, reception_time):
             "events": list_of_configuration_events,
         })
 
-     # end if
+    # end if
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+     
     data = {"operations": list_of_operations}
 
     os.remove(new_file_path)
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
+
+    query.close_session()
 
     return data
