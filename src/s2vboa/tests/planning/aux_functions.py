@@ -22,11 +22,17 @@ from selenium.webdriver.common.keys import Keys
 
 def query(driver, wait, mission = None, start = None, stop = None, start_orbit = None, stop_orbit = None, timeline = True, table_details = True, evolution = True, map = True):
 
-    driver.find_element_by_partial_link_text("Query interface").click()
+    query_interface = driver.find_element_by_partial_link_text("Query interface")
+    i = 0
+    while not query_interface.get_attribute("aria-expanded") == "true":
+        query_interface.click()
+        # Add time to avoid lags on expanding the collapsed
+        time.sleep(0.1)
+    # end if
 
     # Extend mission selector and choose mission
     if mission is not None:
-        mission_select = Select(driver.find_element_by_id("mission"))
+        mission_select = Select(driver.find_element_by_id("mission_static_query"))
         mission_select.select_by_visible_text(mission)
 
     if start is not None:

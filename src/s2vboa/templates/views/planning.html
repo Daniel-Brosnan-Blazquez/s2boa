@@ -32,7 +32,9 @@
                   </p>
                 </div>
                 <!-- Missions -->
+                {% with id = "mission_static_query" %}
                 {% include "views/missions.html" %}
+                {% endwith %}
                 <br/>
                 <!-- Start and stop -->
                 <div class="row">
@@ -81,7 +83,9 @@
                   </p>
                 </div>
                 <!-- Missions -->
+                {% with id = "mission_sliding_query" %}
                 {% include "views/missions.html" %}
+                {% endwith %}
                 <br/>
                 <!-- Delay -->
                 <div class="row">
