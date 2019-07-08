@@ -1077,7 +1077,7 @@ def process_file(file_path, engine, query, reception_time):
     # Set the validity start to be the first sensing received to avoid error ingesting
     sensing_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Status/SensStartTime")
 
-    acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/ISP_Status/Status/AcqStartTime")
+    acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStartTime")
 
     if len(sensing_starts) > 0:
         # Set the validity start to be the first sensing timing acquired to avoid error ingesting
@@ -1098,7 +1098,7 @@ def process_file(file_path, engine, query, reception_time):
         validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # end if
 
-    acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/ISP_Status/Status/AcqStopTime")
+    acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status//AcqStopTime")
     if len(acquisition_stops) > 0:
         # Set the validity stop to be the last acquisition timing registered to avoid error ingesting
         acquisition_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_stop.text) for acquisition_stop in acquisition_stops]
