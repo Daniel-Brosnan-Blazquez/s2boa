@@ -1,0 +1,239 @@
+<OrchestratorConfiguration>
+
+   <List_of_DataProviders>
+
+      <DataProvider isTriggerType='no'>
+	      <DataType>MPC</DataType>
+	      <FileType>S2?_OPER_REP???????_MPC?_???????????????_V???????????????_???????????????*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>OPDHUS</DataType>
+	      <FileType>*REP_OPDHUS*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>DPC</DataType>
+	      <FileType>*REP_OPDPC_*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>REPARC</DataType>
+	      <FileType>*REP_ARC___*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>OPAI</DataType>
+	      <FileType>*REP_OPAI__*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>REPACQ</DataType>
+	      <FileType>*REP_STNACQ*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+   
+      <DataProvider isTriggerType='yes'>
+	      <DataType>NPPF</DataType>
+	      <FileType>*MPL__NPPF_*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>PLANDFEP</DataType>
+	      <FileType>*MPL_SP????*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>PLANANTENNA</DataType>
+	      <FileType>*MPL_FS????*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+      
+      <DataProvider isTriggerType='yes'>
+	      <DataType>DFEPREP</DataType>
+	      <FileType>*REP_PASS_?*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+      
+      <DataProvider isTriggerType='yes'>
+	      <DataType>SRAEDRS</DataType>
+	      <FileType>*SRA_EDRS_?*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>OPDAM</DataType>
+	      <FileType>*REP_OPDAM?*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>OPLTA</DataType>
+	      <FileType>*REP_OPLTA_*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>OPAI</DataType>
+	      <FileType>*REP_OPAI__*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+                  
+      <DataProvider isTriggerType='yes'>
+	      <DataType>OPLTAS</DataType>
+	      <FileType>*REP_OPLTAS*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='yes'>
+	      <DataType>ORBPRE</DataType>
+	      <FileType>*MPL_ORBPRE*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType='no'>
+	      <DataType>S2_UNKNOWN</DataType>
+	      <FileType>S2*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+      
+   </List_of_DataProviders>
+
+
+   <!-- ====================================================== -->
+
+   <List_of_PriorityRules>
+      <PriorityRule rank="1"     class='DataType' type='NPPF'        sort='DESC' />
+      <PriorityRule rank="2"     class='DataType' type='ORBPRE'      sort='DESC' />
+      <PriorityRule rank="3"     class='DataType' type='PLANDFEP'    sort='DESC' />
+      <PriorityRule rank="4"     class='DataType' type='PLANANTENNA' sort='DESC' />
+      <PriorityRule rank="5"     class='DataType' type='SRAEDRS'     sort='DESC' />
+      <PriorityRule rank="6"     class='DataType' type='DFEPREP'     sort='DESC' />
+      <PriorityRule rank="7"     class='DataType' type='REPACQ'      sort='DESC' />
+      <PriorityRule rank="8"     class='DataType' type='DPC'         sort='DESC' />
+      <PriorityRule rank="9"     class='DataType' type='REPARC'      sort='DESC' />
+      <PriorityRule rank="10"    class='DataType' type='OPAI'        sort='DESC' />
+      <PriorityRule rank="11"    class='DataType' type='OPLTA'       sort='DESC' />
+      <PriorityRule rank="12"    class='DataType' type='OPLTAS'      sort='DESC' />
+      <PriorityRule rank="13"    class='DataType' type='OPDAM'       sort='DESC' />
+      <PriorityRule rank="14"    class='DataType' type='OPDHUS'      sort='DESC' />
+   </List_of_PriorityRules>
+
+   <!-- ====================================================== -->
+  
+   <List_of_ProcessingRules>
+   
+      <ProcessingRule dataType='ORBPRE' triggerType='ORBPRE' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='NPPF' triggerType='NPPF' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='DFEPREP' triggerType='DFEPREP' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='REPACQ' triggerType='REPACQ' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='PLANDFEP' triggerType='PLANDFEP' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='PLANANTENNA' triggerType='PLANANTENNA' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='SRAEDRS' triggerType='SRAEDRS' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='DPC' triggerType='DPC' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='REPARC' triggerType='REPARC' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='OPAI' triggerType='OPAI' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='OPLTA' triggerType='OPLTA' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='OPLTAS' triggerType='OPLTAS' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='OPDAM' triggerType='OPDAM' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType='OPDHUS' triggerType='OPDHUS' coverage='SAME'>
+	      <executable>eboa_triggering.py -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+   </List_of_ProcessingRules>
+   
+   <List_of_Breakpoints>
+   <!--
+      <breakpoint key="Scenes_Vector_input" value="false" mandatory="false" valueType="boolean"/>
+      <breakpoint key="Scenes_Normalized" value="false" mandatory="false" valueType="boolean"/>
+      <breakpoint key="Scenes_Vector_output" value="false" mandatory="false" valueType="boolean"/>
+   -->
+   </List_of_Breakpoints>
+   
+   <Miscelanea>
+      <PollingDir>/inputs</PollingDir>
+      <PollingFreq unit="s">10</PollingFreq>
+      <SchedulingFreq unit="s">10</SchedulingFreq>
+      <ResourceManager>orcResourceChecker</ResourceManager>
+      <ProcWorkingDir>/orc/processorWd</ProcWorkingDir>
+      <SuccessDir>/orc/success</SuccessDir>
+      <FailureDir>/orc/failure</FailureDir>
+      <BreakPointDir>/orc/breakpoints</BreakPointDir>
+      <TmpDir>/orc/tmp</TmpDir>
+   </Miscelanea>
+   
+</OrchestratorConfiguration>
