@@ -25,17 +25,17 @@ while getopts e:v:d:p:t:l:a:o:c:x:f: option
 do
     case "${option}"
         in
-        e) PATH_TO_EBOA=${OPTARG};;
-        v) PATH_TO_VBOA=${OPTARG};;
-        t) PATH_TO_TAILORED=${OPTARG};;
-        d) PATH_TO_DOCKERFILE=${OPTARG};;
-        p) PORT=${OPTARG};;
-        l) CONTAINERS_LABEL=${OPTARG};;
-        a) APP=${OPTARG};;
-        o) PATH_TO_ORC=${OPTARG};;
-        c) PATH_TO_BOA_TAILORING_CONFIGURATION=${OPTARG};;
-        x) PATH_TO_ORC_CONFIGURATION=${OPTARG};;
-        f) PATH_TO_EOPCFI=${OPTARG};;
+        e) PATH_TO_EBOA=${OPTARG}; PATH_TO_EBOA_CALL="-e ${OPTARG}";;
+        v) PATH_TO_VBOA=${OPTARG}; PATH_TO_VBOA_CALL="-v ${OPTARG}";;
+        t) PATH_TO_TAILORED=${OPTARG}; PATH_TO_TAILORED_CALL="-t ${OPTARG}";;
+        d) PATH_TO_DOCKERFILE=${OPTARG}; PATH_TO_DOCKERFILE_CALL="-d ${OPTARG}";;
+        p) PORT=${OPTARG}; PORT_CALL="-p ${OPTARG}";;
+        l) CONTAINERS_LABEL=${OPTARG}; CONTAINERS_LABEL_CALL="-l ${OPTARG}";;
+        a) APP=${OPTARG}; APP_CALL="-a ${OPTARG}";;
+        o) PATH_TO_ORC=${OPTARG}; PATH_TO_ORC_CALL="-o ${OPTARG}";;
+        c) PATH_TO_BOA_TAILORING_CONFIGURATION=${OPTARG}; PATH_TO_BOA_TAILORING_CONFIGURATION_CALL="-c ${OPTARG}";;
+        x) PATH_TO_ORC_CONFIGURATION=${OPTARG}; PATH_TO_ORC_CONFIGURATION_CALL="-x ${OPTARG}";;
+        f) PATH_TO_EOPCFI=${OPTARG}; PATH_TO_EOPCFI_CALL="-f ${OPTARG}";;
         ?) echo -e $USAGE
             exit -1
     esac
@@ -64,12 +64,12 @@ then
 fi
 
 # Initialize docker environment using he command from vboa
-$PATH_TO_VBOA/init_docker_dev_environment.sh -e $PATH_TO_EBOA -v $PATH_TO_VBOA -d $PATH_TO_DOCKERFILE -p $PORT -t $PATH_TO_TAILORED -a $APP -c $PATH_TO_BOA_TAILORING_CONFIGURATION -l $CONTAINERS_LABEL -o $PATH_TO_ORC -x $PATH_TO_ORC_CONFIGURATION
+$PATH_TO_VBOA/init_docker_dev_environment.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_DOCKERFILE_CALL $PORT_CALL $PATH_TO_TAILORED_CALL $APP_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $CONTAINERS_LABEL_CALL $PATH_TO_ORC_CALL $PATH_TO_ORC_CONFIGURATION_CALL
 
 ##################
 # Install EOPCFI #
 ##################
-APP_CONTAINER="boa-app-$CONTAINERS_LABEL"
+APP_CONTAINER="boa_app_$CONTAINERS_LABEL"
 # Compile source
 docker cp $PATH_TO_EOPCFI $APP_CONTAINER:/s2vboa
 
@@ -82,3 +82,6 @@ echo "Objetcs for the EOPCFI interface generated..."
 docker exec -it $APP_CONTAINER bash -c "gcc /tmp/get_footprint.o -Wno-deprecated -g -I /s2vboa/eopcfi/include/ -L /s2vboa/eopcfi/lib/ -lexplorer_visibility -lexplorer_pointing -lexplorer_orbit -lexplorer_lib -lexplorer_data_handling -lexplorer_file_handling -lgeotiff -ltiff -lproj -lxml2 -lm -lc -fopenmp -o /scripts/get_footprint; rm /tmp/get_footprint.o"
 
 echo "Compilation of the EOPCFI interface successfully done :-)"
+
+echo "
+The development environment for $APP has been initialized :-)"
