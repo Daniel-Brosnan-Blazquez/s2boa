@@ -56,6 +56,11 @@
                   </label>
                 </div>
               </div>
+              <div>
+                <label id="show-station-reports">
+                  <input type="checkbox" name="show_station_reports" checked><span class="label-text"><b>Show station reports</b></span>
+                </label>
+              </div>
             </form>
           </div>
           <div class="tab-pane" id="acquisition-sliding-window">
@@ -83,7 +88,7 @@
                     <label>Window delay</label>
                     <input type="text" class="form-control" name="acquisition_window_delay" id="acquisition-window-delay"/>
                   </div>
-                </div>imaging_by_units
+                </div>
                 <!-- Duration -->
                 <div class="row">
                   <div class="col-xs-3">
@@ -112,17 +117,19 @@
 {% include "views/header.html" %}
 {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
 {% set playback_by_units = acquisition_events["playback_correction"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
+{% set station_report_by_units = acquisition_events["station_report"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
-      SECTION 1
+      Acquisitions details
     </div>
-    {% if (playback_by_units|length > 0) and (orbpre_by_units|length > 0) %}
     <!-- /.panel-heading -->
     <div class="panel-body">
+      {% if show["table_details"] %}
       <div>
         <h3><u>Acquisitions table</u></h3>
       </div>
+      {% if (playback_by_units|length > 0) and (orbpre_by_units|length > 0) %}
       <!--table-->
       <table width="100%" class="table table-striped table-bordered table-hover table-search" id="acquisition-details-table">
         <thead>
@@ -147,107 +154,225 @@
           </tr>
         </thead>
         <tbody>
-            {% for event in acquisition_events["playback_correction"]["prime_events"]|sort(attribute="start") %}
-              {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
-              {% set original_playback = acquisition_events["playback"]["prime_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
-              {% set playback_validity_uuid = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY_*")|map(attribute='event_uuid_link')|first %}
-              {% set type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
-              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
-              {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
-              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
-              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
-              <!--Playback Status-->
-              {% if not playback_validity_uuid %}
-                  {% set playback_status = "MISSING" %}
-              {% else %}
-                {% set playback_status = "RECEIVED" %}
-                {% set playback_completeness_channel_uuid = acquisition_events["playback_completeness_channel"]["prime_events"]|selectattr("event_uuid", "equalto", original_playback_uuid) %}
-                {% for uuid in playback_completeness_channel_uuid %}
-                  {% set playback_completeness_channel = acquisition_events["playback"]["prime_events"]|selectattr("event_uuid", "equalto", uuid)|first %}
-                  {% if playback_completeness_channel|events_group_by_text_value("status") == "MISSING"%}
-                    {% set playback_status = "PARTIAL" %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-              <!--Station Status-->
-              {% set station_status = "MISSING" %}
-              {% set schedule_uuid = original_playback.eventLinks|selectattr("name","in", ["DFEP_SCHEDULE","STATION_SCHEDULE","SLOT_REQUEST_EDRS"])|map(attribute='event_uuid_link')|first %}
-              {% if schedule_uuid %}
-                {% set station_status = "OK" %}
-                {% set antenna_dfep = acquisition_events["playback_validity"]["prime_events"]|selectattr("event_uuid", "equalto", playback_validity_uuid)|first %}
-              {% endif %}
-              <!--Values-->
-            <tr>
-              <td>{{ satellite }}</td>
-              <td>{{ orbit }}</td>
-              <td>{{ station }}</td>
-              <td>{{ type }}</td>
-              <td>
-                {% include "views/parameters.html" %}
-              </td>
-              <td>{{ playback_status }}</td>
-              <td>{{ event.start.isoformat() }}</td>
-              <td>{{ event.stop.isoformat() }}</td>
-              <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
-              <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
-              <td>{{ station_status }}</td>
-              <td>{{ (event.start - original_playback.start).total_seconds()|round(3) }}</td>
-              <td>{{ (event.stop - original_playback.stop).total_seconds()|round(3) }}</td>
-              {% if antenna_dfep %}
-              <td>{{ (event.start - antenna_dfep.start).total_seconds()|round(3) }}</td>
-              <td>{{ (event.stop - antenna_dfep.stop).total_seconds()|round(3) }}</td>
-              {% else %}
-              <td>N/A</td>
-              <td>N/A</td>
-              {% endif %}
-              <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
-              <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th>Satellite</th>
-              <th>Orbit</th>
-              <th>Station</th>
-              <th>Playback Type</th>
-              <th>Parameters</th>
-              <th>Playback Status</th>
-              <th>Start</th>
-              <th>Stop</th>
-              <th>Duration (s)</th>
-              <th>Duration (m)</th>
-              <th>Station Schedule Status</th>
-              <th>Delta start to acquisition</th>
-              <th>Delta stop to acquisition</th>
-              <th>Delta start to antenna/DFEP planning</th>
-              <th>Delta stop to antenna/DFEP planning</th>
-              <th>Plan file</th>
-              <th>UUID</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-        {% else %}
-
-        <div>
-          <br/>
-          {% if orbpre_by_units|length == 0 and playback_correction_by_units|length > 0 %}
-          <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+          {% for event in acquisition_events["playback_correction"]["prime_events"]|sort(attribute="start") %}
+          {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+          {% set original_playback = acquisition_events["playback"]["prime_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+          {% set playback_validity_uuid = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY_*")|map(attribute='event_uuid_link')|first %}
+          {% set type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
+          {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+          {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+          {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+          {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+          <!--Playback Status-->
+          {% if not playback_validity_uuid %}
+          {% set playback_status = "MISSING" %}
           {% else %}
-          <p id="summary-no-imaging" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
+          {% set playback_status = "RECEIVED" %}
+          {% set playback_completeness_channel_uuid = acquisition_events["playback_completeness_channel"]["prime_events"]|selectattr("event_uuid", "equalto", original_playback_uuid) %}
+          {% for uuid in playback_completeness_channel_uuid %}
+          {% set playback_completeness_channel = acquisition_events["playback"]["prime_events"]|selectattr("event_uuid", "equalto", uuid)|first %}
+          {% if playback_completeness_channel|events_group_by_text_value("status") == "MISSING"%}
+          {% set playback_status = "PARTIAL" %}
           {% endif %}
-          <br/>
-        </div>
+          {% endfor %}
+          {% endif %}
+          <!--Station Status-->
+          {% set station_status = "MISSING" %}
+          {% set schedule_uuid = original_playback.eventLinks|selectattr("name","in", ["DFEP_SCHEDULE","STATION_SCHEDULE","SLOT_REQUEST_EDRS"])|map(attribute='event_uuid_link')|first %}
+          {% if schedule_uuid %}
+          {% set station_status = "OK" %}
+          {% set antenna_dfep = acquisition_events["playback_validity"]["prime_events"]|selectattr("event_uuid", "equalto", playback_validity_uuid)|first %}
+          {% endif %}
+          <!--Values-->
+          <tr>
+            <td>{{ satellite }}</td>
+            <td>{{ orbit }}</td>
+            <td>{{ station }}</td>
+            <td>{{ type }}</td>
+            <td>
+              {% include "views/parameters.html" %}
+            </td>
+            <td>{{ playback_status }}</td>
+            <td>{{ event.start.isoformat() }}</td>
+            <td>{{ event.stop.isoformat() }}</td>
+            <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+            <td>{{ station_status }}</td>
+            <td>{{ (event.start - original_playback.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - original_playback.stop).total_seconds()|round(3) }}</td>
+            {% if antenna_dfep %}
+            <td>{{ (event.start - antenna_dfep.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - antenna_dfep.stop).total_seconds()|round(3) }}</td>
+            {% else %}
+            <td>N/A</td>
+            <td>N/A</td>
+            {% endif %}
+            <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>Playback Type</th>
+            <th>Parameters</th>
+            <th>Playback Status</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Duration (s)</th>
+            <th>Duration (m)</th>
+            <th>Station Schedule Status</th>
+            <th>Delta start to acquisition</th>
+            <th>Delta stop to acquisition</th>
+            <th>Delta start to antenna/DFEP planning</th>
+            <th>Delta stop to antenna/DFEP planning</th>
+            <th>Plan file</th>
+            <th>UUID</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+      {% else %}
+
+      <div>
+        <br/>
+        {% if orbpre_by_units|length == 0 and playback_correction_by_units|length > 0 %}
+        <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+        {% else %}
+        <p id="summary-no-imaging" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
         {% endif %}
+        <br/>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Map of acquisitions
+      </div>
+      {% if show["map"] %}
+      <div class="panel-body">
+      <div>
+        <h3><u>Footprints received vs planned</u></h3>
+      </div>
+      <!-- /.panel-heading -->
+        <div id="playbacks-map">
+        </div>
+      </div>
+      <!-- /.panel-body -->
+      </div>
+      <!-- /.panel -->
+      {% endif %}
       </div>
     </div>
+
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Station Reports
+      </div>
+      <!-- /.panel-heading -->
+        <div class="panel-body">
+          {% if show["station_reports"] %}
+          <div>
+            <h3><u>X-BAND Acquisitions table</u></h3>
+          </div>
+          <!--table-->
+          {% if (station_report_by_units|length > 0) and (orbpre_by_units|length > 0) %}
+          <table width="100%" class="table table-striped table-bordered table-hover table-search" id="acquisition-reports-table">
+            <thead>
+              <tr>
+                <th>Satellite</th>
+                <th>Orbit</th>
+                <th>Station</th>
+                <th>Antenna ID</th>
+                <th>Status</th>
+                <th>Start</th>
+                <th>Stop</th>
+                <th>Comments</th>
+                <th>Station Acquisition Report</th>
+                <th>UUID</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for event in acquisition_events["station_report"]["prime_events"]|sort(attribute="start") %}
+                {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute='event_uuid_link')|first %}
+                {% set original_playback = acquisition_events["playback"]["prime_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+                {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+                {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
+                {% set orbit = event.eventDoubles|selectattr("name", "equalto", "orbit")|map(attribute='value')|first|int %}
+                {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+                {% set antenna_id = event.eventTexts|selectattr("name", "equalto", "antenna_id")|map(attribute='value')|first|string %}
+                {% set comments = event.eventTexts|selectattr("name", "equalto", "comments")|map(attribute='value')|first|string %}
+
+                <!--Values-->
+                <tr>
+                  <td>{{ satellite }}</td>
+                  <td>{{ orbit }}</td>
+                  <td>{{ station }}</td>
+                  <td>{{ antenna_id }}</td>
+                  <td>{{ status }}</td>
+                  <td>{{ event.start}}</td>
+                  <td>{{ event.stop}}</td>
+                  <td>{{ comments }}</td>
+                  <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ event.source.name }}</a></td>
+                  <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}"><i class="fa fa-link"></i></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Satellite</th>
+                  <th>Orbit</th>
+                  <th>Station</th>
+                  <th>Antenna ID</th>
+                  <th>Status</th>
+                  <th>Start</th>
+                  <th>Stop</th>
+                  <th>Comments</th>
+                  <th>Station Acquisition Report</th>
+                  <th>UUID</th>
+                </tr>
+              </tfoot>
+            </table>
+          {% else %}
+            <br/>
+            {% if orbpre_by_units|length == 0 and station_report_by_units|length > 0 %}
+            <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+            {% else %}
+            <p id="summary-no-acquisition" style="text-indent: 1em">There are no station reports during the requested period.</p>
+            {% endif %}
+            {% endif %}
+            <br/>
+          </div>
+          {% endif %}
+      </div>
     {% endblock %}
 
     {% block scripts %}
     {{ super() }}
     <script type="text/javascript">
+      {% include "js/acquisition_functions.js" %}
+
+      {% if show["map"] and acquisition_events["playback_completeness_channel"]["prime_events"]|length > 0 %}
+
+      {% with events = acquisition_events["playback_completeness_channel"]["prime_events"] %}
+      {% include "js/acquisition_to_map.js" %}
+      {% endwith %}
+      var polygons_missing = [];
+      var polygons_received = [];
+      vboa.prepare_events_geometries_for_map(acquisition_geometries_missing, polygons_missing);
+      vboa.prepare_events_geometries_for_map(acquisition_geometries_received, polygons_received);
+      var polygons = polygons_missing.concat(polygons_received);
+      vboa.display_map("playbacks-map", polygons);
+      {% endif %}
 
       {% if sliding_window %}
       var parameters = {

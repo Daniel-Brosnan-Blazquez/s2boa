@@ -417,7 +417,7 @@ def show_acquisition():
 @bp.route("/sliding_acquisition_parameters", methods=["GET", "POST"])
 def show_sliding_acquisition_parameters():
     """
-    Acquisitionview for the Sentinel-2 mission.
+    Acquisition sliding view for the Sentinel-2 mission.
     """
     current_app.logger.debug("Sliding acquistion view with parameters")
 
@@ -450,7 +450,7 @@ def show_sliding_acquisition_parameters():
     @bp.route("/sliding_acquisition", methods=["GET", "POST"])
     def show_sliding_acquisition():
         """
-        Acquisition view for the Sentinel-2 mission.
+        Acquisition sliding view for the Sentinel-2 mission.
         """
         current_app.logger.debug("Sliding acquisition view")
 
@@ -505,6 +505,7 @@ def define_what_to_show_acquisition(show):
 
     show["table_details"]=True
     show["map"]=True
+    show["station_reports"]=True
 
     if request.method == "POST":
         if not "show_acquisition_table_details" in request.form:
@@ -516,6 +517,11 @@ def define_what_to_show_acquisition(show):
             show["map"] = False
         else:
             show["map"]=True
+        # end if
+        if not "show_station_reports" in request.form:
+            show["station_reports"] = False
+        else:
+            show["station_reports"]=True
         # end if
     # end if
 
@@ -542,6 +548,7 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     kwargs_playback = {}
     kwargs_playback_completeness_channel = {}
     kawrgs_playback_validity = {}
+    kwargs_station_report = {}
 
     # Start filter
     if start_filter:
@@ -549,6 +556,7 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
         kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
         kwargs_playback_completeness_channel["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
         kawrgs_playback_validity["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        kwargs_station_report["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
     # end if
 
     # Stop filter
@@ -557,6 +565,7 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
         kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
         kwargs_playback_completeness_channel["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
         kawrgs_playback_validity["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        kwargs_station_report["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
     # end if
 
 
@@ -575,6 +584,10 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
                                     "value": {"op": "like", "value": mission}
                                 }]
         kawrgs_playback_validity["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
+                                    "type": "text",
+                                    "value": {"op": "like", "value": mission}
+                                }]
+        kwargs_station_report["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
                                     "type": "text",
                                     "value": {"op": "like", "value": mission}
                                 }]
@@ -612,15 +625,22 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     kawrgs_playback_validity["link_names"] = {"filter": ["PLANNED_PLAYBACK"], "op": "in"}
     playback_validity_events = query.get_linked_events(**kawrgs_playback_validity)
 
-
+    ####
+    # Query station_report
+    ####
+    # Specify the main query parameters
+    kwargs_station_report["gauge_names"] = {"filter": "STATION_REPORT", "op": "like"}
+    kwargs_station_report["link_names"] = {"filter": ["PLANNED_PLAYBACK"], "op": "in"}
+    station_report_events = query.get_linked_events(**kwargs_station_report)
 
     events = {}
     events["playback_correction"] = playback_correction_events
     events["playback"] = playback_events
     events["playback_completeness_channel"] = playback_completeness_channel_events
     events["playback_validity"] = playback_validity_events
+    events["station_report"] = station_report_events
 
     for event in events["playback_validity"]["prime_events"]:
-        current_app.logger.debug(event.event_uuid) 
+        current_app.logger.debug(event.event_uuid)
 
     return events
