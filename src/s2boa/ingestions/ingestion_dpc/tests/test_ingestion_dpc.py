@@ -162,7 +162,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L0
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -360,7 +360,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L0
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -657,7 +657,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L0
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -682,7 +682,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L1C
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
 
@@ -900,7 +900,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L0
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -908,7 +908,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -933,7 +933,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L1C
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
 
@@ -941,7 +941,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
 
@@ -1085,7 +1085,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L0
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -1110,7 +1110,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L1C
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
 
@@ -1246,7 +1246,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L0
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -1254,7 +1254,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
 
@@ -1279,7 +1279,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L1B
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0_L1B.EOF", "op": "like"})
 
@@ -1287,7 +1287,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L0_L1B.EOF", "op": "like"})
 
@@ -1312,7 +1312,7 @@ class TestDpcIngestion(unittest.TestCase):
         # L1C
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-16T11:41:50", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-16T11:41:51", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
 
@@ -1320,7 +1320,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:35.993268", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:12.226646", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:40:55", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_received_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
 

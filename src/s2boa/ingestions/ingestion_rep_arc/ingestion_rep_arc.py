@@ -13,6 +13,7 @@ import datetime
 import json
 import sys
 from tempfile import mkstemp
+import time
 
 # Import xml parser
 from lxml import etree
@@ -382,9 +383,20 @@ def process_file(file_path, engine, query, reception_time):
         if level == "L0" or level == "L1A" or level == "L1B":
             functions.L0_L1A_L1B_processing(source_processing, engine, query, granule_timeline,list_of_events_for_processing,datastrip_id,granule_timeline_per_detector, list_of_operations, system, version, os.path.basename(__file__), satellite)
         elif (level == "L1C" or level == "L2A"):
-            upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "like"},
-                                                      groups = {"filter": ["L0_DS", "L1B_DS"], "op": "in"},
-                                                      annotation_value_filters = [{"name": {"str": "sensing_identifier", "op": "like"}, "type": "text", "value": {"op": "like", "value": sensing_identifier}}])
+            def get_upper_level_ers():
+                upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "like"},
+                                                          groups = {"filter": ["L0_DS", "L1B_DS"], "op": "in"},
+                                                          annotation_value_filters = [{"name": {"str": "sensing_identifier", "op": "like"}, "type": "text", "value": {"op": "like", "value": sensing_identifier}}])
+                return upper_level_ers
+            # end def
+            i = 0
+            upper_level_ers = get_upper_level_ers()
+            # Wait till the upper level production has been processed 10 minutes
+            while len(upper_level_ers) == 0 and i < 10*60:
+                time.sleep(10)
+                i += 10
+                upper_level_ers = get_upper_level_ers()
+            # end while
             upper_level_ers_same_satellite = [er.explicit_ref for er in upper_level_ers if er.explicit_ref[0:3] == satellite]
             upper_level_er = [er for er in upper_level_ers_same_satellite if er[13:16] == "L1B"]
             if len(upper_level_er) == 0:
@@ -420,6 +432,15 @@ def process_file(file_path, engine, query, reception_time):
         # Generate the footprint of the events
         list_of_events_for_processing_with_footprint = functions.associate_footprints(list_of_events_for_processing, satellite)
 
+        generation_times_planning_reception = [operation["source"]["generation_time"] for operation in list_of_operations]
+
+        # Correct generation time to allow DPC information to be inserted always
+        source_processing["generation_time"] = source_processing["validity_start"]
+        if len(generation_times_planning_reception) > 0:
+            generation_times_planning_reception.sort()
+            source_processing["generation_time"] = (parser.parse(generation_times_planning_reception[-1]) + datetime.timedelta(seconds=1)).isoformat()
+        # end if
+        
         list_of_operations.append({
             "mode": "insert",
             "dim_signature": {

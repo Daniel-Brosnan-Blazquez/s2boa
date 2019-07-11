@@ -1122,7 +1122,7 @@ class TestEngine(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_ingestion_rep_arc.py", "op": "like"},
                                              names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF", "op": "like"})
 
@@ -1147,7 +1147,7 @@ class TestEngine(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T11:51:33", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_ingestion_rep_arc.py", "op": "like"},
                                              names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T115133_L1B.EOF", "op": "like"})
 
@@ -1180,7 +1180,7 @@ class TestEngine(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T10:40:56", "op": "=="}],
                                              processors = {"filter": "processing_ingestion_rep_arc.py", "op": "like"},
                                              names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF", "op": "like"})
 
