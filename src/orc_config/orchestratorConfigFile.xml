@@ -228,8 +228,8 @@
       <PollingDir>/inputs</PollingDir>
       <PollingFreq unit="s">10</PollingFreq>
       <SchedulingFreq unit="s">10</SchedulingFreq>
-      <ResourceManager>orcResourceChecker</ResourceManager>
-      <ProcWorkingDir>/orc/processorWd</ProcWorkingDir>
+      <ResourceManager>eboa_continue_triggering.py</ResourceManager>
+      <ProcWorkingDir>/minarc_root/processorWd</ProcWorkingDir>
       <SuccessDir>/orc/success</SuccessDir>
       <FailureDir>/orc/failure</FailureDir>
       <BreakPointDir>/orc/breakpoints</BreakPointDir>
