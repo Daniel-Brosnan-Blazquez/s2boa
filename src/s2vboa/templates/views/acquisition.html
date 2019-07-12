@@ -150,6 +150,7 @@
             <th>Delta start to antenna/DFEP planning</th>
             <th>Delta stop to antenna/DFEP planning</th>
             <th>Plan file</th>
+            <th>Details</th>
             <th>UUID</th>
           </tr>
         </thead>
@@ -210,6 +211,7 @@
             {% endif %}
             <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
             <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+            <td>{{original_playback.event_uuid}}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -231,6 +233,7 @@
             <th>Delta start to antenna/DFEP planning</th>
             <th>Delta stop to antenna/DFEP planning</th>
             <th>Plan file</th>
+            <th>Details</th>
             <th>UUID</th>
           </tr>
         </tfoot>
@@ -241,9 +244,9 @@
       <div>
         <br/>
         {% if orbpre_by_units|length == 0 and playback_correction_by_units|length > 0 %}
-        <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+        <p id="acquisition-details-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
         {% else %}
-        <p id="summary-no-imaging" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
+        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
         {% endif %}
         <br/>
       </div>
@@ -286,7 +289,7 @@
           </div>
           <!--table-->
           {% if (station_report_by_units|length > 0) and (orbpre_by_units|length > 0) %}
-          <table width="100%" class="table table-striped table-bordered table-hover table-search" id="acquisition-reports-table">
+          <table width="100%" class="table table-striped table-bordered table-hover table-search" id="station-acquisition-reports-table">
             <thead>
               <tr>
                 <th>Satellite</th>
@@ -298,6 +301,7 @@
                 <th>Stop</th>
                 <th>Comments</th>
                 <th>Station Acquisition Report</th>
+                <th>Details</th>
                 <th>UUID</th>
               </tr>
             </thead>
@@ -322,8 +326,9 @@
                   <td>{{ event.start}}</td>
                   <td>{{ event.stop}}</td>
                   <td>{{ comments }}</td>
-                  <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ event.source.name }}</a></td>
+                  <td><a href="/eboa_nav/query-source/{{ event.source.source_uuid }}">{{ event.source.name }}</a></td>
                   <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}"><i class="fa fa-link"></i></a></td>
+                  <td>{{event.event_uuid}}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -338,6 +343,7 @@
                   <th>Stop</th>
                   <th>Comments</th>
                   <th>Station Acquisition Report</th>
+                  <th>Details</th>
                   <th>UUID</th>
                 </tr>
               </tfoot>
@@ -345,9 +351,9 @@
           {% else %}
             <br/>
             {% if orbpre_by_units|length == 0 and station_report_by_units|length > 0 %}
-            <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+            <p id="station-reports-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
             {% else %}
-            <p id="summary-no-acquisition" style="text-indent: 1em">There are no station reports during the requested period.</p>
+            <p id="station-reports-no-reports" style="text-indent: 1em">There are no station reports during the requested period.</p>
             {% endif %}
             {% endif %}
             <br/>
