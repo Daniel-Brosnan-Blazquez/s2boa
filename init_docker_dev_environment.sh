@@ -56,6 +56,28 @@ then
     exit -1
 fi
 
+for library in "libexplorer_data_handling.a" "libexplorer_file_handling.a" "libexplorer_lib.a" "libexplorer_orbit.a" "libexplorer_pointing.a" "libexplorer_visibility.a" "libgeotiff.a" "libproj.a" "libtiff.a" "libxml2.a";
+do
+    # Check that the library is present
+    library_count=$(find $PATH_TO_EOPCFI/lib -maxdepth 1 -mindepth 1 -name $library | wc -l)
+    if [ $library_count == 0 ];
+    then
+        echo "ERROR: The library $PATH_TO_EOPCFI/lib/$library does not exist in the provided eopcfi directory"
+        exit -1
+    fi
+done
+
+for header in "explorer_data_handling.h" "explorer_file_handling.h" "explorer_lib.h" "explorer_orbit.h" "explorer_pointing.h" "explorer_visibility.h";
+do
+    # Check that the header is present
+    header_count=$(find $PATH_TO_EOPCFI/include -maxdepth 1 -mindepth 1 -name $header | wc -l)
+    if [ $header_count == 0 ];
+    then
+        echo "ERROR: The header $PATH_TO_EOPCFI/include/$header does not exist in the provided eopcfi directory"
+        exit -1
+    fi
+done
+
 # Check that the last folder of the path to the eopcfis is eopcfi
 if [ "$(basename $PATH_TO_EOPCFI)" != "eopcfi" ];
 then
@@ -65,6 +87,16 @@ fi
 
 # Initialize docker environment using he command from vboa
 $PATH_TO_VBOA/init_docker_dev_environment.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_DOCKERFILE_CALL $PORT_CALL $PATH_TO_TAILORED_CALL $APP_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $CONTAINERS_LABEL_CALL $PATH_TO_ORC_CALL $PATH_TO_ORC_CONFIGURATION_CALL
+
+# Check that the docker environment has been created correctly
+status=$?
+if [ $status -ne 0 ]
+then
+    echo "Docker environment could not be created :-("
+    exit -1
+else
+    echo "Docker environment has been created successfully :-)"
+fi
 
 ##################
 # Install EOPCFI #
@@ -79,9 +111,17 @@ docker exec -it $APP_CONTAINER bash -c "gcc -Wno-deprecated -g -fpic -c -DSQLCA_
 
 echo "Objetcs for the EOPCFI interface generated..."
 
-docker exec -it $APP_CONTAINER bash -c "gcc /tmp/get_footprint.o -Wno-deprecated -g -I /s2vboa/eopcfi/include/ -L /s2vboa/eopcfi/lib/LINUX64 -lexplorer_visibility -lexplorer_pointing -lexplorer_orbit -lexplorer_lib -lexplorer_data_handling -lexplorer_file_handling -lgeotiff -ltiff -lproj -lxml2 -lm -lc -fopenmp -o /scripts/get_footprint; rm /tmp/get_footprint.o"
+docker exec -it $APP_CONTAINER bash -c "gcc /tmp/get_footprint.o -Wno-deprecated -g -I /s2vboa/eopcfi/include/ -L /s2vboa/eopcfi/lib/ -lexplorer_visibility -lexplorer_pointing -lexplorer_orbit -lexplorer_lib -lexplorer_data_handling -lexplorer_file_handling -lgeotiff -ltiff -lproj -lxml2 -lm -lc -fopenmp -o /scripts/get_footprint; rm /tmp/get_footprint.o"
 
-echo "Compilation of the EOPCFI interface successfully done :-)"
+# Check that the CFI could be compiled
+status=$?
+if [ $status -ne 0 ]
+then
+    echo "The EOP CFI could not be compiled :-("
+    exit -1
+else
+    echo "The EOP CFI has been compiled successfully :-)"
+fi
 
 echo "
 The development environment for $APP has been initialized :-)"

@@ -13,6 +13,7 @@ from dateutil import parser
 import subprocess
 import os
 from tempfile import mkstemp
+import re
 
 # Import astropy
 from astropy.time import Time
@@ -932,11 +933,16 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         completeness_event_stops = [event["stop"] for event in planning_processing_completeness_operation["events"]]
         completeness_event_stops.sort()
 
+        generation_time = planning_processing_completeness_generation_time
+        if re.match(".*REP_OPDPC.*", source["name"]):
+            generation_time = (parser.parse(planning_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
+        # end if
+        
         # Source for the completeness planning operation adjusting the validity to the events
         planning_processing_completeness_operation["source"] = {
             "name": source["name"],
             "reception_time": source["reception_time"],
-            "generation_time": planning_processing_completeness_generation_time,
+            "generation_time": generation_time,
             "validity_start": completeness_event_starts[0],
             "validity_stop": completeness_event_stops[-1]
         }
@@ -950,11 +956,16 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         completeness_event_stops = [event["stop"] for event in isp_validity_processing_completeness_operation["events"]]
         completeness_event_stops.sort()
 
+        generation_time = isp_validity_processing_completeness_generation_time
+        if re.match(".*REP_OPDPC.*", source["name"]):
+            generation_time = (parser.parse(isp_validity_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
+        # end if
+
         # Source for the completeness received imaging operation adjusting the validity to the events
         isp_validity_processing_completeness_operation["source"] = {
             "name": source["name"],
             "reception_time": source["reception_time"],
-            "generation_time": isp_validity_processing_completeness_generation_time,
+            "generation_time": generation_time,
             "validity_start": completeness_event_starts[0],
             "validity_stop": completeness_event_stops[-1]
         }
@@ -1390,11 +1401,16 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             completeness_event_stops = [event["stop"] for event in planning_processing_completeness_operation["events"]]
             completeness_event_stops.sort()
 
+            generation_time = planning_processing_completeness_generation_time
+            if re.match(".*REP_OPDPC.*", source["name"]):
+                generation_time = (parser.parse(planning_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
+            # end if
+
             # Source for the completeness planning operation adjusting the validity to the events
             planning_processing_completeness_operation["source"] = {
                 "name": source["name"],
                 "reception_time": source["reception_time"],
-                "generation_time": planning_processing_completeness_generation_time,
+                "generation_time": generation_time,
                 "validity_start": completeness_event_starts[0],
                 "validity_stop": completeness_event_stops[-1]
             }
@@ -1408,11 +1424,16 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             completeness_event_stops = [event["stop"] for event in isp_validity_processing_completeness_operation["events"]]
             completeness_event_stops.sort()
 
+            generation_time = isp_validity_processing_completeness_generation_time
+            if re.match(".*REP_OPDPC.*", source["name"]):
+                generation_time = (parser.parse(isp_validity_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
+            # end if
+
             # Source for the completeness received imaging operation adjusting the validity to the events
             isp_validity_processing_completeness_operation["source"] = {
                 "name": source["name"],
                 "reception_time": source["reception_time"],
-                "generation_time": isp_validity_processing_completeness_generation_time,
+                "generation_time": generation_time,
                 "validity_start": completeness_event_starts[0],
                 "validity_stop": completeness_event_stops[-1]
             }

@@ -100,7 +100,7 @@ def process_file(file_path, engine, query, reception_time):
     
     for product in xpath_xml("/Earth_Explorer_File/Data_Block/productsListOutcome/product[productID/@status = 'ARCHIVED']"):
         #Obtain the product ID
-        product_id = product.xpath("productID")[0].text
+        product_id = product.xpath("productID")[0].text.replace("_LT_", "_DS_")
         # Obtain the archiving_time
         lt_archiving_time = product.xpath("statusTimestamp")[0].text[:-1]
 
