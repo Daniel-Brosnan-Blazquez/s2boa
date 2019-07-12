@@ -78,7 +78,7 @@ class TestEngine(unittest.TestCase):
 
         #Check baseline
         baseline = self.query_eboa.get_annotations(explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"},
-                                                   annotation_cnf_names = {"op": "like", "filter": "BASELINE"})
+                                                   annotation_cnf_names = {"op": "like", "filter": "PRODUCTION_BASELINE"})
 
         assert len(baseline) == 1
 
