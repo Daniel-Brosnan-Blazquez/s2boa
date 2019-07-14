@@ -12,7 +12,7 @@ from dateutil import parser
 import datetime
 import json
 import sys
-from tempfile import mkstemp
+import tempfile
 
 # Import xml parser
 from lxml import etree
@@ -56,7 +56,9 @@ def process_file(file_path, engine, query, reception_time):
     file_name = os.path.basename(file_path)
 
     # Remove namespaces
-    (_, new_file_path) = new_file = mkstemp()
+    new_file = tempfile.NamedTemporaryFile()
+    new_file_path = new_file.name
+
     ingestion_functions.remove_namespaces(file_path, new_file_path)
 
     # Parse file
@@ -181,10 +183,10 @@ def process_file(file_path, engine, query, reception_time):
         "annotations": list_of_annotations
         }]}
 
-    os.remove(new_file_path)
-
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()
+
+    new_file.close()
     
     return data
