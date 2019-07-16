@@ -1,5 +1,6 @@
 {% extends "panel/index.html" %}
 {% block content %}
+{% set status = "UNKNOWN" %}
 <div class="row">
   <h1 class="page-header">Acquisition view</h1>
 </div>
@@ -118,6 +119,7 @@
 {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
 {% set playback_by_units = acquisition_events["playback_correction"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
 {% set station_report_by_units = acquisition_events["station_report"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
+{% set playback_completeness_by_units = acquisition_events["playback_completeness_channel"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -264,12 +266,24 @@
       <div>
         <h3><u>Footprints received vs planned</u></h3>
       </div>
+      {% if (playback_completeness_by_units|length > 0) and (orbpre_by_units|length > 0) %}
       <!-- /.panel-heading -->
-        <div id="playbacks-map">
+        <div id="acquisitions-map">
         </div>
       </div>
       <!-- /.panel-body -->
       </div>
+      {% else %}
+      <div>
+        <br/>
+        {% if orbpre_by_units|length == 0 and playback_completeness_by_units|length > 0 %}
+        <p id="acquisition-details-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+        {% else %}
+        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
+        {% endif %}
+        <br/>
+      </div>
+      {% endif %}
       <!-- /.panel -->
       {% endif %}
       </div>
@@ -368,16 +382,32 @@
       {% include "js/acquisition_functions.js" %}
 
       {% if show["map"] and acquisition_events["playback_completeness_channel"]["prime_events"]|length > 0 %}
+        {% set events_missing = [] %}
+        {% set events_received = [] %}
+        {% for event in acquisition_events["playback_completeness_channel"]["prime_events"] %}
 
-      {% with events = acquisition_events["playback_completeness_channel"]["prime_events"] %}
-      {% include "js/acquisition_to_map.js" %}
-      {% endwith %}
-      var polygons_missing = [];
-      var polygons_received = [];
-      vboa.prepare_events_geometries_for_map(acquisition_geometries_missing, polygons_missing);
-      vboa.prepare_events_geometries_for_map(acquisition_geometries_received, polygons_received);
-      var polygons = polygons_missing.concat(polygons_received);
-      vboa.display_map("playbacks-map", polygons);
+          {% if event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string == "RECEIVED" %}
+            {% do events_received.append(event) %}
+          {% elif event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string == "MISSING" %}
+            {% do events_missing.append(event) %}
+          {% endif %}
+        {% endfor %}
+
+        {% with events = events_missing %}
+        {% include "js/missing_acquisition_to_map.js" %}
+        {% endwith %}
+        var polygons_missing = [];
+        vboa.prepare_events_geometries_for_map(acquisition_geometries_missing, polygons_missing);
+
+        {% with events = events_received %}
+        {% include "js/received_acquisition_to_map.js" %}
+        {% endwith %}
+        var polygons_received = [];
+        vboa.prepare_events_geometries_for_map(acquisition_geometries_received, polygons_received);
+
+
+        var polygons = polygons_received.concat(polygons_missing);
+        vboa.display_map("acquisitions-map", polygons);
       {% endif %}
 
       {% if sliding_window %}

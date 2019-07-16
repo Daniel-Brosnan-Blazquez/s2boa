@@ -640,7 +640,5 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     events["playback_validity"] = playback_validity_events
     events["station_report"] = station_report_events
 
-    for event in events["playback_validity"]["prime_events"]:
-        current_app.logger.debug(event.event_uuid)
 
     return events
