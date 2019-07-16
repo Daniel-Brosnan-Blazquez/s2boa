@@ -447,59 +447,59 @@ def show_sliding_acquisition_parameters():
 
     return query_acquisition_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
-    @bp.route("/sliding_acquisition", methods=["GET", "POST"])
-    def show_sliding_acquisition():
-        """
-        Acquisition sliding view for the Sentinel-2 mission.
-        """
-        current_app.logger.debug("Sliding acquisition view")
+@bp.route("/sliding_acquisition", methods=["GET", "POST"])
+def show_sliding_acquisition():
+    """
+    Acquisition sliding view for the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Sliding acquisition view")
 
-        window_delay=-5
-        window_size=7
-        repeat_cycle=1
+    window_delay=0
+    window_size=1
+    repeat_cycle=1
 
-        mission = "S2_"
+    mission = "S2_"
 
-        show = {}
-        define_what_to_show_acquisition(show)
+    show = {}
+    define_what_to_show_acquisition(show)
 
-        if request.method == "POST":
+    if request.method == "POST":
 
-            if request.form["mission"] != "":
-                mission = request.form["mission"]
-            # end if
-
-            if request.form["acquisition_window_delay"] != "":
-                window_delay = request.form["acquisition_window_delay"]
-            # end if
-
-            if request.form["acquisition_window_size"] != "":
-                window_size = request.form["acquisition_window_size"]
-            # end if
-
-            if request.form["acquisition_repeat_cycle"] != "":
-                repeat_cycle = request.form["acquisition_repeat_cycle"]
-            # end if
-
+        if request.form["mission"] != "":
+            mission = request.form["mission"]
         # end if
 
-        start_filter = {
-            "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-            "operator": "<="
-        }
-        stop_filter = {
-            "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-            "operator": ">="
-        }
+        if request.form["acquisition_window_delay"] != "":
+            window_delay = request.form["acquisition_window_delay"]
+        # end if
 
-        sliding_window = {
-            "window_delay": window_delay,
-            "window_size": window_size,
-            "repeat_cycle": repeat_cycle,
-            "mission": mission
-        }
+        if request.form["acquisition_window_size"] != "":
+            window_size = request.form["acquisition_window_size"]
+        # end if
 
-        return query_acquisition_and_render(start_filter, stop_filter, mission, show, sliding_window)
+        if request.form["acquisition_repeat_cycle"] != "":
+            repeat_cycle = request.form["acquisition_repeat_cycle"]
+        # end if
+
+    # end if
+
+    start_filter = {
+        "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
+        "operator": "<="
+    }
+    stop_filter = {
+        "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
+        "operator": ">="
+    }
+
+    sliding_window = {
+        "window_delay": window_delay,
+        "window_size": window_size,
+        "repeat_cycle": repeat_cycle,
+        "mission": mission
+    }
+
+    return query_acquisition_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
 def define_what_to_show_acquisition(show):
 
