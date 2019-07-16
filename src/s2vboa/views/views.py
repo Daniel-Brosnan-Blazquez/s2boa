@@ -382,11 +382,11 @@ def show_acquisition():
 
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
-        "date": (datetime.datetime.now() + datetime.timedelta(days=5)).isoformat(),
+        "date": (datetime.datetime.now()).isoformat(),
         "operator": "<="
     }
     stop_filter = {
-        "date": (datetime.datetime.now() - datetime.timedelta(days=2)).isoformat(),
+        "date": (datetime.datetime.now() - datetime.timedelta(days=1)).isoformat(),
         "operator": ">="
     }
     mission = "S2_"
@@ -394,7 +394,7 @@ def show_acquisition():
     show = {}
     define_what_to_show_acquisition(show)
 
-    start_filter_calculated, stop_filter_calculated = get_start_stop_filters(7, mission)
+    start_filter_calculated, stop_filter_calculated = get_start_stop_filters(1, mission)
 
     if start_filter_calculated != None:
         start_filter = start_filter_calculated
