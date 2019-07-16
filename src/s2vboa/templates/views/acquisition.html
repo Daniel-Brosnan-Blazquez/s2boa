@@ -245,10 +245,10 @@
 
       <div>
         <br/>
-        {% if orbpre_by_units|length == 0 and playback_correction_by_units|length > 0 %}
+        {% if orbpre_by_units|length == 0 and playback_by_units|length > 0 %}
         <p id="acquisition-details-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
         {% else %}
-        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
+        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions planned during the requested period.</p>
         {% endif %}
         <br/>
       </div>
@@ -268,7 +268,7 @@
       <div>
         <h3><u>Footprints received vs planned</u></h3>
       </div>
-      {% if (playback_completeness_by_units|length > 0) and (orbpre_by_units|length > 0) %}
+      {% if (playback_by_units|length > 0) and (orbpre_by_units|length > 0) %}
       <!-- /.panel-heading -->
         <div id="acquisitions-map">
         </div>
@@ -278,10 +278,10 @@
       {% else %}
       <div>
         <br/>
-        {% if orbpre_by_units|length == 0 and playback_completeness_by_units|length > 0 %}
+        {% if orbpre_by_units|length == 0 and playback_by_units|length > 0 %}
         <p id="acquisition-details-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
         {% else %}
-        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions during the requested period.</p>
+        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions planned during the requested period.</p>
         {% endif %}
         <br/>
       </div>
