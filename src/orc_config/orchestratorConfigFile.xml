@@ -131,85 +131,85 @@
    <List_of_ProcessingRules>
    
       <ProcessingRule dataType='ORBPRE' triggerType='ORBPRE' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='NPPF' triggerType='NPPF' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='DFEPREP' triggerType='DFEPREP' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='REPACQ' triggerType='REPACQ' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='PLANDFEP' triggerType='PLANDFEP' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='PLANANTENNA' triggerType='PLANANTENNA' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='SRAEDRS' triggerType='SRAEDRS' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='DPC' triggerType='DPC' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='REPARC' triggerType='REPARC' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='OPAI' triggerType='OPAI' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='OPLTA' triggerType='OPLTA' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='OPLTAS' triggerType='OPLTAS' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='OPDAM' triggerType='OPDAM' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   
 
       <ProcessingRule dataType='OPDHUS' triggerType='OPDHUS' coverage='SAME'>
-	      <executable>eboa_triggering.py -f %F</executable>
+	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
       </ProcessingRule>   

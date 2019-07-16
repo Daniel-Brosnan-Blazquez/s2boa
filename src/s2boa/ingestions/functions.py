@@ -70,10 +70,8 @@ def correct_list_of_coordinates_for_ds (list_of_coordinates):
         result_list_of_coordinates.append(first_latitude)
         i = 1
         while i < len(list_of_coordinates)/2:
-            longitude = list_of_coordinates[i*2]
-            if longitude == first_longitude:
-                break
-            elif ((i*2) + 1) < len(list_of_coordinates):
+            if ((i*2) + 1) < len(list_of_coordinates):
+                longitude = list_of_coordinates[i*2]
                 latitude = list_of_coordinates[(i*2) + 1]
                 result_list_of_coordinates.append(longitude)
                 result_list_of_coordinates.append(latitude)
@@ -108,10 +106,8 @@ def correct_list_of_coordinates_for_gr_tl (list_of_coordinates):
         result_list_of_coordinates.append(first_latitude)
         i = 1
         while i < len(list_of_coordinates)/2:
-            longitude = list_of_coordinates[i*3]
-            if longitude == first_longitude:
-                break
-            elif ((i*3) + 1) < len(list_of_coordinates):
+            if ((i*3) + 1) < len(list_of_coordinates):
+                longitude = list_of_coordinates[i*3]
                 latitude = list_of_coordinates[(i*3) + 1]
                 result_list_of_coordinates.append(longitude)
                 result_list_of_coordinates.append(latitude)

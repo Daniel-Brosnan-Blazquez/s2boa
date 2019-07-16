@@ -78,7 +78,7 @@ class TestEngine(unittest.TestCase):
 
         #Check baseline
         baseline = self.query_eboa.get_annotations(explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"},
-                                                   annotation_cnf_names = {"op": "like", "filter": "BASELINE"})
+                                                   annotation_cnf_names = {"op": "like", "filter": "PRODUCTION_BASELINE"})
 
         assert len(baseline) == 1
 
@@ -91,7 +91,7 @@ class TestEngine(unittest.TestCase):
             'name': 'details',
             'values': [{'type': 'geometry',
                 'name': 'footprint',
-                'value': 'POLYGON ((27.5923694065675 28.6897912912051, 27.8617502445779 28.6464983273278, 27.7690524083984 28.2803979779816, 27.4991925556512 28.322475522552, 27.5923694065675 28.6897912912051))'
+                'value': 'POLYGON ((27.5923694065675 28.6897912912051, 27.5923694065675 28.6897912912051, 27.8617502445779 28.6464983273278, 27.7690524083984 28.2803979779816, 27.4991925556512 28.322475522552, 27.5923694065675 28.6897912912051))'
                 }]
         }]
 

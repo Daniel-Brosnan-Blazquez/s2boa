@@ -12,7 +12,7 @@ from dateutil import parser
 import datetime
 import json
 import sys
-from tempfile import mkstemp
+import tempfile
 import time
 
 # Import xml parser
@@ -57,7 +57,9 @@ def process_file(file_path, engine, query, reception_time):
     file_name = os.path.basename(file_path)
 
     # Remove namespaces
-    (_, new_file_path) = new_file = mkstemp()
+    new_file = tempfile.NamedTemporaryFile()
+    new_file_path = new_file.name
+
     ingestion_functions.remove_namespaces(file_path, new_file_path)
 
     # Parse file
@@ -142,7 +144,11 @@ def process_file(file_path, engine, query, reception_time):
             {"name": "datatake_identifier",
              "type": "text",
              "value": datatake_id
-             }]
+             },
+            {"name": "satellite",
+             "type": "text",
+             "value": satellite
+            }]
         }]
     }
     list_of_annotations.append(datatake_annotation)
@@ -280,8 +286,8 @@ def process_file(file_path, engine, query, reception_time):
         baseline_annotation = {
         "explicit_reference": datastrip_id,
         "annotation_cnf": {
-            "name": "BASELINE",
-            "system": system
+            "name": "PRODUCTION_BASELINE",
+            "system": satellite
             },
         "values": [{
             "name": "details",
@@ -290,7 +296,11 @@ def process_file(file_path, engine, query, reception_time):
                 {"name": "baseline",
                  "type": "text",
                  "value": baseline
-                 }]
+                 },
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite
+                }]
             }]
         }
         list_of_annotations_for_processing.append(baseline_annotation)
@@ -311,7 +321,7 @@ def process_file(file_path, engine, query, reception_time):
         "explicit_reference": datastrip_id,
         "annotation_cnf": {
             "name": "SENSING_IDENTIFIER",
-            "system": system
+            "system": satellite
             },
         "values": [{
             "name": "details",
@@ -320,6 +330,10 @@ def process_file(file_path, engine, query, reception_time):
                 {"name": "sensing_identifier",
                  "type": "text",
                  "value": sensing_identifier
+                },
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite
                 }]
             }]
         }
@@ -385,9 +399,13 @@ def process_file(file_path, engine, query, reception_time):
         elif (level == "L1C" or level == "L2A"):
             def get_upper_level_ers():
                 upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "like"},
+                                                          annotation_cnf_systems = {"filter": satellite, "op": "like"},
                                                           groups = {"filter": ["L0_DS", "L1B_DS"], "op": "in"},
                                                           annotation_value_filters = [{"name": {"str": "sensing_identifier", "op": "like"}, "type": "text", "value": {"op": "like", "value": sensing_identifier}}])
-                return upper_level_ers
+
+                upper_level_ers_same_satellite = [er.explicit_ref for er in upper_level_ers if er.explicit_ref[0:3] == satellite]
+
+                return [er.explicit_ref for er in upper_level_ers]
             # end def
             i = 0
             upper_level_ers = get_upper_level_ers()
@@ -397,10 +415,9 @@ def process_file(file_path, engine, query, reception_time):
                 i += 10
                 upper_level_ers = get_upper_level_ers()
             # end while
-            upper_level_ers_same_satellite = [er.explicit_ref for er in upper_level_ers if er.explicit_ref[0:3] == satellite]
-            upper_level_er = [er for er in upper_level_ers_same_satellite if er[13:16] == "L1B"]
+            upper_level_er = [er for er in upper_level_ers if er[13:16] == "L1B"]
             if len(upper_level_er) == 0:
-                upper_level_er = [er for er in upper_level_ers_same_satellite if er[13:16] == "L0_"]
+                upper_level_er = [er for er in upper_level_ers if er[13:16] == "L0_"]
             # end if
             if len(upper_level_er) > 0:
                 er = upper_level_er[0]
@@ -470,10 +487,10 @@ def process_file(file_path, engine, query, reception_time):
         })
     data = {"operations": list_of_operations}
 
-    os.remove(new_file_path)
-
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()
+
+    new_file.close()
     
     return data
