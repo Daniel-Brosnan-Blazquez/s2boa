@@ -27,12 +27,6 @@
       </DataProvider>
 
       <DataProvider isTriggerType='yes'>
-	      <DataType>OPAI</DataType>
-	      <FileType>*REP_OPAI__*</FileType>
-	      <Directory>[update]/data/l0-in/</Directory>
-      </DataProvider>
-
-      <DataProvider isTriggerType='yes'>
 	      <DataType>REPACQ</DataType>
 	      <FileType>*REP_STNACQ*</FileType>
 	      <Directory>[update]/data/l0-in/</Directory>
