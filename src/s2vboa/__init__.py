@@ -15,7 +15,8 @@ import jinja2
 
 # Import vboa
 import vboa
-from s2vboa.views import views
+from s2vboa.views import planning
+from s2vboa.views import acquisition
 
 def create_app():
     """
@@ -23,7 +24,8 @@ def create_app():
     """
     app = vboa.create_app()
 
-    app.register_blueprint(views.bp)
+    app.register_blueprint(planning.bp)
+    app.register_blueprint(acquisition.bp)
 
     s2vboa_templates_folder = os.path.dirname(__file__) + "/templates"
 
