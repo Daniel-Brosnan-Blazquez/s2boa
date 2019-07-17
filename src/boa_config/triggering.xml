@@ -194,6 +194,10 @@
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc -f </command>
     </tool>
     <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>S2A_REP_PASS_E</source_type>
+      <source_type>S2A_REP_PASS_2_5</source_type>
       <source_type>S2B_MPL__NPPF</source_type>
       <source_type>S2B_MPL_ORBPRE</source_type>
       <source_type>S2B_REP_PASS_E</source_type>
@@ -240,7 +244,7 @@
     </tool>
   </rule>
   <rule>
-    <source_mask>S2__OPER_REP_OPDHUS_DHUS_........T.......*</source_mask>
+    <source_mask>S2._OPER_REP_OPDHUS_DHU._........T.......*</source_mask>
     <source_type>REP_OPDHUS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dhus.ingestion_dhus -f </command>

@@ -15,6 +15,7 @@ import json
 import sys
 import tempfile
 import time
+import massedit
 
 # Import xml parser
 from lxml import etree
@@ -56,7 +57,9 @@ def process_file(file_path, engine, query, reception_time):
     :type reception_time: str
     """
     file_name = os.path.basename(file_path)
-
+    # Remove wrong namespace
+    massedit.edit_files([file_path], ["re.sub(r'^.*<Earth_Explorer_File.*>', '<Earth_Explorer_File>', line)"], dry_run=False)
+                        
     # Remove namespaces
     new_file = tempfile.NamedTemporaryFile()
     new_file_path = new_file.name

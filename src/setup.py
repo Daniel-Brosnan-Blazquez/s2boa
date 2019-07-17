@@ -18,6 +18,7 @@ setup(name="s2boa",
       python_requires='>=3',
       install_requires=[
           "vboa",
-          "astropy"
+          "astropy",
+          "massedit"
       ],
       test_suite='nose.collector')

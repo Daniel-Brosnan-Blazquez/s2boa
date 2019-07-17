@@ -547,7 +547,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             # end if
         # end for
 
-        processing_validity_link_ref = "PROCESSING_VALIDITY_" + datablock["start"].isoformat()
+        processing_validity_link_ref = "PROCESSING_VALIDITY_" + level + "_" + datablock["start"].isoformat()
         # Create gap events
         def create_processing_gap_events(gaps, gap_source):
             for detector in gaps:
@@ -716,6 +716,10 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             # Add margin of 6 second to each side of the segment to avoid false alerts
             start = isp_validity.start + datetime.timedelta(seconds=6)
             stop = isp_validity.stop - datetime.timedelta(seconds=6)
+            if start > stop:
+                start = isp_validity.start
+                stop = isp_validity.stop
+            # end if
 
             isp_validity_processing_completeness_operation["events"].append({
                 "gauge": {
@@ -1046,7 +1050,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         # end for
 
         # If gaps, status is incomplete
-        processing_validity_link_ref = "PROCESSING_VALIDITY_" + processing_validity_event.start.isoformat()
+        processing_validity_link_ref = "PROCESSING_VALIDITY_" + level + "_" + processing_validity_event.start.isoformat()
         if len(gaps) > 0:
             status = "INCOMPLETE"
             general_status = "INCOMPLETE"
@@ -1182,6 +1186,10 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             # Add margin of 6 second to each side of the segment to avoid false alerts
             start = isp_validity.start + datetime.timedelta(seconds=6)
             stop = isp_validity.stop - datetime.timedelta(seconds=6)
+            if start > stop:
+                start = isp_validity.start
+                stop = isp_validity.stop
+            # end if
 
             isp_validity_processing_completeness_operation["events"].append({
                 "gauge": {
