@@ -161,6 +161,7 @@ def define_what_to_show_acquisition(show):
 
     show["table_details"]=True
     show["map"]=True
+    show["timeline"]=True
     show["station_reports"]=True
 
     if request.method == "POST":
@@ -174,6 +175,11 @@ def define_what_to_show_acquisition(show):
         else:
             show["map"]=True
         # end if
+        if not "show_acquisition_timeline" in request.form:
+            show["timeline"] = False
+        else:
+            show["timeline"]=True
+        # end if
         if not "show_station_reports" in request.form:
             show["station_reports"] = False
         else:
@@ -183,118 +189,61 @@ def define_what_to_show_acquisition(show):
 
 def query_acquisition_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None):
 
-        acquisition_events = query_acquisition_events(start_filter, stop_filter, mission)
+    acquisition_events = query_acquisition_events(start_filter, stop_filter, mission)
 
-        orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
+    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
 
-        reporting_start = stop_filter["date"]
-        reporting_stop = start_filter["date"]
+    reporting_start = stop_filter["date"]
+    reporting_stop = start_filter["date"]
 
-        return render_template("views/acquisition.html", acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window)
+    return render_template("views/acquisition.html", acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window)
 
 def query_acquisition_events(start_filter = None, stop_filter = None, mission = None):
     """
-    Query acquisition events.
+    Query planned acquisition events.
     """
-    current_app.logger.debug("Query acquisition events")
+    current_app.logger.debug("Query planned acquisition events")
 
     # Check that the ORBPRE files cover the requested period
 
-    kwargs_playback_correction = {}
     kwargs_playback = {}
-    kwargs_playback_completeness_channel = {}
-    kawrgs_playback_validity = {}
-    kwargs_station_report = {}
 
     # Start filter
     if start_filter:
-        kwargs_playback_correction["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
         kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-        kwargs_playback_completeness_channel["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-        kawrgs_playback_validity["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-        kwargs_station_report["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
     # end if
 
     # Stop filter
     if stop_filter:
-        kwargs_playback_correction["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
         kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-        kwargs_playback_completeness_channel["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-        kawrgs_playback_validity["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-        kwargs_station_report["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
     # end if
 
 
     # Mission
     if mission:
-        kwargs_playback_correction["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "value": mission}
-                                }]
         kwargs_playback["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "value": mission}
-                                }]
-        kwargs_playback_completeness_channel["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "value": mission}
-                                }]
-        kawrgs_playback_validity["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "value": mission}
-                                }]
-        kwargs_station_report["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
                                     "type": "text",
                                     "value": {"op": "like", "value": mission}
                                 }]
     # end if
 
-
     ####
-    # Query playback_correction
-    ####
-    # Specify the main query parameters
-    kwargs_playback_correction["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
-    kwargs_playback_correction["link_names"] = {"filter": ["PLANNED_EVENT"], "op": "in"}
-    playback_correction_events = query.get_linked_events(**kwargs_playback_correction)
-
-    ####
-    # Query playbacks
+    # Query planned playbacks
     ####
     # Specify the main query parameters
-    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK"], "op": "in"}
-    playback_events = query.get_linked_events(**kwargs_playback)
-
-
-    ####
-    # Query playback_completeness_channel
-    ####
-    # Specify the main query parameters
-    kwargs_playback_completeness_channel["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_%", "op": "like"}
-    playback_completeness_channel_events = query.get_linked_events(**kwargs_playback_completeness_channel)
-
-    ####
-    # Query playback_validity
-    ####
-    # Specify the main query parameters
-    kawrgs_playback_validity["gauge_names"] = {"filter": "PLAYBACK_VALIDITY_%", "op": "like"}
-    kawrgs_playback_validity["link_names"] = {"filter": ["PLANNED_PLAYBACK"], "op": "in"}
-    playback_validity_events = query.get_linked_events(**kawrgs_playback_validity)
-
-    ####
-    # Query station_report
-    ####
-    # Specify the main query parameters
-    kwargs_station_report["gauge_names"] = {"filter": "STATION_REPORT", "op": "like"}
-    kwargs_station_report["link_names"] = {"filter": ["PLANNED_PLAYBACK"], "op": "in"}
-    station_report_events = query.get_linked_events(**kwargs_station_report)
+    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
+    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+    planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+    planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "PLAYBACK_COMPLETENESS", "DFEP_SCHEDULE", "STATION_SCHEDULE", "SLOT_REQUEST_EDRS", "STATION_ACQUISITION_REPORT"], "op": "in"}, return_prime_events = False)
 
     events = {}
-    events["playback_correction"] = playback_correction_events
-    events["playback"] = playback_events
-    events["playback_completeness_channel"] = playback_completeness_channel_events
-    events["playback_validity"] = playback_validity_events
-    events["station_report"] = station_report_events
-
+    events["playback_correction"] = planned_playback_correction_events["prime_events"]
+    events["playback"] = planned_playback_correction_events["linked_events"]
+    events["playback_completeness_channel"] = planned_playback_events["linking_events"]["PLAYBACK_COMPLETENESS"]
+    events["playback_validity"] = planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"]
+    events["station_report"] = planned_playback_events["linking_events"]["STATION_ACQUISITION_REPORT"]
+    events["station_schedule"] = planned_playback_events["linking_events"]["STATION_SCHEDULE"]
+    events["dfep_schedule"] = planned_playback_events["linking_events"]["DFEP_SCHEDULE"]
+    events["slot_request_edrs"] = planned_playback_events["linking_events"]["SLOT_REQUEST_EDRS"]
 
     return events

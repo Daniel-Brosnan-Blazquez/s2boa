@@ -1,6 +1,6 @@
 
 /* Function to create the text for the tooltip of the playback event information*/
-function create_acquisition_tooltip_text(satellite, orbit, station, start, stop, playback_type, playback_mean, plan_file, uuid, link_to_details){
+function create_acquisition_tooltip_text(satellite, orbit, station, status, start, stop, playback_type, playback_mean, plan_file, uuid, link_to_details){
     const start_date = new Date(start);
     const stop_date = new Date(stop);
     const duration = ((stop_date.getTime() - start_date.getTime()) / (1000 * 60)).toFixed(3);
@@ -10,6 +10,7 @@ function create_acquisition_tooltip_text(satellite, orbit, station, start, stop,
             "<tr><td>Satellite</td><td>" + satellite + "</td>" +
             "<tr><td>Orbit</td><td>" + orbit + "</td>" +
             "<tr><td>Station</td><td>" + station + "</td>" +
+            "<tr><td>Status</td><td>" + status + "</td>" +
             "<tr><td>Start</td><td>" + start + "</td>" +
             "<tr><td>Stop</td><td>" + stop + "</td>" +
             "<tr><td>Duration(m)</td><td>" + duration + "</td>" +
