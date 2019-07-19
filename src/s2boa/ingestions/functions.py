@@ -498,10 +498,17 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         for detector in granule_timeline_per_detector:
             granule_timeline_per_detector_sorted[detector] = ingestion_functions.sort_timeline_by_start(granule_timeline_per_detector[detector])
             datablocks_per_detector[detector] = ingestion_functions.merge_timeline(granule_timeline_per_detector_sorted[detector])
+            datablock_start_with_margin = datablock["start"] + datetime.timedelta(seconds=6)
+            datablock_stop_with_margin = datablock["stop"] - datetime.timedelta(seconds=6)
+            if datablock_start_with_margin > datablock_stop_with_margin:
+                datablock_start_with_margin = datablock["start"]
+                datablock_stop_with_margin = datablock["stop"]
+            # end if
+
             datablock_for_extracting_gaps = {
                 "id": datablock["id"],
-                "start": datablock["start"] + datetime.timedelta(seconds=6),
-                "stop": datablock["stop"] - datetime.timedelta(seconds=6)
+                "start": datablock_start_with_margin,
+                "stop": datablock_stop_with_margin
             }
             intersected_datablock_per_detector[detector] = ingestion_functions.intersect_timelines([datablock_for_extracting_gaps], datablocks_per_detector[detector])
             processing_gaps[detector] = ingestion_functions.difference_timelines(intersected_datablock_per_detector[detector],[datablock_for_extracting_gaps])
