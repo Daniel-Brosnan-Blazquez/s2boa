@@ -250,11 +250,11 @@ class TestPlanningView(unittest.TestCase):
 
         duration_XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through X-Band (minutes):']]/td[1]")
 
-        assert duration_XBand_playbacks.text == "5.836"
+        assert duration_XBand_playbacks.text == "11.671"
 
         duration_OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through OCP (minutes):']]/td[1]")
 
-        assert duration_OCP_playbacks.text == "7.813"
+        assert duration_OCP_playbacks.text == "15.625"
 
         ## All Missions
 
@@ -282,11 +282,11 @@ class TestPlanningView(unittest.TestCase):
 
         duration_XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through X-Band (minutes):']]/td[1]")
 
-        assert duration_XBand_playbacks.text == "5.836"
+        assert duration_XBand_playbacks.text == "11.671"
 
         duration_OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through OCP (minutes):']]/td[1]")
 
-        assert duration_OCP_playbacks.text == "7.813"
+        assert duration_OCP_playbacks.text == "15.625"
 
         # Imaging
 

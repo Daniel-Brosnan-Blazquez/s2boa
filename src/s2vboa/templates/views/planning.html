@@ -126,11 +126,13 @@
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Summary plan
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#planning-summary">Summary plan <span class="fa fa-angle-double-down"></span></a>
+      </h3>
     </div>
-    {% if orbpre_by_units|length > 0 and (imaging_by_units|length > 0 or playback_by_units|length > 0) %}
     <!-- /.panel-heading -->
-    <div class="panel-body">
+    <div class="panel-body panel-collapse collapse in" id="planning-summary">
+      {% if orbpre_by_units|length > 0 and (imaging_by_units|length > 0 or playback_by_units|length > 0) %}
       <div>
         <h3><u>Summary</u></h3>
       </div>
@@ -158,7 +160,7 @@
 
       {% set orbpre = orbpre|flatten %}
       {% set imaging = imaging|flatten %}
-      {% set playback = playback|flatten %}
+      {% set playback = playback|flatten|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
 
       {% set imaging_by_recording = imaging|events_group_by_text_value("record_type") %}
       {% set playback_by_mean = playback|events_group_by_text_value("playback_mean") %}
@@ -229,30 +231,32 @@
       </div>
       <!-- /.panel-body -->
       {% endfor %}
-    </div>
-    <!-- /.row (nested) -->
-    {% else %}
-
-    <div>
-      <br/>
-      {% if orbpre_by_units|length == 0 and imaging_by_units|length > 0 %}
-      <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+      <!-- /.row (nested) -->
       {% else %}
-      <p id="summary-no-imaging" style="text-indent: 1em">There are no imaging operations during the requested period.</p>
+
+      <div>
+        <br/>
+        {% if orbpre_by_units|length == 0 and imaging_by_units|length > 0 %}
+        <p id="summary-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+        {% else %}
+        <p id="summary-no-imaging" style="text-indent: 1em">There are no imaging operations during the requested period.</p>
+        {% endif %}
+        <br/>
+      </div>
       {% endif %}
-      <br/>
     </div>
-    {% endif %}
   </div>
 </div>
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Imaging plan
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#planning-imaging-plan">Imaging plan <span class="fa fa-angle-double-down"></span></a>
+      </h3>
     </div>
-    {% if orbpre_by_units|length > 0 and imaging_by_units|length > 0 %}
     <!-- /.panel-heading -->
-    <div class="panel-body">
+    <div class="panel-body panel-collapse collapse in" id="planning-imaging-plan">
+      {% if orbpre_by_units|length > 0 and imaging_by_units|length > 0 %}
       <div>
         <div>
           <h3><u>Statistics</u></h3>
@@ -454,30 +458,32 @@
       <!-- /.panel -->
       {% endif %}      
       {% endif %}
-    </div>
-    <!-- /.panel-body -->
-    <!-- /.row (nested) -->
-    {% else %}
-    <div>
-      <br/>
-      {% if orbpre_by_units|length == 0 and imaging_by_units|length > 0 %}
-      <p id="imaging-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+      <!-- /.panel-body -->
+      <!-- /.row (nested) -->
       {% else %}
-      <p id="imaging-no-imaging" style="text-indent: 1em">There are no imaging operations during the requested period.</p>
+      <div>
+        <br/>
+        {% if orbpre_by_units|length == 0 and imaging_by_units|length > 0 %}
+        <p id="imaging-no-orbpre" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+        {% else %}
+        <p id="imaging-no-imaging" style="text-indent: 1em">There are no imaging operations during the requested period.</p>
+        {% endif %}
+        <br/>
+      </div>
       {% endif %}
-      <br/>
     </div>
-    {% endif %}
   </div>
 </div>
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Playback plan
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#planning-playback-plan">Playback plan <span class="fa fa-angle-double-down"></span></a>
+      </h3>
     </div>
-    {% if orbpre_by_units|length > 0 and playback_by_units|length > 0 %}
     <!-- /.panel-heading -->
-    <div class="panel-body">
+    <div class="panel-body panel-collapse collapse in" id="planning-playback-plan">
+      {% if orbpre_by_units|length > 0 and playback_by_units|length > 0 %}
       <div>
         <div>
           <h3><u>Statistics</u></h3>
@@ -771,20 +777,20 @@
       <!-- /.panel -->
       {% endif %}
       {% endif %}
-    </div>
-    <!-- /.panel-body -->
-    <!-- /.row (nested) -->
-    {% else %}
-    <div>
-      <br/>
-      {% if orbpre_by_units|length == 0 and playback_by_units|length > 0 %}
-      <p id="playback-no-orbrpe" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+      <!-- /.panel-body -->
+      <!-- /.row (nested) -->
       {% else %}
-      <p id="playback-no-playback" style="text-indent: 1em">There are no playback operations during the requested period.</p>
+      <div>
+        <br/>
+        {% if orbpre_by_units|length == 0 and playback_by_units|length > 0 %}
+        <p id="playback-no-orbrpe" style="text-indent: 1em">There is no orbit prediction information for giving correct timings.</p>
+        {% else %}
+        <p id="playback-no-playback" style="text-indent: 1em">There are no playback operations during the requested period.</p>
+        {% endif %}
+        <br/>
+      </div>
       {% endif %}
-      <br/>
     </div>
-    {% endif %}
   </div>
 </div>
 {% if show["timeline"] %}
@@ -792,10 +798,12 @@
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Timeline of the planning
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#planning-timeline">Timeline of the planning <span class="fa fa-angle-double-down"></span></a>
+      </h3>
     </div>
     <!-- /.panel-heading -->
-    <div class="panel-body">
+    <div class="panel-body panel-collapse collapse in" id="planning-timeline">
       {% if planning_events["imaging"]["prime_events"]|length == 0 and planning_events["playback"]["prime_events"]|length == 0 %}
       <div id="planning_timeline">
         <p id="timeline-no-planning">There are no planning events during the requested period.</p>
