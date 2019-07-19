@@ -331,6 +331,11 @@ def process_file(file_path, engine, query, reception_time):
             # Steps
             for step in steps_list:
                 if step.find("EXEC_STATUS").text == 'COMPLETED':
+                    values = [{
+                        "name": "id",
+                        "type": "text",
+                        "value": step.get("id")
+                    }]
                     event_step = {
                         "explicit_reference": ds_output,
                         "gauge": {
@@ -343,17 +348,16 @@ def process_file(file_path, engine, query, reception_time):
                         "values": [{
                             "name": "details",
                             "type": "object",
-                            "values": [{
-                                       "name": "id",
-                                       "type": "text",
-                                       "value": step.get("id")
-                                       },{
-                                       "name": "exec_mode",
-                                       "type": "text",
-                                       "value": step.find("SUBSYSTEM_INFO/STEP_REPORT/GENERAL_INFO/EXEC_MODE").text
-                            }]
+                            "values": values
                         }]
                     }
+                    exec_mode_node = step.find("SUBSYSTEM_INFO/STEP_REPORT/GENERAL_INFO/EXEC_MODE")
+                    if exec_mode_node is not None:
+                        values.append({
+                            "name": "exec_mode",
+                            "type": "text",
+                            "value": exec_mode_node.text
+                        })
                     list_of_events.append(event_step)
                 # end if
             # end for
