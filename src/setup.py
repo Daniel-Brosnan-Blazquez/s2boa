@@ -8,7 +8,7 @@ module vboa
 from setuptools import setup, find_packages
 
 setup(name="s2boa",
-      version="0.1.0",
+      version="0.1.1",
       description="S2 engine and visualization tool for Business Operation Analysis",
       url="https://bitbucket.org/dbrosnan/s2boa/",
       author="Daniel Brosnan",
