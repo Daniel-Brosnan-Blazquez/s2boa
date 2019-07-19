@@ -8,6 +8,12 @@
 	      <Directory>[update]/data/l0-in/</Directory>
       </DataProvider>
 
+      <DataProvider isTriggerType='no'>
+              <DataType>MPC</DataType>
+              <FileType>*MPL_FSACK*</FileType>
+              <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
       <DataProvider isTriggerType='yes'>
 	      <DataType>OPDHUS</DataType>
 	      <FileType>*REP_OPDHUS*</FileType>
