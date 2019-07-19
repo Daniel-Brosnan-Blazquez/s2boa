@@ -63,7 +63,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20 17:33:12.859268",
-                                                   Source.validity_stop == "2018-07-21T07:37:55.121811").all()
+                                                   Source.validity_stop == "2018-07-21T07:37:55.121772").all()
 
         assert len(source) == 1
 
@@ -342,7 +342,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T17:33:12.859268",
-                                                   Source.validity_stop == "2018-07-21T07:37:55.121811").all()
+                                                   Source.validity_stop == "2018-07-21T07:37:55.121772").all()
 
         assert len(source) == 1
 
@@ -849,7 +849,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T17:33:12.859268",
-                                                   Source.validity_stop == "2018-07-21T07:37:55.121811",
+                                                   Source.validity_stop == "2018-07-21T07:37:55.121772",
                                                    Source.name == "S2A_OPER_REP_PASS_E_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_edrs_acquisition.py").all()
 
@@ -1220,7 +1220,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T17:33:12.859268",
-                                                   Source.validity_stop == "2018-07-21T07:37:55.121811",
+                                                   Source.validity_stop == "2018-07-21T07:37:55.121772",
                                                    Source.name == "S2A_OPER_REP_PASS_E_PLAYBACK_RT.EOF",
                                                    Source.processor == "ingestion_edrs_acquisition.py").all()
 
