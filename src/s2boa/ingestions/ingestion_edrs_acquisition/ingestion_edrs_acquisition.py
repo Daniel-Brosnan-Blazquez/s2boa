@@ -383,7 +383,11 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         # Received number of packets
         # The packets registered in the APID 2047 have to be discarded
-        received_number_packets_apid_2047 = int(vcid.xpath("ISP_Status/Status[@APID = 2047]/NumPackets")[0].text)
+        received_number_packets_apid_2047 = 0
+        received_number_packets_apid_2047_node = vcid.xpath("ISP_Status/Status[@APID = 2047]/NumPackets") 
+        if len(received_number_packets_apid_2047_node) > 0:
+            received_number_packets_apid_2047 = int(received_number_packets_apid_2047_node[0].text)
+        # end if
         received_number_packets = int(vcid.xpath("ISP_Status/Summary/NumPackets")[0].text) - int(received_number_packets_apid_2047)
 
         # Obtain complete missing APIDs
@@ -1067,7 +1071,7 @@ def process_file(file_path, engine, query, reception_time):
         validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # end if
 
-    acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/ISP_Status/Status/AcqStopTime")
+    acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStopTime")
     if len(acquisition_stops) > 0:
         # Set the validity stop to be the last acquisition timing registered to avoid error ingesting
         acquisition_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_stop.text) for acquisition_stop in acquisition_stops]
