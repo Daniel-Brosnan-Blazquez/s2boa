@@ -151,7 +151,10 @@ def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list
     planning_events = query.get_events(gauge_uuids = {"filter": [gauge.gauge_uuid for gauge in planning_gauges], "op": "in"},
                                        value_filters = [{"name": {"str": "start_orbit", "op": "like"},
                                                          "type": "double",
-                                                         "value": {"value": start_orbit, "op": ">="}}])
+                                                         "value": {"value": start_orbit, "op": ">="}},
+                                                        {"name": {"str": "start_orbit", "op": "like"},
+                                                         "type": "double",
+                                                         "value": {"value": stop_orbit, "op": "<"}}])
 
     planning_events = query.get_events(event_uuids = {"filter": [event.event_uuid for event in planning_events], "op": "in"},
                                        value_filters = [{"name": {"str": "stop_orbit", "op": "like"},
