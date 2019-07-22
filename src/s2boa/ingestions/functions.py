@@ -1655,6 +1655,7 @@ def associate_footprints(events, satellite, orbpre_events = None):
         for event in events:
 
             if not type(event) == dict:
+                os.remove(orbpre_file_path)
                 raise EventsStructureIncorrect("The items of the events list has to be a dict. Received item {}".format(event))
             # end if
 
@@ -1719,22 +1720,22 @@ def associate_footprints(events, satellite, orbpre_events = None):
                         logger.error("The footprint of the events could not be built because the command {} ended in error".format(get_footprint_command))
                     # end if
                 else:
-                    logger.debug("There event with start {} and stop {} is too large".format(event["start"], event["stop"]))
+                    logger.info("The event with start {} and stop {} is too large".format(event["start"], event["stop"]))
                 # end if
             # end if
             events_with_footprint.append(event_with_footprint)
 
         # end for
-        os.remove(orbpre_file_path)
-        
-        FNULL.close()
-
     else:
         events_with_footprint = events
         logger.error("The footprint of the events could not be built because there is not enough orbit prediction information")
     # end if
 
-    logger.debug("The number of events generated after associating the footprint is {}".format(len(events_with_footprint)))
+    os.remove(orbpre_file_path)
+        
+    FNULL.close()
+
+    logger.info("The number of events generated after associating the footprint is {}".format(len(events_with_footprint)))
     
     return events_with_footprint
 
