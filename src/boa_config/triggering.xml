@@ -32,7 +32,8 @@
     </tool>
     <dependencies>
       <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>      
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>SRA_EDRS</source_type>
     </dependencies>
   </rule>
   <rule>
@@ -126,7 +127,8 @@
     </tool>
     <dependencies>
       <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>      
+      <source_type>S2B_MPL_ORBPRE</source_type>
+      <source_type>SRA_EDRS</source_type>
     </dependencies>
   </rule>
   <rule>
