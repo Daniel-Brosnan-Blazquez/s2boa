@@ -213,8 +213,10 @@
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs -f </command>
     </tool>
     <dependencies>
-      <source_type>MPL__NPPF</source_type>
-      <source_type>MPL_ORBPRE</source_type>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
   <rule>
