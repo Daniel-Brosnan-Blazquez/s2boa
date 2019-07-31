@@ -1231,7 +1231,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:35.524661",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:41.524661",
                                                    Source.validity_stop == "2018-07-21T10:37:24.534390",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
@@ -1350,7 +1350,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:01.255634",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:07.255634",
                                                    Source.validity_stop == "2018-07-21T10:37:24.534390",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()

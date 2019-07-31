@@ -226,10 +226,13 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 start = corrected_planned_playback.start + datetime.timedelta(seconds=2)
                 stop = start
             else:
-                start = corrected_planned_playback.start + datetime.timedelta(seconds=3)
+                start = corrected_planned_playback.start + datetime.timedelta(seconds=9)
                 stop = corrected_planned_playback.stop - datetime.timedelta(seconds=3)
             # end if
 
+            if start > stop:
+                start = corrected_planned_playback.start
+            # end if
 
             playback_planning_completeness_operation["events"].append({
                 "gauge": {

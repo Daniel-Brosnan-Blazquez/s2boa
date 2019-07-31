@@ -654,8 +654,8 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                  "value": "MISSING"}
             ]
 
-            # Add margin of 4 seconds to each side of the segment to avoid false alerts
-            start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
+            # Add margin of 6/4 seconds to each side of the segment to avoid false alerts
+            start = corrected_planned_imaging.start + datetime.timedelta(seconds=6)
             stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
 
             planning_processing_completeness_operation["events"].append({
@@ -1132,8 +1132,8 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                  "value": "MISSING"}
             ]
 
-            # Add margin of 4 seconds to each side of the segment to avoid false alerts
-            start = corrected_planned_imaging_event[0].start + datetime.timedelta(seconds=4)
+            # Add margin of 6/4 seconds to each side of the segment to avoid false alerts
+            start = corrected_planned_imaging_event[0].start + datetime.timedelta(seconds=6)
             stop = corrected_planned_imaging_event[0].stop - datetime.timedelta(seconds=4)
 
             planning_processing_completeness_operation["events"].append({
@@ -1462,11 +1462,14 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
 ####
 # EOP CFI
 ####
-def build_orbpre_file(start, stop, satellite, orbpre_events = None):
+def build_orbpre_file(start_events, stop_events, satellite, orbpre_events = None):
     """
     Method to generate an orbpre file from data inside the DDBB
     """
-    
+
+    start = (parser.parse(start_events) - datetime.timedelta(minutes=200)).isoformat()
+    stop = (parser.parse(stop_events) + datetime.timedelta(minutes=200)).isoformat()
+
     (_, orbpre_file_path) = mkstemp()
 
     f= open(orbpre_file_path,"w+")
@@ -1506,10 +1509,8 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
     if orbpre_events == None:
         query = Query()
 
-        stop_query = (parser.parse(stop) + datetime.timedelta(minutes=100)).isoformat()
-
         orbpre_events = query.get_events(gauge_names = {"filter": "ORBIT_PREDICTION", "op": "like"},
-                                         start_filters = [{"date": stop_query, "op": "<"}],
+                                         start_filters = [{"date": stop, "op": "<"}],
                                          stop_filters = [{"date": start, "op": ">"}],
                                          value_filters = [{"name": {"str": "satellite", "op": "like"},
                                                            "type": "text",
@@ -1518,7 +1519,7 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
         orbpre_events.sort(key=lambda x:x.start)
 
         if len(orbpre_events) == 0:
-            return (0,"")
+            return (0, orbpre_file_path)
         # end if
         
         logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0].start.isoformat(), orbpre_events[-1].start.isoformat()))
@@ -1567,7 +1568,7 @@ def build_orbpre_file(start, stop, satellite, orbpre_events = None):
         number_of_orbpre_events = len(orbpre_events)
 
         if len(orbpre_events) == 0:
-            return (0,"")
+            return (0, orbpre_file_path)
         # end if
         
         logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0]["start"], orbpre_events[-1]["start"]))
