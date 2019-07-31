@@ -57,8 +57,8 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(definite_source1) == 1
 
-        definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
+        definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
+                                                       validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
                                                        generation_time_filters = [{"date": "2018-07-20T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
@@ -175,8 +175,8 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(definite_source1) == 1
 
-        definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
+        definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
+                                                       validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
                                                        generation_time_filters = [{"date": "2018-07-20T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},

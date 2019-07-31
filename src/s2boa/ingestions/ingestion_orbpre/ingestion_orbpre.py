@@ -154,7 +154,7 @@ def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list
                                                          "value": {"value": start_orbit, "op": ">="}},
                                                         {"name": {"str": "start_orbit", "op": "like"},
                                                          "type": "double",
-                                                         "value": {"value": stop_orbit, "op": "<"}}])
+                                                         "value": {"value": stop_orbit, "op": "<="}}])
 
     planning_events = query.get_events(event_uuids = {"filter": [event.event_uuid for event in planning_events], "op": "in"},
                                        value_filters = [{"name": {"str": "stop_orbit", "op": "like"},
@@ -301,6 +301,16 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop
     }
 
+    validity_start_corrected = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[1]/UTC")[0].text.split("=")[1]
+    validity_stop_corrected = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last()]/UTC")[0].text.split("=")[1]
+    source_corrected = {
+        "name": file_name,
+        "reception_time": reception_time,
+        "generation_time": generation_time,
+        "validity_start": validity_start_corrected,
+        "validity_stop": validity_stop_corrected
+    }
+
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
     # This is for registrering the ingestion progress
     query_general_source = Query()
@@ -322,7 +332,7 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 30)
     
     start_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[1]/Absolute_Orbit")[0].text))
-    stop_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last()]/Absolute_Orbit")[0].text))
+    stop_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last() - 1]/Absolute_Orbit")[0].text))
 
     # Generate corrected planning events
     corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query)
@@ -352,7 +362,7 @@ def process_file(file_path, engine, query, reception_time):
             "exec": os.path.basename(__file__),
             "version": version
         },
-        "source": source,
+        "source": source_corrected,
         "events": corrected_planning_events_with_footprint
     }]}
 
