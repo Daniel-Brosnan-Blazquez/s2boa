@@ -495,7 +495,7 @@ def _generate_playback_events(xpath_xml, source, list_of_events):
     satellite = source["name"][0:3]
 
     # Playback operations
-    playback_operations = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_EVRQs/EVRQ[RQ/RQ_Name='MPXBSBOP' or RQ/RQ_Name='MPG1STRT' or RQ/RQ_Name='MPG2STRT' or RQ/RQ_Name='MPG3STRT']")
+    playback_operations = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_EVRQs/EVRQ[(RQ/RQ_Name='MPXBSBOP' and boolean(following-sibling::EVRQ[RQ/RQ_Name='MPXBOPSB'])) or ((RQ/RQ_Name='MPG1STRT' or RQ/RQ_Name='MPG2STRT' or RQ/RQ_Name='MPG3STRT') and boolean(following-sibling::EVRQ[RQ/RQ_Name='MPOCPRY2']))]")
 
     for playback_operation in playback_operations:
         # Playback start information
@@ -568,7 +568,7 @@ def _generate_playback_events(xpath_xml, source, list_of_events):
 
 
     # Associate the playback types to the playback means
-    playback_type_start_operations = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_EVRQs/EVRQ[RQ/RQ_Name='MPMMPNOM' or RQ/RQ_Name='MPMMPREG' or RQ/RQ_Name='MPMMPBRT' or RQ/RQ_Name='MPMMPBHK' or RQ/RQ_Name='MPMMPBSA' or RQ/RQ_Name='MPMMPBHS' or RQ/RQ_Name='MPMMPNRT']")
+    playback_type_start_operations = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_EVRQs/EVRQ[((RQ/RQ_Name='MPMMPNOM' or RQ/RQ_Name='MPMMPREG' or RQ/RQ_Name='MPMMPBRT' or RQ/RQ_Name='MPMMPNRT') and boolean(following-sibling::EVRQ[RQ/RQ_Name='MPMMPSTP'])) or RQ/RQ_Name='MPMMPBHK' or RQ/RQ_Name='MPMMPBSA' or RQ/RQ_Name='MPMMPBHS']")
 
     for playback_type_start_operation in playback_type_start_operations:
 
