@@ -54,15 +54,15 @@
           {% set sra_schedule_uuid = original_playback.eventLinks|selectattr("name", "match", "SLOT_REQUEST_EDRS")|map(attribute='event_uuid_link')|first %}
           <!-- DFEP schedule -->
           {% if dfep_schedule_uuid %}
-          {% set dfep_schedule_event = acquisition_events["dfep_schedule"]|selectattr("event_uuid", "in", dfep_schedule_uuid) %}
-          {% elif sra_schedule %}
-          {% set dfep_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "in", sra_schedule_uuid) %}
+          {% set dfep_schedule_event = acquisition_events["dfep_schedule"]|selectattr("event_uuid", "equalto", dfep_schedule_uuid)|first %}
+          {% elif sra_schedule_uuid %}
+          {% set dfep_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "equalto", sra_schedule_uuid)|first %}
           {% endif %}
           <!-- Station schedule -->
           {% if station_schedule_uuid %}
-          {% set station_schedule_event = acquisition_events["station_schedule"]|selectattr("event_uuid", "in", station_schedule_uuid) %}
-          {% elif sra_schedule %}
-          {% set station_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "in", sra_schedule_uuid) %}
+          {% set station_schedule_event = acquisition_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
+          {% elif sra_schedule_uuid %}
+          {% set station_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "equalto", sra_schedule_uuid)|first %}
           {% endif %}
           {% set type = original_playback.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
           {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
@@ -77,8 +77,8 @@
           {% else %}
           {% set playback_status = "RECEIVED" %}
           {% set playback_status_class = "bold-green" %}
-          {% set playback_completeness_channel_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_COMPLETENESS")|map(attribute='event_uuid_link') %}
-          {% set playback_completeness_events = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_channel_uuids) %}
+          {% set playback_completeness_channel_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_COMPLETENESS")|map(attribute='event_uuid_link')|list %}
+          {% set playback_completeness_events = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_channel_uuids)|list %}
           {% set playback_completeness_group_by_status = playback_completeness_events|events_group_by_text_value("status") %}
           {% if "MISSING" in playback_completeness_group_by_status %}
           {% set playback_status = "PARTIAL" %}
@@ -86,18 +86,16 @@
           {% endif %}
           {% endif %}
           <!--Station schedule Status-->
-          {% set station_schedule = original_playback.eventTexts|selectattr("name", "equalto", "station_schedule")|list %}
           {% set station_schedule_status = "MISSING" %}
           {% set station_schedule_status_class = "bold-red" %}
-          {% if station_schedule|length > 0 %}
+          {% if station_schedule_event %}
           {% set station_schedule_status = "OK" %}
           {% set station_schedule_status_class = "bold-green" %}
           {% endif %}
           <!--DFEP schedule Status-->
-          {% set dfep_schedule = original_playback.eventTexts|selectattr("name", "equalto", "dfep_schedule")|list %}
           {% set dfep_schedule_status = "MISSING" %}
           {% set dfep_schedule_status_class = "bold-red" %}
-          {% if dfep_schedule|length > 0 %}
+          {% if dfep_schedule_event %}
           {% set dfep_schedule_status = "OK" %}
           {% set dfep_schedule_status_class = "bold-green" %}
           {% endif %}

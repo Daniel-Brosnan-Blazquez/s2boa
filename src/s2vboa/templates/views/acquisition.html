@@ -122,7 +122,7 @@
 </div>
 {% include "views/header.html" %}
 <!-- Missing playbacks -->
-{% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute="event_uuid_link")|list %}
+{% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute="event_uuid_link")|list %}
 
 {% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
 
@@ -208,8 +208,8 @@
           {% else %}
           {% set playback_status = "RECEIVED" %}
           {% set playback_status_class = "bold-green" %}
-          {% set playback_completeness_channel_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_COMPLETENESS")|map(attribute='event_uuid_link') %}
-          {% set playback_completeness_events = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_channel_uuids) %}
+          {% set playback_completeness_channel_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_COMPLETENESS")|map(attribute='event_uuid_link')|list %}
+          {% set playback_completeness_events = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_channel_uuids)|list %}
           {% set playback_completeness_group_by_status = playback_completeness_events|events_group_by_text_value("status") %}
           {% if "MISSING" in playback_completeness_group_by_status %}
           {% set playback_status = "PARTIAL" %}
@@ -453,14 +453,11 @@
 
   {% if (show["map"] or show["timeline"]) and acquisition_events["playback"]|length > 0 %}
   <!-- Received playbacks -->
-  {% set playback_completeness_received_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "RECEIVED")|map(attribute="event_uuid")|list %}
+  {% set events_received = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "RECEIVED")|list %}
   <!-- Missing playbacks -->
-  {% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute="event_uuid_link")|list %}
+  {% set missing_completeness = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|list %}
   
   {% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
-
-  <!-- Get missing events by completeness check -->
-  {% set missing_completeness = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_missing_uuids)|list %}
 
   <!-- Get missing events by completelly missing playback -->
   {% set corrected_missing_playbacks_uuids = acquisition_events["playback"]|selectattr("event_uuid", "in", playback_with_no_playback_validity_uuids)|map(attribute="eventLinks")|flatten|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|list %}
@@ -468,7 +465,6 @@
   {% set corrected_missing_playbacks = acquisition_events["playback_correction"]|selectattr("event_uuid", "in", corrected_missing_playbacks_uuids)|list %}
   
   {% set events_missing = missing_completeness + corrected_missing_playbacks %}
-  {% set events_received = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_received_uuids)|list %}
 
   {% if show["timeline"] %}
   {% with events = events_missing %}
