@@ -1366,3 +1366,48 @@ class TestDfepIngestion(unittest.TestCase):
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
 
         assert len(annotations) == 1
+
+    def test_insert_rep_pass_with_planned_small_playback(self):
+
+        filename = "S2A_NPPF_SMALL_PLAYBACK.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check sources
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
+                                                   Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
+                                                   Source.processor == "ingestion_dfep_acquisition.py").all()
+
+        assert len(source) == 1
+
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:02.255634",
+                                                   Source.validity_stop == "2018-07-21T09:08:56.195941",
+                                                   Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
+                                                   Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
+
+        assert len(source) == 1
+
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:39.237394",
+                                                   Source.validity_stop == "2018-07-21T10:37:24.534390",
+                                                   Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
+                                                   Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
+
+        assert len(source) == 1

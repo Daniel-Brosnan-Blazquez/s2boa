@@ -1522,3 +1522,48 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         assert len(events) == 1
 
+    def test_insert_rep_pass_with_plan_playback_starting_before_than_MSI(self):
+
+        filename = "S2A_NPPF_PLAYBACK_STARTING_BEFORE_THAN_MSI.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2__SRA_2.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_OPER_REP_PASS_E_NO_SAD.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert returned_value[1]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check sources
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T05:00:47",
+                                                   Source.validity_stop == "2018-07-21T07:37:40.689924",
+                                                   Source.name == "S2A_OPER_REP_PASS_E_NO_SAD.EOF",
+                                                   Source.processor == "ingestion_edrs_acquisition.py").all()
+
+        assert len(source) == 1
+
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T05:16:48.773036",
+                                                   Source.validity_stop == "2018-07-21T05:40:35.417601",
+                                                   Source.name == "S2A_OPER_REP_PASS_E_NO_SAD.EOF",
+                                                   Source.processor == "isp_planning_completeness_ingestion_edrs_acquisition.py").all()
+
+        assert len(source) == 1

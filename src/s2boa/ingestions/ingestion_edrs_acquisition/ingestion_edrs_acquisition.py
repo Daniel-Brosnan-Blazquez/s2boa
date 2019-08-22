@@ -1127,6 +1127,15 @@ def process_file(file_path, engine, query, reception_time):
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
+
+    # Correct validity start for the case of memory empty before the start of the downlink
+    if len(list_of_events) > 0:
+        events_starts = [event["start"] for event in list_of_events]
+        events_starts.sort()
+        if source["validity_start"] > events_starts[0]:
+            source["validity_start"] = events_starts[0]
+        # end if
+    # end if
     
     # Build the xml
     data = {}

@@ -231,7 +231,8 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             # end if
 
             if start > stop:
-                start = corrected_planned_playback.start
+                start = corrected_planned_playback.stop - datetime.timedelta(seconds=4)
+                stop = corrected_planned_playback.stop - datetime.timedelta(seconds=3)
             # end if
 
             playback_planning_completeness_operation["events"].append({
