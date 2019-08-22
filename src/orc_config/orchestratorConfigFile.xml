@@ -227,6 +227,7 @@
    <Miscelanea>
       <PollingDir>/inputs</PollingDir>
       <PollingFreq unit="s">10</PollingFreq>
+      <ParallelIngestions>1</ParallelIngestions>
       <SchedulingFreq unit="s">10</SchedulingFreq>
       <ResourceManager>eboa_continue_triggering.py</ResourceManager>
       <ProcWorkingDir>/minarc_root/processorWd</ProcWorkingDir>
