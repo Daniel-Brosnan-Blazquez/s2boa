@@ -561,22 +561,27 @@ int call_eop_cfi(double *in_times, long in_n_times, char **in_orbit_files,  char
 
             int index_i_loop =  num*2  - i_loop-1;
 
-            out_lat_swath[i_loop] 	= swath_point.swath_point[0].lat;
-            out_lon_swath[i_loop] 	= swath_point.swath_point[0].lon;
-	
-            out_lat_swath[index_i_loop] 	= swath_point.swath_point[2].lat;
-            out_lon_swath[index_i_loop] 	= swath_point.swath_point[2].lon;
-            /*   
-     
-                 fprintf(stdout, "\n\t-  latitude Side1 = %lf", out_lat_swath[i_loop] );
-                 fprintf(stdout, "\n\t-  longitude Side1 = %lf", out_lon_swath[i_loop] );
-     
-                 fprintf(stdout, "\n\t-  latitude  Side2 = %lf", out_lat_swath[index_i_loop] );
-                 fprintf(stdout, "\n\t-  longitude Side2 = %lf", out_lon_swath[index_i_loop] );
-     
-                 fprintf(stdout, "\n\t-  elapsed_anx  = %lf", time_since_anx );
+            if (swath_point.num_rec > 0){
+                out_lat_swath[i_loop] 	= swath_point.swath_point[0].lat;
+                out_lon_swath[i_loop] 	= swath_point.swath_point[0].lon;
+                
+                out_lat_swath[index_i_loop] 	= swath_point.swath_point[2].lat;
+                out_lon_swath[index_i_loop] 	= swath_point.swath_point[2].lon;
+            }
+            else{
+                return (-1);
+            }
+
+            /*
+              fprintf(stdout, "\n\t-  latitude Side1 = %lf", out_lat_swath[i_loop] );
+              fprintf(stdout, "\n\t-  longitude Side1 = %lf", out_lon_swath[i_loop] );
+              
+              fprintf(stdout, "\n\t-  latitude  Side2 = %lf", out_lat_swath[index_i_loop] );
+              fprintf(stdout, "\n\t-  longitude Side2 = %lf", out_lon_swath[index_i_loop] );
+              
+              fprintf(stdout, "\n\t-  elapsed_anx  = %lf", time_since_anx );
             */
-    
+            
         }
 
 	
