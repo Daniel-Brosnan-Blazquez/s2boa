@@ -222,7 +222,7 @@ class TestEngine(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-16 11:41:50", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_rep_arc.py", "op": "like"},
@@ -378,7 +378,7 @@ class TestEngine(unittest.TestCase):
         }]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+                                                           start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                            stop_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
@@ -872,7 +872,7 @@ class TestEngine(unittest.TestCase):
         }]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+                                                           start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                            stop_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
@@ -930,7 +930,7 @@ class TestEngine(unittest.TestCase):
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-16 11:41:50", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_rep_arc.py", "op": "like"},
@@ -955,7 +955,7 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-16 11:41:50", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_rep_arc.py", "op": "like"},
@@ -1104,7 +1104,7 @@ class TestEngine(unittest.TestCase):
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-16 11:41:50", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_rep_arc.py", "op": "like"},
@@ -1161,7 +1161,7 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-16 11:41:50", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_rep_arc.py", "op": "like"},
@@ -1186,7 +1186,7 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-16 11:41:50", "op": "=="}],
                                              processors = {"filter": "planning_processing_ingestion_rep_arc.py", "op": "like"},
@@ -1469,7 +1469,7 @@ class TestEngine(unittest.TestCase):
         }]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+                                                           start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                            stop_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
@@ -1493,7 +1493,7 @@ class TestEngine(unittest.TestCase):
         planning_completeness_l1b = planning_completeness[0]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+                                                           start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                            stop_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
@@ -1571,7 +1571,7 @@ class TestEngine(unittest.TestCase):
         }]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:36:02.255634", "op": "=="}],
+                                                           start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                            stop_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
