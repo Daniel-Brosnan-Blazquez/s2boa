@@ -122,14 +122,14 @@
             <td>N/A</td>
             <td>N/A</td>
             {% endif %}
-            {% if station_schedule_event != None %}
+            {% if station_schedule_event %}
             <td>{{ (corrected_playback.start - station_schedule_event.start).total_seconds()|round(3) }}</td>
             <td>{{ (corrected_playback.stop - station_schedule_event.stop).total_seconds()|round(3) }}</td>
             {% else %}
             <td>N/A</td>
             <td>N/A</td>
             {% endif %}
-            {% if dfep_schedule_event != None %}
+            {% if dfep_schedule_event %}
             <td>{{ (corrected_playback.start - dfep_schedule_event.start).total_seconds()|round(3) }}</td>
             <td>{{ (corrected_playback.stop - dfep_schedule_event.stop).total_seconds()|round(3) }}</td>
             {% else %}

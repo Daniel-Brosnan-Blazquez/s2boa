@@ -298,7 +298,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_timeline_missing == self.driver.execute_script('return missing_playbacks_timeline;')
+        returned_missing_playbacks_timeline = self.driver.execute_script('return missing_playbacks_timeline;')
+        returned_missing_playbacks_timeline.sort(key=lambda x:x["start"])
+        assert acquisition_timeline_missing == returned_missing_playbacks_timeline
 
         # Map
 
@@ -353,7 +355,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_geometries_missing == self.driver.execute_script('return acquisition_geometries_missing;')
+        returned_acquisition_geometries_missing = self.driver.execute_script('return acquisition_geometries_missing;')
+        returned_acquisition_geometries_missing.sort(key=lambda x:x["id"])
+        assert acquisition_geometries_missing == returned_acquisition_geometries_missing
 
         station_reports_no_data = wait.until(EC.visibility_of_element_located((By.ID,"station-reports-no-reports")))
 
@@ -855,7 +859,7 @@ class TestAcquisitionView(unittest.TestCase):
             {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-21T10:35:18.907236",
+             "start": "2018-07-21T10:35:24.907236",
              "stop": "2018-07-21T10:35:33.728601",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td>" +
@@ -863,9 +867,9 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Orbit</td><td>16078</td>" +
                           "<tr><td>Station</td><td></td>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:35:18.907236</td>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.728601</td>" +
-                          "<tr><td>Duration(m)</td><td>0.247</td>" +
+                          "<tr><td>Duration(m)</td><td>0.147</td>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td>" +
                           "<tr><td>Playback mean</td><td>XBAND</td>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td>" +
@@ -876,7 +880,7 @@ class TestAcquisitionView(unittest.TestCase):
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-21T10:35:18.907236",
+             "start": "2018-07-21T10:35:24.907236",
              "stop": "2018-07-21T10:35:33.760977",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td>" +
@@ -884,9 +888,9 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Orbit</td><td>16078</td>" +
                           "<tr><td>Station</td><td></td>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:35:18.907236</td>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.760977</td>" +
-                          "<tr><td>Duration(m)</td><td>0.248</td>" +
+                          "<tr><td>Duration(m)</td><td>0.148</td>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td>" +
                           "<tr><td>Playback mean</td><td>XBAND</td>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td>" +
@@ -985,9 +989,9 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Orbit</td><td>16078</td>" +
                           "<tr><td>Station</td><td></td>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:35:18.907236</td>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.728601</td>" +
-                          "<tr><td>Duration(m)</td><td>0.247</td>" +
+                          "<tr><td>Duration(m)</td><td>0.147</td>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td>" +
                           "<tr><td>Playback mean</td><td>XBAND</td>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td>" +
@@ -1009,9 +1013,9 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Orbit</td><td>16078</td>" +
                           "<tr><td>Station</td><td></td>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:35:18.907236</td>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.760977</td>" +
-                          "<tr><td>Duration(m)</td><td>0.248</td>" +
+                          "<tr><td>Duration(m)</td><td>0.148</td>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td>" +
                           "<tr><td>Playback mean</td><td>XBAND</td>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td>" +

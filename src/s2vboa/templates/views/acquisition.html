@@ -61,11 +61,11 @@
                     <input type="checkbox" name="show_acquisition_map" checked><span class="label-text"><b>Show map</b></span>
                   </label>
                 </div>
-              </div>
-              <div>
-                <label id="show-station-reports">
-                  <input type="checkbox" name="show_station_reports" checked><span class="label-text"><b>Show station reports</b></span>
-                </label>
+                <div>
+                  <label id="show-station-reports">
+                    <input type="checkbox" name="show_station_reports" checked><span class="label-text"><b>Show station reports</b></span>
+                  </label>
+                </div>
               </div>
             </form>
           </div>
@@ -253,14 +253,14 @@
             <td>N/A</td>
             <td>N/A</td>
             {% endif %}
-            {% if station_schedule_event != None %}
+            {% if station_schedule_event %}
             <td>{{ (event.start - station_schedule_event.start).total_seconds()|round(3) }}</td>
             <td>{{ (event.stop - station_schedule_event.stop).total_seconds()|round(3) }}</td>
             {% else %}
             <td>N/A</td>
             <td>N/A</td>
             {% endif %}
-            {% if dfep_schedule_event != None %}
+            {% if dfep_schedule_event %}
             <td>{{ (event.start - dfep_schedule_event.start).total_seconds()|round(3) }}</td>
             <td>{{ (event.stop - dfep_schedule_event.stop).total_seconds()|round(3) }}</td>
             {% else %}
