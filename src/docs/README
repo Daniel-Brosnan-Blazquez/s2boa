@@ -1,0 +1,3 @@
+# Command for generating the list of submodules of s2boa
+for ingestion in ingestion*; do module_name="s2boa.ingestions.$ingestion.$ingestion"; echo "$module_name module" ; echo "`echo $module_name|sed 's/./-/g'`"-------; echo ""; echo ".. automodule:: $module_name"; echo "    :members:"; echo "    :undoc-members:"; echo "    :show-inheritance:"; echo ""; done
+
