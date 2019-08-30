@@ -1,0 +1,133 @@
+{% extends "panel/index.html" %}
+{% block content %}
+{% set status = "UNKNOWN" %}
+<div class="row">
+  <h1 class="page-header">Tracking view</h1>
+</div>
+<!-- /.row -->
+<div class="row">
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#query-interface">Query interface <span class="fa fa-angle-double-down"></span></a>
+        </h3>
+      </div>
+      <div class="panel-body panel-collapse collapse" id="query-interface">
+        <ul class="nav nav-tabs responsive-tabs">
+          <li class="active"><a href="#tracking-query-window">Query window</a></li>
+          <li><a href="#tracking-sliding-window">Sliding window</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tracking-query-window">
+            <form role="form" method=post action="/views/tracking">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    start: now - 100 minutes <br/>
+                    stop: now <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_static_query" %}
+                {% include "views/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Start and stop -->
+                <div class="row">
+                  {% include "eboa_nav/start_stop_without_operators.html" %}
+                </div>
+                <!-- Orbits -->
+                {% include "views/start_stop_orbits.html" %}
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane" id="tracking-sliding-window">
+            <form role="form" method=post action="/views/sliding_tracking">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    window delay: 0 days <br/>
+                    window size: 100 minutes <br/>
+                    repeat cycle: 1 minute <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_sliding_query" %}
+                {% include "views/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Delay -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window delay (days)</label>
+                    <input type="text" class="form-control" name="tracking_window_delay" id="tracking-window-delay"/>
+                  </div>
+                </div>
+                <!-- Duration -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window size (days)</label>
+                    <input type="text" class="form-control" name="tracking_window_size" id="tracking-window-size"/>
+                  </div>
+                </div>
+                <!-- Repeat cycle (minutes) -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Repeat cycle (minutes)</label>
+                    <input type="text" class="form-control" name="tracking_repeat_cycle" id="tracking-repeat-cycle"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "views/header.html" %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Tracking of satellites</h3>
+    </div>
+    <div id="trackings-map">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+  {% include "js/tracking_update_map.js" %}
+
+  {% if sliding_window %}
+  var sliding_window = {
+  "window_delay": {{ sliding_window["window_delay"] }},
+  "window_size": {{ sliding_window["window_size"] }},
+  "repeat_cycle": {{ sliding_window["repeat_cycle"] }},
+  "mission": "{{ sliding_window['mission'] }}"
+  }
+  {% else %}
+  var sliding_window = null
+  {% endif %}
+
+  query_and_update_map("{{ reporting_start }}", "{{ reporting_stop }}", "{{ mission }}", sliding_window, "trackings-map")
+</script>
+{% endblock %}

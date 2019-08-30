@@ -1627,7 +1627,7 @@ def build_orbpre_file(start_events, stop_events, satellite, orbpre_events = None
 
 # Uncomment for debugging reasons
 # @debug
-def associate_footprints(events, satellite, orbpre_events = None):
+def associate_footprints(events, satellite, orbpre_events = None, return_polygon_format = False):
     FNULL = open(os.devnull, 'w')
     
     if not type(events) == list:
@@ -1688,7 +1688,7 @@ def associate_footprints(events, satellite, orbpre_events = None):
                         for i, footprint in enumerate(footprints):
                             if len(footprint) > 0:
 
-                                if not ("values" in event.keys() and len(event["values"]) == 1 and "values" in event["values"][0]):
+                                if not ("values" in event_with_footprint.keys() and len(event_with_footprint["values"]) == 1 and "values" in event_with_footprint["values"][0]):
                                     event_with_footprint["values"] = [{
                                         "name": "details",
                                         "type": "object",
@@ -1701,6 +1701,10 @@ def associate_footprints(events, satellite, orbpre_events = None):
                                     footprint_object_name = "footprint_details_" + str(i)
                                 # end if
 
+                                if return_polygon_format:
+                                    footprint = obtain_polygon_format(footprint)
+                                # end if
+                                
                                 footprint_object = [{"name": "footprint",
                                                      "type": "geometry",
                                                      "value": footprint}]
@@ -1740,15 +1744,35 @@ def associate_footprints(events, satellite, orbpre_events = None):
     
     return events_with_footprint
 
+def obtain_polygon_format(footprint):
+    list_coordinates = footprint.split(" ")
+    polygon_footprint = "POLYGON(("
+    coordinates = 0
+    for coordinate in list_coordinates:
+        if coordinates == 2:
+            polygon_footprint = polygon_footprint + ","
+            coordinates = 0
+        # end if
+        polygon_footprint = polygon_footprint + coordinate
+        coordinates += 1
+        if coordinates == 1:
+            polygon_footprint = polygon_footprint + " "
+        # end if
+    # end for
+    polygon_footprint = polygon_footprint + "))"
+
+    return polygon_footprint
+
 def correct_footprint(coordinates):
 
     longitude_latitudes = coordinates.split(" ")
 
     intersections_with_antimeridian=0
-    polygon_before_first_intersection = []
-    polygon_after_first_intersection = []
-    polygons = [polygon_before_first_intersection]
-    polygon = polygon_before_first_intersection
+    init_longitudes_after_intersect_antimeridian=[]
+    polygon = []
+    polygons = [polygon]
+    polygon_index = 0
+    reverse = False
     for i, longitude_latitude  in enumerate(longitude_latitudes):
         if i == 0:
             j = len(longitude_latitudes) - 1
@@ -1776,26 +1800,35 @@ def correct_footprint(coordinates):
                 longitude_g_meridian = longitude - 180
                 latitude_med =  pre_latitude - pre_longitude_g_meridian * ((latitude - pre_latitude ) / (longitude_g_meridian - pre_longitude_g_meridian))
             # end if
-            if intersections_with_antimeridian == 0:
-                new_longitude = 180.0
-                if longitude > 0:
-                    new_longitude = -180.0
-                # end if
-                polygon.append((new_longitude, latitude_med))
-                polygons.append(polygon_after_first_intersection)
-                polygon = polygon_after_first_intersection
-                polygon.append((-1 * new_longitude, latitude_med))
-                intersections_with_antimeridian = 1
-            else:
-                new_longitude = 180.0
-                if longitude > 0:
-                    new_longitude = -180.0
-                # end if
-                polygon.append((new_longitude, latitude_med))
-                polygon = polygon_before_first_intersection
-                polygon.append((-1 * new_longitude, latitude_med))
-                intersections_with_antimeridian = 2
+            
+            new_longitude = 180.0
+            if longitude > 0:
+                new_longitude = -180.0
             # end if
+            polygon.append((new_longitude, latitude_med))
+                
+            if len(init_longitudes_after_intersect_antimeridian) > 0 and new_longitude == init_longitudes_after_intersect_antimeridian[intersections_with_antimeridian-1]:
+                reverse = True
+            elif reverse and polygon_index == 0:
+                reverse = False
+                polygon_index = len(polygons) - 1
+            # end if
+            
+            if reverse:
+                polygon_index = polygon_index - 1
+            else:
+                polygon_index = polygon_index + 1
+            # end if
+            
+            if reverse:
+                polygon = polygons[polygon_index]
+            else:
+                polygon = []
+                polygons.append(polygon)
+            # end if
+            polygon.append((-1 * new_longitude, latitude_med))
+            init_longitudes_after_intersect_antimeridian.append(-1 * new_longitude)
+            intersections_with_antimeridian = intersections_with_antimeridian + 1
         # end if            
 
         # Insert the current coordinate
@@ -1803,21 +1836,15 @@ def correct_footprint(coordinates):
     # end for
 
     # Postgis (for at least version 2.5.1) accepts a minimum number of 8 coordinates for a polygon. So, when the number of coordinates is 4 they are just duplicated
-    if len(polygon_before_first_intersection) == 2:
-        polygon_before_first_intersection.append(polygon_before_first_intersection[1])
-        polygon_before_first_intersection.append(polygon_before_first_intersection[0])
-    else:
-        polygon_before_first_intersection.append(polygon_before_first_intersection[0])
-    # end if    
-
-    # Postgis (for at least version 2.5.1) accepts a minimum number of 8 coordinates for a polygon. So, when the number of coordinates is 4 they are just duplicated
-    if intersections_with_antimeridian > 0 and len(polygon_after_first_intersection) == 2:
-        polygon_after_first_intersection.append(polygon_after_first_intersection[1])
-        polygon_after_first_intersection.append(polygon_after_first_intersection[0])
-    elif intersections_with_antimeridian > 0:
-        polygon_after_first_intersection.append(polygon_after_first_intersection[0])
-    # end if    
-
+    for polygon in polygons:
+        if len(polygon) == 2:
+            polygon.append(polygon[1])
+            polygon.append(polygon[0])
+        else:
+            polygon.append(polygon[0])
+        # end if    
+    # end for
+    
     footprints = []
     for polygon in polygons:
         footprint = ""

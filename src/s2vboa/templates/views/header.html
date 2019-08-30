@@ -7,7 +7,7 @@
     {% if orbpre_events|length > 0 and reporting_start != None and reporting_stop != None %}
     {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
     <!-- /.panel-heading -->
-    <div class="panel-body">
+    <div class="panel-body" id="reporting-period-details">
       {% for unit in orbpre_by_units|list|sort %}
       {% set orbits = orbpre_by_units[unit]|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "orbit")|map(attribute="value")|unique|list %}
       <div>
@@ -22,13 +22,13 @@
           </tr>
           <tr>
             <th>Orbit information</th>
-            <td>{{ orbits[0]|int }}</td>
-            <td>{{ orbits[-1]|int }}</td>
+            <td id="header-content-orbit-start">{{ orbits[0]|int }}</td>
+            <td id="header-content-orbit-stop">{{ orbits[-1]|int }}</td>
           </tr>
           <tr>
             <th>Time information</th>
-            <td>{{ reporting_start }}</td>
-            <td>{{ reporting_stop }}</td>
+            <td id="header-content-date-start">{{ reporting_start }}</td>
+            <td id="header-content-date-stop">{{ reporting_stop }}</td>
           </tr>
         </table>
       </div>
@@ -36,7 +36,7 @@
     </div>
     <!-- /.panel-body -->
     {% elif reporting_start != None and reporting_stop != None %}
-    <div class="panel-body">
+    <div class="panel-body" id="reporting-period-details">
       <div>
         <h3><u>Reporting period details</u></h3>
       </div>
@@ -44,7 +44,7 @@
         <br/>
         <p id="header-no-data" style="text-indent: 1em">There is no information for setting the orbit period.</p>
         <br/>
-        <table align="left" class="table table-striped table-bordered table-hover table-static">
+        <table align="left" class="table table-striped table-bordered table-hover table-static" id="header-table">
           <tr>
             <td></td>
             <th>Period start</th>
@@ -52,8 +52,8 @@
           </tr>
           <tr>
             <th>Time information</th>
-            <td>{{ reporting_start }}</td>
-            <td>{{ reporting_stop }}</td>
+            <td id="header-content-date-start">{{ reporting_start }}</td>
+            <td id="header-content-date-stop">{{ reporting_stop }}</td>
           </tr>
         </table>
       </div>
