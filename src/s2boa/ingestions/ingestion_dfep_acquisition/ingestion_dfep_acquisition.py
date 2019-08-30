@@ -1,5 +1,5 @@
 """
-Ingestion module for the REP_PASS_E files of Sentinel-2
+Ingestion module for the REP_PASS_2|5 files of Sentinel-2
 
 Written by DEIMOS Space S.L. (dibb)
 
@@ -58,7 +58,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
     :rtype: str
 
     """
-    
+
     general_status = "COMPLETE"
 
     # Obtain the satellite
@@ -90,7 +90,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
     for vcid in vcids:
         # Obtain channel
         channel = vcid.xpath("..")[0].tag[6:7]
-    
+
         vcid_number = vcid.get("VCID")
         downlink_mode = functions.get_vcid_mode(vcid_number)
         # Acquisition segment
@@ -303,7 +303,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
         completeness_status = "RECEIVED"
         if status != "COMPLETE":
             completeness_status = status
-        # end if                    
+        # end if
 
         playback_completeness_event = {
             "explicit_reference": session_id,
@@ -426,7 +426,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Obtain the sensing segment received (EFEP reports only give information about the start date of the first and last scenes)
         sensing_starts = vcid.xpath("ISP_Status/Status/SensStartTime")
         sensing_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_start.text) for sensing_start in sensing_starts]
-        
+
         # Sort list
         sensing_starts_in_iso_8601.sort()
         sensing_start = sensing_starts_in_iso_8601[0]
@@ -434,7 +434,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         sensing_stops = vcid.xpath("ISP_Status/Status/SensStopTime")
         sensing_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_stop.text) for sensing_stop in sensing_stops]
-        
+
         # Sort list
         sensing_stops_in_iso_8601.sort()
         sensing_stop = sensing_stops_in_iso_8601[-1]
@@ -552,14 +552,14 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "stop": stop
                 })
 
-                isp_gap_iterator += 1    
+                isp_gap_iterator += 1
             # end for
         # end for
-        
+
         # Create ISP gaps for gaps at the beginning of the APIDs (StartCounter != 0)
         apids_with_gaps_at_the_beginning = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(@VCID) = $vcid_number or number(@VCID) = $corresponding_vcid_number]/ISP_Status/Status[NumPackets > 0 and not(StartCounter = 0)]", vcid_number = int(vcid_number), corresponding_vcid_number = int(vcid_number) + 16)
         for apid in apids_with_gaps_at_the_beginning:
-            apid_number = apid.get("APID")            
+            apid_number = apid.get("APID")
             status = "INCOMPLETE"
             band_detector = functions.get_band_detector(apid_number)
 
@@ -569,9 +569,9 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             missing_packets = int(apid.xpath("string(StartCounter)"))
 
             seconds_gap = (missing_packets / counter_threshold) * 3.608
-            
+
             stop = start + datetime.timedelta(seconds=seconds_gap)
-            
+
             isp_gap_event = {
                 "link_ref": "ISP_GAP_" + str(isp_gap_iterator),
                 "explicit_reference": session_id,
@@ -631,7 +631,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "stop": stop
             })
 
-            isp_gap_iterator += 1    
+            isp_gap_iterator += 1
         # end for
 
         # Create ISP gaps for gaps smaller than a scene
@@ -657,10 +657,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
             seconds_from_scene_start_to_gap_start = (counter_start / counter_threshold) * 3.608
             seconds_from_scene_start_to_gap_stop = (counter_stop / counter_threshold) * 3.608
-            
+
             start = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_start)
             stop = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_stop)
-            
+
             isp_gap_event = {
                 "link_ref": "ISP_GAP_" + str(isp_gap_iterator),
                 "explicit_reference": session_id,
@@ -726,7 +726,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "stop": stop
             })
 
-            isp_gap_iterator += 1    
+            isp_gap_iterator += 1
         # end for
 
         # Merge timeline of isp gaps
@@ -818,7 +818,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "back_ref": "PLANNED_IMAGING"
                 })
             # end if
-            
+
             # ISP validity event reference
             isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(start)
 
@@ -893,8 +893,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             completeness_status = "RECEIVED"
             if isp_validity_status != "COMPLETE":
                 completeness_status = isp_validity_status
-            # end if                    
-            
+            # end if
+
             links_isp_completeness.append({
                 "link": isp_validity_event_link_ref,
                 "link_mode": "by_ref",
@@ -949,7 +949,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
     # end for
 
     # Insert completeness operation for the completeness analysis of the plan
-    if len(isp_planning_completeness_operation["events"]) > 0:        
+    if len(isp_planning_completeness_operation["events"]) > 0:
         isp_planning_completeness_event_starts = [event["start"] for event in isp_planning_completeness_operation["events"]]
         isp_planning_completeness_event_starts.sort()
         isp_planning_completeness_event_stops = [event["stop"] for event in isp_planning_completeness_operation["events"]]
@@ -1046,7 +1046,7 @@ def process_file(file_path, engine, query, reception_time):
     """
     Function to process the file and insert its relevant information
     into the DDBB of the eboa
-    
+
     :param file_path: path to the file to be processed
     :type file_path: str
     :param engine: Engine instance
@@ -1138,12 +1138,12 @@ def process_file(file_path, engine, query, reception_time):
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
-    
+
     # Extract the information of the received data
     isp_status = _generate_received_data_information(xpath_xml, source, engine, query, list_of_events, list_of_planning_operations)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 30)
-    
+
     # Extract the information of the received data
     acquisition_status = _generate_acquisition_data_information(xpath_xml, source, engine, query, list_of_events, list_of_planning_operations)
 
@@ -1162,7 +1162,7 @@ def process_file(file_path, engine, query, reception_time):
     list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
-    
+
     data["operations"].append({
         "mode": "insert",
         "dim_signature": {
@@ -1181,5 +1181,5 @@ def process_file(file_path, engine, query, reception_time):
     query.close_session()
 
     new_file.close()
-    
+
     return data
