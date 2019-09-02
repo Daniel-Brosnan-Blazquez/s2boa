@@ -20,7 +20,8 @@ function query_and_update_map(start, stop, mission, sliding_window, dom_id){
             sliding_details_text = '<br/><p style="text-indent: 1em"><b>Mission:</b> ' + mission + '</p>'
             sliding_details_text = sliding_details_text + '<p style="text-indent: 1em"><b>Window delay (days):</b> ' + sliding_window["window_delay"] + '</p>'
             sliding_details_text = sliding_details_text + '<p style="text-indent: 1em"><b>Window size (days):</b> ' + sliding_window["window_size"] + '</p>'
-            sliding_details_text = sliding_details_text + '<p style="text-indent: 1em"><b>Repeat cycle (minutes):</b> ' + sliding_window["repeat_cycle"] + '</p><br/>'
+            sliding_details_text = sliding_details_text + '<p style="text-indent: 1em"><b>Repeat cycle (minutes):</b> ' + sliding_window["repeat_cycle"] + '</p>'
+            sliding_details_text = sliding_details_text + '<p style="text-indent: 1em"><a href="/views/sliding_tracking_parameters?window_delay=' + sliding_window["window_delay"] + '&window_size=' + sliding_window["window_size"] + '&repeat_cycle=' + sliding_window["repeat_cycle"] + '&mission=' + sliding_window["mission"] + '"><b>Link for sharing</b></a></p><br/>'
             sliding_details_div.innerHTML = sliding_details_text
         }
         setTimeout(function(){
