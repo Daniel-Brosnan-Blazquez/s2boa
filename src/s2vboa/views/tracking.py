@@ -99,6 +99,9 @@ def show_sliding_tracking_parameters():
         "mission": mission
     }
 
+    reporting_start = stop_filter["date"]
+    reporting_stop = start_filter["date"]
+
     return render_template("views/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
 
 @bp.route("/sliding_tracking", methods=["GET", "POST"])
