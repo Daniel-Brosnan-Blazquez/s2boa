@@ -75,13 +75,13 @@ class TestEngine(unittest.TestCase):
 
         # Check XBAND playback operations
         xband_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
-                                                           value_filters = [{"name": {"op": "like", "str": "playback_mean"}, "type": "text", "value": {"op": "==", "value": "XBAND"}}])
+                                                           value_filters = [{"name": {"op": "like", "filter": "playback_mean"}, "type": "text", "value": {"op": "==", "filter": "XBAND"}}])
 
         assert len(xband_operations) == 2
 
         # Check specific XBAND playback operations
         specific_xband_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
-                                                                    value_filters = [{"name": {"op": "like", "str": "playback_mean"}, "type": "text", "value": {"op": "==", "value": "XBAND"}}],
+                                                                    value_filters = [{"name": {"op": "like", "filter": "playback_mean"}, "type": "text", "value": {"op": "==", "filter": "XBAND"}}],
                                                                     start_filters = [{"date": "2018-07-20T14:02:08.695", "op": "=="}],
                                                                     stop_filters = [{"date": "2018-07-20T14:14:57.748", "op": "=="}])
 
@@ -135,7 +135,7 @@ class TestEngine(unittest.TestCase):
         }]
 
         specific_xband_operation2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
-                                                                    value_filters = [{"name": {"op": "like", "str": "playback_mean"}, "type": "text", "value": {"op": "==", "value": "XBAND"}}],
+                                                                    value_filters = [{"name": {"op": "like", "filter": "playback_mean"}, "type": "text", "value": {"op": "==", "filter": "XBAND"}}],
                                                                     start_filters = [{"date": "2018-07-20T15:41:28.723", "op": "=="}],
                                                                     stop_filters = [{"date": "2018-07-20T15:54:14.614", "op": "=="}])
 
@@ -143,12 +143,12 @@ class TestEngine(unittest.TestCase):
 
         # Check OCP playback operations
         ocp_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
-                                                         value_filters = [{"name": {"op": "like", "str": "playback_mean"}, "type": "text", "value": {"op": "==", "value": "OCP"}}])
+                                                         value_filters = [{"name": {"op": "like", "filter": "playback_mean"}, "type": "text", "value": {"op": "==", "filter": "OCP"}}])
         assert len(ocp_operations) == 1
 
         # Check specific OCP playback operations
         specific_ocp_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
-                                                                  value_filters = [{"name": {"op": "like", "str": "playback_mean"}, "type": "text", "value": {"op": "==", "value": "OCP"}}],
+                                                                  value_filters = [{"name": {"op": "like", "filter": "playback_mean"}, "type": "text", "value": {"op": "==", "filter": "OCP"}}],
                                                                   start_filters = [{"date": "2018-07-20T23:23:09.000", "op": "=="}],
                                                                   stop_filters = [{"date": "2018-07-20T23:46:56.000", "op": "=="}])
 
@@ -156,13 +156,13 @@ class TestEngine(unittest.TestCase):
 
         # Check nominal playback operations
         playback_nominal_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                      value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}])
+                                                                      value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}])
 
         assert len(playback_nominal_operations) == 1
 
         # Check specific nominal playback operations
         specific_playback_nominal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                               value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                               value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                                start_filters = [{"date": "2018-07-20T14:02:33.695", "op": "=="}],
                                                                                stop_filters = [{"date": "2018-07-20T14:14:14.748", "op": "=="}])
 
@@ -243,13 +243,13 @@ class TestEngine(unittest.TestCase):
 
         # Check nrt playback operations
         playback_nrt_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                             value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "NRT"}}])
+                                                             value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "NRT"}}])
 
         assert len(playback_nrt_operations) == 1
 
         # Check specific nrt playback operations
         specific_playback_nrt_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                      value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "NRT"}}],
+                                                                      value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "NRT"}}],
                                                                       start_filters = [{"date": "2018-07-20T23:30:04.000", "op": "=="}],
                                                                       stop_filters = [{"date": "2018-07-20T23:45:42.000", "op": "=="}])
 
@@ -257,13 +257,13 @@ class TestEngine(unittest.TestCase):
 
         # Check rt playback operations
         playback_rt_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                            value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "RT"}}])
+                                                            value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "RT"}}])
 
         assert len(playback_rt_operations) == 1
 
         # Check specific rt playback operations
         specific_playback_rt_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                     value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "RT"}}],
+                                                                     value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "RT"}}],
                                                                      start_filters = [{"date": "2018-07-20T15:41:53.723", "op": "=="}],
                                                                      stop_filters = [{"date": "2018-07-20T15:53:31.614", "op": "=="}])
 
@@ -271,20 +271,20 @@ class TestEngine(unittest.TestCase):
 
         # Check HKTM_SAD playback operations
         playback_hktm_sad_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                  value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "HKTM_SAD"}}])
+                                                                  value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "HKTM_SAD"}}])
 
         assert len(playback_hktm_sad_operations) == 2
 
         # Check specific HKTM_SAD playback operations
         specific_playback_hktm_sad_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                           value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "HKTM_SAD"}}],
+                                                                           value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "HKTM_SAD"}}],
                                                                            start_filters = [{"date": "2018-07-20T14:14:25.748", "op": "=="}],
                                                                            stop_filters = [{"date": "2018-07-20T14:14:25.748", "op": "=="}])
 
         assert len(specific_playback_hktm_sad_operation1) == 1
 
         specific_playback_hktm_sad_operation2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                           value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "HKTM_SAD"}}],
+                                                                           value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "HKTM_SAD"}}],
                                                                            start_filters = [{"date": "2018-07-20T15:53:42.614", "op": "=="}],
                                                                            stop_filters = [{"date": "2018-07-20T15:53:42.614", "op": "=="}])
 
@@ -292,13 +292,13 @@ class TestEngine(unittest.TestCase):
 
         # Check SAD playback operations
         playback_sad_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                             value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "SAD"}}])
+                                                             value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "SAD"}}])
 
         assert len(playback_sad_operations) == 1
 
         # Check specific HKTM_SAD playback operations
         specific_playback_sad_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                                      value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "==", "value": "SAD"}}],
+                                                                      value_filters = [{"name": {"op": "like", "filter": "playback_type"}, "type": "text", "value": {"op": "==", "filter": "SAD"}}],
                                                                       start_filters = [{"date": "2018-07-20T23:45:53", "op": "=="}],
                                                                       stop_filters = [{"date": "2018-07-20T23:45:53", "op": "=="}])
 
@@ -379,13 +379,13 @@ class TestEngine(unittest.TestCase):
 
         # Check record nominal operations
         record_nominal_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                               value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}])
+                                                               value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}])
 
         assert len(record_nominal_operations) == 6
 
         # Check specific record nominal operations
         specific_record_nominal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T14:07:25.734", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T14:08:57.718", "op": "=="}])
 
@@ -450,35 +450,35 @@ class TestEngine(unittest.TestCase):
         }]
 
         specific_record_nominal_operation2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T14:27:43.768", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T14:47:59.686", "op": "=="}])
 
         assert len(specific_record_nominal_operation2) == 1
 
         specific_record_nominal_operation3 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T15:48:02.082", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T15:48:29.122", "op": "=="}])
 
         assert len(specific_record_nominal_operation3) == 1
 
         specific_record_nominal_operation4 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T15:48:55.739", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T16:04:24.434", "op": "=="}])
 
         assert len(specific_record_nominal_operation4) == 1
 
         specific_record_nominal_operation5 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T16:05:02.319", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T16:11:19.335", "op": "=="}])
 
         assert len(specific_record_nominal_operation5) == 1
 
         specific_record_nominal_operation6 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T17:28:49.581", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T17:48:45.706", "op": "=="}])
 
@@ -486,13 +486,13 @@ class TestEngine(unittest.TestCase):
 
         # Check record nrt operations
         record_nrt_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                           value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NRT"}}])
+                                                           value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NRT"}}])
 
         assert len(record_nrt_operations) == 1
 
         # Check specific record nrt operations
         specific_record_nrt_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
-                                                                    value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": "NRT"}}],
+                                                                    value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NRT"}}],
                                                                     start_filters = [{"date": "2018-07-20T14:09:55.673", "op": "=="}],
                                                                     stop_filters = [{"date": "2018-07-20T14:16:09.081", "op": "=="}])
 
@@ -500,13 +500,13 @@ class TestEngine(unittest.TestCase):
 
         # Check nominal imaging operations
         imaging_nominal_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                                value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}])
+                                                                value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}])
 
         assert len(imaging_nominal_operations) == 2
 
         # Check specific nominal imaging operations
         specific_cut_imaging_nominal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                             value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                             value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                              start_filters = [{"date": "2018-07-20T14:07:27.734", "op": "=="}],
                                                                              stop_filters = [{"date": "2018-07-20T14:08:53.218", "op": "=="}])
 
@@ -576,7 +576,7 @@ class TestEngine(unittest.TestCase):
         }]
         
         specific_imaging_nominal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                         value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                                         value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                                          start_filters = [{"date": "2018-07-20T14:07:27.734", "op": "=="}],
                                                                          stop_filters = [{"date": "2018-07-20T14:08:53.218", "op": "=="}])
         
@@ -631,13 +631,13 @@ class TestEngine(unittest.TestCase):
         
         # Check SUN_CAL imaging operations
         imaging_suncal_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                               value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "SUN_CAL"}}])
+                                                               value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "SUN_CAL"}}])
 
         assert len(imaging_suncal_operations) == 2
 
         # Check specific suncal imaging operations
         specific_cut_imaging_suncal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                            value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "SUN_CAL"}}],
+                                                                            value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "SUN_CAL"}}],
                                                                             start_filters = [{"date": "2018-07-20T14:09:57.673", "op": "=="}],
                                                                             stop_filters = [{"date": "2018-07-20T14:09:57.673", "op": "=="}])
 
@@ -645,7 +645,7 @@ class TestEngine(unittest.TestCase):
 
         # Check specific suncal imaging operations
         specific_imaging_suncal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                        value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "SUN_CAL"}}],
+                                                                        value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "SUN_CAL"}}],
                                                                         start_filters = [{"date": "2018-07-20T14:09:57.673", "op": "=="}],
                                                                         stop_filters = [{"date": "2018-07-20T14:09:57.673", "op": "=="}])
 
@@ -653,20 +653,20 @@ class TestEngine(unittest.TestCase):
 
         # Check dark_cal_csm_open imaging operations
         imaging_dark_cal_csm_open_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                                          value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "DARK_CAL_CSM_OPEN"}}])
+                                                                          value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "DARK_CAL_CSM_OPEN"}}])
 
         assert len(imaging_dark_cal_csm_open_operations) == 2
 
         # Check specific dark open imaging operations
         specific_cut_imaging_dark_open_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                               value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "DARK_CAL_CSM_OPEN"}}],
+                                                                               value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "DARK_CAL_CSM_OPEN"}}],
                                                                                start_filters = [{"date": "2018-07-20T14:27:45.768", "op": "=="}],
                                                                                stop_filters = [{"date": "2018-07-20T14:47:55.186", "op": "=="}])
 
         assert len(specific_cut_imaging_dark_open_operation1) == 1
 
         specific_imaging_dark_open_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                           value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "DARK_CAL_CSM_OPEN"}}],
+                                                                           value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "DARK_CAL_CSM_OPEN"}}],
                                                                            start_filters = [{"date": "2018-07-20T14:27:45.768", "op": "=="}],
                                                                            stop_filters = [{"date": "2018-07-20T14:47:55.186", "op": "=="}])
 
@@ -674,20 +674,20 @@ class TestEngine(unittest.TestCase):
 
         # Check dark_cal_csm_close imaging operations
         imaging_dark_cal_csm_close_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                                          value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "DARK_CAL_CSM_CLOSE"}}])
+                                                                          value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "DARK_CAL_CSM_CLOSE"}}])
 
         assert len(imaging_dark_cal_csm_close_operations) == 2
 
         # Check specific dark close imaging operations
         specific_cut_imaging_dark_close_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                                value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "DARK_CAL_CSM_CLOSE"}}],
+                                                                                value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "DARK_CAL_CSM_CLOSE"}}],
                                                                                 start_filters = [{"date": "2018-07-20T15:48:04.082", "op": "=="}],
                                                                                 stop_filters = [{"date": "2018-07-20T15:48:24.622", "op": "=="}])
 
         assert len(specific_cut_imaging_dark_close_operation1) == 1
 
         specific_imaging_dark_close_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                            value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "DARK_CAL_CSM_CLOSE"}}],
+                                                                            value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "DARK_CAL_CSM_CLOSE"}}],
                                                                             start_filters = [{"date": "2018-07-20T15:48:04.082", "op": "=="}],
                                                                             stop_filters = [{"date": "2018-07-20T15:48:24.622", "op": "=="}])
 
@@ -695,20 +695,20 @@ class TestEngine(unittest.TestCase):
 
         # Check vicarious_cal imaging operations
         imaging_vicarious_cal_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                                      value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "VICARIOUS_CAL"}}])
+                                                                      value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "VICARIOUS_CAL"}}])
 
         assert len(imaging_vicarious_cal_operations) == 2
 
         # Check specific vicarious_cal imaging operations
         specific_cut_imaging_vicarious_cal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                                   value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "VICARIOUS_CAL"}}],
+                                                                                   value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "VICARIOUS_CAL"}}],
                                                                                    start_filters = [{"date": "2018-07-20T15:48:57.739", "op": "=="}],
                                                                                    stop_filters = [{"date": "2018-07-20T16:04:19.934", "op": "=="}])
 
         assert len(specific_cut_imaging_vicarious_cal_operation1) == 1
 
         specific_imaging_vicarious_cal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                               value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "VICARIOUS_CAL"}}],
+                                                                               value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "VICARIOUS_CAL"}}],
                                                                                start_filters = [{"date": "2018-07-20T15:48:57.739", "op": "=="}],
                                                                                stop_filters = [{"date": "2018-07-20T16:04:19.934", "op": "=="}])
 
@@ -716,20 +716,20 @@ class TestEngine(unittest.TestCase):
 
         # Check raw imaging operations
         imaging_raw_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                            value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "RAW"}}])
+                                                            value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "RAW"}}])
 
         assert len(imaging_raw_operations) == 2
 
         # Check specific raw imaging operations
         specific_cut_imaging_raw_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                         value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "RAW"}}],
+                                                                         value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "RAW"}}],
                                                                          start_filters = [{"date": "2018-07-20T16:05:04.319", "op": "=="}],
                                                                          stop_filters = [{"date": "2018-07-20T16:11:14.835", "op": "=="}])
 
         assert len(specific_cut_imaging_raw_operation1) == 1
 
         specific_imaging_raw_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                     value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "RAW"}}],
+                                                                     value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "RAW"}}],
                                                                      start_filters = [{"date": "2018-07-20T16:05:04.319", "op": "=="}],
                                                                      stop_filters = [{"date": "2018-07-20T16:11:14.835", "op": "=="}])
 
@@ -737,20 +737,20 @@ class TestEngine(unittest.TestCase):
 
         # Check test imaging operations
         imaging_test_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
-                                                                     value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "TEST"}}])
+                                                                     value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "TEST"}}])
 
         assert len(imaging_test_operations) == 2
 
         # Check specific test imaging operations
         specific_cut_imaging_test_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                                          value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "TEST"}}],
+                                                                          value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "TEST"}}],
                                                                           start_filters = [{"date": "2018-07-20T17:28:51.581", "op": "=="}],
                                                                           stop_filters = [{"date": "2018-07-20T17:48:41.206", "op": "=="}])
 
         assert len(specific_cut_imaging_test_operation1) == 1
 
         specific_imaging_test_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
-                                                                      value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "TEST"}}],
+                                                                      value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "TEST"}}],
                                                                       start_filters = [{"date": "2018-07-20T17:28:51.581", "op": "=="}],
                                                                       stop_filters = [{"date": "2018-07-20T17:48:41.206", "op": "=="}])
 
@@ -933,21 +933,21 @@ class TestEngine(unittest.TestCase):
         assert len(events) == 8
 
         cut_nominal1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                  value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                  value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                   start_filters = [{"date": "2018-07-20T14:07:27.734", "op": "=="}],
                                                   stop_filters = [{"date": "2018-07-20T14:08:57.718", "op": "=="}])
 
         assert len(cut_nominal1) == 1
 
         cut_nominal2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                  value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}], 
+                                                  value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}], 
                                                   start_filters = [{"date": "2018-07-20T14:08:57.718", "op": "=="}],
                                                   stop_filters = [{"date": "2018-07-20T14:12:57.718", "op": "=="}])
 
         assert len(cut_nominal2) == 1
 
         cut_nominal3 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"},
-                                                  value_filters = [{"name": {"op": "like", "str": "imaging_mode"}, "type": "text", "value": {"op": "==", "value": "NOMINAL"}}],
+                                                  value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
                                                   start_filters = [{"date": "2018-07-20T14:12:57.718", "op": "=="}], 
                                                   stop_filters = [{"date": "2018-07-20T14:14:53.218", "op": "=="}])
 
@@ -968,6 +968,20 @@ class TestEngine(unittest.TestCase):
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        # Check number of events generated
+        events = self.session.query(Event).all()
+
+        assert len(events) == 0
+
+
+    def test_playback_mean_not_ending(self):
+        filename = "S2A_NPPF_PLAYBACK_MEAN_NOT_ENDING.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check number of events generated
         events = self.session.query(Event).all()
