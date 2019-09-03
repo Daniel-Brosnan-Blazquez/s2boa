@@ -221,9 +221,9 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
 
     # Mission
     if mission:
-        kwargs_playback["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
+        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                     "type": "text",
-                                    "value": {"op": "like", "value": mission}
+                                    "value": {"op": "like", "filter": mission}
                                 }]
     # end if
 

@@ -30,9 +30,9 @@ def query_orbpre_events(query, current_app, start_filter = None, stop_filter = N
 
     # Mission
     if mission:
-        kwargs["value_filters"] = [{"name": {"op": "like", "str": "satellite"},
+        kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                     "type": "text",
-                                    "value": {"op": "like", "value": mission}
+                                    "value": {"op": "like", "filter": mission}
                                 }]
     # end if
 
@@ -64,13 +64,13 @@ def get_start_stop_filters(query, current_app, request, window_size, mission):
             # end if
         elif request.form["start_orbit"] != "":
             orbpre_events = query.get_events(gauge_names = {"filter": ["ORBIT_PREDICTION"], "op": "in"},
-                                            value_filters = [{"name": {"op": "like", "str": "orbit"},
+                                            value_filters = [{"name": {"op": "==", "filter": "orbit"},
                                                               "type": "double",
-                                                              "value": {"op": "==", "value": request.form["start_orbit"]}
+                                                              "value": {"op": "==", "filter": request.form["start_orbit"]}
                                                           },
-                                                             {"name": {"op": "like", "str": "satellite"},
+                                                             {"name": {"op": "==", "filter": "satellite"},
                                                               "type": "text",
-                                                              "value": {"op": "like", "value": mission}
+                                                              "value": {"op": "like", "filter": mission}
                                                           }])
 
             if len(orbpre_events) > 0:
@@ -101,13 +101,13 @@ def get_start_stop_filters(query, current_app, request, window_size, mission):
             # end if
         elif request.form["stop_orbit"] != "":
             orbpre_events = query.get_events(gauge_names = {"filter": ["ORBIT_PREDICTION"], "op": "in"},
-                                            value_filters = [{"name": {"op": "like", "str": "orbit"},
+                                            value_filters = [{"name": {"op": "==", "filter": "orbit"},
                                                               "type": "double",
-                                                              "value": {"op": "==", "value": request.form["stop_orbit"]}
+                                                              "value": {"op": "==", "filter": request.form["stop_orbit"]}
                                                           },
-                                                             {"name": {"op": "like", "str": "satellite"},
+                                                             {"name": {"op": "==", "filter": "satellite"},
                                                               "type": "text",
-                                                              "value": {"op": "like", "value": mission}
+                                                              "value": {"op": "like", "filter": mission}
                                                           }])
 
             if len(orbpre_events) > 0:

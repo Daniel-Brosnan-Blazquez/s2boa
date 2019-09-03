@@ -19,13 +19,12 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver import ActionChains,TouchActions
 from selenium.webdriver.common.keys import Keys
 
-
 def query(driver, wait, mission = None, start = None, stop = None, start_orbit = None, stop_orbit = None, table_details = True, map = True, station_reports = True):
 
     query_interface = driver.find_element_by_partial_link_text("Query interface")
     i = 0
     while not query_interface.get_attribute("aria-expanded") == "true":
-        query_interface.click()
+        click(query_interface)
         # Add time to avoid lags on expanding the collapsed
         time.sleep(0.1)
     # end if
@@ -59,20 +58,20 @@ def query(driver, wait, mission = None, start = None, stop = None, start_orbit =
 
     if table_details is not True:
         # Click on show table_details
-        driver.find_element_by_id("show-acquisition-table-details").click()
+        click(driver.find_element_by_id("show-acquisition-table-details"))
     # end if
 
     if map is not True:
         # Click on show map
-        driver.find_element_by_id("show-acquisition-map").click()
+        click(driver.find_element_by_id("show-acquisition-map"))
     # end if
 
     if station_reports is not True:
         # Click on show station_reports
-        driver.find_element_by_id("show-station-reports").click()
+        click(driver.find_element_by_id("show-station-reports"))
     # end if
 
-    driver.find_element_by_id("query-submit-button").click()
+    click(driver.find_element_by_id("query-submit-button"))
 
 def page_loaded(driver, wait, id):
     try:
@@ -80,3 +79,21 @@ def page_loaded(driver, wait, id):
     except NoSuchElementException:
         return False
     return True
+
+def click(element):
+
+    done = False
+    retries = 0
+    while not done:
+        try:
+            element.click()
+            done = True
+        except ElementClickInterceptedException as e:
+            if retries < 5:
+                retries += 1
+                pass
+            else:
+                raise e
+            # end if
+        # end try
+    # end while

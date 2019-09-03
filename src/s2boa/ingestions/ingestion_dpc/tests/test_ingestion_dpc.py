@@ -2134,7 +2134,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
-                                                     value_filters = [{"name": {"str": "detector", "op": "like"}, "type": "double", "value": {"value": "1", "op": "=="}}],
+                                                     value_filters = [{"name": {"filter": "detector", "op": "like"}, "type": "double", "value": {"filter": "1", "op": "=="}}],
                                                      start_filters = [{"date": "2018-07-21T08:52:42", "op": "=="}],
                                              stop_filters = [{"date": "2018-07-21T08:52:44", "op": "=="}])
 
@@ -2314,7 +2314,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
-                                                     value_filters = [{"name": {"str": "detector", "op": "like"}, "type": "double", "value": {"value": "1", "op": "=="}}],
+                                                     value_filters = [{"name": {"filter": "detector", "op": "like"}, "type": "double", "value": {"filter": "1", "op": "=="}}],
                                                      start_filters = [{"date": "2018-07-21T08:52:42", "op": "=="}],
                                              stop_filters = [{"date": "2018-07-21T08:52:44", "op": "=="}])
 
@@ -2450,76 +2450,76 @@ class TestDpcIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
-                                                           value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}])
+                                                           value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}])
 
         assert len(missing_planning_completeness) == 2
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
 
         missing_planning_completeness_2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T09:06:46", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}])
 
         assert len(missing_planning_completeness_2) == 1
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "like"},
-                                                           value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}])
+                                                           value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}])
 
         assert len(missing_planning_completeness) == 2
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
 
         missing_planning_completeness_2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T09:06:41", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}])
 
         assert len(missing_planning_completeness_2) == 1
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                                           value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}])
+                                                           value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}])
 
         assert len(missing_planning_completeness) == 2
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
 
         missing_planning_completeness_2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T09:06:41", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}])
 
         assert len(missing_planning_completeness_2) == 1
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "like"},
-                                                           value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}])
+                                                           value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}])
 
         assert len(missing_planning_completeness) == 2
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
 
         missing_planning_completeness_2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "like"},
-                                                                   value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"value": "MISSING", "op": "=="}}],
+                                                                   value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"filter": "MISSING", "op": "=="}}],
                                                                    start_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                                                    stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}])
 

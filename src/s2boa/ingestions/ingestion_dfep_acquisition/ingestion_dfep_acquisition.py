@@ -182,9 +182,9 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
         else:
             planned_playback_types = [downlink_mode]
         # end if
-        corrected_planned_playbacks = query.get_events(gauge_names = {"op": "like", "filter": "PLANNED_PLAYBACK_CORRECTION"},
-                                                       gauge_systems = {"op": "like", "filter": satellite},
-                                                       value_filters = [{"name": {"op": "like", "str": "playback_type"}, "type": "text", "value": {"op": "in", "value": planned_playback_types}}],
+        corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
+                                                       gauge_systems = {"op": "==", "filter": satellite},
+                                                       value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "in", "filter": planned_playback_types}}],
                                                        start_filters = [{"date": acquisition_stop, "op": "<"}],
                                                        stop_filters = [{"date": query_start, "op": ">"}])
 
@@ -734,13 +734,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         # Obtain the planned imaging events from the corrected events which record type corresponds to the downlink mode and are intersecting the segment of the RAW_ISP_VALIDTY
         if downlink_mode != "RT":
-            corrected_planned_imagings = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "like"},
+            corrected_planned_imagings = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
                                                           gauge_systems = {"filter": [satellite], "op": "in"},
-                                                          value_filters = [{"name": {"op": "like", "str": "record_type"}, "type": "text", "value": {"op": "==", "value": downlink_mode}}],
+                                                          value_filters = [{"name": {"op": "==", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": downlink_mode}}],
                                                           start_filters = [{"date": corrected_sensing_stop, "op": "<"}],
                                                           stop_filters = [{"date": corrected_sensing_start, "op": ">"}])
         else:
-            corrected_planned_imagings = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "like"},
+            corrected_planned_imagings = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
                                                           gauge_systems = {"filter": [satellite], "op": "in"},
                                                           start_filters = [{"date": corrected_sensing_stop, "op": "<"}],
                                                           stop_filters = [{"date": corrected_sensing_start, "op": ">"}])
@@ -802,7 +802,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 corrected_planned_imaging = [event for event in corrected_planned_imagings if event.event_uuid == intersected_planned_imagings_segment["id2"]][0]
                 planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
                 sensing_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                        value_filters=[{"name": {"op": "like", "str": "start_orbit"}, "type": "double"}],
+                                                                        value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
                                                                         event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
                 sensing_orbit = str(sensing_orbit_values[0].value)
                 links_isp_validity.append({
@@ -1128,10 +1128,10 @@ def process_file(file_path, engine, query, reception_time):
     # This is for registrering the ingestion progress
     query_general_source = Query()
     session_progress = query_general_source.session
-    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
-                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
-                                                               processors = {"filter": "", "op": "like"},
-                                                               processor_version_filters = [{"str": "", "op": "=="}])
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "=="},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "=="},
+                                                               processors = {"filter": "", "op": "=="},
+                                                               processor_version_filters = [{"filter": "", "op": "=="}])
 
     if len(general_source_progress) > 0:
         general_source_progress = general_source_progress[0]

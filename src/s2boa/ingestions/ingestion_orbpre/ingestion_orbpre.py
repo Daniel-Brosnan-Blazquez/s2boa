@@ -149,17 +149,17 @@ def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list
     planning_gauges = query.get_gauges(dim_signatures = {"filter": ["NPPF_" + satellite], "op": "in"})
 
     planning_events = query.get_events(gauge_uuids = {"filter": [gauge.gauge_uuid for gauge in planning_gauges], "op": "in"},
-                                       value_filters = [{"name": {"str": "start_orbit", "op": "like"},
+                                       value_filters = [{"name": {"filter": "start_orbit", "op": "=="},
                                                          "type": "double",
-                                                         "value": {"value": start_orbit, "op": ">="}},
-                                                        {"name": {"str": "start_orbit", "op": "like"},
+                                                         "value": {"filter": start_orbit, "op": ">="}},
+                                                        {"name": {"filter": "start_orbit", "op": "=="},
                                                          "type": "double",
-                                                         "value": {"value": stop_orbit, "op": "<="}}])
+                                                         "value": {"filter": stop_orbit, "op": "<="}}])
 
     planning_events = query.get_events(event_uuids = {"filter": [event.event_uuid for event in planning_events], "op": "in"},
-                                       value_filters = [{"name": {"str": "stop_orbit", "op": "like"},
+                                       value_filters = [{"name": {"filter": "stop_orbit", "op": "=="},
                                                          "type": "double",
-                                                         "value": {"value": stop_orbit, "op": "<="}}])
+                                                         "value": {"filter": stop_orbit, "op": "<="}}])
 
     events = _correct_planning_events(list_of_events, planning_events)
 
@@ -315,10 +315,10 @@ def process_file(file_path, engine, query, reception_time):
     # This is for registrering the ingestion progress
     query_general_source = Query()
     session_progress = query_general_source.session
-    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
-                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
-                                                               processors = {"filter": "", "op": "like"},
-                                                               processor_version_filters = [{"str": "", "op": "=="}])
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "=="},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "=="},
+                                                               processors = {"filter": "", "op": "=="},
+                                                               processor_version_filters = [{"filter": "", "op": "=="}])
 
     if len(general_source_progress) > 0:
         general_source_progress = general_source_progress[0]

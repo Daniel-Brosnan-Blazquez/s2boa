@@ -416,7 +416,7 @@ class TestPlanningView(unittest.TestCase):
 
         # Graph duration imagings
 
-        events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"})
+        events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
 
         events.sort(key=lambda x:x.start)
 
@@ -742,10 +742,10 @@ class TestPlanningView(unittest.TestCase):
 
         # Graph duration playbacks
 
-        playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
-                                                        value_filters = [{"name": {"str": "playback_type", "op": "like"},
+        playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                        value_filters = [{"name": {"filter": "playback_type", "op": "=="},
                                                                         "type": "text",
-                                                                        "value": {"op": "in", "value": ["NOMINAL", "REGULAR", "RT", "NRT"]}}])
+                                                                        "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT", "NRT"]}}])
 
         playback_events.sort(key=lambda x:x.start)
 
@@ -861,7 +861,7 @@ class TestPlanningView(unittest.TestCase):
 
         # Timeline
 
-        imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "like"})
+        imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
 
         imaging_events.sort(key=lambda x:x.start)
 
@@ -1011,7 +1011,7 @@ class TestPlanningView(unittest.TestCase):
 
         assert self.driver.execute_script('return imaging_timeline_events;') == imaging_timeline_events
 
-        playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
+        playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
 
         playback_events.sort(key=lambda x:x.start)
 

@@ -99,7 +99,7 @@ class TestEngine(unittest.TestCase):
         # Check definite_data_size
         definite_data_size = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "SIZE"},
                                                              explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085324_D10_N02.06"})
-                                                             #value_filters= [{"name": {"str": "size", "op": "like"}, "type": "double", "value": {"op": "like", "value": "18371751"}}])
+                                                             #value_filters= [{"name": {"filter": "size", "op": "like"}, "type": "double", "value": {"op": "like", "filter": "18371751"}}])
 
         assert definite_data_size[0].get_structured_values() == [{
             'type': 'object',
@@ -114,7 +114,7 @@ class TestEngine(unittest.TestCase):
         # Check definite_cloud_percentage
         definite_cloud_percentage = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CLOUD_PERCENTAGE"},
                                                                     explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085334_D10_N02.06"})
-                                                                    #value_filters= [{"name": {"str": "cloud_percentage", "op": "like"}, "type": "double", "value": {"op": "like", "value": "0"}}])
+                                                                    #value_filters= [{"name": {"filter": "cloud_percentage", "op": "like"}, "type": "double", "value": {"op": "like", "filter": "0"}}])
 
         assert definite_cloud_percentage[0].get_structured_values() == [{
             'type': 'object',
@@ -129,7 +129,7 @@ class TestEngine(unittest.TestCase):
         # Check definite_physical_url
         definite_physical_url = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PHYSICAL_URL"},
                                                                 explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06"})
-                                                                #value_filters= [{"name": {"str": "physical_url", "op": "like"}, "type": "string", "value": {"op": "like", "value": "https://pac1dag.sentinel2.eo.esa.int/restsrv/rest/download?PdiID=S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06&dsPdiID=S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"}}])
+                                                                #value_filters= [{"name": {"filter": "physical_url", "op": "like"}, "type": "string", "value": {"op": "like", "filter": "https://pac1dag.sentinel2.eo.esa.int/restsrv/rest/download?PdiID=S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06&dsPdiID=S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"}}])
 
         assert definite_physical_url[0].get_structured_values() == [{
             'type': 'object',
@@ -144,7 +144,7 @@ class TestEngine(unittest.TestCase):
         # Check definite_indexing_time
         definite_indexing_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "INDEXING_TIME"},
                                                                  explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085302_D01_N02.06"})
-                                                                 #value_filters= [{"name": {"str": "indexing_time", "op": "like"}, "type": "timestamp", "value": {"op": "like", "value": "2018-07-21T11:01:40"}}])
+                                                                 #value_filters= [{"name": {"filter": "indexing_time", "op": "like"}, "type": "timestamp", "value": {"op": "like", "filter": "2018-07-21T11:01:40"}}])
 
         assert definite_indexing_time[0].get_structured_values() == [{
             'type': 'object',
@@ -1373,7 +1373,7 @@ class TestEngine(unittest.TestCase):
 
         # Check ISP validity completeness
         isp_completeness = self.query_eboa.get_events(gauge_names = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0", "op": "like"},
-                                                      value_filters = [{"name": {"str": "status", "op": "like"}, "type": "text", "value": {"op": "like", "value": "MISSING"}}])
+                                                      value_filters = [{"name": {"filter": "status", "op": "like"}, "type": "text", "value": {"op": "like", "filter": "MISSING"}}])
 
         assert len(isp_completeness) == 0
 

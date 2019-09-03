@@ -62,11 +62,11 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
         acquisition_start = schedule.xpath("Acquisition_Start")[0].text.split("=")[1]
         acquisition_stop = schedule.xpath("Acquisition_Stop")[0].text.split("=")[1]
 
-        playbacks = query.get_linked_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "like"},
-                                            gauge_systems = {"filter": satellite, "op": "like"},
+        playbacks = query.get_linked_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "=="},
+                                            gauge_systems = {"filter": satellite, "op": "=="},
                                             start_filters = [{"date": data_start, "op": ">"}],
                                             stop_filters = [{"date": data_stop, "op": "<"}],
-                                            link_names = {"filter": "TIME_CORRECTION", "op": "like"},
+                                            link_names = {"filter": "TIME_CORRECTION", "op": "=="},
                                             return_prime_events = False)
 
         status = "MATCHED_PLAYBACK"
@@ -190,10 +190,10 @@ def process_file(file_path, engine, query, reception_time):
     # This is for registrering the ingestion progress
     query_general_source = Query()
     session_progress = query_general_source.session
-    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
-                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
-                                                               processors = {"filter": "", "op": "like"},
-                                                               processor_version_filters = [{"str": "", "op": "=="}])
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "=="},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "=="},
+                                                               processors = {"filter": "", "op": "=="},
+                                                               processor_version_filters = [{"filter": "", "op": "=="}])
 
     if len(general_source_progress) > 0:
         general_source_progress = general_source_progress[0]

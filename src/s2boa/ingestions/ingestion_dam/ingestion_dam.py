@@ -90,10 +90,10 @@ def process_file(file_path, engine, query, reception_time):
     # This is for registrering the ingestion progress
     query_general_source = Query()
     session_progress = query_general_source.session
-    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
-                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
-                                                               processors = {"filter": "", "op": "like"},
-                                                               processor_version_filters = [{"str": "", "op": "=="}])
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "=="},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "=="},
+                                                               processors = {"filter": "", "op": "=="},
+                                                               processor_version_filters = [{"filter": "", "op": "=="}])
 
     if len(general_source_progress) > 0:
         general_source_progress = general_source_progress[0]
@@ -120,8 +120,8 @@ def process_file(file_path, engine, query, reception_time):
         cataloging_time = product.xpath("insertion_time")[0].text
 
 
-        datatake_exists = len(query.get_explicit_refs(annotation_cnf_names = {"filter": "DATATAKE", "op": "like"},
-        annotation_value_filters = [{"name": {"str": "datatake_identifier", "op": "like"}, "type": "text", "value": {"op": "like", "value": datatake_id}}])) > 0
+        datatake_exists = len(query.get_explicit_refs(annotation_cnf_names = {"filter": "DATATAKE", "op": "=="},
+        annotation_value_filters = [{"name": {"filter": "datatake_identifier", "op": "=="}, "type": "text", "value": {"op": "==", "filter": datatake_id}}])) > 0
         cataloging_annotation = {
             "explicit_reference" : product_id,
             "annotation_cnf": {

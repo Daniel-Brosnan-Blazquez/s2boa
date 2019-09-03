@@ -119,10 +119,10 @@ def process_file(file_path, engine, query, reception_time):
     # This is for registrering the ingestion progress
     query_general_source = Query()
     session_progress = query_general_source.session
-    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "like"},
-                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "like"},
-                                                               processors = {"filter": "", "op": "like"},
-                                                               processor_version_filters = [{"str": "", "op": "=="}])
+    general_source_progress = query_general_source.get_sources(names = {"filter": file_name, "op": "=="},
+                                                               dim_signatures = {"filter": "PENDING_SOURCES", "op": "=="},
+                                                               processors = {"filter": "", "op": "=="},
+                                                               processor_version_filters = [{"filter": "", "op": "=="}])
 
     if len(general_source_progress) > 0:
         general_source_progress = general_source_progress[0]
@@ -278,8 +278,8 @@ def process_file(file_path, engine, query, reception_time):
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
     
-    processing_validity_db = query.get_events(explicit_refs = {"op": "like", "filter": datastrip_id},
-                                              gauge_names = {"op": "like", "filter": "PROCESSING_VALIDITY"})
+    processing_validity_db = query.get_events(explicit_refs = {"op": "==", "filter": datastrip_id},
+                                              gauge_names = {"op": "==", "filter": "PROCESSING_VALIDITY"})
 
     # Execute processing completeness if not done before
     if len(processing_validity_db) < 1:
@@ -398,10 +398,10 @@ def process_file(file_path, engine, query, reception_time):
             functions.L0_L1A_L1B_processing(source_processing, engine, query, granule_timeline,list_of_events_for_processing,datastrip_id,granule_timeline_per_detector, list_of_operations, system, version, os.path.basename(__file__), satellite)
         elif (level == "L1C" or level == "L2A"):
             def get_upper_level_ers():
-                upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "like"},
-                                                          annotation_cnf_systems = {"filter": satellite, "op": "like"},
+                upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "=="},
+                                                          annotation_cnf_systems = {"filter": satellite, "op": "=="},
                                                           groups = {"filter": ["L0_DS", "L1B_DS"], "op": "in"},
-                                                          annotation_value_filters = [{"name": {"str": "sensing_identifier", "op": "like"}, "type": "text", "value": {"op": "like", "value": sensing_identifier}}])
+                                                          annotation_value_filters = [{"name": {"filter": "sensing_identifier", "op": "=="}, "type": "text", "value": {"op": "==", "filter": sensing_identifier}}])
 
                 upper_level_ers_same_satellite = [er.explicit_ref for er in upper_level_ers if er.explicit_ref[0:3] == satellite]
 
@@ -423,7 +423,7 @@ def process_file(file_path, engine, query, reception_time):
                 er = upper_level_er[0]
 
                 processing_validity_events = query.get_events(gauge_names = {"filter": ["PROCESSING_VALIDITY"], "op": "in"},
-                                                                    explicit_refs = {"filter": er, "op": "like"})
+                                                                    explicit_refs = {"filter": er, "op": "=="})
 
                 functions.L1C_L2A_processing(source_processing, engine, query, list_of_events_for_processing, processing_validity_events, datastrip_id, list_of_operations, system, version, os.path.basename(__file__), satellite)
             # end if

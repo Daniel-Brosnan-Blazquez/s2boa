@@ -244,11 +244,11 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert re.match("........-....-....-....-............", uuid.text)
 
-        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"like"})
+        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
         original_events.sort(key=lambda x:x.start)
 
-        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"like"})
+        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
 
         corrected_events.sort(key=lambda x:x.start)
 
@@ -496,15 +496,15 @@ class TestAcquisitionView(unittest.TestCase):
         assert re.match("........-....-....-....-............", uuid.text)
 
 
-        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"like"})
+        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
         original_events.sort(key=lambda x:x.start)
 
-        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"like"})
+        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"=="})
 
         playback_completeness_channel_1.sort(key=lambda x:x.start)
 
-        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"like"})
+        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"=="})
 
         playback_completeness_channel_2.sort(key=lambda x:x.start)
 
@@ -773,15 +773,15 @@ class TestAcquisitionView(unittest.TestCase):
         assert re.match("........-....-....-....-............", uuid.text)
 
 
-        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"like"})
+        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
         original_events.sort(key=lambda x:x.start)
 
-        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"like"})
+        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"=="})
 
         playback_completeness_channel_1.sort(key=lambda x:x.start)
 
-        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"like"})
+        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"=="})
 
         playback_completeness_channel_2.sort(key=lambda x:x.start)
 
@@ -1117,11 +1117,11 @@ class TestAcquisitionView(unittest.TestCase):
 
         # Acquisition Scheduling Completeness timeline
 
-        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"like"})
+        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
         original_events.sort(key=lambda x:x.start)
 
-        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"like"})
+        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
 
         corrected_events.sort(key=lambda x:x.start)
 
@@ -1479,15 +1479,15 @@ class TestAcquisitionView(unittest.TestCase):
 
         # Acquisition Scheduling Completeness timeline
 
-        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"like"})
+        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
         original_events.sort(key=lambda x:x.start)
 
-        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"like"})
+        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"=="})
 
         playback_completeness_channel_1.sort(key=lambda x:x.start)
 
-        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"like"})
+        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"=="})
 
         playback_completeness_channel_2.sort(key=lambda x:x.start)
 
@@ -1559,11 +1559,11 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert acquisition_timeline_received == self.driver.execute_script('return received_playbacks_timeline;')
 
-        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"like"})
+        original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
         original_events.sort(key=lambda x:x.start)
 
-        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"like"})
+        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
 
         corrected_events.sort(key=lambda x:x.start)
 

@@ -518,8 +518,8 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         # end for
 
         # Obtain the gaps existing during the reception per detector
-        isp_gaps = query.get_events(gauge_names = {"filter": "ISP_GAP", "op": "like"},
-                                    value_filters = [{"name": {"str": "satellite", "op": "like"}, "type": "text", "value": {"op": "like", "value": satellite}}],
+        isp_gaps = query.get_events(gauge_names = {"filter": "ISP_GAP", "op": "=="},
+                                    value_filters = [{"name": {"filter": "satellite", "op": "=="}, "type": "text", "value": {"op": "==", "filter": satellite}}],
                                     start_filters = [{"date": datablock["stop"].isoformat(), "op": "<"}],
                                     stop_filters = [{"date": datablock["start"].isoformat(), "op": ">"}])
         data_isp_gaps = {}
@@ -607,8 +607,8 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         create_processing_gap_events(gaps_due_to_processing_issues, "processing")
 
         # Obtain the planned imaging
-        corrected_planned_imagings = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "like"},
-                                                      gauge_systems = {"filter": satellite, "op": "like"},
+        corrected_planned_imagings = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
+                                                      gauge_systems = {"filter": satellite, "op": "=="},
                                                       start_filters = [{"date": datablock["stop"].isoformat(), "op": "<"}],
                                                       stop_filters = [{"date": datablock["start"].isoformat(), "op": ">"}])
 
@@ -626,7 +626,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
             planning_matching_status = "MATCHED_PLANNED_IMAGING"
             sensing_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "like", "str": "start_orbit"}, "type": "double"}],
+                                                                    value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
                                                                     event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
             sensing_orbit = str(sensing_orbit_values[0].value)
 
@@ -678,8 +678,8 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         # end if
 
         # Obtain ISP_VALIDITY events
-        isp_validities = query.get_events(gauge_names = {"filter":"ISP_VALIDITY", "op":"like"},
-                                          value_filters = [{"name": {"str": "satellite", "op": "like"}, "type": "text", "value": {"op": "like", "value": satellite}}],
+        isp_validities = query.get_events(gauge_names = {"filter":"ISP_VALIDITY", "op":"=="},
+                                          value_filters = [{"name": {"filter": "satellite", "op": "=="}, "type": "text", "value": {"op": "==", "filter": satellite}}],
                                           start_filters = [{"date": datablock["stop"].isoformat(), "op": "<"}],
                                           stop_filters = [{"date": datablock["start"].isoformat(), "op": ">"}])
         # Received Imaging Completeness
@@ -693,7 +693,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             isp_validity_uuid = isp_validity.event_uuid
 
             downlink_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "like", "str": "downlink_orbit"}, "type": "double"}],
+                                                                    value_filters=[{"name": {"op": "==", "filter": "downlink_orbit"}, "type": "double"}],
                                                                      event_uuids = {"op": "in", "filter": [isp_validity_uuid]})
             downlink_orbit = str(downlink_orbit_values[0].value)
 
@@ -1103,7 +1103,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             planned_imaging_uuid = planned_imaging.event_uuid
             planning_matching_status = "MATCHED_PLANNED_IMAGING"
             sensing_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "like", "str": "start_orbit"}, "type": "double"}],
+                                                                    value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
                                                                     event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
             sensing_orbit = str(sensing_orbit_values[0].value)
 
@@ -1163,7 +1163,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             isp_validity_uuid = isp_validity.event_uuid
 
             downlink_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "like", "str": "downlink_orbit"}, "type": "double"}],
+                                                                    value_filters=[{"name": {"op": "==", "filter": "downlink_orbit"}, "type": "double"}],
                                                                      event_uuids = {"op": "in", "filter": [isp_validity_uuid]})
             downlink_orbit = str(downlink_orbit_values[0].value)
 
@@ -1509,12 +1509,12 @@ def build_orbpre_file(start_events, stop_events, satellite, orbpre_events = None
     if orbpre_events == None:
         query = Query()
 
-        orbpre_events = query.get_events(gauge_names = {"filter": "ORBIT_PREDICTION", "op": "like"},
+        orbpre_events = query.get_events(gauge_names = {"filter": "ORBIT_PREDICTION", "op": "=="},
                                          start_filters = [{"date": stop, "op": "<"}],
                                          stop_filters = [{"date": start, "op": ">"}],
-                                         value_filters = [{"name": {"str": "satellite", "op": "like"},
+                                         value_filters = [{"name": {"filter": "satellite", "op": "=="},
                                                            "type": "text",
-                                                           "value": {"value": satellite, "op": "=="}}])
+                                                           "value": {"filter": satellite, "op": "=="}}])
 
         orbpre_events.sort(key=lambda x:x.start)
 
