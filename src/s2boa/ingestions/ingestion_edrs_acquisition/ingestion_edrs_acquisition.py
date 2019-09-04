@@ -181,9 +181,8 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 # end if
             # end for
 
-            if len(associated_planned_playbacks) > 0:
+            for planned_playback in associated_planned_playbacks:
                 matching_status = "MATCHED_PLANNED_PLAYBACK"
-                planned_playback = associated_planned_playbacks[0]
                 links.append({
                     "link": str(planned_playback.event_uuid),
                     "link_mode": "by_uuid",
@@ -249,7 +248,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 }
                 )
 
-            # end if
+            # end for
         # end if
 
         playback_event = {
