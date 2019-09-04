@@ -95,10 +95,7 @@ function update_map(dom_id, trackings){
                     "<tr><td>Stop</td><td>" + tracking["stop"] + "</td></tr>" +
                     "</table>";
                 var i = 0
-                console.log(mission)
-                console.log(tracking)
                 for (const polygon of tracking["values"][0]["values"]){
-                    console.log(polygon["values"][0]["value"])
                     polygons.push({"polygon": polygon["values"][0]["value"],
                                    "id": mission + "_" + tracking["start"] + "_" + tracking["stop"] + "_" + i,
                                    "style": style,
