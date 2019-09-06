@@ -575,7 +575,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_timeline_received == self.driver.execute_script('return received_playbacks_timeline;')
+        returned_received_playbacks_timeline = self.driver.execute_script('return received_playbacks_timeline;')
+        returned_received_playbacks_timeline.sort(key=lambda x:x["start"])
+        assert acquisition_timeline_received == returned_received_playbacks_timeline
 
         # Map
 
@@ -654,7 +656,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_geometries_received == self.driver.execute_script('return acquisition_geometries_received;')
+        returned_acquisition_geometries_received = self.driver.execute_script('return acquisition_geometries_received;')
+        returned_acquisition_geometries_received.sort(key=lambda x:x["id"])
+        assert acquisition_geometries_received == returned_acquisition_geometries_received
 
         station_reports_no_data = wait.until(EC.visibility_of_element_located((By.ID,"station-reports-no-reports")))
 
@@ -852,7 +856,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_timeline_received == self.driver.execute_script('return received_playbacks_timeline;')
+        returned_acquisition_timeline_received = self.driver.execute_script('return received_playbacks_timeline;')
+        returned_acquisition_timeline_received.sort(key=lambda x:x["start"])
+        assert acquisition_timeline_received == returned_acquisition_timeline_received
 
         # Missing Timeline
         acquisition_timeline_missing = [
@@ -900,7 +906,9 @@ class TestAcquisitionView(unittest.TestCase):
              }
         ]
 
-        assert acquisition_timeline_missing == self.driver.execute_script('return missing_playbacks_timeline;')
+        returned_missing_playbacks_timeline = self.driver.execute_script('return missing_playbacks_timeline;')
+        returned_missing_playbacks_timeline.sort(key=lambda x:x["start"])
+        assert acquisition_timeline_missing == returned_missing_playbacks_timeline
 
         # Map
 
@@ -979,7 +987,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_geometries_received == self.driver.execute_script('return acquisition_geometries_received;')
+        returned_acquisition_geometries_received = self.driver.execute_script('return acquisition_geometries_received;')
+        returned_acquisition_geometries_received.sort(key=lambda x:x["id"])
+        assert acquisition_geometries_received == returned_acquisition_geometries_received
 
         acquisition_geometries_missing = [
             {"id": str(playback_completeness_channel_1[0].event_uuid),
@@ -1032,7 +1042,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_geometries_missing == self.driver.execute_script('return acquisition_geometries_missing;')
+        returned_acquisition_geometries_missing = self.driver.execute_script('return acquisition_geometries_missing;')
+        returned_acquisition_geometries_missing.sort(key=lambda x:x["id"])
+        assert acquisition_geometries_missing == returned_acquisition_geometries_missing
 
         station_reports_no_data = wait.until(EC.visibility_of_element_located((By.ID,"station-reports-no-reports")))
 
@@ -1557,7 +1569,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_timeline_received == self.driver.execute_script('return received_playbacks_timeline;')
+        returned_received_playbacks_timeline = self.driver.execute_script('return received_playbacks_timeline;')
+        returned_received_playbacks_timeline.sort(key=lambda x:x["start"])
+        assert acquisition_timeline_received == returned_received_playbacks_timeline
 
         original_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
 
@@ -1837,7 +1851,9 @@ class TestAcquisitionView(unittest.TestCase):
             }
         ]
 
-        assert acquisition_geometries_received == self.driver.execute_script('return acquisition_geometries_received;')
+        returned_acquisition_geometries_received = self.driver.execute_script('return acquisition_geometries_received;')
+        returned_acquisition_geometries_received.sort(key=lambda x:x["id"])
+        assert acquisition_geometries_received == returned_acquisition_geometries_received
 
         # Station Reports table
 
