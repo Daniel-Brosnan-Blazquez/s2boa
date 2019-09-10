@@ -1411,3 +1411,60 @@ class TestDfepIngestion(unittest.TestCase):
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
+
+
+    def test_insert_rep_pass_with_planned_small_playback(self):
+
+        filename = "S2A_REP_PASS_GAPS_AT_THE_END_APID.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check sources
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
+                                                   Source.name == filename,
+                                                   Source.processor == "ingestion_dfep_acquisition.py").all()
+
+        assert len(source) == 1
+
+        # Check number of events generated
+        events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
+
+        assert len(events) == 10
+
+        isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
+                                                                     Event.start == "2018-07-21T08:53:56.579788",
+                                                                     Event.stop == "2018-07-21T08:54:18.226646").all()
+
+        assert len(isp_gap_event) == 1
+
+    def test_insert_rep_pass_with_two_datablocks_with_gaps(self):
+
+        filename = "S2A_REP_PASS_CONTAINING_TWO_DATABLOCKS_WITH_GAPS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check sources
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
+                                                   Source.validity_stop == "2018-07-21T23:30:03.707424",
+                                                   Source.name == filename,
+                                                   Source.processor == "ingestion_dfep_acquisition.py").all()
+
+        assert len(source) == 1
+
+        # Check number of events generated
+        events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
+
+        assert len(events) == 13
+
+        isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
+                                                                     Event.start == "2018-07-21T20:18:50.458085",
+                                                                     Event.stop == "2018-07-21T20:19:15.712714").all()
+
+        assert len(isp_gap_event) == 1

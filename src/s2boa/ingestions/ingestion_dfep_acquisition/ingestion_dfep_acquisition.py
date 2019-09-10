@@ -451,11 +451,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Obtain sensing segments per apid
         # Obtain sensing gaps per apid (the gap is clean, PreCounter = threshold and PostCounter = 0)
         sensing_gaps_per_apid = {}
+        received_datablocks_per_apid = {}
 
         timelines_of_sensing_gaps = []
         for apid in apids:
             apid_number = apid.get("APID")
             sensing_gaps_per_apid[apid_number] = []
+            received_datablocks_per_apid[apid_number] = []
             band_detector = functions.get_band_detector(apid_number)
             counter_threshold = functions.get_counter_threshold(band_detector["band"])
             sensing_gaps = apid.xpath("Gaps/Gap[dates_difference(three_letter_to_iso_8601(string(PostSensTime)),three_letter_to_iso_8601(string(PreSensTime))) > 4 and number(PreCounter) = $counter_threshold and number(PostCounter) = 0]", counter_threshold=counter_threshold)
@@ -468,6 +470,18 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             # end for
             if len(sensing_gaps_per_apid[apid_number]) > 0:
                 timelines_of_sensing_gaps.append(sensing_gaps_per_apid[apid_number])
+            # end if
+            covered_sensing_start_three_letter = apid.xpath("Gaps/Gap[1]/PreSensTime")
+            covered_sensing_stop_three_letter = apid.xpath("Gaps/Gap[last()]/PostSensTime")
+            if len(covered_sensing_start_three_letter) > 0 and len(covered_sensing_stop_three_letter) > 0:
+                covered_sensing_start = functions.three_letter_to_iso_8601(covered_sensing_start_three_letter[0].text)
+                covered_sensing_stop = functions.three_letter_to_iso_8601(covered_sensing_stop_three_letter[0].text)
+                covered_sensing = {
+                    "id": "covered_sensing",
+                    "start": parser.parse(functions.convert_from_gps_to_utc(covered_sensing_start)),
+                    "stop": parser.parse(functions.convert_from_gps_to_utc(covered_sensing_stop))
+                }
+                received_datablocks_per_apid[apid_number] = [segment for segment in ingestion_functions.difference_timelines([covered_sensing], sensing_gaps_per_apid[apid_number]) if segment["id"] == "covered_sensing"]
             # end if
         # end for
 
@@ -485,10 +499,11 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Create ISP gaps for complete missing scenes
         for apid_number in functions.get_apid_numbers():
             gaps = []
-            if str(apid_number) in sensing_gaps_per_apid:
-                gaps = ingestion_functions.intersect_timelines(received_datablocks, sensing_gaps_per_apid[str(apid_number)])
+            if str(apid_number) in received_datablocks_per_apid:
+                gaps = ingestion_functions.difference_timelines(received_datablocks, received_datablocks_per_apid[str(apid_number)])
             else:
                 gaps = received_datablocks
+            # end if
             # end if
             for gap in gaps:
                 start = gap["start"]
