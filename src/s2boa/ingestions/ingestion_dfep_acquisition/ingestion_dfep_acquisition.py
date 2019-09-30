@@ -413,6 +413,9 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
     isp_planning_completeness_generation_times = []
 
+    isp_duration_received = 0
+    links_raw_isp_validity = []
+    
     vcids = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(NumFrames) > 0 and (@VCID = 4 or @VCID = 5 or @VCID = 6)]")
     for vcid in vcids:
 
@@ -439,7 +442,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         sensing_stops_in_iso_8601.sort()
         sensing_stop = sensing_stops_in_iso_8601[-1]
         # Add 1 scene at the end
-        corrected_sensing_stop = str(functions.convert_from_datetime_gps_to_datetime_utc(parser.parse(sensing_stop)))
+        corrected_sensing_stop = functions.convert_from_gps_to_utc(sensing_stop)
 
         # The data comes in pairs of VCIDs
         # 4 - 20
@@ -806,6 +809,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         for received_datablock in received_datablocks:
             start = received_datablock["start"]
             stop = received_datablock["stop"] + datetime.timedelta(seconds=3.608)
+            isp_duration_received += (stop - start).total_seconds()
             sensing_orbit = ""
             links_isp_validity = []
             links_isp_completeness = []
@@ -848,6 +852,30 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + vcid_number,
                 "link_mode": "by_ref",
                 "name": "ISP_VALIDITY",
+                "back_ref": "PLAYBACK_VALIDITY"
+            })
+            links_isp_validity.append({
+                "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + str(int(vcid_number) + 16),
+                "link_mode": "by_ref",
+                "name": "ISP_VALIDITY",
+                "back_ref": "PLAYBACK_VALIDITY"
+            })
+            links_isp_validity.append({
+                "link": "RAW_ISP_VALIDITY",
+                "link_mode": "by_ref",
+                "name": "ISP_VALIDITY",
+                "back_ref": "RAW_ISP_VALIDITY"
+            })
+            links_raw_isp_validity.append({
+                "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + vcid_number,
+                "link_mode": "by_ref",
+                "name": "RAW_ISP_VALIDITY",
+                "back_ref": "PLAYBACK_VALIDITY"
+            })
+            links_raw_isp_validity.append({
+                "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + str(int(vcid_number) + 16),
+                "link_mode": "by_ref",
+                "name": "RAW_ISP_VALIDITY",
                 "back_ref": "PLAYBACK_VALIDITY"
             })
 
@@ -963,6 +991,86 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
     # end for
 
+    if len(xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Summary[number(NumPackets) > 0]")) > 0:
+
+        # Covered period by the sensing
+        sensing_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Summary[number(NumPackets) > 0]/SensStartTime")
+        sensing_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_start.text) for sensing_start in sensing_starts]
+
+        # Sort list
+        sensing_starts_in_iso_8601.sort()
+        sensing_start = sensing_starts_in_iso_8601[0]
+        corrected_sensing_start = functions.convert_from_gps_to_utc(sensing_start)
+
+        sensing_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Summary[number(NumPackets) > 0]/SensStopTime")
+        sensing_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_stop.text) for sensing_stop in sensing_stops]
+
+        # Sort list
+        sensing_stops_in_iso_8601.sort()
+        sensing_stop = sensing_stops_in_iso_8601[-1]
+        # Add 1 scene at the end
+        corrected_sensing_stop = functions.convert_from_gps_to_utc(sensing_stop)
+
+        # Expected number of packets
+        expected_number_scenes = round(isp_duration_received / 3.608)
+        expected_number_packets = expected_number_scenes * 12960
+        received_number_packets = sum([int(num_packets.text) for num_packets in xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Summary[number(NumPackets) > 0]/NumPackets")])
+
+        if (expected_number_packets - received_number_packets) == 0:
+            packet_status = "OK"
+        else:
+            packet_status = "MISSING"
+        # end if
+        
+        raw_isp_validity_event = {
+            "link_ref": "RAW_ISP_VALIDITY",
+            "explicit_reference": session_id,
+            "key": session_id,
+            "gauge": {
+                "insertion_type": "EVENT_KEYS",
+                "name": "RAW_ISP_VALIDITY",
+                "system": station
+            },
+            "links": links_raw_isp_validity,
+            "start": corrected_sensing_start,
+            "stop": corrected_sensing_stop,
+            "values": [{
+                "name": "details",
+                "type": "object",
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": status},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": station},
+                    {"name": "num_packets",
+                     "type": "double",
+                     "value": str(received_number_packets)},
+                    {"name": "num_frames",
+                     "type": "double",
+                     "value": vcid.xpath("NumFrames")[0].text},
+                    {"name": "expected_num_packets",
+                     "type": "double",
+                     "value": str(expected_number_packets)},
+                    {"name": "diff_expected_received",
+                     "type": "double",
+                     "value": str(expected_number_packets - received_number_packets)},
+                    {"name": "packet_status",
+                     "type": "text",
+                     "value": packet_status}
+                ]
+            }]
+        }
+        list_of_events.append(raw_isp_validity_event)
+    # end if
+        
     # Insert completeness operation for the completeness analysis of the plan
     if len(isp_planning_completeness_operation["events"]) > 0:
         isp_planning_completeness_event_starts = [event["start"] for event in isp_planning_completeness_operation["events"]]
