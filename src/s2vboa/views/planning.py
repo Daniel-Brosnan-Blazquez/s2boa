@@ -126,15 +126,15 @@ def show_sliding_planning():
         # end if
 
         if request.form["planning_window_delay"] != "":
-            window_delay = request.form["planning_window_delay"]
+            window_delay = float(request.form["planning_window_delay"])
         # end if
 
         if request.form["planning_window_size"] != "":
-            window_size = request.form["planning_window_size"]
+            window_size = float(request.form["planning_window_size"])
         # end if
 
         if request.form["planning_repeat_cycle"] != "":
-            repeat_cycle = request.form["planning_repeat_cycle"]
+            repeat_cycle = float(request.form["planning_repeat_cycle"])
         # end if
 
     # end if

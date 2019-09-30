@@ -126,15 +126,15 @@ def show_sliding_acquisition():
         # end if
 
         if request.form["acquisition_window_delay"] != "":
-            window_delay = request.form["acquisition_window_delay"]
+            window_delay = float(request.form["acquisition_window_delay"])
         # end if
 
         if request.form["acquisition_window_size"] != "":
-            window_size = request.form["acquisition_window_size"]
+            window_size = float(request.form["acquisition_window_size"])
         # end if
 
         if request.form["acquisition_repeat_cycle"] != "":
-            repeat_cycle = request.form["acquisition_repeat_cycle"]
+            repeat_cycle = float(request.form["acquisition_repeat_cycle"])
         # end if
 
     # end if
