@@ -59,7 +59,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 9
+        assert len(events) == 10
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -357,6 +357,70 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(playback_completeness_event3) == 1
 
+        # Check RAW_ISP_VALIDITY events
+        raw_isp_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name == "RAW_ISP_VALIDITY").all()
+
+        assert len(raw_isp_validity_events) == 1
+
+        # Check specific RAW_ISP_VALIDITY
+        raw_isp_validity_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "RAW_ISP_VALIDITY",
+                                                                                 Event.start == "2018-07-21T08:52:29.993268",
+                                                                                 Event.stop == "2018-07-21T08:54:14.618646").all()
+
+        assert len(raw_isp_validity_event1) == 1
+
+        assert raw_isp_validity_event1[0].get_structured_values() == [{
+            "name": "details",
+            "type": "object",
+            "values": [
+                {
+                    "name": "status",
+                    "type": "text",
+                    "value": "COMPLETE"
+                },
+                {
+                    "name": "downlink_orbit",
+                    "type": "double",
+                    "value": "16078.0"
+                },
+                {
+                    "name": "satellite",
+                    "type": "text",
+                    "value": "S2A"
+                },
+                {
+                    "name": "reception_station",
+                    "type": "text",
+                    "value": "MPS_"
+                },
+                {
+                    "name": "num_packets",
+                    "type": "double",
+                    "value": "388800.0"
+                },
+                {
+                    "name": "num_frames",
+                    "type": "double",
+                    "value": "1729309.0"
+                },
+                {
+                    "name": "expected_num_packets",
+                    "type": "double",
+                    "value": "388800.0"
+                },
+                {
+                    "name": "diff_expected_received",
+                    "type": "double",
+                    "value": "0.0"
+                },
+                {
+                    "name": "packet_status",
+                    "type": "text",
+                    "value": "OK"
+                }
+            ]
+        }]
+
     def test_insert_rep_pass_with_msi_gaps(self):
         filename = "S2A_REP_PASS_CONTAINING_MSI_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -368,7 +432,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 14
+        assert len(events) == 15
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -906,7 +970,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 12
+        assert len(events) == 13
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1081,7 +1145,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 10
+        assert len(events) == 11
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1241,7 +1305,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF").all()
 
-        assert len(events) == 13
+        assert len(events) == 14
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -1360,7 +1424,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
 
-        assert len(events) == 15
+        assert len(events) == 16
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
@@ -1433,7 +1497,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 10
+        assert len(events) == 11
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T08:53:56.579788",
@@ -1461,7 +1525,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 13
+        assert len(events) == 14
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T20:18:50.458085",
