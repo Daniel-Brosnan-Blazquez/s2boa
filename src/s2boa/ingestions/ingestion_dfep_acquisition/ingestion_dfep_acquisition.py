@@ -5,7 +5,7 @@ Written by DEIMOS Space S.L. (dibb)
 
 module eboa
 """
-import pdb
+
 # Import python utilities
 import os
 import argparse
@@ -13,6 +13,7 @@ import datetime
 import json
 import tempfile
 from dateutil import parser
+import math
 
 # Import xml parser
 from lxml import etree
@@ -662,22 +663,21 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
             counter_threshold = functions.get_counter_threshold(band_detector["band"])
             scene_start = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PreSensTime)"))))
+            scene_stop = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PostSensTime)"))))
 
-            counter_start_value = int(gap.xpath("string(PreCounter)"))
-            counter_start = counter_start_value
-            if counter_start == counter_threshold:
-                counter_start = -1
-            # end if
+            number_missing_scenes = math.ceil((scene_stop - scene_start).total_seconds() / 3.608)
+
+            counter_start = int(gap.xpath("string(PreCounter)"))
 
             counter_stop = int(gap.xpath("string(PostCounter)"))
 
-            missing_packets = counter_stop - counter_start
+            missing_packets = (counter_stop - counter_start) + number_missing_scenes * counter_threshold
 
             seconds_from_scene_start_to_gap_start = (counter_start / counter_threshold) * 3.608
-            seconds_from_scene_start_to_gap_stop = (counter_stop / counter_threshold) * 3.608
+            seconds_from_scene_stop_to_gap_stop = (counter_stop / counter_threshold) * 3.608
 
             start = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_start)
-            stop = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_stop)
+            stop = scene_stop + datetime.timedelta(seconds=seconds_from_scene_stop_to_gap_stop)
 
             isp_gap_event = {
                 "link_ref": "ISP_GAP_" + str(isp_gap_iterator),
@@ -723,7 +723,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": apid_number},
                         {"name": "counter_start",
                          "type": "double",
-                         "value": counter_start_value},
+                         "value": counter_start},
                         {"name": "counter_stop",
                          "type": "double",
                          "value": counter_stop},

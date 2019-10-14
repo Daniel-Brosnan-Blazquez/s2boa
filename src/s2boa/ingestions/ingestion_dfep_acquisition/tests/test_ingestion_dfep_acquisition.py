@@ -808,8 +808,8 @@ class TestDfepIngestion(unittest.TestCase):
 
 
         isp_gap_event3 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
-                                                                                 Event.start == "2018-07-21T08:52:33.444170",
-                                                                                 Event.stop == "2018-07-21T08:52:37.209040").all()
+                                                                                 Event.start == "2018-07-21T08:52:37.209040",
+                                                                                 Event.stop == "2018-07-21T08:52:40.816811").all()
 
         assert len(isp_gap_event3) == 1
 
@@ -874,15 +874,15 @@ class TestDfepIngestion(unittest.TestCase):
                 },
                 {
                     "type": "double",
-                    "value": "24.0",
+                    "value": "23.0",
                     "name": "missing_packets"
                 }
             ]
         }]
 
         isp_gap_event4 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
-                                                                                 Event.start == "2018-07-21T08:52:37.051941",
-                                                                                 Event.stop == "2018-07-21T08:52:38.777507").all()
+                                                                                 Event.start == "2018-07-21T08:52:40.816811",
+                                                                                 Event.stop == "2018-07-21T08:52:42.385279").all()
 
         assert len(isp_gap_event4) == 1
 
@@ -947,7 +947,7 @@ class TestDfepIngestion(unittest.TestCase):
                 {
                     "name": "missing_packets",
                     "type": "double",
-                    "value": "11.0"
+                    "value": "10.0"
                 }
             ],
             "type": "object"
