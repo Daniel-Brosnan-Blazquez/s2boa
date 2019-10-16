@@ -1,5 +1,5 @@
 """
-Views navigation section definition
+Acquistion view for s2boa
 
 Written by DEIMOS Space S.L. (dibb)
 
@@ -26,7 +26,6 @@ from s2vboa.views import functions as s2vboa_functions
 
 bp = Blueprint("acquisition", __name__, url_prefix="/views")
 query = Query()
-engine = Engine()
 
 @bp.route("/acquisition", methods=["GET", "POST"])
 def show_acquisition():

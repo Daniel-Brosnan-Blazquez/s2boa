@@ -26,7 +26,6 @@ from s2vboa.views import functions as s2vboa_functions
 
 bp = Blueprint("planning", __name__, url_prefix="/views")
 query = Query()
-engine = Engine()
 
 @bp.route("/planning", methods=["GET", "POST"])
 def show_planning():
