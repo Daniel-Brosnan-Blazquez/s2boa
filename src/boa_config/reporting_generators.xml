@@ -8,14 +8,14 @@
     <name_format>BOA_REP__INGESTCONT_%C_%B_%E.html</name_format>
   </generator>
   <generator name="Missing planning generator (Complete view)" description="Generator of the missing planning report covering all missions, all ground stations and EDRS">
-    <command>rboa_generate -g s2vboa.views.planning_generator</command>
+    <command>rboa_reporting.py -p s2vboa.views.planning_generator</command>
     <name_format>S2__REP__PLANNING__%C_%B_%E.html</name_format>
     <parameters>
       <parameter name="type">0</parameter>
     </parameters>
   </generator>
   <generator name="Acquistion completeness generator (Complete view)" description="Generator of the acquisition completeness report covering all missions, all ground station and EDRS">
-    <command>rboa_generate -g s2vboa.views.acquisition_generator</command>
+    <command>rboa_reporting.py -p s2vboa.views.acquisition_generator</command>
     <name_format>S2__REP__ACQUISITIO_%C_%B_%E.html</name_format>
     <parameters>
       <parameter name="type">0</parameter>
