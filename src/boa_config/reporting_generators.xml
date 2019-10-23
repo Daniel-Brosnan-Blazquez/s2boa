@@ -7,7 +7,11 @@
     <command>rboa_reporting.py -p vboa.ingestion_control.ingestion_control_generator</command>
     <name_format>BOA_REP__INGESTCONT_%C_%B_%E.html</name_format>
   </generator>
-  <generator name="Missing planning generator (Complete view)" description="Generator of the missing planning report covering all missions, all ground stations and EDRS">
+  <generator name="Reporting control generator" description="Generator for providing reporting about the reporting chain of the BOA system">
+    <command>rboa_reporting.py -p vboa.reporting_control.reporting_control_generator</command>
+    <name_format>BOA_REP__REPORTCONT_%C_%B_%E.html</name_format>
+  </generator>
+  <generator name="Mission planning generator (Complete view)" description="Generator of the mission planning report covering all missions, all ground stations and EDRS">
     <command>rboa_reporting.py -p s2vboa.views.planning_generator</command>
     <name_format>S2__REP__PLANNING__%C_%B_%E.html</name_format>
     <parameters>
