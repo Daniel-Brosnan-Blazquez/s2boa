@@ -43,6 +43,13 @@
                 </div>
                 <!-- Orbits -->
                 {% include "views/start_stop_orbits.html" %}
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="acquisition-limit" value="100"/>
+                  </div>
+                </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
@@ -129,6 +136,13 @@
                     <input type="checkbox" name="show_station_reports" checked><span class="label-text"><b>Show station reports</b></span>
                   </label>
                 </div>
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="acquisition-limit" value="100"/>
+                  </div>
+                </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
@@ -141,6 +155,12 @@
   </div>
 </div>
 {% include "views/header.html" %}
+
+<!-- Pagination -->
+{% with route = "/views/acquisition-pages", elements = acquisition_events["playback_correction"], filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
 <!-- Missing playbacks -->
 {% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute="event_uuid_link")|list %}
 
@@ -191,7 +211,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for event in acquisition_events["playback_correction"]|sort(attribute="start") %}
+          {% for event in acquisition_events["playback_correction"] %}
           {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
           {% set original_playback = acquisition_events["playback"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
           {% set playback_validity_uuid = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|first %}
@@ -409,7 +429,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for event in acquisition_events["station_report"]|sort(attribute="start") %}
+          {% for event in acquisition_events["station_report"] %}
           {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute='event_uuid_link')|first %}
           {% set original_playback = acquisition_events["playback"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
           {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}

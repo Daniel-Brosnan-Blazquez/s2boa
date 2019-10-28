@@ -34,6 +34,13 @@ def show_planning():
     """
     current_app.logger.debug("Planning view")
 
+    filters = {}
+    filters["limit"] = ["100"]    
+    if request.method == "POST":
+        filters = request.form.to_dict(flat=False).copy()
+    # end if
+    filters["offset"] = [""]
+
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": (datetime.datetime.now() + datetime.timedelta(days=5)).isoformat(),
@@ -49,7 +56,7 @@ def show_planning():
     define_what_to_show_planning(show)
 
     window_size=7
-    start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission)
+    start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
 
     if start_filter_calculated != None:
         start_filter = start_filter_calculated
@@ -67,7 +74,30 @@ def show_planning():
 
     # end if
 
-    return query_planning_and_render(start_filter, stop_filter, mission, show)
+    filters["start"] = [stop_filter["date"]]
+    filters["stop"] = [start_filter["date"]]
+    filters["mission"] = [mission]
+    filters["show"] = [show]
+
+    return query_planning_and_render(start_filter, stop_filter, mission, show, filters = filters)
+
+@bp.route("/planning-pages", methods=["POST"])
+def query_planning_pages():
+    """
+    Planning view for the Sentinel-2 mission using pages.
+    """
+    current_app.logger.debug("Planning view using pages")
+    filters = json.loads(request.form["json"])
+
+    mission = filters["mission"][0]
+    show = filters["show"][0]
+    mission = filters["mission"][0]
+
+    # window_size is not used, here only for using the same API
+    window_size = None
+    start_filter, stop_filter = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
+
+    return query_planning_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sliding_planning_parameters", methods=["GET", "POST"])
 def show_sliding_planning_parameters():
@@ -186,18 +216,18 @@ def define_what_to_show_planning(show):
         # end if
     # end if
 
-def query_planning_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None):
+def query_planning_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None):
 
-    planning_events = query_planning_events(start_filter, stop_filter, mission)
+    planning_events = query_planning_events(start_filter, stop_filter, mission, filters)
 
     orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window)
+    return render_template("views/planning.html", planning_events=planning_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
-def query_planning_events(start_filter = None, stop_filter = None, mission = None):
+def query_planning_events(start_filter = None, stop_filter = None, mission = None, filters = None):
     """
     Query planning events.
     """
@@ -220,6 +250,19 @@ def query_planning_events(start_filter = None, stop_filter = None, mission = Non
         kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
     # end if
 
+    # Set offset and limit for the query
+    if filters and "offset" in filters and filters["offset"][0] != "":
+        kwargs_imaging["offset"] = filters["offset"][0]
+        kwargs_playback["offset"] = filters["offset"][0]
+    # end if
+    if filters and "limit" in filters and filters["limit"][0] != "":
+        kwargs_imaging["limit"] = filters["limit"][0]
+        kwargs_playback["limit"] = filters["limit"][0]
+    # end if
+
+    # Set order by reception_time descending
+    kwargs_imaging["order_by"] = {"field": "start", "descending": True}
+    kwargs_playback["order_by"] = {"field": "start", "descending": True}
 
     # Mission
     if mission:

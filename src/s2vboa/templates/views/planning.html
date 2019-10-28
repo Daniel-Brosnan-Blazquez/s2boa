@@ -42,6 +42,13 @@
                 </div>
                 <!-- Orbits -->
                 {% include "views/start_stop_orbits.html" %}
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="planning-limit" value="100"/>
+                  </div>
+                </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
@@ -128,6 +135,13 @@
                     <input type="checkbox" name="show_planning_map" checked><span class="label-text"><b>Show map</b></span>
                   </label>
                 </div>
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="planning-limit" value="100"/>
+                  </div>
+                </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
@@ -140,9 +154,18 @@
   </div>
 </div>
 {% include "views/header.html" %}
-{% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
-{% set imaging_by_units = planning_events["imaging"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
-{% set playback_by_units = planning_events["playback"]["prime_events"]|sort(attribute="start")|events_group_by_text_value("satellite") %}
+
+<!-- Pagination -->
+{% set list_elements = [planning_events["playback"]["prime_events"], planning_events["imaging"]["prime_events"]] %}
+{% set elements = list_elements|sort_lists_by_length|last %}
+
+{% with route = "/views/planning-pages", elements = elements, filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
+{% set orbpre_by_units = orbpre_events|events_group_by_text_value("satellite") %}
+{% set imaging_by_units = planning_events["imaging"]["prime_events"]|events_group_by_text_value("satellite") %}
+{% set playback_by_units = planning_events["playback"]["prime_events"]|events_group_by_text_value("satellite") %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -329,7 +352,7 @@
         </p>
 
         <p id="imaging-used-orbits" style="text-indent: 1em">
-          Mission {{ unit }}: {{ used_orbits[0]|int }} - {{ used_orbits[-1]|int }} ({{ used_orbits|length }}) <br/>
+          Mission {{ unit }}: {{ used_orbits[-1]|int }} - {{ used_orbits[0]|int }} ({{ used_orbits|length }}) <br/>
         </p>
         {% endif %}
         <p>
@@ -418,7 +441,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for event in planning_events["imaging"]["prime_events"]|sort(attribute="start") %}
+            {% for event in planning_events["imaging"]["prime_events"] %}
             <tr>
               {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
               {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
@@ -556,7 +579,7 @@
         </p>
 
         <p id="playback-used-orbits" style="text-indent: 1em">
-          Mission {{ unit }}: {{ used_orbits[0]|int }} - {{ used_orbits[-1]|int }} ({{ used_orbits|length }}) <br/>
+          Mission {{ unit }}: {{ used_orbits[-1]|int }} - {{ used_orbits[0]|int }} ({{ used_orbits|length }}) <br/>
         </p>
         {% endif %}
         <p>
@@ -646,7 +669,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for event in playback_by_station["N/A"]|sort(attribute="start") %}
+            {% for event in playback_by_station["N/A"] %}
             <tr>
               {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
               {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
@@ -737,7 +760,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for event in planning_events["playback"]["prime_events"]|sort(attribute="start") %}
+          {% for event in planning_events["playback"]["prime_events"] %}
           <tr>
             {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
             {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
@@ -844,10 +867,10 @@
 <script type="text/javascript">
   {% include "js/planning_functions.js" %}
   {% if show["timeline"] and (planning_events["imaging"]["prime_events"]|length > 0 or planning_events["playback"]["prime_events"]|length > 0) %}
-  {% with events = planning_events["imaging"]["prime_events"]|sort(attribute="start") %}
+  {% with events = planning_events["imaging"]["prime_events"] %}
   {% include "js/imaging_planning_to_timeline.js" %}
   {% endwith %}
-  {% with events = planning_events["playback"]["prime_events"]|sort(attribute="start") %}
+  {% with events = planning_events["playback"]["prime_events"] %}
   {% include "js/playback_planning_to_timeline.js" %}
   {% endwith %}
 
@@ -864,7 +887,7 @@
   vboa.display_timeline("planning_timeline", items, groups);
   {% endif %}
   {% if show["x_time"] and (planning_events["imaging"]["prime_events"]|length > 0 or planning_events["playback"]["prime_events"]|length > 0) %}
-  {% with events = planning_events["imaging"]["prime_events"]|sort(attribute="start") %}
+  {% with events = planning_events["imaging"]["prime_events"] %}
   {% include "js/imaging_planning_to_xy.js" %}
   {% endwith %}
 
@@ -878,7 +901,7 @@
   vboa.display_x_time("imaging-x-time-evolution", items, groups, options);
 
   {% set msi_playbacks = planning_events["playback"]["prime_events"]|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
-  {% with events = msi_playbacks|sort(attribute="start") %}
+  {% with events = msi_playbacks %}
   {% include "js/playback_planning_to_xy.js" %}
   {% endwith %}
 

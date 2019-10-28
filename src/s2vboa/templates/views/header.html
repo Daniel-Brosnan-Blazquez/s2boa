@@ -5,7 +5,7 @@
       Reporting header
     </div>
     {% if orbpre_events|length > 0 and reporting_start != None and reporting_stop != None %}
-    {% set orbpre_by_units = orbpre_events|sort(attribute="start")|events_group_by_text_value("satellite") %}
+    {% set orbpre_by_units = orbpre_events|events_group_by_text_value("satellite") %}
     <!-- /.panel-heading -->
     <div class="panel-body" id="reporting-period-details">
       {% for unit in orbpre_by_units|list|sort %}

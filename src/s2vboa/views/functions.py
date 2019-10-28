@@ -36,6 +36,8 @@ def query_orbpre_events(query, current_app, start_filter = None, stop_filter = N
                                 }]
     # end if
 
+    kwargs["order_by"] = {"field": "start", "descending": False}
+    
     ####
     # Query predicted orbit events
     ####
@@ -44,29 +46,29 @@ def query_orbpre_events(query, current_app, start_filter = None, stop_filter = N
 
     return events
 
-def get_start_stop_filters(query, current_app, request, window_size, mission):
+def get_start_stop_filters(query, current_app, request, window_size, mission, filters):
 
     start_filter = None
     stop_filter = None
 
     if request.method == "POST":
 
-        if request.form["start"] != "":
+        if filters["start"][0] != "":
             stop_filter = {
-                "date": request.form["start"],
+                "date": filters["start"][0],
                 "operator": ">="
             }
-            if request.form["stop"] == "":
+            if filters["stop"][0] == "":
                 start_filter = {
-                    "date": (parser.parse(request.form["start"]) + datetime.timedelta(days=window_size)).isoformat(),
+                    "date": (parser.parse(filters["start"][0]) + datetime.timedelta(days=window_size)).isoformat(),
                     "operator": "<="
                 }
             # end if
-        elif request.form["start_orbit"] != "":
+        elif filters["start_orbit"][0] != "":
             orbpre_events = query.get_events(gauge_names = {"filter": ["ORBIT_PREDICTION"], "op": "in"},
                                             value_filters = [{"name": {"op": "==", "filter": "orbit"},
                                                               "type": "double",
-                                                              "value": {"op": "==", "filter": request.form["start_orbit"]}
+                                                              "value": {"op": "==", "filter": filters["start_orbit"][0]}
                                                           },
                                                              {"name": {"op": "==", "filter": "satellite"},
                                                               "type": "text",
@@ -80,7 +82,7 @@ def get_start_stop_filters(query, current_app, request, window_size, mission):
                     "operator": ">="
                 }
             # end if
-            if len(orbpre_events) > 0 and request.form["stop_orbit"] == "":
+            if len(orbpre_events) > 0 and filters["stop_orbit"][0] == "":
                 start_filter = {
                     "date": (orbpre_event.start + datetime.timedelta(days=window_size)).isoformat(),
                     "operator": "<="
@@ -88,22 +90,22 @@ def get_start_stop_filters(query, current_app, request, window_size, mission):
             # end if
         # end if
 
-        if request.form["stop"] != "":
+        if filters["stop"][0] != "":
             start_filter = {
-                "date": request.form["stop"],
+                "date": filters["stop"][0],
                 "operator": "<="
             }
-            if request.form["start"] == "":
+            if filters["start"][0] == "":
                 stop_filter = {
-                    "date": (parser.parse(request.form["stop"]) - datetime.timedelta(days=window_size)).isoformat(),
+                    "date": (parser.parse(filters["stop"][0]) - datetime.timedelta(days=window_size)).isoformat(),
                     "operator": ">="
                 }
             # end if
-        elif request.form["stop_orbit"] != "":
+        elif filters["stop_orbit"][0] != "":
             orbpre_events = query.get_events(gauge_names = {"filter": ["ORBIT_PREDICTION"], "op": "in"},
                                             value_filters = [{"name": {"op": "==", "filter": "orbit"},
                                                               "type": "double",
-                                                              "value": {"op": "==", "filter": request.form["stop_orbit"]}
+                                                              "value": {"op": "==", "filter": filters["stop_orbit"][0]}
                                                           },
                                                              {"name": {"op": "==", "filter": "satellite"},
                                                               "type": "text",
@@ -117,7 +119,7 @@ def get_start_stop_filters(query, current_app, request, window_size, mission):
                     "operator": "<="
                 }
             # end if
-            if len(orbpre_events) > 0 and request.form["start_orbit"] == "":
+            if len(orbpre_events) > 0 and filters["start_orbit"][0] == "":
                 stop_filter = {
                     "date": (orbpre_event.stop - datetime.timedelta(days=window_size)).isoformat(),
                     "operator": ">="
