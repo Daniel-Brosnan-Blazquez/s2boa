@@ -38,6 +38,11 @@ def show_tracking():
     """
     current_app.logger.debug("Tracking view")
 
+    filters = {}
+    if request.method == "POST":
+        filters = request.form.to_dict(flat=False).copy()
+    # end if
+
     # Initialize reporting period (now - 2 days, now + 5 days)
     window_size = 0.069
     start_filter = {
@@ -50,7 +55,7 @@ def show_tracking():
     }
     mission = "S2_"
 
-    start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission)
+    start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
 
     if start_filter_calculated != None:
         start_filter = start_filter_calculated
