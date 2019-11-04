@@ -64,6 +64,11 @@ playback_means={
     "MPG3STRT": "OCP"
 }
 
+playback_means_by_stop={
+    "MPXBOPSB": "XBAND",
+    "MPOCPRY2": "OCP"
+}
+
 @debug
 def _generate_record_events(xpath_xml, source, list_of_events):
     """
@@ -592,11 +597,11 @@ def _generate_playback_events(xpath_xml, source, list_of_events):
         playback_type_stop_angle = playback_type_stop_operation.xpath("RQ/RQ_Deg_from_ANX")[0].text
         playback_type_stop_request = playback_type_stop_operation.xpath("RQ/RQ_Name")[0].text
 
-        playback_mean = playback_type_start_operation.xpath("preceding-sibling::EVRQ[RQ/RQ_Name='MPXBSBOP' or RQ/RQ_Name='MPG1STRT' or RQ/RQ_Name='MPG2STRT' or RQ/RQ_Name='MPG3STRT'][1]")
+        playback_mean = playback_type_start_operation.xpath("following-sibling::EVRQ[RQ/RQ_Name='MPXBOPSB' or RQ/RQ_Name='MPOCPRY2'][1]")
         if len (playback_mean) > 0:
             playback_mean_start_request = playback_mean[0].xpath("RQ/RQ_Name")[0].text
 
-            playback_mean = playback_means[playback_mean_start_request]
+            playback_mean = playback_means_by_stop[playback_mean_start_request]
         else:
             playback_mean = "N/A"
         # end if
