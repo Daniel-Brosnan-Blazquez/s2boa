@@ -11,6 +11,6 @@
   <folders>
     <folder name="ROOT" path="/" threshold_num_files="100"/>
     <folder name="INPUTS" path="/inputs" threshold_num_files="100"/>
-    <folder name="ON_GOING_INGESTIONS" path="/resources_path/on_going_ingestions" threshold_num_files="100"/>
+    <folder name="ON_GOING_INGESTIONS" recursive="true" path="/resources_path/on_going_ingestions" threshold_num_files="100"/>
   </folders>
 </health>
