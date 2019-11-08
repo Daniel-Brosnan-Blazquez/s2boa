@@ -87,7 +87,7 @@ def query_acquisition_pages():
     Acquisition view for the Sentinel-2 mission using pages.
     """
     current_app.logger.debug("Acquisition view using pages")
-    filters = json.loads(request.form["json"])
+    filters = request.json
 
     mission = filters["mission"][0]
     show = filters["show"][0]

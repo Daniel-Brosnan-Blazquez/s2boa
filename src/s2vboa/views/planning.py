@@ -87,7 +87,7 @@ def query_planning_pages():
     Planning view for the Sentinel-2 mission using pages.
     """
     current_app.logger.debug("Planning view using pages")
-    filters = json.loads(request.form["json"])
+    filters = request.json
 
     mission = filters["mission"][0]
     show = filters["show"][0]
