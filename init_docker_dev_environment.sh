@@ -7,7 +7,7 @@
 # module vboa
 #################################################################
 
-USAGE="Usage: `basename $0` -e path_to_eboa_src -v path_to_vboa_src -d path_to_dockerfile -o path_to_orc_packets -f path_to_eopcfi [-p port] [-t path_to_tailored] [-l containers_label] [-a app] [-c boa_tailoring_configuration_path] [-c orc_tailoring_configuration_path]"
+USAGE="Usage: `basename $0` -e path_to_eboa_src -v path_to_vboa_src -d path_to_dockerfile -o path_to_orc_packets -u host_user_to_map -f path_to_eopcfi [-p port] [-t path_to_tailored] [-l containers_label] [-a app] [-c boa_tailoring_configuration_path] [-c orc_tailoring_configuration_path]"
 
 ########
 # Initialization
@@ -20,8 +20,9 @@ PORT="5000"
 CONTAINERS_LABEL="dev"
 APP="vboa"
 PATH_TO_ORC=""
+HOST_USER_TO_MAP=""
 
-while getopts e:v:d:p:t:l:a:o:c:x:f: option
+while getopts e:v:d:p:t:l:a:o:c:x:f:u: option
 do
     case "${option}"
         in
@@ -35,6 +36,7 @@ do
         o) PATH_TO_ORC=${OPTARG}; PATH_TO_ORC_CALL="-o ${OPTARG}";;
         c) PATH_TO_BOA_TAILORING_CONFIGURATION=${OPTARG}; PATH_TO_BOA_TAILORING_CONFIGURATION_CALL="-c ${OPTARG}";;
         x) PATH_TO_ORC_CONFIGURATION=${OPTARG}; PATH_TO_ORC_CONFIGURATION_CALL="-x ${OPTARG}";;
+        u) HOST_USER_TO_MAP=${OPTARG}; HOST_USER_TO_MAP_CALL="-u ${OPTARG}";;
         f) PATH_TO_EOPCFI=${OPTARG};;
         ?) echo -e $USAGE
             exit -1
@@ -86,7 +88,7 @@ then
 fi
 
 # Initialize docker environment using he command from vboa
-$PATH_TO_VBOA/init_docker_dev_environment.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_DOCKERFILE_CALL $PORT_CALL $PATH_TO_TAILORED_CALL $APP_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $CONTAINERS_LABEL_CALL $PATH_TO_ORC_CALL $PATH_TO_ORC_CONFIGURATION_CALL
+$PATH_TO_VBOA/init_docker_dev_environment.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_DOCKERFILE_CALL $PORT_CALL $PATH_TO_TAILORED_CALL $APP_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $CONTAINERS_LABEL_CALL $PATH_TO_ORC_CALL $PATH_TO_ORC_CONFIGURATION_CALL $HOST_USER_TO_MAP_CALL
 
 # Check that the docker environment has been created correctly
 status=$?
@@ -107,11 +109,11 @@ docker cp $PATH_TO_EOPCFI $APP_CONTAINER:/s2vboa
 
 echo "Compiling EOPCFI..."
 
-docker exec -it $APP_CONTAINER bash -c "gcc -Wno-deprecated -g -fpic -c -DSQLCA_STORAGE_CLASS=static -I /s2vboa/eopcfi/include/ /s2vboa/src/s2boa/eop_cfi/get_footprint.c -o /tmp/get_footprint.o"
+docker exec -it -u $HOST_USER_TO_MAP $APP_CONTAINER bash -c "gcc -Wno-deprecated -g -fpic -c -DSQLCA_STORAGE_CLASS=static -I /s2vboa/eopcfi/include/ /s2vboa/src/s2boa/eop_cfi/get_footprint.c -o /tmp/get_footprint.o"
 
 echo "Objetcs for the EOPCFI interface generated..."
 
-docker exec -it $APP_CONTAINER bash -c "gcc /tmp/get_footprint.o -Wno-deprecated -g -I /s2vboa/eopcfi/include/ -L /s2vboa/eopcfi/lib/ -lexplorer_visibility -lexplorer_pointing -lexplorer_orbit -lexplorer_lib -lexplorer_data_handling -lexplorer_file_handling -lgeotiff -ltiff -lproj -lxml2 -lm -lc -fopenmp -o /scripts/get_footprint; rm /tmp/get_footprint.o"
+docker exec -it -u $HOST_USER_TO_MAP $APP_CONTAINER bash -c "gcc /tmp/get_footprint.o -Wno-deprecated -g -I /s2vboa/eopcfi/include/ -L /s2vboa/eopcfi/lib/ -lexplorer_visibility -lexplorer_pointing -lexplorer_orbit -lexplorer_lib -lexplorer_data_handling -lexplorer_file_handling -lgeotiff -ltiff -lproj -lxml2 -lm -lc -fopenmp -o /scripts/get_footprint; rm /tmp/get_footprint.o"
 
 # Check that the CFI could be compiled
 status=$?
