@@ -36,7 +36,7 @@ class TestDfepIngestion(unittest.TestCase):
         self.engine_eboa = Engine()
         self.query_eboa = Query()
 
-        # Create session to connectx to the database
+        # Create session to connect to the database
         self.session = Session()
 
         # Clear all tables before executing the test
