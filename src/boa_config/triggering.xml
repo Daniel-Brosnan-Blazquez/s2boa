@@ -254,4 +254,8 @@
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dhus.ingestion_dhus -f </command>
     </tool>
   </rule>
+  <rule skip="true">
+    <source_mask>S2__OPER_REP_OPDPC__...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2__REP_OPDPC</source_type>
+  </rule>
 </triggering_rules>
