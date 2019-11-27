@@ -100,8 +100,10 @@ def process_file(file_path, engine, query, reception_time):
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
-    
-    for product in xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct"):
+
+    ### Corrections made on 2019/11/27 to avoid inserting information regarding granules
+    for product in xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct[not(contains(product_id, '_GR_'))]"):
+        ### Corrections made on 2019/11/27 to avoid inserting information regarding granules        
         #Obtain the product ID
         product_id = product.xpath("product_id")[0].text
         # Obtain the datastrip ID
@@ -204,7 +206,7 @@ def process_file(file_path, engine, query, reception_time):
                     "name": product_id
                 }
                 list_of_explicit_references.append(granule_explicit_reference)
-            # end if
+            # end for
 
             for tile in product.xpath("product_id[contains(text(),'_TL')]"):
                 # Insert the tile explicit reference

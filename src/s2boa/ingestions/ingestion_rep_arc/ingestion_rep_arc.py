@@ -154,9 +154,11 @@ def process_file(file_path, engine, query, reception_time):
     list_of_annotations.append(datatake_annotation)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 20)
-    
+
+    ### Corrections made on 2019/11/27 to avoid inserting information regarding granules
     # Loop over all the ItemMetadata
-    for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata"):
+    for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[not(contains(Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_ID, '_GR_'))]"):
+        ### End Corrections made on 2019/11/27 to avoid inserting information regarding granules
 
         item_id = item.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_ID")[0].text
         data_size = item.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/Data_Size")[0].text
@@ -170,6 +172,7 @@ def process_file(file_path, engine, query, reception_time):
         if "" in list_of_lat_long_coordinates:
             list_of_lat_long_coordinates.remove("")
         # end if
+
         if "_DS_" in item_id:
             corrected_list_of_coordinates = list(reversed(functions.correct_list_of_coordinates_for_ds(list_of_lat_long_coordinates)))
         else:
@@ -364,18 +367,20 @@ def process_file(file_path, engine, query, reception_time):
                 # end if
                 granule_timeline_per_detector[detector].append(granule_segment)
 
-                # Insert the granule explicit reference
-                granule_explicit_reference = {
-                    "group": level + "_GR",
-                    "links": [{
-                        "back_ref": "DATASTRIP",
-                        "link": "GRANULE",
-                        "name": datastrip_id
-                        }
-                    ],
-                    "name": item_id
-                }
-                list_of_explicit_references_for_processing.append(granule_explicit_reference)
+                ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+                # # Insert the granule explicit reference
+                # granule_explicit_reference = {
+                #     "group": level + "_GR",
+                #     "links": [{
+                #         "back_ref": "DATASTRIP",
+                #         "link": "GRANULE",
+                #         "name": datastrip_id
+                #         }
+                #     ],
+                #     "name": item_id
+                # }
+                # list_of_explicit_references_for_processing.append(granule_explicit_reference)
+                ### End Commented on 2019/11/27
             # end if
 
             if '_TL' in item.xpath("CentralIndex/FileType")[0].text:
@@ -410,8 +415,8 @@ def process_file(file_path, engine, query, reception_time):
             i = 0
             upper_level_ers = get_upper_level_ers()
             # Wait till the upper level production has been processed 10 minutes
-            while len(upper_level_ers) == 0 and i < 10*60:
-                time.sleep(10)
+            while len(upper_level_ers) == 0:
+#                time.sleep(10)
                 i += 10
                 upper_level_ers = get_upper_level_ers()
             # end while

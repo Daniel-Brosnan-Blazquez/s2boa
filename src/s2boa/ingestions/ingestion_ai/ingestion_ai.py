@@ -100,7 +100,7 @@ def process_file(file_path, engine, query, reception_time):
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
     
-    for request in xpath_xml("/Earth_Explorer_File/Data_Block/List_Of_ArchiveRequests/ArchiveRequest[RequestStatus[text() = 'Success']]"):
+    for request in xpath_xml("/Earth_Explorer_File/Data_Block/List_Of_ArchiveRequests/ArchiveRequest[RequestStatus[text() = 'Success'] and not(contains(Pdi-Id, '_GR_'))]"):
         #Obtain the product ID
         product_id = request.xpath("Pdi-Id")[0].text
         # Obtain the archiving_time

@@ -167,17 +167,21 @@ def process_file(file_path, engine, query, reception_time):
                 granule_timeline_per_detector[detector] = []
             # end if
             granule_timeline_per_detector[detector].append(granule_segment)
-            explicit_reference = {
-                "group": level_gr + "_GR",
-                "links": [{
-                    "back_ref": "DATASTRIP",
-                    "link": "GRANULE",
-                    "name": ds_output
-                    }
-                ],
-                "name": granule_t
-            }
-            list_of_explicit_references.append(explicit_reference)
+
+            ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+            # explicit_reference = {
+            #     "group": level_gr + "_GR",
+            #     "links": [{
+            #         "back_ref": "DATASTRIP",
+            #         "link": "GRANULE",
+            #         "name": ds_output
+            #         }
+            #     ],
+            #     "name": granule_t
+            # }
+            # list_of_explicit_references.append(explicit_reference)
+            ### End Commented on 2019/11/27
+            
         # end for
 
         # Loop over each tile in the output
@@ -297,8 +301,8 @@ def process_file(file_path, engine, query, reception_time):
                 i = 0
                 upper_level_ers = get_upper_level_ers()
                 # Wait till the upper level production has been processed 10 minutes
-                while len(upper_level_ers) == 0 and i < 10*60:
-                    time.sleep(10)
+                while len(upper_level_ers) == 0:
+#                    time.sleep(10)
                     i += 10
                     upper_level_ers = get_upper_level_ers()
                 # end while
