@@ -301,8 +301,8 @@ def process_file(file_path, engine, query, reception_time):
                 i = 0
                 upper_level_ers = get_upper_level_ers()
                 # Wait till the upper level production has been processed 10 minutes
-                while len(upper_level_ers) == 0:
-#                    time.sleep(10)
+                while len(upper_level_ers) == 0 and i < 10*60:
+                    time.sleep(10)
                     i += 10
                     upper_level_ers = get_upper_level_ers()
                 # end while

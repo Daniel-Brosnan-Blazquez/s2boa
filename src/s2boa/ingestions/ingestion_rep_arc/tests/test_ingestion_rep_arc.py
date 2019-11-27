@@ -82,104 +82,107 @@ class TestEngine(unittest.TestCase):
 
         assert len(baseline) == 1
 
-        #Check definite footprint
-        definite_footprint = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "FOOTPRINT"},
-                                                     explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085229_D01_N02.06"})
+        ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+        # #Check definite footprint
+        # definite_footprint = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "FOOTPRINT"},
+        #                                              explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085229_D01_N02.06"})
 
-        assert definite_footprint[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{'type': 'geometry',
-                'name': 'footprint',
-                'value': 'POLYGON ((27.5923694065675 28.6897912912051, 27.5923694065675 28.6897912912051, 27.8617502445779 28.6464983273278, 27.7690524083984 28.2803979779816, 27.4991925556512 28.322475522552, 27.5923694065675 28.6897912912051))'
-                }]
-        }]
+        # assert definite_footprint[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{'type': 'geometry',
+        #         'name': 'footprint',
+        #         'value': 'POLYGON ((27.5923694065675 28.6897912912051, 27.5923694065675 28.6897912912051, 27.8617502445779 28.6464983273278, 27.7690524083984 28.2803979779816, 27.4991925556512 28.322475522552, 27.5923694065675 28.6897912912051))'
+        #         }]
+        # }]
 
+        # # Check definite_data_size
+        # definite_data_size = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "SIZE"},
+        #                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085324_D10_N02.06"})
+        #                                                      #value_filters= [{"name": {"filter": "size", "op": "like"}, "type": "double", "value": {"op": "like", "filter": "18371751"}}])
 
-        # Check definite_data_size
-        definite_data_size = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "SIZE"},
-                                                             explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085324_D10_N02.06"})
-                                                             #value_filters= [{"name": {"filter": "size", "op": "like"}, "type": "double", "value": {"op": "like", "filter": "18371751"}}])
+        # assert definite_data_size[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{
+        #         "value": "18371751.0",
+        #         "type": "double",
+        #         "name": "size"
+        #             }]
+        # }]
 
-        assert definite_data_size[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
-                "value": "18371751.0",
-                "type": "double",
-                "name": "size"
-                    }]
-        }]
+        # # Check definite_cloud_percentage
+        # definite_cloud_percentage = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CLOUD_PERCENTAGE"},
+        #                                                             explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085334_D10_N02.06"})
+        #                                                             #value_filters= [{"name": {"filter": "cloud_percentage", "op": "like"}, "type": "double", "value": {"op": "like", "filter": "0"}}])
 
-        # Check definite_cloud_percentage
-        definite_cloud_percentage = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CLOUD_PERCENTAGE"},
-                                                                    explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085334_D10_N02.06"})
-                                                                    #value_filters= [{"name": {"filter": "cloud_percentage", "op": "like"}, "type": "double", "value": {"op": "like", "filter": "0"}}])
+        # assert definite_cloud_percentage[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{
+        #         "value": "0.0",
+        #         "type": "double",
+        #         "name": "cloud_percentage"
+        #             }]
+        # }]
 
-        assert definite_cloud_percentage[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
-                "value": "0.0",
-                "type": "double",
-                "name": "cloud_percentage"
-                    }]
-        }]
+        # # Check definite_physical_url
+        # definite_physical_url = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PHYSICAL_URL"},
+        #                                                         explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06"})
+        #                                                         #value_filters= [{"name": {"filter": "physical_url", "op": "like"}, "type": "string", "value": {"op": "like", "filter": "https://pac1dag.sentinel2.eo.esa.int/restsrv/rest/download?PdiID=S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06&dsPdiID=S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"}}])
 
-        # Check definite_physical_url
-        definite_physical_url = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PHYSICAL_URL"},
-                                                                explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06"})
-                                                                #value_filters= [{"name": {"filter": "physical_url", "op": "like"}, "type": "string", "value": {"op": "like", "filter": "https://pac1dag.sentinel2.eo.esa.int/restsrv/rest/download?PdiID=S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06&dsPdiID=S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"}}])
+        # assert definite_physical_url[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{
+        #         "value": "https://pac1dag.sentinel2.eo.esa.int/restsrv/rest/download?PdiID=S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06&dsPdiID=S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06",
+        #         "type": "text",
+        #         "name": "physical_url"
+        #             }]
+        # }]
 
-        assert definite_physical_url[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
-                "value": "https://pac1dag.sentinel2.eo.esa.int/restsrv/rest/download?PdiID=S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085338_D10_N02.06&dsPdiID=S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06",
-                "type": "text",
-                "name": "physical_url"
-                    }]
-        }]
+        # # Check definite_indexing_time
+        # definite_indexing_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "INDEXING_TIME"},
+        #                                                          explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085302_D01_N02.06"})
+        #                                                          #value_filters= [{"name": {"filter": "indexing_time", "op": "like"}, "type": "timestamp", "value": {"op": "like", "filter": "2018-07-21T11:01:40"}}])
 
-        # Check definite_indexing_time
-        definite_indexing_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "INDEXING_TIME"},
-                                                                 explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085302_D01_N02.06"})
-                                                                 #value_filters= [{"name": {"filter": "indexing_time", "op": "like"}, "type": "timestamp", "value": {"op": "like", "filter": "2018-07-21T11:01:40"}}])
-
-        assert definite_indexing_time[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
-                "value": "2018-07-21T11:01:40",
-                "type": "timestamp",
-                "name": "indexing_time"
-                    }]
-        }]
+        # assert definite_indexing_time[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{
+        #         "value": "2018-07-21T11:01:40",
+        #         "type": "timestamp",
+        #         "name": "indexing_time"
+        #             }]
+        # }]
+        ### ENd Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
 
         #Check footprints
         footprints = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "FOOTPRINT"})
 
-        assert len(footprints) == 361
+        ### Corrections made on 2019/11/27 to avoid inserting information regarding granules
+        assert len(footprints) == 1
 
         # Check data sizes
         data_sizes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "SIZE"})
 
-        assert len(data_sizes) == 361
+        assert len(data_sizes) == 1
 
         # Check cloud percentages
         cloud_percentages = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CLOUD_PERCENTAGE"})
 
-        assert len(cloud_percentages) == 361
+        assert len(cloud_percentages) == 1
 
         # Check physical urls
         physical_urls = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PHYSICAL_URL"})
 
-        assert len(physical_urls) == 361
+        assert len(physical_urls) == 1
 
         # Check indexing times
         indexing_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "INDEXING_TIME"})
 
-        assert len(indexing_times) == 361
+        assert len(indexing_times) == 1
+        ### End Corrections made on 2019/11/27 to avoid inserting information regarding granules
 
         # Check datastrip_sensing_explicit_ref
         datastrip_sensing_er = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
@@ -187,10 +190,12 @@ class TestEngine(unittest.TestCase):
 
         assert len(datastrip_sensing_er) == 1
 
-        # Check datastrip_sensing_explicit_ref
-        granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
+        ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight        
+        # # Check datastrip_sensing_explicit_ref
+        # granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
 
-        assert len(granule_er) == 360
+        # assert len(granule_er) == 360
+        ### End Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
 
         # Check processing validities
         processing_validities = self.query_eboa.get_events(explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"},

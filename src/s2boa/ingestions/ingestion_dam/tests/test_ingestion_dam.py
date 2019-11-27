@@ -83,23 +83,25 @@ class TestDam(unittest.TestCase):
                 }]
         }]
 
-        # Check definite_cataloging_times
-        definite_cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
-                                                             explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_SGS__20180721T103208_S20180721T072204_D01_N02.06"})
+        ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+        # # Check definite_cataloging_times
+        # definite_cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
+        #                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_SGS__20180721T103208_S20180721T072204_D01_N02.06"})
 
-        assert definite_cataloging_times[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
-                "value": "2018-07-21T11:03:17.080882",
-                "type": "timestamp",
-                "name": "cataloging_time"
-                    }]
-        }]
+        # assert definite_cataloging_times[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{
+        #         "value": "2018-07-21T11:03:17.080882",
+        #         "type": "timestamp",
+        #         "name": "cataloging_time"
+        #             }]
+        # }]
+        ### End Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
 
         # Check definite_baseline
         definite_baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"},
-                                                                    explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_SGS__20180721T103208_S20180721T072204_N02.06"})
+                                                                    explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"})
 
         assert definite_baseline[0].get_structured_values() == [{
             'type': 'object',
@@ -114,22 +116,24 @@ class TestDam(unittest.TestCase):
         #Check baseline
         baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"})
 
-        assert len(baseline) == 3
+        ### Corrections made on 2019/11/27 to avoid inserting information regarding granules
+        assert len(baseline) == 2
 
         #Check datatakes
         datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"})
 
-        assert len(datatakes) == 3
+        assert len(datatakes) == 2
 
-        #Check footprints
+        #Check cataloguin time
         cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"})
 
-        assert len(cataloging_times) == 4
+        assert len(cataloging_times) == 2
 
         # Check data sizes
         datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"})
 
-        assert len(datatakes) == 3
+        assert len(datatakes) == 2
+        ### End Corrections made on 2019/11/27 to avoid inserting information regarding granules
 
         # Check datastrip_sensing_explicit_ref
         datastrip_sensing_er = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
@@ -137,10 +141,12 @@ class TestDam(unittest.TestCase):
 
         assert len(datastrip_sensing_er) == 1
 
-        # Check granule_explicit_ref
-        granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
+        ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+        # # Check granule_explicit_ref
+        # granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
 
-        assert len(granule_er) == 2
+        # assert len(granule_er) == 2
+        ### End Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
 
         # Check tile_explicit_ref
         tile_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L2A_TL"})
@@ -171,21 +177,23 @@ class TestDam(unittest.TestCase):
 
         assert len(sources) == 1
 
-        # Check definite_cataloging_times
-        definite_cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
-                                                             explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085229_D01_N02.06"})
+        ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+        # # Check definite_cataloging_times
+        # definite_cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
+        #                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085229_D01_N02.06"})
 
-        assert definite_cataloging_times[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
-                "value": "2018-07-21T11:02:36.601190",
-                "type": "timestamp",
-                "name": "cataloging_time"
-                    }]
-        }]
+        # assert definite_cataloging_times[0].get_structured_values() == [{
+        #     'type': 'object',
+        #     'name': 'details',
+        #     'values': [{
+        #         "value": "2018-07-21T11:02:36.601190",
+        #         "type": "timestamp",
+        #         "name": "cataloging_time"
+        #             }]
+        # }]
 
-        # Check granule_explicit_ref
-        granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
+        # # Check granule_explicit_ref
+        # granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
 
-        assert len(granule_er) == 0
+        # assert len(granule_er) == 0
+        ### End Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
