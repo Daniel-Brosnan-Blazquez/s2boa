@@ -74,14 +74,11 @@ class TestEngine(unittest.TestCase):
         definite_archiving_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "LONG_TERM_ARCHIVING_TIME"},
                                                      explicit_refs = {"op": "like", "filter": "S2B_OPER_MSI_L1C_TC_SGS__20171017T181225_A003211_T23VNK_N02.05"})
 
-        assert definite_archiving_time[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{'type': 'timestamp',
-                'name': 'long_term_archiving_time',
-                'value': '2018-07-21T01:00:10'
-                }]
-        }]
+        assert definite_archiving_time[0].get_structured_values() == [
+            {'type': 'timestamp',
+             'name': 'long_term_archiving_time',
+             'value': '2018-07-21T01:00:10'
+            }]
 
         #Check archiving_times
         archiving_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "LONG_TERM_ARCHIVING_TIME"})

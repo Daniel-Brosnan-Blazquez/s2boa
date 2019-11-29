@@ -232,18 +232,14 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "PRODUCTION_BASELINE",
                 "system": satellite
                 },
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "baseline",
-                     "type": "text",
-                     "value": baseline
-                     },
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite
-                    }]
+            "values": [
+                {"name": "baseline",
+                 "type": "text",
+                 "value": baseline
+                },
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite
                 }]
             }
             list_of_annotations.append(baseline_annotation)
@@ -254,19 +250,15 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "SENSING_IDENTIFIER",
                 "system": satellite
                 },
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "sensing_identifier",
-                     "type": "text",
-                     "value": sensing_identifier
-                    },
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite
-                    }]
-            }]
+            "values": [
+                {"name": "sensing_identifier",
+                 "type": "text",
+                 "value": sensing_identifier
+                },
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite
+                }]
             }
             list_of_annotations.append(sensing_identifier_annotation)
 
@@ -349,11 +341,7 @@ def process_file(file_path, engine, query, reception_time):
                         },
                         "start": step.find("PROCESSING_START_DATETIME").text[:-1],
                         "stop": step.find("PROCESSING_END_DATETIME").text[:-1],
-                        "values": [{
-                            "name": "details",
-                            "type": "object",
-                            "values": values
-                        }]
+                        "values": values
                     }
                     exec_mode_node = step.find("SUBSYSTEM_INFO/STEP_REPORT/GENERAL_INFO/EXEC_MODE")
                     if exec_mode_node is not None:
@@ -408,14 +396,10 @@ def process_file(file_path, engine, query, reception_time):
                 "start": mrf.find("ValidityStart").text[:-1],
                 "stop": stop,
                 "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [{
-                          "name": "generation_time",
-                          "type": "timestamp",
-                          "value": mrf.find("Id").text[25:40]
-                          }]
-                    }]
+                    "name": "generation_time",
+                    "type": "timestamp",
+                    "value": mrf.find("Id").text[25:40]
+                }]
                 }
             list_of_configuration_events.append(event_mrf)
         # end if

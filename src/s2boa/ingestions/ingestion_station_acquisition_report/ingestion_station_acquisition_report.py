@@ -159,51 +159,48 @@ def process_file(file_path, engine, query, reception_time):
             "start": start,
             "stop": stop,
             "links": links,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [{
+            "values": [
+                {
                     "name": "downlink_status",
                     "type": "text",
                     "value": downlink_status
-                    },
-                    {
+                },
+                {
                     "name": "characterized_downlink_status",
                     "type": "text",
                     "value": characterized_downlink_status
-                    },
-                    {
+                },
+                {
                     "name": "comments",
                     "type": "text",
                     "value": comments
-                    },
-                    {
+                },
+                {
                     "name": "antenna_id",
                     "type": "text",
                     "value": antenna_id
-                    },{
+                },{
                     "name": "satellite",
                     "type": "text",
                     "value": satellite
-                    },{
+                },{
                     "name": "orbit",
                     "type": "double",
                     "value": orbit
-                    },{
+                },{
                     "name": "support_number",
                     "type": "double",
                     "value": support_number
-                    },{
+                },{
                     "name": "status",
                     "type": "text",
                     "value": status
-                    },{
+                },{
                     "name": "station",
                     "type": "text",
                     "value": station
-                    }]
                 }]
-        }],
+        }]
     }]}
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 80)

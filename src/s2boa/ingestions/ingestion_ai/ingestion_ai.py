@@ -111,16 +111,12 @@ def process_file(file_path, engine, query, reception_time):
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": system
-                },
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "archiving_time",
-                     "type": "timestamp",
-                     "value": archiving_time
-                     }]
-            }]
+            },
+            "values": [
+                {"name": "archiving_time",
+                 "type": "timestamp",
+                 "value": archiving_time
+                }]
         }
         list_of_annotations.append(archiving_annotation)
     #end for

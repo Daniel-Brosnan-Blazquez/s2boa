@@ -179,27 +179,23 @@ def process_file(file_path, engine, query, reception_time):
             "links": links,
             "start": start,
             "stop": stop,
-            "values": [{
-                "name": "slot_request_information",
-                "type": "object",
-                "values": [
-                    {"name": "session_id",
-                     "type": "text",
-                     "value": session_id},
-                    {"name": "edrs_unit",
-                     "type": "text",
-                     "value": edrs},
-                    {"name": "orbit",
-                     "type": "double",
-                     "value": str(orbit)},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": sentinel},
-                    {"name": "status",
-                     "type": "text",
-                     "value": status}
-                ]
-            }]
+            "values": [
+                {"name": "session_id",
+                 "type": "text",
+                 "value": session_id},
+                {"name": "edrs_unit",
+                 "type": "text",
+                 "value": edrs},
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": sentinel},
+                {"name": "status",
+                 "type": "text",
+                 "value": status}
+            ]
         }
 
         # Insert slot_event

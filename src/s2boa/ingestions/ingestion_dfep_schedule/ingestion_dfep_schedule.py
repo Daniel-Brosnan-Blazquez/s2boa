@@ -104,24 +104,20 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
             "links": links,
             "start": start,
             "stop": stop,
-            "values": [{
-                "name": "schedule_information",
-                "type": "object",
-                "values": [
-                    {"name": "orbit",
-                     "type": "double",
-                     "value": str(orbit)},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "station",
-                     "type": "text",
-                     "value": station},
-                    {"name": "status",
-                     "type": "text",
-                     "value": status}
-                ]
-            }]
+            "values": [
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "station",
+                 "type": "text",
+                 "value": station},
+                {"name": "status",
+                 "type": "text",
+                 "value": status}
+            ]
         }
 
         # Insert dfep_schedule_event

@@ -137,19 +137,15 @@ def process_file(file_path, engine, query, reception_time):
         "name": "DATATAKE",
         "system": satellite
         },
-    "values": [{
-        "name": "details",
-        "type": "object",
         "values": [
             {"name": "datatake_identifier",
              "type": "text",
              "value": datatake_id
-             },
+            },
             {"name": "satellite",
              "type": "text",
              "value": satellite
             }]
-        }]
     }
     list_of_annotations.append(datatake_annotation)
 
@@ -187,18 +183,14 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "FOOTPRINT",
                 "system": satellite
                 },
-            "values": [{
-                "name": "details",
-                "type": "object",
                 "values": [
                     {"name": "footprint",
                      "type": "geometry",
                      "value": corrected_footprint
-                     }]
-                }]
+                    }]
             }
             list_of_annotations.append(footprint_annotation)
-        # end if
+            # end if
 
         # Insert the data_size_annotation per datastrip
         data_size_annotation = {
@@ -207,15 +199,11 @@ def process_file(file_path, engine, query, reception_time):
             "name": "SIZE",
             "system": satellite
             },
-        "values": [{
-            "name": "details",
-            "type": "object",
             "values": [
                 {"name": "size",
                  "type": "double",
                  "value": data_size
-                 }]
-            }]
+                }]
         }
         list_of_annotations.append(data_size_annotation)
 
@@ -226,14 +214,10 @@ def process_file(file_path, engine, query, reception_time):
             "name": "CLOUD_PERCENTAGE",
             "system": satellite
             },
-        "values": [{
-            "name": "details",
-            "type": "object",
-            "values": [
-                {"name": "cloud_percentage",
-                 "type": "double",
-                 "value": cloud_percentage
-                 }]
+        "values": [
+            {"name": "cloud_percentage",
+             "type": "double",
+             "value": cloud_percentage
             }]
         }
         list_of_annotations.append(cloud_percentage_annotation)
@@ -246,14 +230,10 @@ def process_file(file_path, engine, query, reception_time):
             "name": "PHYSICAL_URL",
             "system": satellite
             },
-        "values": [{
-            "name": "details",
-            "type": "object",
-            "values": [
-                {"name": "physical_url",
-                 "type": "text",
-                 "value": physical_url
-                 }]
+        "values": [
+            {"name": "physical_url",
+             "type": "text",
+             "value": physical_url
             }]
         }
         list_of_annotations.append(physical_url_annotation)
@@ -265,19 +245,15 @@ def process_file(file_path, engine, query, reception_time):
         "name": "INDEXING_TIME",
         "system": system
         },
-        "values": [{
-        "name": "details",
-        "type": "object",
-        "values": [
-        {"name": "indexing_time",
-        "type": "timestamp",
-        "value": creation_date
-        }]
-        }]
+            "values": [
+                {"name": "indexing_time",
+                 "type": "timestamp",
+                 "value": creation_date
+                }]
         }
         list_of_annotations.append(indexing_time_annotation)
         # end if
-    # end for
+        # end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
     
@@ -292,19 +268,15 @@ def process_file(file_path, engine, query, reception_time):
             "name": "PRODUCTION_BASELINE",
             "system": satellite
             },
-        "values": [{
-            "name": "details",
-            "type": "object",
             "values": [
                 {"name": "baseline",
                  "type": "text",
                  "value": baseline
-                 },
+                },
                 {"name": "satellite",
                  "type": "text",
                  "value": satellite
                 }]
-            }]
         }
         list_of_annotations_for_processing.append(baseline_annotation)
 
@@ -326,9 +298,6 @@ def process_file(file_path, engine, query, reception_time):
             "name": "SENSING_IDENTIFIER",
             "system": satellite
             },
-        "values": [{
-            "name": "details",
-            "type": "object",
             "values": [
                 {"name": "sensing_identifier",
                  "type": "text",
@@ -338,7 +307,6 @@ def process_file(file_path, engine, query, reception_time):
                  "type": "text",
                  "value": satellite
                 }]
-            }]
         }
         list_of_annotations_for_processing.append(sensing_identifier_annotation)
 

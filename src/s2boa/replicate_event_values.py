@@ -35,11 +35,7 @@ def replicate_event_values(query, from_event_uuid, to_event_uuid, to_event, list
         event = {
             "start": to_event["start"].isoformat(),
             "stop": to_event["stop"].isoformat(),
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": []
-                }]
+            "values": []
             }
     # end if
     for value in values:
@@ -56,8 +52,8 @@ def replicate_event_values(query, from_event_uuid, to_event_uuid, to_event, list
             value_to_insert["value"] = value.value
         elif type(value) == EventGeometry:
             if event != None:
-                functions.associate_footprints([event], satellite, return_polygon_format = True)
-                value_to_insert["value"] = event["values"][0]["values"][0]["values"][0]["value"]
+                events = functions.associate_footprints([event], satellite, return_polygon_format = True)
+                value_to_insert["value"] = events[0]["values"][0]["values"][0]["value"]
             else:
                 value_to_insert["value"] = to_shape(value.value).wkt
             # end if

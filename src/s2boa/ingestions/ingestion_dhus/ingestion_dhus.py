@@ -112,15 +112,11 @@ def process_file(file_path, engine, query, reception_time):
                     "name": "DHUS_DISSEMINATION_TIME",
                     "system": system
                     },
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
-                        {"name": "dhus_dissemination_time",
-                         "type": "timestamp",
-                         "value": creation_date
-                         }]
-                }]
+                "values": [
+                    {"name": "dhus_dissemination_time",
+                     "type": "timestamp",
+                     "value": creation_date
+                    }]
             }
             list_of_annotations.append(tile_dhus_dissemination_annotation)
 
@@ -129,16 +125,12 @@ def process_file(file_path, engine, query, reception_time):
                 "annotation_cnf": {
                     "name": "USER_PRODUCT",
                     "system": system
-                    },
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
-                        {"name": "product_name",
-                         "type": "text",
-                         "value": product_name
-                         }]
-                }]
+                },
+                "values": [
+                    {"name": "product_name",
+                     "type": "text",
+                     "value": product_name
+                    }]
             }
             list_of_annotations.append(tile_user_product_annotation)
     #end for
@@ -155,15 +147,11 @@ def process_file(file_path, engine, query, reception_time):
                     "name": "DHUS_DISSEMINATION_TIME",
                     "system": system
                     },
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
+                "values": [
                         {"name": "dhus_dissemination_time",
                          "type": "timestamp",
                          "value": creation_date
                          }]
-                }]
             }
             list_of_annotations.append(datastrip_dhus_dissemination_annotation)
         #end if

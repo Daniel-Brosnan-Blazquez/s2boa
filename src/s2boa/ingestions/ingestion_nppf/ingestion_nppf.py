@@ -166,41 +166,37 @@ def _generate_record_events(xpath_xml, source, list_of_events):
             },
             "start": record_start,
             "stop": record_stop,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "record_type",
-                     "type": "text",
-                     "value": record_type},
-                    {"name": "start_request",
-                     "type": "text",
-                     "value": record_start_request},
-                    {"name": "stop_request",
-                     "type": "text",
-                     "value": record_stop_request},
-                    {"name": "start_orbit",
-                     "type": "double",
-                     "value": record_start_orbit},
-                    {"name": "start_angle",
-                     "type": "double",
-                     "value": record_start_angle},
-                    {"name": "stop_orbit",
-                     "type": "double",
-                     "value": record_stop_orbit},
-                    {"name": "stop_angle",
-                     "type": "double",
-                     "value": record_stop_angle},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite}
-                ]
-            }]
+            "values": [
+                {"name": "record_type",
+                 "type": "text",
+                 "value": record_type},
+                {"name": "start_request",
+                 "type": "text",
+                 "value": record_start_request},
+                {"name": "stop_request",
+                 "type": "text",
+                 "value": record_stop_request},
+                {"name": "start_orbit",
+                 "type": "double",
+                 "value": record_start_orbit},
+                {"name": "start_angle",
+                 "type": "double",
+                 "value": record_start_angle},
+                {"name": "stop_orbit",
+                 "type": "double",
+                 "value": record_stop_orbit},
+                {"name": "stop_angle",
+                 "type": "double",
+                 "value": record_stop_angle},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite}
+            ]
         }
 
         if len(record_start_scn_dup) == 1 or len(record_stop_scn_dup) == 1:
             parameters = []
-            record_event["values"][0]["values"].append(
+            record_event["values"].append(
                 {"name": "parameters",
                  "type": "object",
                  "values": parameters},
@@ -254,43 +250,39 @@ def _generate_record_events(xpath_xml, source, list_of_events):
                     "back_ref": "PLANNED_COMPLETE_IMAGING"
                 }
             ],
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "start_request",
-                     "type": "text",
-                     "value": cut_imaging_start_request},
-                    {"name": "stop_request",
-                     "type": "text",
-                     "value": cut_imaging_stop_request},
-                    {"name": "start_orbit",
-                     "type": "double",
-                     "value": cut_imaging_start_orbit},
-                    {"name": "start_angle",
-                     "type": "double",
-                     "value": cut_imaging_start_angle},
-                    {"name": "stop_orbit",
-                     "type": "double",
-                     "value": cut_imaging_stop_orbit},
-                    {"name": "stop_angle",
-                     "type": "double",
-                     "value": cut_imaging_stop_angle},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "record_type",
-                     "type": "text",
-                     "value": record_type},
-                    {"name": "imaging_mode",
-                     "type": "text",
-                     "value": cut_imaging_mode}
-                ]
-            }]
+            "values": [
+                {"name": "start_request",
+                 "type": "text",
+                 "value": cut_imaging_start_request},
+                {"name": "stop_request",
+                 "type": "text",
+                 "value": cut_imaging_stop_request},
+                {"name": "start_orbit",
+                 "type": "double",
+                 "value": cut_imaging_start_orbit},
+                {"name": "start_angle",
+                 "type": "double",
+                 "value": cut_imaging_start_angle},
+                {"name": "stop_orbit",
+                 "type": "double",
+                 "value": cut_imaging_stop_orbit},
+                {"name": "stop_angle",
+                 "type": "double",
+                 "value": cut_imaging_stop_angle},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "record_type",
+                 "type": "text",
+                 "value": record_type},
+                {"name": "imaging_mode",
+                 "type": "text",
+                 "value": cut_imaging_mode}
+            ]
         }
 
         if len(record_start_scn_dup) == 1 or len(record_stop_scn_dup) == 1:
-            cut_imaging_event["values"][0]["values"].append(
+            cut_imaging_event["values"].append(
                 {"name": "parameters",
                  "type": "object",
                  "values": parameters},
@@ -336,36 +328,32 @@ def _generate_record_events(xpath_xml, source, list_of_events):
             },
             "start": imaging_start,
             "stop": imaging_stop,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "start_request",
-                     "type": "text",
-                     "value": imaging_start_request},
-                    {"name": "stop_request",
-                     "type": "text",
-                     "value": imaging_stop_request},
-                    {"name": "start_orbit",
-                     "type": "double",
-                     "value": imaging_start_orbit},
-                    {"name": "start_angle",
-                     "type": "double",
-                     "value": imaging_start_angle},
-                    {"name": "stop_orbit",
-                     "type": "double",
-                     "value": imaging_stop_orbit},
-                    {"name": "stop_angle",
-                     "type": "double",
-                     "value": imaging_stop_angle},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "imaging_mode",
-                     "type": "text",
-                     "value": imaging_mode}
-                ]
-            }]
+            "values": [
+                {"name": "start_request",
+                 "type": "text",
+                 "value": imaging_start_request},
+                {"name": "stop_request",
+                 "type": "text",
+                 "value": imaging_stop_request},
+                {"name": "start_orbit",
+                 "type": "double",
+                 "value": imaging_start_orbit},
+                {"name": "start_angle",
+                 "type": "double",
+                 "value": imaging_start_angle},
+                {"name": "stop_orbit",
+                 "type": "double",
+                 "value": imaging_stop_orbit},
+                {"name": "stop_angle",
+                 "type": "double",
+                 "value": imaging_stop_angle},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "imaging_mode",
+                 "type": "text",
+                 "value": imaging_mode}
+            ]
         }
 
         # Insert imaging_event
@@ -459,10 +447,7 @@ def _generate_idle_events(xpath_xml, source, list_of_events):
             },
             "start": idle_start,
             "stop": idle_stop,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": values}]
+            "values": values
         }
 
         # Insert idle_event
@@ -534,36 +519,32 @@ def _generate_playback_events(xpath_xml, source, list_of_events):
             },
             "start": playback_start,
             "stop": playback_stop,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "start_request",
-                     "type": "text",
-                     "value": playback_start_request},
-                    {"name": "stop_request",
-                     "type": "text",
-                     "value": playback_stop_request},
-                    {"name": "start_orbit",
-                     "type": "double",
-                     "value": playback_start_orbit},
-                    {"name": "start_angle",
-                     "type": "double",
-                     "value": playback_start_angle},
-                    {"name": "stop_orbit",
-                     "type": "double",
-                     "value": playback_stop_orbit},
-                    {"name": "stop_angle",
-                     "type": "double",
-                     "value": playback_stop_angle},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "playback_mean",
-                     "type": "text",
-                     "value": playback_mean}
-                ]
-            }]
+            "values": [
+                {"name": "start_request",
+                 "type": "text",
+                 "value": playback_start_request},
+                {"name": "stop_request",
+                 "type": "text",
+                 "value": playback_stop_request},
+                {"name": "start_orbit",
+                 "type": "double",
+                 "value": playback_start_orbit},
+                {"name": "start_angle",
+                 "type": "double",
+                 "value": playback_start_angle},
+                {"name": "stop_orbit",
+                 "type": "double",
+                 "value": playback_stop_orbit},
+                {"name": "stop_angle",
+                 "type": "double",
+                 "value": playback_stop_angle},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "playback_mean",
+                 "type": "text",
+                 "value": playback_mean}
+            ]
         }
 
         # Insert playback_event
@@ -626,43 +607,39 @@ def _generate_playback_events(xpath_xml, source, list_of_events):
                     "back_ref": "PLANNED_PLAYBACK_MEAN"
                 }
             ],
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "start_request",
-                     "type": "text",
-                     "value": playback_type_start_request},
-                    {"name": "stop_request",
-                     "type": "text",
-                     "value": playback_type_stop_request},
-                    {"name": "start_orbit",
-                     "type": "double",
-                     "value": playback_type_start_orbit},
-                    {"name": "start_angle",
-                     "type": "double",
-                     "value": playback_type_start_angle},
-                    {"name": "stop_orbit",
-                     "type": "double",
-                     "value": playback_type_stop_orbit},
-                    {"name": "stop_angle",
-                     "type": "double",
-                     "value": playback_type_stop_angle},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "playback_mean",
-                     "type": "text",
-                     "value": playback_mean},
-                    {"name": "playback_type",
-                     "type": "text",
-                     "value": playback_type}
-                ]
-            }]
+            "values": [
+                {"name": "start_request",
+                 "type": "text",
+                 "value": playback_type_start_request},
+                {"name": "stop_request",
+                 "type": "text",
+                 "value": playback_type_stop_request},
+                {"name": "start_orbit",
+                 "type": "double",
+                 "value": playback_type_start_orbit},
+                {"name": "start_angle",
+                 "type": "double",
+                 "value": playback_type_start_angle},
+                {"name": "stop_orbit",
+                 "type": "double",
+                 "value": playback_type_stop_orbit},
+                {"name": "stop_angle",
+                 "type": "double",
+                 "value": playback_type_stop_angle},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "playback_mean",
+                 "type": "text",
+                 "value": playback_mean},
+                {"name": "playback_type",
+                 "type": "text",
+                 "value": playback_type}
+            ]
         }
 
         parameters = []
-        playback_type_event["values"][0]["values"].append(
+        playback_type_event["values"].append(
             {"name": "parameters",
              "type": "object",
              "values": parameters},

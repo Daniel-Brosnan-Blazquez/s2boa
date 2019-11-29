@@ -87,52 +87,48 @@ class TestEngine(unittest.TestCase):
 
         assert len(specific_xband_operation1) == 1
 
-        assert specific_xband_operation1[0].get_structured_values() == [{
-            "values": [
-                {
-                    "value": "MPXBSBOP",
-                    "name": "start_request",
-                    "type": "text"
-                },
-                {
-                    "value": "MPXBOPSB",
-                    "name": "stop_request",
-                    "type": "text"
-                },
-                {
-                    "value": "16066.0",
-                    "name": "start_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "70.9228",
-                    "name": "start_angle",
-                    "type": "double"
-                },
-                {
-                    "value": "16066.0",
-                    "name": "stop_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "116.4033",
-                    "name": "stop_angle",
-                    "type": "double"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "XBAND",
-                    "name": "playback_mean",
-                    "type": "text"
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert specific_xband_operation1[0].get_structured_values() == [
+            {
+                "value": "MPXBSBOP",
+                "name": "start_request",
+                "type": "text"
+            },
+            {
+                "value": "MPXBOPSB",
+                "name": "stop_request",
+                "type": "text"
+            },
+            {
+                "value": "16066.0",
+                "name": "start_orbit",
+                "type": "double"
+            },
+            {
+                "value": "70.9228",
+                "name": "start_angle",
+                "type": "double"
+            },
+            {
+                "value": "16066.0",
+                "name": "stop_orbit",
+                "type": "double"
+            },
+            {
+                "value": "116.4033",
+                "name": "stop_angle",
+                "type": "double"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "XBAND",
+                "name": "playback_mean",
+                "type": "text"
+            }
+        ]
 
         specific_xband_operation2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
                                                                     value_filters = [{"name": {"op": "like", "filter": "playback_mean"}, "type": "text", "value": {"op": "==", "filter": "XBAND"}}],
@@ -168,78 +164,74 @@ class TestEngine(unittest.TestCase):
 
         assert len(specific_playback_nominal_operation1) == 1
 
-        assert specific_playback_nominal_operation1[0].get_structured_values() == [{
-            "values": [
-                {
-                    "value": "MPMMPNOM",
-                    "name": "start_request",
-                    "type": "text"
-                },
-                {
-                    "value": "MPMMPSTP",
-                    "name": "stop_request",
-                    "type": "text"
-                },
-                {
-                    "value": "16066.0",
-                    "name": "start_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "72.4021",
-                    "name": "start_angle",
-                    "type": "double"
-                },
-                {
-                    "value": "16066.0",
-                    "name": "stop_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "113.8555",
-                    "name": "stop_angle",
-                    "type": "double"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "XBAND",
-                    "name": "playback_mean",
-                    "type": "text"
-                },
-                {
-                    "value": "NOMINAL",
-                    "name": "playback_type",
-                    "type": "text"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1.0",
-                            "name": "MEM_FREE",
-                            "type": "double"
-                        },
-                        {
-                            "value": "0.0",
-                            "name": "SCN_DUP",
-                            "type": "double"
-                        },
-                        {
-                            "value": "1.0",
-                            "name": "SCN_RWD",
-                            "type": "double"
-                        }
-                    ],
-                    "name": "parameters",
-                    "type": "object"
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert specific_playback_nominal_operation1[0].get_structured_values() == [
+            {
+                "value": "MPMMPNOM",
+                "name": "start_request",
+                "type": "text"
+            },
+            {
+                "value": "MPMMPSTP",
+                "name": "stop_request",
+                "type": "text"
+            },
+            {
+                "value": "16066.0",
+                "name": "start_orbit",
+                "type": "double"
+            },
+            {
+                "value": "72.4021",
+                "name": "start_angle",
+                "type": "double"
+            },
+            {
+                "value": "16066.0",
+                "name": "stop_orbit",
+                "type": "double"
+            },
+            {
+                "value": "113.8555",
+                "name": "stop_angle",
+                "type": "double"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "XBAND",
+                "name": "playback_mean",
+                "type": "text"
+            },
+            {
+                "value": "NOMINAL",
+                "name": "playback_type",
+                "type": "text"
+            },
+            {
+                "values": [
+                    {
+                        "value": "1.0",
+                        "name": "MEM_FREE",
+                        "type": "double"
+                    },
+                    {
+                        "value": "0.0",
+                        "name": "SCN_DUP",
+                        "type": "double"
+                    },
+                    {
+                        "value": "1.0",
+                        "name": "SCN_RWD",
+                        "type": "double"
+                    }
+                ],
+                "name": "parameters",
+                "type": "object"
+            }
+        ]
 
         # Check nrt playback operations
         playback_nrt_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "like"},
@@ -391,63 +383,59 @@ class TestEngine(unittest.TestCase):
 
         assert len(specific_record_nominal_operation1) == 1
 
-        assert specific_record_nominal_operation1[0].get_structured_values() == [{
-            "values": [
-                {
-                    "value": "NOMINAL",
-                    "name": "record_type",
-                    "type": "text"
-                },
-                {
-                    "value": "MPMMRNOM",
-                    "name": "start_request",
-                    "type": "text"
-                },
-                {
-                    "value": "MPMMRSTP",
-                    "name": "stop_request",
-                    "type": "text"
-                },
-                {
-                    "value": "16066.0",
-                    "name": "start_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "89.667",
-                    "name": "start_angle",
-                    "type": "double"
-                },
-                {
-                    "value": "16066.0",
-                    "name": "stop_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "95.1028",
-                    "name": "stop_angle",
-                    "type": "double"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "type": "object",
-                    "values": [
-                        {
-                            "value": "0.0",
-                            "type": "double",
-                            "name": "start_scn_dup"
-                        }
-                    ],
-                    "name": "parameters"
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert specific_record_nominal_operation1[0].get_structured_values() == [
+            {
+                "value": "NOMINAL",
+                "name": "record_type",
+                "type": "text"
+            },
+            {
+                "value": "MPMMRNOM",
+                "name": "start_request",
+                "type": "text"
+            },
+            {
+                "value": "MPMMRSTP",
+                "name": "stop_request",
+                "type": "text"
+            },
+            {
+                "value": "16066.0",
+                "name": "start_orbit",
+                "type": "double"
+            },
+            {
+                "value": "89.667",
+                "name": "start_angle",
+                "type": "double"
+            },
+            {
+                "value": "16066.0",
+                "name": "stop_orbit",
+                "type": "double"
+            },
+            {
+                "value": "95.1028",
+                "name": "stop_angle",
+                "type": "double"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "type": "object",
+                "values": [
+                    {
+                        "value": "0.0",
+                        "type": "double",
+                        "name": "start_scn_dup"
+                    }
+                ],
+                "name": "parameters"
+            }
+        ]
 
         specific_record_nominal_operation2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_RECORD", "op": "like"},
                                                                         value_filters = [{"name": {"op": "like", "filter": "record_type"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
@@ -512,68 +500,64 @@ class TestEngine(unittest.TestCase):
 
         assert len(specific_cut_imaging_nominal_operation1) == 1
 
-        assert specific_cut_imaging_nominal_operation1[0].get_structured_values() == [{
-            "type": "object",
-            "values": [
-                {
+        assert specific_cut_imaging_nominal_operation1[0].get_structured_values() == [
+            {
                 "value": "MPMSNOBS",
-                    "type": "text",
-                    "name": "start_request"
-                },
-                {
-                    "value": "MPMSIMID",
-                    "type": "text",
-                    "name": "stop_request"
-                },
-                {
-                    "value": "16066.0",
-                    "type": "double",
-                    "name": "start_orbit"
-                },
-                {
-                    "value": "89.7852",
-                    "type": "double",
-                    "name": "start_angle"
-                },
-                {
-                    "value": "16066.0",
-                    "type": "double",
-                    "name": "stop_orbit"
-                },
-                {
-                    "value": "94.8369",
-                    "type": "double",
-                    "name": "stop_angle"
-                },
-                {
-                    "value": "S2A",
-                    "type": "text",
-                    "name": "satellite"
-                },
-                {
-                    "value": "NOMINAL",
-                    "type": "text",
-                    "name": "record_type"
-                },
-                {
-                    "value": "NOMINAL",
-                    "type": "text",
-                    "name": "imaging_mode"
-                },
-                {
-                    "type": "object",
-                    "values": [
-                        {
-                            "value": "0.0",
-                            "type": "double",
-                            "name": "start_scn_dup"
-                        }
-                    ],
-                    "name": "parameters"
-                }
-            ],
-            "name": "details"
-        }]
+                "type": "text",
+                "name": "start_request"
+            },
+            {
+                "value": "MPMSIMID",
+                "type": "text",
+                "name": "stop_request"
+            },
+            {
+                "value": "16066.0",
+                "type": "double",
+                "name": "start_orbit"
+            },
+            {
+                "value": "89.7852",
+                "type": "double",
+                "name": "start_angle"
+            },
+            {
+                "value": "16066.0",
+                "type": "double",
+                "name": "stop_orbit"
+            },
+            {
+                "value": "94.8369",
+                "type": "double",
+                "name": "stop_angle"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "NOMINAL",
+                "type": "text",
+                "name": "record_type"
+            },
+            {
+                "value": "NOMINAL",
+                "type": "text",
+                "name": "imaging_mode"
+            },
+            {
+                "type": "object",
+                "values": [
+                    {
+                        "value": "0.0",
+                        "type": "double",
+                        "name": "start_scn_dup"
+                    }
+                ],
+                "name": "parameters"
+            }
+        ]
         
         specific_imaging_nominal_operation1 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "like"},
                                                                          value_filters = [{"name": {"op": "like", "filter": "imaging_mode"}, "type": "text", "value": {"op": "==", "filter": "NOMINAL"}}],
@@ -582,52 +566,48 @@ class TestEngine(unittest.TestCase):
         
         assert len(specific_imaging_nominal_operation1) == 1
         
-        assert specific_imaging_nominal_operation1[0].get_structured_values() == [{
-            "type": "object",
-            "values": [
-                {
-                    "value": "MPMSNOBS",
-                    "type": "text",
-                    "name": "start_request"
-                },
-                {
-                    "value": "MPMSIMID",
-                    "type": "text",
-                    "name": "stop_request"
-                },
-                {
-                    "value": "16066.0",
-                    "type": "double",
-                    "name": "start_orbit"
-                },
-                {
-                    "value": "89.7852",
-                    "type": "double",
-                    "name": "start_angle"
-                },
-                {
-                    "value": "16066.0",
-                    "type": "double",
-                    "name": "stop_orbit"
-                },
-                {
-                    "value": "94.8369",
-                    "type": "double",
-                    "name": "stop_angle"
-                },
-                {
-                    "value": "S2A",
-                    "type": "text",
-                    "name": "satellite"
-                },
-                {
-                    "value": "NOMINAL",
-                    "type": "text",
-                    "name": "imaging_mode"
-                }
-            ],
-            "name": "details"
-        }]
+        assert specific_imaging_nominal_operation1[0].get_structured_values() == [
+            {
+                "value": "MPMSNOBS",
+                "type": "text",
+                "name": "start_request"
+            },
+            {
+                "value": "MPMSIMID",
+                "type": "text",
+                "name": "stop_request"
+            },
+            {
+                "value": "16066.0",
+                "type": "double",
+                "name": "start_orbit"
+            },
+            {
+                "value": "89.7852",
+                "type": "double",
+                "name": "start_angle"
+            },
+            {
+                "value": "16066.0",
+                "type": "double",
+                "name": "stop_orbit"
+            },
+            {
+                "value": "94.8369",
+                "type": "double",
+                "name": "stop_angle"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "NOMINAL",
+                "type": "text",
+                "name": "imaging_mode"
+            }
+        ]
         
         # Check SUN_CAL imaging operations
         imaging_suncal_operations = self.query_eboa.get_events(gauge_names = {"filter": ["PLANNED_IMAGING", "PLANNED_CUT_IMAGING"], "op": "in"},
@@ -851,47 +831,43 @@ class TestEngine(unittest.TestCase):
 
         assert len(specific_idle_operation1) == 1
 
-        assert specific_idle_operation1[0].get_structured_values() == [{
-            "values": [
-                {
-                    "value": "MPMSSBID",
-                    "type": "text",
-                    "name": "start_request"
-                },
-                {
-                    "value": "MPMSNOBS",
-                    "type": "text",
-                    "name": "stop_request"
-                },
-                {
-                    "value": "16066.0",
-                    "type": "double",
-                    "name": "start_orbit"
-                },
-                {
-                    "value": "72.3453",
-                    "type": "double",
-                    "name": "start_angle"
-                },
-                {
-                    "value": "16066.0",
-                    "type": "double",
-                    "name": "stop_orbit"
-                },
-                {
-                    "value": "89.7852",
-                    "type": "double",
-                    "name": "stop_angle"
-                },
-                {
-                    "value": "S2A",
-                    "type": "text",
-                    "name": "satellite"
-                }
-            ],
-            "type": "object",
-            "name": "details"
-        }]
+        assert specific_idle_operation1[0].get_structured_values() == [
+            {
+                "value": "MPMSSBID",
+                "type": "text",
+                "name": "start_request"
+            },
+            {
+                "value": "MPMSNOBS",
+                "type": "text",
+                "name": "stop_request"
+            },
+            {
+                "value": "16066.0",
+                "type": "double",
+                "name": "start_orbit"
+            },
+            {
+                "value": "72.3453",
+                "type": "double",
+                "name": "start_angle"
+            },
+            {
+                "value": "16066.0",
+                "type": "double",
+                "name": "stop_orbit"
+            },
+            {
+                "value": "89.7852",
+                "type": "double",
+                "name": "stop_angle"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            }
+        ]
         
         specific_idle_operation2 = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IDLE", "op": "like"}, start_filters = [{"date": "2018-07-20T14:08:53.218", "op": "=="}], stop_filters = [{"date": "2018-07-20T14:09:57.673", "op": "=="}])
 

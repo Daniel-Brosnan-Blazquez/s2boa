@@ -79,50 +79,46 @@ class TestEngine(unittest.TestCase):
         #Check definite event
         definite_event = self.query_eboa.get_events(gauge_names = {"filter": "STATION_SCHEDULE", "op": "like"})
 
-        assert definite_event[0].get_structured_values() == [{
-            "name": "schedule_information",
-            "type": "object",
-            "values": [
-                {
-                    "name": "orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "satellite",
-                    "type": "text",
-                    "value": "S2A"
-                },
-                {
-                    "name": "station",
-                    "type": "text",
-                    "value": "MPS_"
-                },
-                {
-                    "name": "status",
-                    "type": "text",
-                    "value": "NO_MATCHED_PLAYBACK"
-                },
-                {
-                    "name": "acquisition_start",
-                    "type": "timestamp",
-                    "value": "2018-07-21T10:34:30.609000"},
-                {
-                    "name": "acquisition_stop",
-                    "type": "timestamp",
-                    "value": "2018-07-21T10:38:21.882000"},
-                {
-                    "name": "delta_start",
-                    "type": "double",
-                    "value": "57.0"
-                },
-                {
-                    "name": "delta_stop",
-                    "type": "double",
-                    "value": "-42.271"
-                }
-            ]
-        }]
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "status",
+                "type": "text",
+                "value": "NO_MATCHED_PLAYBACK"
+            },
+            {
+                "name": "acquisition_start",
+                "type": "timestamp",
+                "value": "2018-07-21T10:34:30.609000"},
+            {
+                "name": "acquisition_stop",
+                "type": "timestamp",
+                "value": "2018-07-21T10:38:21.882000"},
+            {
+                "name": "delta_start",
+                "type": "double",
+                "value": "57.0"
+            },
+            {
+                "name": "delta_stop",
+                "type": "double",
+                "value": "-42.271"
+            }
+        ]
 
     def test_mpl_sp_with_plan(self):
 
@@ -164,50 +160,46 @@ class TestEngine(unittest.TestCase):
         #Check definite event
         definite_event = self.query_eboa.get_events(gauge_names = {"filter": "STATION_SCHEDULE", "op": "like"})
 
-        assert definite_event[0].get_structured_values() == [{
-                "name": "schedule_information",
-                "type": "object",
-                "values": [
-                {
-                    "name": "orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "satellite",
-                    "type": "text",
-                    "value": "S2A"
-                },
-                {
-                    "name": "station",
-                    "type": "text",
-                    "value": "MPS_"
-                },
-                {
-                    "name": "status",
-                    "type": "text",
-                    "value": "MATCHED_PLAYBACK"
-                },
-                {
-                    "name": "acquisition_start",
-                    "type": "timestamp",
-                    "value": "2018-07-21T10:34:30.609000"},
-                {
-                    "name": "acquisition_stop",
-                    "type": "timestamp",
-                    "value": "2018-07-21T10:38:21.882000"},
-                {
-                    "name": "delta_start",
-                    "type": "double",
-                    "value": "57.0"
-                },
-                {
-                    "name": "delta_stop",
-                    "type": "double",
-                    "value": "-42.271"
-                }
-            ]
-        }]
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "status",
+                "type": "text",
+                "value": "MATCHED_PLAYBACK"
+            },
+            {
+                "name": "acquisition_start",
+                "type": "timestamp",
+                "value": "2018-07-21T10:34:30.609000"},
+            {
+                "name": "acquisition_stop",
+                "type": "timestamp",
+                "value": "2018-07-21T10:38:21.882000"},
+            {
+                "name": "delta_start",
+                "type": "double",
+                "value": "57.0"
+            },
+            {
+                "name": "delta_stop",
+                "type": "double",
+                "value": "-42.271"
+            }
+        ]
 
         planned_playback_events = self.query_eboa.get_events(start_filters = [{"date": "2018-07-21T10:35:27.430000", "op": "=="}],
                                               stop_filters = [{"date": "2018-07-21T10:37:03.431000", "op": "=="}])
@@ -237,172 +229,162 @@ class TestEngine(unittest.TestCase):
         assert len(link_from_plan) == 1
 
         #Check new value
-        assert planned_playback_event.get_structured_values() == [{
-            'name': 'details', 'type': 'object',
-            'values': [
-                {
-                    'name': 'start_request',
-                    'type': 'text',
-                    'value': 'MPMMPNOM'
-                },{
-                    'name': 'stop_request',
-                     'type': 'text',
-                      'value': 'MPMMPSTP'
-                },{
-                    'name': 'start_orbit',
-                    'type': 'double',
-                    'value': '16078.0'
-                },{
-                    'name': 'start_angle',
-                    'type': 'double',
-                    'value': '159.7552'
-                },{
-                    'name': 'stop_orbit',
-                    'type': 'double',
-                    'value': '16078.0'
-                },{
-                    'name': 'stop_angle',
-                    'type': 'double',
-                    'value': '165.5371'
-                },{
-                    'name': 'satellite',
-                    'type': 'text',
-                    'value': 'S2A'
-                },{
-                    'name': 'playback_mean',
-                    'type': 'text',
-                    'value': 'XBAND'
-                },{
-                    'name': 'playback_type',
-                    'type': 'text',
-                    'value': 'NOMINAL'
-                },{
-                    'name': 'parameters',
-                    'type': 'object',
-                    'values': [
-                        {
-                            'name': 'MEM_FREE',
-                            'type': 'double',
-                            'value': '1.0'
-                        },{
-                            'name': 'SCN_DUP',
-                            'type': 'double',
-                            'value': '0.0'
-                        },{
-                            'name': 'SCN_RWD',
-                            'type': 'double',
-                            'value': '1.0'
-                        }
-                    ]
-                },{
-                    'name': 'station_schedule',
-                    'type': 'object',
-                    'values': [
-                        {
-                            'name': 'station',
-                            'type': 'text',
-                            'value': 'MPS_'
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+        assert planned_playback_event.get_structured_values() == [
+            {
+                'name': 'start_request',
+                'type': 'text',
+                'value': 'MPMMPNOM'
+            },{
+                'name': 'stop_request',
+                'type': 'text',
+                'value': 'MPMMPSTP'
+            },{
+                'name': 'start_orbit',
+                'type': 'double',
+                'value': '16078.0'
+            },{
+                'name': 'start_angle',
+                'type': 'double',
+                'value': '159.7552'
+            },{
+                'name': 'stop_orbit',
+                'type': 'double',
+                'value': '16078.0'
+            },{
+                'name': 'stop_angle',
+                'type': 'double',
+                'value': '165.5371'
+            },{
+                'name': 'satellite',
+                'type': 'text',
+                'value': 'S2A'
+            },{
+                'name': 'playback_mean',
+                'type': 'text',
+                'value': 'XBAND'
+            },{
+                'name': 'playback_type',
+                'type': 'text',
+                'value': 'NOMINAL'
+            },{
+                'name': 'parameters',
+                'type': 'object',
+                'values': [
+                    {
+                        'name': 'MEM_FREE',
+                        'type': 'double',
+                        'value': '1.0'
+                    },{
+                        'name': 'SCN_DUP',
+                        'type': 'double',
+                        'value': '0.0'
+                    },{
+                        'name': 'SCN_RWD',
+                        'type': 'double',
+                        'value': '1.0'
+                    }
+                ]
+            },{
+                'name': 'station_schedule',
+                'type': 'object',
+                'values': [
+                    {
+                        'name': 'station',
+                        'type': 'text',
+                        'value': 'MPS_'
+                    }
+                ]
+            }
+        ]
 
         #Check new value
         assert planned_playback_correction_event.get_structured_values() == [
             {
-                'name': 'details',
+                'name': 'start_request',
+                'type': 'text',
+                'value': 'MPMMPNOM'
+            },{
+                'name': 'stop_request',
+                'type': 'text',
+                'value': 'MPMMPSTP'
+            },{
+                'name': 'start_orbit',
+                'type': 'double',
+                'value': '16078.0'
+            },{
+                'name': 'start_angle',
+                'type': 'double',
+                'value': '159.7552'
+            },{
+                'name': 'stop_orbit',
+                'type': 'double',
+                'value': '16078.0'
+            },{
+                'name': 'stop_angle',
+                'type': 'double',
+                'value': '165.5371'
+            },{
+                'name': 'satellite',
+                'type': 'text',
+                'value': 'S2A'
+            },{
+                'name': 'playback_mean',
+                'type': 'text',
+                'value': 'XBAND'
+            },{
+                'name': 'playback_type',
+                'type': 'text',
+                'value': 'NOMINAL'
+            },{
+                'name': 'parameters',
                 'type': 'object',
                 'values': [
                     {
-                    'name': 'start_request',
-                    'type': 'text',
-                    'value': 'MPMMPNOM'
-                },{
-                    'name': 'stop_request',
-                    'type': 'text',
-                    'value': 'MPMMPSTP'
-                },{
-                    'name': 'start_orbit',
-                    'type': 'double',
-                    'value': '16078.0'
-                },{
-                    'name': 'start_angle',
-                    'type': 'double',
-                    'value': '159.7552'
-                },{
-                    'name': 'stop_orbit',
-                    'type': 'double',
-                    'value': '16078.0'
-                },{
-                    'name': 'stop_angle',
-                    'type': 'double',
-                    'value': '165.5371'
-                },{
-                    'name': 'satellite',
-                    'type': 'text',
-                    'value': 'S2A'
-                },{
-                    'name': 'playback_mean',
-                    'type': 'text',
-                    'value': 'XBAND'
-                },{
-                    'name': 'playback_type',
-                    'type': 'text',
-                    'value': 'NOMINAL'
-                },{
-                    'name': 'parameters',
-                    'type': 'object',
-                    'values': [
-                        {
-                            'name': 'MEM_FREE',
-                            'type': 'double',
-                            'value': '1.0'
-                        },{
-                            'name': 'SCN_DUP',
-                            'type': 'double',
-                            'value': '0.0'
-                        },{
-                            'name': 'SCN_RWD',
-                            'type': 'double',
-                            'value': '1.0'
-                        }
-                    ]
-                },{
-                    'name': 'status_correction',
-                    'type': 'text',
-                    'value': 'TIME_CORRECTED'
-                },{
-                    'name': 'delta_start',
-                    'type': 'double',
-                    'value': '-5.094661'
-                },{
-                    'name': 'delta_stop',
-                    'type': 'double',
-                    'value': '-5.099863'
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((3.087733 19.617144, 3.03354 19.398794, 2.979473 19.180427, 2.925532 18.962046, 2.871711 18.743648, 2.818006 18.525236, 2.764421 18.306809, 2.710955 18.088367, 2.657601 17.86991, 2.604359 17.651439, 2.551231 17.432954, 2.498216 17.214455, 2.445304 16.995942, 2.392502 16.777416, 2.339807 16.558876, 2.287218 16.340323, 2.234727 16.121758, 2.18234 15.903179, 2.130056 15.684588, 2.07787 15.465984, 2.025779 15.247368, 1.973786 15.028741, 1.921889 14.810101, 1.870084 14.59145, 1.818371 14.372787, 1.766751 14.154113, 1.715221 13.935428, -0.889919 14.504954, -0.840883 14.723846, -0.791795 14.942729, -0.742651 15.161606, -0.6934630000000001 15.380475, -0.6442329999999999 15.599338, -0.594946 15.818193, -0.5456 16.037039, -0.49621 16.255879, -0.446769 16.47471, -0.397265 16.693533, -0.347696 16.912347, -0.298088 17.131154, -0.248416 17.349952, -0.198676 17.568741, -0.148871 17.787521, -0.099021 18.006292, -0.049098 18.225054, 0.000897 18.443806, 0.050955 18.662549, 0.10107 18.881283, 0.151262 19.100006, 0.201533 19.318719, 0.251863 19.537422, 0.302264 19.756115, 0.352747 19.974797, 0.403314 20.193468, 3.087733 19.617144))"
-                        }
-                    ]
-                },{
-                    'name': 'station_schedule',
-                    'type': 'object',
-                    'values': [
-                        {
-                            'name': 'station',
-                            'type': 'text',
-                            'value': 'MPS_'
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+                        'name': 'MEM_FREE',
+                        'type': 'double',
+                        'value': '1.0'
+                    },{
+                        'name': 'SCN_DUP',
+                        'type': 'double',
+                        'value': '0.0'
+                    },{
+                        'name': 'SCN_RWD',
+                        'type': 'double',
+                        'value': '1.0'
+                    }
+                ]
+            },{
+                'name': 'status_correction',
+                'type': 'text',
+                'value': 'TIME_CORRECTED'
+            },{
+                'name': 'delta_start',
+                'type': 'double',
+                'value': '-5.094661'
+            },{
+                'name': 'delta_stop',
+                'type': 'double',
+                'value': '-5.099863'
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((3.087733 19.617144, 3.03354 19.398794, 2.979473 19.180427, 2.925532 18.962046, 2.871711 18.743648, 2.818006 18.525236, 2.764421 18.306809, 2.710955 18.088367, 2.657601 17.86991, 2.604359 17.651439, 2.551231 17.432954, 2.498216 17.214455, 2.445304 16.995942, 2.392502 16.777416, 2.339807 16.558876, 2.287218 16.340323, 2.234727 16.121758, 2.18234 15.903179, 2.130056 15.684588, 2.07787 15.465984, 2.025779 15.247368, 1.973786 15.028741, 1.921889 14.810101, 1.870084 14.59145, 1.818371 14.372787, 1.766751 14.154113, 1.715221 13.935428, -0.889919 14.504954, -0.840883 14.723846, -0.791795 14.942729, -0.742651 15.161606, -0.6934630000000001 15.380475, -0.6442329999999999 15.599338, -0.594946 15.818193, -0.5456 16.037039, -0.49621 16.255879, -0.446769 16.47471, -0.397265 16.693533, -0.347696 16.912347, -0.298088 17.131154, -0.248416 17.349952, -0.198676 17.568741, -0.148871 17.787521, -0.099021 18.006292, -0.049098 18.225054, 0.000897 18.443806, 0.050955 18.662549, 0.10107 18.881283, 0.151262 19.100006, 0.201533 19.318719, 0.251863 19.537422, 0.302264 19.756115, 0.352747 19.974797, 0.403314 20.193468, 3.087733 19.617144))"
+                    }
+                ]
+            },{
+                'name': 'station_schedule',
+                'type': 'object',
+                'values': [
+                    {
+                        'name': 'station',
+                        'type': 'text',
+                        'value': 'MPS_'
+                    }
+                ]
+            }
+        ]

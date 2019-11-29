@@ -74,44 +74,35 @@ class TestDam(unittest.TestCase):
         definite_datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"},
                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"})
 
-        assert definite_datatakes[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{'type': 'text',
-                'name': 'datatake_identifier',
-                'value': 'GS2A_20180721T083601_016077_N02.06'
-                }]
-        }]
+        assert definite_datatakes[0].get_structured_values() == [
+            {'type': 'text',
+             'name': 'datatake_identifier',
+             'value': 'GS2A_20180721T083601_016077_N02.06'
+            }]
 
         ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
         # # Check definite_cataloging_times
         # definite_cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
         #                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_SGS__20180721T103208_S20180721T072204_D01_N02.06"})
 
-        # assert definite_cataloging_times[0].get_structured_values() == [{
-        #     'type': 'object',
-        #     'name': 'details',
-        #     'values': [{
+        # assert definite_cataloging_times[0].get_structured_values() == [
+        #     {
         #         "value": "2018-07-21T11:03:17.080882",
         #         "type": "timestamp",
         #         "name": "cataloging_time"
-        #             }]
-        # }]
+        #     }]
         ### End Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
 
         # Check definite_baseline
         definite_baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"},
                                                                     explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"})
 
-        assert definite_baseline[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{
+        assert definite_baseline[0].get_structured_values() == [
+            {
                 "value": "N02.06",
                 "type": "text",
                 "name": "baseline"
-                    }]
-        }]
+            }]
 
         #Check baseline
         baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"})
@@ -182,15 +173,12 @@ class TestDam(unittest.TestCase):
         # definite_cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
         #                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__GR_MPS__20180721T103920_S20180721T085229_D01_N02.06"})
 
-        # assert definite_cataloging_times[0].get_structured_values() == [{
-        #     'type': 'object',
-        #     'name': 'details',
-        #     'values': [{
+        # assert definite_cataloging_times[0].get_structured_values() == [
+        #     {
         #         "value": "2018-07-21T11:02:36.601190",
         #         "type": "timestamp",
         #         "name": "cataloging_time"
-        #             }]
-        # }]
+        #     }]
 
         # # Check granule_explicit_ref
         # granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})

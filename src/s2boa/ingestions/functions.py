@@ -577,25 +577,21 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                          "start": gap["start"].isoformat(),
                          "stop": gap["stop"].isoformat(),
                          "values": [{
-                             "name": "details",
-                             "type": "object",
-                             "values": [{
-                                "type": "double",
-                                "value": detector,
-                                "name": "detector"
-                                },{
-                                "type": "text",
-                                "value": gap_source,
-                                "name": "source"
-                            },{
-                                "type": "text",
-                                "value": level,
-                                "name": "level"
-                            },{
-                                "type": "text",
-                                "value": satellite,
-                                "name": "satellite"
-                            }]
+                             "type": "double",
+                             "value": detector,
+                             "name": "detector"
+                         },{
+                             "type": "text",
+                             "value": gap_source,
+                             "name": "source"
+                         },{
+                             "type": "text",
+                             "value": level,
+                             "name": "level"
+                         },{
+                             "type": "text",
+                             "value": satellite,
+                             "name": "satellite"
                          }]
                     }
                     list_of_events.append(gap_event)
@@ -648,11 +644,9 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
 
             # Insert the linked COMPLETENESS event for the automatic completeness check
             planning_event_values = corrected_planned_imaging.get_structured_values()
-            planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                {"name": "status",
-                 "type": "text",
-                 "value": "MISSING"}
-            ]
+            planning_event_values.append({"name": "status",
+                                          "type": "text",
+                                          "value": "MISSING"})
 
             # Add margin of 6/4 seconds to each side of the segment to avoid false alerts
             start = corrected_planned_imaging.start + datetime.timedelta(seconds=6)
@@ -714,11 +708,10 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
 
             # Insert the linked COMPLETENESS event for the automatic completeness check
             isp_validity_values = isp_validity.get_structured_values()
-            isp_validity_values[0]["values"] = [value for value in isp_validity_values[0]["values"] if value["name"] != "status"] + [
-                {"name": "status",
-                 "type": "text",
-                 "value": "MISSING"}
-            ]
+            values = [value for value in isp_validity_values if value["name"] != "status"]
+            values.append({"name": "status",
+                           "type": "text",
+                           "value": "MISSING"})
 
             # Add margin of 6 second to each side of the segment to avoid false alerts
             start = isp_validity.start + datetime.timedelta(seconds=6)
@@ -743,7 +736,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                         "name": "PROCESSING_COMPLETENESS",
                         "back_ref": "ISP_VALIDITY"
                     }],
-                "values": isp_validity_values
+                "values": values
             })
 
         # end if
@@ -765,44 +758,40 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
              "start": datablock["start"].isoformat(),
              "stop": datablock["stop"].isoformat(),
              "values": [{
-                 "name": "details",
-                 "type": "object",
-                 "values": [{
-                    "type": "text",
-                    "value": status,
-                    "name": "status"
-                 },{
-                     "type": "text",
-                     "value": level,
-                     "name": "level"
-                 },{
-                     "type": "text",
-                     "value": satellite,
-                     "name": "satellite"
-                 },{
-                     "name": "processing_centre",
-                     "type": "text",
-                     "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
-                 }]
+                 "type": "text",
+                 "value": status,
+                 "name": "status"
+             },{
+                 "type": "text",
+                 "value": level,
+                 "name": "level"
+             },{
+                 "type": "text",
+                 "value": satellite,
+                 "name": "satellite"
+             },{
+                 "name": "processing_centre",
+                 "type": "text",
+                 "value": system
+             },{
+                 "name": "matching_plan_status",
+                 "type": "text",
+                 "value": planning_matching_status
+             },{
+                 "name": "matching_reception_status",
+                 "type": "text",
+                 "value": reception_matching_status
              }]
         }
         if sensing_orbit != "":
-            planning_processing_completeness_event["values"][0]["values"].append({
+            planning_processing_completeness_event["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            planning_processing_completeness_event["values"][0]["values"].append({
+            planning_processing_completeness_event["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
@@ -827,44 +816,40 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
              "start": datablock["start"].isoformat(),
              "stop": datablock["stop"].isoformat(),
              "values": [{
-                 "name": "details",
-                 "type": "object",
-                 "values": [{
-                    "type": "text",
-                    "value": status,
-                    "name": "status"
-                 },{
-                     "type": "text",
-                     "value": level,
-                     "name": "level"
-                 },{
-                     "type": "text",
-                     "value": satellite,
-                     "name": "satellite"
-                 },{
-                     "name": "processing_centre",
-                     "type": "text",
-                     "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
-                 }]
+                 "type": "text",
+                 "value": status,
+                 "name": "status"
+             },{
+                 "type": "text",
+                 "value": level,
+                 "name": "level"
+             },{
+                 "type": "text",
+                 "value": satellite,
+                 "name": "satellite"
+             },{
+                 "name": "processing_centre",
+                 "type": "text",
+                 "value": system
+             },{
+                 "name": "matching_plan_status",
+                 "type": "text",
+                 "value": planning_matching_status
+             },{
+                 "name": "matching_reception_status",
+                 "type": "text",
+                 "value": reception_matching_status
              }]
         }
         if sensing_orbit != "":
-            processing_reception_completeness_event["values"][0]["values"].append({
+            processing_reception_completeness_event["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            processing_reception_completeness_event["values"][0]["values"].append({
+            processing_reception_completeness_event["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
@@ -885,45 +870,41 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
              "start": datablock["start"].isoformat(),
              "stop": datablock["stop"].isoformat(),
              "values": [{
-                 "name": "details",
-                 "type": "object",
-                 "values": [{
-                    "type": "text",
-                    "value": status,
-                    "name": "status"
-                 },{
-                     "type": "text",
-                     "value": level,
-                     "name": "level"
-                 },{
-                     "type": "text",
-                     "value": satellite,
-                     "name": "satellite"
-                 },{
-                     "name": "processing_centre",
-                     "type": "text",
-                     "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
-                 }],
+                 "type": "text",
+                 "value": status,
+                 "name": "status"
+             },{
+                 "type": "text",
+                 "value": level,
+                 "name": "level"
+             },{
+                 "type": "text",
+                 "value": satellite,
+                 "name": "satellite"
+             },{
+                 "name": "processing_centre",
+                 "type": "text",
+                 "value": system
+             },{
+                 "name": "matching_plan_status",
+                 "type": "text",
+                 "value": planning_matching_status
+             },{
+                 "name": "matching_reception_status",
+                 "type": "text",
+                 "value": reception_matching_status
              }]
         }
 
         if sensing_orbit != "":
-            processing_validity_event["values"][0]["values"].append({
+            processing_validity_event["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            processing_validity_event["values"][0]["values"].append({
+            processing_validity_event["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
@@ -1064,7 +1045,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
 
             for gap in gaps:
                 values = gap.get_structured_values()
-                value_level = [value for value in values[0]["values"] if value["name"] == "level"][0]
+                value_level = [value for value in values if value["name"] == "level"][0]
                 value_level["value"] = level
                 gap_event = {
                     "key": datastrip + "_" + "processing_validity",
@@ -1126,11 +1107,9 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             planning_processing_completeness_generation_time = planned_imaging.source.generation_time.isoformat()
 
             planning_event_values = planned_imaging.get_structured_values()
-            planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                {"name": "status",
-                 "type": "text",
-                 "value": "MISSING"}
-            ]
+            planning_event_values.append({"name": "status",
+                                          "type": "text",
+                                          "value": "MISSING"})
 
             # Add margin of 6/4 seconds to each side of the segment to avoid false alerts
             start = corrected_planned_imaging_event[0].start + datetime.timedelta(seconds=6)
@@ -1184,11 +1163,10 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
 
             # Insert the linked COMPLETENESS event for the automatic completeness check
             isp_validity_values = isp_validity.get_structured_values()
-            isp_validity_values[0]["values"] = [value for value in isp_validity_values[0]["values"] if value["name"] != "status"] + [
-                {"name": "status",
+            values = [value for value in isp_validity_values if value["name"] != "status"]
+            values.append({"name": "status",
                  "type": "text",
-                 "value": "MISSING"}
-            ]
+                 "value": "MISSING"})
 
             # Add margin of 6 second to each side of the segment to avoid false alerts
             start = isp_validity.start + datetime.timedelta(seconds=6)
@@ -1213,7 +1191,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                         "name": "PROCESSING_COMPLETENESS",
                         "back_ref": "ISP_VALIDITY"
                     }],
-                "values": isp_validity_values
+                "values": values
             })
 
         # end if
@@ -1235,45 +1213,41 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
              "start": processing_validity_event.start.isoformat(),
              "stop": processing_validity_event.stop.isoformat(),
              "values": [{
-                 "name": "details",
-                 "type": "object",
-                 "values": [{
-                    "type": "text",
-                    "value": status,
-                    "name": "status"
-                 },{
-                     "type": "text",
-                     "value": level,
-                     "name": "level"
-                 },{
-                     "type": "text",
-                     "value": satellite,
-                     "name": "satellite"
-                 },{
-                     "name": "processing_centre",
-                     "type": "text",
-                     "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
-                 }]
+                 "type": "text",
+                 "value": status,
+                 "name": "status"
+             },{
+                 "type": "text",
+                 "value": level,
+                 "name": "level"
+             },{
+                 "type": "text",
+                 "value": satellite,
+                 "name": "satellite"
+             },{
+                 "name": "processing_centre",
+                 "type": "text",
+                 "value": system
+             },{
+                 "name": "matching_plan_status",
+                 "type": "text",
+                 "value": planning_matching_status
+             },{
+                 "name": "matching_reception_status",
+                 "type": "text",
+                 "value": reception_matching_status
              }]
         }
 
         if sensing_orbit != "":
-            planning_processing_completeness_event["values"][0]["values"].append({
+            planning_processing_completeness_event["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            planning_processing_completeness_event["values"][0]["values"].append({
+            planning_processing_completeness_event["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
@@ -1299,45 +1273,41 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
              "start": processing_validity_event.start.isoformat(),
              "stop": processing_validity_event.stop.isoformat(),
              "values": [{
-                 "name": "details",
-                 "type": "object",
-                 "values": [{
-                    "type": "text",
-                    "value": status,
-                    "name": "status"
-                 },{
-                     "type": "text",
-                     "value": level,
-                     "name": "level"
-                 },{
-                     "type": "text",
-                     "value": satellite,
-                     "name": "satellite"
-                 },{
-                     "name": "processing_centre",
-                     "type": "text",
-                     "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
-                 }]
+                 "type": "text",
+                 "value": status,
+                 "name": "status"
+             },{
+                 "type": "text",
+                 "value": level,
+                 "name": "level"
+             },{
+                 "type": "text",
+                 "value": satellite,
+                 "name": "satellite"
+             },{
+                 "name": "processing_centre",
+                 "type": "text",
+                 "value": system
+             },{
+                 "name": "matching_plan_status",
+                 "type": "text",
+                 "value": planning_matching_status
+             },{
+                 "name": "matching_reception_status",
+                 "type": "text",
+                 "value": reception_matching_status
              }]
         }
 
         if sensing_orbit != "":
-            processing_reception_completeness_event["values"][0]["values"].append({
+            processing_reception_completeness_event["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            processing_reception_completeness_event["values"][0]["values"].append({
+            processing_reception_completeness_event["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
@@ -1359,45 +1329,41 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
              "start": processing_validity_event.start.isoformat(),
              "stop": processing_validity_event.stop.isoformat(),
              "values": [{
-                 "name": "details",
-                 "type": "object",
-                 "values": [{
-                    "type": "text",
-                    "value": status,
-                    "name": "status"
-                 },{
-                     "type": "text",
-                     "value": level,
-                     "name": "level"
-                 },{
-                     "type": "text",
-                     "value": satellite,
-                     "name": "satellite"
-                 },{
-                     "name": "processing_centre",
-                     "type": "text",
-                     "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
-                 }],
+                 "type": "text",
+                 "value": status,
+                 "name": "status"
+             },{
+                 "type": "text",
+                 "value": level,
+                 "name": "level"
+             },{
+                 "type": "text",
+                 "value": satellite,
+                 "name": "satellite"
+             },{
+                 "name": "processing_centre",
+                 "type": "text",
+                 "value": system
+             },{
+                 "name": "matching_plan_status",
+                 "type": "text",
+                 "value": planning_matching_status
+             },{
+                 "name": "matching_reception_status",
+                 "type": "text",
+                 "value": reception_matching_status
              }]
         }
 
         if sensing_orbit != "":
-            processing_validity_event["values"][0]["values"].append({
+            processing_validity_event["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            processing_validity_event["values"][0]["values"].append({
+            processing_validity_event["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
@@ -1583,17 +1549,17 @@ def build_orbpre_file(start_events, stop_events, satellite, orbpre_events = None
         logger.debug("The orbpre events cover from {} to {}".format(orbpre_events[0]["start"], orbpre_events[-1]["start"]))
         
         for event in orbpre_events:
-            tai = [value["value"] for value in event["values"][0]["values"] if value["name"] == "tai"][0]
+            tai = [value["value"] for value in event["values"] if value["name"] == "tai"][0]
             utc = event["start"]
-            ut1 = [value["value"] for value in event["values"][0]["values"] if value["name"] == "ut1"][0]
-            orbit = [value["value"] for value in event["values"][0]["values"] if value["name"] == "orbit"][0]
-            x = [value["value"] for value in event["values"][0]["values"] if value["name"] == "x"][0]
-            y = [value["value"] for value in event["values"][0]["values"] if value["name"] == "y"][0]
-            z = [value["value"] for value in event["values"][0]["values"] if value["name"] == "z"][0]
-            vx = [value["value"] for value in event["values"][0]["values"] if value["name"] == "vx"][0]
-            vy = [value["value"] for value in event["values"][0]["values"] if value["name"] == "vy"][0]
-            vz = [value["value"] for value in event["values"][0]["values"] if value["name"] == "vz"][0]
-            quality = [value["value"] for value in event["values"][0]["values"] if value["name"] == "quality"][0]
+            ut1 = [value["value"] for value in event["values"] if value["name"] == "ut1"][0]
+            orbit = [value["value"] for value in event["values"] if value["name"] == "orbit"][0]
+            x = [value["value"] for value in event["values"] if value["name"] == "x"][0]
+            y = [value["value"] for value in event["values"] if value["name"] == "y"][0]
+            z = [value["value"] for value in event["values"] if value["name"] == "z"][0]
+            vx = [value["value"] for value in event["values"] if value["name"] == "vx"][0]
+            vy = [value["value"] for value in event["values"] if value["name"] == "vy"][0]
+            vz = [value["value"] for value in event["values"] if value["name"] == "vz"][0]
+            quality = [value["value"] for value in event["values"] if value["name"] == "quality"][0]
             osv = '''
             <OSV>
             <TAI>TAI={}</TAI>
@@ -1659,10 +1625,9 @@ def associate_footprints(events, satellite, orbpre_events = None, return_polygon
                 os.remove(orbpre_file_path)
                 raise EventsStructureIncorrect("The items of the events list has to be a dict. Received item {}".format(event))
             # end if
-
             footprint_details = []
-            if "values" in event.keys() and len(event["values"]) == 1 and "values" in event["values"][0]:
-                footprint_details = [value for value in event["values"][0]["values"] if value["name"] == "footprint_details"]
+            if "values" in event.keys():
+                footprint_details = [value for value in event["values"] if re.match("footprint_details.*", value["name"])]
             # end if
             event_with_footprint = event.copy()
 
@@ -1686,14 +1651,11 @@ def associate_footprints(events, satellite, orbpre_events = None, return_polygon
                         footprints = correct_footprint(coordinates)
 
                         for i, footprint in enumerate(footprints):
+
                             if len(footprint) > 0:
 
-                                if not ("values" in event_with_footprint.keys() and len(event_with_footprint["values"]) == 1 and "values" in event_with_footprint["values"][0]):
-                                    event_with_footprint["values"] = [{
-                                        "name": "details",
-                                        "type": "object",
-                                        "values": []
-                                    }]
+                                if not ("values" in event_with_footprint.keys() and len(event_with_footprint["values"]) > 0):
+                                    event_with_footprint["values"] = []
                                 # end if
 
                                 footprint_object_name = "footprint_details"
@@ -1708,7 +1670,7 @@ def associate_footprints(events, satellite, orbpre_events = None, return_polygon
                                 footprint_object = [{"name": "footprint",
                                                      "type": "geometry",
                                                      "value": footprint}]
-                                event_with_footprint["values"][0]["values"].append({
+                                event_with_footprint["values"].append({
                                     "name": footprint_object_name,
                                     "type": "object",
                                     "values": footprint_object

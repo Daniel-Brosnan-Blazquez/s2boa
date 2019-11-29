@@ -74,27 +74,21 @@ class TestDhus(unittest.TestCase):
         definite_dissemination_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DHUS_DISSEMINATION_TIME"},
                                                      explicit_refs = {"op": "like", "filter": "S2B_OPER_MSI_L1C_DS_SGS__20180719T124224_S20180719T085240_N02.06"})
 
-        assert definite_dissemination_time[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{'type': 'timestamp',
-                'name': 'dhus_dissemination_time',
-                'value': '2018-07-21T08:54:48'
-                }]
-        }]
+        assert definite_dissemination_time[0].get_structured_values() == [
+            {'type': 'timestamp',
+             'name': 'dhus_dissemination_time',
+             'value': '2018-07-21T08:54:48'
+            }]
 
         #Check definite user_products
         definite_dissemination_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "USER_PRODUCT"},
                                                      explicit_refs = {"op": "like", "filter": "S2B_OPER_MSI_L1C_TL_SGS__20180719T124224_A007140_T36VXH_N02.06"})
 
-        assert definite_dissemination_time[0].get_structured_values() == [{
-            'type': 'object',
-            'name': 'details',
-            'values': [{'type': 'text',
-                'name': 'product_name',
-                'value': 'S2B_MSIL1C_20180719T084559_N0206_R107_T36VXH_20180719T124224.SAFE'
-                }]
-        }]
+        assert definite_dissemination_time[0].get_structured_values() == [
+            {'type': 'text',
+             'name': 'product_name',
+             'value': 'S2B_MSIL1C_20180719T084559_N0206_R107_T36VXH_20180719T124224.SAFE'
+            }]
 
         #Check dissemination_times
         dissemination_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DHUS_DISSEMINATION_TIME"})

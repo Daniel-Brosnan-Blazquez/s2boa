@@ -130,15 +130,11 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "CATALOGING_TIME",
                 "system": system
                 },
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "cataloging_time",
-                     "type": "timestamp",
-                     "value": cataloging_time
-                     }]
-            }]
+            "values": [
+                {"name": "cataloging_time",
+                 "type": "timestamp",
+                 "value": cataloging_time
+                }]
         }
         list_of_annotations.append(cataloging_annotation)
 
@@ -151,14 +147,10 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "DATATAKE",
                 "system": satellite
                 },
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "datatake_identifier",
-                     "type": "text",
-                     "value": datatake_id
-                     }]
+            "values": [
+                {"name": "datatake_identifier",
+                 "type": "text",
+                 "value": datatake_id
                 }]
             }
             list_of_annotations.append(datatake_annotation)
@@ -169,14 +161,10 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "BASELINE",
                 "system": system
                 },
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "baseline",
-                     "type": "text",
-                     "value": baseline
-                     }]
+            "values": [
+                {"name": "baseline",
+                 "type": "text",
+                 "value": baseline
                 }]
             }
             list_of_annotations.append(baseline_annotation)

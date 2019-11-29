@@ -75,67 +75,63 @@ class TestOrbpre(unittest.TestCase):
         definite_event = self.query_eboa.get_events(gauge_names = {"filter": "ORBIT_PREDICTION", "op": "like"},
                                                     start_filters = [{"date": "2018-07-21 09:50:51.776833", "op": "=="}])
 
-        assert definite_event[0].get_structured_values() == [{
-            "name": "orbit_information",
-            "type": "object",
-            "values": [
-                {
-                    "name": "tai",
-                    "type": "timestamp",
-                    "value": "2018-07-21T09:51:28.776833"
-                },
-                {
-                    "name": "ut1",
-                    "type": "timestamp",
-                    "value": "2018-07-21T09:50:51.845800"
-                },
-                {
-                    "name": "orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "x",
-                    "type": "double",
-                    "value": "-7065094.736"
-                },
-                {
-                    "name": "y",
-                    "type": "double",
-                    "value": "-1221573.823"
-                },
-                {
-                    "name": "z",
-                    "type": "double",
-                    "value": "0.0"
-                },
-                {
-                    "name": "vx",
-                    "type": "double",
-                    "value": "-269.810341"
-                },
-                {
-                    "name": "vy",
-                    "type": "double",
-                    "value": "1610.581671"
-                },
-                {
-                    "name": "vz",
-                    "type": "double",
-                    "value": "7374.757343"
-                },
-                {
-                    "name": "satellite",
-                    "type": "text",
-                    "value": "S2A"
-                },
-                {
-                    "name": "quality",
-                    "type": "double",
-                    "value": "0.0"
-                }
-            ]            
-        }]
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "tai",
+                "type": "timestamp",
+                "value": "2018-07-21T09:51:28.776833"
+            },
+            {
+                "name": "ut1",
+                "type": "timestamp",
+                "value": "2018-07-21T09:50:51.845800"
+            },
+            {
+                "name": "orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "x",
+                "type": "double",
+                "value": "-7065094.736"
+            },
+            {
+                "name": "y",
+                "type": "double",
+                "value": "-1221573.823"
+            },
+            {
+                "name": "z",
+                "type": "double",
+                "value": "0.0"
+            },
+            {
+                "name": "vx",
+                "type": "double",
+                "value": "-269.810341"
+            },
+            {
+                "name": "vy",
+                "type": "double",
+                "value": "1610.581671"
+            },
+            {
+                "name": "vz",
+                "type": "double",
+                "value": "7374.757343"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "quality",
+                "type": "double",
+                "value": "0.0"
+            }
+        ]            
 
     def test_obrpre_with_plan(self):
 
@@ -197,94 +193,90 @@ class TestOrbpre(unittest.TestCase):
         definite_event = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "like"},
                                                     start_filters = [{"date": "2018-07-21T10:37:19.534390", "op": "=="}])
 
-        assert definite_event[0].get_structured_values() == [{
-            "name": "details",
-            "type": "object",
-            "values": [
-                {
-                    "name": "start_request",
-                    "type": "text",
-                    "value": "MPMMPBSA"
-                },
-                {
-                    "name": "stop_request",
-                    "type": "text",
-                    "value": "MPMMPBSA"
-                },
-                {
-                    "name": "start_orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "start_angle",
-                    "type": "double",
-                    "value": "166.2002"
-                },
-                {
-                    "name": "stop_orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "stop_angle",
-                    "type": "double",
-                    "value": "166.2002"
-                },
-                {
-                    "name": "satellite",
-                    "type": "text",
-                    "value": "S2A"
-                },
-                {
-                    "name": "playback_mean",
-                    "type": "text",
-                    "value": "XBAND"
-                },
-                {
-                    "name": "playback_type",
-                    "type": "text",
-                    "value": "SAD"
-                },
-                {
-                    "name": "parameters",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "MEM_FREE",
-                            "type": "double",
-                            "value": "0.0"
-                        }
-                    ]
-                },
-                {
-                    "name": "status_correction",
-                    "type": "text",
-                    "value": "TIME_CORRECTED"
-                },
-                {
-                    "name": "delta_start",
-                    "type": "double",
-                    "value": "-5.10339"
-                },
-                {
-                    "name": "delta_stop",
-                    "type": "double",
-                    "value": "-5.10339"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((1.562179 13.283699, -1.035809 13.852637, -1.035809 13.852637, 1.562179 13.283699))"
-                        }
-                    ]
-                }
-            ]
-        }]
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "start_request",
+                "type": "text",
+                "value": "MPMMPBSA"
+            },
+            {
+                "name": "stop_request",
+                "type": "text",
+                "value": "MPMMPBSA"
+            },
+            {
+                "name": "start_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "start_angle",
+                "type": "double",
+                "value": "166.2002"
+            },
+            {
+                "name": "stop_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "stop_angle",
+                "type": "double",
+                "value": "166.2002"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "playback_mean",
+                "type": "text",
+                "value": "XBAND"
+            },
+            {
+                "name": "playback_type",
+                "type": "text",
+                "value": "SAD"
+            },
+            {
+                "name": "parameters",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "MEM_FREE",
+                        "type": "double",
+                        "value": "0.0"
+                    }
+                ]
+            },
+            {
+                "name": "status_correction",
+                "type": "text",
+                "value": "TIME_CORRECTED"
+            },
+            {
+                "name": "delta_start",
+                "type": "double",
+                "value": "-5.10339"
+            },
+            {
+                "name": "delta_stop",
+                "type": "double",
+                "value": "-5.10339"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((1.562179 13.283699, -1.035809 13.852637, -1.035809 13.852637, 1.562179 13.283699))"
+                    }
+                ]
+            }
+        ]
 
         if previous_logging_level:
             os.environ["EBOA_LOG_LEVEL"] = previous_logging_level

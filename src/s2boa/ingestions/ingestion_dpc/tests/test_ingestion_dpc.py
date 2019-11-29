@@ -98,42 +98,38 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(processing_validities) == 1
         processing_validity_l0 = processing_validities[0]
 
-        assert processing_validity_l0.get_structured_values() == [{
-           "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "processing_centre"
-                },
-                {
-                    "value": "NO_MATCHED_PLANNED_IMAGING",
-                    "type": "text",
-                    "name": "matching_plan_status"
-                },
-                {
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "type": "text",
-                    "name": "matching_reception_status"
-                }
-            ],
-            "type": "object",
-            "name": "details"
-        }]
+        assert processing_validity_l0.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "processing_centre"
+            },
+            {
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "type": "text",
+                "name": "matching_plan_status"
+            },
+            {
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "type": "text",
+                "name": "matching_reception_status"
+            }
+        ]
 
 
     def test_dpc_report_and_rep_pass_L0_3_scenes(self):
@@ -257,59 +253,55 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_plan) == 1
 
-        assert processing_validity_l0.get_structured_values() == [{
-           "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "processing_centre"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text",
-                    "name": "matching_plan_status"
-                },
-                {
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "type": "text",
-                    "name": "matching_reception_status"
-                },
-                {
-                    "value": "16077.0",
-                    "type": "double",
-                    "name": "sensing_orbit"
-                },
-               {
-                   "name": "footprint_details",
-                   "type": "object",
-                   "values": [
-                       {
-                           "name": "footprint",
-                           "type": "geometry",
-                           "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                       }
-                   ]
-               }
-            ],
-            "type": "object",
-            "name": "details"
-        }]
-
+        assert processing_validity_l0.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "processing_centre"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text",
+                "name": "matching_plan_status"
+            },
+            {
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "type": "text",
+                "name": "matching_reception_status"
+            },
+            {
+                "value": "16077.0",
+                "type": "double",
+                "name": "sensing_orbit"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
+        
         # Check planning completeness
         planning_completeness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
@@ -319,58 +311,54 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(planning_completeness) == 1
         planning_completeness_l0 = planning_completeness[0]
 
-        assert planning_completeness_l0.get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "COMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "level",
-                    "value": "L0",
-                    "type": "text"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "processing_centre",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_plan_status",
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_reception_status",
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "16077.0",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                        }
-                    ]
-                }
-            ],
-            "type": "object"
-        }]
+        assert planning_completeness_l0.get_structured_values() == [
+            {
+                "name": "status",
+                "value": "COMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "level",
+                "value": "L0",
+                "type": "text"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "processing_centre",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "matching_plan_status",
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text"
+            },
+            {
+                "name": "matching_reception_status",
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "16077.0",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
                                                            start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
@@ -454,47 +442,43 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_isp_validity) == 1
 
-        assert processing_validity_l0.get_structured_values() == [{
-           "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "processing_centre"
-                },
-                {
-                    "value": "NO_MATCHED_PLANNED_IMAGING",
-                    "type": "text",
-                    "name": "matching_plan_status"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "type": "text",
-                    "name": "matching_reception_status"
-                },
-                {
-                    "value": "16078.0",
-                    "type": "double",
-                    "name": "downlink_orbit"
-                }
-            ],
-            "type": "object",
-            "name": "details"
-        }]
+        assert processing_validity_l0.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "processing_centre"
+            },
+            {
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "type": "text",
+                "name": "matching_plan_status"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "type": "text",
+                "name": "matching_reception_status"
+            },
+            {
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            }
+        ]
 
     def test_dpc_report_L1A_L1B_only(self):
 
@@ -621,42 +605,38 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
 
-        assert processing_validity_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "name": "processing_centre",
-                    "type": "text"
-                },
-                {
-                    "value": "NO_MATCHED_PLANNED_IMAGING",
-                    "name": "matching_plan_status",
-                    "type": "text"
-                },
-                {
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "name": "matching_reception_status",
-                    "type": "text"
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert processing_validity_l1c.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "processing_centre",
+                "type": "text"
+            },
+            {
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "name": "matching_reception_status",
+                "type": "text"
+            }
+        ]
 
         # Check planning completeness
         planning_completeness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
@@ -667,42 +647,38 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(planning_completeness) == 1
         planning_completeness_l1c = planning_completeness[0]
 
-        assert planning_completeness_l1c.get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "COMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "level",
-                    "value": "L1C",
-                    "type": "text"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "processing_centre",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_plan_status",
-                    "value": "NO_MATCHED_PLANNED_IMAGING",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_reception_status",
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "type": "text"
-                }
-            ],
-            "type": "object"
-        }]
+        assert planning_completeness_l1c.get_structured_values() == [
+            {
+                "name": "status",
+                "value": "COMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "level",
+                "value": "L1C",
+                "type": "text"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "processing_centre",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "matching_plan_status",
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "type": "text"
+            },
+            {
+                "name": "matching_reception_status",
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "type": "text"
+            }
+        ]
 
     def test_dpc_report_L1C_with_L0_plan(self):
         filename = "S2A_NPPF.EOF"
@@ -807,58 +783,54 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_plan) == 1
 
-        assert processing_validity_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "name": "processing_centre",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "name": "matching_plan_status",
-                    "type": "text"
-                },
-                {
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "name": "matching_reception_status",
-                    "type": "text"
-                },
-                {
-                    "value": "16077.0",
-                    "name": "sensing_orbit",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert processing_validity_l1c.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "processing_centre",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "name": "matching_reception_status",
+                "type": "text"
+            },
+            {
+                "value": "16077.0",
+                "name": "sensing_orbit",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
         # Check planning completeness
         planning_completeness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
@@ -869,58 +841,54 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(planning_completeness) == 1
         planning_completeness_l1c = planning_completeness[0]
 
-        assert planning_completeness_l1c.get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "COMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "level",
-                    "value": "L1C",
-                    "type": "text"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "processing_centre",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_plan_status",
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_reception_status",
-                    "value": "NO_MATCHED_ISP_VALIDITY",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "16077.0",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                        }
-                    ]
-                }
-            ],
-            "type": "object"
-        }]
+        assert planning_completeness_l1c.get_structured_values() == [
+            {
+                "name": "status",
+                "value": "COMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "level",
+                "value": "L1C",
+                "type": "text"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "processing_centre",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "matching_plan_status",
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text"
+            },
+            {
+                "name": "matching_reception_status",
+                "value": "NO_MATCHED_ISP_VALIDITY",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "16077.0",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
         
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
                                                            start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
@@ -1080,63 +1048,59 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_isp_validity) == 1
 
-        assert processing_validity_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "name": "processing_centre",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "name": "matching_plan_status",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "name": "matching_reception_status",
-                    "type": "text"
-                },
-                {
-                    "value": "16077.0",
-                    "name": "sensing_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "16078.0",
-                    "name": "downlink_orbit",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert processing_validity_l1c.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "processing_centre",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "name": "matching_reception_status",
+                "type": "text"
+            },
+            {
+                "value": "16077.0",
+                "name": "sensing_orbit",
+                "type": "double"
+            },
+            {
+                "value": "16078.0",
+                "name": "downlink_orbit",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
     def test_dpc_report_L1C_with_L0_rep_pass(self):
 
@@ -1235,48 +1199,43 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_isp_validity) == 1
 
-        assert processing_validity_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "name": "processing_centre",
-                    "type": "text"
-                },
-                {
-                    "value": "NO_MATCHED_PLANNED_IMAGING",
-                    "name": "matching_plan_status",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "name": "matching_reception_status",
-                    "type": "text"
-                },
-                {
-                    "value": "16078.0",
-                    "name": "downlink_orbit",
-                    "type": "double"
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
-
+        assert processing_validity_l1c.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "processing_centre",
+                "type": "text"
+            },
+            {
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "name": "matching_reception_status",
+                "type": "text"
+            },
+            {
+                "value": "16078.0",
+                "name": "downlink_orbit",
+                "type": "double"
+            }
+        ]
 
     def test_insert_dpc_L0_L1B_L1C_with_plan_and_rep_pass(self):
 
@@ -1472,63 +1431,59 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_isp_validity) == 1
 
-        assert processing_validity_l0.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "processing_centre"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text",
-                    "name": "matching_plan_status"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "type": "text",
-                    "name": "matching_reception_status"
-                },
-                {
-                    "value": "16077.0",
-                    "type": "double",
-                    "name": "sensing_orbit"
-                },
-                {
-                    "value": "16078.0",
-                    "type": "double",
-                    "name": "downlink_orbit"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                        }
-                    ]
-                }
-            ],
-            "type": "object",
-            "name": "details"
-        }]
+        assert processing_validity_l0.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "processing_centre"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text",
+                "name": "matching_plan_status"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "type": "text",
+                "name": "matching_reception_status"
+            },
+            {
+                "value": "16077.0",
+                "type": "double",
+                "name": "sensing_orbit"
+            },
+            {
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
@@ -1546,63 +1501,59 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
 
-        assert processing_validity_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "COMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "name": "processing_centre",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "name": "matching_plan_status",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "name": "matching_reception_status",
-                    "type": "text"
-                },
-                {
-                    "value": "16077.0",
-                    "name": "sensing_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "16078.0",
-                    "name": "downlink_orbit",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert processing_validity_l1c.get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "processing_centre",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "name": "matching_reception_status",
+                "type": "text"
+            },
+            {
+                "value": "16077.0",
+                "name": "sensing_orbit",
+                "type": "double"
+            },
+            {
+                "value": "16078.0",
+                "name": "downlink_orbit",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
+                    }
+                ]
+            }
+        ]
 
         # Check ISP validity completeness
         isp_completeness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
@@ -1638,63 +1589,59 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(planning_completeness) == 1
         planning_completeness_l0 = planning_completeness[0]
 
-        assert planning_completeness_l0.get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "COMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "level",
-                    "value": "L0",
-                    "type": "text"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "processing_centre",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_plan_status",
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_reception_status",
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "16077.0",
-                    "type": "double"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "value": "16078.0",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                        }
-                    ]
-                }
-            ],
-            "type": "object"
-        }]
+        assert planning_completeness_l0.get_structured_values() == [
+            {
+                "name": "status",
+                "value": "COMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "level",
+                "value": "L0",
+                "type": "text"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "processing_centre",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "matching_plan_status",
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text"
+            },
+            {
+                "name": "matching_reception_status",
+                "value": "MATCHED_ISP_VALIDITY",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "16077.0",
+                "type": "double"
+            },
+            {
+                "name": "downlink_orbit",
+                "value": "16078.0",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "like"},
                                                            start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
@@ -1740,63 +1687,59 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(planning_completeness) == 1
         planning_completeness_l1c = planning_completeness[0]
 
-        assert planning_completeness_l1c.get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "COMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "level",
-                    "value": "L1C",
-                    "type": "text"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "processing_centre",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_plan_status",
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_reception_status",
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "16077.0",
-                    "type": "double"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "value": "16078.0",
-                    "type": "double"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
-                        }
-                    ]
-                }
-            ],
-            "type": "object"
-        }]
+        assert planning_completeness_l1c.get_structured_values() == [
+            {
+                "name": "status",
+                "value": "COMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "level",
+                "value": "L1C",
+                "type": "text"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "processing_centre",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "matching_plan_status",
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text"
+            },
+            {
+                "name": "matching_reception_status",
+                "value": "MATCHED_ISP_VALIDITY",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "16077.0",
+                "type": "double"
+            },
+            {
+                "name": "downlink_orbit",
+                "value": "16078.0",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
+                    }
+                ]
+            }
+        ]
         
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
                                                            start_filters = [{"date": "2018-07-21T08:36:04.255634", "op": "=="}],
@@ -1885,63 +1828,59 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(processing_validities) == 1
         processing_validity_l0 = processing_validities[0]
 
-        assert processing_validity_l0.get_structured_values() == [{
-           "values": [
-                {
-                    "value": "INCOMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "processing_centre"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "type": "text",
-                    "name": "matching_plan_status"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "type": "text",
-                    "name": "matching_reception_status"
-                },
-                {
-                    "value": "16077.0",
-                    "type": "double",
-                    "name": "sensing_orbit"
-                },
-                {
-                    "value": "16078.0",
-                    "type": "double",
-                    "name": "downlink_orbit"
-                },
-               {
-                   "name": "footprint_details",
-                   "type": "object",
-                   "values": [
-                       {
-                           "name": "footprint",
-                           "type": "geometry",
-                           "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                       }
-                   ]
-               }
-            ],
-            "type": "object",
-            "name": "details"
-        }]
+        assert processing_validity_l0.get_structured_values() == [
+            {
+                "value": "INCOMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "processing_centre"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "type": "text",
+                "name": "matching_plan_status"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "type": "text",
+                "name": "matching_reception_status"
+            },
+            {
+                "value": "16077.0",
+                "type": "double",
+                "name": "sensing_orbit"
+            },
+            {
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
@@ -1951,63 +1890,59 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
 
-        assert processing_validity_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "INCOMPLETE",
-                    "name": "status",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "value": "MPS_",
-                    "name": "processing_centre",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_PLANNED_IMAGING",
-                    "name": "matching_plan_status",
-                    "type": "text"
-                },
-                {
-                    "value": "MATCHED_ISP_VALIDITY",
-                    "name": "matching_reception_status",
-                    "type": "text"
-                },
-                {
-                    "value": "16077.0",
-                    "name": "sensing_orbit",
-                    "type": "double"
-                },
-                {
-                    "value": "16078.0",
-                    "name": "downlink_orbit",
-                    "type": "double"
-                },
-               {
-                   "name": "footprint_details",
-                   "type": "object",
-                   "values": [
-                       {
-                           "name": "footprint",
-                           "type": "geometry",
-                           "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
-                       }
-                   ]
-               }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert processing_validity_l1c.get_structured_values() == [
+            {
+                "value": "INCOMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "processing_centre",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "MATCHED_ISP_VALIDITY",
+                "name": "matching_reception_status",
+                "type": "text"
+            },
+            {
+                "value": "16077.0",
+                "name": "sensing_orbit",
+                "type": "double"
+            },
+            {
+                "value": "16078.0",
+                "name": "downlink_orbit",
+                "type": "double"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                    }
+                ]
+            }
+        ]
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"})
@@ -2035,43 +1970,39 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_gap) == 1
 
-        assert first_processing_gap_l0.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "12.0",
-                    "name": "detector",
-                    "type": "double"
-                },
-                {
-                    "value": "processing",
-                    "name": "source",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-               {
-                   "name": "footprint_details",
-                   "type": "object",
-                   "values": [
-                       {
-                           "name": "footprint",
-                           "type": "geometry",
-                           "value": "POLYGON ((30.318662 27.492084, 27.467602 28.083913, 27.467602 28.083913, 30.318662 27.492084))"
-                       }
-                   ]
-               }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert first_processing_gap_l0.get_structured_values() == [
+            {
+                "value": "12.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "processing",
+                "name": "source",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.318662 27.492084, 27.467602 28.083913, 27.467602 28.083913, 30.318662 27.492084))"
+                    }
+                ]
+            }
+        ]
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
@@ -2094,43 +2025,39 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_gap) == 1
 
-        assert second_processing_gap_l0.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "12.0",
-                    "name": "detector",
-                    "type": "double"
-                },
-                {
-                    "value": "reception",
-                    "name": "source",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.273379 27.327592, 27.426579 27.919008, 27.426579 27.919008, 30.273379 27.327592))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert second_processing_gap_l0.get_structured_values() == [
+            {
+                "value": "12.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "reception",
+                "name": "source",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.273379 27.327592, 27.426579 27.919008, 27.426579 27.919008, 30.273379 27.327592))"
+                    }
+                ]
+            }
+        ]
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
@@ -2152,43 +2079,39 @@ class TestDpcIngestion(unittest.TestCase):
                                                     event_uuid_links = {"filter": [str(third_processing_gap_l0.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
-        assert third_processing_gap_l0.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "1.0",
-                    "name": "detector",
-                    "type": "double"
-                },
-                {
-                    "value": "processing",
-                    "name": "source",
-                    "type": "text"
-                },
-                {
-                    "value": "L0",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.208661 27.091819, 27.36789 27.682651, 27.36789 27.682651, 30.208661 27.091819))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert third_processing_gap_l0.get_structured_values() == [
+            {
+                "value": "1.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "processing",
+                "name": "source",
+                "type": "text"
+            },
+            {
+                "value": "L0",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.208661 27.091819, 27.36789 27.682651, 27.36789 27.682651, 30.208661 27.091819))"
+                    }
+                ]
+            }
+        ]
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"})
@@ -2217,43 +2140,39 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_gap) == 1
 
-        assert first_processing_gap_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "12.0",
-                    "name": "detector",
-                    "type": "double"
-                },
-                {
-                    "value": "processing",
-                    "name": "source",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.318662 27.492084, 27.467602 28.083913, 27.467602 28.083913, 30.318662 27.492084))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert first_processing_gap_l1c.get_structured_values() == [
+            {
+                "value": "12.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "processing",
+                "name": "source",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.318662 27.492084, 27.467602 28.083913, 27.467602 28.083913, 30.318662 27.492084))"
+                    }
+                ]
+            }
+        ]
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
@@ -2274,43 +2193,39 @@ class TestDpcIngestion(unittest.TestCase):
                                                     event_uuid_links = {"filter": [str(second_processing_gap_l1c.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
-        assert second_processing_gap_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "12.0",
-                    "name": "detector",
-                    "type": "double"
-                },
-                {
-                    "value": "reception",
-                    "name": "source",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.273379 27.327592, 27.426579 27.919008, 27.426579 27.919008, 30.273379 27.327592))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert second_processing_gap_l1c.get_structured_values() == [
+            {
+                "value": "12.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "reception",
+                "name": "source",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.273379 27.327592, 27.426579 27.919008, 27.426579 27.919008, 30.273379 27.327592))"
+                    }
+                ]
+            }
+        ]
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
@@ -2332,43 +2247,39 @@ class TestDpcIngestion(unittest.TestCase):
                                                     event_uuid_links = {"filter": [str(third_processing_gap_l1c.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
-        assert third_processing_gap_l1c.get_structured_values() == [{
-            "values": [
-                {
-                    "value": "1.0",
-                    "name": "detector",
-                    "type": "double"
-                },
-                {
-                    "value": "processing",
-                    "name": "source",
-                    "type": "text"
-                },
-                {
-                    "value": "L1C",
-                    "name": "level",
-                    "type": "text"
-                },
-                {
-                    "value": "S2A",
-                    "name": "satellite",
-                    "type": "text"
-                },
-                {
-                    "name": "footprint_details",
-                    "type": "object",
-                    "values": [
-                        {
-                            "name": "footprint",
-                            "type": "geometry",
-                            "value": "POLYGON ((30.208661 27.091819, 27.36789 27.682651, 27.36789 27.682651, 30.208661 27.091819))"
-                        }
-                    ]
-                }
-            ],
-            "name": "details",
-            "type": "object"
-        }]
+        assert third_processing_gap_l1c.get_structured_values() == [
+            {
+                "value": "1.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "processing",
+                "name": "source",
+                "type": "text"
+            },
+            {
+                "value": "L1C",
+                "name": "level",
+                "type": "text"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "name": "footprint_details",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "footprint",
+                        "type": "geometry",
+                        "value": "POLYGON ((30.208661 27.091819, 27.36789 27.682651, 27.36789 27.682651, 30.208661 27.091819))"
+                    }
+                ]
+            }
+        ]
 
     def test_insert_2_dpc_L0_L1B_L1C_L2A_with_plan_and_rep_pass(self):
 

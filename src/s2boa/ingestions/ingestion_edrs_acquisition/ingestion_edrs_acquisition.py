@@ -122,39 +122,35 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                         "name": "PLAYBACK_GAP",
                         "back_ref": "PLAYBACK_VALIDITY"
                     }],
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
-                        {"name": "downlink_orbit",
-                         "type": "double",
-                         "value": downlink_orbit},
-                        {"name": "satellite",
-                         "type": "text",
-                         "value": satellite},
-                        {"name": "reception_station",
-                         "type": "text",
-                         "value": "EDRS"},
-                        {"name": "channel",
-                         "type": "double",
-                         "value": channel},
-                        {"name": "vcid",
-                         "type": "double",
-                         "value": vcid_number},
-                        {"name": "downlink_mode",
-                         "type": "text",
-                         "value": downlink_mode},
-                        {"name": "estimated_lost",
-                         "type": "double",
-                         "value": estimated_lost},
-                        {"name": "pre_counter",
-                         "type": "double",
-                         "value": pre_counter},
-                        {"name": "post_counter",
-                         "type": "double",
-                         "value": post_counter}
-                   ]
-                }]
+                "values": [
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": "EDRS"},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": channel},
+                    {"name": "vcid",
+                     "type": "double",
+                     "value": vcid_number},
+                    {"name": "downlink_mode",
+                     "type": "text",
+                     "value": downlink_mode},
+                    {"name": "estimated_lost",
+                     "type": "double",
+                     "value": estimated_lost},
+                    {"name": "pre_counter",
+                     "type": "double",
+                     "value": pre_counter},
+                    {"name": "post_counter",
+                     "type": "double",
+                     "value": post_counter}
+                ]
             }
 
             # Insert gap_event
@@ -218,33 +214,29 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                         }],
                     "start": planned_playback.start.isoformat(),
                     "stop": planned_playback.stop.isoformat(),
-                    "values": [{
-                        "name": "details",
-                        "type": "object",
-                        "values": [
-                            {"name": "status",
-                             "type": "text",
-                             "value": completeness_status},
-                            {"name": "downlink_orbit",
-                             "type": "double",
-                             "value": downlink_orbit},
-                            {"name": "satellite",
-                             "type": "text",
-                             "value": satellite},
-                            {"name": "reception_station",
-                             "type": "text",
-                             "value": "EDRS"},
-                            {"name": "channel",
-                             "type": "double",
-                             "value": channel},
-                            {"name": "vcid",
-                             "type": "double",
-                             "value": vcid_number},
-                            {"name": "downlink_mode",
-                             "type": "text",
-                             "value": downlink_mode},
-                        ]
-                    }]
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": completeness_status},
+                        {"name": "downlink_orbit",
+                         "type": "double",
+                         "value": downlink_orbit},
+                        {"name": "satellite",
+                         "type": "text",
+                         "value": satellite},
+                        {"name": "reception_station",
+                         "type": "text",
+                         "value": "EDRS"},
+                        {"name": "channel",
+                         "type": "double",
+                         "value": channel},
+                        {"name": "vcid",
+                         "type": "double",
+                         "value": vcid_number},
+                        {"name": "downlink_mode",
+                         "type": "text",
+                         "value": downlink_mode},
+                    ]
                 }
                 )
 
@@ -263,36 +255,32 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             "start": acquisition_start,
             "stop": acquisition_stop,
             "links": links,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "downlink_orbit",
-                     "type": "double",
-                     "value": downlink_orbit},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "reception_station",
-                     "type": "text",
-                     "value": "EDRS"},
-                    {"name": "channel",
-                     "type": "double",
-                     "value": channel},
-                    {"name": "vcid",
-                     "type": "double",
-                     "value": vcid_number},
-                    {"name": "downlink_mode",
-                     "type": "text",
-                     "value": downlink_mode},
-                    {"name": "matching_plan_status",
-                     "type": "text",
-                     "value": matching_status},
-                    {"name": "status",
-                     "type": "text",
-                     "value": status}
-               ]
-            }]
+            "values": [
+                {"name": "downlink_orbit",
+                 "type": "double",
+                 "value": downlink_orbit},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "reception_station",
+                 "type": "text",
+                 "value": "EDRS"},
+                {"name": "channel",
+                 "type": "double",
+                 "value": channel},
+                {"name": "vcid",
+                 "type": "double",
+                 "value": vcid_number},
+                {"name": "downlink_mode",
+                 "type": "text",
+                 "value": downlink_mode},
+                {"name": "matching_plan_status",
+                 "type": "text",
+                 "value": matching_status},
+                {"name": "status",
+                 "type": "text",
+                 "value": status}
+            ]
         }
 
         # Insert playback_event
@@ -413,42 +401,38 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "name": "ISP_GAP",
                         "back_ref": "RAW_ISP_VALIDITY"
                     }],
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
-                        {"name": "impact",
-                         "type": "text",
-                         "value": "COMPLETE"},
-                        {"name": "band",
-                         "type": "text",
-                         "value": band_detector["band"]},
-                        {"name": "detector",
-                         "type": "double",
-                         "value": band_detector["detector"]},
-                        {"name": "downlink_orbit",
-                         "type": "double",
-                         "value": downlink_orbit},
-                        {"name": "satellite",
-                         "type": "text",
-                         "value": satellite},
-                        {"name": "reception_station",
-                         "type": "text",
-                         "value": "EDRS"},
-                        {"name": "channel",
-                         "type": "double",
-                         "value": channel},
-                        {"name": "vcid",
-                         "type": "double",
-                         "value": vcid_number},
-                        {"name": "downlink_mode",
-                         "type": "text",
-                         "value": downlink_mode},
-                        {"name": "apid",
-                         "type": "double",
-                         "value": apid_number}
-                   ]
-                }]
+                "values": [
+                    {"name": "impact",
+                     "type": "text",
+                     "value": "COMPLETE"},
+                    {"name": "band",
+                     "type": "text",
+                     "value": band_detector["band"]},
+                    {"name": "detector",
+                     "type": "double",
+                     "value": band_detector["detector"]},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": "EDRS"},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": channel},
+                    {"name": "vcid",
+                     "type": "double",
+                     "value": vcid_number},
+                    {"name": "downlink_mode",
+                     "type": "text",
+                     "value": downlink_mode},
+                    {"name": "apid",
+                     "type": "double",
+                     "value": apid_number}
+                ]
             }
 
             # Insert isp_gap_event
@@ -491,42 +475,38 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "name": "ISP_GAP",
                         "back_ref": "RAW_ISP_VALIDITY"
                     }],
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
-                        {"name": "impact",
-                         "type": "text",
-                         "value": "AT_THE_BEGINNING"},
-                        {"name": "band",
-                         "type": "text",
-                         "value": band_detector["band"]},
-                        {"name": "detector",
-                         "type": "double",
-                         "value": band_detector["detector"]},
-                        {"name": "downlink_orbit",
-                         "type": "double",
-                         "value": downlink_orbit},
-                        {"name": "satellite",
-                         "type": "text",
-                         "value": satellite},
-                        {"name": "reception_station",
-                         "type": "text",
-                         "value": "EDRS"},
-                        {"name": "channel",
-                         "type": "double",
-                         "value": channel},
-                        {"name": "vcid",
-                         "type": "double",
-                         "value": vcid_number},
-                        {"name": "downlink_mode",
-                         "type": "text",
-                         "value": downlink_mode},
-                        {"name": "apid",
-                         "type": "double",
-                         "value": apid_number}
-                   ]
-                }]
+                "values": [
+                    {"name": "impact",
+                     "type": "text",
+                     "value": "AT_THE_BEGINNING"},
+                    {"name": "band",
+                     "type": "text",
+                     "value": band_detector["band"]},
+                    {"name": "detector",
+                     "type": "double",
+                     "value": band_detector["detector"]},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": "EDRS"},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": channel},
+                    {"name": "vcid",
+                     "type": "double",
+                     "value": vcid_number},
+                    {"name": "downlink_mode",
+                     "type": "text",
+                     "value": downlink_mode},
+                    {"name": "apid",
+                     "type": "double",
+                     "value": apid_number}
+                ]
             }
 
             # Insert isp_gap_event
@@ -570,42 +550,38 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "name": "ISP_GAP",
                         "back_ref": "RAW_ISP_VALIDITY"
                     }],
-                "values": [{
-                    "name": "details",
-                    "type": "object",
-                    "values": [
-                        {"name": "impact",
-                         "type": "text",
-                         "value": "AT_THE_END"},
-                        {"name": "band",
-                         "type": "text",
-                         "value": band_detector["band"]},
-                        {"name": "detector",
-                         "type": "double",
-                         "value": band_detector["detector"]},
-                        {"name": "downlink_orbit",
-                         "type": "double",
-                         "value": downlink_orbit},
-                        {"name": "satellite",
-                         "type": "text",
-                         "value": satellite},
-                        {"name": "reception_station",
-                         "type": "text",
-                         "value": "EDRS"},
-                        {"name": "channel",
-                         "type": "double",
-                         "value": channel},
-                        {"name": "vcid",
-                         "type": "double",
-                         "value": vcid_number},
-                        {"name": "downlink_mode",
-                         "type": "text",
-                         "value": downlink_mode},
-                        {"name": "apid",
-                         "type": "double",
-                         "value": apid_number}
-                   ]
-                }]
+                "values": [
+                    {"name": "impact",
+                     "type": "text",
+                     "value": "AT_THE_END"},
+                    {"name": "band",
+                     "type": "text",
+                     "value": band_detector["band"]},
+                    {"name": "detector",
+                     "type": "double",
+                     "value": band_detector["detector"]},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": "EDRS"},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": channel},
+                    {"name": "vcid",
+                     "type": "double",
+                     "value": vcid_number},
+                    {"name": "downlink_mode",
+                     "type": "text",
+                     "value": downlink_mode},
+                    {"name": "apid",
+                     "type": "double",
+                     "value": apid_number}
+                ]
             }
 
             # Insert isp_gap_event
@@ -633,39 +609,35 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             },
             "start": corrected_sensing_start,
             "stop": corrected_sensing_stop,
-            "values": [{
-                "name": "details",
-                "type": "object",
-                "values": [
-                    {"name": "status",
-                     "type": "text",
-                     "value": status},
-                    {"name": "downlink_orbit",
-                     "type": "double",
-                     "value": downlink_orbit},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "reception_station",
-                     "type": "text",
-                     "value": "EDRS"},
-                    {"name": "channel",
-                     "type": "double",
-                     "value": channel},
-                    {"name": "vcid",
-                     "type": "double",
-                     "value": vcid_number},
-                    {"name": "downlink_mode",
-                     "type": "text",
-                     "value": downlink_mode},
-                    {"name": "num_packets",
-                     "type": "double",
-                     "value": str(received_number_packets)},
-                    {"name": "num_frames",
-                     "type": "double",
-                     "value": vcid.xpath("NumFrames")[0].text}
-               ]
-            }]
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": status},
+                {"name": "downlink_orbit",
+                 "type": "double",
+                 "value": downlink_orbit},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "reception_station",
+                 "type": "text",
+                 "value": "EDRS"},
+                {"name": "channel",
+                 "type": "double",
+                 "value": channel},
+                {"name": "vcid",
+                 "type": "double",
+                 "value": vcid_number},
+                {"name": "downlink_mode",
+                 "type": "text",
+                 "value": downlink_mode},
+                {"name": "num_packets",
+                 "type": "double",
+                 "value": str(received_number_packets)},
+                {"name": "num_frames",
+                 "type": "double",
+                 "value": vcid.xpath("NumFrames")[0].text}
+            ]
         }
 
         # Insert raw_isp_validity_event
@@ -706,13 +678,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             packet_status = "MISSING"
         # end if
 
-        raw_isp_validity_event["values"][0]["values"].append({"name": "expected_num_packets",
+        raw_isp_validity_event["values"].append({"name": "expected_num_packets",
                                                  "type": "double",
                                                  "value": str(expected_number_packets)})
-        raw_isp_validity_event["values"][0]["values"].append({"name": "diff_expected_received",
+        raw_isp_validity_event["values"].append({"name": "diff_expected_received",
                                                  "type": "double",
                                                  "value": str(expected_number_packets - received_number_packets)})
-        raw_isp_validity_event["values"][0]["values"].append({"name": "packet_status",
+        raw_isp_validity_event["values"].append({"name": "packet_status",
                                                  "type": "text",
                                                  "value": packet_status})
 
@@ -726,11 +698,9 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 isp_planning_completeness_generation_times.append(planned_imaging_event[0].source.generation_time)
                 # Insert the linked COMPLETENESS event for the automatic completeness check
                 planning_event_values = corrected_planned_imaging.get_structured_values()
-                planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
-                    {"name": "status",
-                     "type": "text",
-                     "value": "MISSING"}
-                ]
+                planning_event_values.append({"name": "status",
+                                              "type": "text",
+                                              "value": "MISSING"})
 
                 isp_planning_completeness_operation["events"].append({
                     "gauge": {
@@ -812,37 +782,34 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "links": links,
                     "start": isp_validity_valid_segment["start"].isoformat(),
                     "stop": isp_validity_valid_segment["stop"].isoformat(),
-                    "values": [{
-                        "name": "details",
-                        "type": "object",
-                        "values": [
-                            {"name": "status",
-                             "type": "text",
-                             "value": isp_validity_status},
-                            {"name": "downlink_orbit",
-                             "type": "double",
-                             "value": downlink_orbit},
-                            {"name": "satellite",
-                             "type": "text",
-                             "value": satellite},
-                            {"name": "reception_station",
-                             "type": "text",
-                             "value": "EDRS"},
-                            {"name": "channel",
-                             "type": "double",
-                             "value": channel},
-                            {"name": "vcid",
-                             "type": "double",
-                             "value": vcid_number},
-                            {"name": "downlink_mode",
-                             "type": "text",
-                             "value": downlink_mode},
-                            {"name": "sensing_orbit",
-                             "type": "text",
-                             "value": sensing_orbit}
-                        ]
-                    }]
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": isp_validity_status},
+                        {"name": "downlink_orbit",
+                         "type": "double",
+                         "value": downlink_orbit},
+                        {"name": "satellite",
+                         "type": "text",
+                         "value": satellite},
+                        {"name": "reception_station",
+                         "type": "text",
+                         "value": "EDRS"},
+                        {"name": "channel",
+                         "type": "double",
+                         "value": channel},
+                        {"name": "vcid",
+                         "type": "double",
+                         "value": vcid_number},
+                        {"name": "downlink_mode",
+                         "type": "text",
+                         "value": downlink_mode},
+                        {"name": "sensing_orbit",
+                         "type": "text",
+                         "value": sensing_orbit}
+                    ]
                 }
+                
                 # Insert isp_validity_event
                 list_of_events.append(isp_validity_event)
 
@@ -874,36 +841,32 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         }],
                     "start": isp_validity_valid_segment["start"].isoformat(),
                     "stop": isp_validity_valid_segment["stop"].isoformat(),
-                    "values": [{
-                        "name": "details",
-                        "type": "object",
-                        "values": [
-                            {"name": "status",
-                             "type": "text",
-                             "value": completeness_status},
-                            {"name": "downlink_orbit",
-                             "type": "double",
-                             "value": downlink_orbit},
-                            {"name": "satellite",
-                             "type": "text",
-                             "value": satellite},
-                            {"name": "reception_station",
-                             "type": "text",
-                             "value": "EDRS"},
-                            {"name": "channel",
-                             "type": "double",
-                             "value": channel},
-                            {"name": "vcid",
-                             "type": "double",
-                             "value": vcid_number},
-                            {"name": "downlink_mode",
-                             "type": "text",
-                             "value": downlink_mode},
-                            {"name": "sensing_orbit",
-                             "type": "text",
-                             "value": sensing_orbit}
-                        ]
-                    }]
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": completeness_status},
+                        {"name": "downlink_orbit",
+                         "type": "double",
+                         "value": downlink_orbit},
+                        {"name": "satellite",
+                         "type": "text",
+                         "value": satellite},
+                        {"name": "reception_station",
+                         "type": "text",
+                         "value": "EDRS"},
+                        {"name": "channel",
+                         "type": "double",
+                         "value": channel},
+                        {"name": "vcid",
+                         "type": "double",
+                         "value": vcid_number},
+                        {"name": "downlink_mode",
+                         "type": "text",
+                         "value": downlink_mode},
+                        {"name": "sensing_orbit",
+                         "type": "text",
+                         "value": sensing_orbit}
+                    ]
                 }
 
                 # Insert isp_validity_event
@@ -980,30 +943,26 @@ def _generate_pass_information(xpath_xml, source, engine, query, list_of_annotat
             "name": "LINK_DETAILS_CH" + channel,
             "system": "EDRS"
         },
-        "values": [{
-            "name": "link_details",
-            "type": "object",
-            "values": [
-                {"name": "session_id",
-                 "type": "text",
-                 "value": session_id},
-                {"name": "downlink_orbit",
-                 "type": "double",
-                 "value": downlink_orbit},
-                {"name": "satellite",
-                 "type": "text",
-                 "value": satellite},
-                {"name": "reception_station",
-                 "type": "text",
-                 "value": "EDRS"},
-                {"name": "isp_status",
-                 "type": "text",
-                 "value": isp_status},
-                {"name": "acquisition_status",
-                 "type": "text",
-                 "value": acquisition_status}
-            ]
-        }]
+        "values": [
+            {"name": "session_id",
+             "type": "text",
+             "value": session_id},
+            {"name": "downlink_orbit",
+             "type": "double",
+             "value": downlink_orbit},
+            {"name": "satellite",
+             "type": "text",
+             "value": satellite},
+            {"name": "reception_station",
+             "type": "text",
+             "value": "EDRS"},
+            {"name": "isp_status",
+             "type": "text",
+             "value": isp_status},
+            {"name": "acquisition_status",
+             "type": "text",
+             "value": acquisition_status}
+        ]
     }
 
     list_of_annotations.append(link_details_annotation)

@@ -79,35 +79,29 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert link_details[0].get_structured_values() == [
             {
-                "values": [
-                    {
-                        "value": "16078.0",
-                        "type": "double",
-                        "name": "downlink_orbit"
-                    },
-                    {
-                        "value": "S2A",
-                        "type": "text",
-                        "name": "satellite"
-                    },
-                    {
-                        "value": "MPS_",
-                        "type": "text",
-                        "name": "reception_station"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "isp_status"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "acquisition_status"
-                    }
-                ],
-                "type": "object",
-                "name": "link_details"
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "isp_status"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "acquisition_status"
             }
         ]
 
@@ -132,45 +126,39 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert specific_isp_validity1[0].get_structured_values() == [
             {
-                "values": [
-                    {
-                        "value": "COMPLETE",
-                        "name": "status",
-                        "type": "text"
-                    },
-                    {
-                        "value": "16078.0",
-                        "name": "downlink_orbit",
-                        "type": "double"
-                    },
-                    {
-                        "value": "S2A",
-                        "name": "satellite",
-                        "type": "text"
-                    },
-                    {
-                        "value": "MPS_",
-                        "name": "reception_station",
-                        "type": "text"
-                    },
-                    {
-                        "value": "NOMINAL",
-                        "name": "downlink_mode",
-                        "type": "text"
-                    },
-                    {
-                        "value": "NO_MATCHED_PLANNED_IMAGING",
-                        "name": "matching_plan_status",
-                        "type": "text"
-                    },
-                    {
-                        "value": "",
-                        "name": "sensing_orbit",
-                    "type": "text"
-                    }
-                ],
-                "name": "details",
-                "type": "object"
+                "value": "COMPLETE",
+                "name": "status",
+                "type": "text"
+            },
+            {
+                "value": "16078.0",
+                "name": "downlink_orbit",
+                "type": "double"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "MPS_",
+                "name": "reception_station",
+                "type": "text"
+            },
+            {
+                "value": "NOMINAL",
+                "name": "downlink_mode",
+                "type": "text"
+            },
+            {
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "name": "matching_plan_status",
+                "type": "text"
+            },
+            {
+                "value": "",
+                "name": "sensing_orbit",
+                "type": "text"
             }
         ]
 
@@ -186,42 +174,38 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_completeness_event1) == 1
 
-        assert isp_completeness_event1[0].get_structured_values() == [{
-            "type": "object",
-            "values": [
-                {
-                    "value": "RECEIVED",
-                    "type": "text",
-                    "name": "status"
-                },
-                {
-                    "value": "16078.0",
-                    "type": "double",
-                    "name": "downlink_orbit"
-                },
-                {
-                    "value": "S2A",
-                    "type": "text",
-                    "name": "satellite"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "reception_station"
-                },
-                {
-                    "value": "NOMINAL",
-                    "type": "text",
-                    "name": "downlink_mode"
-                },
-                {
-                    "value": "",
-                    "type": "text",
-                    "name": "sensing_orbit"
-                }
-            ],
-            "name": "details"
-        }]
+        assert isp_completeness_event1[0].get_structured_values() == [
+            {
+                "value": "RECEIVED",
+                "type": "text",
+                "name": "status"
+            },
+            {
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "NOMINAL",
+                "type": "text",
+                "name": "downlink_mode"
+            },
+            {
+                "value": "",
+                "type": "text",
+                "name": "sensing_orbit"
+            }
+        ]
 
         # Check specific ISP_VALIDITY
         isp_completeness_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2",
@@ -242,52 +226,48 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(playback_validity_event1) == 1
 
-        assert playback_validity_event1[0].get_structured_values() == [{
-            "type": "object",
-            "values": [
-                {
-                            "value": "COMPLETE",
-                    "type": "text",
-                    "name": "status"
-                },
-                {
-                    "value": "16078.0",
-                    "type": "double",
-                    "name": "downlink_orbit"
-                },
-                {
-                    "value": "S2A",
-                    "type": "text",
-                    "name": "satellite"
-                },
-                {
-                    "value": "MPS_",
-                    "type": "text",
-                    "name": "reception_station"
-                },
-                {
-                    "value": "1.0",
-                    "type": "double",
-                    "name": "channel"
-                },
-                {
-                    "value": "4.0",
-                    "type": "double",
-                    "name": "vcid"
-                },
-                {
-                    "value": "NOMINAL",
-                    "type": "text",
-                    "name": "downlink_mode"
-                },
-                {
-                    "value": "NO_MATCHED_PLANNED_PLAYBACK",
-                    "type": "text",
-                    "name": "matching_plan_status"
-                }
-            ],
-            "name": "details"
-        }]
+        assert playback_validity_event1[0].get_structured_values() == [
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "status"
+            },
+            {
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "1.0",
+                "type": "double",
+                "name": "channel"
+            },
+            {
+                "value": "4.0",
+                "type": "double",
+                "name": "vcid"
+            },
+            {
+                "value": "NOMINAL",
+                "type": "text",
+                "name": "downlink_mode"
+            },
+            {
+                "value": "NO_MATCHED_PLANNED_PLAYBACK",
+                "type": "text",
+                "name": "matching_plan_status"
+            }
+        ]
 
         playback_validity_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLAYBACK_VALIDITY_20",
                                                                                  Event.start == "2018-07-21T10:35:33.760977",
@@ -313,37 +293,33 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(playback_completeness_event1) == 1
 
-        assert playback_completeness_event1[0].get_structured_values() == [{
-            "type": "object",
-            "values": [
-                {
-                    "type": "text",
-                    "value": "RECEIVED",
-                    "name": "status"
-                },
-                {
-                    "type": "double",
-                    "value": "16078.0",
-                    "name": "downlink_orbit"
-                },
-                {
-                    "type": "text",
-                    "value": "S2A",
-                    "name": "satellite"
-                },
-                {
-                    "type": "text",
-                    "value": "MPS_",
-                    "name": "reception_station"
-                },
-                {
-                    "type": "text",
-                    "value": "NOMINAL",
-                    "name": "downlink_mode"
-                }
-            ],
-            "name": "details"
-        }]
+        assert playback_completeness_event1[0].get_structured_values() == [
+            {
+                "type": "text",
+                "value": "RECEIVED",
+                "name": "status"
+            },
+            {
+                "type": "double",
+                "value": "16078.0",
+                "name": "downlink_orbit"
+            },
+            {
+                "type": "text",
+                "value": "S2A",
+                "name": "satellite"
+            },
+            {
+                "type": "text",
+                "value": "MPS_",
+                "name": "reception_station"
+            },
+            {
+                "type": "text",
+                "value": "NOMINAL",
+                "name": "downlink_mode"
+            }
+        ]
 
         playback_completeness_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2",
                                                                                  Event.start == "2018-07-21T10:35:33.760977",
@@ -369,57 +345,53 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(raw_isp_validity_event1) == 1
 
-        assert raw_isp_validity_event1[0].get_structured_values() == [{
-            "name": "details",
-            "type": "object",
-            "values": [
-                {
-                    "name": "status",
-                    "type": "text",
-                    "value": "COMPLETE"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "satellite",
-                    "type": "text",
-                    "value": "S2A"
-                },
-                {
-                    "name": "reception_station",
-                    "type": "text",
-                    "value": "MPS_"
-                },
-                {
-                    "name": "num_packets",
-                    "type": "double",
-                    "value": "388800.0"
-                },
-                {
-                    "name": "num_frames",
-                    "type": "double",
-                    "value": "1729309.0"
-                },
-                {
-                    "name": "expected_num_packets",
-                    "type": "double",
-                    "value": "388800.0"
-                },
-                {
-                    "name": "diff_expected_received",
-                    "type": "double",
-                    "value": "0.0"
-                },
-                {
-                    "name": "packet_status",
-                    "type": "text",
-                    "value": "OK"
-                }
-            ]
-        }]
+        assert raw_isp_validity_event1[0].get_structured_values() == [
+            {
+                "name": "status",
+                "type": "text",
+                "value": "COMPLETE"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "num_packets",
+                "type": "double",
+                "value": "388800.0"
+            },
+            {
+                "name": "num_frames",
+                "type": "double",
+                "value": "1729309.0"
+            },
+            {
+                "name": "expected_num_packets",
+                "type": "double",
+                "value": "388800.0"
+            },
+            {
+                "name": "diff_expected_received",
+                "type": "double",
+                "value": "0.0"
+            },
+            {
+                "name": "packet_status",
+                "type": "text",
+                "value": "OK"
+            }
+        ]
 
     def test_insert_rep_pass_with_msi_gaps(self):
         filename = "S2A_REP_PASS_CONTAINING_MSI_GAPS.EOF"
@@ -452,35 +424,29 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert link_details[0].get_structured_values() == [
             {
-                "values": [
-                    {
-                        "value": "16078.0",
-                        "type": "double",
-                        "name": "downlink_orbit"
-                    },
-                    {
-                        "value": "S2A",
-                        "type": "text",
-                        "name": "satellite"
-                    },
-                    {
-                        "value": "MPS_",
-                        "type": "text",
-                        "name": "reception_station"
-                    },
-                    {
-                        "value": "INCOMPLETE",
-                        "type": "text",
-                        "name": "isp_status"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "acquisition_status"
-                    }
-                ],
-                "type": "object",
-                "name": "link_details"
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "INCOMPLETE",
+                "type": "text",
+                "name": "isp_status"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "acquisition_status"
             }
         ]
 
@@ -496,47 +462,43 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(specific_isp_validity1) == 1
 
-        assert specific_isp_validity1[0].get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "INCOMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "value": "16078.0",
-                    "type": "double"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "reception_station",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "downlink_mode",
-                    "value": "NOMINAL",
-                    "type": "text"
-                },
-                {
-                    "name": "matching_plan_status",
-                    "value": "NO_MATCHED_PLANNED_IMAGING",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "",
-                    "type": "text"
-                }
-            ],
-            "type": "object"
-        }]
+        assert specific_isp_validity1[0].get_structured_values() == [
+            {
+                "name": "status",
+                "value": "INCOMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "downlink_orbit",
+                "value": "16078.0",
+                "type": "double"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "reception_station",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "downlink_mode",
+                "value": "NOMINAL",
+                "type": "text"
+            },
+            {
+                "name": "matching_plan_status",
+                "value": "NO_MATCHED_PLANNED_IMAGING",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "",
+                "type": "text"
+            }
+        ]
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -550,42 +512,38 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_completeness_event1) == 1
 
-        assert isp_completeness_event1[0].get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "INCOMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "value": "16078.0",
-                    "type": "double"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "reception_station",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "downlink_mode",
-                    "value": "NOMINAL",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "",
-                    "type": "text"
-                }
-            ],
-            "type": "object"
-        }]
+        assert isp_completeness_event1[0].get_structured_values() == [
+            {
+                "name": "status",
+                "value": "INCOMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "downlink_orbit",
+                "value": "16078.0",
+                "type": "double"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "reception_station",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "downlink_mode",
+                "value": "NOMINAL",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "",
+                "type": "text"
+            }
+        ]
 
         # Check specific ISP_VALIDITY
         isp_completeness_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2",
@@ -594,42 +552,38 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_completeness_event2) == 1
 
-        assert isp_completeness_event2[0].get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "status",
-                    "value": "INCOMPLETE",
-                    "type": "text"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "value": "16078.0",
-                    "type": "double"
-                },
-                {
-                    "name": "satellite",
-                    "value": "S2A",
-                    "type": "text"
-                },
-                {
-                    "name": "reception_station",
-                    "value": "MPS_",
-                    "type": "text"
-                },
-                {
-                    "name": "downlink_mode",
-                    "value": "NOMINAL",
-                    "type": "text"
-                },
-                {
-                    "name": "sensing_orbit",
-                    "value": "",
-                    "type": "text"
-                }
-            ],
-            "type": "object"
-        }]
+        assert isp_completeness_event2[0].get_structured_values() == [
+            {
+                "name": "status",
+                "value": "INCOMPLETE",
+                "type": "text"
+            },
+            {
+                "name": "downlink_orbit",
+                "value": "16078.0",
+                "type": "double"
+            },
+            {
+                "name": "satellite",
+                "value": "S2A",
+                "type": "text"
+            },
+            {
+                "name": "reception_station",
+                "value": "MPS_",
+                "type": "text"
+            },
+            {
+                "name": "downlink_mode",
+                "value": "NOMINAL",
+                "type": "text"
+            },
+            {
+                "name": "sensing_orbit",
+                "value": "",
+                "type": "text"
+            }
+        ]
 
         # Check PLAYBACK_VALIDITY events
         playback_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_%")).all()
@@ -691,57 +645,53 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_gap_event1) == 1
 
-        assert isp_gap_event1[0].get_structured_values() == [{
-            "type": "object",
-            "name": "details",
-            "values": [
-                {
-                    "type": "text",
-                    "name": "impact",
-                    "value": "COMPLETE_SCENES_BAND"
-                },
-                {
-                    "type": "text",
-                    "name": "band",
-                    "value": "2"
-                },
-                {
-                    "type": "double",
-                    "name": "detector",
-                    "value": "12.0"
-                },
-                {
-                    "type": "double",
-                    "name": "downlink_orbit",
-                    "value": "16078.0"
-                },
-                {
-                    "type": "text",
-                    "name": "satellite",
-                    "value": "S2A"
-                },
-                {
-                    "type": "text",
-                    "name": "reception_station",
-                    "value": "MPS_"
-                },
-                {
-                    "type": "double",
-                    "name": "vcid",
-                    "value": "4.0"
-                },
-                {
-                    "type": "text",
-                    "name": "downlink_mode",
-                    "value": "NOMINAL"
-                },
-                {
-                    "type": "double",
-                    "name": "apid",
-                    "value": "1.0"
-                }
-            ]
-        }]
+        assert isp_gap_event1[0].get_structured_values() == [
+            {
+                "type": "text",
+                "name": "impact",
+                "value": "COMPLETE_SCENES_BAND"
+            },
+            {
+                "type": "text",
+                "name": "band",
+                "value": "2"
+            },
+            {
+                "type": "double",
+                "name": "detector",
+                "value": "12.0"
+            },
+            {
+                "type": "double",
+                "name": "downlink_orbit",
+                "value": "16078.0"
+            },
+            {
+                "type": "text",
+                "name": "satellite",
+                "value": "S2A"
+            },
+            {
+                "type": "text",
+                "name": "reception_station",
+                "value": "MPS_"
+            },
+            {
+                "type": "double",
+                "name": "vcid",
+                "value": "4.0"
+            },
+            {
+                "type": "text",
+                "name": "downlink_mode",
+                "value": "NOMINAL"
+            },
+            {
+                "type": "double",
+                "name": "apid",
+                "value": "1.0"
+            }
+        ]
 
         isp_gap_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                                  Event.start == "2018-07-21T08:52:29.993268",
@@ -749,63 +699,58 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_gap_event2) == 1
 
-        assert isp_gap_event2[0].get_structured_values() == [{
-            "type": "object",
-            "name": "details",
-            "values": [
-                {
-                    "type": "text",
-                    "name": "impact",
-                    "value": "AT_BEGINNING"
-                },
-                {
-                    "type": "text",
-                    "name": "band",
-                    "value": "3"
-                },
-                {
-                    "type": "double",
-                    "name": "detector",
-                    "value": "12.0"
-                },
-                {
-                    "type": "double",
-                    "name": "downlink_orbit",
-                    "value": "16078.0"
-                },
-                {
-                    "type": "text",
-                    "name": "satellite",
-                    "value": "S2A"
-                },
-                {
-                    "type": "text",
-                    "name": "reception_station",
-                    "value": "MPS_"
-                },
-                {
-                    "type": "double",
-                    "name": "vcid",
-                    "value": "4.0"
-                },
-                {
-                    "type": "text",
-                    "name": "downlink_mode",
-                    "value": "NOMINAL"
-                },
-                {
-                    "type": "double",
-                    "name": "apid",
-                    "value": "2.0"
-                },
-                {
-                    "type": "double",
-                    "name": "missing_packets",
-                    "value": "50.0"
-                }
-            ]
-        }]
-
+        assert isp_gap_event2[0].get_structured_values() == [
+            {
+                "type": "text",
+                "name": "impact",
+                "value": "AT_BEGINNING"
+            },
+            {
+                "type": "text",
+                "name": "band",
+                "value": "3"
+            },
+            {
+                "type": "double",
+                "name": "detector",
+                "value": "12.0"
+            },
+            {
+                "type": "double",
+                "name": "downlink_orbit",
+                "value": "16078.0"
+            },
+            {
+                "type": "text",
+                "name": "satellite",
+                "value": "S2A"
+            },
+            {
+                "type": "text",
+                "name": "reception_station",
+                "value": "MPS_"
+            },
+            {
+                "type": "double",
+                "name": "vcid",
+                "value": "4.0"
+            },
+            {
+                "type": "text",
+                "name": "downlink_mode",
+                "value": "NOMINAL"
+            },
+            {
+                "type": "double",
+                "name": "apid",
+                "value": "2.0"
+            },
+            {
+                "type": "double",
+                "name": "missing_packets",
+                "value": "50.0"
+            }
+        ]
 
         isp_gap_event3 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                                  Event.start == "2018-07-21T08:52:37.209040",
@@ -813,72 +758,68 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_gap_event3) == 1
 
-        assert isp_gap_event3[0].get_structured_values() == [{
-            "type": "object",
-            "name": "details",
-            "values": [
-                {
-                    "type": "text",
-                    "value": "SMALLER_THAN_A_SCENE",
-                    "name": "impact"
-                },
-                {
-                    "type": "text",
-                    "value": "1",
-                    "name": "band"
-                },
-                {
-                    "type": "double",
-                    "value": "12.0",
-                    "name": "detector"
-                },
-                {
-                    "type": "double",
-                    "value": "16078.0",
-                    "name": "downlink_orbit"
-                },
-                {
-                    "type": "text",
-                    "value": "S2A",
-                    "name": "satellite"
-                },
-                {
-                    "type": "text",
-                    "value": "MPS_",
-                    "name": "reception_station"
-                },
-                {
-                    "type": "double",
-                    "value": "4.0",
-                    "name": "vcid"
-                },
-                {
-                    "type": "text",
-                    "value": "NOMINAL",
-                    "name": "downlink_mode"
-                },
-                {
-                    "type": "double",
-                    "value": "0.0",
-                    "name": "apid"
-                },
-                {
-                    "type": "double",
-                    "value": "23.0",
-                    "name": "counter_start"
-                },
-                {
-                    "type": "double",
-                    "value": "23.0",
-                    "name": "counter_stop"
-                },
-                {
-                    "type": "double",
-                    "value": "23.0",
-                    "name": "missing_packets"
-                }
-            ]
-        }]
+        assert isp_gap_event3[0].get_structured_values() == [
+            {
+                "type": "text",
+                "value": "SMALLER_THAN_A_SCENE",
+                "name": "impact"
+            },
+            {
+                "type": "text",
+                "value": "1",
+                "name": "band"
+            },
+            {
+                "type": "double",
+                "value": "12.0",
+                "name": "detector"
+            },
+            {
+                "type": "double",
+                "value": "16078.0",
+                "name": "downlink_orbit"
+            },
+            {
+                "type": "text",
+                "value": "S2A",
+                "name": "satellite"
+            },
+            {
+                "type": "text",
+                "value": "MPS_",
+                "name": "reception_station"
+            },
+            {
+                "type": "double",
+                "value": "4.0",
+                "name": "vcid"
+            },
+            {
+                "type": "text",
+                "value": "NOMINAL",
+                "name": "downlink_mode"
+            },
+            {
+                "type": "double",
+                "value": "0.0",
+                "name": "apid"
+            },
+            {
+                "type": "double",
+                "value": "23.0",
+                "name": "counter_start"
+            },
+            {
+                "type": "double",
+                "value": "23.0",
+                "name": "counter_stop"
+            },
+            {
+                "type": "double",
+                "value": "23.0",
+                "name": "missing_packets"
+            }
+        ]
 
         isp_gap_event4 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                                  Event.start == "2018-07-21T08:52:40.816811",
@@ -886,72 +827,68 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(isp_gap_event4) == 1
 
-        assert isp_gap_event4[0].get_structured_values() == [{
-            "name": "details",
-            "values": [
-                {
-                    "name": "impact",
-                    "type": "text",
-                    "value": "SMALLER_THAN_A_SCENE"
-                },
-                {
-                    "name": "band",
-                    "type": "text",
-                    "value": "1"
-                },
-                {
-                    "name": "detector",
-                    "type": "double",
-                    "value": "12.0"
-                },
-                {
-                    "name": "downlink_orbit",
-                    "type": "double",
-                    "value": "16078.0"
-                },
-                {
-                    "name": "satellite",
-                    "type": "text",
-                    "value": "S2A"
-                },
-                {
-                    "name": "reception_station",
-                    "type": "text",
-                    "value": "MPS_"
-                },
-                {
-                    "name": "vcid",
-                    "type": "double",
-                    "value": "4.0"
-                },
-                {
-                    "name": "downlink_mode",
-                    "type": "text",
-                    "value": "NOMINAL"
-                },
-                {
-                    "name": "apid",
-                    "type": "double",
-                    "value": "0.0"
-                },
-                {
-                    "name": "counter_start",
-                    "type": "double",
-                    "value": "23.0"
-                },
-                {
-                    "name": "counter_stop",
-                    "type": "double",
-                    "value": "10.0"
-                },
-                {
-                    "name": "missing_packets",
-                    "type": "double",
-                    "value": "10.0"
-                }
-            ],
-            "type": "object"
-        }]
+        assert isp_gap_event4[0].get_structured_values() == [
+            {
+                "name": "impact",
+                "type": "text",
+                "value": "SMALLER_THAN_A_SCENE"
+            },
+            {
+                "name": "band",
+                "type": "text",
+                "value": "1"
+            },
+            {
+                "name": "detector",
+                "type": "double",
+                "value": "12.0"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "vcid",
+                "type": "double",
+                "value": "4.0"
+            },
+            {
+                "name": "downlink_mode",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
+                "name": "apid",
+                "type": "double",
+                "value": "0.0"
+            },
+            {
+                "name": "counter_start",
+                "type": "double",
+                "value": "23.0"
+            },
+            {
+                "name": "counter_stop",
+                "type": "double",
+                "value": "10.0"
+            },
+            {
+                "name": "missing_packets",
+                "type": "double",
+                "value": "10.0"
+            }
+        ]
 
         isp_gap_event5 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                                  Event.start == "2018-07-21T08:52:42.385279",
@@ -990,35 +927,29 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert link_details[0].get_structured_values() == [
             {
-                "values": [
-                    {
-                        "value": "16086.0",
-                        "type": "double",
-                        "name": "downlink_orbit"
-                    },
-                    {
-                        "value": "S2A",
-                        "type": "text",
-                        "name": "satellite"
-                    },
-                    {
-                        "value": "MPS_",
-                        "type": "text",
-                        "name": "reception_station"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "isp_status"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "acquisition_status"
-                    }
-                ],
-                "type": "object",
-                "name": "link_details"
+                "value": "16086.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "isp_status"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "acquisition_status"
             }
         ]
 
@@ -1102,35 +1033,29 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert link_details[0].get_structured_values() == [
             {
-                "values": [
-                    {
-                        "value": "16078.0",
-                        "type": "double",
-                        "name": "downlink_orbit"
-                    },
-                    {
-                        "value": "S2A",
-                        "type": "text",
-                        "name": "satellite"
-                    },
-                    {
-                        "value": "MPS_",
-                        "type": "text",
-                        "name": "reception_station"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "isp_status"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "acquisition_status"
-                    }
-                ],
-                "type": "object",
-                "name": "link_details"
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "isp_status"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "acquisition_status"
             }
         ]
 
@@ -1165,35 +1090,29 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert link_details[0].get_structured_values() == [
             {
-                "values": [
-                    {
-                        "value": "16078.0",
-                        "type": "double",
-                        "name": "downlink_orbit"
-                    },
-                    {
-                        "value": "S2A",
-                        "type": "text",
-                        "name": "satellite"
-                    },
-                    {
-                        "value": "MPS_",
-                        "type": "text",
-                        "name": "reception_station"
-                    },
-                    {
-                        "value": "COMPLETE",
-                        "type": "text",
-                        "name": "isp_status"
-                    },
-                    {
-                        "value": "INCOMPLETE",
-                        "type": "text",
-                        "name": "acquisition_status"
-                    }
-                ],
-                "type": "object",
-                "name": "link_details"
+                "value": "16078.0",
+                "type": "double",
+                "name": "downlink_orbit"
+            },
+            {
+                "value": "S2A",
+                "type": "text",
+                "name": "satellite"
+            },
+            {
+                "value": "MPS_",
+                "type": "text",
+                "name": "reception_station"
+            },
+            {
+                "value": "COMPLETE",
+                "type": "text",
+                "name": "isp_status"
+            },
+            {
+                "value": "INCOMPLETE",
+                "type": "text",
+                "name": "acquisition_status"
             }
         ]
 
@@ -1204,58 +1123,53 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(playback_gap) == 1
 
-        assert playback_gap[0].get_structured_values() == [{
-            "type": "object",
-            "name": "details",
-            "values": [
-                {
-                    "type": "double",
-                    "name": "downlink_orbit",
-                    "value": "16078.0"
-                },
-                {
-                    "type": "text",
-                    "name": "satellite",
-                    "value": "S2A"
-                },
-                {
-                    "type": "text",
-                    "name": "reception_station",
-                    "value": "MPS_"
-                },
-                {
-                    "type": "double",
-                    "name": "channel",
-                    "value": "1.0"
-                },
-                {
-                    "type": "double",
-                    "name": "vcid",
-                    "value": "4.0"
-                },
-                {
-                    "type": "text",
-                    "name": "downlink_mode",
-                    "value": "NOMINAL"
-                },
-                {
-                    "type": "double",
-                    "name": "estimated_lost",
-                    "value": "1023.0"
-                },
-                {
-                    "type": "double",
-                    "name": "pre_counter",
-                    "value": "6280314.0"
-                },
-                {
-                    "type": "double",
-                    "name": "post_counter",
-                    "value": "6281338.0"
-                }
-            ]
-        }]
-
+        assert playback_gap[0].get_structured_values() == [
+            {
+                "type": "double",
+                "name": "downlink_orbit",
+                "value": "16078.0"
+            },
+            {
+                "type": "text",
+                "name": "satellite",
+                "value": "S2A"
+            },
+            {
+                "type": "text",
+                "name": "reception_station",
+                "value": "MPS_"
+            },
+            {
+                "type": "double",
+                "name": "channel",
+                "value": "1.0"
+            },
+            {
+                "type": "double",
+                "name": "vcid",
+                "value": "4.0"
+            },
+            {
+                "type": "text",
+                "name": "downlink_mode",
+                "value": "NOMINAL"
+            },
+            {
+                "type": "double",
+                "name": "estimated_lost",
+                "value": "1023.0"
+            },
+            {
+                "type": "double",
+                "name": "pre_counter",
+                "value": "6280314.0"
+            },
+            {
+                "type": "double",
+                "name": "post_counter",
+                "value": "6281338.0"
+            }
+        ]
 
     def test_insert_rep_pass_with_plan(self):
 

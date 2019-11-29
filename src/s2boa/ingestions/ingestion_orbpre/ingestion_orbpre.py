@@ -79,16 +79,16 @@ def _correct_planning_events(orbpre_events, planning_events):
 
         # Get predicted orbit information
         if not start_orbit in start_orbpre_infos:
-            start_orbpre_infos[start_orbit] = [event for event in orbpre_events for value in event["values"][0]["values"] if value["name"] == "orbit" and int(value["value"]) == int(start_orbit)]
+            start_orbpre_infos[start_orbit] = [event for event in orbpre_events for value in event["values"] if value["name"] == "orbit" and int(value["value"]) == int(start_orbit)]
         # end if
         if not start_orbit in next_start_orbpre_infos:
-            next_start_orbpre_infos[start_orbit] = [event for event in orbpre_events for value in event["values"][0]["values"] if value["name"] == "orbit" and int(value["value"]) == int(start_orbit) + 1]
+            next_start_orbpre_infos[start_orbit] = [event for event in orbpre_events for value in event["values"] if value["name"] == "orbit" and int(value["value"]) == int(start_orbit) + 1]
         # end if
         if not stop_orbit in stop_orbpre_infos:
-            stop_orbpre_infos[stop_orbit] = [event for event in orbpre_events for value in event["values"][0]["values"] if value["name"] == "orbit" and int(value["value"]) == int(stop_orbit)]
+            stop_orbpre_infos[stop_orbit] = [event for event in orbpre_events for value in event["values"] if value["name"] == "orbit" and int(value["value"]) == int(stop_orbit)]
         # end if
         if not stop_orbit in next_stop_orbpre_infos:
-            next_stop_orbpre_infos[stop_orbit] = [event for event in orbpre_events for value in event["values"][0]["values"] if value["name"] == "orbit" and int(value["value"]) == int(stop_orbit) + 1]
+            next_stop_orbpre_infos[stop_orbit] = [event for event in orbpre_events for value in event["values"] if value["name"] == "orbit" and int(value["value"]) == int(stop_orbit) + 1]
         # end if
 
         if len(next_start_orbpre_infos[start_orbit]) == 0 or len(next_stop_orbpre_infos[stop_orbit]) == 0:
@@ -106,7 +106,7 @@ def _correct_planning_events(orbpre_events, planning_events):
 
         planning_event_values = planning_event.get_structured_values()
 
-        planning_event_values[0]["values"] = planning_event_values[0]["values"] + [
+        planning_event_values = planning_event_values + [
             {"name": "status_correction",
              "type": "text",
              "value": status},
@@ -215,45 +215,41 @@ def _generate_orbpre_events(xpath_xml, source, list_of_events):
             },
             "start": start,
             "stop": stop,
-            "values": [{
-                "name": "orbit_information",
-                "type": "object",
-                "values": [
-                    {"name": "tai",
-                     "type": "timestamp",
-                     "value": tai},
-                    {"name": "ut1",
-                     "type": "timestamp",
-                     "value": ut1},
-                    {"name": "orbit",
-                     "type": "double",
-                     "value": str(orbit)},
-                    {"name": "x",
-                     "type": "double",
-                     "value": x},
-                    {"name": "y",
-                     "type": "double",
-                     "value": y},
-                    {"name": "z",
-                     "type": "double",
-                     "value": z},
-                    {"name": "vx",
-                     "type": "double",
-                     "value": vx},
-                    {"name": "vy",
-                     "type": "double",
-                     "value": vy},
-                    {"name": "vz",
-                     "type": "double",
-                     "value": vz},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "quality",
-                     "type": "double",
-                     "value": quality}
-                ]
-            }]
+            "values": [
+                {"name": "tai",
+                 "type": "timestamp",
+                 "value": tai},
+                {"name": "ut1",
+                 "type": "timestamp",
+                 "value": ut1},
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "x",
+                 "type": "double",
+                 "value": x},
+                {"name": "y",
+                 "type": "double",
+                 "value": y},
+                {"name": "z",
+                 "type": "double",
+                 "value": z},
+                {"name": "vx",
+                 "type": "double",
+                 "value": vx},
+                {"name": "vy",
+                 "type": "double",
+                 "value": vy},
+                {"name": "vz",
+                 "type": "double",
+                 "value": vz},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "quality",
+                 "type": "double",
+                 "value": quality}
+            ]
         }
 
         # Insert orbpre_event
