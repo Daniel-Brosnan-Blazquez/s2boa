@@ -160,7 +160,7 @@
 {% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
 
 {% set missing_playbacks_uuids = (playback_completeness_missing_uuids + playback_with_no_playback_validity_uuids)|unique|list %}
-{% set missing_playbacks = acquisition_events["playback"]|selectattr("event_uuid", "in", missing_playbacks_uuids)|list %}
+{% set missing_playbacks = acquisition_events["playback"]|selectattr("event_uuid", "in", missing_playbacks_uuids)|list|sort(attribute="start", reverse = True) %}
 {% include "views/acquisition_missing_acquisitions.html" %}
 {% if show["table_details"] %}
 <div class="row">
