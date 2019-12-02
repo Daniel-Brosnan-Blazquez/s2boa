@@ -164,83 +164,83 @@ class TestAcquisitionView(unittest.TestCase):
 
         acquisition_details_table = self.driver.find_element_by_id("acquisition-details-table")
 
-        satellite = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+        satellite = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
 
         assert satellite.text == "S2A"
 
-        orbit = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+        orbit = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
 
         assert orbit.text == "16078"
 
-        station = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
         assert station.text == ""
 
-        playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert playback_type.text == "NOMINAL"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        playback_status = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        playback_status = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert playback_status.text == "MISSING"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert start.text == "2018-07-21T10:35:32.524661"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert duration_s.text == "96.006"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert duration_m.text == "1.6"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[12]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[13]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert delta_start_acq.text == "N/A"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[14]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert delta_stop_acq.text == "N/A"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[15]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[16]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[17]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[18]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[19]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert plan_file.text == "S2A_NPPF.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[21]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -415,83 +415,83 @@ class TestAcquisitionView(unittest.TestCase):
 
         acquisition_details_table = self.driver.find_element_by_id("acquisition-details-table")
 
-        satellite = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+        satellite = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
 
         assert satellite.text == "S2A"
 
-        orbit = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+        orbit = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
 
         assert orbit.text == "16078"
 
-        station = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
         assert station.text == ""
 
-        playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert playback_type.text == "NOMINAL"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        playback_status = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        playback_status = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert playback_status.text == "RECEIVED"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert start.text == "2018-07-21T10:35:32.524661"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert duration_s.text == "96.006"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert duration_m.text == "1.6"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[12]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[13]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert delta_start_acq.text == "-1.204"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[14]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert delta_stop_acq.text == "-6.189"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[15]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[16]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[17]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[18]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[19]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert plan_file.text == "S2A_NPPF.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[21]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -696,83 +696,83 @@ class TestAcquisitionView(unittest.TestCase):
 
         acquisition_details_table = self.driver.find_element_by_id("acquisition-details-table")
 
-        satellite = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+        satellite = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
 
         assert satellite.text == "S2A"
 
-        orbit = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+        orbit = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
 
         assert orbit.text == "16078"
 
-        station = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
         assert station.text == ""
 
-        playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert playback_type.text == "NOMINAL"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        playback_status = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        playback_status = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert playback_status.text == "PARTIAL"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert start.text == "2018-07-21T10:35:15.907236"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert duration_s.text == "112.624"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert duration_m.text == "1.877"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[12]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[13]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert delta_start_acq.text == "-17.821"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[14]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert delta_stop_acq.text == "-6.189"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[15]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[16]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[17]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[18]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[19]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert plan_file.text == "S2A_NPPF_PARTIAL.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[21]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -1009,7 +1009,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "</tr></table>",
               "geometries":[{
                      "name": "footprint",
-                     "value": "POLYGON ((3.333164 20.599643, 3.279277 20.384886, 3.225521 20.170112, 3.171887 19.955322, 3.118376 19.740516, 3.06499 19.525695, 3.011728 19.310858, 2.958578 19.096007, 2.905549 18.88114, 2.85264 18.666258, 2.799844 18.451362, 2.747159 18.236451, 2.694588 18.021527, 2.642131 17.806588, 2.589779 17.591635, 2.537534 17.376669, 2.485399 17.161689, 2.433369 16.946696, 2.381439 16.73169, 2.329614 16.516671, 2.277891 16.301639, 2.226266 16.086595, 2.174738 15.871538, 2.123309 15.656469, 2.071977 15.441389, 2.020736 15.226296, 1.969589 15.011192, 1.918536 14.796077, 1.867572 14.58095, 1.816696 14.365812, 1.765909 14.150664, 1.715211 13.935504, -0.889933 14.505031, -0.841689 14.720393, -0.793392 14.935748, -0.745042 15.151096, -0.696652 15.366438, -0.648219 15.581772, -0.599729 15.797099, -0.551181 16.012418, -0.502601 16.22773, -0.453961 16.443035, -0.40526 16.658331, -0.356507 16.873619, -0.307709 17.0889, -0.258845 17.304172, -0.209915 17.519435, -0.160941 17.73469, -0.111904 17.949937, -0.06279800000000001 18.165174, -0.013626 18.380402, 0.035593 18.595621, 0.084886 18.810831, 0.134255 19.026031, 0.18368 19.241222, 0.233171 19.456403, 0.28274 19.671574, 0.332389 19.886734, 0.382088 20.101885, 0.431869 20.317025, 0.481735 20.532154, 0.531672 20.747273, 0.581677 20.962381, 0.6317700000000001 21.177478, 3.333164 20.599643))"
+                     "value": "POLYGON ((3.199905 20.067599, 3.13488 19.806822, 3.070036 19.546021, 0.386797 20.122241, 0.447252 20.38343, 0.507821 20.644603, 3.199905 20.067599))"
               }],
              "style": {
                  "stroke_color": "red",
@@ -1033,7 +1033,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "</tr></table>",
               "geometries":[{
                      "name": "footprint",
-                     "value": "POLYGON ((3.333164 20.599643, 3.279277 20.384886, 3.225521 20.170112, 3.171887 19.955322, 3.118376 19.740516, 3.06499 19.525695, 3.011728 19.310858, 2.958578 19.096007, 2.905549 18.88114, 2.85264 18.666258, 2.799844 18.451362, 2.747159 18.236451, 2.694588 18.021527, 2.642131 17.806588, 2.589779 17.591635, 2.537534 17.376669, 2.485399 17.161689, 2.433369 16.946696, 2.381439 16.73169, 2.329614 16.516671, 2.277891 16.301639, 2.226266 16.086595, 2.174738 15.871538, 2.123309 15.656469, 2.071977 15.441389, 2.020736 15.226296, 1.969589 15.011192, 1.918536 14.796077, 1.867572 14.58095, 1.816696 14.365812, 1.765909 14.150664, 1.715211 13.935504, -0.889933 14.505031, -0.841689 14.720393, -0.793392 14.935748, -0.745042 15.151096, -0.696652 15.366438, -0.648219 15.581772, -0.599729 15.797099, -0.551181 16.012418, -0.502601 16.22773, -0.453961 16.443035, -0.40526 16.658331, -0.356507 16.873619, -0.307709 17.0889, -0.258845 17.304172, -0.209915 17.519435, -0.160941 17.73469, -0.111904 17.949937, -0.06279800000000001 18.165174, -0.013626 18.380402, 0.035593 18.595621, 0.084886 18.810831, 0.134255 19.026031, 0.18368 19.241222, 0.233171 19.456403, 0.28274 19.671574, 0.332389 19.886734, 0.382088 20.101885, 0.431869 20.317025, 0.481735 20.532154, 0.531672 20.747273, 0.581677 20.962381, 0.6317700000000001 21.177478, 3.333164 20.599643))"
+                     "value": "POLYGON ((3.199905 20.067599, 3.134641 19.805864, 3.069561 19.544106, 0.386353 20.120323, 0.44703 20.382471, 0.507821 20.644603, 3.199905 20.067599))"
               }],
              "style": {
                  "stroke_color": "red",
@@ -1087,7 +1087,7 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert number_of_elements == 4
 
-        playback_status_1 = acquisition_missing_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        playback_status_1 = acquisition_missing_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert playback_status_1.text == "MISSING"
 
@@ -1111,7 +1111,7 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert number_of_elements == 4
 
-        playback_status_1 = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        playback_status_1 = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert playback_status_1.text == "MISSING"
 
@@ -1336,43 +1336,43 @@ class TestAcquisitionView(unittest.TestCase):
 
         station_reports_table = self.driver.find_element_by_id("station-acquisition-reports-table")
 
-        satellite = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+        satellite = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
 
         assert satellite.text == "S2A"
 
-        orbit = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+        orbit = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
 
         assert orbit.text == "16122"
 
-        station = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
         assert station.text == "MPS_"
 
-        antenna_id = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        antenna_id = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert antenna_id.text == "MSP21"
 
-        status = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        status = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert status.text == "OK"
 
-        comments = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        comments = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert comments.text == ""
 
-        start = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        start = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert start.text == "2018-07-24 12:17:23"
 
-        stop = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        stop = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert stop.text == "2018-07-24 12:29:32"
 
-        source = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        source = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert source.text == "S2A_STNACQ.EOF"
 
-        uuid = station_reports_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        uuid = station_reports_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -1467,11 +1467,11 @@ class TestAcquisitionView(unittest.TestCase):
 
         playback_status_1 = acquisition_details_table.find_element_by_xpath("tbody/tr[1]/td[6]")
 
-        assert playback_status_1.text == "RECEIVED"
+        assert playback_status_1.text == "MISSING"
 
         playback_status_2 = acquisition_details_table.find_element_by_xpath("tbody/tr[2]/td[6]")
 
-        assert playback_status_2.text == "RECEIVED"
+        assert playback_status_2.text == "MISSING"
 
         playback_status_3 = acquisition_details_table.find_element_by_xpath("tbody/tr[3]/td[6]")
 
@@ -1483,11 +1483,11 @@ class TestAcquisitionView(unittest.TestCase):
 
         playback_status_5 = acquisition_details_table.find_element_by_xpath("tbody/tr[5]/td[6]")
 
-        assert playback_status_3.text == "MISSING"
+        assert playback_status_5.text == "RECEIVED"
 
         playback_status_6 = acquisition_details_table.find_element_by_xpath("tbody/tr[6]/td[6]")
 
-        assert playback_status_4.text == "MISSING"
+        assert playback_status_6.text == "RECEIVED"
 
         # Acquisition Scheduling Completeness timeline
 
