@@ -198,14 +198,27 @@ def process_file(file_path, engine, query, reception_time):
         "annotation_cnf": {
             "name": "SIZE",
             "system": satellite
-            },
-            "values": [
-                {"name": "size",
-                 "type": "double",
-                 "value": data_size
-                }]
+        },
+        "values": [
+            {"name": "size",
+             "type": "double",
+             "value": data_size
+            }]
         }
         list_of_annotations.append(data_size_annotation)
+
+        # Associate aggregated size to the datastrip
+        if "_DS_" in item_id:
+            sizes = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata/Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/Data_Size")
+            print([int(size.text) for size in sizes])
+            aggregated_size = sum([int(size.text) for size in sizes])
+            print(aggregated_size)
+            data_size_annotation["values"].append(
+                {"name": "aggregated_size",
+                 "type": "double",
+                 "value": aggregated_size
+                })
+        # 
 
         # Insert the data_size_annotation per datastrip
         cloud_percentage_annotation = {
