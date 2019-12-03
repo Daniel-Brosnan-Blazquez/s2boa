@@ -1241,3 +1241,45 @@ class TestPlanningView(unittest.TestCase):
         functions.query(self.driver,wait, timeline = False, table_details = False, evolution = False, map = False)
 
         assert functions.page_loaded(self.driver, wait, "header-no-data")
+
+
+    def test_planning_only_nppf_and_orbpre_removed_nppf(self):
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        self.query_eboa.get_sources(names = {"filter": filename, "op": "=="}, delete=True)
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/planning")
+
+        functions.query(self.driver, wait, "S2A", start = "2018-07-20T00:00:14", stop = "2018-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Check that sections are empty
+
+        summary_no_data = wait.until(EC.visibility_of_element_located((By.ID,"summary-no-imaging")))
+
+        assert summary_no_data
+
+        imaging_no_data = wait.until(EC.visibility_of_element_located((By.ID,"imaging-no-imaging")))
+
+        assert imaging_no_data
+
+        playback_no_data = wait.until(EC.visibility_of_element_located((By.ID,"playback-no-playback")))
+
+        assert playback_no_data
+
+        timeline_no_data = wait.until(EC.visibility_of_element_located((By.ID,"timeline-no-planning")))
+
+        assert timeline_no_data

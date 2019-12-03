@@ -225,15 +225,13 @@ def query_acquisition_and_render(start_filter = None, stop_filter = None, missio
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/acquisition.html", acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template("views/acquisition/acquisition.html", acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_acquisition_events(start_filter = None, stop_filter = None, mission = None, filters = None):
     """
     Query planned acquisition events.
     """
     current_app.logger.debug("Query planned acquisition events")
-
-    # Check that the ORBPRE files cover the requested period
 
     kwargs_playback = {}
 

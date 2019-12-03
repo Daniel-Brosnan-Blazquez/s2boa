@@ -34,7 +34,7 @@
                 </div>
                 <!-- Missions -->
                 {% with id = "mission_static_query" %}
-                {% include "views/missions.html" %}
+                {% include "views/common/missions.html" %}
                 {% endwith %}
                 <br/>
                 <!-- Start and stop -->
@@ -42,7 +42,7 @@
                   {% include "eboa_nav/start_stop_without_operators.html" %}
                 </div>
                 <!-- Orbits -->
-                {% include "views/start_stop_orbits.html" %}
+                {% include "views/common/start_stop_orbits.html" %}
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
@@ -65,7 +65,7 @@
                 </div>
                 <!-- Missions -->
                 {% with id = "mission_sliding_query" %}
-                {% include "views/missions.html" %}
+                {% include "views/common/missions.html" %}
                 {% endwith %}
                 <br/>
                 <!-- Delay -->
@@ -100,7 +100,7 @@
     </div>
   </div>
 </div>
-{% include "views/header.html" %}
+{% include "views/common/header.html" %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -115,7 +115,7 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-  {% include "js/tracking_update_map.js" %}
+  {% include "js/tracking/tracking_update_map.js" %}
 
   {% if sliding_window %}
   var sliding_window = {

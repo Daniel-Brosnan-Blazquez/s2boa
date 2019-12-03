@@ -33,7 +33,7 @@
                 </div>
                 <!-- Missions -->
                 {% with id = "mission_static_query" %}
-                {% include "views/missions.html" %}
+                {% include "views/common/missions.html" %}
                 {% endwith %}
                 <br/>
                 <!-- Start and stop -->
@@ -41,7 +41,7 @@
                   {% include "eboa_nav/start_stop_without_operators.html" %}
                 </div>
                 <!-- Orbits -->
-                {% include "views/start_stop_orbits.html" %}
+                {% include "views/common/start_stop_orbits.html" %}
                 <!-- Limit -->
                 <div class="row">
                   <div class="col-xs-3">
@@ -91,7 +91,7 @@
                 </div>
                 <!-- Missions -->
                 {% with id = "mission_sliding_query" %}
-                {% include "views/missions.html" %}
+                {% include "views/common/missions.html" %}
                 {% endwith %}
                 <br/>
                 <!-- Delay -->
@@ -146,7 +146,7 @@
     </div>
   </div>
 </div>
-{% include "views/header.html" %}
+{% include "views/common/header.html" %}
 
 <!-- Pagination -->
 {% set list_elements = [planning_events["playback"]["prime_events"], planning_events["imaging"]["prime_events"]] %}
@@ -437,7 +437,11 @@
             {% for event in planning_events["imaging"]["prime_events"] %}
             <tr>
               {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+              {% if original_imaging_uuid %}
               {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
+              {% else %}
+              {% set original_imaging = event %}
+              {% endif %}
               {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
               <td>{{ satellite }}</td>
               {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
@@ -453,7 +457,7 @@
               {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
               {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
               <td>
-                {% include "views/parameters.html" %}
+                {% include "views/common/parameters.html" %}
               </td>
               <td><a href="/eboa_nav/query-source/{{ original_imaging.source.source_uuid }}">{{ original_imaging.source.name }}</a></td>
               <td><a href="/eboa_nav/query-event-links/{{ original_imaging.event_uuid }}"><i class="fa fa-link"></i></a></td>
@@ -665,7 +669,11 @@
             {% for event in playback_by_station["N/A"] %}
             <tr>
               {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+              {% if original_playback_uuid %}
               {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+              {% else %}
+              {% set original_playback = event %}
+              {% endif %}
               {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
               <td>{{ satellite }}</td>
               {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
@@ -679,7 +687,7 @@
               {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
               {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
               <td>
-                {% include "views/parameters.html" %}
+                {% include "views/common/parameters.html" %}
               </td>
               <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
               <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
@@ -756,12 +764,20 @@
           {% for event in planning_events["playback"]["prime_events"] %}
           <tr>
             {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+            {% if original_playback_uuid %}
             {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+            {% else %}
+            {% set original_playback = event %}
+            {% endif %}
             {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
             <td>{{ satellite }}</td>
             {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
             <td>{{ orbit }}</td>
+            {% if original_playback_uuid %}
             {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+            {% else %}
+            {% set station = "N/A" %}
+            {% endif %}
             <td>{{ station }}</td>
             <td>{{ event.start.isoformat() }}</td>
             <td>{{ event.stop.isoformat() }}</td>
@@ -772,7 +788,7 @@
             {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
             {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
             <td>
-              {% include "views/parameters.html" %}
+              {% include "views/common/parameters.html" %}
             </td>
             <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
             <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
@@ -858,13 +874,13 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-  {% include "js/planning_functions.js" %}
+  {% include "js/planning/planning_functions.js" %}
   {% if show["timeline"] and (planning_events["imaging"]["prime_events"]|length > 0 or planning_events["playback"]["prime_events"]|length > 0) %}
   {% with events = planning_events["imaging"]["prime_events"] %}
-  {% include "js/imaging_planning_to_timeline.js" %}
+  {% include "js/planning/imaging_planning_to_timeline.js" %}
   {% endwith %}
   {% with events = planning_events["playback"]["prime_events"] %}
-  {% include "js/playback_planning_to_timeline.js" %}
+  {% include "js/planning/playback_planning_to_timeline.js" %}
   {% endwith %}
 
   var imaging_timeline_events = imaging_events;
@@ -881,7 +897,7 @@
   {% endif %}
   {% if show["x_time"] and (planning_events["imaging"]["prime_events"]|length > 0 or planning_events["playback"]["prime_events"]|length > 0) %}
   {% with events = planning_events["imaging"]["prime_events"] %}
-  {% include "js/imaging_planning_to_xy.js" %}
+  {% include "js/planning/imaging_planning_to_xy.js" %}
   {% endwith %}
 
   var groups = [];
@@ -895,7 +911,7 @@
 
   {% set msi_playbacks = planning_events["playback"]["prime_events"]|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
   {% with events = msi_playbacks %}
-  {% include "js/playback_planning_to_xy.js" %}
+  {% include "js/planning/playback_planning_to_xy.js" %}
   {% endwith %}
 
   var groups = [];
@@ -912,14 +928,14 @@
   {% if show["map"] and planning_events["imaging"]["prime_events"]|length > 0 %}
 
   {% with events = planning_events["imaging"]["prime_events"] %}
-  {% include "js/imaging_planning_to_map.js" %}
+  {% include "js/planning/imaging_planning_to_map.js" %}
   {% endwith %}
   var polygons = [];
   vboa.prepare_events_geometries_for_map(imaging_geometries, polygons);
   vboa.display_map("planned-imagings-map", polygons);  
 
   {% with events = planning_events["playback"]["prime_events"] %}
-  {% include "js/playback_planning_to_map.js" %}
+  {% include "js/planning/playback_planning_to_map.js" %}
   {% endwith %}
   var polygons = [];
   vboa.prepare_events_geometries_for_map(playback_geometries, polygons);

@@ -74,7 +74,7 @@ def show_tracking():
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window=None)
+    return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window=None)
 
 @bp.route("/sliding_tracking_parameters", methods=["GET", "POST"])
 def show_sliding_tracking_parameters():
@@ -107,7 +107,7 @@ def show_sliding_tracking_parameters():
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
+    return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
 
 @bp.route("/sliding_tracking", methods=["GET", "POST"])
 def show_sliding_tracking():
@@ -161,7 +161,7 @@ def show_sliding_tracking():
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
+    return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
 
 @bp.route("/query-tracking")
 def query_tracking():

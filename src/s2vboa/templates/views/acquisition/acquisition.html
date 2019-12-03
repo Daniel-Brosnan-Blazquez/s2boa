@@ -34,7 +34,7 @@
                 </div>
                 <!-- Missions -->
                 {% with id = "mission_static_query" %}
-                {% include "views/missions.html" %}
+                {% include "views/common/missions.html" %}
                 {% endwith %}
                 <br/>
                 <!-- Start and stop -->
@@ -42,7 +42,7 @@
                   {% include "eboa_nav/start_stop_without_operators.html" %}
                 </div>
                 <!-- Orbits -->
-                {% include "views/start_stop_orbits.html" %}
+                {% include "views/common/start_stop_orbits.html" %}
                 <!-- Limit -->
                 <div class="row">
                   <div class="col-xs-3">
@@ -92,7 +92,7 @@
                 </div>
                 <!-- Missions -->
                 {% with id = "mission_sliding_query" %}
-                {% include "views/missions.html" %}
+                {% include "views/common/missions.html" %}
                 {% endwith %}
                 <br/>
                 <!-- Delay -->
@@ -147,7 +147,7 @@
     </div>
   </div>
 </div>
-{% include "views/header.html" %}
+{% include "views/common/header.html" %}
 
 <!-- Pagination -->
 {% with route = "/views/acquisition-pages", elements = acquisition_events["playback_correction"], filters = filters %}
@@ -270,7 +270,7 @@
             <td>{{ station }}</td>
             <td>{{ type }}</td>
             <td>
-              {% include "views/parameters.html" %}
+              {% include "views/common/parameters.html" %}
             </td>
             <td class="{{ playback_status_class }}">{{ playback_status }}</td>
             <td>{{ event.start.isoformat() }}</td>
@@ -350,11 +350,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#acqusition-scheduling-timeline">Acquisition Scheduling Completeness Timeline <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-timeline">Acquisition Scheduling Completeness Timeline <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     {% if acquisition_events["playback"]|length > 0 %}
-    <div class="panel-body panel-collapse collapse in" id="acqusition-scheduling-timeline">
+    <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-timeline">
       <!-- /.panel-heading -->
       <div id="acquisitions-timeline">
       </div>
@@ -374,11 +374,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#acqusition-scheduling-on-map">Acquisition Scheduling Completeness on the map <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-on-map">Acquisition Scheduling Completeness on the map <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     {% if acquisition_events["playback"]|length > 0 %}
-    <div class="panel-body panel-collapse collapse in" id="acqusition-scheduling-on-map">
+    <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-on-map">
       <!-- /.panel-heading -->
       <div id="acquisitions-map">
       </div>
@@ -482,7 +482,7 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-  {% include "js/acquisition_functions.js" %}
+  {% include "js/acquisition/acquisition_functions.js" %}
 
   {% if (show["map"] or show["timeline"]) and acquisition_events["playback"]|length > 0 %}
   <!-- Received playbacks -->
@@ -501,11 +501,11 @@
 
   {% if show["timeline"] %}
   {% with events = events_missing %}
-  {% include "js/missing_acquisition_to_timeline.js" %}
+  {% include "js/acquisition/missing_acquisition_to_timeline.js" %}
   {% endwith %}
 
   {% with events = events_received %}
-  {% include "js/received_acquisition_to_timeline.js" %}
+  {% include "js/acquisition/received_acquisition_to_timeline.js" %}
   {% endwith %}
 
   var events = missing_playbacks_timeline.concat(received_playbacks_timeline)
@@ -519,13 +519,13 @@
   
   {% if show["map"] %}
   {% with events = events_missing %}
-  {% include "js/missing_acquisition_to_map.js" %}
+  {% include "js/acquisition/missing_acquisition_to_map.js" %}
   {% endwith %}
   var polygons_missing = [];
   vboa.prepare_events_geometries_for_map(acquisition_geometries_missing, polygons_missing);
 
   {% with events = events_received %}
-  {% include "js/received_acquisition_to_map.js" %}
+  {% include "js/acquisition/received_acquisition_to_map.js" %}
   {% endwith %}
   var polygons_received = [];
   vboa.prepare_events_geometries_for_map(acquisition_geometries_received, polygons_received);
