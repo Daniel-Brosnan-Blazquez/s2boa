@@ -91,13 +91,12 @@ def query_data_size_pages():
 
     mission = filters["mission"][0]
     show = filters["show"][0]
-    mission = filters["mission"][0]
 
     # window_size is not used, here only for using the same API
     window_size = None
     start_filter, stop_filter = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
 
-    return query_datastrip_and_render(start_filter, stop_filter, mission, show, filters = filters)
+    return query_datastrips_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sliding-data-size-parameters", methods=["GET", "POST"])
 def show_sliding_data_size_parameters():

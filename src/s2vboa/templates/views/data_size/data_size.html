@@ -43,6 +43,13 @@
                 </div>
                 <!-- Orbits -->
                 {% include "views/common/start_stop_orbits.html" %}
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="data-size-limit" value="100"/>
+                  </div>
+                </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
@@ -107,6 +114,13 @@
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="data-size-limit" value="100"/>
+                  </div>
+                </div>                
                 <div>
                   <label id="show-data-size-table-details">
                     <input type="checkbox" name="show_data_size_table_details" checked><span class="label-text"><b>Show data size table details</b></span>
@@ -131,6 +145,12 @@
   </div>
 </div>
 {% include "views/common/header.html" %}
+
+<!-- Pagination -->
+{% with route = "/views/data-size-pages", elements = datastrip_events, filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
 {% if show["table_details"] %}
 <div class="row">
   <div class="panel panel-default">
@@ -154,7 +174,7 @@
           <th>Size per second (Mb/s)</th>
         </tr>
         {% set datastrips_by_level = datastrip_events|events_group_by_ref_group() %}
-        {% set sensing_duration_in_s = datastrips_by_level["L0_DS"]|get_timeline_duration %}
+        {% set sensing_duration_in_s = datastrip_events | convert_eboa_events_to_date_segments | merge_timeline | get_timeline_duration_segments %}
         {% set size_in_bytes = datastrip_events|map(attribute="explicitRef")|refs_get_first_annotation("SIZE")|map(attribute="annotationDoubles")|flatten|selectattr("name", "equalto", "aggregated_size")|sum(attribute="value") %}
         <tr>
           <td class="highlight">ALL</td>
