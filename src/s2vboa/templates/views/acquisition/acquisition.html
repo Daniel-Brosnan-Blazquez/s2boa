@@ -161,7 +161,7 @@
 
 {% set missing_playbacks_uuids = (playback_completeness_missing_uuids + playback_with_no_playback_validity_uuids)|unique|list %}
 {% set missing_playbacks = acquisition_events["playback"]|selectattr("event_uuid", "in", missing_playbacks_uuids)|list|sort(attribute="start", reverse = True) %}
-{% include "views/acquisition_missing_acquisitions.html" %}
+{% include "views/acquisition/acquisition_missing_acquisitions.html" %}
 {% if show["table_details"] %}
 <div class="row">
   <div class="panel panel-default">
