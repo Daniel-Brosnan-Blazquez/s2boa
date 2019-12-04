@@ -210,9 +210,15 @@
 
           <tr>
             <td><a href="/eboa_nav/query-er/{{ datastrip.explicitRef.explicit_ref_uuid }}">{{ datastrip.explicitRef.explicit_ref }}</a></td>
+            {% if size_annotation %}
             <td>{{ (size / 1000 / 1000) |round(3) }}</td>
             <td>{{ (aggregated_size / 1000 / 1000 / 1000) |round(3) }}</td>
             <td>{{ (((aggregated_size / 1000 / 1000) * 8) / sensing_duration_in_s) |round(3) }}</td>
+            {% else %}
+            <td>{{ size }}</td>
+            <td>{{ aggregated_size }}</td>
+            <td>{{ aggregated_size }}</td>
+            {% endif %}
             <td>{{ datatake }}</td>
             <td>{{ datastrip.start.isoformat() }}</td>
             <td>{{ datastrip.stop.isoformat() }}</td>

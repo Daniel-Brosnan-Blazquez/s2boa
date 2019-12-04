@@ -238,7 +238,7 @@ def query_datastrip_events(start_filter = None, stop_filter = None, mission = No
     # end if
 
     # Set order by reception_time descending
-    kwargs["order_by"] = {"field": "start", "descending": True}
+    kwargs["order_by"] = {"field": "start", "descending": False}
 
     # Start filter
     if start_filter:
