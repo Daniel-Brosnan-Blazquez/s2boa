@@ -25,4 +25,11 @@
       <parameter name="type">0</parameter>
     </parameters>
   </generator>
+  <generator name="Data size generator (Complete view)" description="Generator of the Data size report covering all missions">
+    <command>rboa_reporting.py -p s2vboa.views.data_size_generator</command>
+    <name_format>S2__REP__DATA_SIZE__%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">0</parameter>
+    </parameters>
+  </generator>
 </reporting_generators>
