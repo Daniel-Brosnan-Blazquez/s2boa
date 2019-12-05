@@ -320,18 +320,29 @@ def process_file(file_path, engine, query, reception_time):
                     "system": system
                 },
                 "start": steps_list[0].find("PROCESSING_START_DATETIME").text[:-1],
-                "stop": steps_list[-1].find("PROCESSING_END_DATETIME").text[:-1]
+                "stop": steps_list[-1].find("PROCESSING_END_DATETIME").text[:-1],
+                "values": [
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite
+                    }]
             }
             list_of_events.append(event_timeliness)
 
             # Steps
             for step in steps_list:
                 if step.find("EXEC_STATUS").text == 'COMPLETED':
-                    values = [{
-                        "name": "id",
-                        "type": "text",
-                        "value": step.get("id")
-                    }]
+                    values = [
+                        {
+                            "name": "id",
+                            "type": "text",
+                            "value": step.get("id")
+                        },
+                        {
+                            "name": "satellite",
+                            "type": "text",
+                            "value": satellite
+                        }]
                     event_step = {
                         "explicit_reference": ds_output,
                         "gauge": {
