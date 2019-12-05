@@ -2,7 +2,7 @@
 {% block content %}
 {% set status = "UNKNOWN" %}
 <div class="row">
-  <h1 class="page-header">Sensing data volumes view</h1>
+  <h1 class="page-header">Archive data volumes view</h1>
 </div>
 <!-- /.row -->
 <div class="row">
@@ -15,12 +15,12 @@
       </div>
       <div class="panel-body panel-collapse collapse" id="query-interface">
         <ul class="nav nav-tabs responsive-tabs">
-          <li class="active"><a href="#sensing-data-volumes-query-window">Query window</a></li>
-          <li><a href="#sensing-data-volumes-sliding-window">Sliding window</a></li>
+          <li class="active"><a href="#archive-data-volumes-query-window">Query window</a></li>
+          <li><a href="#archive-data-volumes-sliding-window">Sliding window</a></li>
         </ul>
         <div class="tab-content">
-          <div class="tab-pane active" id="sensing-data-volumes-query-window">
-            <form role="form" method=post action="/views/sensing-data-volumes">
+          <div class="tab-pane active" id="archive-data-volumes-query-window">
+            <form role="form" method=post action="/views/archive-data-volumes">
               <div>
                 <!-- Default values message -->
                 <div class="row">
@@ -47,32 +47,32 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Limit</label>
-                    <input type="text" class="form-control" style="width: 100%" name="limit" id="sensing-data-volumes-limit" value="100"/>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="archive-data-volumes-limit" value="100"/>
                   </div>
                 </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
                 <div>
-                  <label id="show-sensing-data-volumes-table-details">
-                    <input type="checkbox" name="show_sensing_data_volumes_table_details" checked><span class="label-text"><b>Show data volumes table details</b></span>
+                  <label id="show-archive-data-volumes-table-details">
+                    <input type="checkbox" name="show_archive_data_volumes_table_details" checked><span class="label-text"><b>Show data volumes table details</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-sensing-data-volumes-evolution">
-                    <input type="checkbox" name="show_sensing_data_volumes_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
+                  <label id="show-archive-data-volumes-evolution">
+                    <input type="checkbox" name="show_archive_data_volumes_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-sensing-data-volumes-map">
-                    <input type="checkbox" name="show_sensing_data_volumes_map" checked><span class="label-text"><b>Show map</b></span>
+                  <label id="show-archive-data-volumes-map">
+                    <input type="checkbox" name="show_archive_data_volumes_map" checked><span class="label-text"><b>Show map</b></span>
                   </label>
                 </div>
               </div>
             </form>
           </div>
-          <div class="tab-pane" id="sensing-data-volumes-sliding-window">
-            <form role="form" method=post action="/views/sliding-sensing-data-volumes">
+          <div class="tab-pane" id="archive-data-volumes-sliding-window">
+            <form role="form" method=post action="/views/sliding-archive-data-volumes">
               <div>
                 <!-- Default values message -->
                 <div class="row">
@@ -94,21 +94,21 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Window delay (days)</label>
-                    <input type="text" class="form-control" name="sensing_data_volumes_window_delay" id="sensing-data-volumes-window-delay"/>
+                    <input type="text" class="form-control" name="archive_data_volumes_window_delay" id="archive-data-volumes-window-delay"/>
                   </div>
                 </div>
                 <!-- Duration -->
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Window size (days)</label>
-                    <input type="text" class="form-control" name="sensing_data_volumes_window_size" id="sensing-data-volumes-window-size"/>
+                    <input type="text" class="form-control" name="archive_data_volumes_window_size" id="archive-data-volumes-window-size"/>
                   </div>
                 </div>
                 <!-- Repeat cycle (minutes) -->
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Repeat cycle (minutes)</label>
-                    <input type="text" class="form-control" name="sensing_data_volumes_repeat_cycle" id="sensing-data-volumes-repeat-cycle"/>
+                    <input type="text" class="form-control" name="archive_data_volumes_repeat_cycle" id="archive-data-volumes-repeat-cycle"/>
                   </div>
                 </div>
                 <div>
@@ -118,22 +118,22 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Limit</label>
-                    <input type="text" class="form-control" style="width: 100%" name="limit" id="sensing-data-volumes-limit" value="100"/>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="archive-data-volumes-limit" value="100"/>
                   </div>
                 </div>                
                 <div>
-                  <label id="show-sensing-data-volumes-table-details">
-                    <input type="checkbox" name="show_sensing_data_volumes_table_details" checked><span class="label-text"><b>Show data volumes table details</b></span>
+                  <label id="show-archive-data-volumes-table-details">
+                    <input type="checkbox" name="show_archive_data_volumes_table_details" checked><span class="label-text"><b>Show data volumes table details</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-sensing-data-volumes-evolution">
-                    <input type="checkbox" name="show_sensing_data_volumes_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
+                  <label id="show-archive-data-volumes-evolution">
+                    <input type="checkbox" name="show_archive_data_volumes_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-sensing-data-volumes-map">
-                    <input type="checkbox" name="show_sensing_data_volumes_map" checked><span class="label-text"><b>Show map</b></span>
+                  <label id="show-archive-data-volumes-map">
+                    <input type="checkbox" name="show_archive_data_volumes_map" checked><span class="label-text"><b>Show map</b></span>
                   </label>
                 </div>
               </div>
@@ -147,7 +147,7 @@
 {% include "views/common/header.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/sensing-data-volumes-pages", elements = datastrip_events, filters = filters %}
+{% with route = "/views/archive-data-volumes-pages", elements = datastrip_events, filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
@@ -156,14 +156,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#sensing-data-volumes-description">Description <span class="fa fa-angle-double-down"></span></a>      
+        <a data-toggle="collapse" data-parent="#accordion" href="#archive-data-volumes-description">Description <span class="fa fa-angle-double-down"></span></a>      
       </h3>
     </div>
     <!-- /.panel-heading -->
-    <div class="panel-body panel-collapse collapse in" id="sensing-data-volumes-description">    
+    <div class="panel-body panel-collapse collapse in" id="archive-data-volumes-description">    
       <p>
         <b>
-          This view gets the datastrips which sensing timings are covered by the requested period.
+          This view gets the datastrips which processing timings are covered by the requested period.
           </br>
           The information of the data volume is obtained through the REP_ARC files.
         </b>

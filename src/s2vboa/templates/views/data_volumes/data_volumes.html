@@ -1,0 +1,187 @@
+
+{% if show["table_details"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#data-volumes-statistics">Statistics <span class="fa fa-angle-double-down"></span></a>      
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    {% if datastrip_events|length > 0 %}
+    <div class="panel-body panel-collapse collapse in" id="data-volumes-statistics">    
+      <p>
+        <b>The following table shows the statistics of the data volume per level</b>:
+      </p>
+      <table id="data-volumes-statistics-table" align="center" class="table table-striped table-bordered table-hover table-static">
+        <tr>
+          <th>Level</th>
+          <th>Number of datastrips</th>
+          <th>Sensing duration (m)</th>
+          <th>Size (GB)</th>
+          <th>Size per second (Mb/s)</th>
+        </tr>
+        {% set datastrips_by_level = datastrip_events|events_group_by_ref_group() %}
+        {% set sensing_duration_in_s = datastrip_events | convert_eboa_events_to_date_segments | merge_timeline | get_timeline_duration_segments %}
+        {% set size_in_bytes = datastrip_events|map(attribute="explicitRef")|refs_get_first_annotation("SIZE")|map(attribute="annotationDoubles")|flatten|selectattr("name", "equalto", "aggregated_size")|sum(attribute="value") %}
+        <tr>
+          <td class="highlight">ALL</td>
+          <td>{{ datastrip_events|length }}</td>
+          <td>{{ (sensing_duration_in_s / 60) |round(3) }}</td>
+          <td>{{ (size_in_bytes / 1000 / 1000 / 1000) |round(3) }}</td>
+          <td>{{ (((size_in_bytes / 1000 / 1000) * 8) / sensing_duration_in_s) |round(3) }}</td>
+        </tr>
+        {% for level in datastrips_by_level %}
+        {% set sensing_duration_in_s = datastrips_by_level[level]|get_timeline_duration %}
+        {% set size_in_bytes = datastrips_by_level[level]|map(attribute="explicitRef")|refs_get_first_annotation("SIZE")|map(attribute="annotationDoubles")|flatten|selectattr("name", "equalto", "aggregated_size")|sum(attribute="value") %}
+        <tr>
+          <td class="highlight">{{ level }}</td>
+          <td>{{ datastrips_by_level[level]|length }}</td>
+          <td>{{ (sensing_duration_in_s / 60) |round(3) }}</td>
+          <td>{{ (size_in_bytes / 1000 / 1000 / 1000) |round(3) }}</td>
+          <td>{{ (((size_in_bytes / 1000 / 1000) * 8) / sensing_duration_in_s) |round(3) }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <p>
+        <b>The following table shows the list of datastrips</b>:
+      </p>
+      <table id="data-volumes-datastrips-table" width="100%" class="table table-striped table-bordered table-hover table-search">
+        <thead>
+          <tr>
+            <th>Datastrip</th>
+            <th>Size (MB)</th>
+            <th>Aggregated size (GB)</th>          
+            <th>Size per second (Mb/s)</th>
+            <th>Datatake</th>
+            <th>Start</th>
+            <th>Stop</th>          
+            <th>Sensing duration (m)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for datastrip in datastrip_events %}
+          {% set size_annotation = datastrip.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "SIZE")|first %}
+          {% set aggregated_size = "N/A" %}
+          {% set size = "N/A" %}          
+          {% if size_annotation %}
+          {% set size = size_annotation.annotationDoubles|selectattr("name", "equalto", "size")|map(attribute="value")|first|float %}
+          {% set aggregated_size = size_annotation.annotationDoubles|selectattr("name", "equalto", "aggregated_size")|map(attribute="value")|first|float %}          
+          {% endif %}
+          {% set sensing_duration_in_s = datastrip.get_duration() %}
+          {% set datatake_annotation = datastrip.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "DATATAKE")|first %}
+          {% set datatake = "N/A" %}
+          {% if datatake_annotation %}
+          {% set datatake = datatake_annotation.annotationTexts|selectattr("name", "equalto", "datatake_identifier")|map(attribute="value")|first %}
+          {% endif %}
+
+          <tr>
+            <td><a href="/eboa_nav/query-er/{{ datastrip.explicitRef.explicit_ref_uuid }}">{{ datastrip.explicitRef.explicit_ref }}</a></td>
+            {% if size_annotation %}
+            <td>{{ (size / 1000 / 1000) |round(3) }}</td>
+            <td>{{ (aggregated_size / 1000 / 1000 / 1000) |round(3) }}</td>
+            <td>{{ (((aggregated_size / 1000 / 1000) * 8) / sensing_duration_in_s) |round(3) }}</td>
+            {% else %}
+            <td>{{ size }}</td>
+            <td>{{ aggregated_size }}</td>
+            <td>{{ aggregated_size }}</td>
+            {% endif %}
+            <td>{{ datatake }}</td>
+            <td>{{ datastrip.start.isoformat() }}</td>
+            <td>{{ datastrip.stop.isoformat() }}</td>
+            <td>{{ (sensing_duration_in_s / 60) |round(3) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Datastrip</th>
+            <th>Size (MB)</th>
+            <th>Aggregated size (MB)</th>          
+            <th>Size per second (Mb/s)</th>
+            <th>Datatake</th>
+            <th>Start</th>
+            <th>Stop</th>          
+            <th>Sensing duration (m)</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    {% else %}
+    <div>
+      <br/>
+      <p id="data-volumes-statistics-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
+      <br/>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% if show["evolution"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#data-volumes-datastrips-on-map">Data volumes evolution <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    {% if datastrip_events|length > 0 %}
+    <div class="panel-body panel-collapse collapse in" id="data-volumes-datastrips-on-map">
+      <!-- /.panel-heading -->
+      <p>
+        <b>The following graph shows the evolution of the data volume starting from 0 GB</b>:
+      </p>
+      <div id="datastrips-data-volume-evolution">
+      </div>
+      <!-- <p> -->
+      <!--   <b>The following graph shows the size of the datastrips over time</b>: -->
+      <!-- </p> -->
+      <!-- <div id="datastrips-datastrip-size-evolution"> -->
+      <!-- </div> -->
+      <!-- <p> -->
+      <!--   <b>The following graph shows the data volume per second/per level</b>: -->
+      <!-- </p> -->
+      <!-- <div id="datastrips-data-volume-per-second-evolution"> -->
+      <!-- </div> -->
+    </div>
+    {% else %}
+    <div>
+      <br/>
+      <p id="data-volumes-map-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
+      <br/>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% if show["map"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#data-volumes-datastrips-on-map">Sensing coverage on the map <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    {% if datastrip_events|length > 0 %}
+    <div class="panel-body panel-collapse collapse in" id="data-volumes-datastrips-on-map">
+      <!-- /.panel-heading -->
+      <p>
+        <b>The following map shows the footprint of the datastrips inside the requested period</b>:
+      </p>
+      <div id="datastrips-map">
+      </div>
+    </div>
+    {% else %}
+    <div>
+      <br/>
+      <p id="data-volumes-map-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
+      <br/>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

@@ -25,9 +25,16 @@
       <parameter name="type">0</parameter>
     </parameters>
   </generator>
-  <generator name="Data size generator (Complete view)" description="Generator of the Data size report covering all missions">
-    <command>rboa_reporting.py -p s2vboa.views.data_size_generator</command>
-    <name_format>S2__REP__DATA_SIZE__%C_%B_%E.html</name_format>
+  <generator name="Sensing data volumes generator (Complete view)" description="Generator of the Sensing data volumes report covering all missions">
+    <command>rboa_reporting.py -p s2vboa.views.sensing_data_volumes_generator</command>
+    <name_format>S2__REP__SENSVOLUME_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">0</parameter>
+    </parameters>
+  </generator>
+  <generator name="Archive data volumes generator (Complete view)" description="Generator of the Archive data volumes report covering all missions">
+    <command>rboa_reporting.py -p s2vboa.views.archive_data_volumes_generator</command>
+    <name_format>S2__REP__ARCHVOLUME_%C_%B_%E.html</name_format>
     <parameters>
       <parameter name="type">0</parameter>
     </parameters>

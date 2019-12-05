@@ -1,0 +1,24 @@
+<script type="text/javascript">
+  {% include "js/data_volumes/data_volumes_functions.js" %}
+  {% set datastrips_by_level = datastrip_events|events_group_by_ref_group() %}
+
+  {% if show["evolution"] and datastrip_events|length > 0 %}
+  {% with events = datastrip_events %}
+  {% include "js/data_volumes/data_volumes_data_volume_evolution.js" %}
+  {% endwith %}
+
+  var groups = [];
+  var items = [];
+  var options = vboa.prepare_events_data_for_xy(data_volume_evolution, items, groups, "Data volume evolution (GB)");
+  vboa.display_x_time("datastrips-data-volume-evolution", items, groups, options);
+  {% endif %}  
+
+  {% if show["map"] and datastrip_events|length > 0 %}
+  {% with events = datastrips_by_level["L0_DS"] %}
+  {% include "js/data_volumes/data_volumes_map.js" %}
+  {% endwith %}
+  var polygons = [];
+  vboa.prepare_events_geometries_for_map(datastrip_geometries, polygons);
+  vboa.display_map("datastrips-map", polygons);
+  {% endif %}  
+</script>

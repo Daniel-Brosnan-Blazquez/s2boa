@@ -1,5 +1,5 @@
 """
-Generator module for the sensing data volumes view for the monitoring of the Sentinel-2 constellation
+Generator module for the archive data volumes view for the monitoring of the Sentinel-2 constellation
 
 Written by DEIMOS Space S.L. (dibb)
 
@@ -20,20 +20,20 @@ def generate_report(begin, end, metadata):
 
     app = create_app()
     client = app.test_client()
-    response = client.post("/views/sensing-data-volumes", data={
+    response = client.post("/views/archive-data-volumes", data={
         "start": begin,
         "stop": end,
         "mission": "S2_",
-        "show_sensing_data_volumes_table_details": True,
-        "show_sensing_data_volumes_map": True,
-        "show_sensing_data_volumes_evolution": True
+        "show_archive_data_volumes_table_details": True,
+        "show_archive_data_volumes_map": True,
+        "show_archive_data_volumes_evolution": True
     })
 
     html_file_path = export_html(response)
 
     metadata["operations"][0]["report"]["generator"] = os.path.basename(__file__)
     metadata["operations"][0]["report"]["generator_version"] = version
-    metadata["operations"][0]["report"]["group"] = "SENSING_DATA_VOLUMES"
-    metadata["operations"][0]["report"]["group_description"] = "Group of reports dedicated for the monitoring of the data volume following sensing time of the Sentinel-2 constellation"
+    metadata["operations"][0]["report"]["group"] = "ARCHIVE_DATA_VOLUMES"
+    metadata["operations"][0]["report"]["group_description"] = "Group of reports dedicated for the monitoring of the data volume following operations time of the Sentinel-2 constellation"
 
     return html_file_path
