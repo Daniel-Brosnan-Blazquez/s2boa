@@ -1652,35 +1652,32 @@ def associate_footprints(events, satellite, orbpre_events = None, return_polygon
 
                         for i, footprint in enumerate(footprints):
 
-                            if len(footprint) > 0:
+                            if not ("values" in event_with_footprint.keys() and len(event_with_footprint["values"]) > 0):
+                                event_with_footprint["values"] = []
+                            # end if
 
-                                if not ("values" in event_with_footprint.keys() and len(event_with_footprint["values"]) > 0):
-                                    event_with_footprint["values"] = []
-                                # end if
+                            footprint_object_name = "footprint_details"
+                            if len(footprints) > 1:
+                                footprint_object_name = "footprint_details_" + str(i)
+                            # end if
 
-                                footprint_object_name = "footprint_details"
-                                if len(footprints) > 1:
-                                    footprint_object_name = "footprint_details_" + str(i)
-                                # end if
+                            if return_polygon_format:
+                                footprint = obtain_polygon_format(footprint)
+                            # end if
 
-                                if return_polygon_format:
-                                    footprint = obtain_polygon_format(footprint)
-                                # end if
-                                
-                                footprint_object = [{"name": "footprint",
-                                                     "type": "geometry",
-                                                     "value": footprint}]
-                                event_with_footprint["values"].append({
-                                    "name": footprint_object_name,
-                                    "type": "object",
-                                    "values": footprint_object
-                                })
+                            footprint_object = [{"name": "footprint",
+                                                 "type": "geometry",
+                                                 "value": footprint}]
+                            event_with_footprint["values"].append({
+                                "name": footprint_object_name,
+                                "type": "object",
+                                "values": footprint_object
+                            })
 
-                                if logger.getEffectiveLevel() == logging.DEBUG:
-                                    footprint_object.append({"name": "get_footprint_command",
-                                                             "type": "text",
-                                                             "value": get_footprint_command})
-                                # end if
+                            if logger.getEffectiveLevel() == logging.DEBUG:
+                                footprint_object.append({"name": "get_footprint_command",
+                                                         "type": "text",
+                                                         "value": get_footprint_command})
                             # end if
                         # end for
                     except subprocess.CalledProcessError:

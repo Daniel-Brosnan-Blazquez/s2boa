@@ -176,6 +176,36 @@ def process_file(file_path, engine, query, reception_time):
         # end if
 
         corrected_footprint = functions.list_of_coordinates_to_str_geometry(corrected_list_of_coordinates)
+        corrected_footprint_split = corrected_footprint.split(" ")
+        corrected_footprint_with_commas = ""
+        for i, coordinate in enumerate(corrected_footprint_split):
+            corrected_footprint_with_commas += coordinate
+            if i % 2 == 0:
+                corrected_footprint_with_commas += ","
+            elif i < len(corrected_footprint_split) - 1:
+                corrected_footprint_with_commas += " "
+            # end if
+        # end for
+
+        corrected_antimeridian_footprints = functions.correct_footprint(corrected_footprint_with_commas)
+
+        footprint_values = []
+        for i, footprint in enumerate(corrected_antimeridian_footprints):
+            footprint_object_name = "footprint_details"
+            if len(corrected_antimeridian_footprints) > 1:
+                footprint_object_name = "footprint_details_" + str(i)
+            # end if
+
+            footprint_value = [{"name": "footprint",
+                                 "type": "geometry",
+                                 "value": footprint}]
+            footprint_values.append({
+                "name": footprint_object_name,
+                "type": "object",
+                "values": footprint_value
+            })
+        # end for
+        
         if corrected_footprint != "":
             footprint_annotation = {
             "explicit_reference": item_id,
@@ -183,11 +213,7 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "FOOTPRINT",
                 "system": satellite
                 },
-                "values": [
-                    {"name": "footprint",
-                     "type": "geometry",
-                     "value": corrected_footprint
-                    }]
+                "values": footprint_values
             }
             list_of_annotations.append(footprint_annotation)
             # end if
@@ -210,9 +236,7 @@ def process_file(file_path, engine, query, reception_time):
         # Associate aggregated size to the datastrip
         if "_DS_" in item_id:
             sizes = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata/Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/Data_Size")
-            print([int(size.text) for size in sizes])
             aggregated_size = sum([int(size.text) for size in sizes])
-            print(aggregated_size)
             data_size_annotation["values"].append(
                 {"name": "aggregated_size",
                  "type": "double",
