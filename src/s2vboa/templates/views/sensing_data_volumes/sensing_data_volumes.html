@@ -2,7 +2,7 @@
 {% block content %}
 {% set status = "UNKNOWN" %}
 <div class="row">
-  <h1 class="page-header">Data size view</h1>
+  <h1 class="page-header">Sensing data volumes view</h1>
 </div>
 <!-- /.row -->
 <div class="row">
@@ -15,12 +15,12 @@
       </div>
       <div class="panel-body panel-collapse collapse" id="query-interface">
         <ul class="nav nav-tabs responsive-tabs">
-          <li class="active"><a href="#data-size-query-window">Query window</a></li>
-          <li><a href="#data-size-sliding-window">Sliding window</a></li>
+          <li class="active"><a href="#sensing-data-volumes-query-window">Query window</a></li>
+          <li><a href="#sensing-data-volumes-sliding-window">Sliding window</a></li>
         </ul>
         <div class="tab-content">
-          <div class="tab-pane active" id="data-size-query-window">
-            <form role="form" method=post action="/views/data-size">
+          <div class="tab-pane active" id="sensing-data-volumes-query-window">
+            <form role="form" method=post action="/views/sensing-data-volumes">
               <div>
                 <!-- Default values message -->
                 <div class="row">
@@ -47,32 +47,32 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Limit</label>
-                    <input type="text" class="form-control" style="width: 100%" name="limit" id="data-size-limit" value="100"/>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="sensing-data-volumes-limit" value="100"/>
                   </div>
                 </div>
                 <div>
                   <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
                 </div>
                 <div>
-                  <label id="show-data-size-table-details">
-                    <input type="checkbox" name="show_data_size_table_details" checked><span class="label-text"><b>Show data size table details</b></span>
+                  <label id="show-sensing-data-volumes-table-details">
+                    <input type="checkbox" name="show_sensing_data_volumes_table_details" checked><span class="label-text"><b>Show data volumes table details</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-data-size-evolution">
-                    <input type="checkbox" name="show_data_size_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
+                  <label id="show-sensing-data-volumes-evolution">
+                    <input type="checkbox" name="show_sensing_data_volumes_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-data-size-map">
-                    <input type="checkbox" name="show_data_size_map" checked><span class="label-text"><b>Show map</b></span>
+                  <label id="show-sensing-data-volumes-map">
+                    <input type="checkbox" name="show_sensing_data_volumes_map" checked><span class="label-text"><b>Show map</b></span>
                   </label>
                 </div>
               </div>
             </form>
           </div>
-          <div class="tab-pane" id="data-size-sliding-window">
-            <form role="form" method=post action="/views/sliding-data-size">
+          <div class="tab-pane" id="sensing-data-volumes-sliding-window">
+            <form role="form" method=post action="/views/sliding-sensing-data-volumes">
               <div>
                 <!-- Default values message -->
                 <div class="row">
@@ -94,21 +94,21 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Window delay (days)</label>
-                    <input type="text" class="form-control" name="data_size_window_delay" id="data-size-window-delay"/>
+                    <input type="text" class="form-control" name="sensing_data_volumes_window_delay" id="sensing-data-volumes-window-delay"/>
                   </div>
                 </div>
                 <!-- Duration -->
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Window size (days)</label>
-                    <input type="text" class="form-control" name="data_size_window_size" id="data-size-window-size"/>
+                    <input type="text" class="form-control" name="sensing_data_volumes_window_size" id="sensing-data-volumes-window-size"/>
                   </div>
                 </div>
                 <!-- Repeat cycle (minutes) -->
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Repeat cycle (minutes)</label>
-                    <input type="text" class="form-control" name="data_size_repeat_cycle" id="data-size-repeat-cycle"/>
+                    <input type="text" class="form-control" name="sensing_data_volumes_repeat_cycle" id="sensing-data-volumes-repeat-cycle"/>
                   </div>
                 </div>
                 <div>
@@ -118,22 +118,22 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Limit</label>
-                    <input type="text" class="form-control" style="width: 100%" name="limit" id="data-size-limit" value="100"/>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="sensing-data-volumes-limit" value="100"/>
                   </div>
                 </div>                
                 <div>
-                  <label id="show-data-size-table-details">
-                    <input type="checkbox" name="show_data_size_table_details" checked><span class="label-text"><b>Show data size table details</b></span>
+                  <label id="show-sensing-data-volumes-table-details">
+                    <input type="checkbox" name="show_sensing_data_volumes_table_details" checked><span class="label-text"><b>Show data volumes table details</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-data-size-evolution">
-                    <input type="checkbox" name="show_data_size_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
+                  <label id="show-sensing-data-volumes-evolution">
+                    <input type="checkbox" name="show_sensing_data_volumes_evolution" checked><span class="label-text"><b>Show evolution graphs</b></span>
                   </label>
                 </div>
                 <div>
-                  <label id="show-data-size-map">
-                    <input type="checkbox" name="show_data_size_map" checked><span class="label-text"><b>Show map</b></span>
+                  <label id="show-sensing-data-volumes-map">
+                    <input type="checkbox" name="show_sensing_data_volumes_map" checked><span class="label-text"><b>Show map</b></span>
                   </label>
                 </div>
               </div>
@@ -147,7 +147,7 @@
 {% include "views/common/header.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/data-size-pages", elements = datastrip_events, filters = filters %}
+{% with route = "/views/sensing-data-volumes-pages", elements = datastrip_events, filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
@@ -156,16 +156,16 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#data-size-statistics">Statistics <span class="fa fa-angle-double-down"></span></a>      
+        <a data-toggle="collapse" data-parent="#accordion" href="#sensing-data-volumes-statistics">Statistics <span class="fa fa-angle-double-down"></span></a>      
       </h3>
     </div>
     <!-- /.panel-heading -->
     {% if datastrip_events|length > 0 %}
-    <div class="panel-body panel-collapse collapse in" id="data-size-statistics">    
+    <div class="panel-body panel-collapse collapse in" id="sensing-data-volumes-statistics">    
       <p>
         <b>The following table shows the statistics of the data volume per level</b>:
       </p>
-      <table id="data-size-statistics-table" align="center" class="table table-striped table-bordered table-hover table-static">
+      <table id="sensing-data-volumes-statistics-table" align="center" class="table table-striped table-bordered table-hover table-static">
         <tr>
           <th>Level</th>
           <th>Number of datastrips</th>
@@ -199,7 +199,7 @@
       <p>
         <b>The following table shows the list of datastrips</b>:
       </p>
-      <table id="data-size-datastrips-table" width="100%" class="table table-striped table-bordered table-hover table-search">
+      <table id="sensing-data-volumes-datastrips-table" width="100%" class="table table-striped table-bordered table-hover table-search">
         <thead>
           <tr>
             <th>Datastrip</th>
@@ -264,7 +264,7 @@
     {% else %}
     <div>
       <br/>
-      <p id="data-size-statistics-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
+      <p id="sensing-data-volumes-statistics-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
       <br/>
     </div>
     {% endif %}
@@ -277,11 +277,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#data-size-datastrips-on-map">Data size evolution <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#sensing-data-volumes-datastrips-on-map">Data volumes evolution <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     {% if datastrip_events|length > 0 %}
-    <div class="panel-body panel-collapse collapse in" id="data-size-datastrips-on-map">
+    <div class="panel-body panel-collapse collapse in" id="sensing-data-volumes-datastrips-on-map">
       <!-- /.panel-heading -->
       <p>
         <b>The following graph shows the evolution of the data volume starting from 0 GB</b>:
@@ -302,7 +302,7 @@
     {% else %}
     <div>
       <br/>
-      <p id="data-size-map-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
+      <p id="sensing-data-volumes-map-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
       <br/>
     </div>
     {% endif %}
@@ -315,11 +315,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#data-size-datastrips-on-map">Sensing coverage on the map <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#sensing-data-volumes-datastrips-on-map">Sensing coverage on the map <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     {% if datastrip_events|length > 0 %}
-    <div class="panel-body panel-collapse collapse in" id="data-size-datastrips-on-map">
+    <div class="panel-body panel-collapse collapse in" id="sensing-data-volumes-datastrips-on-map">
       <!-- /.panel-heading -->
       <p>
         <b>The following map shows the footprint of the datastrips inside the requested period</b>:
@@ -330,7 +330,7 @@
     {% else %}
     <div>
       <br/>
-      <p id="data-size-map-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
+      <p id="sensing-data-volumes-map-no-datastrips" style="text-indent: 1em">There are no datastrips acquired during the requested period.</p>
       <br/>
     </div>
     {% endif %}
@@ -343,12 +343,12 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-  {% include "js/data_size/data_size_functions.js" %}
+  {% include "js/sensing_data_volumes/sensing_data_volumes_functions.js" %}
   {% set datastrips_by_level = datastrip_events|events_group_by_ref_group() %}
 
   {% if show["evolution"] and datastrip_events|length > 0 %}
   {% with events = datastrip_events %}
-  {% include "js/data_size/data_size_data_volume_evolution.js" %}
+  {% include "js/sensing_data_volumes/sensing_data_volumes_data_volume_evolution.js" %}
   {% endwith %}
 
   var groups = [];
@@ -359,7 +359,7 @@
 
   {% if show["map"] and datastrip_events|length > 0 %}
   {% with events = datastrips_by_level["L0_DS"] %}
-  {% include "js/data_size/data_size_map.js" %}
+  {% include "js/sensing_data_volumes/sensing_data_volumes_map.js" %}
   {% endwith %}
   var polygons = [];
   vboa.prepare_events_geometries_for_map(datastrip_geometries, polygons);

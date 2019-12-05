@@ -1,5 +1,5 @@
 """
-Data size view for s2boa
+Sensing data volumes view for s2boa
 
 Written by DEIMOS Space S.L. (dibb)
 
@@ -24,15 +24,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
-bp = Blueprint("data_size", __name__, url_prefix="/views")
+bp = Blueprint("sensing_data_volumes", __name__, url_prefix="/views")
 query = Query()
 
-@bp.route("/data-size", methods=["GET", "POST"])
-def show_data_size():
+@bp.route("/sensing-data-volumes", methods=["GET", "POST"])
+def show_sensing_data_volumes():
     """
-    Data size view for the Sentinel-2 mission.
+    Sensing data volumes view for the Sentinel-2 mission.
     """
-    current_app.logger.debug("Data size view")
+    current_app.logger.debug("Sensing data volumes view")
 
     filters = {}
     filters["limit"] = ["100"]    
@@ -53,7 +53,7 @@ def show_data_size():
     mission = "S2_"
 
     show = {}
-    define_what_to_show_data_size(show)
+    define_what_to_show_sensing_data_volumes(show)
 
     window_size = 1
     start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
@@ -81,12 +81,12 @@ def show_data_size():
 
     return query_datastrips_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
-@bp.route("/data-size-pages", methods=["POST"])
-def query_data_size_pages():
+@bp.route("/sensing-data-volumes-pages", methods=["POST"])
+def query_sensing_data_volumes_pages():
     """
-    Data size view for the Sentinel-2 mission using pages.
+    Sensing data volumes view for the Sentinel-2 mission using pages.
     """
-    current_app.logger.debug("Data size view using pages")
+    current_app.logger.debug("Sensing data volumes view using pages")
     filters = request.json
 
     mission = filters["mission"][0]
@@ -98,10 +98,10 @@ def query_data_size_pages():
 
     return query_datastrips_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
-@bp.route("/sliding-data-size-parameters", methods=["GET", "POST"])
-def show_sliding_data_size_parameters():
+@bp.route("/sliding-sensing-data-volumes-parameters", methods=["GET", "POST"])
+def show_sliding_sensing_data_volumes_parameters():
     """
-    Data size sliding view for the Sentinel-2 mission.
+    Sensing data volumes sliding view for the Sentinel-2 mission.
     """
     current_app.logger.debug("Sliding data size view with parameters")
 
@@ -111,7 +111,7 @@ def show_sliding_data_size_parameters():
     mission = request.args.get("mission")
 
     show = {}
-    define_what_to_show_data_size(show)
+    define_what_to_show_sensing_data_volumes(show)
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
@@ -131,10 +131,10 @@ def show_sliding_data_size_parameters():
 
     return query_datastrip_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
-@bp.route("/sliding-data-size", methods=["GET", "POST"])
-def show_sliding_data_size():
+@bp.route("/sliding-sensing-data-volumes", methods=["GET", "POST"])
+def show_sliding_sensing_data_volumes():
     """
-    Data size sliding view for the Sentinel-2 mission.
+    Sensing data volumes sliding view for the Sentinel-2 mission.
     """
     current_app.logger.debug("Sliding data size view")
 
@@ -145,7 +145,7 @@ def show_sliding_data_size():
     mission = "S2_"
 
     show = {}
-    define_what_to_show_data_size(show)
+    define_what_to_show_sensing_data_volumes(show)
 
     if request.method == "POST":
 
@@ -153,16 +153,16 @@ def show_sliding_data_size():
             mission = request.form["mission"]
         # end if
 
-        if request.form["data_size_window_delay"] != "":
-            window_delay = float(request.form["data_size_window_delay"])
+        if request.form["sensing_data_volumes_window_delay"] != "":
+            window_delay = float(request.form["sensing_data_volumes_window_delay"])
         # end if
 
-        if request.form["data_size_window_size"] != "":
-            window_size = float(request.form["data_size_window_size"])
+        if request.form["sensing_data_volumes_window_size"] != "":
+            window_size = float(request.form["sensing_data_volumes_window_size"])
         # end if
 
-        if request.form["data_size_repeat_cycle"] != "":
-            repeat_cycle = float(request.form["data_size_repeat_cycle"])
+        if request.form["sensing_data_volumes_repeat_cycle"] != "":
+            repeat_cycle = float(request.form["sensing_data_volumes_repeat_cycle"])
         # end if
 
     # end if
@@ -185,24 +185,24 @@ def show_sliding_data_size():
 
     return query_datastrip_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
-def define_what_to_show_data_size(show):
+def define_what_to_show_sensing_data_volumes(show):
 
     show["table_details"]=True
     show["map"]=True
     show["evolution"]=True
 
     if request.method == "POST":
-        if not "show_data_size_table_details" in request.form:
+        if not "show_sensing_data_volumes_table_details" in request.form:
             show["table_details"] = False
         else:
             show["table_details"]=True
         # end if
-        if not "show_data_size_map" in request.form:
+        if not "show_sensing_data_volumes_map" in request.form:
             show["map"] = False
         else:
             show["map"]=True
         # end if
-        if not "show_data_size_evolution" in request.form:
+        if not "show_sensing_data_volumes_evolution" in request.form:
             show["evolution"] = False
         else:
             show["evolution"]=True
@@ -218,7 +218,7 @@ def query_datastrips_and_render(start_filter = None, stop_filter = None, mission
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/data_size/data_size.html", datastrip_events=datastrip_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template("views/sensing_data_volumes/sensing_data_volumes.html", datastrip_events=datastrip_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_datastrip_events(start_filter = None, stop_filter = None, mission = None, filters = None):
     """
