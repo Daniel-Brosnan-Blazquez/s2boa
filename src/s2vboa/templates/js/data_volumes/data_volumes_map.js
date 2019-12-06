@@ -16,7 +16,7 @@ var datastrip_geometries = [
     
     {% set footprint_annotation = datastrip.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "FOOTPRINT")|first %}
     {% if footprint_annotation %}
-    {% set geometry = footprint_annotation.annotationGeometries|selectattr("name", "equalto", "footprint")|first %}
+    {% set geometries = footprint_annotation.annotationGeometries|selectattr("name", "equalto", "footprint")|list %}
 
     {% set datatake_annotation = datastrip.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "DATATAKE")|first %}
     {% set datatake = "N/A" %}
@@ -39,7 +39,9 @@ var datastrip_geometries = [
             "font_text": "bold"
         },
         "geometries": [
+            {% for geometry in geometries %}
             {{ geometry.to_wkt() }},
+            {% endfor %}
         ]
     },
     {% endif %}
