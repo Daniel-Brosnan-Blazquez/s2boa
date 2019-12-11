@@ -1,0 +1,78 @@
+<rules>
+  <rule name="WEEKLY">
+    <!-- periodicity is set to 1 week -->
+    <periodicity>7</periodicity>
+    <!-- window_delay is set to 4 hours -->
+    <window_delay>0.166666667</window_delay>
+    <!-- window_size is set to 1 week -->
+    <window_size>7</window_size>
+    <date>
+      <time>10:00:00</time>
+      <weekday>wednesday</weekday>
+    </date>
+    <tasks>
+      <task name="INGESTION_CONTROL">
+        <command>rboa_triggering.py -g "Ingestion control generator" -m AUTOMATIC</command>
+      </task>
+      <task name="REPORTING_CONTROL">
+        <command>rboa_triggering.py -g "Reporting control generator" -m AUTOMATIC</command>
+      </task>
+      <task name="ACQUISITION_COMPLETENESS">
+        <command>rboa_triggering.py -g "Acquistion completeness generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="SENSING_DATA_VOLUMES">
+        <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="DATA_ARCHIVE_VOLUMES">
+        <command>rboa_triggering.py -g "Archive data volumes generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+    </tasks>
+  </rule>
+  <rule name="DAILY">
+    <!-- periodicity is set to 1 day -->
+    <periodicity>1</periodicity>
+    <!-- window_delay is set to 4 hours -->
+    <window_delay>0.166666667</window_delay>
+    <!-- window_size is set to 1 day -->
+    <window_size>1</window_size>
+    <date>
+      <time>10:00:00</time>
+    </date>
+    <tasks>
+      <task name="BOA_HEALTH">
+        <command>rboa_triggering.py -g "BOA health generator" -m AUTOMATIC</command>
+      </task>
+      <task name="INGESTION_CONTROL">
+        <command>rboa_triggering.py -g "Ingestion control generator" -m AUTOMATIC</command>
+      </task>
+      <task name="REPORTING_CONTROL">
+        <command>rboa_triggering.py -g "Reporting control generator" -m AUTOMATIC</command>
+      </task>
+      <task name="ACQUISITION_COMPLETENESS">
+        <command>rboa_triggering.py -g "Acquistion completeness generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="SENSING_DATA_VOLUMES">
+        <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="DATA_ARCHIVE_VOLUMES">
+        <command>rboa_triggering.py -g "Archive data volumes generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+    </tasks>
+  </rule>
+  <rule name="MISSION_PLANNING">
+    <!-- periodicity is set to 1 day -->
+    <periodicity>1</periodicity>
+    <!-- window_delay is set to 4 hours -->
+    <window_delay>-4.833333333</window_delay>
+    <!-- window_size is set to 1 week -->
+    <window_size>7</window_size>
+    <date>
+      <time>10:00:00</time>
+    </date>
+    <tasks>
+      <task name="MISSION_PLANNING">
+        <command>rboa_triggering.py -g "Mission planning generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+    </tasks>
+  </rule>
+</rules>
