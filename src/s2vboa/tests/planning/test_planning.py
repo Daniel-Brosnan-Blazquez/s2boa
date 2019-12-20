@@ -234,27 +234,27 @@ class TestPlanningView(unittest.TestCase):
 
         NRT_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned NRT imagings (%):']]/td[1]")
 
-        assert NRT_imagings.text == "8.815"
+        assert NRT_imagings.text == "0.0"
 
         nominal_imagings = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned Nominal imagings (%):']]/td[1]")
 
-        assert nominal_imagings.text == "91.185"
+        assert nominal_imagings.text == "100.0"
 
         XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the X-Band (%):']]/td[1]")
 
-        assert XBand_playbacks.text == "59.902"
+        assert XBand_playbacks.text == "59.862"
 
         OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the OCP (%):']]/td[1]")
 
-        assert OCP_playbacks.text == "40.098"
+        assert OCP_playbacks.text == "40.138"
 
         duration_XBand_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through X-Band (minutes):']]/td[1]")
 
-        assert duration_XBand_playbacks.text == "11.671"
+        assert duration_XBand_playbacks.text == "11.658"
 
         duration_OCP_playbacks = summary_S2A_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through OCP (minutes):']]/td[1]")
 
-        assert duration_OCP_playbacks.text == "15.625"
+        assert duration_OCP_playbacks.text == "15.633"
 
         ## All Missions
 
@@ -266,27 +266,27 @@ class TestPlanningView(unittest.TestCase):
 
         NRT_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned NRT imagings (%):']]/td[1]")
 
-        assert NRT_imagings.text == "8.815"
+        assert NRT_imagings.text == "0.0"
 
         nominal_imagings = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of planned Nominal imagings (%):']]/td[1]")
 
-        assert nominal_imagings.text == "91.185"
+        assert nominal_imagings.text == "100.0"
 
         XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the X-Band (%):']]/td[1]")
 
-        assert XBand_playbacks.text == "59.902"
+        assert XBand_playbacks.text == "59.862"
 
         OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Percentage of playbacks through the OCP (%):']]/td[1]")
 
-        assert OCP_playbacks.text == "40.098"
+        assert OCP_playbacks.text == "40.138"
 
         duration_XBand_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through X-Band (minutes):']]/td[1]")
 
-        assert duration_XBand_playbacks.text == "11.671"
+        assert duration_XBand_playbacks.text == "11.658"
 
         duration_OCP_playbacks = summary_all_missions_table.find_element_by_xpath("tbody/tr[th[text() = 'Average duration of playbacks through OCP (minutes):']]/td[1]")
 
-        assert duration_OCP_playbacks.text == "15.625"
+        assert duration_OCP_playbacks.text == "15.633"
 
         # Imaging
 
@@ -306,19 +306,19 @@ class TestPlanningView(unittest.TestCase):
 
         duration_nominal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'NOMINAL']]/td[2]")
 
-        assert duration_nominal.text == "1.427"
+        assert duration_nominal.text == "1.425"
 
         duration_sun_cal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'SUN_CAL']]/td[2]")
 
-        assert duration_sun_cal.text == "6.119"
+        assert duration_sun_cal.text == "0.0"
 
         duration_dark_cal_csm_open = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_OPEN']]/td[2]")
 
-        assert duration_dark_cal_csm_open.text == "20.151"
+        assert duration_dark_cal_csm_open.text == "20.157"
 
         duration_dark_cal_csm_close = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_CLOSE']]/td[2]")
 
-        assert duration_dark_cal_csm_close.text == "0.343"
+        assert duration_dark_cal_csm_close.text == "0.342"
 
         duration_vicarious_cal = mode_S2A_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'VICARIOUS_CAL']]/td[2]")
 
@@ -338,23 +338,23 @@ class TestPlanningView(unittest.TestCase):
 
         total_duration = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
-        assert total_duration.text == "69.411"
+        assert total_duration.text == "63.296"
 
         total_average = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
-        assert total_average.text == "9.916"
+        assert total_average.text == "9.042"
 
         net_average = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
-        assert net_average.text == "23.137"
+        assert net_average.text == "21.099"
 
         minimum = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
-        assert minimum.text == "0.343"
+        assert minimum.text == "0.0"
 
         maximum = total_S2A_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
-        assert maximum.text == "20.151"
+        assert maximum.text == "20.157"
 
         ## All Missions
 
@@ -364,19 +364,19 @@ class TestPlanningView(unittest.TestCase):
 
         duration_nominal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'NOMINAL']]/td[2]")
 
-        assert duration_nominal.text == "1.427"
+        assert duration_nominal.text == "1.425"
 
         duration_sun_cal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'SUN_CAL']]/td[2]")
 
-        assert duration_sun_cal.text == "6.119"
+        assert duration_sun_cal.text == "0.0"
 
         duration_dark_cal_csm_open = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_OPEN']]/td[2]")
 
-        assert duration_dark_cal_csm_open.text == "20.151"
+        assert duration_dark_cal_csm_open.text == "20.157"
 
         duration_dark_cal_csm_close = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'DARK_CAL_CSM_CLOSE']]/td[2]")
 
-        assert duration_dark_cal_csm_close.text == "0.343"
+        assert duration_dark_cal_csm_close.text == "0.342"
 
         duration_vicarious_cal = mode_all_missions_duration_table.find_element_by_xpath("tbody/tr[td[text() = 'VICARIOUS_CAL']]/td[2]")
 
@@ -396,23 +396,23 @@ class TestPlanningView(unittest.TestCase):
 
         total_duration = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
-        assert total_duration.text == "69.411"
+        assert total_duration.text == "63.296"
 
         total_average = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
-        assert total_average.text == "9.916"
+        assert total_average.text == "9.042"
 
         net_average = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
-        assert net_average.text == "23.137"
+        assert net_average.text == "21.099"
 
         minimum = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
-        assert minimum.text == "0.343"
+        assert minimum.text == "0.0"
 
         maximum = total_all_missions_duration_table.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
-        assert maximum.text == "20.151"
+        assert maximum.text == "20.157"
 
         # Graph duration imagings
 
@@ -424,7 +424,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[0].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 17:28:56.736288",
+            "x": "2018-07-20T17:28:56.736288",
             "y": "19.826622750000002",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[0].event_uuid) + "</td></tr>" +
@@ -443,7 +443,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[1].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 16:05:09.432097",
+            "x": "2018-07-20T16:05:09.432097",
             "y": "6.175066866666667",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[1].event_uuid) + "</td></tr>" +
@@ -462,7 +462,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[2].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 15:49:02.890406",
+            "x": "2018-07-20T15:49:02.890406",
             "y": "15.369803216666666",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[2].event_uuid) + "</td></tr>" +
@@ -481,7 +481,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[3].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 15:48:09.150610",
+            "x": "2018-07-20T15:48:09.150610",
             "y": "0.34286855000000005",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[3].event_uuid) + "</td></tr>" +
@@ -500,7 +500,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[4].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:27:50.784884",
+            "x": "2018-07-20T14:27:50.784884",
             "y": "20.151175683333335",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[4].event_uuid) + "</td></tr>" +
@@ -519,7 +519,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[5].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:10:02.951732",
+            "x": "2018-07-20T14:10:02.951732",
             "y": "6.118657633333333",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>"+ str(events[5].event_uuid) + "</td></tr>" +
@@ -538,7 +538,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(events[6].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:07:32.793311",
+            "x": "2018-07-20T14:07:32.793311",
             "y": "1.4268956000000002",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(events[6].event_uuid) + "</td></tr>" +
@@ -624,35 +624,35 @@ class TestPlanningView(unittest.TestCase):
 
         SGS_total_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[2]")
 
-        assert SGS_total_average.text == "3.335"
+        assert SGS_total_average.text == "3.331"
 
         SGS_net_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[3]")
 
-        assert SGS_net_average.text == "11.671"
+        assert SGS_net_average.text == "11.658"
 
         SGS_minimum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[4]")
 
-        assert SGS_minimum.text == "11.645"
+        assert SGS_minimum.text == "11.632"
 
         SGS_maximum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[5]")
 
-        assert SGS_maximum.text == "11.697"
+        assert SGS_maximum.text == "11.684"
 
         EDRS_total_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[2]")
 
-        assert EDRS_total_average.text == "2.232"
+        assert EDRS_total_average.text == "2.233"
 
         EDRS_net_average = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[3]")
 
-        assert EDRS_net_average.text == "15.625"
+        assert EDRS_net_average.text == "15.633"
 
         EDRS_minimum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[4]")
 
-        assert EDRS_minimum.text == "15.625"
+        assert EDRS_minimum.text == "15.633"
 
         EDRS_maximum = playback_S2A_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[5]")
 
-        assert EDRS_maximum.text == "15.625"
+        assert EDRS_maximum.text == "15.633"
 
         ### Total duration
 
@@ -660,23 +660,23 @@ class TestPlanningView(unittest.TestCase):
 
         total_duration = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
-        assert total_duration.text == "38.968"
+        assert total_duration.text == "38.949"
 
         total_average = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
-        assert total_average.text == "5.567"
+        assert total_average.text == "5.564"
 
         net_average = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
-        assert net_average.text == "12.989"
+        assert net_average.text == "12.983"
 
         minimum = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
-        assert minimum.text == "11.645"
+        assert minimum.text == "11.632"
 
         maximum = playback_S2A_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
-        assert maximum.text == "15.625"
+        assert maximum.text == "15.633"
 
         ## All Missions
 
@@ -686,35 +686,35 @@ class TestPlanningView(unittest.TestCase):
 
         SGS_total_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[2]")
 
-        assert SGS_total_average.text == "3.335"
+        assert SGS_total_average.text == "3.331"
 
         SGS_net_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[3]")
 
-        assert SGS_net_average.text == "11.671"
+        assert SGS_net_average.text == "11.658"
 
         SGS_minimum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[4]")
 
-        assert SGS_minimum.text == "11.645"
+        assert SGS_minimum.text == "11.632"
 
         SGS_maximum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'SGS_']]/td[5]")
 
-        assert SGS_maximum.text == "11.697"
+        assert SGS_maximum.text == "11.684"
 
         EDRS_total_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[2]")
 
-        assert EDRS_total_average.text == "2.232"
+        assert EDRS_total_average.text == "2.233"
 
         EDRS_net_average = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[3]")
 
-        assert EDRS_net_average.text == "15.625"
+        assert EDRS_net_average.text == "15.633"
 
         EDRS_minimum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[4]")
 
-        assert EDRS_minimum.text == "15.625"
+        assert EDRS_minimum.text == "15.633"
 
         EDRS_maximum = playback_all_station_duration.find_element_by_xpath("tbody/tr[td[text() = 'EDRS']]/td[5]")
 
-        assert EDRS_maximum.text == "15.625"
+        assert EDRS_maximum.text == "15.633"
 
         ### Total duration
 
@@ -722,23 +722,23 @@ class TestPlanningView(unittest.TestCase):
 
         total_duration = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total(m):']]/td[1]")
 
-        assert total_duration.text == "38.968"
+        assert total_duration.text == "38.949"
 
         total_average = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Total average(m):']]/td[1]")
 
-        assert total_average.text == "5.567"
+        assert total_average.text == "5.564"
 
         net_average = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Net average(m):']]/td[1]")
 
-        assert net_average.text == "12.989"
+        assert net_average.text == "12.983"
 
         minimum = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Minimum(m):']]/td[1]")
 
-        assert minimum.text == "11.645"
+        assert minimum.text == "11.632"
 
         maximum = playback_all_total_duration.find_element_by_xpath("tbody/tr[th[text() = 'Maximum(m):']]/td[1]")
 
-        assert maximum.text == "15.625"
+        assert maximum.text == "15.633"
 
         # Graph duration playbacks
 
@@ -753,7 +753,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(playback_events[0].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 23:30:09.608524",
+            "x": "2018-07-20T23:30:09.608524",
             "y": "15.625495066666668",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[0].event_uuid) + "</td></tr>" +
@@ -772,7 +772,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(playback_events[1].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 15:41:58.393742",
+            "x": "2018-07-20T15:41:58.393742",
             "y": "11.644958966666668",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[1].event_uuid) + "</td></tr>" +
@@ -791,7 +791,7 @@ class TestPlanningView(unittest.TestCase):
         {
             "id": str(playback_events[2].event_uuid),
             "group": "S2A",
-            "x": "2018-07-20 14:02:38.392053",
+            "x": "2018-07-20T14:02:38.392053",
             "y": "11.697489133333333",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[2].event_uuid) + "</td></tr>" +
@@ -870,8 +870,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[0].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 17:28:56.736288",
-            "stop": "2018-07-20 17:48:46.333653",
+            "start": "2018-07-20T17:28:56.736288",
+            "stop": "2018-07-20T17:48:46.333653",
             "tooltip":"<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(imaging_events[0].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -890,8 +890,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[1].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 16:05:09.432097",
-            "stop": "2018-07-20 16:11:19.936109",
+            "start": "2018-07-20T16:05:09.432097",
+            "stop": "2018-07-20T16:11:19.936109",
             "tooltip": "<table border='1'>" +
                         "<tr><td>UUID</td><td>"+ str(imaging_events[1].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -910,8 +910,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[2].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 15:49:02.890406",
-            "stop": "2018-07-20 16:04:25.078599",
+            "start": "2018-07-20T15:49:02.890406",
+            "stop": "2018-07-20T16:04:25.078599",
             "tooltip": "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(imaging_events[2].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -930,8 +930,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[3].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 15:48:09.150610",
-            "stop": "2018-07-20 15:48:29.722723",
+            "start": "2018-07-20T15:48:09.150610",
+            "stop": "2018-07-20T15:48:29.722723",
             "tooltip":  "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(imaging_events[3].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -950,8 +950,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[4].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 14:27:50.784884",
-            "stop": "2018-07-20 14:47:59.855425",
+            "start": "2018-07-20T14:27:50.784884",
+            "stop": "2018-07-20T14:47:59.855425",
             "tooltip": "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(imaging_events[4].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -970,8 +970,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[5].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 14:10:02.951732",
-            "stop": "2018-07-20 14:16:10.071190",
+            "start": "2018-07-20T14:10:02.951732",
+            "stop": "2018-07-20T14:16:10.071190",
             "tooltip": "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(imaging_events[5].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -990,8 +990,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(imaging_events[6].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_CUT_IMAGING",
-            "start": "2018-07-20 14:07:32.793311",
-            "stop": "2018-07-20 14:08:58.407047",
+            "start": "2018-07-20T14:07:32.793311",
+            "stop": "2018-07-20T14:08:58.407047",
             "tooltip": "<table border='1'>" +
                         "<tr><td>UUID</td><td>" + str(imaging_events[6].event_uuid) + "</td></tr>" +
                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1019,8 +1019,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(playback_events[0].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_PLAYBACK",
-            "start": "2018-07-20 23:45:58.144267",
-            "stop": "2018-07-20 23:45:58.144267",
+            "start": "2018-07-20T23:45:58.144267",
+            "stop": "2018-07-20T23:45:58.144267",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[0].event_uuid) + "</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1039,8 +1039,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(playback_events[1].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_PLAYBACK",
-            "start": "2018-07-20 23:30:09.608524",
-            "stop": "2018-07-20 23:45:47.138228",
+            "start": "2018-07-20T23:30:09.608524",
+            "stop": "2018-07-20T23:45:47.138228",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[1].event_uuid) + "</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1059,8 +1059,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(playback_events[2].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_PLAYBACK",
-            "start": "2018-07-20 15:53:48.098255",
-            "stop": "2018-07-20 15:53:48.098255",
+            "start": "2018-07-20T15:53:48.098255",
+            "stop": "2018-07-20T15:53:48.098255",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[2].event_uuid) + "</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1079,8 +1079,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(playback_events[3].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_PLAYBACK",
-            "start": "2018-07-20 15:41:58.393742",
-            "stop": "2018-07-20 15:53:37.091280",
+            "start": "2018-07-20T15:41:58.393742",
+            "stop": "2018-07-20T15:53:37.091280",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[3].event_uuid) + "</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1099,8 +1099,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(playback_events[4].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_PLAYBACK",
-            "start": "2018-07-20 14:14:31.243397",
-            "stop": "2018-07-20 14:14:31.243397",
+            "start": "2018-07-20T14:14:31.243397",
+            "stop": "2018-07-20T14:14:31.243397",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[4].event_uuid) + "</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1119,8 +1119,8 @@ class TestPlanningView(unittest.TestCase):
             "id": str(playback_events[5].event_uuid),
             "group": "S2A",
             "timeline": "PLANNED_PLAYBACK",
-            "start": "2018-07-20 14:02:38.392053",
-            "stop": "2018-07-20 14:14:20.241401",
+            "start": "2018-07-20T14:02:38.392053",
+            "stop": "2018-07-20T14:14:20.241401",
             "tooltip": "<table border='1'>" +
                 "<tr><td>UUID</td><td>" + str(playback_events[5].event_uuid) + "</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1242,44 +1242,3 @@ class TestPlanningView(unittest.TestCase):
 
         assert functions.page_loaded(self.driver, wait, "header-no-data")
 
-
-    def test_planning_only_nppf_and_orbpre_removed_nppf(self):
-        filename = "S2A_NPPF.EOF"
-        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
-
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
-
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
-
-        filename = "S2A_ORBPRE.EOF"
-        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
-
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
-
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
-
-        self.query_eboa.get_sources(names = {"filter": filename, "op": "=="}, delete=True)
-
-        wait = WebDriverWait(self.driver,5);
-
-        self.driver.get("http://localhost:5000/views/planning")
-
-        functions.query(self.driver, wait, "S2A", start = "2018-07-20T00:00:14", stop = "2018-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
-
-        # Check that sections are empty
-
-        summary_no_data = wait.until(EC.visibility_of_element_located((By.ID,"summary-no-imaging")))
-
-        assert summary_no_data
-
-        imaging_no_data = wait.until(EC.visibility_of_element_located((By.ID,"imaging-no-imaging")))
-
-        assert imaging_no_data
-
-        playback_no_data = wait.until(EC.visibility_of_element_located((By.ID,"playback-no-playback")))
-
-        assert playback_no_data
-
-        timeline_no_data = wait.until(EC.visibility_of_element_located((By.ID,"timeline-no-planning")))
-
-        assert timeline_no_data

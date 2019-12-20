@@ -281,16 +281,16 @@ def query_planning_events(start_filter = None, stop_filter = None, mission = Non
     # Query imaging
     ####
     # Specify the main query parameters
-    kwargs_imaging["gauge_names"] = {"filter": ["PLANNED_CUT_IMAGING_CORRECTION"], "op": "in"}
-    kwargs_imaging["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+    kwargs_imaging["gauge_names"] = {"filter": ["PLANNED_CUT_IMAGING"], "op": "in"}
+    kwargs_imaging["link_names"] = {"filter": ["PLANNED_EVENT"], "op": "in"}
     imaging_events = query.get_linked_events(**kwargs_imaging)
 
     ####
     # Query playbacks
     ####
     # Specify the main query parameters
-    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
-    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK"], "op": "in"}
+    kwargs_playback["link_names"] = {"filter": ["PLANNED_EVENT"], "op": "in"}
     playback_events = query.get_linked_events(**kwargs_playback)
 
     events = {}

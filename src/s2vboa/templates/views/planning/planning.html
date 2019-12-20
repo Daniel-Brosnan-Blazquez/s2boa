@@ -434,34 +434,34 @@
             </tr>
           </thead>
           <tbody>
-            {% for event in planning_events["imaging"]["prime_events"] %}
+            {% for imaging in planning_events["imaging"]["prime_events"] %}
             <tr>
-              {% set original_imaging_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
-              {% if original_imaging_uuid %}
-              {% set original_imaging = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
+              {% set correction_uuid = imaging.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
+              {% if correction_uuid %}
+              {% set event = planning_events["imaging"]["linked_events"]|selectattr("event_uuid", "equalto", correction_uuid)|first %}
               {% else %}
-              {% set original_imaging = event %}
+              {% set event = imaging %}
               {% endif %}
-              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+              {% set satellite = imaging.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
               <td>{{ satellite }}</td>
-              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+              {% set orbit = imaging.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
               <td>{{ orbit }}</td>
               <td>{{ event.start.isoformat() }}</td>
               <td>{{ event.stop.isoformat() }}</td>
               <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
               <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
-              {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
+              {% set imaging_mode = imaging.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
               <td>{{ imaging_mode }}</td>
-              {% set record_type = event.eventTexts|selectattr("name", "equalto", "record_type")|map(attribute='value')|first|string %}
+              {% set record_type = imaging.eventTexts|selectattr("name", "equalto", "record_type")|map(attribute='value')|first|string %}
               <td>{{ record_type }}</td>
-              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
-              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+              {% set parameters_object = imaging.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+              {% set parameters = imaging.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
               <td>
                 {% include "views/common/parameters.html" %}
               </td>
-              <td><a href="/eboa_nav/query-source/{{ original_imaging.source.source_uuid }}">{{ original_imaging.source.name }}</a></td>
-              <td><a href="/eboa_nav/query-event-links/{{ original_imaging.event_uuid }}"><i class="fa fa-link"></i></a></td>
-              <td>{{ original_imaging.event_uuid }}</td>
+              <td><a href="/eboa_nav/query-source/{{ imaging.source.source_uuid }}">{{ imaging.source.name }}</a></td>
+              <td><a href="/eboa_nav/query-event-links/{{ imaging.event_uuid }}"><i class="fa fa-link"></i></a></td>
+              <td>{{ imaging.event_uuid }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -666,32 +666,32 @@
             </tr>
           </thead>
           <tbody>
-            {% for event in playback_by_station["N/A"] %}
+            {% for playback in playback_by_station["N/A"] %}
             <tr>
-              {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
-              {% if original_playback_uuid %}
-              {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+              {% set correction_uuid = playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
+              {% if correction_uuid %}
+              {% set event = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", correction_uuid)|first %}
               {% else %}
-              {% set original_playback = event %}
+              {% set event = playback %}
               {% endif %}
-              {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+              {% set satellite = playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
               <td>{{ satellite }}</td>
-              {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+              {% set orbit = playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
               <td>{{ orbit }}</td>
               <td><b style="color:red">{{ event.start.isoformat() }}</b></td>
               <td><b style="color:red">{{ event.stop.isoformat() }}</b></td>
               <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
               <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
-              {% set playback_type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
+              {% set playback_type = playback.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
               <td>{{ playback_type }}</td>
-              {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
-              {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+              {% set parameters_object = playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+              {% set parameters = playback.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
               <td>
                 {% include "views/common/parameters.html" %}
               </td>
-              <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
-              <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
-              <td>{{ original_playback.event_uuid }}</td>
+              <td><a href="/eboa_nav/query-source/{{ playback.source.source_uuid }}">{{ playback.source.name }}</a></td>
+              <td><a href="/eboa_nav/query-event-links/{{ playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+              <td>{{ playback.event_uuid }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -761,38 +761,34 @@
           </tr>
         </thead>
         <tbody>
-          {% for event in planning_events["playback"]["prime_events"] %}
+          {% for playback in planning_events["playback"]["prime_events"] %}
           <tr>
-            {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
-            {% if original_playback_uuid %}
-            {% set original_playback = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+            {% set correction_uuid = playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
+            {% if correction_uuid %}
+            {% set event = planning_events["playback"]["linked_events"]|selectattr("event_uuid", "equalto", correction_uuid)|first %}
             {% else %}
-            {% set original_playback = event %}
+            {% set event = playback %}
             {% endif %}
-            {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+            {% set satellite = playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
             <td>{{ satellite }}</td>
-            {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+            {% set orbit = playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
             <td>{{ orbit }}</td>
-            {% if original_playback_uuid %}
-            {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
-            {% else %}
-            {% set station = "N/A" %}
-            {% endif %}
+            {% set station = playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
             <td>{{ station }}</td>
             <td>{{ event.start.isoformat() }}</td>
             <td>{{ event.stop.isoformat() }}</td>
             <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
             <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
-            {% set playback_type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
+            {% set playback_type = playback.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
             <td>{{ playback_type }}</td>
-            {% set parameters_object = event.eventObjects|selectattr("name", "equalto", "parameters")|first %}
-            {% set parameters = event.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+            {% set parameters_object = playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+            {% set parameters = playback.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
             <td>
               {% include "views/common/parameters.html" %}
             </td>
-            <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
-            <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
-            <td>{{ original_playback.event_uuid }}</td>
+            <td><a href="/eboa_nav/query-source/{{ playback.source.source_uuid }}">{{ playback.source.name }}</a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+            <td>{{ playback.event_uuid }}</td>
           </tr>
           {% endfor %}
         </tbody>
