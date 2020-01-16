@@ -161,6 +161,40 @@
 
 {% set missing_playbacks_uuids = (playback_completeness_missing_uuids + playback_with_no_playback_validity_uuids)|unique|list %}
 {% set missing_playbacks = acquisition_events["playback"]|selectattr("event_uuid", "in", missing_playbacks_uuids)|list|sort(attribute="start", reverse = True) %}
+
+<!-- Summary -->
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-summary">Acquisition Scheduling Completeness summary <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="acquisition-summary">
+      <!-- Planned playbacks -->
+      <div class="col-xs-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of planned playbacks</div>
+          <div class="panel-body" align="center" style="font-size: 50px">{{ acquisition_events["playback"]|length }}</div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-success">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks</div>
+          <div class="panel-body" align="center" style="font-size: 50px">{{ acquisition_events["playback"]|length - missing_playbacks|length }}</div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-danger">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing or partial playbacks</div>
+          <div class="panel-body" align="center" style="font-size: 50px">{{ missing_playbacks|length }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% include "views/acquisition/acquisition_missing_acquisitions.html" %}
 {% if show["table_details"] %}
 <div class="row">
