@@ -414,7 +414,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         downlink_mode = functions.get_vcid_mode(vcid_number)
         # Obtain the sensing segment received (EFEP reports only give information about the start date of the first and last scenes)
-        sensing_starts = vcid.xpath("ISP_Status/Status/SensStartTime")
+        sensing_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(NumFrames) > 0 and (number(@VCID) = $vcid_number or number(@VCID) = $corresponding_vcid_number)]/ISP_Status/Status/SensStartTime", vcid_number = int(vcid_number), corresponding_vcid_number = int(vcid_number) + 16)
+        print(sensing_starts)
         sensing_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_start.text) for sensing_start in sensing_starts]
 
         # Sort list
@@ -422,7 +423,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         sensing_start = sensing_starts_in_iso_8601[0]
         corrected_sensing_start = functions.convert_from_gps_to_utc(sensing_start)
 
-        sensing_stops = vcid.xpath("ISP_Status/Status/SensStopTime")
+        sensing_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(NumFrames) > 0 and (number(@VCID) = $vcid_number or number(@VCID) = $corresponding_vcid_number)]/ISP_Status/Status/SensStopTime", vcid_number = int(vcid_number), corresponding_vcid_number = int(vcid_number) + 16)
         sensing_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_stop.text) for sensing_stop in sensing_stops]
 
         # Sort list
@@ -782,7 +783,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             start = received_datablock["start"]
             stop = received_datablock["stop"] + datetime.timedelta(seconds=3.608)
             isp_duration_received += (stop - start).total_seconds()
-            sensing_orbit = ""
+            sensing_orbit = -1
             links_isp_validity = []
             links_isp_completeness = []
             intersected_planned_imagings_segments = ingestion_functions.intersect_timelines([received_datablock], corrected_planned_imagings_segments)
@@ -795,7 +796,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 sensing_orbit_values = query.get_event_values_interface(value_type="double",
                                                                         value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
                                                                         event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-                sensing_orbit = str(sensing_orbit_values[0].value)
+                sensing_orbit = sensing_orbit_values[0].value
                 links_isp_validity.append({
                     "link": str(planned_imaging_uuid),
                     "link_mode": "by_uuid",
@@ -894,7 +895,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                      "type": "text",
                      "value": matching_status},
                     {"name": "sensing_orbit",
-                     "type": "text",
+                     "type": "double",
                      "value": sensing_orbit}
                 ]
             }
@@ -942,7 +943,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "type": "text",
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
-                         "type": "text",
+                         "type": "double",
                          "value": sensing_orbit}
                     ]
                 }

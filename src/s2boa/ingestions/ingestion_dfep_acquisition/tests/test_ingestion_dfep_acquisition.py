@@ -156,9 +156,9 @@ class TestDfepIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "",
+                "value": "-1.0",
                 "name": "sensing_orbit",
-                "type": "text"
+                "type": "double"
             }
         ]
 
@@ -201,8 +201,8 @@ class TestDfepIngestion(unittest.TestCase):
                 "name": "downlink_mode"
             },
             {
-                "value": "",
-                "type": "text",
+                "value": "-1.0",
+                "type": "double",
                 "name": "sensing_orbit"
             }
         ]
@@ -495,8 +495,8 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "name": "sensing_orbit",
-                "value": "",
-                "type": "text"
+                "value": "-1.0",
+                "type": "double"
             }
         ]
 
@@ -540,8 +540,8 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "name": "sensing_orbit",
-                "value": "",
-                "type": "text"
+                "value": "-1.0",
+                "type": "double"
             }
         ]
 
@@ -580,8 +580,8 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "name": "sensing_orbit",
-                "value": "",
-                "type": "text"
+                "value": "-1.0",
+                "type": "double"
             }
         ]
 

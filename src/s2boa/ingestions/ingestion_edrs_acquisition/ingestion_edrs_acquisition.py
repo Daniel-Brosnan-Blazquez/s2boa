@@ -729,7 +729,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 sensing_orbit_values = query.get_event_values_interface(value_type="double",
                                                                         value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
                                                                         event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-                sensing_orbit = str(sensing_orbit_values[0].value)
+                sensing_orbit = sensing_orbit_values[0].value
 
                 # ISP validity event
                 isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(isp_validity_valid_segment["start"])
@@ -805,7 +805,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "type": "text",
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
-                         "type": "text",
+                         "type": "double",
                          "value": sensing_orbit}
                     ]
                 }
@@ -864,7 +864,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "type": "text",
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
-                         "type": "text",
+                         "type": "double",
                          "value": sensing_orbit}
                     ]
                 }

@@ -962,7 +962,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "downlink_mode"
             },
             {
-                "type": "text",
+                "type": "double",
                 "value": "16075.0",
                 "name": "sensing_orbit"
             },
@@ -1309,7 +1309,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "downlink_mode"
             },
             {
-                "type": "text",
+                "type": "double",
                 "value": "16075.0",
                 "name": "sensing_orbit"
             },
