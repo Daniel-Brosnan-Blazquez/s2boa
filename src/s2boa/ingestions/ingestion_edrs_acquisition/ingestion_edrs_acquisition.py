@@ -672,7 +672,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         if (expected_number_packets - received_number_packets) == 0:
             packet_status = "OK"
-        elif abs(expected_number_packets - received_number_packets) < len(isp_validity_valid_segments) * 6480 and (expected_number_packets - received_number_packets) % 6480 == 0:
+        elif abs(expected_number_packets - received_number_packets) <= (len(isp_validity_valid_segments)*2) * 6480 and (expected_number_packets - received_number_packets) % 6480 == 0:
             packet_status = "OK"
         else:
             packet_status = "MISSING"
