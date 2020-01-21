@@ -7,7 +7,6 @@ var received_playbacks_timeline = [
     {% endif %}
     {% set original_playback_uuid = original_playback_uuids|first %}
     {% set original_playback = acquisition_events["playback"]|selectattr("event_uuid", "in", original_playback_uuids)|first %}
-    {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     {% set orbit = original_playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
     {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
     {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
