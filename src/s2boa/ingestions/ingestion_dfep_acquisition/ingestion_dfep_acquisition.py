@@ -415,7 +415,6 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         downlink_mode = functions.get_vcid_mode(vcid_number)
         # Obtain the sensing segment received (EFEP reports only give information about the start date of the first and last scenes)
         sensing_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(NumFrames) > 0 and (number(@VCID) = $vcid_number or number(@VCID) = $corresponding_vcid_number)]/ISP_Status/Status/SensStartTime", vcid_number = int(vcid_number), corresponding_vcid_number = int(vcid_number) + 16)
-        print(sensing_starts)
         sensing_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_start.text) for sensing_start in sensing_starts]
 
         # Sort list

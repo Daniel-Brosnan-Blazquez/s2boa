@@ -340,7 +340,6 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     unique_playback_gap_event_uuids = set(playback_gap_event_uuids)
     # Get PLAYBACK_GAP events
     events["playback_gaps"] = query.get_events(event_uuids = {"filter": list(unique_playback_gap_event_uuids), "op": "in"})
-    current_app.logger.info(events["playback_gaps"])
     
     ## Get PLANNED_PLAYBACK events with gaps at MSI
     # Get ISP_VALIDITY events assciated to the PLAYBACK_VALIDITY events
