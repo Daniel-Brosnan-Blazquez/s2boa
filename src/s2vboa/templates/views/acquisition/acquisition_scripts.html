@@ -1,0 +1,95 @@
+<script type="text/javascript">
+  {% include "js/acquisition/acquisition_functions.js" %}
+
+  {% if (show["map"] or show["timeline"]) and acquisition_events["playback"]|length > 0 %}
+  <!-- Received playbacks -->
+  {% set events_received = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "RECEIVED")|list %}
+  <!-- Incomplete playbacks -->
+  {% set events_incomplete = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "INCOMPLETE")|list %}
+  <!-- Missing playbacks -->
+  {% set missing_completeness = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|list %}
+  
+  {% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
+
+  <!-- Get missing events by completelly missing playback -->
+  {% set corrected_missing_playbacks_uuids = acquisition_events["playback"]|selectattr("event_uuid", "in", playback_with_no_playback_validity_uuids)|map(attribute="eventLinks")|flatten|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|list %}
+
+  {% set corrected_missing_playbacks = acquisition_events["playback_correction"]|selectattr("event_uuid", "in", corrected_missing_playbacks_uuids)|list %}
+  
+  {% set events_missing = missing_completeness + corrected_missing_playbacks %}
+
+  {% if show["timeline"] %}
+  {% with events = events_missing %}
+  {% include "js/acquisition/missing_acquisition_to_timeline.js" %}
+  {% endwith %}
+
+  {% with events = events_received %}
+  {% include "js/acquisition/received_acquisition_to_timeline.js" %}
+  {% endwith %}
+
+  {% with events = events_incomplete %}
+  {% include "js/acquisition/incomplete_acquisition_to_timeline.js" %}
+  {% endwith %}
+  var events = missing_playbacks_timeline.concat(received_playbacks_timeline)
+  events = events.concat(incomplete_playbacks_timeline)
+
+  {% if acquisition_events["playback_gaps"]|length <= 200 %}
+  {% with events = acquisition_events["playback_gaps"] %}
+  {% include "js/acquisition/gaps_acquisition_to_timeline.js" %}
+  {% endwith %}
+  events = events.concat(gaps_playbacks_timeline)
+  {% endif %}  
+
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_timeline(events, items, groups);
+  vboa.display_timeline("acquisitions-timeline", items, groups);
+  {% endif %}
+  
+  {% if show["map"] %}
+  {% with events = events_missing %}
+  {% include "js/acquisition/missing_acquisition_to_map.js" %}
+  {% endwith %}
+  var polygons_missing = [];
+  vboa.prepare_events_geometries_for_map(acquisition_geometries_missing, polygons_missing);
+
+  {% with events = events_received %}
+  {% include "js/acquisition/received_acquisition_to_map.js" %}
+  {% endwith %}
+  var polygons_received = [];
+  vboa.prepare_events_geometries_for_map(acquisition_geometries_received, polygons_received);
+
+  var polygons = polygons_received.concat(polygons_missing);
+
+  {% with events = events_incomplete %}
+  {% include "js/acquisition/incomplete_acquisition_to_map.js" %}
+  {% endwith %}
+  var polygons_incomplete = [];
+  vboa.prepare_events_geometries_for_map(acquisition_geometries_incomplete, polygons_incomplete);
+
+  polygons = polygons.concat(polygons_incomplete);
+
+  {% if acquisition_events["playback_gaps"]|length <= 200 %}                                                      
+  {% with events = acquisition_events["playback_gaps"] %}
+  {% include "js/acquisition/gaps_acquisition_to_map.js" %}
+  {% endwith %}
+  var polygons_gaps = [];
+  vboa.prepare_events_geometries_for_map(acquisition_geometries_gaps, polygons_gaps);
+  polygons = polygons.concat(polygons_gaps);
+  {% endif %}                                                    
+
+  vboa.display_map("acquisitions-map", polygons);
+  {% endif %}
+  {% endif %}
+
+  {% if sliding_window %}
+  var parameters = {
+  "window_delay": "{{ sliding_window['window_delay'] }}",
+  "window_size": "{{ sliding_window['window_size'] }}",
+  "mission": "{{ sliding_window['mission'] }}"
+  }
+  var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
+  vboa.update_view(parameters, repeat_cycle, "/views/sliding_acquisition_parameters");
+  {% endif %}
+</script>

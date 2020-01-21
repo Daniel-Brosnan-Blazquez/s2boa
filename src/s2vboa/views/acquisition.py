@@ -81,6 +81,40 @@ def show_acquisition():
 
     return query_acquisition_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
+@bp.route("/specific-acquisition/<string:corrected_planned_playback_uuid>")
+def show_specific_acquisition(corrected_planned_playback_uuid):
+    """
+    Specific acquisition view for one playback related to the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Specific acquisition view")
+
+    # Get the events of the playback
+    corrected_planned_playback = query.get_events(event_uuids = {"filter": corrected_planned_playback_uuid, "op": "=="})[0]
+    
+    filters = {}
+    filters["limit"] = [""]
+    filters["offset"] = [""]
+    # Initialize reporting period (now - 2 days, now + 5 days)
+    start_filter = {
+        "date": corrected_planned_playback.stop.isoformat(),
+        "operator": "<="
+    }
+    stop_filter = {
+        "date": corrected_planned_playback.start.isoformat(),
+        "operator": ">="
+    }
+    mission = "S2_"
+
+    show = {}
+    define_what_to_show_acquisition(show)
+
+    filters["start"] = [stop_filter["date"]]
+    filters["stop"] = [start_filter["date"]]
+    filters["mission"] = [mission]
+    filters["show"] = [show]
+
+    return query_acquisition_and_render(start_filter, stop_filter, mission, show, filters = filters, corrected_planned_playback_uuid = corrected_planned_playback_uuid)
+
 @bp.route("/acquisition-pages", methods=["POST"])
 def query_acquisition_pages():
     """
@@ -216,18 +250,23 @@ def define_what_to_show_acquisition(show):
         # end if
     # end if
 
-def query_acquisition_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None):
+def query_acquisition_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None, corrected_planned_playback_uuid = None):
 
-    acquisition_events = query_acquisition_events(start_filter, stop_filter, mission, filters)
+    acquisition_events = query_acquisition_events(start_filter, stop_filter, mission, filters, corrected_planned_playback_uuid)
 
     orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/acquisition/acquisition.html", acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    route = "views/acquisition/acquisition.html"
+    if corrected_planned_playback_uuid != None:
+        route = "views/acquisition/specific_acquisition.html"
+    # end if
 
-def query_acquisition_events(start_filter = None, stop_filter = None, mission = None, filters = None):
+    return render_template(route, acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+
+def query_acquisition_events(start_filter = None, stop_filter = None, mission = None, filters = None, corrected_planned_playback_uuid = None):
     """
     Query planned acquisition events.
     """
@@ -235,42 +274,47 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
 
     kwargs_playback = {}
 
-    # Set offset and limit for the query
-    if filters and "offset" in filters and filters["offset"][0] != "":
-        kwargs_playback["offset"] = filters["offset"][0]
+    if corrected_planned_playback_uuid == None:
+        # Set offset and limit for the query
+        if filters and "offset" in filters and filters["offset"][0] != "":
+            kwargs_playback["offset"] = filters["offset"][0]
+        # end if
+        if filters and "limit" in filters and filters["limit"][0] != "":
+            kwargs_playback["limit"] = filters["limit"][0]
+        # end if
+
+        # Set order by reception_time descending
+        kwargs_playback["order_by"] = {"field": "start", "descending": True}
+
+        # Start filter
+        if start_filter:
+            kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        # end if
+
+        # Stop filter
+        if stop_filter:
+            kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        # end if
+
+
+        # Mission
+        if mission:
+            kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
+                                        "type": "text",
+                                        "value": {"op": "like", "filter": mission}
+                                    }]
+        # end if
+        kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
+    else:
+        kwargs_playback["event_uuids"] = {"filter": corrected_planned_playback_uuid, "op": "=="}
     # end if
-    if filters and "limit" in filters and filters["limit"][0] != "":
-        kwargs_playback["limit"] = filters["limit"][0]
-    # end if
 
-    # Set order by reception_time descending
-    kwargs_playback["order_by"] = {"field": "start", "descending": True}
-
-    # Start filter
-    if start_filter:
-        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-    # end if
-
-    # Stop filter
-    if stop_filter:
-        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-    # end if
-
-
-    # Mission
-    if mission:
-        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "filter": mission}
-                                }]
-    # end if
-
+    # Specify the main query parameters
+    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+    
     ####
     # Query planned playbacks
     ####
-    # Specify the main query parameters
-    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
-    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
     planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
     planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "PLAYBACK_COMPLETENESS", "DFEP_SCHEDULE", "STATION_SCHEDULE", "SLOT_REQUEST_EDRS", "STATION_ACQUISITION_REPORT"], "op": "in"}, return_prime_events = False)
 
@@ -283,5 +327,46 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     events["station_schedule"] = planned_playback_events["linking_events"]["STATION_SCHEDULE"]
     events["dfep_schedule"] = planned_playback_events["linking_events"]["DFEP_SCHEDULE"]
     events["slot_request_edrs"] = planned_playback_events["linking_events"]["SLOT_REQUEST_EDRS"]
+
+    ## Get PLANNED_PLAYBACK events with gaps at reception
+    incomplete_playbacks = [event for event in events["playback_completeness_channel"] for value in event.eventTexts if value.name == "status" and value.value == "INCOMPLETE"]
+    incomplete_planned_playback_uuids = [link.event_uuid_link for event in incomplete_playbacks for link in event.eventLinks if link.name == "PLANNED_PLAYBACK"]
+    unique_incomplete_planned_playback_uuids = set(incomplete_planned_playback_uuids)
+    events["planned_playbacks_gaps_reception"] = [event for event in events["playback"] if event.event_uuid in unique_incomplete_planned_playback_uuids]
+
+    ## Get PLAYBACK_GAP events
+    # Get ISP_VALIDITY events assciated to the PLAYBACK_VALIDITY events
+    playback_gap_event_uuids = [link.event_uuid_link for event in events["playback_validity"] for link in event.eventLinks if link.name == "PLAYBACK_GAP"]
+    unique_playback_gap_event_uuids = set(playback_gap_event_uuids)
+    # Get PLAYBACK_GAP events
+    events["playback_gaps"] = query.get_events(event_uuids = {"filter": list(unique_playback_gap_event_uuids), "op": "in"})
+    current_app.logger.info(events["playback_gaps"])
+    
+    ## Get PLANNED_PLAYBACK events with gaps at MSI
+    # Get ISP_VALIDITY events assciated to the PLAYBACK_VALIDITY events
+    isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
+    unique_isp_validity_event_uuids = set(isp_validity_event_uuids)
+    # Get ISP_VALIDITY events with gaps
+    isp_validity_events_with_gaps = query.get_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"},
+                                                     value_filters = [{"name": {"op": "==", "filter": "status"},
+                                                                       "type": "text",
+                                                                       "value": {"op": "==", "filter": "INCOMPLETE"}
+                                                     }])
+    # Get PLAYBACK_VALIDITY events associated to the ISP_VALIDITY events with gaps at MSI
+    playback_validity_with_msi_gaps_uuids = [link.event_uuid_link for event in isp_validity_events_with_gaps for link in event.eventLinks if link.name == "PLAYBACK_VALIDITY"]
+    unique_playback_validity_with_msi_gaps_uuids = set(playback_validity_with_msi_gaps_uuids)
+    playback_validities_with_msi_gaps = [event for event in events["playback_validity"] if event.event_uuid in unique_playback_validity_with_msi_gaps_uuids]
+    planned_playback_with_msi_gaps_uuids = [link.event_uuid_link for event in playback_validities_with_msi_gaps for link in event.eventLinks if link.name == "PLANNED_PLAYBACK"]
+    unique_planned_playback_with_msi_gaps_uuids = set(planned_playback_with_msi_gaps_uuids)
+    # Get PLANNED_PLAYBACK events associated to the PLAYBACK_VALIDITY events with gaps at MSI
+    events["planned_playbacks_gaps_msi"] = [event for event in events["playback"] if event.event_uuid in unique_planned_playback_with_msi_gaps_uuids]
+
+    ## Get RAW_ISP_VALIDITY events with packet status != OK associated to the PLAYBACK_VALIDITY events
+    unique_playback_validity_ers = set([event.explicitRef.explicit_ref for event in events["playback_validity"]])
+    events["raw_isp_validity_events_with_packet_status_nok"] = query.get_events(explicit_refs = {"filter": list(unique_playback_validity_ers), "op": "in"},
+                                                     value_filters = [{"name": {"op": "==", "filter": "packet_status"},
+                                                                       "type": "text",
+                                                                       "value": {"op": "!=", "filter": "OK"}
+                                                     }])
 
     return events

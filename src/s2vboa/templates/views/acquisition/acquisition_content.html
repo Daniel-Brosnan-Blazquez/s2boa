@@ -1,0 +1,569 @@
+<div class="row">
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#query-interface">Query interface <span class="fa fa-angle-double-down"></span></a>
+        </h3>
+      </div>
+      <div class="panel-body panel-collapse collapse" id="query-interface">
+        <ul class="nav nav-tabs responsive-tabs">
+          <li class="active"><a href="#acquisition-query-window">Query window</a></li>
+          <li><a href="#acquisition-sliding-window">Sliding window</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="acquisition-query-window">
+            <form role="form" method=post action="/views/acquisition">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    start: now - 1 day <br/>
+                    stop: now <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_static_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Start and stop -->
+                <div class="row">
+                  {% include "eboa_nav/start_stop_without_operators.html" %}
+                </div>
+                <!-- Orbits -->
+                {% include "views/common/start_stop_orbits.html" %}
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="acquisition-limit" value="100"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+                <div>
+                  <label id="show-acquisition-table-details">
+                    <input type="checkbox" name="show_acquisition_table_details" checked><span class="label-text"><b>Show acquisition table details</b></span>
+                  </label>
+                </div>
+                <div>
+                  <label id="show-acquisition-timeline">
+                    <input type="checkbox" name="show_acquisition_timeline" checked><span class="label-text"><b>Show timeline</b></span>
+                  </label>
+                </div>
+                <div>
+                  <label id="show-acquisition-map">
+                    <input type="checkbox" name="show_acquisition_map" checked><span class="label-text"><b>Show map</b></span>
+                  </label>
+                </div>
+                <div>
+                  <label id="show-station-reports">
+                    <input type="checkbox" name="show_station_reports" checked><span class="label-text"><b>Show station reports</b></span>
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane" id="acquisition-sliding-window">
+            <form role="form" method=post action="/views/sliding_acquisition">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    window delay: 0 days <br/>
+                    window size: 1 days <br/>
+                    repeat cycle: 1 minute <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_sliding_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Delay -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window delay (days)</label>
+                    <input type="text" class="form-control" name="acquisition_window_delay" id="acquisition-window-delay"/>
+                  </div>
+                </div>
+                <!-- Duration -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window size (days)</label>
+                    <input type="text" class="form-control" name="acquisition_window_size" id="acquisition-window-size"/>
+                  </div>
+                </div>
+                <!-- Repeat cycle (minutes) -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Repeat cycle (minutes)</label>
+                    <input type="text" class="form-control" name="acquisition_repeat_cycle" id="acquisition-repeat-cycle"/>
+                  </div>
+                </div>
+                <div>
+                  <label id="show-acquisition-table-details">
+                    <input type="checkbox" name="show_acquisition_table_details" checked><span class="label-text"><b>Show acquisition table details</b></span>
+                  </label>
+                </div>
+                <div>
+                  <label id="show-acquisition-timeline">
+                    <input type="checkbox" name="show_acquisition_timeline" checked><span class="label-text"><b>Show timeline</b></span>
+                  </label>
+                </div>
+                <div>
+                  <label id="show-acquisition-map">
+                    <input type="checkbox" name="show_acquisition_map" checked><span class="label-text"><b>Show map</b></span>
+                  </label>
+                </div>
+                <div>
+                  <label id="show-station-reports">
+                    <input type="checkbox" name="show_station_reports" checked><span class="label-text"><b>Show station reports</b></span>
+                  </label>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "views/common/header.html" %}
+
+{% if acquisition_events["playback_gaps"]|length > 200 %}
+<div class="row">
+  <div class="panel panel-yellow">
+    <div class="panel-heading">
+      Warning
+    </div>
+    <div class="panel-body" style="text-align:center">
+      The number of playback gaps is too high (more than 200) so the page will not show them. You can see the playbacks with gaps and go into details through the navigation of the page.
+    </div>
+  </div>
+</div>  
+{% endif %}
+
+<!-- Pagination -->
+{% with route = "/views/acquisition-pages", elements = acquisition_events["playback_correction"], filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
+<!-- Missing playbacks -->
+{% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute="event_uuid_link")|list %}
+
+{% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
+
+{% set missing_playbacks_uuids = (playback_completeness_missing_uuids + playback_with_no_playback_validity_uuids)|unique|list %}
+{% set missing_playbacks = acquisition_events["playback"]|selectattr("event_uuid", "in", missing_playbacks_uuids)|list|sort(attribute="start", reverse = True) %}
+
+<!-- Summary -->
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#summary-acquisition">Acquisition Scheduling Completeness summary <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="summary-acquisition">
+      <!-- Planned playbacks -->
+      <div class="col-xs-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of planned playbacks</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ acquisition_events["playback"]|length }}</div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-success">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ acquisition_events["playback"]|length - missing_playbacks|length }}</div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-danger">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing or partial playbacks</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_playbacks|length }}</div>
+        </div>
+      </div>
+
+      <div class="col-xs-2">
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-warning">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks with gaps at reception</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ acquisition_events["planned_playbacks_gaps_reception"]|length }}</div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-warning">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks with gaps at MSI</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ acquisition_events["planned_playbacks_gaps_msi"]|length }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "views/acquisition/acquisition_missing_acquisitions.html" %}
+{% if show["table_details"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-completeness">Acquisition Scheduling Completeness <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-completeness">
+      {% if acquisition_events["playback"]|length > 0 %}
+      <p>
+        <b>The following table shows the completeness of the planned playbacks</b>:
+      </p>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="acquisition-details-table">
+        <thead>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>Playback Type</th>
+            <th>Playback Status</th>
+            <th>ISP completeness</th>
+            <th>Missing packets</th>            
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Duration (s)</th>
+            <th>Duration (m)</th>
+            <th>Parameters</th>
+            <th>Station Schedule Status</th>
+            <th>DFEP Schedule Status</th>
+            <th>Delta start to real acquisition</th>
+            <th>Delta stop to real acquisition</th>
+            <th>Delta start to station schedule</th>
+            <th>Delta stop to station schedule</th>
+            <th>Delta start to DFEP schedule</th>
+            <th>Delta stop to DFEP schedule</th>
+            <th>Plan file</th>
+            <th>Details</th>
+            <th>UUID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in acquisition_events["playback_correction"] %}
+          {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+          {% set original_playback = acquisition_events["playback"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+
+          <!-- Analyze if playback suffered by gaps at MSI -->
+          {% set playback_with_gaps_msi = acquisition_events["planned_playbacks_gaps_msi"]|selectattr("event_uuid", "equalto", original_playback_uuid)|list %}
+          <!-- Analyze if there are missing packets -->
+          {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|unique|list %}
+          {% set playback_validity_explicit_refs = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|map(attribute='explicitRef')|map(attribute='explicit_ref')|unique|list %}
+          {% set raw_isp_validities_with_packet_status_nok = acquisition_events["raw_isp_validity_events_with_packet_status_nok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
+          
+          {% set playback_validity_uuid = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|first %}
+          {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "equalto", playback_validity_uuid)|first %}
+          <!-- DFEP, station and SRA schedule -->
+          {% set dfep_schedule_event = None %}
+          {% set station_schedule_event = None %}
+          {% set sra_schedule_event = None %}
+          {% set dfep_schedule_uuid = original_playback.eventLinks|selectattr("name", "match", "DFEP_SCHEDULE")|map(attribute='event_uuid_link')|first %}
+          {% set station_schedule_uuid = original_playback.eventLinks|selectattr("name", "match", "STATION_SCHEDULE")|map(attribute='event_uuid_link')|first %}
+          {% set sra_schedule_uuid = original_playback.eventLinks|selectattr("name", "match", "SLOT_REQUEST_EDRS")|map(attribute='event_uuid_link')|first %}
+          <!-- DFEP schedule -->
+          {% if dfep_schedule_uuid %}
+          {% set dfep_schedule_event = acquisition_events["dfep_schedule"]|selectattr("event_uuid", "equalto", dfep_schedule_uuid)|first %}
+          {% elif sra_schedule_uuid %}
+          {% set dfep_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "equalto", sra_schedule_uuid)|first %}
+          {% endif %}
+          <!-- Station schedule -->
+          {% if station_schedule_uuid %}
+          {% set station_schedule_event = acquisition_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
+          {% elif sra_schedule_uuid %}
+          {% set station_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "equalto", sra_schedule_uuid)|first %}
+          {% endif %}
+          {% set type = original_playback.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
+          {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+          {% set orbit = original_playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+          {% set parameters_object = original_playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
+          {% set parameters = original_playback.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
+          <!--Playback Status-->
+          {% if not playback_validity_uuid %}
+          {% set playback_status = "MISSING" %}
+          {% set playback_status_class = "bold-red" %}
+          {% else %}
+          {% set playback_status = "RECEIVED" %}
+          {% set playback_status_class = "bold-green" %}
+          {% set playback_completeness_channel_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_COMPLETENESS")|map(attribute='event_uuid_link')|list %}
+          {% set playback_completeness_events = acquisition_events["playback_completeness_channel"]|selectattr("event_uuid", "in", playback_completeness_channel_uuids)|list %}
+          {% set playback_completeness_group_by_status = playback_completeness_events|events_group_by_text_value("status") %}
+          {% if "MISSING" in playback_completeness_group_by_status %}
+          {% set playback_status = "PARTIAL" %}
+          {% set playback_status_class = "bold-red" %}
+          {% elif "INCOMPLETE" in playback_completeness_group_by_status %}
+          {% set playback_status = "GAPS" %}
+          {% set playback_status_class = "bold-orange" %}
+          {% endif %}
+          {% endif %}
+
+          <!--Station schedule Status-->
+          {% set station_schedule_status = "MISSING" %}
+          {% set station_schedule_status_class = "bold-red" %}
+          {% if station_schedule_event %}
+          {% set station_schedule_status = "OK" %}
+          {% set station_schedule_status_class = "bold-green" %}
+          {% endif %}
+          <!--DFEP schedule Status-->
+          {% set dfep_schedule_status = "MISSING" %}
+          {% set dfep_schedule_status_class = "bold-red" %}
+          {% if dfep_schedule_event %}
+          {% set dfep_schedule_status = "OK" %}
+          {% set dfep_schedule_status_class = "bold-green" %}
+          {% endif %}
+          <!--Values-->
+          <tr>
+            <td>{{ satellite }}</td>
+            <td>{{ orbit }}</td>
+            <td>{{ station }}</td>
+            <td>{{ type }}</td>
+            {% if playback_status == "GAPS" %}
+            <td><a href="/views/specific-acquisition/{{ event.event_uuid }}" class="{{ playback_status_class }}">{{ playback_status }}</a></td>
+            {% else %}
+            <td><a href="/views/specific-acquisition/{{ event.event_uuid }}" class="{{ playback_status_class }}">{{ playback_status }}</a></td>
+            {% endif %}
+            {% if type not in ["NOMINAL", "REGULAR", "RT", "NRT"] or playback_status == "MISSING" %}
+            <td>N/A</td>            
+            {% elif playback_with_gaps_msi|length > 0 %}
+            <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-orange">INCOMPLETE</a></td>
+            {% else %}
+            <td class="bold-green">OK</td>
+            {% endif %}
+            {% if type not in ["NOMINAL", "REGULAR", "RT", "NRT"] or playback_status == "MISSING" %}
+            <td>N/A</td>            
+            {% elif raw_isp_validities_with_packet_status_nok|length > 0 %}
+            {% set missing_packets = raw_isp_validities_with_packet_status_nok|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "diff_expected_received")|sum(attribute='value') %}
+            <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-red">{{ missing_packets }}</a></td>
+            {% else %}
+            <td class="bold-green">0</td>
+            {% endif %}
+            <td>{{ event.start.isoformat() }}</td>
+            <td>{{ event.stop.isoformat() }}</td>
+            <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+            <td>
+              {% include "views/common/parameters.html" %}
+            </td>
+            <td class="{{ station_schedule_status_class }}">{{ station_schedule_status }}</td>
+            <td class="{{ dfep_schedule_status_class }}">{{ dfep_schedule_status }}</td>
+            {% if playback_validity %}
+            <td>{{ (event.start - playback_validity.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - playback_validity.stop).total_seconds()|round(3) }}</td>
+            {% else %}
+            <td>N/A</td>
+            <td>N/A</td>
+            {% endif %}
+            {% if station_schedule_event %}
+            <td>{{ (event.start - station_schedule_event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - station_schedule_event.stop).total_seconds()|round(3) }}</td>
+            {% else %}
+            <td>N/A</td>
+            <td>N/A</td>
+            {% endif %}
+            {% if dfep_schedule_event %}
+            <td>{{ (event.start - dfep_schedule_event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - dfep_schedule_event.stop).total_seconds()|round(3) }}</td>
+            {% else %}
+            <td>N/A</td>
+            <td>N/A</td>
+            {% endif %}
+            <td><a href="/eboa_nav/query-source/{{ original_playback.source.source_uuid }}">{{ original_playback.source.name }}</a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
+            <td>{{original_playback.event_uuid}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>Playback Type</th>
+            <th>Playback Status</th>
+            <th>ISP completeness</th>
+            <th>Missing packets</th>            
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Duration (s)</th>
+            <th>Duration (m)</th>
+            <th>Parameters</th>
+            <th>Station Schedule Status</th>
+            <th>DFEP Schedule Status</th>
+            <th>Delta start to real acquisition</th>
+            <th>Delta stop to real acquisition</th>
+            <th>Delta start to station schedule</th>
+            <th>Delta stop to station schedule</th>
+            <th>Delta start to DFEP schedule</th>
+            <th>Delta stop to DFEP schedule</th>
+            <th>Plan file</th>
+            <th>Details</th>
+            <th>UUID</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+      {% else %}
+
+      <div>
+        <br/>
+        <p id="acquisition-details-no-acquisitions" style="text-indent: 1em">There are no acquisitions planned during the requested period.</p>
+        <br/>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if show["timeline"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-timeline">Acquisition Scheduling Completeness Timeline <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    {% if acquisition_events["playback"]|length > 0 %}
+    <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-timeline">
+      <!-- /.panel-heading -->
+      <div id="acquisitions-timeline">
+      </div>
+    </div>
+    {% else %}
+    <div>
+      <br/>
+      <p id="acquisition-timeline-no-acquisitions" style="text-indent: 1em">There are no acquisitions planned during the requested period.</p>
+      <br/>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% if show["map"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-on-map">Acquisition Scheduling Completeness on the map <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    {% if acquisition_events["playback"]|length > 0 %}
+    <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-on-map">
+      <!-- /.panel-heading -->
+      <div id="acquisitions-map">
+      </div>
+    </div>
+    {% else %}
+    <div>
+      <br/>
+      <p id="acquisition-map-no-acquisitions" style="text-indent: 1em">There are no acquisitions planned during the requested period.</p>
+      <br/>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% if show["station_reports"] %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-station-reports">Station Reports <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="acquisition-station-reports">
+      <!--table-->
+      {% if acquisition_events["station_report"]|length > 0 %}
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="station-acquisition-reports-table">
+        <thead>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>Antenna ID</th>
+            <th>Status</th>
+            <th>Comments</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Station Acquisition Report</th>
+            <th>UUID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in acquisition_events["station_report"] %}
+          {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute='event_uuid_link')|first %}
+          {% set original_playback = acquisition_events["playback"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
+          {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+          {% set status = event.eventTexts|selectattr("name", "equalto", "characterized_downlink_status")|map(attribute='value')|first|string %}
+          {% set status_class = "bold-red" %}
+          {% if status == "OK" %}
+          {% set status_class = "bold-green" %}
+          {% endif %}
+          {% set orbit = event.eventDoubles|selectattr("name", "equalto", "orbit")|map(attribute='value')|first|int %}
+          {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+          {% set antenna_id = event.eventTexts|selectattr("name", "equalto", "antenna_id")|map(attribute='value')|first|string %}
+          {% set comments = event.eventTexts|selectattr("name", "equalto", "comments")|map(attribute='value')|first|string %}
+
+          <!--Values-->
+          <tr>
+            <td>{{ satellite }}</td>
+            <td>{{ orbit }}</td>
+            <td>{{ station }}</td>
+            <td>{{ antenna_id }}</td>
+            <td class="{{ status_class }}">{{ status }}</td>
+            <td>{{ comments }}</td>
+            <td>{{ event.start}}</td>
+            <td>{{ event.stop}}</td>
+            <td><a href="/eboa_nav/query-source/{{ event.source.source_uuid }}">{{ event.source.name }}</a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{event.event_uuid}}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>Antenna ID</th>
+            <th>Status</th>
+            <th>Comments</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Station Acquisition Report</th>
+            <th>UUID</th>
+          </tr>
+        </tfoot>
+      </table>
+      {% else %}
+      <div>
+        <br/>
+        <p id="station-reports-no-reports" style="text-indent: 1em">There are no station acquisition reports during the requested period.</p>
+        <br/>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
