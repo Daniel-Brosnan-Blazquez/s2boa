@@ -443,9 +443,14 @@
         <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-timeline">Acquisition Scheduling Completeness Timeline <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
+    <!-- /.panel-heading -->
     {% if acquisition_events["playback"]|length > 0 %}
     <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-timeline">
-      <!-- /.panel-heading -->
+      {% if acquisition_events["playback_gaps"]|length > 200 %}
+      <div class="bold" style="text-align:center">
+        The number of playback gaps is too high (more than 200) so the page will not show them. You can see the playbacks with gaps and go into details through the navigation of the page.
+      </div>
+      {% endif %}
       <div id="acquisitions-timeline">
       </div>
     </div>
@@ -467,9 +472,14 @@
         <a data-toggle="collapse" data-parent="#accordion" href="#acquisition-scheduling-on-map">Acquisition Scheduling Completeness on the map <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
+    <!-- /.panel-heading -->
     {% if acquisition_events["playback"]|length > 0 %}
     <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-on-map">
-      <!-- /.panel-heading -->
+      {% if acquisition_events["playback_gaps"]|length > 200 %}
+      <div class="bold" style="text-align:center">
+        The number of playback gaps is too high (more than 200) so the page will not show them. You can see the playbacks with gaps and go into details through the navigation of the page.
+      </div>
+      {% endif %}      
       <div id="acquisitions-map">
       </div>
     </div>
