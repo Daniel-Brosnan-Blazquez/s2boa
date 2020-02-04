@@ -417,6 +417,17 @@ def process_file(file_path, engine, query, reception_time):
     # end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
+
+    main_operation = {
+        "mode": "insert",
+        "dim_signature": {
+            "name": "PROCESSING_" + satellite,
+            "exec": os.path.basename(__file__),
+            "version": version
+        },
+        "source": source
+    }
+    list_of_operations.append(main_operation)
     
     # Adjust the validity period to the events in the operation
     if len(list_of_events) > 0:
@@ -434,18 +445,9 @@ def process_file(file_path, engine, query, reception_time):
         # Generate the footprint of the events
         list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
         
-        list_of_operations.append({
-            "mode": "insert",
-            "dim_signature": {
-                  "name": "PROCESSING_" + satellite,
-                  "exec": os.path.basename(__file__),
-                  "version": version
-            },
-            "source": source,
-            "annotations": list_of_annotations,
-            "explicit_references": list_of_explicit_references,
-            "events": list_of_events_with_footprint,
-            })
+        main_operation["annotations"] = list_of_annotations
+        main_operation["explicit_references"] = list_of_explicit_references
+        main_operation["events"] = list_of_events_with_footprint
 
     # end if
 
