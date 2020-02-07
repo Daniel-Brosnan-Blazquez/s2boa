@@ -405,12 +405,12 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
     
     vcids = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(NumFrames) > 0 and (@VCID = 4 or @VCID = 5 or @VCID = 6)]")
     for vcid in vcids:
-
         # Iterator and timeline for the ISP gaps
         isp_gap_iterator = 0
         timeline_isp_gaps = []
 
         vcid_number = vcid.get("VCID")
+        corresponding_vcid = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(NumFrames) > 0 and (@VCID = $corresponding_vcid_number)]", corresponding_vcid_number = int(vcid_number) + 16)        
 
         downlink_mode = functions.get_vcid_mode(vcid_number)
         # Obtain the sensing segment received (EFEP reports only give information about the start date of the first and last scenes)
@@ -826,12 +826,14 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "name": "ISP_VALIDITY",
                 "back_ref": "PLAYBACK_VALIDITY"
             })
-            links_isp_validity.append({
-                "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + str(int(vcid_number) + 16),
-                "link_mode": "by_ref",
-                "name": "ISP_VALIDITY",
-                "back_ref": "PLAYBACK_VALIDITY"
-            })
+            if len(corresponding_vcid) > 0:
+                links_isp_validity.append({
+                    "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + str(int(vcid_number) + 16),
+                    "link_mode": "by_ref",
+                    "name": "ISP_VALIDITY",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end if
             links_isp_validity.append({
                 "link": "RAW_ISP_VALIDITY",
                 "link_mode": "by_ref",
@@ -844,12 +846,14 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "name": "RAW_ISP_VALIDITY",
                 "back_ref": "PLAYBACK_VALIDITY"
             })
-            links_raw_isp_validity.append({
-                "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + str(int(vcid_number) + 16),
-                "link_mode": "by_ref",
-                "name": "RAW_ISP_VALIDITY",
-                "back_ref": "PLAYBACK_VALIDITY"
-            })
+            if len(corresponding_vcid) > 0:
+                links_raw_isp_validity.append({
+                    "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + str(int(vcid_number) + 16),
+                    "link_mode": "by_ref",
+                    "name": "RAW_ISP_VALIDITY",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end if
 
             for isp_gap_intersected in isp_gaps_intersected:
                 for id in isp_gap_intersected["id2"]:
