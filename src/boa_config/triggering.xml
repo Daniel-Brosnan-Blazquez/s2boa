@@ -448,10 +448,14 @@
   </rule>
   <rule>
     <source_mask>S2__OPER_DEC_F_RECV_2BOA_........T......_V........T......_........T......_S2PDGS.*</source_mask>
-    <source_type>REP_DEC_F_RECV</source_type>
+    <source_type>REP_DEC_F_RECV_S2PDGS</source_type>
     <tool>
       <command>eboa_ingestion.py -p eboa.ingestions.ingestion_dec.ingestion_dec -f </command>
     </tool>
+  </rule>
+  <rule skip="true">
+    <source_mask>S2__OPER_DEC_F_RECV_2BOA_........T......_V........T......_........T......_SUPER_TCI.*</source_mask>
+    <source_type>REP_DEC_F_RECV_SUPER_TCI</source_type>
   </rule>
   <rule skip="true">
     <source_mask>S2__OPER_REP_OPDPC__...._........T......_V........T......_........T.......*</source_mask>
