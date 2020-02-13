@@ -66,18 +66,21 @@ def process_file(file_path, engine, query, reception_time):
     xpath_xml = etree.XPathEvaluator(parsed_xml)
 
     list_of_annotations = []
-
+    list_of_events_hktm = {}
+    list_of_explicit_references_hktm = {}
+    list_of_operations = []
+    
     # Obtain the station
     system = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/System")[0].text
     # Obtain the creation date from the file name as the annotation creation date is not always correct
-    creation_date = file_name[25:40]
+    creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     # Obtain the validity start
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # Obtain the validity stop
     validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
 
     # Source for the main operation
-    source= {
+    source = {
         "name": file_name,
         "reception_time": reception_time,
         "generation_time": creation_date,
@@ -102,7 +105,7 @@ def process_file(file_path, engine, query, reception_time):
     
     for request in xpath_xml("/Earth_Explorer_File/Data_Block/List_Of_ArchiveRequests/ArchiveRequest[RequestStatus[text() = 'Success'] and not(contains(Pdi-Id, '_GR_'))]"):
         #Obtain the product ID
-        product_id = request.xpath("Pdi-Id")[0].text
+        product_id = request.xpath("Pdi-Id")[0].text.replace(".tar", "")
         # Obtain the archiving_time
         archiving_time = request.xpath("RequestDate")[0].text[:-1]
 
@@ -119,20 +122,147 @@ def process_file(file_path, engine, query, reception_time):
                 }]
         }
         list_of_annotations.append(archiving_annotation)
+
+        if "PRD_HKTM__" in product_id:
+            event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": product_id}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})
+
+            if len(event_production_playback_validity_ddbb) == 0:
+                explicit_reference = {
+                    "group": "HKTM",
+                    "name": product_id
+                }
+                satellite = product_id[0:3]
+
+                if satellite not in list_of_explicit_references_hktm:
+                    list_of_explicit_references_hktm[satellite] = []
+                # end if
+                list_of_explicit_references_hktm[satellite].append(explicit_reference)
+
+                # Obtain the planned playback to associate the orbit number and link the production
+                start_hktm_playback = product_id[20:35]
+                stop_hktm_playback = product_id[36:51]
+                start_planned_playback = (parser.parse(start_hktm_playback) - datetime.timedelta(seconds=30)).isoformat()
+                stop_planned_playback = (parser.parse(stop_hktm_playback) + datetime.timedelta(seconds=30)).isoformat()
+
+                # Build event
+                orbit = -1
+                links = []
+                values = [
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite
+                }]
+
+                corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
+                                                               gauge_systems = {"op": "==", "filter": satellite},
+                                                               value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "in", "filter": ["HKTM", "HKTM_SAD"]}}],
+                                                               start_filters = [{"date": stop_planned_playback, "op": "<"}],
+                                                               stop_filters = [{"date": start_planned_playback, "op": ">"}])
+
+                if len(corrected_planned_playbacks) > 0:
+                    orbit = [value.value for playback in corrected_planned_playbacks for value in playback.eventDoubles if value.name == "start_orbit"][0]
+                    link_planned_playback = [link for link in corrected_planned_playbacks[0].eventLinks if link.name == "PLANNED_EVENT"]
+                    if len(link_planned_playback) > 0:
+                        links.append({
+                            "link": str(link_planned_playback[0].event_uuid_link),
+                            "link_mode": "by_uuid",
+                            "name": "HKTM_PRODUCTION",
+                            "back_ref": "PLANNED_PLAYBACK"
+                        })
+                    # end if
+                # end if
+
+                # Obtain the executed playback to link the information
+                hktm_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLAYBACK_VALIDITY_3"},
+                                                               value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}}],
+                                                               start_filters = [{"date": stop_planned_playback, "op": "<"}],
+                                                               stop_filters = [{"date": start_planned_playback, "op": ">"}])
+                if len(hktm_playbacks) > 0:
+                    if orbit == -1:
+                        orbit = [value.value for playback in hktm_playbacks for value in playback.eventDoubles if value.name == "downlink_orbit"][0]
+                    # end if
+                    links.append({
+                        "link": str(hktm_playbacks[0].event_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "HKTM_PRODUCTION",
+                        "back_ref": "PLAYBACK_VALIDITY"
+                    })
+                # end if
+
+                # Add orbit value
+                if orbit != -1:
+                    values.append({"name": "downlink_orbit",
+                                   "type": "double",
+                                   "value": str(orbit)
+                    })
+                # end if
+
+                # Production playback validity
+                event_production_playback_validity = {
+                    "key": product_id,
+                    "explicit_reference": product_id,
+                    "gauge": {
+                        "insertion_type": "EVENT_KEYS",
+                        "name": "HKTM_PRODUCTION_PLAYBACK_VALIDITY",
+                        "system": system
+                    },
+                    "links": links,
+                    "start": parser.parse(start_hktm_playback).isoformat(),
+                    "stop": parser.parse(stop_hktm_playback).isoformat(),
+                    "values": values
+                }
+                if satellite not in list_of_events_hktm:
+                    list_of_events_hktm[satellite] = []
+                # end if
+                list_of_events_hktm[satellite].append(event_production_playback_validity)
+            # end if
+        # end if
     #end for
 
+    if len(list_of_events_hktm.keys()) > 0:
+        for satellite in list_of_events_hktm.keys():
+            event_starts = [event["start"] for event in list_of_events_hktm[satellite]]
+            event_starts.sort()
+            validity_start_hktm = event_starts[0]
+
+            event_stops = [event["stop"] for event in list_of_events_hktm[satellite]]
+            event_stops.sort()
+            validity_stop_hktm = event_stops[-1]
+
+            list_of_operations.append({
+                "mode": "insert",
+                "dim_signature": {
+                    "name": "PROCESSING_" + satellite,
+                    "exec": os.path.basename(__file__),
+                    "version": version
+                },
+                "source": {
+                    "name": file_name,
+                    "reception_time": reception_time,
+                    "generation_time": creation_date,
+                    "validity_start": validity_start_hktm,
+                    "validity_stop": validity_stop_hktm
+                },
+                "events": list_of_events_hktm[satellite],
+                "explicit_references": list_of_explicit_references_hktm[satellite]
+            })
+        # end for
+    # end if
+
     functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
-    
-    data = {"operations": [{
+
+    list_of_operations.append({
         "mode": "insert",
         "dim_signature": {
-              "name": "ARCHIVING",
-              "exec": os.path.basename(__file__),
-              "version": version
+            "name": "ARCHIVING",
+            "exec": os.path.basename(__file__),
+            "version": version
         },
         "source": source,
         "annotations": list_of_annotations
-        }]}
+    })
+    
+    data = {"operations": list_of_operations}
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
