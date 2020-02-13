@@ -416,6 +416,108 @@ def process_file(file_path, engine, query, reception_time):
         # end if
     # end for
 
+    # Loop through each output node that contains a HKTM (excluding the auxiliary data)
+    for hktm in xpath_xml("/Earth_Explorer_File/Data_Block/SUP_WORKPLAN_REPORT/SPECIFIC_HEADER/SYNTHESIS_INFO/Product_Report/*[contains(name(),'Output_Products') and contains(GRANULES_ID, 'PRD_HKTM__')]/GRANULES_ID"):
+        event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": hktm.text}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})
+        explicit_reference = {
+            "group": "HKTM",
+            "name": hktm.text
+        }
+        list_of_explicit_references.append(explicit_reference)
+
+        # Build events
+        values = [
+            {"name": "satellite",
+             "type": "text",
+             "value": satellite
+            }]
+        orbit = -1
+        links = []
+
+        # Obtain the planned playback to associate the orbit number and link the production
+        start_hktm_playback = hktm.text[20:35]
+        stop_hktm_playback = hktm.text[36:51]
+        start_planned_playback = (parser.parse(start_hktm_playback) - datetime.timedelta(seconds=30)).isoformat()
+        stop_planned_playback = (parser.parse(stop_hktm_playback) + datetime.timedelta(seconds=30)).isoformat()
+        corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
+                                                       gauge_systems = {"op": "==", "filter": satellite},
+                                                       value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "in", "filter": ["HKTM", "HKTM_SAD"]}}],
+                                                       start_filters = [{"date": stop_planned_playback, "op": "<"}],
+                                                       stop_filters = [{"date": start_planned_playback, "op": ">"}])
+            
+        if len(corrected_planned_playbacks) > 0:
+            orbit = [value.value for playback in corrected_planned_playbacks for value in playback.eventDoubles if value.name == "start_orbit"][0]
+            link_planned_playback = [link for link in corrected_planned_playbacks[0].eventLinks if link.name == "PLANNED_EVENT"]
+            if len(link_planned_playback) > 0:
+                links.append({
+                    "link": str(link_planned_playback[0].event_uuid_link),
+                    "link_mode": "by_uuid",
+                    "name": "HKTM_PRODUCTION",
+                    "back_ref": "PLANNED_PLAYBACK"
+                })
+            # end if
+        # end if
+
+        if len(event_production_playback_validity_ddbb) == 0:
+
+            # Obtain the executed playback to link the information
+            hktm_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLAYBACK_VALIDITY_3"},
+                                                           value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}}],
+                                                           start_filters = [{"date": stop_planned_playback, "op": "<"}],
+                                                           stop_filters = [{"date": start_planned_playback, "op": ">"}])
+            if len(hktm_playbacks) > 0:
+                if orbit == -1:
+                    orbit = [value.value for playback in hktm_playbacks for value in playback.eventDoubles if value.name == "downlink_orbit"][0]
+                # end if
+                links.append({
+                    "link": str(hktm_playbacks[0].event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "HKTM_PRODUCTION",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end if
+
+            # Production playback validity
+            event_production_playback_validity = {
+                "key": hktm.text,
+                "explicit_reference": hktm.text,
+                "gauge": {
+                    "insertion_type": "EVENT_KEYS",
+                    "name": "HKTM_PRODUCTION_PLAYBACK_VALIDITY",
+                    "system": system
+                },
+                "links": links,
+                "start": parser.parse(start_hktm_playback).isoformat(),
+                "stop": parser.parse(stop_hktm_playback).isoformat(),
+                "values": values
+            }
+            list_of_events.append(event_production_playback_validity)
+        # end if
+
+        # Timeliness
+        event_timeliness = {
+            "key": hktm.text,
+            "explicit_reference": hktm.text,
+            "gauge": {
+                "insertion_type": "EVENT_KEYS",
+                "name": "TIMELINESS",
+                "system": system
+            },
+            "start": steps_list[0].find("PROCESSING_START_DATETIME").text[:-1],
+            "stop": steps_list[-1].find("PROCESSING_END_DATETIME").text[:-1],
+            "values": values
+        }
+        list_of_events.append(event_timeliness)
+
+        # Add orbit value
+        if orbit != -1:
+            values.append({"name": "downlink_orbit",
+                           "type": "double",
+                           "value": str(orbit)
+            })
+        # end if
+    # end for
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
 
     main_operation = {

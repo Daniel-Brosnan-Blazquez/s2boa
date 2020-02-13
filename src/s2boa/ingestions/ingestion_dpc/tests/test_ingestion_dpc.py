@@ -2435,3 +2435,212 @@ class TestDpcIngestion(unittest.TestCase):
                                                                    stop_filters = [{"date": "2018-07-21T09:08:56.195941", "op": "=="}])
 
         assert len(missing_planning_completeness_2) == 1
+
+    def test_dpc_report_htkm_only(self):
+
+        filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 1
+
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
+                                              generation_time_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
+                                             processors = {"filter": "ingestion_dpc.py", "op": "=="},
+                                             names = {"filter": "S2A_OPER_REP_OPDPC_HKTM.EOF", "op": "=="})
+
+        assert len(sources) == 1
+
+        # Check production playback validity
+        production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.SAFE", "op": "like"},
+                                                           gauge_names = {"filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY", "op": "like"},
+                                                           gauge_systems = {"filter": "SGS_", "op": "=="},
+                                                           start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+                                                           stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}])
+
+        assert len(production_playback_validities) == 1
+        production_playback_validity = production_playback_validities[0]
+
+        assert production_playback_validity.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            }
+        ]
+
+        # Check timeliness
+        timeliness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.SAFE", "op": "like"},
+                                                           gauge_names = {"filter": "TIMELINESS", "op": "like"},
+                                                           gauge_systems = {"filter": "SGS_", "op": "=="},
+                                                           start_filters = [{"date": "2020-01-29T03:25:33.600000", "op": "=="}],
+                                                           stop_filters = [{"date": "2020-01-29T03:27:17.379000", "op": "=="}])
+
+        assert len(timeliness) == 1
+
+        assert timeliness[0].get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            }
+        ]
+
+    def test_dpc_report_htkm_with_nppf_rep_pass(self):
+
+        filename = "S2A_OPER_MPL__NPPF_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]        
+
+        filename = "S2A_OPER_REP_PASS_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        
+        filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 6
+        
+        # Check production playback validity
+        production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.SAFE", "op": "like"},
+                                                           gauge_names = {"filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY", "op": "like"},
+                                                           gauge_systems = {"filter": "SGS_", "op": "=="},
+                                                           start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+                                                           stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}])
+
+        assert len(production_playback_validities) == 1
+        production_playback_validity = production_playback_validities[0]
+
+        # Check links with plan
+        planned_playback = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
+        assert len(planned_playback) == 1
+        
+        link_to_plan = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(production_playback_validity.event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(planned_playback[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "HKTM_PRODUCTION", "op": "like"})
+
+        assert len(link_to_plan) == 1
+
+        link_from_plan = self.query_eboa.get_event_links(event_uuids = {"filter": [str(production_playback_validity.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(planned_playback[0].event_uuid)], "op": "in"},
+                                                    link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
+
+        assert len(link_from_plan) == 1
+
+        # Check links with acquisition
+        playback_validity = self.query_eboa.get_events(gauge_names = {"filter": "PLAYBACK_VALIDITY_3", "op": "=="})
+        assert len(playback_validity) == 1
+        
+        link_to_playback_validity = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(production_playback_validity.event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(playback_validity[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "HKTM_PRODUCTION", "op": "like"})
+
+        assert len(link_to_playback_validity) == 1
+
+        link_from_playback_validity = self.query_eboa.get_event_links(event_uuids = {"filter": [str(production_playback_validity.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(playback_validity[0].event_uuid)], "op": "in"},
+                                                    link_names = {"filter": "PLAYBACK_VALIDITY", "op": "=="})
+
+        assert len(link_from_playback_validity) == 1
+
+        assert production_playback_validity.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "24039.0"
+            },
+            {"name": "footprint_details",
+             "type": "object",
+             "values": [{"name": "footprint",
+                         "type": "geometry",
+                         "value": "POLYGON ((158.123595 77.583848, 157.023979 77.400386, 148.273393 79.3361, 149.402469 79.551652, 158.123595 77.583848))"}]}
+        ]
+
+    def test_dpc_report_htkm_with_rep_pass(self):
+
+        filename = "S2A_OPER_REP_PASS_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        
+        filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 2
+        
+        # Check production playback validity
+        production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.SAFE", "op": "like"},
+                                                           gauge_names = {"filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY", "op": "like"},
+                                                           gauge_systems = {"filter": "SGS_", "op": "=="},
+                                                           start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+                                                           stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}])
+
+        assert len(production_playback_validities) == 1
+        production_playback_validity = production_playback_validities[0]
+
+        # Check links with acquisition
+        playback_validity = self.query_eboa.get_events(gauge_names = {"filter": "PLAYBACK_VALIDITY_3", "op": "=="})
+        assert len(playback_validity) == 1
+        
+        link_to_playback_validity = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(production_playback_validity.event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(playback_validity[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "HKTM_PRODUCTION", "op": "like"})
+
+        assert len(link_to_playback_validity) == 1
+
+        link_from_playback_validity = self.query_eboa.get_event_links(event_uuids = {"filter": [str(production_playback_validity.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(playback_validity[0].event_uuid)], "op": "in"},
+                                                    link_names = {"filter": "PLAYBACK_VALIDITY", "op": "=="})
+
+        assert len(link_from_playback_validity) == 1
+
+        assert production_playback_validity.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "24039.0"
+            }
+        ]
