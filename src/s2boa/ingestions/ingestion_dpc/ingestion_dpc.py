@@ -418,10 +418,11 @@ def process_file(file_path, engine, query, reception_time):
 
     # Loop through each output node that contains a HKTM (excluding the auxiliary data)
     for hktm in xpath_xml("/Earth_Explorer_File/Data_Block/SUP_WORKPLAN_REPORT/SPECIFIC_HEADER/SYNTHESIS_INFO/Product_Report/*[contains(name(),'Output_Products') and contains(GRANULES_ID, 'PRD_HKTM__')]/GRANULES_ID"):
-        event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": hktm.text}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})
+        hktm_name = hktm.text.replace(".SAFE", "")
+        event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": hktm_name}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})
         explicit_reference = {
             "group": "HKTM",
-            "name": hktm.text
+            "name": hktm_name
         }
         list_of_explicit_references.append(explicit_reference)
 
@@ -435,8 +436,8 @@ def process_file(file_path, engine, query, reception_time):
         links = []
 
         # Obtain the planned playback to associate the orbit number and link the production
-        start_hktm_playback = hktm.text[20:35]
-        stop_hktm_playback = hktm.text[36:51]
+        start_hktm_playback = hktm_name[20:35]
+        stop_hktm_playback = hktm_name[36:51]
         start_planned_playback = (parser.parse(start_hktm_playback) - datetime.timedelta(seconds=30)).isoformat()
         stop_planned_playback = (parser.parse(stop_hktm_playback) + datetime.timedelta(seconds=30)).isoformat()
         corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
@@ -479,12 +480,11 @@ def process_file(file_path, engine, query, reception_time):
 
             # Production playback validity
             event_production_playback_validity = {
-                "key": hktm.text,
-                "explicit_reference": hktm.text,
+                "key": hktm_name,
+                "explicit_reference": hktm_name,
                 "gauge": {
                     "insertion_type": "EVENT_KEYS",
-                    "name": "HKTM_PRODUCTION_PLAYBACK_VALIDITY",
-                    "system": system
+                    "name": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"
                 },
                 "links": links,
                 "start": parser.parse(start_hktm_playback).isoformat(),
@@ -496,12 +496,11 @@ def process_file(file_path, engine, query, reception_time):
 
         # Timeliness
         event_timeliness = {
-            "key": hktm.text,
-            "explicit_reference": hktm.text,
+            "key": hktm_name,
+            "explicit_reference": hktm_name,
             "gauge": {
                 "insertion_type": "EVENT_KEYS",
-                "name": "TIMELINESS",
-                "system": system
+                "name": "TIMELINESS"
             },
             "start": steps_list[0].find("PROCESSING_START_DATETIME").text[:-1],
             "stop": steps_list[-1].find("PROCESSING_END_DATETIME").text[:-1],
