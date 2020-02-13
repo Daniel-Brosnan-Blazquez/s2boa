@@ -2,7 +2,7 @@
 <Earth_Explorer_File>
    <Earth_Explorer_Header>
       <Fixed_Header>
-         <File_Name>S2A_OPER_REP_OPDPC_HKTM</File_Name>
+         <File_Name>S2A_OPER_REP_OPDPC_HKTM_2</File_Name>  
          <File_Description>DPC_Operation_Report used for a data strip ID</File_Description>
          
          <Notes>datadriven</Notes>
