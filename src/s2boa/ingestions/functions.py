@@ -15,11 +15,16 @@ import os
 from tempfile import mkstemp
 import re
 
+# Import xml parser
+from lxml import etree
+
 # Import astropy
 from astropy.time import Time
 
+# Import helpers
 import eboa.ingestion.functions as ingestion_functions
 import eboa.engine.functions as eboa_functions
+from eboa.engine.functions import get_resources_path
 
 # Import eboa query
 from eboa.engine.query import Query
@@ -30,6 +35,9 @@ from eboa.debugging import debug
 # Import logging
 from eboa.logging import Log
 import logging
+
+# Import errors
+from s2boa.ingestions.errors import CentresConfigCannotBeRead, CentresConfigDoesNotPassSchema
 
 logging_module = Log(name = __name__)
 logger = logging_module.logger
@@ -143,9 +151,9 @@ def list_of_coordinates_to_str_geometry (list_of_coordinates):
         
     return result_geometry
 
-###
+##########
 # Acquisition ingestion_functions.' helpers
-###
+##########
 
 # Uncomment for debugging reasons
 #@debug
@@ -388,9 +396,9 @@ def get_apid_numbers():
     # end for
     return apids
 
-###
+#########
 # Date helpers
-###
+#########
 
 # Uncomment for debugging reasons
 #@debug
@@ -428,6 +436,10 @@ def three_letter_to_iso_8601(date):
 
     return year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds + "." + microseconds
 
+
+###########
+# Functions for helping with the ingestion of processing information
+###########
 def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_events, datastrip, granule_timeline_per_detector, list_of_operations, system, version, filename, satellite):
     """
     Method to generate the events for the levels L0 and L1B
@@ -1425,9 +1437,9 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
     return general_status
 # end def
 
-####
+#########
 # EOP CFI
-####
+#########
 def build_orbpre_file(start_events, stop_events, satellite, orbpre_events = None):
     """
     Method to generate an orbpre file from data inside the DDBB
@@ -1818,3 +1830,29 @@ def correct_footprint(coordinates):
     # end for
 
     return footprints
+
+
+###########
+# Functions for helping with the ingestion of circulation information
+###########
+def get_centres_conf():
+    schema_path = get_resources_path() + "/centres_schema.xsd"
+    parsed_schema = etree.parse(schema_path)
+    schema = etree.XMLSchema(parsed_schema)
+    # Get configuration
+    try:
+        centres_xml = etree.parse(get_resources_path() + "/centres.xml")
+    except etree.XMLSyntaxError as e:
+        logger.error("The centres configuration file ({}) cannot be read".format(get_resources_path() + "/centres.xml"))
+        raise CentresConfigCannotBeRead("The centres configuration file ({}) cannot be read".format(get_resources_path() + "/centres.xml"))
+    # end try
+
+    valid = schema.validate(centres_xml)
+    if not valid:
+        logger.error("The centres configuration file ({}) does not pass the schema ({})".format(get_resources_path() + "/centres.xml", get_schemas_path() + "/centres_schema.xsd"))
+        raise CentresConfigDoesNotPassSchema("The centres configuration file ({}) does not pass the schema ({})".format(get_resources_path() + "/centres.xml", get_schemas_path() + "/centres_schema.xsd"))
+    # end if
+
+    centres_xpath = etree.XPathEvaluator(centres_xml)
+
+    return centres_xpath

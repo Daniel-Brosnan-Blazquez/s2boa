@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<centres_configuration>  
+  <centre>
+    <uris>
+      <uri>cgs1dag1.sentinel2.eo.esa.int</uri>
+      <uri>cgs1dag2.sentinel2.eo.esa.int</uri>
+      <uri>cgs1dag.sentinel2.eo.esa.int</uri>
+      <uri>cgs1ai1.cgs1.s2pdgs.esa.int</uri>
+      <uri>dfep5-mti-ctl-prod.cgs1.s2pdgs.esa.int</uri>
+      <uri>dfep2-mti-ctl-prod.cgs1.s2pdgs.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>CGS1</name>
+      <name>MTI_</name>
+    </list_of_alias>
+    <name>MTI_</name>
+    <long_name>Matera</long_name>
+    <print_name>MTI_</print_name>
+  </centre>
+
+  <centre>
+    <uris>
+      <uri>cgs2dag1.sentinel2.eo.esa.int</uri>
+      <uri>cgs2dag2.sentinel2.eo.esa.int</uri>
+      <uri>cgs2dag.sentinel2.eo.esa.int</uri>
+      <uri>cgs2ai1.cgs2.s2pdgs.esa.int</uri>
+      <uri>dfep5-sgs-ctl-prod.cgs2.s2pdgs.esa.int</uri>
+      <uri>dfep2-sgs-ctl-prod.cgs2.s2pdgs.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>CGS2</name>
+      <name>SGS_</name>
+      <name>SVA1</name>
+      <name>SVA_</name>
+    </list_of_alias>
+    <name>SGS_</name>
+    <long_name>Svalvard</long_name>
+    <print_name>SGS_</print_name>
+  </centre>	
+  
+  <centre>
+    <uris>
+      <uri>cgs4dag1.sentinel2.eo.esa.int</uri>
+      <uri>cgs4dag2.sentinel2.eo.esa.int</uri>
+      <uri>cgs4dag.sentinel2.eo.esa.int</uri>
+      <uri>dfep5-mps-ctl-prod.cgs4.s2pdgs.esa.int</uri>
+      <uri>dfep2-mps-ctl-prod.cgs4.s2pdgs.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>CGS4</name>
+      <name>MPS_</name>
+      <name>MAS1</name>
+    </list_of_alias>
+    <name>MPS_</name>
+    <long_name>Maspalomas</long_name>
+    <print_name>MPS_</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>cgs3dag1.sentinel2.eo.esa.int</uri>
+      <uri>cgs3dag2.sentinel2.eo.esa.int</uri>
+      <uri>cgs3dag.sentinel2.eo.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>CGS3</name>
+      <name>FAI_</name>
+      <name>FAI1</name>
+    </list_of_alias>
+    <name>FAI_</name>
+    <long_name>Alaska</long_name>
+    <print_name>FAI_</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>pac1dag1.sentinel2.eo.esa.int</uri>
+      <uri>pac1ai1.pac1.s2pdgs.esa.int</uri>
+      <uri>pac1dag.sentinel2.eo.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>PAC1</name>
+      <name>EPA_</name>
+    </list_of_alias>
+    <name>PAC1</name>
+    <long_name>Indra Processing and Archiving Centre</long_name>    
+    <print_name>PAC1</print_name>
+  </centre>
+  
+  <centre>
+    <list_of_alias>
+      <name>EPAE</name>
+      <name>EDRS</name>
+    </list_of_alias>
+    <name>EPAE</name>
+    <long_name>Indra Processing and Archiving Centre for EDRS</long_name>    
+    <print_name>EPAE</print_name>
+  </centre>
+
+  <centre>
+    <uris>
+      <uri>pac2ai1.pac2.s2pdgs.esa.int</uri>
+      <uri>pac2dag1.sentinel2.eo.esa.int</uri>
+      <uri>pac2dag.sentinel2.eo.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>PAC2</name>
+      <name>FPAT</name>
+      <name>FPAS</name>
+      <name>UPA_</name>
+      <name>DPA_</name>
+    </list_of_alias>
+    <name>PAC2</name>
+    <long_name>UK Processing and Archiving Centre</long_name>    
+    <print_name>PAC2</print_name>
+  </centre>
+
+  <centre>
+    <uris>
+      <uri>pdmcdax.pdmc.s2pdgs.esa.int</uri>
+      <uri>pdmcdax1.pdmc.s2pdgs.esa.int</uri>
+      <uri>pdmcdam1.sentinel2.eo.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>PDMC</name>
+    </list_of_alias>
+    <name>PDMC</name>
+    <long_name>ESRIN dissemination and management centre</long_name>
+    <print_name>PDMC</print_name>
+  </centre>
+
+  <centre>
+    <uris>
+      <uri>mpccai1.mpcc.s2pdgs.esa.int</uri>
+      <uri>mpccdag1.sentinel2.eo.esa.int</uri>
+      <uri>mpccmpa1.mpcc.s2pdgs.esa.int</uri>
+      <uri>mpccdag.sentinel2.eo.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>MPCC</name>
+      <name>MPC_</name>
+      <name>S2PD</name>
+    </list_of_alias>
+    <name>MPC_</name>
+    <long_name>Mission Performance Control centre</long_name>
+    <print_name>MPC</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>sentinelspodftp.gmv.com</uri>
+      <uri>cpodopsftp.gmv.com</uri>
+    </uris>
+    <name>POD_</name>
+    <long_name>Predicted Orbit Determination centre</long_name>
+    <print_name>POD</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>senxser.esoc.ops.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>FOS_</name>
+      <name>SENX</name>
+    </list_of_alias>
+    <name>FOS_</name>
+    <long_name>Flight Orbit Service centre</long_name>
+    <print_name>FOS</print_name>
+  </centre>
+    
+  <centre>
+    <uris>
+      <uri>sentinels-eds.sentinels.eo.esa.int///eds/CGS-MTI</uri>
+      <uri>sentinels-eds.sentinels.eo.esa.int//eds/CGS-MTI</uri>
+      <uri>sentinels-eds.sentinels.eo.esa.int/eds/CGS-MTI</uri>
+    </uris>
+    <list_of_alias>
+      <name>EDS1</name>
+    </list_of_alias>
+    <name>EDS1</name>
+    <long_name>Matera</long_name>
+    <print_name>EDS1</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>sentinels-eds.sentinels.eo.esa.int///eds/CGS-SGS</uri>
+      <uri>sentinels-eds.sentinels.eo.esa.int//eds/CGS-SGS</uri>
+      <uri>sentinels-eds.sentinels.eo.esa.int/eds/CGS-SGS</uri>
+    </uris>
+    <list_of_alias>
+      <name>EDS2</name>
+    </list_of_alias>
+    <name>EDS2</name>
+    <long_name>Svalbard</long_name>
+    <print_name>EDS2</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>sentinels-eds.sentinels.eo.esa.int///eds/CGS-MPS</uri>
+      <uri>sentinels-eds.sentinels.eo.esa.int//eds/CGS-MPS</uri>
+      <uri>sentinels-eds.sentinels.eo.esa.int/eds/CGS-MPS</uri>
+    </uris>
+    <list_of_alias>
+      <name>EDS4</name>
+    </list_of_alias>
+    <name>EDS4</name>
+    <long_name>Maspalomas</long_name>
+    <print_name>EDS4</print_name>
+  </centre>
+  
+  <centre>
+    <uris>
+      <uri>s2mp.pdmc.s2pdgs.esa.int</uri>
+      <uri>s2mp-b.pdmc.s2pdgs.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>S2MP</name>
+    </list_of_alias>
+    <name>S2MP</name>
+    <long_name>Mission planning</long_name>
+    <print_name>S2MP</print_name>
+  </centre>
+  
+  <centre>
+    <name>UNKN</name>
+    <long_name>Unkonwn centres</long_name>
+    <print_name>UNKNOWN</print_name>
+  </centre>
+</centres_configuration>
