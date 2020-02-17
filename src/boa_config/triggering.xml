@@ -80,74 +80,22 @@
       <source_type>S2A_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
-  <rule>
-    <source_mask>S2A_OPER_REP_OPDPC__EPA__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2A_OPER_REP_OPDPC__EPAE_........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2A_OPER_REP_OPDPC__MPS__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2A_OPER_REP_OPDPC__MTI__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2A_OPER_REP_OPDPC__SGS__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
   <rule skip="true">
     <source_mask>S2A_OPER_REP_OPDPC__MPC__........T......_V........T......_........T.......*</source_mask>
     <source_type>S2A_REP_OPDPC</source_type>
+  </rule>
+  <rule>
+    <source_mask>S2A_OPER_REP_OPDPC__...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2A_REP_OPDPC</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>S2A_REP_PASS_E</source_type>
+      <source_type>S2A_REP_PASS_2_5</source_type>
+    </dependencies>
   </rule>
   <!-- end S2A specific with dependecies  -->
   <!-- S2B specific with dependecies -->
@@ -231,147 +179,44 @@
       <source_type>S2B_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
-  <rule>
-    <source_mask>S2B_OPER_REP_OPDPC__EPA__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2B_OPER_REP_OPDPC__EPAE_........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2B_OPER_REP_OPDPC__MPS__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2B_OPER_REP_OPDPC__MTI__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2B_OPER_REP_OPDPC__SGS__........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_OPDPC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
   <rule skip="true">
     <source_mask>S2B_OPER_REP_OPDPC__MPC__........T......_V........T......_........T.......*</source_mask>
     <source_type>S2B_REP_OPDPC</source_type>
   </rule>
+  <rule>
+    <source_mask>S2B_OPER_REP_OPDPC__...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2B_REP_OPDPC</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dpc.ingestion_dpc -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
+      <source_type>S2B_REP_PASS_E</source_type>
+      <source_type>S2B_REP_PASS_2_5</source_type>
+    </dependencies>
+  </rule>
   <!-- end S2B specific with dependecies  -->
-  <rule>
-    <source_mask>S2._OPER_REP_ARC____EPA__........T......_V........T......_........T.......EOF</source_mask>
-    <source_type>REP_ARC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2._OPER_REP_ARC____MPS__........T......_V........T......_........T.......EOF</source_mask>
-    <source_type>REP_ARC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2._OPER_REP_ARC____MTI__........T......_V........T......_........T.......EOF</source_mask>
-    <source_type>REP_ARC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
-  <rule>
-    <source_mask>S2._OPER_REP_ARC____SGS__........T......_V........T......_........T.......EOF</source_mask>
-    <source_type>REP_ARC</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc -f </command>
-    </tool>
-    <dependencies>
-      <source_type>S2A_MPL__NPPF</source_type>
-      <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
-      <source_type>S2B_MPL__NPPF</source_type>
-      <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
-    </dependencies>
-  </rule>
   <rule skip="true">
     <source_mask>S2._OPER_REP_ARC____MPC__........T......_V........T......_........T.......EOF</source_mask>
     <source_type>REP_ARC</source_type>
+  </rule>
+  <rule>
+    <source_mask>S2._OPER_REP_ARC____...._........T......_V........T......_........T.......EOF</source_mask>
+    <source_type>REP_ARC</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>S2A_REP_PASS_E</source_type>
+      <source_type>S2A_REP_PASS_2_5</source_type>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
+      <source_type>S2B_REP_PASS_E</source_type>
+      <source_type>S2B_REP_PASS_2_5</source_type>
+    </dependencies>
   </rule>
   <rule>
     <source_mask>S2__OPER_SRA_EDRS_._PDMC_........T......_V........T......_........T.......*</source_mask>
@@ -386,37 +231,27 @@
       <source_type>S2B_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
-  <rule>
-    <source_mask>S2._OPER_REP_OPAI___EPA__........T......_V........T......_........T.......*</source_mask>
-    <source_type>REP_OPAI</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_ai.ingestion_ai -f </command>
-    </tool>
+  <rule skip="true">
+    <source_mask>S2._OPER_REP_OPDC___MPC__........T......_V........T......_........T.......*</source_mask>
+    <source_type>REP_OPDC</source_type>
   </rule>
   <rule>
-    <source_mask>S2._OPER_REP_OPAI___MPS__........T......_V........T......_........T.......*</source_mask>
-    <source_type>REP_OPAI</source_type>
+    <source_mask>S2._OPER_REP_OPDC___...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>REP_OPDC</source_type>
     <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_ai.ingestion_ai -f </command>
-    </tool>
-  </rule>
-  <rule>
-    <source_mask>S2._OPER_REP_OPAI___MTI__........T......_V........T......_........T.......*</source_mask>
-    <source_type>REP_OPAI</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_ai.ingestion_ai -f </command>
-    </tool>
-  </rule>
-  <rule>
-    <source_mask>S2._OPER_REP_OPAI___SGS__........T......_V........T......_........T.......*</source_mask>
-    <source_type>REP_OPAI</source_type>
-    <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_ai.ingestion_ai -f </command>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dc.ingestion_dc -f </command>
     </tool>
   </rule>
   <rule skip="true">
     <source_mask>S2._OPER_REP_OPAI___MPC__........T......_V........T......_........T.......*</source_mask>
     <source_type>REP_OPAI</source_type>
+  </rule>
+  <rule>
+    <source_mask>S2._OPER_REP_OPAI___...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>REP_OPAI</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_ai.ingestion_ai -f </command>
+    </tool>
   </rule>
   <rule>
     <source_mask>S2._OPER_REP_OPLTA__...._........T......_V........T......_........T.......*</source_mask>
@@ -446,16 +281,16 @@
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dhus.ingestion_dhus -f </command>
     </tool>
   </rule>
+  <rule skip="true">
+    <source_mask>S2__OPER_DEC_F_RECV_2BOA_........T......_V........T......_........T......_SUPER_TCI.*</source_mask>
+    <source_type>REP_DEC_F_RECV_SUPER_TCI</source_type>
+  </rule>
   <rule>
-    <source_mask>S2__OPER_DEC_F_RECV_2BOA_........T......_V........T......_........T......_S2PDGS.*</source_mask>
+    <source_mask>S2__OPER_DEC_F_RECV_2BOA_........T......_V........T......_........T.......*</source_mask>
     <source_type>REP_DEC_F_RECV_S2PDGS</source_type>
     <tool>
       <command>eboa_ingestion.py -p eboa.ingestions.ingestion_dec.ingestion_dec -f </command>
     </tool>
-  </rule>
-  <rule skip="true">
-    <source_mask>S2__OPER_DEC_F_RECV_2BOA_........T......_V........T......_........T......_SUPER_TCI.*</source_mask>
-    <source_type>REP_DEC_F_RECV_SUPER_TCI</source_type>
   </rule>
   <rule skip="true">
     <source_mask>S2__OPER_REP_OPDPC__...._........T......_V........T......_........T.......*</source_mask>
