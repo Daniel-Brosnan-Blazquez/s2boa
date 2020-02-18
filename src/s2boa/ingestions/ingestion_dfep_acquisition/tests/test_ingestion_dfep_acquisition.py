@@ -59,7 +59,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 10
+        assert len(events) == 12
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -393,6 +393,120 @@ class TestDfepIngestion(unittest.TestCase):
             }
         ]
 
+        # Check DISTRIBUTION_STATUS events
+        distribution_status_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_%_DISTRIBUTION_STATUS%")).all()
+
+        assert len(distribution_status_events) == 2
+
+        # Check specific DISTRIBUTION_STATUS event
+        distribution_status_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLAYBACK_ISP_DISTRIBUTION_STATUS_CHANNEL_1",
+                                                                                 Event.start == "2018-07-21T10:35:33.728601",
+                                                                                 Event.stop == "2018-07-21T10:37:26.355940").all()
+
+        assert len(distribution_status_event1) == 1
+
+        assert distribution_status_event1[0].get_structured_values() == [
+            {
+                "name": "status",
+                "type": "text",
+                "value": "DELIVERED"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "channel",
+                "type": "double",
+                "value": "1.0"
+            },
+            {
+                "name": "completeness_status",
+                "type": "text",
+                "value": "OK"
+            },
+            {
+                "name": "number_of_received_isps",
+                "type": "double",
+                "value": "194400.0"
+            },
+            {
+                "name": "number_of_distributed_isps",
+                "type": "double",
+                "value": "194400.0"
+            },
+            {
+                "name": "completeness_difference",
+                "type": "double",
+                "value": "0.0"
+            }
+        ]
+
+        distribution_status_event2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLAYBACK_ISP_DISTRIBUTION_STATUS_CHANNEL_2",
+                                                                                 Event.start == "2018-07-21T10:35:33.728601",
+                                                                                 Event.stop == "2018-07-21T10:37:26.355940").all()
+
+        assert len(distribution_status_event2) == 1
+
+        assert distribution_status_event2[0].get_structured_values() == [
+            {
+                "name": "status",
+                "type": "text",
+                "value": "DELIVERED"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "channel",
+                "type": "double",
+                "value": "2.0"
+            },
+            {
+                "name": "completeness_status",
+                "type": "text",
+                "value": "OK"
+            },
+            {
+                "name": "number_of_received_isps",
+                "type": "double",
+                "value": "2087228.0"
+            },
+            {
+                "name": "number_of_distributed_isps",
+                "type": "double",
+                "value": "2087228.0"
+            },
+            {
+                "name": "completeness_difference",
+                "type": "double",
+                "value": "0.0"
+            }
+        ]
+
     def test_insert_rep_pass_with_msi_gaps(self):
         filename = "S2A_REP_PASS_CONTAINING_MSI_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -404,7 +518,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 15
+        assert len(events) == 17
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -907,7 +1021,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 13
+        assert len(events) == 15
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1070,7 +1184,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 11
+        assert len(events) == 13
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1219,7 +1333,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF").all()
 
-        assert len(events) == 14
+        assert len(events) == 16
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -1283,12 +1397,77 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF").all()
 
-        assert len(events) == 2
+        assert len(events) == 3
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF").all()
 
         assert len(annotations) == 1
+
+        # Check DISTRIBUTION_STATUS events
+        distribution_status_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_%_DISTRIBUTION_STATUS%")).all()
+
+        assert len(distribution_status_events) == 1
+
+        # Check specific DISTRIBUTION_STATUS event
+        distribution_status_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLAYBACK_HKTM_DISTRIBUTION_STATUS_CHANNEL_1",
+                                                                                 Event.start == "2018-07-21T01:47:42.854151",
+                                                                                 Event.stop == "2018-07-21T01:47:43.833085").all()
+
+        assert len(distribution_status_event1) == 1
+
+        assert distribution_status_event1[0].get_structured_values() == [
+            {
+                "name": "status",
+                "type": "text",
+                "value": "DELIVERED"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16073.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "SGS_"
+            },
+            {
+                "name": "channel",
+                "type": "double",
+                "value": "1.0"
+            },
+            {
+                "name": "completeness_status",
+                "type": "text",
+                "value": "OK"
+            },
+            {
+                "name": "number_of_received_transfer_frames",
+                "type": "double",
+                "value": "16764.0"
+            },
+            {
+                "name": "number_of_distributed_transfer_frames",
+                "type": "double",
+                "value": "16764.0"
+            },
+            {
+                "name": "completeness_difference",
+                "type": "double",
+                "value": "0.0"
+            },
+            {"name": "footprint_details",
+             "type": "object",
+             "values": [{"name": "footprint",
+                         "type": "geometry",
+                         "value": "POLYGON ((-78.683432 70.397443, -71.60281000000001 71.63375499999999, -71.60281000000001 71.63375499999999, -78.683432 70.397443))"}]}
+        ]
 
     def test_insert_rep_pass_playback_rt_with_plan(self):
 
@@ -1338,7 +1517,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
 
-        assert len(events) == 16
+        assert len(events) == 18
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
@@ -1411,7 +1590,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 11
+        assert len(events) == 13
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T08:53:56.579788",
@@ -1439,7 +1618,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 14
+        assert len(events) == 16
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T20:18:50.458085",

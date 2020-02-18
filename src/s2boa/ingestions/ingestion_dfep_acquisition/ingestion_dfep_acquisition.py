@@ -1126,6 +1126,348 @@ def _generate_pass_information(xpath_xml, source, engine, query, list_of_annotat
     return
 
 @debug
+def _generate_distribution_information(xpath_xml, source, engine, query, list_of_events):
+    """
+    Method to generate the events for the idle operation of the satellite
+    :param xpath_xml: source of information that was xpath evaluated
+    :type xpath_xml: XPathEvaluator
+    :param source: information of the source
+    :type source: dict
+    :param engine: object to access the engine of the EBOA
+    :type engine: Engine
+    :param query: object to access the query interface of the EBOA
+    :type query: Query
+    :param list_of_events: list to store the events to be inserted into the eboa
+    :type list_of_events: list
+    """
+
+    # Obtain the satellite
+    satellite = source["name"][0:3]
+
+    # Obtain the station
+    station = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/System")[0].text
+
+    # Obtain link session ID
+    session_id = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/File_Type")[0].text + "_" + xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("UTC=",1)[1]
+
+    # Obtain downlink orbit
+    downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
+    
+    # Obtain number of received packets and transfer frames
+    number_of_received_isps_channel_1 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/data_C1/Status[NumFrames > 0 and (@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22)]/ISP_Status/Summary/NumPackets")])
+    number_of_received_isps_channel_2 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/data_C2/Status[NumFrames > 0 and (@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22)]/ISP_Status/Summary/NumPackets")])
+    number_of_received_transfer_frames_channel_1 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/data_C1/Status[NumFrames > 0 and @VCID = 3]/NumFrames")])
+    number_of_received_transfer_frames_channel_2 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/data_C2/Status[NumFrames > 0 and @VCID = 3]/NumFrames")])
+
+    # Obtain number of distributed packets and transfer frames    
+    number_of_distributed_isps_channel_1 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C1_ISP/NumberofPackets")])
+    number_of_distributed_isps_channel_2 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C2_ISP/NumberofPackets")])
+    number_of_distributed_transfer_frames_channel_1 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C1_TF/NumberofPackets")])
+    number_of_distributed_transfer_frames_channel_2 = sum([int(num.text) for num in xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C2_TF/NumberofPackets")])
+
+    # Obtain the status of distribution
+    status_distribution_isps_channel_1 = xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C1_ISP[NumberofPackets > 0 or (NumberofPackets = 0 and not(Status = 'DELIVERED'))]/Status")
+    status_distribution_isps_channel_2 = xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C2_ISP[NumberofPackets > 0 or (NumberofPackets = 0 and not(Status = 'DELIVERED'))]/Status")
+    status_distribution_transfer_frames_channel_1 = xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C1_TF/Status")
+    status_distribution_transfer_frames_channel_2 = xpath_xml("/Earth_Explorer_File/Data_Block/distribution_C2_TF/Status")        
+    
+    if len(status_distribution_isps_channel_1) > 0 or len(status_distribution_isps_channel_2) > 0 or len(status_distribution_transfer_frames_channel_1) > 0 or len(status_distribution_transfer_frames_channel_2) > 0:
+
+        # Get the acquisition timings for getting the covered planned playbacks
+        acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStartTime")
+        acquisition_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_start.text) for acquisition_start in acquisition_starts]
+        acquisition_starts_in_iso_8601.sort()
+
+        acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStopTime")
+        acquisition_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_stop.text) for acquisition_stop in acquisition_stops]
+        acquisition_stops_in_iso_8601.sort()
+
+        # Get planned playbacks covered by the acquisition timings
+        corrected_planned_playbacks_isps = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
+                                                            gauge_systems = {"op": "==", "filter": satellite},
+                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD"]}}],
+                                                            start_filters = [{"date": acquisition_stops_in_iso_8601[-1], "op": "<="}],
+                                                            stop_filters = [{"date": acquisition_starts_in_iso_8601[0], "op": ">="}])
+        corrected_planned_playbacks_hktm = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
+                                                            gauge_systems = {"op": "==", "filter": satellite},
+                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "in", "filter": ["HKTM", "HKTM_SAD"]}}],
+                                                            start_filters = [{"date": acquisition_stops_in_iso_8601[-1], "op": "<="}],
+                                                            stop_filters = [{"date": acquisition_starts_in_iso_8601[0], "op": ">="}])
+
+        links_isps = []
+        for corrected_planned_playback in corrected_planned_playbacks_isps:
+            planned_playback_uuid = [event_link.event_uuid_link for event_link in corrected_planned_playback.eventLinks if event_link.name == "PLANNED_EVENT"][0]            
+            links_isps.append({
+                "link": str(planned_playback_uuid),
+                "link_mode": "by_uuid",
+                "name": "DISTRIBUTION_STATUS",
+                "back_ref": "PLANNED_PLAYBACK"
+            })
+        # end for
+
+        links_hktm = []
+        for corrected_planned_playback in corrected_planned_playbacks_hktm:
+            planned_playback_uuid = [event_link.event_uuid_link for event_link in corrected_planned_playback.eventLinks if event_link.name == "PLANNED_EVENT"][0]            
+            links_isps.append({
+                "link": str(planned_playback_uuid),
+                "link_mode": "by_uuid",
+                "name": "DISTRIBUTION_STATUS",
+                "back_ref": "PLANNED_PLAYBACK"
+            })
+        # end for
+        
+        if len(status_distribution_isps_channel_1) > 0:
+            vcids = xpath_xml("/Earth_Explorer_File/Data_Block/data_C1/Status[number(NumFrames) > 0 and (@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6)]")
+            links_isps_channel_1 = links_isps.copy()
+            for vcid in vcids:
+                vcid_number = vcid.get("VCID")
+                downlink_mode = functions.get_vcid_mode(vcid_number)
+                links_isps_channel_1.append({
+                    "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + vcid_number,
+                    "link_mode": "by_ref",
+                    "name": "DISTRIBUTION_STATUS",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end for
+            completeness_status = "OK"
+            if number_of_distributed_isps_channel_1 != number_of_received_isps_channel_1:
+                completeness_status = "NOK"
+            # end if
+            distribution_status_event = {
+                "explicit_reference": session_id,
+                "key": session_id,
+                "gauge": {
+                    "insertion_type": "EVENT_KEYS",
+                    "name": "PLAYBACK_ISP_DISTRIBUTION_STATUS_CHANNEL_1",
+                    "system": station
+                },
+                "links": links_isps_channel_1,
+                "start": acquisition_starts_in_iso_8601[0],
+                "stop": acquisition_stops_in_iso_8601[-1],
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": status_distribution_isps_channel_1[0].text},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": station},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": 1},
+                    {"name": "completeness_status",
+                     "type": "text",
+                     "value": completeness_status},
+                    {"name": "number_of_received_isps",
+                     "type": "double",
+                     "value": number_of_received_isps_channel_1},
+                    {"name": "number_of_distributed_isps",
+                     "type": "double",
+                     "value": number_of_distributed_isps_channel_1},
+                    {"name": "completeness_difference",
+                     "type": "double",
+                     "value": number_of_received_isps_channel_1 - number_of_distributed_isps_channel_1}
+                ]
+            }
+            # Insert playback_validity_event
+            list_of_events.append(distribution_status_event)
+        # end if
+
+        if len(status_distribution_isps_channel_2) > 0:
+            vcids = xpath_xml("/Earth_Explorer_File/Data_Block/data_C2/Status[number(NumFrames) > 0 and (@VCID = 2 or @VCID = 20 or @VCID = 21 or @VCID = 22)]")
+            links_isps_channel_2 = links_isps.copy()
+            for vcid in vcids:
+                vcid_number = vcid.get("VCID")
+                downlink_mode = functions.get_vcid_mode(vcid_number)
+                links_isps_channel_2.append({
+                    "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + vcid_number,
+                    "link_mode": "by_ref",
+                    "name": "DISTRIBUTION_STATUS",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end for
+            completeness_status = "OK"
+            if number_of_distributed_isps_channel_2 != number_of_received_isps_channel_2:
+                completeness_status = "NOK"
+            # end if
+            distribution_status_event = {
+                "explicit_reference": session_id,
+                "key": session_id,
+                "gauge": {
+                    "insertion_type": "EVENT_KEYS",
+                    "name": "PLAYBACK_ISP_DISTRIBUTION_STATUS_CHANNEL_2",
+                    "system": station
+                },
+                "links": links_isps_channel_2,
+                "start": acquisition_starts_in_iso_8601[0],
+                "stop": acquisition_stops_in_iso_8601[-1],
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": status_distribution_isps_channel_2[0].text},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": station},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": 2},
+                    {"name": "completeness_status",
+                     "type": "text",
+                     "value": completeness_status},
+                    {"name": "number_of_received_isps",
+                     "type": "double",
+                     "value": number_of_received_isps_channel_2},
+                    {"name": "number_of_distributed_isps",
+                     "type": "double",
+                     "value": number_of_distributed_isps_channel_2},
+                    {"name": "completeness_difference",
+                     "type": "double",
+                     "value": number_of_received_isps_channel_2 - number_of_distributed_isps_channel_2}
+                ]
+            }
+            # Insert playback_validity_event
+            list_of_events.append(distribution_status_event)
+        # end if
+
+        if len(status_distribution_transfer_frames_channel_1) > 0:
+            vcids = xpath_xml("/Earth_Explorer_File/Data_Block/data_C1/Status[number(NumFrames) > 0 and @VCID = 3]")
+            links_hktm_channel_1 = links_hktm.copy()
+            for vcid in vcids:
+                vcid_number = vcid.get("VCID")
+                downlink_mode = functions.get_vcid_mode(vcid_number)
+                links_hktm_channel_1.append({
+                    "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + vcid_number,
+                    "link_mode": "by_ref",
+                    "name": "DISTRIBUTION_STATUS",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end for
+            completeness_status = "OK"
+            if number_of_distributed_transfer_frames_channel_1 != number_of_received_transfer_frames_channel_1:
+                completeness_status = "NOK"
+            # end if
+            distribution_status_event = {
+                "explicit_reference": session_id,
+                "key": session_id,
+                "gauge": {
+                    "insertion_type": "EVENT_KEYS",
+                    "name": "PLAYBACK_HKTM_DISTRIBUTION_STATUS_CHANNEL_1",
+                    "system": station
+                },
+                "links": links_hktm_channel_1,
+                "start": acquisition_starts_in_iso_8601[0],
+                "stop": acquisition_stops_in_iso_8601[-1],
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": status_distribution_transfer_frames_channel_1[0].text},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": station},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": 1},
+                    {"name": "completeness_status",
+                     "type": "text",
+                     "value": completeness_status},
+                    {"name": "number_of_received_transfer_frames",
+                     "type": "double",
+                     "value": number_of_received_transfer_frames_channel_1},
+                    {"name": "number_of_distributed_transfer_frames",
+                     "type": "double",
+                     "value": number_of_distributed_transfer_frames_channel_1},
+                    {"name": "completeness_difference",
+                     "type": "double",
+                     "value": number_of_received_transfer_frames_channel_1 - number_of_distributed_transfer_frames_channel_1}
+                ]
+            }
+            # Insert playback_validity_event
+            list_of_events.append(distribution_status_event)
+        # end if
+
+        if len(status_distribution_transfer_frames_channel_2) > 0:
+            vcids = xpath_xml("/Earth_Explorer_File/Data_Block/data_C2/Status[number(NumFrames) > 0 and @VCID = 3]")
+            links_hktm_channel_2 = links_hktm.copy()
+            for vcid in vcids:
+                vcid_number = vcid.get("VCID")
+                downlink_mode = functions.get_vcid_mode(vcid_number)
+                links_hktm_channel_2.append({
+                    "link": "PLAYBACK_" + downlink_mode + "_VALIDITY_" + vcid_number,
+                    "link_mode": "by_ref",
+                    "name": "DISTRIBUTION_STATUS",
+                    "back_ref": "PLAYBACK_VALIDITY"
+                })
+            # end for
+            completeness_status = "OK"
+            if number_of_distributed_transfer_frames_channel_2 != number_of_received_transfer_frames_channel_2:
+                completeness_status = "NOK"
+            # end if
+            distribution_status_event = {
+                "explicit_reference": session_id,
+                "key": session_id,
+                "gauge": {
+                    "insertion_type": "EVENT_KEYS",
+                    "name": "PLAYBACK_HKTM_DISTRIBUTION_STATUS_CHANNEL_2",
+                    "system": station
+                },
+                "links": links_hktm_channel_2,
+                "start": acquisition_starts_in_iso_8601[0],
+                "stop": acquisition_stops_in_iso_8601[-1],
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": status_distribution_transfer_frames_channel_2[0].text},
+                    {"name": "downlink_orbit",
+                     "type": "double",
+                     "value": downlink_orbit},
+                    {"name": "satellite",
+                     "type": "text",
+                     "value": satellite},
+                    {"name": "reception_station",
+                     "type": "text",
+                     "value": station},
+                    {"name": "channel",
+                     "type": "double",
+                     "value": 2},
+                    {"name": "completeness_status",
+                     "type": "text",
+                     "value": completeness_status},
+                    {"name": "number_of_received_transfer_frames",
+                     "type": "double",
+                     "value": number_of_received_transfer_frames_channel_2},
+                    {"name": "number_of_distributed_transfer_frames",
+                     "type": "double",
+                     "value": number_of_distributed_transfer_frames_channel_2},
+                    {"name": "completeness_difference",
+                     "type": "double",
+                     "value": number_of_received_transfer_frames_channel_2 - number_of_distributed_transfer_frames_channel_2}
+                ]
+            }
+            # Insert playback_validity_event
+            list_of_events.append(distribution_status_event)
+        # end if
+
+    # end if
+
+    
+@debug
 def process_file(file_path, engine, query, reception_time):
     """
     Function to process the file and insert its relevant information
@@ -1237,6 +1579,11 @@ def process_file(file_path, engine, query, reception_time):
     _generate_pass_information(xpath_xml, source, engine, query, list_of_annotations, list_of_explicit_references, isp_status, acquisition_status)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
+
+    # Extract the information of the distribution
+    _generate_distribution_information(xpath_xml, source, engine, query, list_of_events)
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
 
     # Build the xml
     data = {}
