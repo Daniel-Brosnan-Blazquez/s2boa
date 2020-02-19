@@ -1,0 +1,356 @@
+<div class="row">
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#query-interface">Query interface <span class="fa fa-angle-double-down"></span></a>
+        </h3>
+      </div>
+      <div class="panel-body panel-collapse collapse" id="query-interface">
+        <ul class="nav nav-tabs responsive-tabs">
+          <li class="active"><a href="#hktm-workflow-query-window">Query window</a></li>
+          <li><a href="#hktm-workflow-sliding-window">Sliding window</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="hktm-workflow-query-window">
+            <form role="form" method=post action="/views/hktm-workflow">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    start: now - 1 day <br/>
+                    stop: now <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_static_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Start and stop -->
+                <div class="row">
+                  {% include "eboa_nav/start_stop_without_operators.html" %}
+                </div>
+                <!-- Orbits -->
+                {% include "views/common/start_stop_orbits.html" %}
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="hktm-workflow-limit" value="100"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane" id="hktm-workflow-sliding-window">
+            <form role="form" method=post action="/views/sliding-hktm-workflow">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    window delay: 0 days <br/>
+                    window size: 1 days <br/>
+                    repeat cycle: 1 minute <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_sliding_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Delay -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window delay (days)</label>
+                    <input type="text" class="form-control" name="hktm_workflow_window_delay" id="hktm-workflow-window-delay"/>
+                  </div>
+                </div>
+                <!-- Duration -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window size (days)</label>
+                    <input type="text" class="form-control" name="hktm_workflow_window_size" id="hktm-workflow-window-size"/>
+                  </div>
+                </div>
+                <!-- Repeat cycle (minutes) -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Repeat cycle (minutes)</label>
+                    <input type="text" class="form-control" name="hktm_workflow_repeat_cycle" id="hktm-workflow-repeat-cycle"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "views/common/header.html" %}
+
+<!-- Pagination -->
+{% with route = "/views/hktm-workflow-pages", elements = hktm_workflow_events["playback"], filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
+<!-- Missing HKTM products -->
+{% set missing_hktm_production = hktm_workflow_events["playback"]|reject_events_with_link_name("HKTM_PRODUCTION")|list %}
+
+<!-- Missing HKTM products, data not received from PDGS -->
+{% set missing_hktm_production_data_not_received_from_pdgs = hktm_workflow_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|list %}
+
+<!-- Missing HKTM products, data not received from satellite -->
+{% set missing_hktm_production_data_not_received_from_satellite = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|reject_events_with_link_name("PLAYBACK_VALIDITY")|list %}
+
+<!-- Missing HKTM products, PDGS did not generate production but data was received -->
+{% set missing_hktm_production_data_received = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|filter_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|list %}
+
+<!-- Missing HKTM circulation to FOS -->
+{% set missing_hktm_circulation_to_fos = hktm_workflow_events["hktm_production"]|map(attribute="explicitRef")|unique|list|reject_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+
+<!-- Incompletely distributed -->
+{% set hktm_incompletely_distributed = hktm_workflow_events["distribution_status"]|filter_events_by_text_value("completeness_status", "NOK")|list %}
+
+<!-- Summary -->
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#summary-hktm-workflow">HKTM Workflow Status summary <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="summary-hktm-workflow">
+      <!-- Planned playbacks -->
+      <div class="col-xs-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of expected HKTM products</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ hktm_workflow_events["playback"]|length }}</div>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div class="panel panel-success">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of generated HKTM products</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}</div>
+        </div>
+      </div>
+      {% if missing_hktm_production|length > 0 %}
+      <div class="col-xs-3">
+        <div class="panel panel-danger">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM products</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_production|length }}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% if missing_hktm_circulation_to_fos|length > 0 %}
+      <div class="col-xs-3">
+        <div class="panel panel-danger">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM circulations to FOS</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_circulation_to_fos|length }}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% if missing_hktm_production_data_not_received_from_pdgs|length > 0 %}
+      <div class="col-xs-3">
+        <div class="panel panel-warning">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from PDGS</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_pdgs|length }}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% if missing_hktm_production_data_not_received_from_satellite|length > 0 %}
+      <div class="col-xs-3">
+        <div class="panel panel-warning">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from Satellite</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_satellite|length }}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% if missing_hktm_production_data_received|length > 0 %}
+      <div class="col-xs-3">
+        <div class="panel panel-warning">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data received by PDGS</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_received|length }}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% if hktm_incompletely_distributed|length > 0 %}
+      <div class="col-xs-3">
+        <div class="panel panel-warning">
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of HKTM incompletely distributed</div>
+          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ hktm_incompletely_distributed|length }}</div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if missing_hktm_production|length > 0 or missing_hktm_circulation_to_fos|length > 0 or hktm_incompletely_distributed|length > 0 %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-issues-hktm" style="color:red">Issues with the HKTM circulation to FOS <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="hktm-workflow-issues-hktm">
+      <p>
+        <b>The following table shows the list of issues occurred for the circulation of HKTM products to FOS</b>:
+      </p>
+      <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-columns-help-list-hktm"><b>Columns help:</b> <span class="fa fa-angle-double-down"></span></a>
+      <div class="panel-body panel-collapse collapse" id="hktm-workflow-columns-help-list-hktm">
+        {% include "views/hktm_workflow/hktm_workflow_columns_help.html" %}
+      </div>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="hktm-workflow-issues-hktm-table">
+        <thead>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>ANX time</th>
+            <th>Status</th>
+            <th>Completeness status</th>
+            <th>HKTM product</th>
+            <th>PDMC-FOS time</th>
+            <th>Time delivery to FOS (min.)</th>            
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in hktm_workflow_events["playback"] %}
+          {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
+          {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set status = [] %}
+          {% set status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_status.html" %}          
+
+          {% set completeness_status = [] %}
+          {% set completeness_status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
+          
+          {% if status[0] != "OK" or completeness_status[0] != "OK" %}
+
+          {% include "views/hktm_workflow/hktm_workflow_content_table.html" %}
+          
+          {% endif %}
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>ANX time</th>
+            <th>Status</th>
+            <th>Completeness status</th>
+            <th>HKTM Product</th>
+            <th>PDMC-FOS time</th>
+            <th>Time delivery to FOS (min.)</th>            
+            <th>Comments</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-list-hktm">HKTM workflow status <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="hktm-workflow-list-hktm">
+      <p>
+        <b>The following table shows the status of the HKTM dissemination to FOS for all the covered orbits</b>:
+      </p>
+      <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-columns-help-list-hktm"><b>Columns help:</b> <span class="fa fa-angle-double-down"></span></a>
+      <div class="panel-body panel-collapse collapse" id="hktm-workflow-columns-help-list-hktm">
+        {% include "views/hktm_workflow/hktm_workflow_columns_help.html" %}
+      </div>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="hktm-workflow-list-hktm-table">
+        <thead>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>ANX time</th>
+            <th>Status</th>
+            <th>Completeness status</th>
+            <th>HKTM product</th>
+            <th>PDMC-FOS time</th>
+            <th>Time delivery to FOS (min.)</th>            
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for orbpre_event in orbpre_events %}
+          {% set satellite = orbpre_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
+          {% set orbit = orbpre_event.eventDoubles|selectattr("name", "equalto", "orbit")|map(attribute='value')|first|int %}
+          {% set orbpre_intersection_playback = [orbpre_event]|convert_eboa_events_to_date_segments|intersect_timelines(hktm_workflow_events["playback"]|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
+
+          {% if orbpre_intersection_playback %}
+          {% set event = hktm_workflow_events["playback"]|selectattr("event_uuid", "==", orbpre_intersection_playback["id2"])|first %}
+
+          {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set status = [] %}
+          {% set status_class = [] %}
+          {% include "views/hktm_workflow/hktm_workflow_status.html" %}
+
+          {% set completeness_status = [] %}
+          {% set completeness_status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
+
+          {% include "views/hktm_workflow/hktm_workflow_content_table.html" %}
+
+          {% else %}
+          <tr>
+            <td>{{ satellite }}</td>
+            <td>{{ orbit }}</td>
+            <td>{{ orbpre_event["start"].isoformat() }}</td>
+            <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
+            <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>{{ comments }}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>ANX time</th>
+            <th>Status</th>
+            <th>Completeness status</th>
+            <th>HKTM Product</th>
+            <th>PDMC-FOS time</th>
+            <th>Time delivery to FOS (min.)</th>            
+            <th>Comments</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+    </div>
+  </div>
+</div>

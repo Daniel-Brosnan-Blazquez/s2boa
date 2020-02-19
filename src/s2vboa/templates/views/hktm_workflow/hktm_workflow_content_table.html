@@ -1,0 +1,68 @@
+{% set station_report_event_uuids = event.eventLinks|selectattr("name", "equalto", "STATION_ACQUISITION_REPORT")|map(attribute='event_uuid_link')|list %}
+{% if station_report_event_uuids|length > 0 %}
+{% set station_report_event = hktm_workflow_events["station_report"]|selectattr("event_uuid", "in", station_report_event_uuids)|first %}
+{% set comments = station_report_event.eventTexts|selectattr("name", "equalto", "comments")|map(attribute='value')|first|string %}
+{% else %}
+{% set comments = "" %}
+{% endif %}
+
+{% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION")|map(attribute='event_uuid_link')|list %}
+
+{% if hktm_production_event_uuids|length > 0 %}
+{% set hktm_production_events = hktm_workflow_events["hktm_production"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
+
+{% for hktm_production_event in hktm_production_events %}
+{% set successful_circulation_to_fos = [hktm_production_event]|map(attribute="explicitRef")|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+
+{% if successful_circulation_to_fos|length > 0 %}
+{% set circulation_time_to_fos_annotation = successful_circulation_to_fos|map(attribute="annotations")|flatten|filter_annotations("CIRCULATION_TIME")|filter_annotations_by_text_value("destination", "FOS_")|first %}
+{% set circulation_time_to_fos_datetime = circulation_time_to_fos_annotation.annotationTimestamps|selectattr("name", "equalto", "circulation_time")|map(attribute='value')|first %}
+{% set circulation_time_to_fos = circulation_time_to_fos_datetime.isoformat() %}
+{% set circulation_time_to_fos_class = "bold-green" %}
+{% else %}
+{% set circulation_time_to_fos = "N/A" %}
+{% set circulation_time_to_fos_class = "bold-red" %}
+{% endif %}
+
+{% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events|convert_eboa_events_to_date_segments)|first %}
+{% set orbpre_event = orbpre_events|selectattr("event_uuid", "==", orbpre_segment["id2"])|first %}
+
+{% set delta_to_fos = ((circulation_time_to_fos_datetime - orbpre_event["start"]).total_seconds()/ 60)|round(3) %}
+{% if delta_to_fos > 60 %}
+{% set status = ["DELIVERY TIME EXCEEDED (> 60)"] %}
+{% set status_class = ["bold-red"] %}
+{% endif %}
+
+<tr>
+  <td>{{ satellite }}</td>
+  <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ orbit }}</a></td>
+  {% if orbpre_event %}
+  <td>{{ orbpre_event["start"].isoformat() }}</td>
+  {% else %}
+  <td class="bold-red">N/A</td>
+  {% endif %}
+  <td class="{{ status_class[0] }}">{{ status[0] }}</td>
+  <td class="{{ completeness_status_class[0] }}">{{ completeness_status[0] }}</td>
+  <td><a href="/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}">{{ [hktm_production_event]|map(attribute="explicitRef.explicit_ref")|first }}</a></td>
+  <td class="{{ circulation_time_to_fos_class }}">{{ circulation_time_to_fos }}</td>
+  <td>{{ delta_to_fos }}</td>
+  <td>{{ comments }}</td>
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+  <td>{{ satellite }}</td>
+  <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ orbit }}</a></td>
+  {% if orbpre_event %}
+  <td>{{ orbpre_event["start"].isoformat() }}</td>
+  {% else %}
+  <td class="bold-red">N/A</td>
+  {% endif %}
+  <td class="{{ status_class[0] }}">{{ status[0] }}</td>
+  <td class="{{ completeness_status_class[0] }}">{{ completeness_status[0] }}</td>
+  <td class="bold-red">N/A</td>
+  <td class="bold-red">N/A</td>
+  <td class="bold-red">N/A</td>
+  <td>{{ comments }}</td>
+</tr>
+{% endif %}

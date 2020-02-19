@@ -1,0 +1,24 @@
+{% set distribution_status_event_uuids = event.eventLinks|selectattr("name", "equalto", "DISTRIBUTION_STATUS")|map(attribute='event_uuid_link')|list %}
+{% if distribution_status_event_uuids|length > 0 %}
+{% set distribution_status_events = hktm_workflow_events["distribution_status"]|selectattr("event_uuid", "in", distribution_status_event_uuids)|list %}
+{% set distribution_status_events_nok = distribution_status_events|filter_events_by_text_value("completeness_status", "NOK")|list %}
+{% set distribution_status_events_ok = distribution_status_events|filter_events_by_text_value("completeness_status", "OK")|list %}
+{% if distribution_status_events_ok|length > 0 and distribution_status_events_nok|length > 0 %}
+{% do completeness_status.append("INCOMPLETE RECOVERED") %}
+{% do completeness_status_class.append("bold-green") %}
+{% elif distribution_status_events_nok|length > 0 %}
+{% do completeness_status.append("NOK") %}
+{% do completeness_status_class.append("bold-red") %}
+{% else %}
+{% do completeness_status.append("OK") %}
+{% do completeness_status_class.append("bold-green") %}
+{% endif %}
+{% else %}
+{% if [event]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|length > 0 %}
+{% do completeness_status.append("NOK") %}
+{% do completeness_status_class.append("bold-red") %}
+{% else %}
+{% do completeness_status.append("MISSING DATA FROM PDGS") %}
+{% do completeness_status_class.append("bold-orange") %}
+{% endif %}
+{% endif %}

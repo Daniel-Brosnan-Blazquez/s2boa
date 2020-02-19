@@ -1,0 +1,14 @@
+{% extends "panel/index.html" %}
+{% block content %}
+{% set status = "UNKNOWN" %}
+<div class="row">
+  <h1 class="page-header">HKTM Workflow Status view</h1>
+</div>
+<!-- /.row -->
+{% include "views/hktm_workflow/hktm_workflow_content.html" %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% include "views/hktm_workflow/hktm_workflow_scripts.html" %}
+{% endblock %}

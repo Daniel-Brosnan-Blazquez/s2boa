@@ -16,6 +16,7 @@ import jinja2
 # Import vboa
 import vboa
 from s2vboa.views import planning
+from s2vboa.views import hktm_workflow
 from s2vboa.views import acquisition
 from s2vboa.views import tracking
 from s2vboa.views import sensing_data_volumes
@@ -28,6 +29,7 @@ def create_app():
     app = vboa.create_app()
 
     app.register_blueprint(planning.bp)
+    app.register_blueprint(hktm_workflow.bp)
     app.register_blueprint(acquisition.bp)
     app.register_blueprint(tracking.bp)
     app.register_blueprint(sensing_data_volumes.bp)
