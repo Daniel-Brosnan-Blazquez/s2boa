@@ -76,7 +76,7 @@ def show_tracking():
 
     return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window=None)
 
-@bp.route("/sliding_tracking_parameters", methods=["GET", "POST"])
+@bp.route("/sliding-tracking-parameters", methods=["GET", "POST"])
 def show_sliding_tracking_parameters():
     """
     Tracking sliding view for the Sentinel-2 mission.
@@ -109,7 +109,7 @@ def show_sliding_tracking_parameters():
 
     return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
 
-@bp.route("/sliding_tracking", methods=["GET", "POST"])
+@bp.route("/sliding-tracking", methods=["GET", "POST"])
 def show_sliding_tracking():
     """
     Tracking sliding view for the Sentinel-2 mission.

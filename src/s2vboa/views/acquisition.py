@@ -133,7 +133,7 @@ def query_acquisition_pages():
 
     return query_acquisition_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
-@bp.route("/sliding_acquisition_parameters", methods=["GET", "POST"])
+@bp.route("/sliding-acquisition-parameters", methods=["GET", "POST"])
 def show_sliding_acquisition_parameters():
     """
     Acquisition sliding view for the Sentinel-2 mission.
@@ -166,7 +166,7 @@ def show_sliding_acquisition_parameters():
 
     return query_acquisition_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
-@bp.route("/sliding_acquisition", methods=["GET", "POST"])
+@bp.route("/sliding-acquisition", methods=["GET", "POST"])
 def show_sliding_acquisition():
     """
     Acquisition sliding view for the Sentinel-2 mission.
@@ -254,8 +254,6 @@ def query_acquisition_and_render(start_filter = None, stop_filter = None, missio
 
     acquisition_events = query_acquisition_events(start_filter, stop_filter, mission, filters, corrected_planned_playback_uuid)
 
-    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
-
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
@@ -264,7 +262,7 @@ def query_acquisition_and_render(start_filter = None, stop_filter = None, missio
         route = "views/acquisition/specific_acquisition.html"
     # end if
 
-    return render_template(route, acquisition_events=acquisition_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template(route, acquisition_events=acquisition_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_acquisition_events(start_filter = None, stop_filter = None, mission = None, filters = None, corrected_planned_playback_uuid = None):
     """

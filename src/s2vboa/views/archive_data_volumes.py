@@ -213,12 +213,10 @@ def query_datastrips_and_render(start_filter = None, stop_filter = None, mission
 
     datastrip_events = query_datastrip_events(start_filter, stop_filter, mission, filters)
 
-    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
-
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    return render_template("views/archive_data_volumes/archive_data_volumes.html", datastrip_events=datastrip_events, orbpre_events=orbpre_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template("views/archive_data_volumes/archive_data_volumes.html", datastrip_events=datastrip_events, request=request, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_datastrip_events(start_filter = None, stop_filter = None, mission = None, filters = None):
     """

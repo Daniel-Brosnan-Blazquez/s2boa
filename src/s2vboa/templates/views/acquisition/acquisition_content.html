@@ -70,7 +70,7 @@
             </form>
           </div>
           <div class="tab-pane" id="acquisition-sliding-window">
-            <form role="form" method=post action="/views/sliding_acquisition">
+            <form role="form" method=post action="/views/sliding-acquisition">
               <div>
                 <!-- Default values message -->
                 <div class="row">
@@ -191,27 +191,30 @@
           <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ acquisition_events["playback"]|length - missing_playbacks|length }}</div>
         </div>
       </div>
+      {% if missing_playbacks|length > 0 %}
       <div class="col-xs-4">
         <div class="panel panel-danger">
           <div class="panel-heading" align="center" style="font-size: 20px">Number of missing or partial playbacks</div>
           <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_playbacks|length }}</div>
         </div>
       </div>
-
-      <div class="col-xs-2">
-      </div>
+      {% endif %}
+      {% if acquisition_events["planned_playbacks_gaps_reception"]|length > 0 %}
       <div class="col-xs-4">
         <div class="panel panel-warning">
           <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks with gaps at reception</div>
           <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ acquisition_events["planned_playbacks_gaps_reception"]|length }}</div>
         </div>
       </div>
+      {% endif %}
+      {% if acquisition_events["planned_playbacks_gaps_msi"]|length > 0 %}
       <div class="col-xs-4">
         <div class="panel panel-warning">
           <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks with gaps at MSI</div>
           <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ acquisition_events["planned_playbacks_gaps_msi"]|length }}</div>
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
