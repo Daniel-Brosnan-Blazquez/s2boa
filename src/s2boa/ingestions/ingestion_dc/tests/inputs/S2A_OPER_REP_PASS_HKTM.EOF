@@ -9344,7 +9344,16 @@
       <Id/>
       <NumberofPackets>0</NumberofPackets>
     </distribution_C2_ISP>
-    <distribution_C1_TF/>
+    <distribution_C1_TF>
+      <StreamType>TransferFrame</StreamType>
+      <Channel>C1</Channel>
+      <SatelliteID>S2A</SatelliteID>
+      <Status>DELIVERED</Status>
+      <StartTime>29-JAN-2020 03:25:08.845620</StartTime>
+      <StopTime>29-JAN-2020 03:25:13.405053</StopTime>
+      <Id/>
+      <NumberofPackets>19848</NumberofPackets>
+    </distribution_C1_TF>
     <distribution_C2_TF/>
   </Data_Block>
 </Earth_Explorer_File>
