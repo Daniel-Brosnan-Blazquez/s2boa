@@ -59,7 +59,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 12
+        assert len(events) == 13
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -68,7 +68,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940").all()
+                                                   Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(source) == 1
 
@@ -507,6 +507,36 @@ class TestDfepIngestion(unittest.TestCase):
             }
         ]
 
+        # Check DFEP_ACQUISITION_VALIDITY events
+        dfep_acquisition_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name == "DFEP_ACQUISITION_VALIDITY").all()
+
+        assert len(dfep_acquisition_validity_events) == 1
+
+        # Check specific DFEP_ACQUISITION_VALIDITY event
+        dfep_acquisition_validity_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "DFEP_ACQUISITION_VALIDITY",
+                                                                                 Event.start == "2018-07-21T10:35:27",
+                                                                                 Event.stop == "2018-07-21T10:37:39").all()
+
+        assert len(dfep_acquisition_validity_event1) == 1
+
+        assert dfep_acquisition_validity_event1[0].get_structured_values() == [
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "MPS_"
+            }
+        ]
+
     def test_insert_rep_pass_with_msi_gaps(self):
         filename = "S2A_REP_PASS_CONTAINING_MSI_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -518,7 +548,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 17
+        assert len(events) == 18
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -527,7 +557,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940").all()
+                                                   Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(source) == 1
 
@@ -1021,7 +1051,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 15
+        assert len(events) == 16
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1030,7 +1060,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
-                                                   Source.validity_stop == "2018-07-21T23:30:03.707424").all()
+                                                   Source.validity_stop == "2018-07-21T23:30:15").all()
 
         assert len(source) == 1
 
@@ -1127,7 +1157,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 0
+        assert len(events) == 1
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1184,7 +1214,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 13
+        assert len(events) == 14
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1193,7 +1223,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940").all()
+                                                   Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(source) == 1
 
@@ -1310,7 +1340,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
+                                                   Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
@@ -1333,7 +1363,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF").all()
 
-        assert len(events) == 16
+        assert len(events) == 17
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -1380,8 +1410,8 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T01:47:42.854151",
-                                                   Source.validity_stop == "2018-07-21T01:47:43.833085",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21 01:47:36",
+                                                   Source.validity_stop == "2018-07-21T01:47:51",
                                                    Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
@@ -1397,7 +1427,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF").all()
 
-        assert len(events) == 3
+        assert len(events) == 4
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF").all()
@@ -1494,7 +1524,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
+                                                   Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
@@ -1517,7 +1547,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
 
-        assert len(events) == 18
+        assert len(events) == 19
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
@@ -1549,7 +1579,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
+                                                   Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
@@ -1581,7 +1611,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
-                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
+                                                   Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == filename,
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
@@ -1590,7 +1620,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 13
+        assert len(events) == 14
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T08:53:56.579788",
@@ -1609,7 +1639,7 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check sources
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
-                                                   Source.validity_stop == "2018-07-21T23:30:03.707424",
+                                                   Source.validity_stop == "2018-07-21T23:30:15",
                                                    Source.name == filename,
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
@@ -1618,7 +1648,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 16
+        assert len(events) == 17
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T20:18:50.458085",

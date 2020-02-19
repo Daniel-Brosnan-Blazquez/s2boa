@@ -1128,7 +1128,7 @@ def _generate_pass_information(xpath_xml, source, engine, query, list_of_annotat
 @debug
 def _generate_distribution_information(xpath_xml, source, engine, query, list_of_events):
     """
-    Method to generate the events for the idle operation of the satellite
+    Method to generate the events associated to the distribution information
     :param xpath_xml: source of information that was xpath evaluated
     :type xpath_xml: XPathEvaluator
     :param source: information of the source
@@ -1177,22 +1177,24 @@ def _generate_distribution_information(xpath_xml, source, engine, query, list_of
         acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStartTime")
         acquisition_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_start.text) for acquisition_start in acquisition_starts]
         acquisition_starts_in_iso_8601.sort()
+        query_start = (parser.parse(acquisition_starts_in_iso_8601[0]) - datetime.timedelta(seconds=10)).isoformat()
 
         acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStopTime")
         acquisition_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_stop.text) for acquisition_stop in acquisition_stops]
         acquisition_stops_in_iso_8601.sort()
+        query_stop = acquisition_stops_in_iso_8601[-1]
 
         # Get planned playbacks covered by the acquisition timings
         corrected_planned_playbacks_isps = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
                                                             gauge_systems = {"op": "==", "filter": satellite},
                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD"]}}],
-                                                            start_filters = [{"date": acquisition_stops_in_iso_8601[-1], "op": "<="}],
-                                                            stop_filters = [{"date": acquisition_starts_in_iso_8601[0], "op": ">="}])
+                                                            start_filters = [{"date": query_start, "op": ">="}],
+                                                            stop_filters = [{"date": query_stop, "op": "<="}])
         corrected_planned_playbacks_hktm = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
                                                             gauge_systems = {"op": "==", "filter": satellite},
                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "in", "filter": ["HKTM", "HKTM_SAD"]}}],
-                                                            start_filters = [{"date": acquisition_stops_in_iso_8601[-1], "op": "<="}],
-                                                            stop_filters = [{"date": acquisition_starts_in_iso_8601[0], "op": ">="}])
+                                                            start_filters = [{"date": query_start, "op": ">="}],
+                                                            stop_filters = [{"date": query_stop, "op": "<="}])
 
         links_isps = []
         for corrected_planned_playback in corrected_planned_playbacks_isps:
@@ -1208,7 +1210,7 @@ def _generate_distribution_information(xpath_xml, source, engine, query, list_of
         links_hktm = []
         for corrected_planned_playback in corrected_planned_playbacks_hktm:
             planned_playback_uuid = [event_link.event_uuid_link for event_link in corrected_planned_playback.eventLinks if event_link.name == "PLANNED_EVENT"][0]            
-            links_isps.append({
+            links_hktm.append({
                 "link": str(planned_playback_uuid),
                 "link_mode": "by_uuid",
                 "name": "DISTRIBUTION_STATUS",
@@ -1466,6 +1468,79 @@ def _generate_distribution_information(xpath_xml, source, engine, query, list_of
 
     # end if
 
+@debug
+def _generate_acquisition_coverage(xpath_xml, source, engine, query, list_of_events):
+    """
+    Method to generate the events for associating the planned playbacks even if there is no acquisition
+    :param xpath_xml: source of information that was xpath evaluated
+    :type xpath_xml: XPathEvaluator
+    :param source: information of the source
+    :type source: dict
+    :param engine: object to access the engine of the EBOA
+    :type engine: Engine
+    :param query: object to access the query interface of the EBOA
+    :type query: Query
+    :param list_of_events: list to store the events to be inserted into the eboa
+    :type list_of_events: list
+    """
+
+    # Obtain the satellite
+    satellite = source["name"][0:3]
+
+    # Obtain the station
+    station = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/System")[0].text
+
+    # Obtain link session ID
+    session_id = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/File_Type")[0].text + "_" + xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("UTC=",1)[1]
+
+    # Obtain downlink orbit
+    downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
+
+    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+
+    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+
+    # Get planned playbacks covered by the acquisition timings
+    corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
+                                                        gauge_systems = {"op": "==", "filter": satellite},
+                                                        start_filters = [{"date": validity_start, "op": ">="}],
+                                                        stop_filters = [{"date": validity_stop, "op": "<="}])
+
+    links = []
+    for corrected_planned_playback in corrected_planned_playbacks:
+        planned_playback_uuid = [event_link.event_uuid_link for event_link in corrected_planned_playback.eventLinks if event_link.name == "PLANNED_EVENT"][0]            
+        links.append({
+            "link": str(planned_playback_uuid),
+            "link_mode": "by_uuid",
+            "name": "DFEP_ACQUISITION_VALIDITY",
+            "back_ref": "PLANNED_PLAYBACK"
+        })
+    # end for
+    distribution_status_event = {
+        "explicit_reference": session_id,
+        "key": session_id,
+        "gauge": {
+            "insertion_type": "EVENT_KEYS",
+            "name": "DFEP_ACQUISITION_VALIDITY",
+            "system": station
+        },
+        "links": links,
+        "start": validity_start,
+        "stop": validity_stop,
+        "values": [
+            {"name": "downlink_orbit",
+             "type": "double",
+             "value": downlink_orbit},
+            {"name": "satellite",
+             "type": "text",
+             "value": satellite},
+            {"name": "reception_station",
+             "type": "text",
+             "value": station}
+        ]
+    }
+    # Insert playback_validity_event
+    list_of_events.append(distribution_status_event)
     
 @debug
 def process_file(file_path, engine, query, reception_time):
@@ -1510,7 +1585,9 @@ def process_file(file_path, engine, query, reception_time):
     sensing_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Status/SensStartTime")
 
     acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStartTime")
-
+    
+    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    validity_starts = [validity_start]
     if len(sensing_starts) > 0:
         # Set the validity start to be the first sensing timing acquired to avoid error ingesting
         sensing_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_start.text) for sensing_start in sensing_starts]
@@ -1518,29 +1595,35 @@ def process_file(file_path, engine, query, reception_time):
         # Sort list
         sensing_starts_in_iso_8601.sort()
         corrected_sensing_start = functions.convert_from_gps_to_utc(sensing_starts_in_iso_8601[0])
-        validity_start = corrected_sensing_start
-    elif len(acquisition_starts) > 0:
+        validity_starts.append(corrected_sensing_start)
+    # end if
+
+    if len(acquisition_starts) > 0:
         # Set the validity start to be the first acquisition timing registered to avoid error ingesting
         acquisition_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_start.text) for acquisition_start in acquisition_starts]
 
         # Sort list
         acquisition_starts_in_iso_8601.sort()
-        validity_start = acquisition_starts_in_iso_8601[0]
-    else:
-        validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+        validity_starts.append(acquisition_starts_in_iso_8601[0])
     # end if
 
+    validity_starts.sort()
+    validity_start = validity_starts[0]
+
     acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStopTime")
+    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    validity_stops = [validity_stop]
     if len(acquisition_stops) > 0:
         # Set the validity stop to be the last acquisition timing registered to avoid error ingesting
         acquisition_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_stop.text) for acquisition_stop in acquisition_stops]
 
         # Sort list
         acquisition_stops_in_iso_8601.sort()
-        validity_stop = acquisition_stops_in_iso_8601[-1]
-    else:
-        validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+        validity_stops.append(acquisition_stops_in_iso_8601[-1])
     # end if
+
+    validity_stops.sort()
+    validity_stop = validity_stops[-1]
 
     source = {
         "name": file_name,
@@ -1585,6 +1668,11 @@ def process_file(file_path, engine, query, reception_time):
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
 
+    # Extract the information of the distribution
+    _generate_acquisition_coverage(xpath_xml, source, engine, query, list_of_events)
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
+
     # Build the xml
     data = {}
     data["operations"] = list_of_planning_operations
@@ -1592,7 +1680,7 @@ def process_file(file_path, engine, query, reception_time):
     # Generate the footprint of the events
     list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
 
     data["operations"].append({
         "mode": "insert",
