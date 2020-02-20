@@ -1,4 +1,68 @@
 <script type="text/javascript">
+
+  {% if hktm_workflow_events["playback"]|length > 0 %}
+  processing_data = [{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}, {{ missing_hktm_production_data_not_received_from_pdgs|length }}, {{ missing_hktm_production_data_not_received_from_satellite|length }}, {{ missing_hktm_production_data_received|length }}]
+  processing_background_color = ["green", "darkred", "darkred", "darkred"]
+  processing_labels = ["# processed", "# missing data from PDGS", "# missing data from satellite", "# missing processing, data available"]
+
+  var data = {
+  datasets: [{
+  data: processing_data,
+  backgroundColor: processing_background_color
+  }],
+  labels: processing_labels
+  }
+  
+  vboa.display_pie("hktm-workflow-pie-processing-status", data)
+
+  var distribution_data = [{{ hktm_workflow_events["hktm_production"]|length - missing_hktm_circulation_to_fos|length - hktm_incompletely_distributed|length }}, {{ missing_hktm_circulation_to_fos|length }}, {{ hktm_incompletely_distributed|length }}]
+  var distribution_background_color = ["green", "gold", "gold"]
+  var distribution_labels = ["# distributed to FOS", "# not distributed to FOS", "# incompletely distributed to FOS"]
+  var data = {
+  datasets: [{
+  data: distribution_data,
+  backgroundColor: distribution_background_color
+  }],
+  labels: distribution_labels
+  }
+  vboa.display_pie("hktm-workflow-pie-distribution-status", data)
+  {% endif %}
+
+  <!-- HKTM circulated to FOS -->
+  {% set hktm_circulated_to_fos = hktm_workflow_events["hktm_production"]|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+
+  {% if (hktm_circulated_to_fos|length) > 0 %}
+  
+  {% with events = hktm_workflow_events["playback"] %}
+  {% include "js/hktm_workflow/hktm_circulations_to_bar.js" %}
+  {% endwith %}
+
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_bar(hktm_circulation_events, items, groups);
+
+  console.log(items)
+  console.log(groups)
+
+  const options = {
+  legend: true,
+  style: "bar",
+  barChart: {width:50, align:'center', sideBySide:true},
+  height: 350,
+  dataAxis: {
+  left: {
+  title: {
+  text: "Delta time to FOS",
+  }
+  }
+  }
+  };
+  
+  vboa.display_bar_time("hktm-workflow-dissemination-evolution", items, groups, options);
+  
+  {% endif %}
+  
   {% if sliding_window %}
   var parameters = {
   "window_delay": "{{ sliding_window['window_delay'] }}",

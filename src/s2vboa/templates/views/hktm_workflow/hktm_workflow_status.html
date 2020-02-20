@@ -9,7 +9,7 @@
 {% elif [event]|reject_events_with_link_name("PLAYBACK_VALIDITY")|list|length > 0 %}
 {% do status.append("MISSING DATA FROM PDGS") %}
 {% do status_class.append("bold-red") %}
-{% elif [event]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|filter_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|list|length > 0 %}
+{% elif [event]|reject_events_with_link_name("HKTM_PRODUCTION")|list|length > 0 %}
 {% do status.append("MISSING PRODUCTION") %}
 {% do status_class.append("bold-red") %}
 {% elif missing_circulation_to_fos|length > 0 and successful_circulation_to_fos|length == 0 %}

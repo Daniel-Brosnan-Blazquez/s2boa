@@ -195,25 +195,26 @@ def query_hktm_workflow_events(start_filter = None, stop_filter = None, mission 
 
     kwargs_playback = {}
 
-    # Set offset and limit for the query
-    if filters and "offset" in filters and filters["offset"][0] != "":
-        kwargs_playback["offset"] = filters["offset"][0]
-    # end if
-    if filters and "limit" in filters and filters["limit"][0] != "":
-        kwargs_playback["limit"] = filters["limit"][0]
-    # end if
+    # Deactivated limit because there is an issue with the completeness provided by the ORBPRE events
+    # # Set offset and limit for the query
+    # if filters and "offset" in filters and filters["offset"][0] != "":
+    #     kwargs_playback["offset"] = filters["offset"][0]
+    # # end if
+    # if filters and "limit" in filters and filters["limit"][0] != "":
+    #     kwargs_playback["limit"] = filters["limit"][0]
+    # # end if
 
     # Set order by reception_time descending
     kwargs_playback["order_by"] = {"field": "start", "descending": True}
 
     # Start filter
     if start_filter:
-        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        kwargs_playback["start_filters"] = [{"date": (parser.parse(start_filter["date"]) + datetime.timedelta(minutes=100)).isoformat(), "op": start_filter["operator"]}]
     # end if
 
     # Stop filter
     if stop_filter:
-        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        kwargs_playback["stop_filters"] = [{"date": (parser.parse(stop_filter["date"]) - datetime.timedelta(minutes=100)).isoformat(), "op": stop_filter["operator"]}]
     # end if
 
     kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},

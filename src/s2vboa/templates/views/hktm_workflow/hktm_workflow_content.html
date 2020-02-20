@@ -102,10 +102,7 @@
 </div>
 {% include "views/common/header.html" %}
 
-<!-- Pagination -->
-{% with route = "/views/hktm-workflow-pages", elements = hktm_workflow_events["playback"], filters = filters %}
-{% include "vboa/pagination.html" %}
-{% endwith %}
+<!-- Pagination (removed because there is an issue with the completeness provided by the ORBPRE events) -->
 
 <!-- Missing HKTM products -->
 {% set missing_hktm_production = hktm_workflow_events["playback"]|reject_events_with_link_name("HKTM_PRODUCTION")|list %}
@@ -135,67 +132,93 @@
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="summary-hktm-workflow">
-      <!-- Planned playbacks -->
-      <div class="col-xs-3">
-        <div class="panel panel-primary">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of expected HKTM products</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ hktm_workflow_events["playback"]|length }}</div>
+      {% if hktm_workflow_events["playback"]|length > 0 %}
+      <div class="row">
+        <!-- Pie chart for processing status -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="hktm-workflow-pie-processing-status" width="400" height="300"></canvas></div>
+          </div>
         </div>
-      </div>
-      <div class="col-xs-3">
-        <div class="panel panel-success">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of generated HKTM products</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}</div>
+        <!-- Pie chart for distribution status -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of distribution</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="hktm-workflow-pie-distribution-status" width="400" height="300"></canvas></div>
+          </div>
         </div>
-      </div>
-      {% if missing_hktm_production|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-danger">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM products</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_production|length }}</div>
-        </div>
-      </div>
-      {% endif %}
-      {% if missing_hktm_circulation_to_fos|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-danger">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM circulations to FOS</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_circulation_to_fos|length }}</div>
+        <!-- Dissemination delay evolution chart -->
+        <div class="col-xs-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Evolution of the dissemination delay from ANX time</div>
+            <div class="panel-body" align="center" id="hktm-workflow-dissemination-evolution"></div>
+          </div>
         </div>
       </div>
       {% endif %}
-      {% if missing_hktm_production_data_not_received_from_pdgs|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-warning">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from PDGS</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_pdgs|length }}</div>
+      <div class="row">
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of expected HKTM products</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ hktm_workflow_events["playback"]|length }}</div>
+          </div>
         </div>
-      </div>
-      {% endif %}
-      {% if missing_hktm_production_data_not_received_from_satellite|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-warning">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from Satellite</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_satellite|length }}</div>
+        <div class="col-xs-3">
+          <div class="panel panel-success">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of generated HKTM products</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}</div>
+          </div>
         </div>
-      </div>
-      {% endif %}
-      {% if missing_hktm_production_data_received|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-warning">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data received by PDGS</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_received|length }}</div>
+        {% if missing_hktm_production|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM products</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_production|length }}</div>
+          </div>
         </div>
-      </div>
-      {% endif %}
-      {% if hktm_incompletely_distributed|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-warning">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of HKTM incompletely distributed</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ hktm_incompletely_distributed|length }}</div>
+        {% endif %}
+        {% if missing_hktm_circulation_to_fos|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM circulations to FOS</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_circulation_to_fos|length }}</div>
+          </div>
         </div>
-      </div>
-      {% endif %}
+        {% endif %}
+        {% if missing_hktm_production_data_not_received_from_pdgs|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-warning">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from PDGS</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_pdgs|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if missing_hktm_production_data_not_received_from_satellite|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-warning">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from Satellite</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_satellite|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if missing_hktm_production_data_received|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-warning">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data received by PDGS</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_received|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if hktm_incompletely_distributed|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-warning">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of HKTM incompletely distributed</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ hktm_incompletely_distributed|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+      </div>        
     </div>
   </div>
 </div>
@@ -233,7 +256,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for event in hktm_workflow_events["playback"] %}
+          {% for event in hktm_workflow_events["playback"]|sort(attribute="start", reverse=True) %}
           {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
           {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
           {% set status = [] %}
@@ -302,7 +325,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for orbpre_event in orbpre_events %}
+          {% for orbpre_event in orbpre_events|sort(attribute="start", reverse=True) %}
           {% set satellite = orbpre_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
           {% set orbit = orbpre_event.eventDoubles|selectattr("name", "equalto", "orbit")|map(attribute='value')|first|int %}
           {% set orbpre_intersection_playback = [orbpre_event]|convert_eboa_events_to_date_segments|intersect_timelines(hktm_workflow_events["playback"]|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
