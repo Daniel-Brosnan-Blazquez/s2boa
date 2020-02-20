@@ -183,6 +183,12 @@ def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, miss
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
+    # Orbpre events are needed for calculating the deltatime to circulate the HKTM products to FOS so the query is determined by the ORBPRE events obtained
+    if len(orbpre_events) > 0:
+        start_filter["date"] = orbpre_events[-1].stop.isoformat()
+        stop_filter["date"] = orbpre_events[0].start.isoformat()
+    # end if
+
     route = "views/hktm_workflow/hktm_workflow.html"
 
     return render_template(route, hktm_workflow_events=hktm_workflow_events, orbpre_events=orbpre_events, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
@@ -209,12 +215,12 @@ def query_hktm_workflow_events(start_filter = None, stop_filter = None, mission 
 
     # Start filter
     if start_filter:
-        kwargs_playback["start_filters"] = [{"date": (parser.parse(start_filter["date"]) + datetime.timedelta(minutes=100)).isoformat(), "op": start_filter["operator"]}]
+        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
     # end if
 
     # Stop filter
     if stop_filter:
-        kwargs_playback["stop_filters"] = [{"date": (parser.parse(stop_filter["date"]) - datetime.timedelta(minutes=100)).isoformat(), "op": stop_filter["operator"]}]
+        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
     # end if
 
     kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
