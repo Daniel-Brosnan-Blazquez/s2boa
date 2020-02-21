@@ -241,12 +241,12 @@ def query_hktm_workflow_events(orbpre_events, filters = None):
         planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
         # Mission
         if mission:
-            kwargs = {"event_uuids": {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}}
+            kwargs = {"event_uuids": {"filter": [event.event_uuid for event in planned_playback_correction_events["prime_events"]], "op": "in"}}
             kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                         "type": "text",
                                         "value": {"op": "like", "filter": mission}
             }]
-            planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+            planned_playback_correction_events = query.get_linked_events(**kwargs)
         # end if
 
         planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "HKTM_PRODUCTION", "STATION_ACQUISITION_REPORT", "DISTRIBUTION_STATUS", "DFEP_ACQUISITION_VALIDITY"], "op": "in"}, return_prime_events = False)
