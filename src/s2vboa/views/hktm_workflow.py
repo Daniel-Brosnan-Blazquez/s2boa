@@ -176,85 +176,89 @@ def show_sliding_hktm_workflow():
 
 def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None):
 
-    hktm_workflow_events = query_hktm_workflow_events(start_filter, stop_filter, mission, filters)
-
     orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    # Orbpre events are needed for calculating the deltatime to circulate the HKTM products to FOS so the query is determined by the ORBPRE events obtained
-    if len(orbpre_events) > 0:
-        start_filter["date"] = orbpre_events[-1].stop.isoformat()
-        stop_filter["date"] = orbpre_events[0].start.isoformat()
-    # end if
+    hktm_workflow_events = query_hktm_workflow_events(orbpre_events, filters)
 
     route = "views/hktm_workflow/hktm_workflow.html"
 
     return render_template(route, hktm_workflow_events=hktm_workflow_events, orbpre_events=orbpre_events, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
-def query_hktm_workflow_events(start_filter = None, stop_filter = None, mission = None, filters = None):
+def query_hktm_workflow_events(orbpre_events, filters = None):
     """
     Query planned hktm workflow events.
     """
     current_app.logger.debug("Query planned hktm workflow events")
 
-    kwargs_playback = {}
-
-    # Deactivated limit because there is an issue with the completeness provided by the ORBPRE events
-    # # Set offset and limit for the query
-    # if filters and "offset" in filters and filters["offset"][0] != "":
-    #     kwargs_playback["offset"] = filters["offset"][0]
-    # # end if
-    # if filters and "limit" in filters and filters["limit"][0] != "":
-    #     kwargs_playback["limit"] = filters["limit"][0]
-    # # end if
-
-    # Set order by reception_time descending
-    kwargs_playback["order_by"] = {"field": "start", "descending": True}
-
-    # Start filter
-    if start_filter:
-        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-    # end if
-
-    # Stop filter
-    if stop_filter:
-        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-    # end if
-
-    kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
-                                         "type": "text",
-                                         "value": {"op": "in", "filter": ["HKTM_SAD", "HKTM"]}
-    }]
-    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
-
-    # Specify the main query parameters
-    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
-    
-    ####
-    # Query planned playbacks
-    ####
-    planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
-    # Mission
-    if mission:
-        kwargs = {"event_uuids": {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}}
-        kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "filter": mission}
-        }]
-        planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
-    # end if
-    
-    planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "HKTM_PRODUCTION", "STATION_ACQUISITION_REPORT", "DISTRIBUTION_STATUS", "DFEP_ACQUISITION_VALIDITY"], "op": "in"}, return_prime_events = False)
-
     events = {}
-    events["playback_correction"] = planned_playback_correction_events["prime_events"]
-    events["playback"] = planned_playback_correction_events["linked_events"]
-    events["playback_validity"] = planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"]
-    events["hktm_production"] = planned_playback_events["linking_events"]["HKTM_PRODUCTION"]    
-    events["station_report"] = planned_playback_events["linking_events"]["STATION_ACQUISITION_REPORT"]
-    events["distribution_status"] = planned_playback_events["linking_events"]["DISTRIBUTION_STATUS"]
-    events["dfep_acquisition_validity"] = planned_playback_events["linking_events"]["DFEP_ACQUISITION_VALIDITY"]
+    events["playback_correction"] = []
+    events["playback"] = []
+    events["playback_validity"] = []
+    events["hktm_production"] = []
+    events["station_report"] = []
+    events["distribution_status"] = []
+    events["dfep_acquisition_validity"] = []
+    
+    missions = sorted(set([event.gauge.system for event in orbpre_events]))
+    for mission in missions:
+        orbpre_events_mission = [event for event in orbpre_events if event.gauge.system == mission]
+        orbpre_events_mission.sort(key=lambda x: x.start)
+        query_start = orbpre_events_mission[0].start.isoformat()
+        query_stop = orbpre_events_mission[-1].stop.isoformat()
+        kwargs_playback = {}
 
+        # Deactivated limit because there is an issue with the completeness provided by the ORBPRE events
+        # # Set offset and limit for the query
+        # if filters and "offset" in filters and filters["offset"][0] != "":
+        #     kwargs_playback["offset"] = filters["offset"][0]
+        # # end if
+        # if filters and "limit" in filters and filters["limit"][0] != "":
+        #     kwargs_playback["limit"] = filters["limit"][0]
+        # # end if
+
+        # Set order by reception_time descending
+        kwargs_playback["order_by"] = {"field": "start", "descending": True}
+
+        # Set period for the query
+        kwargs_playback["start_filters"] = [{"date": query_stop, "op": "<="}]
+        kwargs_playback["stop_filters"] = [{"date": query_start, "op": ">="}]
+
+        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
+                                             "type": "text",
+                                             "value": {"op": "in", "filter": ["HKTM_SAD", "HKTM"]}
+        }]
+        kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
+
+        # Specify the main query parameters
+        kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+
+        ####
+        # Query planned playbacks
+        ####
+        planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+        # Mission
+        if mission:
+            kwargs = {"event_uuids": {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}}
+            kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
+                                        "type": "text",
+                                        "value": {"op": "like", "filter": mission}
+            }]
+            planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+        # end if
+
+        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "HKTM_PRODUCTION", "STATION_ACQUISITION_REPORT", "DISTRIBUTION_STATUS", "DFEP_ACQUISITION_VALIDITY"], "op": "in"}, return_prime_events = False)
+
+        
+        events["playback_correction"] += planned_playback_correction_events["prime_events"]
+        events["playback"] += planned_playback_correction_events["linked_events"]
+        events["playback_validity"] += planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"]
+        events["hktm_production"] += planned_playback_events["linking_events"]["HKTM_PRODUCTION"]
+        events["station_report"] += planned_playback_events["linking_events"]["STATION_ACQUISITION_REPORT"]
+        events["distribution_status"] += planned_playback_events["linking_events"]["DISTRIBUTION_STATUS"]
+        events["dfep_acquisition_validity"] += planned_playback_events["linking_events"]["DFEP_ACQUISITION_VALIDITY"]
+    # end for
+        
     return events
