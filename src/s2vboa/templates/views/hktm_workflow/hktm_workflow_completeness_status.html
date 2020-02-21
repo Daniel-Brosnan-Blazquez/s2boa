@@ -4,7 +4,7 @@
 {% set distribution_status_events_nok = distribution_status_events|filter_events_by_text_value("completeness_status", "NOK")|list %}
 {% set distribution_status_events_ok = distribution_status_events|filter_events_by_text_value("completeness_status", "OK")|list %}
 {% if distribution_status_events_ok|length > 0 and distribution_status_events_nok|length > 0 %}
-{% do completeness_status.append("INCOMPLETE RECOVERED") %}
+{% do completeness_status.append("RECOVERED") %}
 {% do completeness_status_class.append("bold-green") %}
 {% elif distribution_status_events_nok|length > 0 %}
 {% do completeness_status.append("NOK") %}
@@ -18,7 +18,7 @@
 {% do completeness_status.append("NOK") %}
 {% do completeness_status_class.append("bold-red") %}
 {% else %}
-{% do completeness_status.append("MISSING DATA FROM PDGS") %}
-{% do completeness_status_class.append("bold-orange") %}
+{% do completeness_status.append("N/A") %}
+{% do completeness_status_class.append("") %}
 {% endif %}
 {% endif %}
