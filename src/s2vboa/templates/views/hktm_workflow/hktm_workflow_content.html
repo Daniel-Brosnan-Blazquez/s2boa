@@ -102,7 +102,10 @@
 </div>
 {% include "views/common/header.html" %}
 
-<!-- Pagination (removed because there is an issue with the completeness provided by the ORBPRE events) -->
+<!-- Pagination -->
+{% with route = "/views/hktm-workflow-pages", elements = orbpre_events, filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
 
 <!-- Missing HKTM products -->
 {% set missing_hktm_production = hktm_workflow_events["playback"]|reject_events_with_link_name("HKTM_PRODUCTION")|list %}

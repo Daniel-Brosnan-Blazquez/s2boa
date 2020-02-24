@@ -18,7 +18,7 @@
 {% do status_class.append("bold-red") %}
 {% elif [event]|reject_events_with_link_name("PLAYBACK_VALIDITY")|list|length > 0 %}
 {% do status.append("PENDING ACQUISITION") %}
-{% do status_class.append("bold-red") %}
+{% do status_class.append("bold-orange") %}
 {% elif [event]|reject_events_with_link_name("HKTM_PRODUCTION")|list|length > 0 %}
 {% do status.append("MISSING PRODUCTION") %}
 {% do status_class.append("bold-red") %}

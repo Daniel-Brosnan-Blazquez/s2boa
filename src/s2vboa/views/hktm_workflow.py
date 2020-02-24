@@ -176,7 +176,17 @@ def show_sliding_hktm_workflow():
 
 def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None):
 
-    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
+    # Set offset and limit for the query
+    offset = None
+    if filters and "offset" in filters and filters["offset"][0] != "":
+        offset = filters["offset"][0]
+    # end if
+    limit = None
+    if filters and "limit" in filters and filters["limit"][0] != "":
+        limit = filters["limit"][0]
+    # end if
+    
+    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission, limit, offset)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
@@ -209,15 +219,6 @@ def query_hktm_workflow_events(orbpre_events, filters = None):
         query_start = orbpre_events_mission[0].start.isoformat()
         query_stop = orbpre_events_mission[-1].stop.isoformat()
         kwargs_playback = {}
-
-        # Deactivated limit because there is an issue with the completeness provided by the ORBPRE events
-        # # Set offset and limit for the query
-        # if filters and "offset" in filters and filters["offset"][0] != "":
-        #     kwargs_playback["offset"] = filters["offset"][0]
-        # # end if
-        # if filters and "limit" in filters and filters["limit"][0] != "":
-        #     kwargs_playback["limit"] = filters["limit"][0]
-        # # end if
 
         # Set order by reception_time descending
         kwargs_playback["order_by"] = {"field": "start", "descending": True}
