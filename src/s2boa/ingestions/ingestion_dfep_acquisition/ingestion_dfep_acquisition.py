@@ -756,6 +756,11 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 
                 start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
                 stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
+                
+                if start > stop:
+                    start = corrected_planned_imaging.start
+                    stop = corrected_planned_imaging.stop
+                # end if
 
                 isp_planning_completeness_operation["events"].append({
                     "gauge": {
