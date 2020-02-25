@@ -11,7 +11,7 @@ import json
 import datetime
 from dateutil import parser
 
-def query_orbpre_events(query, current_app, start_filter = None, stop_filter = None, mission = None, limit = None, offset = None):
+def query_orbpre_events(query, current_app, start_filter = None, stop_filter = None, mission = None, limit = None, offset = None, descending = False):
     """
     Query predicted orbit events.
     """
@@ -46,7 +46,7 @@ def query_orbpre_events(query, current_app, start_filter = None, stop_filter = N
         kwargs["limit"] = limit
     # end if
 
-    kwargs["order_by"] = {"field": "start", "descending": False}
+    kwargs["order_by"] = {"field": "start", "descending": descending}
     
     ####
     # Query predicted orbit events

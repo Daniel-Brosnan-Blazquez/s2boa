@@ -40,7 +40,7 @@
                 <div class="row">
                   <div class="col-xs-3">
                     <label>Limit</label>
-                    <input type="text" class="form-control" style="width: 100%" name="limit" id="hktm-workflow-limit" value="100"/>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="hktm-workflow-limit" value="20"/>
                   </div>
                 </div>
                 <div>
@@ -103,7 +103,7 @@
 {% include "views/common/header.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/hktm-workflow-pages", elements = orbpre_events, filters = filters %}
+{% with route = "/views/hktm-workflow-pages", elements = orbpre_events_limit, filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
@@ -328,7 +328,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for orbpre_event in orbpre_events|sort(attribute="start", reverse=True) %}
+          {% for orbpre_event in orbpre_events_limit|sort(attribute="start", reverse=True) %}
           {% set satellite = orbpre_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
           {% set orbit = orbpre_event.eventDoubles|selectattr("name", "equalto", "orbit")|map(attribute='value')|first|int %}
           {% set orbpre_intersection_playback = [orbpre_event]|convert_eboa_events_to_date_segments|intersect_timelines(hktm_workflow_events["playback"]|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}

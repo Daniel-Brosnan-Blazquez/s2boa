@@ -35,7 +35,7 @@ def show_hktm_workflow():
     current_app.logger.debug("HKTM Workflow view")
 
     filters = {}
-    filters["limit"] = ["100"]    
+    filters["limit"] = ["20"]    
     if request.method == "POST":
         filters = request.form.to_dict(flat=False).copy()
     # end if
@@ -186,16 +186,19 @@ def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, miss
         limit = filters["limit"][0]
     # end if
     
-    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission, limit, offset)
+    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
+
+    descending = True
+    orbpre_events_limit = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission, limit, offset, descending)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
 
-    hktm_workflow_events = query_hktm_workflow_events(orbpre_events, filters)
+    hktm_workflow_events = query_hktm_workflow_events(orbpre_events_limit, filters)
 
     route = "views/hktm_workflow/hktm_workflow.html"
 
-    return render_template(route, hktm_workflow_events=hktm_workflow_events, orbpre_events=orbpre_events, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template(route, hktm_workflow_events=hktm_workflow_events, orbpre_events=orbpre_events, orbpre_events_limit=orbpre_events_limit, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_hktm_workflow_events(orbpre_events, filters = None):
     """

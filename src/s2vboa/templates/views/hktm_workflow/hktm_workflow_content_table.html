@@ -14,10 +14,10 @@
 {% for hktm_production_event in hktm_production_events %}
 {% set successful_circulation_to_fos = [hktm_production_event]|map(attribute="explicitRef")|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
 
-{% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
+{% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events_limit|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
 
 {% if orbpre_segment %}
-{% set orbpre_event = orbpre_events|selectattr("event_uuid", "==", orbpre_segment["id2"])|first %}
+{% set orbpre_event = orbpre_events_limit|selectattr("event_uuid", "==", orbpre_segment["id2"])|first %}
 
 {% if successful_circulation_to_fos|length > 0 %}
 {% set circulation_time_to_fos_annotation = successful_circulation_to_fos|map(attribute="annotations")|flatten|filter_annotations("CIRCULATION_TIME")|filter_annotations_by_text_value("destination", "FOS_")|first %}
