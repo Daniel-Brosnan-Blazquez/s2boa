@@ -98,6 +98,8 @@ def process_file(file_path, engine, query, reception_time):
     # Get the centres configuration
     centres_xpath = functions.get_centres_conf()
 
+    hktm_products = {}
+    
     # Loop over the circulated items
     # for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_CirculatedItems/CirculatedItem[boolean(Result[text() = 'Success']) and  " +
     #                       "(contains(ProductId, 'OPER_CNF') or " +
@@ -175,10 +177,11 @@ def process_file(file_path, engine, query, reception_time):
         }
         list_of_annotations.append(circulation_annotation)
         
-        if "PRD_HKTM__" in product_id:
+        if "PRD_HKTM__" in product_id and not product_id in hktm_products:
             event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": product_id}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})
 
             if len(event_production_playback_validity_ddbb) == 0:
+                hktm_products[product_id] = None
                 explicit_reference = {
                     "group": "HKTM",
                     "name": product_id

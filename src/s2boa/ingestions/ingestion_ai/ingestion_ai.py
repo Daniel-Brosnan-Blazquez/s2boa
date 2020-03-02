@@ -102,6 +102,8 @@ def process_file(file_path, engine, query, reception_time):
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
+
+    hktm_products = {}
     
     for request in xpath_xml("/Earth_Explorer_File/Data_Block/List_Of_ArchiveRequests/ArchiveRequest[RequestStatus[text() = 'Success'] and not(contains(Pdi-Id, '_GR_'))]"):
         #Obtain the product ID
@@ -123,10 +125,11 @@ def process_file(file_path, engine, query, reception_time):
         }
         list_of_annotations.append(archiving_annotation)
 
-        if "PRD_HKTM__" in product_id:
+        if "PRD_HKTM__" in product_id and not product_id in hktm_products:
             event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": product_id}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})
 
             if len(event_production_playback_validity_ddbb) == 0:
+                hktm_products[product_id] = None
                 explicit_reference = {
                     "group": "HKTM",
                     "name": product_id

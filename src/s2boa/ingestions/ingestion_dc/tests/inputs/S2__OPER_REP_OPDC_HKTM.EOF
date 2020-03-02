@@ -35,6 +35,17 @@
                 <DestinationLocation>sftp://s2apdgs@senxser.esoc.ops.esa.int/home/s2apdgs/fromPDGS/S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.tar</DestinationLocation>
                 <ProductSize>38338560</ProductSize>
             </CirculatedItem>
+            <CirculatedItem>
+                <Centre>PDMC</Centre>
+                <ProductId>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.tar</ProductId>
+                <OrderId>110667367</OrderId>
+                <Result>Success</Result>
+                <TransferMechanism>DC</TransferMechanism>
+                <DeliveryTime>2020-01-29T03:29:21Z</DeliveryTime>
+                <DeliveryType>SFTP</DeliveryType>
+                <DestinationLocation>sftp://s2apdgs@senxser.esoc.ops.esa.int/home/s2apdgs/fromPDGS/S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001.tar</DestinationLocation>
+                <ProductSize>38338560</ProductSize>
+            </CirculatedItem>
         </List_of_CirculatedItems>
         <List_Of_MRFs>
             <MRF>
