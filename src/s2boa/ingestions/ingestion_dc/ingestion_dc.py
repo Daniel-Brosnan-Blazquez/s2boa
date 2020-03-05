@@ -125,7 +125,7 @@ def process_file(file_path, engine, query, reception_time):
                           "(contains(ProductId, 'MPL_FS') and not(contains(ProductId, 'MPL_FSACK'))) or " +
                           "contains(ProductId, 'MPL_SP'))]"):
         # Obtain the product ID
-        product_id = item.xpath("ProductId")[0].text.replace(".tar", "")
+        product_id = item.xpath("ProductId")[0].text.replace(".tar", "").replace(".LIST", "")
 
         # Obtain the circulation_time
         circulation_time = item.xpath("DeliveryTime")[0].text[:-1]
