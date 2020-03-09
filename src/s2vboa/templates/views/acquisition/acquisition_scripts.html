@@ -1,4 +1,6 @@
 <script type="text/javascript">
+  {% set threshold_to_show_gaps = 0 %}
+
   {% include "js/acquisition/acquisition_functions.js" %}
 
   {% if (show["map"] or show["timeline"]) and acquisition_events["playback"]|length > 0 %}
@@ -33,7 +35,7 @@
   var events = missing_playbacks_timeline.concat(received_playbacks_timeline)
   events = events.concat(incomplete_playbacks_timeline)
 
-  {% if acquisition_events["playback_gaps"]|length <= 200 %}
+  {% if show_gaps or acquisition_events["playback_gaps"]|length <= threshold_to_show_gaps %}
   {% with events = acquisition_events["playback_gaps"] %}
   {% include "js/acquisition/gaps_acquisition_to_timeline.js" %}
   {% endwith %}
@@ -70,7 +72,7 @@
 
   polygons = polygons.concat(polygons_incomplete);
 
-  {% if acquisition_events["playback_gaps"]|length <= 200 %}                                                      
+  {% if show_gaps or acquisition_events["playback_gaps"]|length <= threshold_to_show_gaps %}
   {% with events = acquisition_events["playback_gaps"] %}
   {% include "js/acquisition/gaps_acquisition_to_map.js" %}
   {% endwith %}

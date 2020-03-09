@@ -5,10 +5,16 @@
   <h1 class="page-header">Acquisition view</h1>
 </div>
 <!-- /.row -->
+
+{% set show_gaps = False %}
+
 {% include "views/acquisition/acquisition_content.html" %}
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
+
+{% set show_gaps = False %}
+
 {% include "views/acquisition/acquisition_scripts.html" %}
 {% endblock %}

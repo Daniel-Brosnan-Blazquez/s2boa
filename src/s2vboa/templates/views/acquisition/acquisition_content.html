@@ -142,17 +142,10 @@
 </div>
 {% include "views/common/header.html" %}
 
-{% if acquisition_events["playback_gaps"]|length > 200 %}
-<div class="row">
-  <div class="panel panel-yellow">
-    <div class="panel-heading">
-      Warning
-    </div>
-    <div class="panel-body" style="text-align:center">
-      The number of playback gaps is too high (more than 200) so the page will not show them. You can see the playbacks with gaps and go into details through the navigation of the page.
-    </div>
-  </div>
-</div>  
+{% set threshold_to_show_gaps = 0 %}
+
+{% if not show_gaps and acquisition_events["playback_gaps"]|length > threshold_to_show_gaps %}
+{% include "views/acquisition/acquisition_warning_gaps.html" %}
 {% endif %}
 
 <!-- Pagination -->
@@ -449,10 +442,8 @@
     <!-- /.panel-heading -->
     {% if acquisition_events["playback"]|length > 0 %}
     <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-timeline">
-      {% if acquisition_events["playback_gaps"]|length > 200 %}
-      <div class="bold" style="text-align:center">
-        The number of playback gaps is too high (more than 200) so the page will not show them. You can see the playbacks with gaps and go into details through the navigation of the page.
-      </div>
+      {% if not show_gaps and acquisition_events["playback_gaps"]|length > threshold_to_show_gaps %}
+      {% include "views/acquisition/acquisition_warning_gaps.html" %}
       {% endif %}
       <div id="acquisitions-timeline">
       </div>
@@ -478,10 +469,8 @@
     <!-- /.panel-heading -->
     {% if acquisition_events["playback"]|length > 0 %}
     <div class="panel-body panel-collapse collapse in" id="acquisition-scheduling-on-map">
-      {% if acquisition_events["playback_gaps"]|length > 200 %}
-      <div class="bold" style="text-align:center">
-        The number of playback gaps is too high (more than 200) so the page will not show them. You can see the playbacks with gaps and go into details through the navigation of the page.
-      </div>
+      {% if not show_gaps and acquisition_events["playback_gaps"]|length > threshold_to_show_gaps %}
+      {% include "views/acquisition/acquisition_warning_gaps.html" %}
       {% endif %}      
       <div id="acquisitions-map">
       </div>
