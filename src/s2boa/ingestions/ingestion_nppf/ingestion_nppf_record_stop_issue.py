@@ -406,20 +406,10 @@ def process_file(file_path, engine, query, reception_time):
     # Generate record events
     _generate_record_events(xpath_xml, source, list_of_events)
 
-    # Build the xml
-    data = {"operations": [{
-        "mode": "insert_and_erase",
-        "dim_signature": {
-            "name": "NPPF_" + satellite,
-            "exec": os.path.basename(__file__),
-            "version": version
-        },
-        "source": source,
-        "events": list_of_events
-    }]}
-
     record_events = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_RECORD"]
     imaging_events = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_IMAGING"]
+
+    list_of_events_record_stop_issue = []
 
     for imaging_event in imaging_events:
 
@@ -449,7 +439,34 @@ def process_file(file_path, engine, query, reception_time):
             recording_stop = "N/A"
         # end if
 
+        if margin_stop == -0.5 and imaging_event["start"] >= validity_start and imaging_event["stop"] <= validity_stop:
+            event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_IMAGING_RECORD_STOP_ISSUE",
+                    "system": satellite
+                },
+                "start": imaging_event["start"],
+                "stop": imaging_event["stop"],
+            }
+            list_of_events_record_stop_issue.append(event)
+        # end if
+
         print("{};{};{};{};{};{};{};{};{};{}".format(satellite, imaging_event["start"], imaging_event["stop"], imaging_mode, imaging_coverage_status, margin_start, margin_stop, recording_start, recording_stop, file_name))
     # end for
+
+    list_of_events_with_footprint = functions.associate_footprints(list_of_events_record_stop_issue, satellite)
+
+    # Build the xml
+    data = {"operations": [{
+        "mode": "insert_and_erase",
+        "dim_signature": {
+            "name": "RECORD_STOP_ISSUE_NPPF_" + satellite,
+            "exec": os.path.basename(__file__),
+            "version": version
+        },
+        "source": source,
+        "events": list_of_events_with_footprint
+    }]}
     
     return data
