@@ -12,13 +12,16 @@
     </date>
     <tasks>
       <task name="INGESTION_CONTROL">
-        <command>rboa_triggering.py -g "Ingestion control generator" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Ingestion control generator (Alerts/Errors view)" -m AUTOMATIC</command>
       </task>
       <task name="REPORTING_CONTROL">
-        <command>rboa_triggering.py -g "Reporting control generator" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Reporting control generator (Alerts/Errors view)" -m AUTOMATIC</command>
       </task>
       <task name="ACQUISITION_COMPLETENESS">
-        <command>rboa_triggering.py -g "Acquistion completeness generator (Complete view)" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Acquistion completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
+      </task>
+      <task name="HKTM_WORKFLOW">
+        <command>rboa_triggering.py -g "HKTM workflow status generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="SENSING_DATA_VOLUMES">
         <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>
@@ -43,13 +46,16 @@
         <command>rboa_triggering.py -g "BOA health generator" -m AUTOMATIC</command>
       </task>
       <task name="INGESTION_CONTROL">
-        <command>rboa_triggering.py -g "Ingestion control generator" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Ingestion control generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="REPORTING_CONTROL">
-        <command>rboa_triggering.py -g "Reporting control generator" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Reporting control generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="ACQUISITION_COMPLETENESS">
         <command>rboa_triggering.py -g "Acquistion completeness generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="HKTM_WORKFLOW">
+        <command>rboa_triggering.py -g "HKTM workflow status generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="SENSING_DATA_VOLUMES">
         <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>

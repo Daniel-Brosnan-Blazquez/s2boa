@@ -56,8 +56,8 @@
       <parameter name="type">COMPLETE</parameter>
     </parameters>
   </generator>
-  <generator name="HKTM workflow status generator (Complete view)" description="Generator of the HKTM workflow status report covering all missions, reporting only anomalies and alerts">
-    <command>rboa_reporting.py -p s2vboa.views.acquisition_generator</command>
+  <generator name="HKTM workflow status generator (Anomalies/Alerts view)" description="Generator of the HKTM workflow status report covering all missions, reporting only anomalies and alerts">
+    <command>rboa_reporting.py -p s2vboa.views.hktm_workflow_generator</command>
     <name_format>S2__REP__HKTMWORKAA_%C_%B_%E.html</name_format>
     <parameters>
       <parameter name="type">ANOMALIES_ALERTS</parameter>
