@@ -173,8 +173,8 @@ def process_file(file_path, engine, query, reception_time):
             #     "group": level_gr + "_GR",
             #     "links": [{
             #         "back_ref": "DATASTRIP",
-            #         "link": "GRANULE",
-            #         "name": ds_output
+            #         "link": ds_output,
+            #         "name": "GRANULE"
             #         }
             #     ],
             #     "name": granule_t
@@ -195,8 +195,8 @@ def process_file(file_path, engine, query, reception_time):
                 "group": level_tl + "_TL",
                 "links": [{
                     "back_ref": "DATASTRIP",
-                    "link": "TILE",
-                    "name": ds_output
+                    "link": ds_output,
+                    "name": "TILE"
                     }
                 ],
                 "name": tile_t
@@ -215,8 +215,8 @@ def process_file(file_path, engine, query, reception_time):
                 "group": level_tc + "_TC",
                 "links": [{
                     "back_ref": "DATASTRIP",
-                    "link": "TCI",
-                    "name": ds_output
+                    "link": ds_output,
+                    "name": "TCI"
                     }
                 ],
                 "name": true_color_t
@@ -266,8 +266,8 @@ def process_file(file_path, engine, query, reception_time):
                 "group": level + "_DS",
                 "links": [{
                     "back_ref": "INPUT_DATASTRIP",
-                    "link": "OUTPUT_DATASTRIP",
-                    "name": ds_input
+                    "link": ds_input,
+                    "name": "OUTPUT_DATASTRIP"
                 },{
                     "back_ref": "SENSING_IDENTIFIER",
                     "link": "DATASTRIP",
@@ -370,8 +370,8 @@ def process_file(file_path, engine, query, reception_time):
                     "group": "MISSION_CONFIGURATION",
                     "links": [{
                         "back_ref": "DATASTRIP",
-                        "link": "CONFIGURATION",
-                        "name": ds_output
+                        "link": ds_output,
+                        "name": "CONFIGURATION"
                         }
                     ],
                     "name": mrf.find("Id").text

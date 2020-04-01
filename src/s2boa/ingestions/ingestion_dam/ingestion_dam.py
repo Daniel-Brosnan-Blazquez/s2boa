@@ -173,8 +173,8 @@ def process_file(file_path, engine, query, reception_time):
                 "group": level + "_DS",
                 "links": [{
                     "back_ref": "SENSING_IDENTIFIER",
-                    "link": "DATASTRIP",
-                    "name": sensing_identifier
+                    "link": sensing_identifier,
+                    "name": "DATASTRIP"
                     }
                 ],
                 "name": datastrip_id
@@ -187,8 +187,8 @@ def process_file(file_path, engine, query, reception_time):
                     "group": level + "_GR",
                     "links": [{
                         "back_ref": "DATASTRIP",
-                        "link": "GRANULE",
-                        "name": datastrip_id
+                        "link": datastrip_id,
+                        "name": "GRANULE"
                         }
                     ],
                     "name": product_id
@@ -202,8 +202,8 @@ def process_file(file_path, engine, query, reception_time):
                     "group": level + "_TL",
                     "links": [{
                         "back_ref": "DATASTRIP",
-                        "link": "TILE",
-                        "name": datastrip_id
+                        "link": datastrip_id,
+                        "name": "TILE"
                         }
                     ],
                     "name": product_id
