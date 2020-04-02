@@ -270,8 +270,8 @@ def process_file(file_path, engine, query, reception_time):
                     "name": "OUTPUT_DATASTRIP"
                 },{
                     "back_ref": "SENSING_IDENTIFIER",
-                    "link": "DATASTRIP",
-                    "name": sensing_identifier
+                    "link": sensing_identifier,
+                    "name": "DATASTRIP"
                 }],
                 "name": ds_output
             }
