@@ -74,6 +74,8 @@ class TestDam(unittest.TestCase):
         definite_datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"},
                                                      explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"})
 
+        assert len(definite_datatakes) == 1
+
         assert definite_datatakes[0].get_structured_values() == [
             {'type': 'text',
              'name': 'datatake_identifier',
@@ -97,11 +99,112 @@ class TestDam(unittest.TestCase):
         definite_baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"},
                                                                     explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"})
 
+        assert len(definite_baseline) == 1
+
         assert definite_baseline[0].get_structured_values() == [
             {
                 "value": "N02.06",
                 "type": "text",
                 "name": "baseline"
+            }]
+
+        #Check baseline
+        baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"})
+
+        ### Corrections made on 2019/11/27 to avoid inserting information regarding granules
+        assert len(baseline) == 1
+
+        #Check datatakes
+        datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"})
+
+        assert len(datatakes) == 1
+
+        #Check cataloguin time
+        cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"})
+
+        assert len(cataloging_times) == 2
+
+        # Check data sizes
+        datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"})
+
+        assert len(datatakes) == 1
+        ### End Corrections made on 2019/11/27 to avoid inserting information regarding granules
+
+        # Check datastrip_sensing_explicit_ref
+        datastrip_sensing_er = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
+                                                                 groups =  {"op": "like", "filter": "L0_DS"})
+
+        assert len(datastrip_sensing_er) == 1
+
+        ### Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+        # # Check granule_explicit_ref
+        # granule_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L0_GR"})
+
+        # assert len(granule_er) == 2
+        ### End Commented on 2019/11/27 to avoid inserting granule information due to its heavy weight
+
+        # Check tile_explicit_ref
+        tile_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L2A_TL"})
+
+        assert len(tile_er) == 1
+
+    def test_rep_dam_several_products_per_ds(self):
+
+        filename = "S2__OPER_REP_OPDAM2_PDMC_20180721T110502_SEVERAL_PRODUCTS_PER_DS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dam.ingestion_dam", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 1
+
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T07:22:04", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T11:05:02", "op": "=="}],
+                                              processors = {"filter": "ingestion_dam.py", "op": "like"},
+                                              names = {"filter": "S2__OPER_REP_OPDAM2_PDMC_20180721T110502_SEVERAL_PRODUCTS_PER_DS.EOF", "op": "like"})
+
+        assert len(sources) == 1
+
+        #Check definite datatake
+        definite_datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"},
+                                                     explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08"})
+
+        assert len(definite_datatakes) == 1
+
+        assert definite_datatakes[0].get_structured_values() == [
+            {'type': 'text',
+             'name': 'datatake_identifier',
+             'value': 'GS2A_20180721T083601_016077_N02.08'
+            }]
+
+        # Check definite_baseline
+        definite_baseline = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "BASELINE"},
+                                                                    explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08"})
+
+        assert len(definite_baseline) == 1
+
+        assert definite_baseline[0].get_structured_values() == [
+            {
+                "value": "N02.08",
+                "type": "text",
+                "name": "baseline"
+            }]
+
+        # Check definite cataloging
+        definite_cataloging = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"},
+                                                                    explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08"})
+
+        assert len(definite_cataloging) == 1
+
+        assert definite_cataloging[0].get_structured_values() == [
+            {
+                "name": "cataloging_time",
+                "type": "timestamp",
+                "value": "2018-07-21T12:10:14.719148"
             }]
 
         #Check baseline
@@ -118,7 +221,7 @@ class TestDam(unittest.TestCase):
         #Check cataloguin time
         cataloging_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CATALOGING_TIME"})
 
-        assert len(cataloging_times) == 2
+        assert len(cataloging_times) == 5
 
         # Check data sizes
         datatakes = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DATATAKE"})
@@ -142,7 +245,7 @@ class TestDam(unittest.TestCase):
         # Check tile_explicit_ref
         tile_er = self.query_eboa.get_explicit_refs(groups = {"op": "like", "filter": "L2A_TL"})
 
-        assert len(tile_er) == 1
+        assert len(tile_er) == 3
 
     def test_rep_dam_with_rep_arc(self):
 

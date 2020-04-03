@@ -121,9 +121,6 @@ def process_file(file_path, engine, query, reception_time):
         # Obtain the cataloging_time
         cataloging_time = product.xpath("insertion_time")[0].text
 
-
-        datatake_exists = len(query.get_explicit_refs(annotation_cnf_names = {"filter": "DATATAKE", "op": "=="},
-        annotation_value_filters = [{"name": {"filter": "datatake_identifier", "op": "=="}, "type": "text", "value": {"op": "==", "filter": datatake_id}}])) > 0
         cataloging_annotation = {
             "explicit_reference" : product_id,
             "annotation_cnf": {
@@ -137,8 +134,38 @@ def process_file(file_path, engine, query, reception_time):
                 }]
         }
         list_of_annotations.append(cataloging_annotation)
+        
+        if len(product.xpath("product_id[contains(text(),'_GR_')]")) > 0:
+            # Insert the granule explicit reference
+            granule_explicit_reference = {
+                "group": level + "_GR",
+                "links": [{
+                    "back_ref": "DATASTRIP",
+                    "link": datastrip_id,
+                    "name": "GRANULE"
+                    }
+                ],
+                "name": product_id
+            }
+            list_of_explicit_references.append(granule_explicit_reference)
+        # end if
 
-        if not datatake_exists:
+        if len(product.xpath("product_id[contains(text(),'_TL_')]")) > 0:
+            # Insert the tile explicit reference
+            tile_explicit_reference = {
+                "group": level + "_TL",
+                "links": [{
+                    "back_ref": "DATASTRIP",
+                    "link": datastrip_id,
+                    "name": "TILE"
+                    }
+                ],
+                "name": product_id
+            }
+            list_of_explicit_references.append(tile_explicit_reference)
+        # end if
+        
+        if len(product.xpath("product_id[contains(text(),'_DS_')]")) > 0:
 
             # Insert the datatake_annotation
             datatake_annotation = {
@@ -180,36 +207,6 @@ def process_file(file_path, engine, query, reception_time):
                 "name": datastrip_id
             }
             list_of_explicit_references.append(datastrip_sensing_explicit_ref)
-
-            for granule in product.xpath("product_id[contains(text(),'_GR')]"):
-                # Insert the granule explicit reference
-                granule_explicit_reference = {
-                    "group": level + "_GR",
-                    "links": [{
-                        "back_ref": "DATASTRIP",
-                        "link": datastrip_id,
-                        "name": "GRANULE"
-                        }
-                    ],
-                    "name": product_id
-                }
-                list_of_explicit_references.append(granule_explicit_reference)
-            # end for
-
-            for tile in product.xpath("product_id[contains(text(),'_TL')]"):
-                # Insert the tile explicit reference
-                tile_explicit_reference = {
-                    "group": level + "_TL",
-                    "links": [{
-                        "back_ref": "DATASTRIP",
-                        "link": datastrip_id,
-                        "name": "TILE"
-                        }
-                    ],
-                    "name": product_id
-                }
-                list_of_explicit_references.append(tile_explicit_reference)
-            # end if
         #end if
     # end for
 
