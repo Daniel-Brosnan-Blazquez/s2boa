@@ -77,6 +77,7 @@
       <uri>pac1dag1.sentinel2.eo.esa.int</uri>
       <uri>pac1ai1.pac1.s2pdgs.esa.int</uri>
       <uri>pac1ai2.pac1.s2pdgs.esa.int</uri>
+      <uri>pac1ai3.pac1.s2pdgs.esa.int</uri>
       <uri>pac1dag.sentinel2.eo.esa.int</uri>
     </uris>
     <list_of_alias>
