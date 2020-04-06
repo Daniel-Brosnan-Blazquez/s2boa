@@ -146,20 +146,20 @@
         <div class="col-xs-3">
           <div class="panel panel-primary">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of expected HKTM products</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ hktm_workflow_events["playback"]|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-hktm-workflow-expected">{{ hktm_workflow_events["playback"]|length }}</div>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="panel panel-success">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of generated HKTM products</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-hktm-workflow-generated">{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}</div>
           </div>
         </div>
         {% if missing_hktm_production|length > 0 %}
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM products</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_production|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-hktm-workflow-missing-production">{{ missing_hktm_production|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -167,7 +167,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM circulations to FOS</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ missing_hktm_circulation_to_fos|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-hktm-workflow-missing-circulation">{{ missing_hktm_circulation_to_fos|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -175,7 +175,7 @@
         <div class="col-xs-3">
           <div class="panel panel-warning">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from PDGS</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_pdgs|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold" id="summary-hktm-workflow-missing-data-pdgs">{{ missing_hktm_production_data_not_received_from_pdgs|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -183,7 +183,7 @@
         <div class="col-xs-3">
           <div class="panel panel-warning">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data not received from Satellite</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_not_received_from_satellite|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold" id="summary-hktm-workflow-missing-data-satellite">{{ missing_hktm_production_data_not_received_from_satellite|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -191,7 +191,7 @@
         <div class="col-xs-3">
           <div class="panel panel-warning">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM, data received by PDGS</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ missing_hktm_production_data_received|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold" id="summary-hktm-production-data-received">{{ missing_hktm_production_data_received|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -199,7 +199,7 @@
         <div class="col-xs-3">
           <div class="panel panel-warning">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of HKTM incompletely distributed</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: gold">{{ hktm_incompletely_distributed|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold" id="summary-hktm-incompletely-distributed">{{ hktm_incompletely_distributed|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -207,6 +207,8 @@
     </div>
   </div>
 </div>
+
+{% if orbpre_events_limit|length > 0 %}
 
 {% if missing_hktm_production|length > 0 or missing_hktm_circulation_to_fos|length > 0 or hktm_incompletely_distributed|length > 0 %}
 <div class="row">
@@ -362,3 +364,23 @@
     </div>
   </div>
 </div>
+
+{% else %}
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-no-expected-hktm">HKTM workflow status <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="hktm-workflow-no-expected-hktm">
+      <p>
+        There are no expected downlinks of HKTM.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endif %}

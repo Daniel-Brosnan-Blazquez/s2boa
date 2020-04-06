@@ -1,0 +1,554 @@
+"""
+Automated tests for the hktm workflow view
+
+Written by DEIMOS Space S.L. (femd)
+
+module vboa
+"""
+import os
+import sys
+import unittest
+import time
+import subprocess
+import datetime
+import s2vboa.tests.hktm_workflow.aux_functions as functions
+import re
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver import ActionChains,TouchActions
+from selenium.webdriver.common.keys import Keys
+
+# Import engine of the DDBB
+import eboa.engine.engine as eboa_engine
+import eboa.ingestion.eboa_ingestion as ingestion
+import eboa.triggering.eboa_triggering as triggering
+from eboa.engine.engine import Engine
+from eboa.engine.query import Query
+from eboa.datamodel.base import Session, engine, Base
+from eboa.engine.errors import UndefinedEventLink, DuplicatedEventLinkRef, WrongPeriod, SourceAlreadyIngested, WrongValue, OddNumberOfCoordinates, EboaResourcesPathNotAvailable, WrongGeometry
+from eboa.debugging import debug
+
+
+class TestHktmWorkflowView(unittest.TestCase):
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('window-size=1920,1080')
+    driver = webdriver.Chrome(options=options)
+    driver.implicitly_wait(5)
+
+    def setUp(self):
+        # Create the engine to manage the data
+        self.engine_eboa = Engine()
+        self.query_eboa = Query()
+
+        # Create session to connect to the database
+        self.session = Session()
+
+        # Clear all tables before executing the test
+        self.query_eboa.clear_db()
+
+    def tearDown(self):
+        # Close connections to the DDBB
+        self.engine_eboa.close_session()
+        self.query_eboa.close_session()
+        self.session.close()
+
+    @classmethod
+    def tearDownClass(self):
+        self.driver.quit()
+
+    def test_hktm_workflow_no_data(self):
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/hktm-workflow")
+
+        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Check section with no data is available
+        section_no_data = wait.until(EC.visibility_of_element_located((By.ID,"hktm-workflow-no-expected-hktm")))
+
+        assert section_no_data
+
+        # Check summary expected
+        summary_expected = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-expected")))
+
+        assert summary_expected
+
+        assert summary_expected.text == "0"
+
+        # Check summary generated
+        summary_generated = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-generated")))
+
+        assert summary_generated
+
+        assert summary_generated.text == "0"
+        
+        
+    def test_hktm_workflow_only_nppf_and_orbpre(self):
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/hktm-workflow")
+
+        functions.query(self.driver, wait, "S2A", start = "2014-07-20T00:00:14", stop = "2020-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Check summary expected
+        summary_expected = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-expected")))
+
+        assert summary_expected
+
+        assert summary_expected.text == "1"
+
+        # Check summary generated
+        summary_generated = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-generated")))
+
+        assert summary_generated
+
+        assert summary_generated.text == "0"
+
+        # Check summary missing production
+        summary_missing_production = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-missing-production")))
+
+        assert summary_missing_production
+
+        assert summary_missing_production.text == "1"
+
+        # Check summary missing data from PDGS
+        summary_missing_data_pdgs = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-missing-data-pdgs")))
+
+        assert summary_missing_data_pdgs
+
+        assert summary_missing_data_pdgs.text == "1"
+
+        # Issues table
+        issues_table = self.driver.find_element_by_id("hktm-workflow-issues-hktm-table")
+
+        satellite = issues_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = issues_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
+
+        assert orbit.text == "24039"
+
+        anx_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert anx_time.text == "2020-01-29T02:57:51.366847"
+
+        status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+
+        assert status.text == "PENDING ACQUISITION"
+
+        completeness_status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+
+        assert completeness_status.text == "N/A"
+
+        hktm_product = issues_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = issues_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = issues_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+
+        assert comments.text == ""
+
+        # General table
+        general_table = self.driver.find_element_by_id("hktm-workflow-list-hktm-table")
+
+        satellite = general_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+
+        assert orbit.text == "24040"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert anx_time.text == "2020-01-29T04:38:33.357330"
+
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert comments.text == ""
+
+        satellite = general_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
+
+        assert orbit.text == "24039"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert anx_time.text == "2020-01-29T02:57:51.366847"
+
+        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+
+        assert status.text == "PENDING ACQUISITION"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+
+        assert completeness_status.text == "N/A"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+
+        assert comments.text == ""
+        
+    def test_hktm_workflow_only_nppf_and_orbpre_and_rep_pass(self):
+
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_REP_PASS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/hktm-workflow")
+
+        functions.query(self.driver, wait, "S2A", start = "2014-07-20T00:00:14", stop = "2020-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Check summary expected
+        summary_expected = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-expected")))
+
+        assert summary_expected
+
+        assert summary_expected.text == "1"
+
+        # Check summary generated
+        summary_generated = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-generated")))
+
+        assert summary_generated
+
+        assert summary_generated.text == "0"
+
+        # Check summary missing production
+        summary_missing_production = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-missing-production")))
+
+        assert summary_missing_production
+
+        assert summary_missing_production.text == "1"
+
+        # Check summary missing production, data received from PDGS
+        summary_missing_production_data_received_from_pdgs = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-production-data-received")))
+
+        assert summary_missing_production_data_received_from_pdgs
+
+        assert summary_missing_production_data_received_from_pdgs.text == "1"
+
+        # Issues table
+        issues_table = self.driver.find_element_by_id("hktm-workflow-issues-hktm-table")
+
+        satellite = issues_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = issues_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
+
+        assert orbit.text == "24039"
+
+        anx_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert anx_time.text == "2020-01-29T02:57:51.366847"
+
+        status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+
+        assert status.text == "MISSING PRODUCTION"
+
+        completeness_status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+
+        assert completeness_status.text == "OK"
+
+        hktm_product = issues_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = issues_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = issues_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+
+        assert comments.text == ""
+
+        # General table
+        general_table = self.driver.find_element_by_id("hktm-workflow-list-hktm-table")
+
+        satellite = general_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+
+        assert orbit.text == "24040"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert anx_time.text == "2020-01-29T04:38:33.357330"
+
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert comments.text == ""
+
+        satellite = general_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
+
+        assert orbit.text == "24039"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert anx_time.text == "2020-01-29T02:57:51.366847"
+
+        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+
+        assert status.text == "MISSING PRODUCTION"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+
+        assert completeness_status.text == "OK"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+
+        assert comments.text == ""
+        
+    def test_hktm_workflow(self):
+
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_REP_PASS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2__REP_OPDC.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dc.ingestion_dc", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 7
+
+        wait = WebDriverWait(self.driver,5);
+
+        self.driver.get("http://localhost:5000/views/hktm-workflow")
+
+        functions.query(self.driver, wait, "S2A", start = "2014-07-20T00:00:14", stop = "2020-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Check summary expected
+        summary_expected = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-expected")))
+
+        assert summary_expected
+
+        assert summary_expected.text == "1"
+
+        # Check summary generated
+        summary_generated = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-generated")))
+
+        assert summary_generated
+
+        assert summary_generated.text == "1"
+
+        # General table
+        general_table = self.driver.find_element_by_id("hktm-workflow-list-hktm-table")
+
+        satellite = general_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+
+        assert orbit.text == "24040"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert anx_time.text == "2020-01-29T04:38:33.357330"
+
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert comments.text == ""
+
+        satellite = general_table.find_element_by_xpath("tbody/tr[last()]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[last()]/td[2]")
+
+        assert orbit.text == "24039"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert anx_time.text == "2020-01-29T02:57:51.366847"
+
+        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+
+        assert status.text == "OK"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+
+        assert completeness_status.text == "OK"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+
+        assert hktm_product.text == "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+
+        assert pdmc_fos_time.text == "2020-01-29T03:29:21"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert time_fos.text == "31.494"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+
+        assert comments.text == ""
