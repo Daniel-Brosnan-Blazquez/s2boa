@@ -1,23 +1,6 @@
 <script type="text/javascript">
 
   {% if hktm_workflow_events["playback"]|length > 0 %}
-  <!-- Missing HKTM products -->
-  {% set missing_hktm_production = hktm_workflow_events["playback"]|reject_events_with_link_name("HKTM_PRODUCTION")|list %}
-
-  <!-- Missing HKTM products, data not received from PDGS -->
-  {% set missing_hktm_production_data_not_received_from_pdgs = hktm_workflow_events["playback"]|reject_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|list %}
-
-  <!-- Missing HKTM products, data not received from satellite -->
-  {% set missing_hktm_production_data_not_received_from_satellite = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|reject_events_with_link_name("PLAYBACK_VALIDITY")|list %}
-
-  <!-- Missing HKTM products, PDGS did not generate production but data was received -->
-  {% set missing_hktm_production_data_received = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|filter_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|list %}
-
-  <!-- Missing HKTM circulation to FOS -->
-  {% set missing_hktm_circulation_to_fos = hktm_workflow_events["hktm_production"]|map(attribute="explicitRef")|unique|list|reject_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
-
-  <!-- Incompletely distributed -->
-  {% set hktm_incompletely_distributed = hktm_workflow_events["distribution_status"]|filter_events_by_text_value("completeness_status", "NOK")|list %}
 
   processing_data = [{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}, {{ missing_hktm_production_data_not_received_from_pdgs|length }}, {{ missing_hktm_production_data_not_received_from_satellite|length }}, {{ missing_hktm_production_data_received|length }}]
   processing_background_color = ["green", "darkred", "darkred", "darkred"]
