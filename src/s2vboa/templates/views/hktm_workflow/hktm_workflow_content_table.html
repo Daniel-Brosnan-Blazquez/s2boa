@@ -8,16 +8,22 @@
 
 {% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION")|map(attribute='event_uuid_link')|list %}
 
+{% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events_limit|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
+
+{% set orbpre_event = None %}
+{% if orbpre_segment %}
+{% set orbpre_event = orbpre_events_limit|selectattr("event_uuid", "==", orbpre_segment["id2"])|first %}
+{% endif %}
+{% set delta_to_fos = "N/A" %}
+{% set delta_to_fos_class = "bold-red" %}
+{% set circulation_time_to_fos = "N/A" %}
+{% set circulation_time_to_fos_class = "bold-red" %}
+
 {% if hktm_production_event_uuids|length > 0 %}
 {% set hktm_production_events = hktm_workflow_events["hktm_production"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
 
 {% for hktm_production_event in hktm_production_events %}
 {% set successful_circulation_to_fos = [hktm_production_event]|map(attribute="explicitRef")|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
-
-{% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events_limit|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
-
-{% if orbpre_segment %}
-{% set orbpre_event = orbpre_events_limit|selectattr("event_uuid", "==", orbpre_segment["id2"])|first %}
 
 {% if successful_circulation_to_fos|length > 0 %}
 {% set circulation_time_to_fos_annotation = successful_circulation_to_fos|map(attribute="annotations")|flatten|filter_annotations("CIRCULATION_TIME")|filter_annotations_by_text_value("destination", "FOS_")|first %}
@@ -25,6 +31,7 @@
 {% set circulation_time_to_fos = circulation_time_to_fos_datetime.isoformat() %}
 {% set circulation_time_to_fos_class = "bold-green" %}
 
+{% if orbpre_event %}
 {% set delta_to_fos = ((circulation_time_to_fos_datetime - orbpre_event["start"]).total_seconds()/ 60)|round(3) %}
 {% set delta_to_fos_class = "bold-green" %}
 {% if delta_to_fos > 60 %}
@@ -32,12 +39,7 @@
 {% set status_class = ["bold-red"] %}
 {% set delta_to_fos_class = "bold-red" %}
 {% endif %}
-
-{% else %}
-{% set circulation_time_to_fos = "N/A" %}
-{% set circulation_time_to_fos_class = "bold-red" %}
-{% set delta_to_fos = "N/A" %}
-{% set delta_to_fos_class = "bold-red" %}
+{% endif %}
 {% endif %}
 
 <tr>
@@ -55,7 +57,6 @@
   <td class="{{ delta_to_fos_class }}">{{ delta_to_fos }}</td>
   <td>{{ comments }}</td>
 </tr>
-{% endif %}
 {% endfor %}
 {% else %}
 <tr>
