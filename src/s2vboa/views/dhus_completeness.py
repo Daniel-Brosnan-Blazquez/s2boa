@@ -35,7 +35,7 @@ def show_dhus_completeness():
     current_app.logger.debug("DHUS completeness view")
 
     filters = {}
-    filters["limit"] = ["100"]    
+    filters["limit"] = ["5"]    
     if request.method == "POST":
         filters = request.form.to_dict(flat=False).copy()
     # end if
