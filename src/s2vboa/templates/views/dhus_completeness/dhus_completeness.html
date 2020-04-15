@@ -1,0 +1,48 @@
+{% extends "panel/index.html" %}
+
+<!-- Expected acquisition duration -->
+{% set expected_acquisition_duration = ((info["imaging"]|get_timeline_duration) / 60)|round(3) %}
+
+<!-- Missing acquisition duration -->
+{% set missing_acquisition_event_uuids = info["isp_completeness"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
+{% set missing_acquisition_duration = ((info["isp_completeness"]|selectattr("event_uuid", "in", missing_acquisition_event_uuids)|list|get_timeline_duration) / 60)|round(3) %}
+
+<!-- Missing l1c processing duration -->
+{% set missing_l1c_processing_event_uuids = info["processing_completeness"]["L1C"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
+{% set missing_l1c_processing_duration = ((info["processing_completeness"]["L1C"]|selectattr("event_uuid", "in", missing_l1c_processing_event_uuids)|list|get_timeline_duration) / 60)|round(3) %}
+
+<!-- Missing l2a processing duration -->
+{% set missing_l2a_processing_event_uuids = info["processing_completeness"]["L2A"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
+{% set missing_l2a_processing_duration = ((info["processing_completeness"]["L2A"]|selectattr("event_uuid", "in", missing_l2a_processing_event_uuids)|list|get_timeline_duration) / 60)|round(3) %}
+
+<!-- Generated l1c tiles -->
+{% set generated_l1c_tiles = info["tls"]["L1C"]|length %}
+
+<!-- Generated l2a tiles -->
+{% set generated_l2a_tiles = info["tls"]["L2A"]|length %}
+
+<!-- Missing publication to DAM of l1c tiles -->
+{% set missing_l1c_tiles_in_dam_annotation_uuids = info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
+
+<!-- Missing publication to DAM of l2a tiles -->
+{% set missing_l2a_tiles_in_dam_annotation_uuids = info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
+
+<!-- Missing dissemination to DHUS of l1c tiles -->
+{% set missing_l1c_tiles_in_dhus_annotation_uuids = info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
+
+<!-- Missing dissemination to DHUS of l2a tiles -->
+{% set missing_l2a_tiles_in_dhus_annotation_uuids = info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
+
+{% block content %}
+<div class="row">
+  <h1 class="page-header">Data Availability in DHUS, completeness from planning</h1>
+</div>
+<!-- /.row -->
+
+{% include "views/dhus_completeness/dhus_completeness_content.html" %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% include "views/dhus_completeness/dhus_completeness_scripts.html" %}
+{% endblock %}

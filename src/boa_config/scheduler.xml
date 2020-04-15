@@ -18,7 +18,7 @@
         <command>rboa_triggering.py -g "Reporting control generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="ACQUISITION_COMPLETENESS">
-        <command>rboa_triggering.py -g "Acquistion completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Acquisition completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
       </task>
       <task name="HKTM_WORKFLOW">
         <command>rboa_triggering.py -g "HKTM workflow status generator (Complete view)" -m AUTOMATIC</command>
@@ -52,7 +52,7 @@
         <command>rboa_triggering.py -g "Reporting control generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="ACQUISITION_COMPLETENESS">
-        <command>rboa_triggering.py -g "Acquistion completeness generator (Complete view)" -m AUTOMATIC</command>
+        <command>rboa_triggering.py -g "Acquisition completeness generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="HKTM_WORKFLOW">
         <command>rboa_triggering.py -g "HKTM workflow status generator (Complete view)" -m AUTOMATIC</command>

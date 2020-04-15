@@ -35,14 +35,14 @@
     <command>rboa_reporting.py -p s2vboa.views.planning_generator</command>
     <name_format>S2__REP__PLANNING__%C_%B_%E.html</name_format>
   </generator>
-  <generator name="Acquistion completeness generator (Complete view)" description="Generator of the acquisition completeness report covering all missions, all ground station and EDRS">
+  <generator name="Acquisition completeness generator (Complete view)" description="Generator of the acquisition completeness report covering all missions, all ground station and EDRS">
     <command>rboa_reporting.py -p s2vboa.views.acquisition_generator</command>
     <name_format>S2__REP__ACQUISITIO_%C_%B_%E.html</name_format>
     <parameters>
       <parameter name="type">COMPLETE</parameter>
     </parameters>
   </generator>
-  <generator name="Acquistion completeness generator (Anomalies/Alerts view)" description="Generator of the acquisition completeness report covering all missions, all ground station and EDRS and reporting only anomalies and alerts">
+  <generator name="Acquisition completeness generator (Anomalies/Alerts view)" description="Generator of the acquisition completeness report covering all missions, all ground station and EDRS and reporting only anomalies and alerts">
     <command>rboa_reporting.py -p s2vboa.views.acquisition_generator</command>
     <name_format>S2__REP__ACQUISITAA_%C_%B_%E.html</name_format>
     <parameters>
@@ -59,6 +59,20 @@
   <generator name="HKTM workflow status generator (Anomalies/Alerts view)" description="Generator of the HKTM workflow status report covering all missions, reporting only anomalies and alerts">
     <command>rboa_reporting.py -p s2vboa.views.hktm_workflow_generator</command>
     <name_format>S2__REP__HKTMWORKAA_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">ANOMALIES_ALERTS</parameter>
+    </parameters>
+  </generator>
+  <generator name="Data availability in DHUS generator (Complete view)" description="Generator of the DHUS completeness report covering all missions and all levels">
+    <command>rboa_reporting.py -p s2vboa.views.dhus_completeness_generator</command>
+    <name_format>S2__REP__DATAAVDHUS_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">COMPLETE</parameter>
+    </parameters>
+  </generator>
+  <generator name="Data availability in DHUS generator (Anomalies/Alerts view)" description="Generator of the DHUS completeness report covering all missions and all levels and reporting only anomalies and alerts">
+    <command>rboa_reporting.py -p s2vboa.views.dhus_completeness_generator</command>
+    <name_format>S2__REP__DATADHUSAA_%C_%B_%E.html</name_format>
     <parameters>
       <parameter name="type">ANOMALIES_ALERTS</parameter>
     </parameters>

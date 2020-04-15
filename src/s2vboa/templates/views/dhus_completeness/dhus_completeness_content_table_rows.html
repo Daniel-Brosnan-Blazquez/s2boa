@@ -1,0 +1,25 @@
+<tr>
+  <td>{{ level }}</td>
+  <td>{{ satellite }}</td>
+  <td><a href="/eboa_nav/query-event-links/{{ original_imaging_uuid }}">{{ orbit }}</a></td>
+  <td>{{ corrected_imaging.start.isoformat() }}</td>
+  <td>{{ corrected_imaging.stop.isoformat() }}</td>
+  <td class="{{ status_class }}">{{ status }}</td>
+  {% if tile_link %}
+  <td><a href="/eboa_nav/query-er-links/{{ tile_uuid }}">{{ tile }}</a></td>
+  {% else %}
+  <td>{{ tile }}</td>
+  {% endif %}
+  <td>{{ dam_publication_time }}</td>
+  <td>{{ sensing_to_dam }}</td>
+  <td>{{ dhus_dissemination_time }}</td>
+  <td>{{ dam_to_dhus }}</td>
+  <td>{{ dhus_product_name }}</td>
+  {% if datastrip_link %}
+  <td><a href="/eboa_nav/query-er-links/{{ datastrip_uuid }}">{{ datastrip }}</a></td>
+  {% else %}
+  <td>{{ datastrip }}</td>
+  {% endif %}
+  <td>{{ datastrip_start }}</td>
+  <td>{{ datastrip_stop }}</td>
+</tr>
