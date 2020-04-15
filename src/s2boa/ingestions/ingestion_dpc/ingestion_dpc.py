@@ -76,6 +76,7 @@ def process_file(file_path, engine, query, reception_time):
     list_of_ai_annotations = []
     list_of_dam_annotations = []
     list_of_lta_annotations = []
+    list_of_dc_annotations = []
     list_of_dhus_annotations = []
     list_of_events = []
     list_of_timelines = []
@@ -757,6 +758,68 @@ def process_file(file_path, engine, query, reception_time):
                 "values": values
             }
             list_of_events.append(event_production_playback_validity)
+
+            circulation_annotation = {
+                "explicit_reference" : hktm_name,
+                "annotation_cnf": {
+                    "name": "CIRCULATION_TIME",
+                    "system": "PDMC_to_FOS_"
+                },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+            }
+            list_of_dc_annotations.append(circulation_annotation)
+            
+            archiving_annotation = {
+            "explicit_reference": hktm_name,
+            "annotation_cnf": {
+                "name": "ARCHIVING_TIME",
+                "system": "EPA_",
+                "insertion_type": "INSERT_and_ERASE"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_ai_annotations.append(archiving_annotation)
+
+            if system != "EPA_":
+                archiving_annotation = {
+                "explicit_reference": hktm_name,
+                "annotation_cnf": {
+                    "name": "ARCHIVING_TIME",
+                    "system": system,
+                    "insertion_type": "INSERT_and_ERASE"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_ai_annotations.append(archiving_annotation)
+            # end if
+
+            lta_archiving_annotation = {
+            "explicit_reference": hktm_name,
+            "annotation_cnf": {
+                "name": "LONG_TERM_ARCHIVING_TIME",
+                "system": "EPA_",
+                "insertion_type": "INSERT_and_ERASE"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_lta_annotations.append(lta_archiving_annotation)
+            
         # end if
 
         # Timeliness
@@ -927,6 +990,22 @@ def process_file(file_path, engine, query, reception_time):
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
+
+    if len(list_of_dc_annotations) > 0:
+        list_of_operations.append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "CIRCULATION",
+                  "exec": "circulation_" + os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source,
+            "annotations": list_of_dc_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 98)
 
     data = {"operations": list_of_operations}
 

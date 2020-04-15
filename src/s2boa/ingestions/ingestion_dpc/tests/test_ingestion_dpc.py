@@ -2436,7 +2436,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(missing_planning_completeness_2) == 1
 
-    def test_dpc_report_htkm_only(self):
+    def test_dpc_report_hktm_only(self):
 
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -2447,7 +2447,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 1
+        assert len(sources) == 4
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
@@ -2490,7 +2490,7 @@ class TestDpcIngestion(unittest.TestCase):
             }
         ]
 
-    def test_dpc_report_htkm_duplicated(self):
+    def test_dpc_report_hktm_duplicated(self):
 
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -2508,7 +2508,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 2
+        assert len(sources) == 5
 
         events = self.query_eboa.get_events()
 
@@ -2557,7 +2557,7 @@ class TestDpcIngestion(unittest.TestCase):
             }
         ]
 
-    def test_dpc_report_htkm_with_nppf_rep_pass(self):
+    def test_dpc_report_hktm_with_nppf_rep_pass(self):
 
         filename = "S2A_OPER_MPL__NPPF_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -2589,7 +2589,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 6
+        assert len(sources) == 9
         
         # Check production playback validity
         production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001", "op": "like"},
@@ -2650,7 +2650,7 @@ class TestDpcIngestion(unittest.TestCase):
                          "value": "POLYGON ((158.123595 77.583848, 157.023979 77.400386, 148.273393 79.3361, 149.402469 79.551652, 158.123595 77.583848))"}]}
         ]
 
-    def test_dpc_report_htkm_with_rep_pass(self):
+    def test_dpc_report_hktm_with_rep_pass(self):
 
         filename = "S2A_OPER_REP_PASS_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -2668,7 +2668,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 2
+        assert len(sources) == 5
         
         # Check production playback validity
         production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001", "op": "like"},
