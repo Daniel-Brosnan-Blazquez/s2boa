@@ -60,7 +60,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 2
+        assert len(sources) == 6
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
@@ -151,7 +151,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 4
+        assert len(sources) == 8
 
         # Check sources
         # L0
@@ -491,7 +491,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 2
+        assert len(sources) == 6
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2019-07-15T18:04:03", "op": "=="}],
                                              validity_stop_filters = [{"date": "2019-07-15T23:18:02.353", "op": "=="}],
@@ -524,7 +524,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 2
+        assert len(sources) == 7
 
         sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
