@@ -110,7 +110,8 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : product_id,
             "annotation_cnf": {
                 "name": "LONG_TERM_ARCHIVING_TIME",
-                "system": system
+                "system": system,
+                "insertion_type": "INSERT_and_ERASE"
                 },
             "values": [
                 {"name": "long_term_archiving_time",

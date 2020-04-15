@@ -68,9 +68,8 @@ def process_file(file_path, engine, query, reception_time):
     list_of_annotations = []
     list_of_datastrips = []
 
-    system = "DHUS"
-    # Obtain the creation date from the file name as the annotation creation date is not always correct
-    creation_date = file_name[25:40]
+    # Obtain the creation date
+    creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     # Obtain the validity start
     validity_start = creation_date
     # Obtain the validity stop
@@ -110,7 +109,7 @@ def process_file(file_path, engine, query, reception_time):
                 "explicit_reference" : tile_id,
                 "annotation_cnf": {
                     "name": "DHUS_DISSEMINATION_TIME",
-                    "system": system
+                    "insertion_type": "INSERT_and_ERASE"
                     },
                 "values": [
                     {"name": "dhus_dissemination_time",
@@ -124,7 +123,6 @@ def process_file(file_path, engine, query, reception_time):
                 "explicit_reference" : tile_id,
                 "annotation_cnf": {
                     "name": "USER_PRODUCT",
-                    "system": system
                 },
                 "values": [
                     {"name": "product_name",
@@ -145,7 +143,7 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : datastrip.text,
                 "annotation_cnf": {
                     "name": "DHUS_DISSEMINATION_TIME",
-                    "system": system
+                    "insertion_type": "INSERT_and_ERASE"
                     },
                 "values": [
                         {"name": "dhus_dissemination_time",

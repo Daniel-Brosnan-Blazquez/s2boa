@@ -151,7 +151,7 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : product_id,
             "annotation_cnf": {
                 "name": "CIRCULATION_TIME",
-                "system": source
+                "system": source + "_to_" + destination
             },
             "values": [
                 {"name": "circulation_time",
@@ -176,6 +176,10 @@ def process_file(file_path, engine, query, reception_time):
                 }]
         }
         list_of_annotations.append(circulation_annotation)
+
+        if "PRD_HKTM__" in product_id and source == "PDMC" and destination == "FOS_":
+            circulation_annotation["annotation_cnf"]["insertion_type"] = "INSERT_and_ERASE"
+        # end if
         
         if "PRD_HKTM__" in product_id and not product_id in hktm_products:
             event_production_playback_validity_ddbb = query.get_events(explicit_refs = {"op": "==", "filter": product_id}, gauge_names = {"op": "==", "filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY"})

@@ -70,8 +70,8 @@ def process_file(file_path, engine, query, reception_time):
 
     # Obtain the station
     system = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/System")[0].text
-    # Obtain the creation date from the file name as the annotation creation date is not always correct
-    creation_date = file_name[25:40]
+    # Obtain the creation date
+    creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     # Obtain the validity start
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # Obtain the validity stop
@@ -125,7 +125,7 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : product_id,
             "annotation_cnf": {
                 "name": "CATALOGING_TIME",
-                "system": system
+                "insertion_type": "INSERT_and_ERASE"
                 },
             "values": [
                 {"name": "cataloging_time",
