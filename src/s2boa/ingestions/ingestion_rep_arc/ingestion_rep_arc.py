@@ -70,6 +70,10 @@ def process_file(file_path, engine, query, reception_time):
     list_of_explicit_references_for_processing = []
     list_of_annotations = []
     list_of_annotations_for_processing = []
+    list_of_ai_annotations = []
+    list_of_dam_annotations = []
+    list_of_lta_annotations = []
+    list_of_dhus_annotations = []
     list_of_events_for_processing = []
     list_of_timelines = []
     list_of_operations = []
@@ -242,9 +246,9 @@ def process_file(file_path, engine, query, reception_time):
                  "type": "double",
                  "value": aggregated_size
                 })
-        # 
+        # end if
 
-        # Insert the data_size_annotation per datastrip
+        # Insert the cloud percentage_annotation per datastrip
         cloud_percentage_annotation = {
         "explicit_reference": item_id,
         "annotation_cnf": {
@@ -260,7 +264,7 @@ def process_file(file_path, engine, query, reception_time):
         list_of_annotations.append(cloud_percentage_annotation)
         # end if
 
-        # Insert the data_size_annotation per datastrip
+        # Insert the physical url_annotation per datastrip
         physical_url_annotation = {
         "explicit_reference": item_id,
         "annotation_cnf": {
@@ -275,12 +279,12 @@ def process_file(file_path, engine, query, reception_time):
         }
         list_of_annotations.append(physical_url_annotation)
         
-        # Insert the data_size_annotation per datastrip
+        # Insert the indexing time_annotation per datastrip
         indexing_time_annotation = {
         "explicit_reference": item_id,
         "annotation_cnf": {
-        "name": "INDEXING_TIME",
-        "system": system
+            "name": "INDEXING_TIME",
+            "system": system
         },
             "values": [
                 {"name": "indexing_time",
@@ -289,8 +293,11 @@ def process_file(file_path, engine, query, reception_time):
                 }]
         }
         list_of_annotations.append(indexing_time_annotation)
+
+        if "_DS_" in item_id:
+            indexing_time_annotation["annotation_cnf"]["insertion_type"] = "INSERT_and_ERASE"
         # end if
-        # end for
+    # end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
     
@@ -347,9 +354,71 @@ def process_file(file_path, engine, query, reception_time):
         }
         list_of_annotations_for_processing.append(sensing_identifier_annotation)
 
+        archiving_annotation = {
+        "explicit_reference": datastrip_id,
+        "annotation_cnf": {
+            "name": "ARCHIVING_TIME",
+            "system": "EPA_",
+            "insertion_type": "INSERT_and_ERASE"
+            },
+        "values": [
+            {"name": "status",
+             "type": "text",
+             "value": "MISSING"
+            }]
+        }
+        list_of_ai_annotations.append(archiving_annotation)
+
+        if system != "EPA_":
+            archiving_annotation = {
+            "explicit_reference": datastrip_id,
+            "annotation_cnf": {
+                "name": "ARCHIVING_TIME",
+                "system": system,
+                "insertion_type": "INSERT_and_ERASE"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_ai_annotations.append(archiving_annotation)
+        # end if
+        
+        cataloging_annotation = {
+        "explicit_reference": datastrip_id,
+        "annotation_cnf": {
+            "name": "CATALOGING_TIME",
+            "insertion_type": "INSERT_and_ERASE"
+            },
+        "values": [
+            {"name": "status",
+             "type": "text",
+             "value": "MISSING"
+            }]
+        }
+        list_of_dam_annotations.append(cataloging_annotation)
+
+        lta_archiving_annotation = {
+        "explicit_reference": datastrip_id,
+        "annotation_cnf": {
+            "name": "LONG_TERM_ARCHIVING_TIME",
+            "system": "EPA_",
+            "insertion_type": "INSERT_and_ERASE"
+            },
+        "values": [
+            {"name": "status",
+             "type": "text",
+             "value": "MISSING"
+            }]
+        }
+        list_of_lta_annotations.append(lta_archiving_annotation)
+        
         for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata"):
+            item_id = item.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_ID")[0].text
             if '_GR' in item.xpath("CentralIndex/FileType")[0].text:
-                item_id = item.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_ID")[0].text
+
                 # Obtain the granule id
                 granule_t = item_id
                 level_gr = granule_t[13:16].replace("_","")
@@ -385,6 +454,53 @@ def process_file(file_path, engine, query, reception_time):
                 #     "name": item_id
                 # }
                 # list_of_explicit_references_for_processing.append(granule_explicit_reference)
+
+                # archiving_annotation = {
+                # "explicit_reference": granule_t,
+                # "annotation_cnf": {
+                #     "name": "ARCHIVING_TIME",
+                #     "system": "EPA_",
+                #     "insertion_type": "INSERT_and_ERASE"
+                #     },
+                # "values": [
+                #     {"name": "status",
+                #      "type": "text",
+                #      "value": "MISSING"
+                #     }]
+                # }
+                # list_of_ai_annotations.append(archiving_annotation)
+
+                # if system != "EPA_":
+                #     archiving_annotation = {
+                #     "explicit_reference": granule_t,
+                #     "annotation_cnf": {
+                #         "name": "ARCHIVING_TIME",
+                #         "system": system,
+                #         "insertion_type": "INSERT_and_ERASE"
+                #         },
+                #     "values": [
+                #         {"name": "status",
+                #          "type": "text",
+                #          "value": "MISSING"
+                #         }]
+                #     }
+                #     list_of_ai_annotations.append(archiving_annotation)
+                # # end if
+
+                # cataloging_annotation = {
+                # "explicit_reference": granule_t,
+                # "annotation_cnf": {
+                #     "name": "CATALOGING_TIME",
+                #     "insertion_type": "INSERT_and_ERASE"
+                #     },
+                # "values": [
+                #     {"name": "status",
+                #      "type": "text",
+                #      "value": "MISSING"
+                #     }]
+                # }
+                # list_of_dam_annotations.append(cataloging_annotation)
+
                 ### End Commented on 2019/11/27
             # end if
 
@@ -401,6 +517,82 @@ def process_file(file_path, engine, query, reception_time):
                     "name": item_id
                 }
                 list_of_explicit_references_for_processing.append(tile_explicit_reference)
+
+                archiving_annotation = {
+                "explicit_reference": item_id,
+                "annotation_cnf": {
+                    "name": "ARCHIVING_TIME",
+                    "system": "EPA_",
+                    "insertion_type": "INSERT_and_ERASE"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_ai_annotations.append(archiving_annotation)
+
+                if system != "EPA_":
+                    archiving_annotation = {
+                    "explicit_reference": item_id,
+                    "annotation_cnf": {
+                        "name": "ARCHIVING_TIME",
+                        "system": system,
+                        "insertion_type": "INSERT_and_ERASE"
+                        },
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": "MISSING"
+                        }]
+                    }
+                    list_of_ai_annotations.append(archiving_annotation)
+                # end if
+
+                lta_archiving_annotation = {
+                "explicit_reference": item_id,
+                "annotation_cnf": {
+                    "name": "LONG_TERM_ARCHIVING_TIME",
+                    "system": "EPA_",
+                    "insertion_type": "INSERT_and_ERASE"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_lta_annotations.append(lta_archiving_annotation)
+
+                cataloging_annotation = {
+                "explicit_reference": item_id,
+                "annotation_cnf": {
+                    "name": "CATALOGING_TIME",
+                    "insertion_type": "INSERT_and_ERASE"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_dam_annotations.append(cataloging_annotation)
+
+                dhus_dissemination_status_annotation = {
+                "explicit_reference": item_id,
+                "annotation_cnf": {
+                    "name": "DHUS_DISSEMINATION_TIME",
+                    "insertion_type": "INSERT_and_ERASE"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_dhus_annotations.append(dhus_dissemination_status_annotation)
+
             # end if
         # end for
 
@@ -495,6 +687,71 @@ def process_file(file_path, engine, query, reception_time):
         "annotations": list_of_annotations,
         "explicit_references": list_of_explicit_references
         })
+
+    if len(list_of_ai_annotations) > 0:
+        list_of_operations.append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "ARCHIVING",
+                  "exec": "archiving_" + os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source_indexing,
+            "annotations": list_of_ai_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 92)
+    
+    if len(list_of_dam_annotations) > 0:
+        list_of_operations.append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "CATALOGING",
+                  "exec": "cataloging_" + os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source_indexing,
+            "annotations": list_of_dam_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 93)
+
+    if len(list_of_lta_annotations) > 0:
+        list_of_operations.append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "LONG_TERM_ARCHIVING",
+                  "exec": "lta_" + os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source_indexing,
+            "annotations": list_of_lta_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
+
+    if len(list_of_dhus_annotations) > 0:
+        list_of_operations.append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "DHUS_DISSEMINATION",
+                  "exec": "dhus_dissemination_" + os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source_indexing,
+            "annotations": list_of_dhus_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
+
     data = {"operations": list_of_operations}
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
