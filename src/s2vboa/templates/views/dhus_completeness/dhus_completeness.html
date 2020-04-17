@@ -4,16 +4,21 @@
 {% set expected_acquisition_duration = ((info["imaging"]|get_timeline_duration) / 60)|round(3) %}
 
 <!-- Missing acquisition duration -->
-{% set missing_acquisition_event_uuids = info["isp_completeness"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
-{% set missing_acquisition_duration = ((info["isp_completeness"]|selectattr("event_uuid", "in", missing_acquisition_event_uuids)|list|get_timeline_duration) / 60)|round(3) %}
+{% set acquisition_with_no_isp_completeness_uuids = info["imaging"]|reject_events_with_link_name("ISP_COMPLETENESS")|map(attribute="event_uuid")|list %}
+{% set acquisition_with_missing_isp_completeness_event_uuids = info["isp_completeness"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
+{% set missing_acquisition_duration = (((info["isp_completeness"]|selectattr("event_uuid", "in", acquisition_with_missing_isp_completeness_event_uuids)|list|get_timeline_duration) / 60) + ((info["imaging"]|selectattr("event_uuid", "in", acquisition_with_no_isp_completeness_uuids)|list|get_timeline_duration) / 60))|round(3) %}
 
 <!-- Missing l1c processing duration -->
+{% set acquisition_with_l1c_processing_completeness_uuids = info["processing_completeness"]["L1C"]|map(attribute="eventLinks")|flatten|selectattr("name", "equalto", "PLANNED_IMAGING")|map(attribute="event_uuid_link")|list %}
+{% set acquisition_with_no_l1c_processing_completeness_uuids = info["imaging"]|rejectattr("event_uuid", "in", acquisition_with_l1c_processing_completeness_uuids)|list|map(attribute="event_uuid")|list %}
 {% set missing_l1c_processing_event_uuids = info["processing_completeness"]["L1C"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
-{% set missing_l1c_processing_duration = ((info["processing_completeness"]["L1C"]|selectattr("event_uuid", "in", missing_l1c_processing_event_uuids)|list|get_timeline_duration) / 60)|round(3) %}
+{% set missing_l1c_processing_duration = (((info["processing_completeness"]["L1C"]|selectattr("event_uuid", "in", missing_l1c_processing_event_uuids)|list|get_timeline_duration) / 60) + ((info["imaging"]|selectattr("event_uuid", "in", acquisition_with_no_l1c_processing_completeness_uuids)|list|get_timeline_duration) / 60))|round(3) %}
 
 <!-- Missing l2a processing duration -->
+{% set acquisition_with_l2a_processing_completeness_uuids = info["processing_completeness"]["L2A"]|map(attribute="eventLinks")|flatten|selectattr("name", "equalto", "PLANNED_IMAGING")|map(attribute="event_uuid_link")|list %}
+{% set acquisition_with_no_l2a_processing_completeness_uuids = info["imaging"]|rejectattr("event_uuid", "in", acquisition_with_l2a_processing_completeness_uuids)|list|map(attribute="event_uuid")|list %}
 {% set missing_l2a_processing_event_uuids = info["processing_completeness"]["L2A"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
-{% set missing_l2a_processing_duration = ((info["processing_completeness"]["L2A"]|selectattr("event_uuid", "in", missing_l2a_processing_event_uuids)|list|get_timeline_duration) / 60)|round(3) %}
+{% set missing_l2a_processing_duration = (((info["processing_completeness"]["L2A"]|selectattr("event_uuid", "in", missing_l2a_processing_event_uuids)|list|get_timeline_duration) / 60) + ((info["imaging"]|selectattr("event_uuid", "in", acquisition_with_no_l2a_processing_completeness_uuids)|list|get_timeline_duration) / 60))|round(3) %}
 
 <!-- Generated l1c tiles -->
 {% set generated_l1c_tiles = info["tls"]["L1C"]|length %}
