@@ -209,7 +209,7 @@ def query_dhus_completeness_and_render(start_filter, stop_filter, mission, level
     
     route = "views/dhus_completeness/dhus_completeness.html"
 
-    return render_template(route, info=info, orbpre_events=orbpre_events, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters=filters)
+    return render_template(route, info=info, orbpre_events=orbpre_events, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, levels=levels, sliding_window=sliding_window, filters=filters)
 
 def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, filters):
     """
