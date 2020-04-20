@@ -26,17 +26,21 @@
 <!-- Generated l2a tiles -->
 {% set generated_l2a_tiles = info["tls"]["L2A"]|length %}
 
-<!-- Missing publication to DAM of l1c tiles -->
-{% set missing_l1c_tiles_in_dam_annotation_uuids = info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
-
-<!-- Missing publication to DAM of l2a tiles -->
-{% set missing_l2a_tiles_in_dam_annotation_uuids = info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
-
 <!-- Missing dissemination to DHUS of l1c tiles -->
-{% set missing_l1c_tiles_in_dhus_annotation_uuids = info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
+{% set missing_l1c_tiles_in_dhus_annotaion_uuids = info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list %}
+{% set missing_l1c_tiles_in_dhus_explicit_ref_uuids = info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotation_uuid", "in", missing_l1c_tiles_in_dhus_annotaion_uuids)|map(attribute="explicit_ref_uuid")|list|sort|unique|list %}
+{% set missing_l1c_tiles_in_dhus = missing_l1c_tiles_in_dhus_explicit_ref_uuids|length %}
 
 <!-- Missing dissemination to DHUS of l2a tiles -->
-{% set missing_l2a_tiles_in_dhus_annotation_uuids = info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %} %}
+{% set missing_l2a_tiles_in_dhus_annotaion_uuids = info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list %}
+{% set missing_l2a_tiles_in_dhus_explicit_ref_uuids = info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotation_uuid", "in", missing_l2a_tiles_in_dhus_annotaion_uuids)|map(attribute="explicit_ref_uuid")|list|sort|unique|list %}
+{% set missing_l2a_tiles_in_dhus = missing_l2a_tiles_in_dhus_explicit_ref_uuids|length %}
+
+<!-- Missing publication to DAM of l1c tiles -->
+{% set missing_l1c_tiles_in_dam = info["tls"]["L1C"]|selectattr("explicit_ref_uuid", "in", missing_l1c_tiles_in_dhus_explicit_ref_uuids)|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %}
+
+<!-- Missing publication to DAM of l2a tiles -->
+{% set missing_l2a_tiles_in_dam = info["tls"]["L2A"]|selectattr("explicit_ref_uuid", "in", missing_l2a_tiles_in_dhus_explicit_ref_uuids)|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list|length %}
 
 {% block content %}
 <div class="row">
