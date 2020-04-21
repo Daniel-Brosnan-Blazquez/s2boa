@@ -35,7 +35,7 @@ logger = logging_module.logger
 
 version = "1.0"
 
-def _get_date_from_angle(angle, orbital_period, ascending_node_time):
+def get_date_from_angle(angle, orbital_period, ascending_node_time):
     """
     """
     sin1 = math.sin(math.radians(angle))
@@ -49,7 +49,7 @@ def _get_date_from_angle(angle, orbital_period, ascending_node_time):
     return parser.parse(ascending_node_time) + datetime.timedelta(seconds=seconds_angle)
 
 @debug
-def _correct_planning_events(orbpre_events, planning_events):
+def _correct_planning_events(orbpre_events, planning_events, list_of_completeness_events):
     """
     Method to correct the planning events following Berthyl's algorithm
     """
@@ -99,8 +99,8 @@ def _correct_planning_events(orbpre_events, planning_events):
             status = "TIME_CORRECTED"
             start_orbital_period = (parser.parse(next_start_orbpre_infos[start_orbit][0]["start"]) - parser.parse(start_orbpre_infos[start_orbit][0]["start"])).total_seconds()
             stop_orbital_period = (parser.parse(next_stop_orbpre_infos[stop_orbit][0]["start"]) - parser.parse(stop_orbpre_infos[stop_orbit][0]["start"])).total_seconds()
-            corrected_start = _get_date_from_angle(start_angle, start_orbital_period, start_orbpre_infos[start_orbit][0]["start"])
-            corrected_stop = _get_date_from_angle(stop_angle, stop_orbital_period, stop_orbpre_infos[stop_orbit][0]["start"])
+            corrected_start = get_date_from_angle(start_angle, start_orbital_period, start_orbpre_infos[start_orbit][0]["start"])
+            corrected_stop = get_date_from_angle(stop_angle, stop_orbital_period, stop_orbpre_infos[stop_orbit][0]["start"])
 
         # end if
 
@@ -137,12 +137,201 @@ def _correct_planning_events(orbpre_events, planning_events):
 
         corrected_planning_events.append(corrected_planning_event)
 
+        # Build completeness events
+        completeness_event_values = planning_event_values + [
+            {"name": "status",
+             "type": "text",
+             "value": "MISSING"}]
+        if planning_event.gauge.name == "PLANNED_PLAYBACK":
+            downlink_mode = [value.value for value in planning_event.eventTexts if value.name == "playback_type"][0]
+            if downlink_mode == "SAD":
+                start = corrected_start + datetime.timedelta(seconds=3)
+                stop = start + datetime.timedelta(seconds=2)
+            elif downlink_mode == "HKTM":
+                # HKTM
+                start = corrected_start + datetime.timedelta(seconds=2)
+                stop = start
+            else:
+                start = corrected_start + datetime.timedelta(seconds=9)
+                stop = corrected_stop - datetime.timedelta(seconds=3)
+            # end if
+
+            if start > stop:
+                start = corrected_stop - datetime.timedelta(seconds=4)
+                stop = corrected_stop - datetime.timedelta(seconds=3)
+            # end if
+            
+            completeness_event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1",
+                    "system": planning_event.gauge.system
+                },
+                "links": [{
+                    "link": str(planning_event.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PLAYBACK_COMPLETENESS",
+                    "back_ref": "PLANNED_EVENT"
+                }],
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "values": completeness_event_values
+            }
+            list_of_completeness_events.append(completeness_event)
+            completeness_event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2",
+                    "system": planning_event.gauge.system
+                },
+                "links": [{
+                    "link": str(planning_event.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PLAYBACK_COMPLETENESS",
+                    "back_ref": "PLANNED_EVENT"
+                }],
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "values": completeness_event_values
+            }
+            list_of_completeness_events.append(completeness_event)
+        elif planning_event.gauge.name == "PLANNED_CUT_IMAGING":
+            completeness_event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
+                    "system": planning_event.gauge.system
+                },
+                "links": [{
+                    "link": str(planning_event.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "ISP_COMPLETENESS",
+                    "back_ref": "PLANNED_EVENT"
+                }],
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "values": completeness_event_values
+            }
+            list_of_completeness_events.append(completeness_event)
+            completeness_event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2",
+                    "system": planning_event.gauge.system
+                },
+                "links": [{
+                    "link": str(planning_event.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "ISP_COMPLETENESS",
+                    "back_ref": "PLANNED_EVENT"
+                }],
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "values": completeness_event_values
+            }
+            list_of_completeness_events.append(completeness_event)
+
+            imaging_mode = [value.value for value in planning_event.eventTexts if value.name == "imaging_mode"][0]
+            completeness_event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0",
+                    "system": planning_event.gauge.system
+                },
+                "links": [{
+                    "link": str(planning_event.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PROCESSING_COMPLETENESS",
+                    "back_ref": "PLANNED_EVENT"
+                }],
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "values": completeness_event_values
+            }
+            list_of_completeness_events.append(completeness_event)
+            completeness_event = {
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE",
+                    "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B",
+                    "system": planning_event.gauge.system
+                },
+                "links": [{
+                    "link": str(planning_event.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PROCESSING_COMPLETENESS",
+                    "back_ref": "PLANNED_EVENT"
+                }],
+                "start": start.isoformat(),
+                "stop": stop.isoformat(),
+                "values": completeness_event_values
+            }
+            list_of_completeness_events.append(completeness_event)
+            if imaging_mode in ["SUN_CAL", "DARK_CAL_CSM_OPEN", "DARK_CAL_CSM_CLOSE", "VICARIOUS_CAL", "RAW", "TEST"]:
+                completeness_event = {
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE",
+                        "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A",
+                        "system": planning_event.gauge.system
+                    },
+                    "links": [{
+                        "link": str(planning_event.event_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "PLANNED_EVENT"
+                    }],
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
+                    "values": completeness_event_values
+                }
+                list_of_completeness_events.append(completeness_event)
+            # end if
+            if imaging_mode in ["NOMINAL", "VICARIOUS_CAL", "TEST"]:
+                completeness_event = {
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE",
+                        "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C",
+                        "system": planning_event.gauge.system
+                    },
+                    "links": [{
+                        "link": str(planning_event.event_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "PLANNED_EVENT"
+                    }],
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
+                    "values": completeness_event_values
+                }
+                list_of_completeness_events.append(completeness_event)
+            # end if
+            if imaging_mode in ["NOMINAL"]:
+                completeness_event = {
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE",
+                        "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A",
+                        "system": planning_event.gauge.system
+                    },
+                    "links": [{
+                        "link": str(planning_event.event_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "PROCESSING_COMPLETENESS",
+                        "back_ref": "PLANNED_EVENT"
+                    }],
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
+                    "values": completeness_event_values
+                }
+                list_of_completeness_events.append(completeness_event)
+            # end if
+            
+        # end if
+
     # end for
 
     return corrected_planning_events
 
 @debug
-def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query):
+def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, list_of_completeness_events, query):
     """
     """
     # Get planning events to correct their timings
@@ -161,7 +350,7 @@ def _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list
                                                          "type": "double",
                                                          "value": {"filter": stop_orbit, "op": "<="}}])
 
-    events = _correct_planning_events(list_of_events, planning_events)
+    events = _correct_planning_events(list_of_events, planning_events, list_of_completeness_events)
 
     return events
 
@@ -331,7 +520,8 @@ def process_file(file_path, engine, query, reception_time):
     stop_orbit = str(int(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last() - 1]/Absolute_Orbit")[0].text))
 
     # Generate corrected planning events
-    corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, query)
+    list_of_completeness_events = []
+    corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, list_of_completeness_events, query)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
     
@@ -362,6 +552,24 @@ def process_file(file_path, engine, query, reception_time):
         "events": corrected_planning_events_with_footprint
     }]}
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
+    
+    if len(list_of_completeness_events) > 0:
+        # Generate the footprint of the events
+        list_of_completeness_events_with_footprint = functions.associate_footprints(list_of_completeness_events, satellite, list_of_events)
+
+        data["operations"].append({
+            "mode": "insert_and_erase",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": "completeness_nppf_" + os.path.basename(__file__),
+                "version": version
+            },
+            "source": source,
+            "events": list_of_completeness_events_with_footprint
+        })
+    # end if
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()
