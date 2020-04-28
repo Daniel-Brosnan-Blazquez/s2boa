@@ -92,6 +92,9 @@ def process_file(file_path, engine, query, reception_time):
     datastrip_info = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_Type[contains(text(),'_DS')]]")[0]
     # Obtain the datastrip ID
     datastrip_id = datastrip_info.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_ID")[0].text
+    # Obtain the generation time of the datastrip
+    datastrip_generation_time = datastrip_info.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/Generation_Time")[0].text.split("=")[1]
+    datastrip_generation_time_minus_1 = (parser.parse(datastrip_info.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/Generation_Time")[0].text.split("=")[1]) - datetime.timedelta(seconds=1)).isoformat()
     # Obtain the satellite
     satellite = datastrip_id[0:3]
     # Obtain the datatake ID
@@ -113,7 +116,7 @@ def process_file(file_path, engine, query, reception_time):
     source_processing = {
         "name": file_name,
         "reception_time": reception_time,
-        "generation_time": creation_date,
+        "generation_time": datastrip_generation_time_minus_1,
         "validity_start": validity_start,
         "validity_stop": validity_stop
     }
@@ -635,6 +638,21 @@ def process_file(file_path, engine, query, reception_time):
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
     
+    data = {"operations": [{
+        "mode": "insert",
+        "dim_signature": {
+              "name": "INDEXING_" + satellite,
+              "exec": os.path.basename(__file__),
+              "version": version
+        },
+        "source": source_indexing,
+        "annotations": list_of_annotations,
+        "explicit_references": list_of_explicit_references
+        }]
+    }
+    
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    
     # Adjust sources / operations
     if len(list_of_events_for_processing) > 0:
         event_starts = [event["start"] for event in list_of_events_for_processing]
@@ -650,21 +668,12 @@ def process_file(file_path, engine, query, reception_time):
 
         # Generate the footprint of the events
         list_of_events_for_processing_with_footprint = functions.associate_footprints(list_of_events_for_processing, satellite)
-
-        generation_times_planning_reception = [operation["source"]["generation_time"] for operation in list_of_operations]
-
-        # Correct generation time to allow DPC information to be inserted always
-        source_processing["generation_time"] = source_processing["validity_start"]
-        if len(generation_times_planning_reception) > 0:
-            generation_times_planning_reception.sort()
-            source_processing["generation_time"] = (parser.parse(generation_times_planning_reception[-1]) + datetime.timedelta(seconds=1)).isoformat()
-        # end if
         
-        list_of_operations.append({
+        data["operations"].append({
             "mode": "insert",
             "dim_signature": {
                 "name": "PROCESSING_" + satellite,
-                "exec": "processing_" + os.path.basename(__file__),
+                "exec": os.path.basename(__file__),
                 "version": version
             },
             "source": source_processing,
@@ -674,29 +683,19 @@ def process_file(file_path, engine, query, reception_time):
         })
     # end if
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 91)
     
-    list_of_operations.append({
-        "mode": "insert",
-        "dim_signature": {
-              "name": "INDEXING_" + satellite,
-              "exec": os.path.basename(__file__),
-              "version": version
-        },
-        "source": source_indexing,
-        "annotations": list_of_annotations,
-        "explicit_references": list_of_explicit_references
-        })
-
+    data["operations"] = data["operations"] + list_of_operations    
+            
     if len(list_of_ai_annotations) > 0:
-        list_of_operations.append({
+        data["operations"].append({
             "mode": "insert",
             "dim_signature": {
                   "name": "ARCHIVING",
-                  "exec": "archiving_" + os.path.basename(__file__),
+                  "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_indexing,
+            "source": source_processing,
             "annotations": list_of_ai_annotations,
         })
 
@@ -705,14 +704,14 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 92)
     
     if len(list_of_dam_annotations) > 0:
-        list_of_operations.append({
+        data["operations"].append({
             "mode": "insert",
             "dim_signature": {
                   "name": "CATALOGING",
-                  "exec": "cataloging_" + os.path.basename(__file__),
+                  "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_indexing,
+            "source": source_processing,
             "annotations": list_of_dam_annotations,
         })
 
@@ -721,14 +720,14 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 93)
 
     if len(list_of_lta_annotations) > 0:
-        list_of_operations.append({
+        data["operations"].append({
             "mode": "insert",
             "dim_signature": {
                   "name": "LONG_TERM_ARCHIVING",
-                  "exec": "lta_" + os.path.basename(__file__),
+                  "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_indexing,
+            "source": source_processing,
             "annotations": list_of_lta_annotations,
         })
 
@@ -737,22 +736,18 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
 
     if len(list_of_dhus_annotations) > 0:
-        list_of_operations.append({
+        data["operations"].append({
             "mode": "insert",
             "dim_signature": {
                   "name": "DHUS_DISSEMINATION",
-                  "exec": "dhus_dissemination_" + os.path.basename(__file__),
+                  "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_indexing,
+            "source": source_processing,
             "annotations": list_of_dhus_annotations,
         })
 
     # end if
-
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
-
-    data = {"operations": list_of_operations}
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 

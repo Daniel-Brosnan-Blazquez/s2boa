@@ -38,7 +38,7 @@ logger = logging_module.logger
 version = "1.0"
 
 @debug
-def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_events):
+def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_events, list_of_completeness_events):
     """
     Method to generate the events of the station schedule files
 
@@ -138,6 +138,47 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
         # Insert station_schedule_event
         ingestion_functions.insert_event_for_ingestion(station_schedule_event, source, list_of_events)
 
+        # Station schedule completeness event
+        station_schedule_completeness_event = {
+            "gauge": {
+                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "name": "STATION_SCHEDULE_COMPLETENESS",
+                "system": satellite
+            },
+            "links": links,
+            "start": data_start,
+            "stop": data_stop,
+            "values": [
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "station",
+                 "type": "text",
+                 "value": station},
+                {"name": "status",
+                 "type": "text",
+                 "value": status},
+                {"name": "acquisition_start",
+                 "type": "timestamp",
+                 "value": acquisition_start},
+                {"name": "acquisition_stop",
+                 "type": "timestamp",
+                 "value": acquisition_stop},
+                {"name": "delta_start",
+                 "type": "double",
+                 "value": str((parser.parse(data_start) - parser.parse(acquisition_start)).total_seconds())},
+                {"name": "delta_stop",
+                 "type": "double",
+                 "value": str((parser.parse(data_stop) - parser.parse(acquisition_stop)).total_seconds())},
+            ]
+        }
+
+        # Insert station_schedule_event
+        ingestion_functions.insert_event_for_ingestion(station_schedule_completeness_event, source, list_of_completeness_events)
+
     # end for
 
     return
@@ -198,7 +239,8 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
     
     # Generate station schedule events
-    _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_events)
+    list_of_completeness_events = []
+    _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_events, list_of_completeness_events)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
     
@@ -214,6 +256,21 @@ def process_file(file_path, engine, query, reception_time):
         "events": list_of_events
     }]}
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
+
+    if len(list_of_completeness_events) > 0:
+        data["operations"].append({
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": os.path.basename(__file__),
+                "version": version
+            },
+            "source": source,
+            "events": list_of_completeness_events
+        })
+    # end if
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()

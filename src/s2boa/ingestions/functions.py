@@ -478,27 +478,12 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
     # Obtain the production level from the datastrip
     level = datastrip[13:16].replace("_","")
 
-    # Completeness operations for the completeness analysis of the plan
-    planning_processing_completeness_operation = {
-        "mode": "insert",
-        "dim_signature": {
-            "name": "PROCESSING_" + satellite,
-            "exec": "planning_processing_" + filename,
-            "version": version
-        },
-        "events": []
-    }
-    # Completeness operations for the completeness analysis of the received imaging
-    isp_validity_processing_completeness_operation = {
-        "mode": "insert",
-        "dim_signature": {
-            "name": "PROCESSING_" + satellite,
-            "exec": "processing_received_" + filename,
-            "version": version
-        },
-        "events": []
-    }
+    # List for the planning processing completeness analysis
+    list_of_planning_processing_completeness_events = []
 
+    # List for the ISP processing completeness analysis
+    list_of_isp_processing_completeness_events = []
+    
     for datablock in datablocks:
         status = "COMPLETE"
 
@@ -650,37 +635,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "name": "PROCESSING_COMPLETENESS",
                 "back_ref": "PLANNED_IMAGING"
             })
-
-            planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-            planning_processing_completeness_generation_time = planned_imaging_event[0].source.generation_time.isoformat()
-
-            # Insert the linked COMPLETENESS event for the automatic completeness check
-            planning_event_values = corrected_planned_imaging.get_structured_values()
-            planning_event_values.append({"name": "status",
-                                          "type": "text",
-                                          "value": "MISSING"})
-
-            # Add margin of 6/4 seconds to each side of the segment to avoid false alerts
-            start = corrected_planned_imaging.start + datetime.timedelta(seconds=6)
-            stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
-
-            planning_processing_completeness_operation["events"].append({
-                "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                    "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level,
-                    "system": satellite
-                },
-                "start": start.isoformat(),
-                "stop": stop.isoformat(),
-                "links": [
-                    {
-                        "link": str(planned_imaging_uuid),
-                        "link_mode": "by_uuid",
-                        "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "PLANNED_IMAGING"
-                    }],
-                "values": planning_event_values
-            })
         # end if
 
         # Obtain ISP_VALIDITY events
@@ -714,41 +668,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "link_mode": "by_uuid",
                 "name": "PROCESSING_COMPLETENESS",
                 "back_ref": "ISP_VALIDITY"
-            })
-
-            isp_validity_processing_completeness_generation_time = isp_validity.source.generation_time.isoformat()
-
-            # Insert the linked COMPLETENESS event for the automatic completeness check
-            isp_validity_values = isp_validity.get_structured_values()
-            values = [value for value in isp_validity_values if value["name"] != "status"]
-            values.append({"name": "status",
-                           "type": "text",
-                           "value": "MISSING"})
-
-            # Add margin of 6 second to each side of the segment to avoid false alerts
-            start = isp_validity.start + datetime.timedelta(seconds=6)
-            stop = isp_validity.stop - datetime.timedelta(seconds=6)
-            if start > stop:
-                start = isp_validity.start
-                stop = isp_validity.stop
-            # end if
-
-            isp_validity_processing_completeness_operation["events"].append({
-                "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
-                    "system": satellite
-                },
-                "start": start.isoformat(),
-                "stop": stop.isoformat(),
-                "links": [
-                    {
-                        "link": str(isp_validity_uuid),
-                        "link_mode": "by_uuid",
-                        "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "ISP_VALIDITY"
-                    }],
-                "values": values
             })
 
         # end if
@@ -809,7 +728,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "value": downlink_orbit
             })
         # end if
-        list_of_events.append(planning_processing_completeness_event)
+        list_of_planning_processing_completeness_events.append(planning_processing_completeness_event)
 
         links_processing_reception_completeness.append({
             "link": processing_validity_link_ref,
@@ -817,58 +736,62 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             "name": "PROCESSING_COMPLETENESS",
             "back_ref": "PROCESSING_VALIDITY"
         })
-        processing_reception_completeness_event = {
-            "explicit_reference": datastrip,
-            "gauge": {
-                "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
-                "system": satellite
-            },
-            "links": links_processing_reception_completeness,
-             "start": datablock["start"].isoformat(),
-             "stop": datablock["stop"].isoformat(),
-             "values": [{
-                 "type": "text",
-                 "value": status,
-                 "name": "status"
-             },{
-                 "type": "text",
-                 "value": level,
-                 "name": "level"
-             },{
-                 "type": "text",
-                 "value": satellite,
-                 "name": "satellite"
-             },{
-                 "name": "processing_centre",
-                 "type": "text",
-                 "value": system
-             },{
-                 "name": "matching_plan_status",
-                 "type": "text",
-                 "value": planning_matching_status
-             },{
-                 "name": "matching_reception_status",
-                 "type": "text",
-                 "value": reception_matching_status
-             }]
-        }
-        if sensing_orbit != "":
-            processing_reception_completeness_event["values"].append({
-                "name": "sensing_orbit",
-                "type": "double",
-                "value": sensing_orbit
-            })
-        # end if
-        if downlink_orbit != "":
-            processing_reception_completeness_event["values"].append({
-                "name": "downlink_orbit",
-                "type": "double",
-                "value": downlink_orbit
-            })
-        # end if
 
-        list_of_events.append(processing_reception_completeness_event)
+        for channel in ["1","2"]:
+            processing_reception_completeness_event = {
+                "explicit_reference": datastrip,
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level + "_CHANNEL_" + channel,
+                    "system": satellite
+                },
+                "links": links_processing_reception_completeness,
+                 "start": datablock["start"].isoformat(),
+                 "stop": datablock["stop"].isoformat(),
+                 "values": [{
+                     "type": "text",
+                     "value": status,
+                     "name": "status"
+                 },{
+                     "type": "text",
+                     "value": level,
+                     "name": "level"
+                 },{
+                     "type": "text",
+                     "value": satellite,
+                     "name": "satellite"
+                 },{
+                     "name": "processing_centre",
+                     "type": "text",
+                     "value": system
+                 },{
+                     "name": "matching_plan_status",
+                     "type": "text",
+                     "value": planning_matching_status
+                 },{
+                     "name": "matching_reception_status",
+                     "type": "text",
+                     "value": reception_matching_status
+                 }]
+            }
+            if sensing_orbit != "":
+                processing_reception_completeness_event["values"].append({
+                    "name": "sensing_orbit",
+                    "type": "double",
+                    "value": sensing_orbit
+                })
+            # end if
+            if downlink_orbit != "":
+                processing_reception_completeness_event["values"].append({
+                    "name": "downlink_orbit",
+                    "type": "double",
+                    "value": downlink_orbit
+                })
+            # end if
+
+            list_of_isp_processing_completeness_events.append(processing_reception_completeness_event)
+        # end for
+        
         processing_validity_event = {
             "key": datastrip + "_" + "processing_validity",
             "link_ref": processing_validity_link_ref,
@@ -927,47 +850,59 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
 
     # end for
 
-    if len(planning_processing_completeness_operation["events"]) > 0:
-        completeness_event_starts = [event["start"] for event in planning_processing_completeness_operation["events"]]
+    if len(list_of_planning_processing_completeness_events) > 0:
+        completeness_event_starts = [event["start"] for event in list_of_planning_processing_completeness_events]
         completeness_event_starts.sort()
-        completeness_event_stops = [event["stop"] for event in planning_processing_completeness_operation["events"]]
+        completeness_event_stops = [event["stop"] for event in list_of_planning_processing_completeness_events]
         completeness_event_stops.sort()
 
-        generation_time = planning_processing_completeness_generation_time
-        if re.match(".*REP_OPDPC.*", source["name"]):
-            generation_time = (parser.parse(planning_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
-        # end if
+        # Generate the footprint of the events
+        list_of_planning_processing_completeness_events_with_footprints = associate_footprints(list_of_planning_processing_completeness_events, satellite)
         
-        # Source for the completeness planning operation adjusting the validity to the events
-        planning_processing_completeness_operation["source"] = {
-            "name": source["name"],
-            "reception_time": source["reception_time"],
-            "generation_time": generation_time,
-            "validity_start": completeness_event_starts[0],
-            "validity_stop": completeness_event_stops[-1]
+        planning_processing_completeness_operation = {
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": filename,
+                "version": version
+            },
+            "source": {
+                "name": source["name"],
+                "reception_time": source["reception_time"],
+                "generation_time": source["generation_time"],
+                "validity_start": completeness_event_starts[0],
+                "validity_stop": completeness_event_stops[-1]
+            },
+            "events": list_of_planning_processing_completeness_events_with_footprints
         }
 
         list_of_operations.append(planning_processing_completeness_operation)
     # end if
 
-    if len(isp_validity_processing_completeness_operation["events"]) > 0:
-        completeness_event_starts = [event["start"] for event in isp_validity_processing_completeness_operation["events"]]
+    if len(list_of_isp_processing_completeness_events) > 0:
+        completeness_event_starts = [event["start"] for event in list_of_isp_processing_completeness_events]
         completeness_event_starts.sort()
-        completeness_event_stops = [event["stop"] for event in isp_validity_processing_completeness_operation["events"]]
+        completeness_event_stops = [event["stop"] for event in list_of_isp_processing_completeness_events]
         completeness_event_stops.sort()
 
-        generation_time = isp_validity_processing_completeness_generation_time
-        if re.match(".*REP_OPDPC.*", source["name"]):
-            generation_time = (parser.parse(isp_validity_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
-        # end if
-
-        # Source for the completeness received imaging operation adjusting the validity to the events
-        isp_validity_processing_completeness_operation["source"] = {
-            "name": source["name"],
-            "reception_time": source["reception_time"],
-            "generation_time": generation_time,
-            "validity_start": completeness_event_starts[0],
-            "validity_stop": completeness_event_stops[-1]
+        # Generate the footprint of the events
+        list_of_isp_processing_completeness_events_with_footprints = associate_footprints(list_of_isp_processing_completeness_events, satellite)
+        
+        isp_validity_processing_completeness_operation = {
+            "mode": "insert",
+            "dim_signature": {
+                "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
+                "exec": filename,
+                "version": version
+            },
+            "source": {
+                "name": source["name"],
+                "reception_time": source["reception_time"],
+                "generation_time": source["generation_time"],
+                "validity_start": completeness_event_starts[0],
+                "validity_stop": completeness_event_stops[-1]
+            },
+            "events": list_of_isp_processing_completeness_events_with_footprints
         }
 
         list_of_operations.append(isp_validity_processing_completeness_operation)
@@ -1011,26 +946,11 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
     # Obtain the production level from the datastrip
     level = datastrip[13:16].replace("_","")
 
-    # Completeness operations for the completeness analysis of the plan
-    planning_processing_completeness_operation = {
-        "mode": "insert",
-        "dim_signature": {
-            "name": "PROCESSING_" + satellite,
-            "exec": "planning_processing_" + filename,
-            "version": version
-        },
-        "events": []
-    }
-    # Completeness operations for the completeness analysis of the received imaging
-    isp_validity_processing_completeness_operation = {
-        "mode": "insert",
-        "dim_signature": {
-            "name": "PROCESSING_" + satellite,
-            "exec": "processing_received_" + filename,
-            "version": version
-        },
-        "events": []
-    }
+    # List for the planning processing completeness analysis
+    list_of_planning_processing_completeness_events = []
+
+    # List for the ISP processing completeness analysis
+    list_of_isp_processing_completeness_events = []
 
     # Classify the events obtained from the datatrip linked events
     for processing_validity_event in processing_validity_events:
@@ -1112,38 +1032,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "name": "PROCESSING_COMPLETENESS",
                 "back_ref": "PLANNED_IMAGING"
             })
-
-            corrected_planned_imaging_uuid = [event_link.event_uuid_link for event_link in planned_imaging.eventLinks if event_link.name == "TIME_CORRECTION"][0]
-            corrected_planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [corrected_planned_imaging_uuid]})
-
-            planning_processing_completeness_generation_time = planned_imaging.source.generation_time.isoformat()
-
-            planning_event_values = planned_imaging.get_structured_values()
-            planning_event_values.append({"name": "status",
-                                          "type": "text",
-                                          "value": "MISSING"})
-
-            # Add margin of 6/4 seconds to each side of the segment to avoid false alerts
-            start = corrected_planned_imaging_event[0].start + datetime.timedelta(seconds=6)
-            stop = corrected_planned_imaging_event[0].stop - datetime.timedelta(seconds=4)
-
-            planning_processing_completeness_operation["events"].append({
-                "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                    "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level + "",
-                    "system": satellite
-                },
-                "start": start.isoformat(),
-                "stop": stop.isoformat(),
-                "links": [
-                    {
-                        "link": str(planned_imaging_uuid),
-                        "link_mode": "by_uuid",
-                        "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "PLANNED_IMAGING"
-                    }],
-                "values": planning_event_values
-            })
         # end if
 
         # Received Imaging Completeness
@@ -1169,41 +1057,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "link_mode": "by_uuid",
                 "name": "PROCESSING_COMPLETENESS",
                 "back_ref": "ISP_VALIDITY"
-            })
-
-            isp_validity_processing_completeness_generation_time = isp_validity.source.generation_time.isoformat()
-
-            # Insert the linked COMPLETENESS event for the automatic completeness check
-            isp_validity_values = isp_validity.get_structured_values()
-            values = [value for value in isp_validity_values if value["name"] != "status"]
-            values.append({"name": "status",
-                 "type": "text",
-                 "value": "MISSING"})
-
-            # Add margin of 6 second to each side of the segment to avoid false alerts
-            start = isp_validity.start + datetime.timedelta(seconds=6)
-            stop = isp_validity.stop - datetime.timedelta(seconds=6)
-            if start > stop:
-                start = isp_validity.start
-                stop = isp_validity.stop
-            # end if
-
-            isp_validity_processing_completeness_operation["events"].append({
-                "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
-                    "system": satellite
-                },
-                "start": start.isoformat(),
-                "stop": stop.isoformat(),
-                "links": [
-                    {
-                        "link": str(isp_validity_uuid),
-                        "link_mode": "by_uuid",
-                        "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "ISP_VALIDITY"
-                    }],
-                "values": values
             })
 
         # end if
@@ -1266,7 +1119,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             })
         # end if
 
-        list_of_events.append(planning_processing_completeness_event)
+        list_of_planning_processing_completeness_events.append(planning_processing_completeness_event)
 
         links_processing_reception_completeness.append({
             "link": processing_validity_link_ref,
@@ -1274,60 +1127,63 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             "name": "PROCESSING_COMPLETENESS",
             "back_ref": "PROCESSING_VALIDITY"
         })
-        processing_reception_completeness_event = {
-            "explicit_reference": datastrip,
-            "gauge": {
-                "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level,
-                "system": satellite
-            },
-            "links": links_processing_reception_completeness,
-             "start": processing_validity_event.start.isoformat(),
-             "stop": processing_validity_event.stop.isoformat(),
-             "values": [{
-                 "type": "text",
-                 "value": status,
-                 "name": "status"
-             },{
-                 "type": "text",
-                 "value": level,
-                 "name": "level"
-             },{
-                 "type": "text",
-                 "value": satellite,
-                 "name": "satellite"
-             },{
-                 "name": "processing_centre",
-                 "type": "text",
-                 "value": system
-             },{
-                 "name": "matching_plan_status",
-                 "type": "text",
-                 "value": planning_matching_status
-             },{
-                 "name": "matching_reception_status",
-                 "type": "text",
-                 "value": reception_matching_status
-             }]
-        }
 
-        if sensing_orbit != "":
-            processing_reception_completeness_event["values"].append({
-                "name": "sensing_orbit",
-                "type": "double",
-                "value": sensing_orbit
-            })
-        # end if
-        if downlink_orbit != "":
-            processing_reception_completeness_event["values"].append({
-                "name": "downlink_orbit",
-                "type": "double",
-                "value": downlink_orbit
-            })
-        # end if
+        for channel in ["1","2"]:
+            processing_reception_completeness_event = {
+                "explicit_reference": datastrip,
+                "gauge": {
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level + "_CHANNEL_" + channel,
+                    "system": satellite
+                },
+                "links": links_processing_reception_completeness,
+                 "start": processing_validity_event.start.isoformat(),
+                 "stop": processing_validity_event.stop.isoformat(),
+                 "values": [{
+                     "type": "text",
+                     "value": status,
+                     "name": "status"
+                 },{
+                     "type": "text",
+                     "value": level,
+                     "name": "level"
+                 },{
+                     "type": "text",
+                     "value": satellite,
+                     "name": "satellite"
+                 },{
+                     "name": "processing_centre",
+                     "type": "text",
+                     "value": system
+                 },{
+                     "name": "matching_plan_status",
+                     "type": "text",
+                     "value": planning_matching_status
+                 },{
+                     "name": "matching_reception_status",
+                     "type": "text",
+                     "value": reception_matching_status
+                 }]
+            }
 
-        list_of_events.append(processing_reception_completeness_event)
+            if sensing_orbit != "":
+                processing_reception_completeness_event["values"].append({
+                    "name": "sensing_orbit",
+                    "type": "double",
+                    "value": sensing_orbit
+                })
+            # end if
+            if downlink_orbit != "":
+                processing_reception_completeness_event["values"].append({
+                    "name": "downlink_orbit",
+                    "type": "double",
+                    "value": downlink_orbit
+                })
+            # end if
 
+            list_of_isp_processing_completeness_events.append(processing_reception_completeness_event)
+        # end for
+            
         processing_validity_event = {
             "key": datastrip + "_" + "processing_validity",
             "link_ref": processing_validity_link_ref,
@@ -1384,52 +1240,63 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
 
         list_of_events.append(processing_validity_event)
 
-        if len(planning_processing_completeness_operation["events"]) > 0:
-            completeness_event_starts = [event["start"] for event in planning_processing_completeness_operation["events"]]
+        if len(list_of_planning_processing_completeness_events) > 0:
+            completeness_event_starts = [event["start"] for event in list_of_planning_processing_completeness_events]
             completeness_event_starts.sort()
-            completeness_event_stops = [event["stop"] for event in planning_processing_completeness_operation["events"]]
+            completeness_event_stops = [event["stop"] for event in list_of_planning_processing_completeness_events]
             completeness_event_stops.sort()
 
-            generation_time = planning_processing_completeness_generation_time
-            if re.match(".*REP_OPDPC.*", source["name"]):
-                generation_time = (parser.parse(planning_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
-            # end if
+            # Generate the footprint of the events
+            list_of_planning_processing_completeness_events_with_footprints = associate_footprints(list_of_planning_processing_completeness_events, satellite)
 
-            # Source for the completeness planning operation adjusting the validity to the events
-            planning_processing_completeness_operation["source"] = {
-                "name": source["name"],
-                "reception_time": source["reception_time"],
-                "generation_time": generation_time,
-                "validity_start": completeness_event_starts[0],
-                "validity_stop": completeness_event_stops[-1]
+            planning_processing_completeness_operation = {
+                "mode": "insert",
+                "dim_signature": {
+                    "name": "COMPLETENESS_NPPF_" + satellite,
+                    "exec": filename,
+                    "version": version
+                },
+                "source": {
+                    "name": source["name"],
+                    "reception_time": source["reception_time"],
+                    "generation_time": source["generation_time"],
+                    "validity_start": completeness_event_starts[0],
+                    "validity_stop": completeness_event_stops[-1]
+                },
+                "events": list_of_planning_processing_completeness_events_with_footprints
             }
 
             list_of_operations.append(planning_processing_completeness_operation)
         # end if
 
-        if len(isp_validity_processing_completeness_operation["events"]) > 0:
-            completeness_event_starts = [event["start"] for event in isp_validity_processing_completeness_operation["events"]]
+        if len(list_of_isp_processing_completeness_events) > 0:
+            completeness_event_starts = [event["start"] for event in list_of_isp_processing_completeness_events]
             completeness_event_starts.sort()
-            completeness_event_stops = [event["stop"] for event in isp_validity_processing_completeness_operation["events"]]
+            completeness_event_stops = [event["stop"] for event in list_of_isp_processing_completeness_events]
             completeness_event_stops.sort()
 
-            generation_time = isp_validity_processing_completeness_generation_time
-            if re.match(".*REP_OPDPC.*", source["name"]):
-                generation_time = (parser.parse(isp_validity_processing_completeness_generation_time) + datetime.timedelta(seconds=1)).isoformat()
-            # end if
+            # Generate the footprint of the events
+            list_of_isp_processing_completeness_events_with_footprints = associate_footprints(list_of_isp_processing_completeness_events, satellite)
 
-            # Source for the completeness received imaging operation adjusting the validity to the events
-            isp_validity_processing_completeness_operation["source"] = {
-                "name": source["name"],
-                "reception_time": source["reception_time"],
-                "generation_time": generation_time,
-                "validity_start": completeness_event_starts[0],
-                "validity_stop": completeness_event_stops[-1]
+            isp_validity_processing_completeness_operation = {
+                "mode": "insert",
+                "dim_signature": {
+                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
+                    "exec": filename,
+                    "version": version
+                },
+                "source": {
+                    "name": source["name"],
+                    "reception_time": source["reception_time"],
+                    "generation_time": source["generation_time"],
+                    "validity_start": completeness_event_starts[0],
+                    "validity_stop": completeness_event_stops[-1]
+                },
+                "events": list_of_isp_processing_completeness_events_with_footprints
             }
 
             list_of_operations.append(isp_validity_processing_completeness_operation)
         # end if
-
 
     # end if
 

@@ -98,6 +98,7 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
     
     # Extract the slots
+    list_of_completeness_events = {}
     slots = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_Sessions/Session")
     for slot in slots:
         start = slot.xpath("Start_Time")[0].text.split("=")[1]
@@ -200,6 +201,77 @@ def process_file(file_path, engine, query, reception_time):
 
         # Insert slot_event
         ingestion_functions.insert_event_for_ingestion(slot_event, source, list_of_events)
+
+        if not sentinel in list_of_completeness_events:
+            list_of_completeness_events[sentinel] = []
+        # end if
+        
+        # DFEP schedule completeness event
+        slot_dfep_schedule_completeness_event = {
+            "explicit_reference": session_id,
+            "gauge": {
+                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "name": "DFEP_SCHEDULE_COMPLETENESS",
+                "system": sentinel
+            },
+            "links": links,
+            "start": start,
+            "stop": stop,
+            "values": [
+                {"name": "session_id",
+                 "type": "text",
+                 "value": session_id},
+                {"name": "edrs_unit",
+                 "type": "text",
+                 "value": edrs},
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": sentinel},
+                {"name": "status",
+                 "type": "text",
+                 "value": status}
+            ]
+        }
+
+        # Insert slot_event
+        ingestion_functions.insert_event_for_ingestion(slot_dfep_schedule_completeness_event, source, list_of_completeness_events[sentinel])
+
+        # Station schedule completeness event
+        slot_station_schedule_completeness_event = {
+            "explicit_reference": session_id,
+            "gauge": {
+                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "name": "STATION_SCHEDULE_COMPLETENESS",
+                "system": sentinel
+            },
+            "links": links,
+            "start": start,
+            "stop": stop,
+            "values": [
+                {"name": "session_id",
+                 "type": "text",
+                 "value": session_id},
+                {"name": "edrs_unit",
+                 "type": "text",
+                 "value": edrs},
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": sentinel},
+                {"name": "status",
+                 "type": "text",
+                 "value": status}
+            ]
+        }
+
+        # Insert slot_event
+        ingestion_functions.insert_event_for_ingestion(slot_station_schedule_completeness_event, source, list_of_completeness_events[sentinel])
+
     # end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
@@ -217,6 +289,23 @@ def process_file(file_path, engine, query, reception_time):
         "events": list_of_events
     }]}
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
+
+    for satellite in list_of_completeness_events:
+        if len(list_of_completeness_events[satellite]) > 0:
+            data["operations"].append({
+                "mode": "insert",
+                "dim_signature": {
+                    "name": "COMPLETENESS_NPPF_" + satellite,
+                    "exec": os.path.basename(__file__),
+                    "version": version
+                },
+                "source": source,
+                "events": list_of_completeness_events[satellite]
+            })
+        # end if
+    # end for
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()    

@@ -187,7 +187,7 @@ class TestOrbpre(unittest.TestCase):
         #Check events
         events = self.query_eboa.get_events()
 
-        assert len(events) == 12
+        assert len(events) == 15
 
         #Check definite event
         definite_event = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "like"},
@@ -338,7 +338,7 @@ class TestOrbpre(unittest.TestCase):
         #Check events
         events = self.query_eboa.get_events()
 
-        assert len(events) == 12
+        assert len(events) == 15
 
         #Check definite event
         definite_event = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "like"},

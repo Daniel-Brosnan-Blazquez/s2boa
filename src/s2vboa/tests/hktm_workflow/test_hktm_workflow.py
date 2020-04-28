@@ -456,7 +456,7 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 7
+        assert len(sources) == 9
 
         wait = WebDriverWait(self.driver,5);
 

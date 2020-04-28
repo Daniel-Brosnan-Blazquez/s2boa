@@ -260,22 +260,30 @@ class TestAcquisitionView(unittest.TestCase):
 
         corrected_events.sort(key=lambda x:x.start)
 
+        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"=="})
+
+        playback_completeness_channel_1.sort(key=lambda x:x.start)
+
+        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"=="})
+
+        playback_completeness_channel_2.sort(key=lambda x:x.start)
+        
         # Timeline
         acquisition_timeline_missing = [
-            {"id": str(corrected_events[0].event_uuid),
+            {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-21T10:35:32.524661",
-             "stop": "2018-07-21T10:37:08.530863",
+             "start": "2018-07-21T10:35:41.524661",
+             "stop": "2018-07-21T10:36:59.530863",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:35:32.524661</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-21T10:37:08.530863</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>1.600</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>1.300</td></tr>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
@@ -283,20 +291,41 @@ class TestAcquisitionView(unittest.TestCase):
                           "</table>",
             "className": "background-red"
              },
-            {"id": str(corrected_events[1].event_uuid),
+            {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-21T10:37:19.534390",
-             "stop": "2018-07-21T10:37:19.534390",
+             "start": "2018-07-21T10:35:41.524661",
+             "stop": "2018-07-21T10:36:59.530863",
+              "tooltip": "<table border='1'>" +
+                          "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
+                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                          "<tr><td>Orbit</td><td>16078</td></tr>" +
+                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>1.300</td></tr>" +
+                          "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
+                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                          "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
+                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                          "</table>",
+            "className": "background-red"
+             },
+            {"id": str(playback_completeness_channel_2[1].event_uuid),
+             "group": "S2A",
+             "timeline": "",
+             "start": "2018-07-21T10:37:22.534390",
+             "stop": "2018-07-21T10:37:24.534390",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:37:19.534390</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-21T10:37:19.534390</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>0.000</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:37:22.534390</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-21T10:37:24.534390</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
                           "<tr><td>Playback type</td><td>SAD</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
@@ -313,16 +342,16 @@ class TestAcquisitionView(unittest.TestCase):
         # Map
 
         acquisition_geometries_missing = [
-            {"id": str(corrected_events[0].event_uuid),
+            {"id": str(playback_completeness_channel_1[0].event_uuid),
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:35:32.524661</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-21T10:37:08.530863</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>1.600</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>1.300</td></tr>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
@@ -330,23 +359,47 @@ class TestAcquisitionView(unittest.TestCase):
                           "</table>",
               "geometries":[{
                      "name": "footprint",
-                     "value": "POLYGON ((3.087722 19.617211, 3.033528 19.398861, 2.979462 19.180495, 2.925521 18.962114, 2.8717 18.743717, 2.817995 18.525305, 2.76441 18.306878, 2.710944 18.088436, 2.65759 17.86998, 2.604348 17.651509, 2.55122 17.433025, 2.498205 17.214526, 2.445294 16.996013, 2.392491 16.777487, 2.339796 16.558948, 2.287207 16.340395, 2.234717 16.12183, 2.18233 15.903252, 2.130046 15.684661, 2.077859 15.466058, 2.025768 15.247442, 1.973776 15.028815, 1.921879 14.810176, 1.870074 14.591525, 1.818361 14.372862, 1.766741 14.154189, 1.715211 13.935504, -0.889933 14.505031, -0.840898 14.723922, -0.791809 14.942805, -0.742666 15.161681, -0.693477 15.38055, -0.644248 15.599413, -0.594961 15.818267, -0.545614 16.037113, -0.496225 16.255952, -0.446784 16.474783, -0.39728 16.693606, -0.347711 16.91242, -0.298103 17.131227, -0.248431 17.350024, -0.198691 17.568813, -0.148886 17.787592, -0.099036 18.006363, -0.049114 18.225125, 0.000882 18.443877, 0.050939 18.662619, 0.101054 18.881352, 0.151247 19.100075, 0.201518 19.318788, 0.251847 19.537491, 0.302248 19.756183, 0.352731 19.974865, 0.403298 20.193536, 3.087722 19.617211))"
+                     "value": "POLYGON ((2.955857 19.08499, 2.901645 18.865298, 2.847556 18.645591, 2.79359 18.425869, 2.739736 18.206132, 2.686002 17.98638, 2.632386 17.766613, 2.578883 17.546832, 2.525488 17.327037, 2.472207 17.107227, 2.419038 16.887404, 2.365975 16.667567, 2.313016 16.447717, 2.260165 16.227854, 2.207419 16.007977, 2.154772 15.788088, 2.102226 15.568186, 2.049781 15.348272, 1.997435 15.128345, 1.945183 14.908407, 1.893027 14.688456, 1.840966 14.468494, -0.770322 15.03853, -0.720873 15.258709, -0.671367 15.478881, -0.621807 15.699045, -0.572211 15.919203, -0.522554 16.139352, -0.472837 16.359492, -0.423065 16.579625, -0.373248 16.79975, -0.323366 17.019866, -0.273417 17.239973, -0.223415 17.460072, -0.173358 17.680162, -0.123231 17.900243, -0.073031 18.120314, -0.02278 18.340376, 0.027537 18.560429, 0.07793 18.780471, 0.1284 19.000503, 0.178921 19.220526, 0.229519 19.440539, 0.280198 19.660541, 2.955857 19.08499))"
               }],
              "style": {
                  "stroke_color": "red",
                  "fill_color": "rgba(255,0,0,0.3)",
              }
              },
-             {"id": str(corrected_events[1].event_uuid),
+            {"id": str(playback_completeness_channel_2[0].event_uuid),
+              "tooltip": "<table border='1'>" +
+                          "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
+                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                          "<tr><td>Orbit</td><td>16078</td></tr>" +
+                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>1.300</td></tr>" +
+                          "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
+                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                          "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
+                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                          "</table>",
+              "geometries":[{
+                     "name": "footprint",
+                     "value": "POLYGON ((2.955857 19.08499, 2.901645 18.865298, 2.847556 18.645591, 2.79359 18.425869, 2.739736 18.206132, 2.686002 17.98638, 2.632386 17.766613, 2.578883 17.546832, 2.525488 17.327037, 2.472207 17.107227, 2.419038 16.887404, 2.365975 16.667567, 2.313016 16.447717, 2.260165 16.227854, 2.207419 16.007977, 2.154772 15.788088, 2.102226 15.568186, 2.049781 15.348272, 1.997435 15.128345, 1.945183 14.908407, 1.893027 14.688456, 1.840966 14.468494, -0.770322 15.03853, -0.720873 15.258709, -0.671367 15.478881, -0.621807 15.699045, -0.572211 15.919203, -0.522554 16.139352, -0.472837 16.359492, -0.423065 16.579625, -0.373248 16.79975, -0.323366 17.019866, -0.273417 17.239973, -0.223415 17.460072, -0.173358 17.680162, -0.123231 17.900243, -0.073031 18.120314, -0.02278 18.340376, 0.027537 18.560429, 0.07793 18.780471, 0.1284 19.000503, 0.178921 19.220526, 0.229519 19.440539, 0.280198 19.660541, 2.955857 19.08499))"
+              }],
+             "style": {
+                 "stroke_color": "red",
+                 "fill_color": "rgba(255,0,0,0.3)",
+             }
+             },
+             {"id": str(playback_completeness_channel_2[1].event_uuid),
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-21T10:37:19.534390</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-21T10:37:19.534390</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>0.000</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-21T10:37:22.534390</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-21T10:37:24.534390</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
                           "<tr><td>Playback type</td><td>SAD</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
@@ -354,7 +407,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "</table>",
               "geometries":[{
                      "name": "footprint",
-                  "value": "POLYGON ((1.562169 13.283776, -1.035823 13.852714, -1.035823 13.852714, 1.562169 13.283776))"
+                  "value": "POLYGON ((1.492878 12.9876, -1.101988 13.556283, -1.101988 13.556283, 1.492878 12.9876))"
               }],
               "style": {
                   "stroke_color": "red",
@@ -1157,25 +1210,29 @@ class TestAcquisitionView(unittest.TestCase):
 
         original_events.sort(key=lambda x:x.start)
 
-        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
+        playback_completeness_channel_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op":"=="})
 
-        corrected_events.sort(key=lambda x:x.start)
+        playback_completeness_channel_1.sort(key=lambda x:x.start)
+
+        playback_completeness_channel_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op":"=="})
+
+        playback_completeness_channel_2.sort(key=lambda x:x.start)
 
         acquisition_timeline_missing = [
-            {"id": str(corrected_events[0].event_uuid),
+            {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-24T12:03:16.140258",
-             "stop": "2018-07-24T12:14:57.025786",
+             "start": "2018-07-24T12:03:25.140258",
+             "stop": "2018-07-24T12:14:48.025786",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-24T12:03:16.140258</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-24T12:14:57.025786</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>11.681</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>11.381</td></tr>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
@@ -1183,20 +1240,41 @@ class TestAcquisitionView(unittest.TestCase):
                           "</table>",
             "className": "background-red"
              },
-            {"id": str(corrected_events[1].event_uuid),
+            {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-24T12:15:08.023123",
-             "stop": "2018-07-24T12:15:08.023123",
+             "start": "2018-07-24T12:03:25.140258",
+             "stop": "2018-07-24T12:14:48.025786",
+              "tooltip": "<table border='1'>" +
+                          "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
+                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                          "<tr><td>Orbit</td><td>16122</td></tr>" +
+                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>11.381</td></tr>" +
+                          "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
+                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
+                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                          "</table>",
+            "className": "background-red"
+             },
+            {"id": str(playback_completeness_channel_1[1].event_uuid),
+             "group": "S2A",
+             "timeline": "",
+             "start": "2018-07-24T12:15:11.023123",
+             "stop": "2018-07-24T12:15:13.023123",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-24T12:15:08.023123</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-24T12:15:08.023123</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>0.000</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:15:11.023123</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:15:13.023123</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
                           "<tr><td>Playback type</td><td>HKTM_SAD</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
@@ -1204,20 +1282,41 @@ class TestAcquisitionView(unittest.TestCase):
                           "</table>",
               "className": "background-red"
             },
-           {"id": str(corrected_events[2].event_uuid),
+            {"id": str(playback_completeness_channel_2[1].event_uuid),
+             "group": "S2A",
+             "timeline": "",
+             "start": "2018-07-24T12:15:11.023123",
+             "stop": "2018-07-24T12:15:13.023123",
+             "tooltip": "<table border='1'>" +
+                          "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
+                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                          "<tr><td>Orbit</td><td>16122</td></tr>" +
+                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:15:11.023123</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:15:13.023123</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
+                          "<tr><td>Playback type</td><td>HKTM_SAD</td></tr>" +
+                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
+                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                          "</table>",
+              "className": "background-red"
+            },
+           {"id": str(playback_completeness_channel_1[2].event_uuid),
             "group": "S2A",
             "timeline": "",
-            "start": "2018-07-24T12:17:48.403836",
-            "stop": "2018-07-24T12:28:49.906438",
+            "start": "2018-07-24T12:17:57.403836",
+            "stop": "2018-07-24T12:28:40.906438",
              "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
                          "<tr><td>Station</td><td></td></tr>" +
                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                         "<tr><td>Start</td><td>2018-07-24T12:17:48.403836</td></tr>" +
-                         "<tr><td>Stop</td><td>2018-07-24T12:28:49.906438</td></tr>" +
-                         "<tr><td>Duration(m)</td><td>11.025</td></tr>" +
+                         "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
+                         "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
+                         "<tr><td>Duration(m)</td><td>10.725</td></tr>" +
                          "<tr><td>Playback type</td><td>REGULAR</td></tr>" +
                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
@@ -1225,20 +1324,41 @@ class TestAcquisitionView(unittest.TestCase):
                          "</table>",
            "className": "background-red"
             },
-           {"id": str(corrected_events[3].event_uuid),
+           {"id": str(playback_completeness_channel_2[2].event_uuid),
             "group": "S2A",
             "timeline": "",
-            "start": "2018-07-24T12:29:00.911137",
-            "stop": "2018-07-24T12:29:00.911137",
+            "start": "2018-07-24T12:17:57.403836",
+            "stop": "2018-07-24T12:28:40.906438",
+             "tooltip": "<table border='1'>" +
+                         "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
+                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                         "<tr><td>Orbit</td><td>16122</td></tr>" +
+                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                         "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
+                         "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
+                         "<tr><td>Duration(m)</td><td>10.725</td></tr>" +
+                         "<tr><td>Playback type</td><td>REGULAR</td></tr>" +
+                         "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                         "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
+                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                         "</table>",
+           "className": "background-red"
+            },
+           {"id": str(playback_completeness_channel_2[3].event_uuid),
+            "group": "S2A",
+            "timeline": "",
+            "start": "2018-07-24T12:29:03.911137",
+            "stop": "2018-07-24T12:29:05.911137",
             "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
                          "<tr><td>Station</td><td></td></tr>" +
                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                         "<tr><td>Start</td><td>2018-07-24T12:29:00.911137</td></tr>" +
-                         "<tr><td>Stop</td><td>2018-07-24T12:29:00.911137</td></tr>" +
-                         "<tr><td>Duration(m)</td><td>0.000</td></tr>" +
+                         "<tr><td>Start</td><td>2018-07-24T12:29:03.911137</td></tr>" +
+                         "<tr><td>Stop</td><td>2018-07-24T12:29:05.911137</td></tr>" +
+                         "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
                          "<tr><td>Playback type</td><td>SAD</td></tr>" +
                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
@@ -1254,6 +1374,10 @@ class TestAcquisitionView(unittest.TestCase):
 
         # Acquisition Scheduling Completeness map
 
+        corrected_events = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
+
+        corrected_events.sort(key=lambda x:x.start)
+        
         acquisition_geometries_missing = [
             {"id": str(corrected_events[0].event_uuid),
               "tooltip": "<table border='1'>" +
@@ -1606,41 +1730,62 @@ class TestAcquisitionView(unittest.TestCase):
         corrected_events.sort(key=lambda x:x.start)
 
         acquisition_timeline_missing = [
-            {"id": str(corrected_events[2].event_uuid),
+            {"id": str(playback_completeness_channel_1[1].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-24T12:03:16.140258",
-             "stop": "2018-07-24T12:14:57.025786",
+             "start": "2018-07-24T12:03:25.140258",
+             "stop": "2018-07-24T12:14:48.025786",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-24T12:03:16.140258</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-24T12:14:57.025786</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>11.681</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>11.381</td></tr>" +
                           "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+             "className": "background-red"
              },
-            {"id": str(corrected_events[3].event_uuid),
+            {"id": str(playback_completeness_channel_2[2].event_uuid),
              "group": "S2A",
              "timeline": "",
-             "start": "2018-07-24T12:15:08.023123",
-             "stop": "2018-07-24T12:15:08.023123",
+             "start": "2018-07-24T12:03:25.140258",
+             "stop": "2018-07-24T12:14:48.025786",
+              "tooltip": "<table border='1'>" +
+                          "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
+                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                          "<tr><td>Orbit</td><td>16122</td></tr>" +
+                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>11.381</td></tr>" +
+                          "<tr><td>Playback type</td><td>NOMINAL</td></tr>" +
+                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
+                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                          "</table>",
+             "className": "background-red"
+            },
+            {"id": str(playback_completeness_channel_1[2].event_uuid),
+             "group": "S2A",
+             "timeline": "",
+             "start": "2018-07-24T12:15:11.023123",
+             "stop": "2018-07-24T12:15:13.023123",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
                           "<tr><td>Station</td><td></td></tr>" +
                           "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                          "<tr><td>Start</td><td>2018-07-24T12:15:08.023123</td></tr>" +
-                          "<tr><td>Stop</td><td>2018-07-24T12:15:08.023123</td></tr>" +
-                          "<tr><td>Duration(m)</td><td>0.000</td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:15:11.023123</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:15:13.023123</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
                           "<tr><td>Playback type</td><td>HKTM_SAD</td></tr>" +
                           "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
@@ -1648,20 +1793,41 @@ class TestAcquisitionView(unittest.TestCase):
                           "</table>",
               "className": "background-red"
             },
-           {"id": str(corrected_events[4].event_uuid),
+            {"id": str(playback_completeness_channel_2[3].event_uuid),
+             "group": "S2A",
+             "timeline": "",
+             "start": "2018-07-24T12:15:11.023123",
+             "stop": "2018-07-24T12:15:13.023123",
+             "tooltip": "<table border='1'>" +
+                          "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
+                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                          "<tr><td>Orbit</td><td>16122</td></tr>" +
+                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                          "<tr><td>Start</td><td>2018-07-24T12:15:11.023123</td></tr>" +
+                          "<tr><td>Stop</td><td>2018-07-24T12:15:13.023123</td></tr>" +
+                          "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
+                          "<tr><td>Playback type</td><td>HKTM_SAD</td></tr>" +
+                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
+                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                          "</table>",
+              "className": "background-red"
+            },
+           {"id": str(playback_completeness_channel_1[3].event_uuid),
             "group": "S2A",
             "timeline": "",
-            "start": "2018-07-24T12:17:48.403836",
-            "stop": "2018-07-24T12:28:49.906438",
+            "start": "2018-07-24T12:17:57.403836",
+            "stop": "2018-07-24T12:28:40.906438",
              "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[4].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
                          "<tr><td>Station</td><td></td></tr>" +
                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                         "<tr><td>Start</td><td>2018-07-24T12:17:48.403836</td></tr>" +
-                         "<tr><td>Stop</td><td>2018-07-24T12:28:49.906438</td></tr>" +
-                         "<tr><td>Duration(m)</td><td>11.025</td></tr>" +
+                         "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
+                         "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
+                         "<tr><td>Duration(m)</td><td>10.725</td></tr>" +
                          "<tr><td>Playback type</td><td>REGULAR</td></tr>" +
                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
@@ -1669,20 +1835,41 @@ class TestAcquisitionView(unittest.TestCase):
                          "</table>",
            "className": "background-red"
             },
-           {"id": str(corrected_events[5].event_uuid),
+           {"id": str(playback_completeness_channel_2[4].event_uuid),
             "group": "S2A",
             "timeline": "",
-            "start": "2018-07-24T12:29:00.911137",
-            "stop": "2018-07-24T12:29:00.911137",
+            "start": "2018-07-24T12:17:57.403836",
+            "stop": "2018-07-24T12:28:40.906438",
+             "tooltip": "<table border='1'>" +
+                         "<tr><td>UUID</td><td>" + str(original_events[4].event_uuid) + "</td></tr>" +
+                         "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                         "<tr><td>Orbit</td><td>16122</td></tr>" +
+                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
+                         "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
+                         "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
+                         "<tr><td>Duration(m)</td><td>10.725</td></tr>" +
+                         "<tr><td>Playback type</td><td>REGULAR</td></tr>" +
+                         "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
+                         "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
+                         '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
+                         "</table>",
+           "className": "background-red"
+            },
+           {"id": str(playback_completeness_channel_2[5].event_uuid),
+            "group": "S2A",
+            "timeline": "",
+            "start": "2018-07-24T12:29:03.911137",
+            "stop": "2018-07-24T12:29:05.911137",
             "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[5].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
                          "<tr><td>Station</td><td></td></tr>" +
                          "<tr><td>Status</td><td><span class='bold-red'>MISSING</span></td></tr>" +
-                         "<tr><td>Start</td><td>2018-07-24T12:29:00.911137</td></tr>" +
-                         "<tr><td>Stop</td><td>2018-07-24T12:29:00.911137</td></tr>" +
-                         "<tr><td>Duration(m)</td><td>0.000</td></tr>" +
+                         "<tr><td>Start</td><td>2018-07-24T12:29:03.911137</td></tr>" +
+                         "<tr><td>Stop</td><td>2018-07-24T12:29:05.911137</td></tr>" +
+                         "<tr><td>Duration(m)</td><td>0.033</td></tr>" +
                          "<tr><td>Playback type</td><td>SAD</td></tr>" +
                          "<tr><td>Playback mean</td><td>XBAND</td></tr>" +
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +

@@ -9,17 +9,8 @@
   <!-- Incomplete playbacks -->
   {% set events_incomplete = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "INCOMPLETE")|list %}
   <!-- Missing playbacks -->
-  {% set missing_completeness = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|list %}
-  
-  {% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
-
-  <!-- Get missing events by completelly missing playback -->
-  {% set corrected_missing_playbacks_uuids = acquisition_events["playback"]|selectattr("event_uuid", "in", playback_with_no_playback_validity_uuids)|map(attribute="eventLinks")|flatten|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|list %}
-
-  {% set corrected_missing_playbacks = acquisition_events["playback_correction"]|selectattr("event_uuid", "in", corrected_missing_playbacks_uuids)|list %}
-  
-  {% set events_missing = missing_completeness + corrected_missing_playbacks %}
-
+  {% set events_missing = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|list %}
+    
   {% if show["timeline"] %}
   {% with events = events_missing %}
   {% include "js/acquisition/missing_acquisition_to_timeline.js" %}

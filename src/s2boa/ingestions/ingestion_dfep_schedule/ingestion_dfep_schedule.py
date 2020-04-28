@@ -37,7 +37,7 @@ logger = logging_module.logger
 version = "1.0"
 
 @debug
-def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_events):
+def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_events, list_of_completeness_events):
     """
     Method to generate the events of the dfep schedule files
 
@@ -123,6 +123,35 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
         # Insert dfep_schedule_event
         ingestion_functions.insert_event_for_ingestion(dfep_schedule_event, source, list_of_events)
 
+        # DFEP schedule completeness event
+        dfep_schedule_completeness_event = {
+            "gauge": {
+                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "name": "DFEP_SCHEDULE_COMPLETENESS",
+                "system": satellite
+            },
+            "links": links,
+            "start": start,
+            "stop": stop,
+            "values": [
+                {"name": "orbit",
+                 "type": "double",
+                 "value": str(orbit)},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "station",
+                 "type": "text",
+                 "value": station},
+                {"name": "status",
+                 "type": "text",
+                 "value": status}
+            ]
+        }
+
+        # Insert dfep_schedule_event
+        ingestion_functions.insert_event_for_ingestion(dfep_schedule_completeness_event, source, list_of_completeness_events)
+
     # end for
 
     return
@@ -177,7 +206,8 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
     
     # Generate dfep schedule events
-    _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_events)
+    list_of_completeness_events = []
+    _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_events, list_of_completeness_events)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
     
@@ -193,6 +223,21 @@ def process_file(file_path, engine, query, reception_time):
         "events": list_of_events
     }]}
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
+
+    if len(list_of_completeness_events) > 0:
+        data["operations"].append({
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": os.path.basename(__file__),
+                "version": version
+            },
+            "source": source,
+            "events": list_of_completeness_events
+        })
+    # end if
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()

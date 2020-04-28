@@ -800,7 +800,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
              "value": "MISSING"}]
         if planning_event["gauge"]["name"] == "PLANNED_PLAYBACK":
             downlink_mode = [value["value"] for value in planning_event["values"] if value["name"] == "playback_type"][0]
-            if downlink_mode == "SAD":
+            if downlink_mode == "SAD" or downlink_mode == "HKTM_SAD":
                 start = corrected_start + datetime.timedelta(seconds=3)
                 stop = start + datetime.timedelta(seconds=2)
             elif downlink_mode == "HKTM":
@@ -809,24 +809,25 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 stop = start
             else:
                 start = corrected_start + datetime.timedelta(seconds=9)
-                stop = corrected_stop - datetime.timedelta(seconds=3)
+                stop = corrected_stop - datetime.timedelta(seconds=9)
             # end if
 
             if start > stop:
                 start = corrected_stop - datetime.timedelta(seconds=4)
                 stop = corrected_stop - datetime.timedelta(seconds=3)
             # end if
-            
+
+            # DFEP schedule completeness
             completeness_event = {
                 "gauge": {
                     "insertion_type": "INSERT_and_ERASE",
-                    "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1",
+                    "name": "DFEP_SCHEDULE_COMPLETENESS",
                     "system": planning_event["gauge"]["system"]
                 },
                 "links": [{
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
-                    "name": "PLAYBACK_COMPLETENESS",
+                    "name": "DFEP_SCHEDULE_COMPLETENESS",
                     "back_ref": "PLANNED_EVENT"
                 }],
                 "start": start.isoformat(),
@@ -834,16 +835,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "values": completeness_event_values
             }
             list_of_completeness_events.append(completeness_event)
+
+            # Station schedule completeness
             completeness_event = {
                 "gauge": {
                     "insertion_type": "INSERT_and_ERASE",
-                    "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2",
+                    "name": "STATION_SCHEDULE_COMPLETENESS",
                     "system": planning_event["gauge"]["system"]
                 },
                 "links": [{
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
-                    "name": "PLAYBACK_COMPLETENESS",
+                    "name": "STATION_SCHEDULE_COMPLETENESS",
                     "back_ref": "PLANNED_EVENT"
                 }],
                 "start": start.isoformat(),
@@ -851,7 +854,55 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "values": completeness_event_values
             }
             list_of_completeness_events.append(completeness_event)
+
+            if downlink_mode != "SAD":
+                completeness_event = {
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE",
+                        "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1",
+                        "system": planning_event["gauge"]["system"]
+                    },
+                    "links": [{
+                        "link": planning_event["link_ref"],
+                        "link_mode": "by_ref",
+                        "name": "PLAYBACK_COMPLETENESS",
+                        "back_ref": "PLANNED_EVENT"
+                    }],
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
+                    "values": completeness_event_values
+                }
+                list_of_completeness_events.append(completeness_event)
+            # end if
+            if downlink_mode != "HKTM":
+                completeness_event = {
+                    "gauge": {
+                        "insertion_type": "INSERT_and_ERASE",
+                        "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2",
+                        "system": planning_event["gauge"]["system"]
+                    },
+                    "links": [{
+                        "link": planning_event["link_ref"],
+                        "link_mode": "by_ref",
+                        "name": "PLAYBACK_COMPLETENESS",
+                        "back_ref": "PLANNED_EVENT"
+                    }],
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
+                    "values": completeness_event_values
+                }
+                list_of_completeness_events.append(completeness_event)
+            # end if
         elif planning_event["gauge"]["name"] == "PLANNED_CUT_IMAGING":
+
+            start = corrected_start + datetime.timedelta(seconds=10)
+            stop = corrected_stop - datetime.timedelta(seconds=10)
+
+            if start > stop:
+                start = corrected_stop - datetime.timedelta(seconds=12)
+                stop = corrected_stop - datetime.timedelta(seconds=6)
+            # end if
+            
             completeness_event = {
                 "gauge": {
                     "insertion_type": "INSERT_and_ERASE",
@@ -1112,7 +1163,7 @@ def process_file(file_path, engine, query, reception_time):
             "mode": "insert_and_erase",
             "dim_signature": {
                 "name": "CORRECTED_NPPF_" + satellite,
-                "exec": "corrected_nppf_" + os.path.basename(__file__),
+                "exec": os.path.basename(__file__),
                 "version": version
             },
             "source": source,
@@ -1128,7 +1179,7 @@ def process_file(file_path, engine, query, reception_time):
             "mode": "insert_and_erase",
             "dim_signature": {
                 "name": "COMPLETENESS_NPPF_" + satellite,
-                "exec": "completeness_nppf_" + os.path.basename(__file__),
+                "exec": os.path.basename(__file__),
                 "version": version
             },
             "source": source,

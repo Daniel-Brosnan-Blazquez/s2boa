@@ -268,8 +268,8 @@
           {% set playback_validity_explicit_refs = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|map(attribute='explicitRef')|map(attribute='explicit_ref')|unique|list %}
           {% set raw_isp_validities_with_packet_status_nok = acquisition_events["raw_isp_validity_events_with_packet_status_nok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
           
-          {% set playback_validity_uuid = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|first %}
-          {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "equalto", playback_validity_uuid)|first %}
+          {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|list %}
+          {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|sort(attribute="start")|first %}
           <!-- DFEP, station and SRA schedule -->
           {% set dfep_schedule_event = None %}
           {% set station_schedule_event = None %}
@@ -296,7 +296,7 @@
           {% set parameters_object = original_playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
           {% set parameters = original_playback.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
           <!--Playback Status-->
-          {% if not playback_validity_uuid %}
+          {% if playback_validity_uuids|length == 0 %}
           {% set playback_status = "MISSING" %}
           {% set playback_status_class = "bold-red" %}
           {% else %}

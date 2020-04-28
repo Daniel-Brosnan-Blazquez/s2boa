@@ -74,19 +74,9 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
     # Obtain downlink orbit
     downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
 
-    # Completeness operation for the playback completeness analysis of the plan
-    playback_planning_completeness_operation = {
-        "mode": "insert",
-        "dim_signature": {
-            "name": "RECEPTION_" + satellite,
-            "exec": "playback_planning_completeness_" + os.path.basename(__file__),
-            "version": version
-        },
-        "events": []
-    }
-
-    playback_planning_completeness_generation_times = []
-
+    # List for the playback completeness analysis of the plan
+    list_of_playback_completeness_events = []
+    
     vcids = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[NumFrames > 0 and (@VCID = 2 or @VCID = 3 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22)]")
     for vcid in vcids:
         # Obtain channel
@@ -145,7 +135,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                     {"name": "vcid",
                      "type": "double",
                      "value": vcid_number},
-                    {"name": "downlink_mode",
+                    {"name": "playback_type",
                      "type": "text",
                      "value": downlink_mode},
                     {"name": "estimated_lost",
@@ -185,7 +175,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                                                        start_filters = [{"date": acquisition_stop, "op": "<"}],
                                                        stop_filters = [{"date": query_start, "op": ">"}])
 
-        # Initialize the completeness
+        # Get the links to the plan
         for corrected_planned_playback in corrected_planned_playbacks:
             matching_status = "MATCHED_PLANNED_PLAYBACK"
 
@@ -202,50 +192,6 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 "link_mode": "by_uuid",
                 "name": "PLAYBACK_COMPLETENESS",
                 "back_ref": "PLANNED_PLAYBACK"
-            })
-
-            planned_playback_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_playback_uuid]})
-            playback_planning_completeness_generation_times.append(planned_playback_event[0].source.generation_time)
-
-            # Insert the linked COMPLETENESS event for the automatic completeness check
-            planning_event_values = corrected_planned_playback.get_structured_values()
-            planning_event_values.append({"name": "status",
-                                          "type": "text",
-                                          "value": "MISSING"})
-
-            if downlink_mode == "SAD":
-                start = corrected_planned_playback.start + datetime.timedelta(seconds=3)
-                stop = start + datetime.timedelta(seconds=2)
-            elif downlink_mode == "HKTM":
-                # HKTM
-                start = corrected_planned_playback.start + datetime.timedelta(seconds=2)
-                stop = start
-            else:
-                start = corrected_planned_playback.start + datetime.timedelta(seconds=9)
-                stop = corrected_planned_playback.stop - datetime.timedelta(seconds=3)
-            # end if
-
-            if start > stop:
-                start = corrected_planned_playback.stop - datetime.timedelta(seconds=4)
-                stop = corrected_planned_playback.stop - datetime.timedelta(seconds=3)
-            # end if
-
-            playback_planning_completeness_operation["events"].append({
-                "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                    "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_" + channel,
-                    "system": satellite
-                },
-                "start": start.isoformat(),
-                "stop": stop.isoformat(),
-                "links": [
-                    {
-                        "link": str(planned_playback_uuid),
-                        "link_mode": "by_uuid",
-                        "name": "PLAYBACK_COMPLETENESS",
-                        "back_ref": "PLANNED_PLAYBACK"
-                    }],
-                "values": planning_event_values
             })
         # end for
 
@@ -280,7 +226,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 {"name": "vcid",
                  "type": "double",
                  "value": vcid_number},
-                {"name": "downlink_mode",
+                {"name": "playback_type",
                  "type": "text",
                  "value": downlink_mode},
                 {"name": "matching_plan_status",
@@ -320,32 +266,41 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 {"name": "reception_station",
                  "type": "text",
                  "value": station},
-                {"name": "downlink_mode",
+                {"name": "playback_type",
                  "type": "text",
                  "value": downlink_mode},
             ]
         }
 
         # Insert playback_completeness_event
-        list_of_events.append(playback_completeness_event)
+        list_of_playback_completeness_events.append(playback_completeness_event)
     # end for
 
     # Insert completeness operation for the completeness analysis of the plan
-    if len(playback_planning_completeness_operation["events"]) > 0:
-        playback_planning_completeness_event_starts = [event["start"] for event in playback_planning_completeness_operation["events"]]
+    if len(list_of_playback_completeness_events) > 0:
+        playback_planning_completeness_event_starts = [event["start"] for event in list_of_playback_completeness_events]
         playback_planning_completeness_event_starts.sort()
-        playback_planning_completeness_event_stops = [event["stop"] for event in playback_planning_completeness_operation["events"]]
+        playback_planning_completeness_event_stops = [event["stop"] for event in list_of_playback_completeness_events]
         playback_planning_completeness_event_stops.sort()
 
-        playback_planning_completeness_generation_times.sort()
-        generation_time = playback_planning_completeness_generation_times[0]
+        # Generate the footprint of the events
+        list_of_playback_completeness_events_with_footprints = functions.associate_footprints(list_of_playback_completeness_events, satellite)
 
-        playback_planning_completeness_operation["source"] = {
-            "name": source["name"],
-            "reception_time": source["reception_time"],
-            "generation_time": str(generation_time),
-            "validity_start": str(playback_planning_completeness_event_starts[0]),
-            "validity_stop": str(playback_planning_completeness_event_stops[-1])
+        playback_planning_completeness_operation = {
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": "playback_planning_completeness_" + os.path.basename(__file__),
+                "version": version
+            },
+            "source": {
+                "name": source["name"],
+                "reception_time": source["reception_time"],
+                "generation_time": source["generation_time"],
+                "validity_start": str(playback_planning_completeness_event_starts[0]),
+                "validity_stop": str(playback_planning_completeness_event_stops[-1])
+            },
+            "events": list_of_playback_completeness_events_with_footprints
         }
 
         list_of_planning_operations.append(playback_planning_completeness_operation)
@@ -354,7 +309,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
     return general_status
 
 @debug
-def _generate_received_data_information(xpath_xml, source, engine, query, list_of_events, list_of_planning_operations):
+def _generate_received_data_information(xpath_xml, source, engine, query, list_of_events, list_of_isp_validity_processing_completeness_events, list_of_planning_operations):
     """
     Method to generate the events for the idle operation of the satellite
     :param xpath_xml: source of information that was xpath evaluated
@@ -387,18 +342,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
     # Obtain downlink orbit
     downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
 
-    # Completeness operation for the isp completeness analysis of the plan
-    isp_planning_completeness_operation = {
-        "mode": "insert",
-        "dim_signature": {
-            "name": "RECEPTION_" + satellite,
-            "exec": "isp_planning_completeness_" + os.path.basename(__file__),
-            "version": version
-        },
-        "events": []
-    }
-
-    isp_planning_completeness_generation_times = []
+    # List for the isp completeness analysis of the plan
+    list_of_isp_completeness_events = []
 
     isp_duration_received = 0
     links_raw_isp_validity = []
@@ -534,7 +479,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         {"name": "vcid",
                          "type": "double",
                          "value": vcid_number},
-                        {"name": "downlink_mode",
+                        {"name": "playback_type",
                          "type": "text",
                          "value": downlink_mode},
                         {"name": "apid",
@@ -606,7 +551,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     {"name": "vcid",
                      "type": "double",
                      "value": vcid_number},
-                    {"name": "downlink_mode",
+                    {"name": "playback_type",
                      "type": "text",
                      "value": downlink_mode},
                     {"name": "apid",
@@ -690,7 +635,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     {"name": "vcid",
                      "type": "double",
                      "value": vcid_number},
-                    {"name": "downlink_mode",
+                    {"name": "playback_type",
                      "type": "text",
                      "value": downlink_mode},
                     {"name": "apid",
@@ -740,48 +685,6 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         corrected_planned_imagings_segments = ingestion_functions.convert_eboa_events_to_date_segments(corrected_planned_imagings)
 
-        # Initialize the completeness
-        for corrected_planned_imaging in corrected_planned_imagings:
-            planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
-            for channel in ["1","2"]:
-
-                planned_imaging_event = query.get_events(event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
-                isp_planning_completeness_generation_times.append(planned_imaging_event[0].source.generation_time)
-
-                # Insert the linked COMPLETENESS event for the automatic completeness check
-                planning_event_values = corrected_planned_imaging.get_structured_values()
-                planning_event_values.append({"name": "status",
-                                              "type": "text",
-                                              "value": "MISSING"})
-                
-                start = corrected_planned_imaging.start + datetime.timedelta(seconds=4)
-                stop = corrected_planned_imaging.stop - datetime.timedelta(seconds=4)
-                
-                if start > stop:
-                    start = corrected_planned_imaging.start
-                    stop = corrected_planned_imaging.stop
-                # end if
-
-                isp_planning_completeness_operation["events"].append({
-                    "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
-                        "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_" + channel,
-                        "system": satellite
-                    },
-                    "start": start.isoformat(),
-                    "stop": stop.isoformat(),
-                    "links": [
-                        {
-                            "link": str(planned_imaging_uuid),
-                            "link_mode": "by_uuid",
-                            "name": "ISP_COMPLETENESS",
-                            "back_ref": "PLANNED_IMAGING"
-                        }],
-                    "values": planning_event_values
-                })
-            # end for
-        # end for
-
         # Create the ISP_VALIDITY events
         for received_datablock in received_datablocks:
             start = received_datablock["start"]
@@ -792,6 +695,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             links_isp_completeness = []
             intersected_planned_imagings_segments = ingestion_functions.intersect_timelines([received_datablock], corrected_planned_imagings_segments)
             matching_status = "NO_MATCHED_PLANNED_IMAGING"
+
+            # ISP validity event reference
+            isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(start)
+
             if len(intersected_planned_imagings_segments) > 0:
                 matching_status = "MATCHED_PLANNED_IMAGING"
                 intersected_planned_imagings_segment = intersected_planned_imagings_segments[0]
@@ -813,10 +720,230 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "name": "ISP_COMPLETENESS",
                     "back_ref": "PLANNED_IMAGING"
                 })
-            # end if
 
-            # ISP validity event reference
-            isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(start)
+                # ISP validity processing completeness events
+                imaging_mode_values = query.get_event_values_interface(value_type="text",
+                                                                        value_filters=[{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text"}],
+                                                                        event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
+                imaging_mode = imaging_mode_values[0].value
+
+                for channel in ["1","2"]:
+                    isp_validity_processing_completeness_event = {
+                        "explicit_reference": session_id,
+                        "gauge": {
+                            "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                            "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_" + channel,
+                            "system": satellite
+                        },
+                        "start": start.isoformat(),
+                        "stop": stop.isoformat(),
+                        "links": [{
+                            "link": isp_validity_event_link_ref,
+                            "link_mode": "by_ref",
+                            "name": "PROCESSING_COMPLETENESS",
+                            "back_ref": "ISP_VALIDITY"
+                        }],
+                        "values": [
+                            {"name": "status",
+                             "type": "text",
+                             "value": "MISSING"},
+                            {"name": "downlink_orbit",
+                             "type": "double",
+                             "value": downlink_orbit},
+                            {"name": "satellite",
+                             "type": "text",
+                             "value": satellite},
+                            {"name": "reception_station",
+                             "type": "text",
+                             "value": station},
+                            {"name": "playback_type",
+                             "type": "text",
+                             "value": downlink_mode},
+                            {"name": "matching_plan_status",
+                             "type": "text",
+                             "value": matching_status},
+                            {"name": "sensing_orbit",
+                             "type": "double",
+                             "value": sensing_orbit}
+                        ]
+                    }
+                    list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
+
+                    start_after_l0 = start + datetime.timedelta(seconds=6)
+                    stop_after_l0 = stop - datetime.timedelta(seconds=6)
+                    if stop_after_l0 > start_after_l0:
+                        isp_validity_processing_completeness_event = {
+                            "explicit_reference": session_id,
+                            "gauge": {
+                                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_" + channel,
+                                "system": satellite
+                            },
+                            "start": start_after_l0.isoformat(),
+                            "stop": stop_after_l0.isoformat(),
+                            "links": [{
+                                "link": isp_validity_event_link_ref,
+                                "link_mode": "by_ref",
+                                "name": "PROCESSING_COMPLETENESS",
+                                "back_ref": "ISP_VALIDITY"
+                            }],
+                            "values": [
+                                {"name": "status",
+                                 "type": "text",
+                                 "value": "MISSING"},
+                                {"name": "downlink_orbit",
+                                 "type": "double",
+                                 "value": downlink_orbit},
+                                {"name": "satellite",
+                                 "type": "text",
+                                 "value": satellite},
+                                {"name": "reception_station",
+                                 "type": "text",
+                                 "value": station},
+                                {"name": "playback_type",
+                                 "type": "text",
+                                 "value": downlink_mode},
+                                {"name": "matching_plan_status",
+                                 "type": "text",
+                                 "value": matching_status},
+                                {"name": "sensing_orbit",
+                                 "type": "double",
+                                 "value": sensing_orbit}
+                            ]
+                        }
+                        list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
+
+                        if imaging_mode in ["SUN_CAL", "DARK_CAL_CSM_OPEN", "DARK_CAL_CSM_CLOSE", "VICARIOUS_CAL", "RAW", "TEST"]:
+                            isp_validity_processing_completeness_event = {
+                                "explicit_reference": session_id,
+                                "gauge": {
+                                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1A_CHANNEL_" + channel,
+                                    "system": satellite
+                                },
+                                "start": start_after_l0.isoformat(),
+                                "stop": stop_after_l0.isoformat(),
+                                "links": [{
+                                    "link": isp_validity_event_link_ref,
+                                    "link_mode": "by_ref",
+                                    "name": "PROCESSING_COMPLETENESS",
+                                    "back_ref": "ISP_VALIDITY"
+                                }],
+                                "values": [
+                                    {"name": "status",
+                                     "type": "text",
+                                     "value": "MISSING"},
+                                    {"name": "downlink_orbit",
+                                     "type": "double",
+                                     "value": downlink_orbit},
+                                    {"name": "satellite",
+                                     "type": "text",
+                                     "value": satellite},
+                                    {"name": "reception_station",
+                                     "type": "text",
+                                     "value": station},
+                                    {"name": "playback_type",
+                                     "type": "text",
+                                     "value": downlink_mode},
+                                    {"name": "matching_plan_status",
+                                     "type": "text",
+                                     "value": matching_status},
+                                    {"name": "sensing_orbit",
+                                     "type": "double",
+                                     "value": sensing_orbit}
+                                ]
+                            }
+                            list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
+                        # end if
+
+                        if imaging_mode in ["NOMINAL", "VICARIOUS_CAL", "TEST"]:
+                            isp_validity_processing_completeness_event = {
+                                "explicit_reference": session_id,
+                                "gauge": {
+                                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_" + channel,
+                                    "system": satellite
+                                },
+                                "start": start_after_l0.isoformat(),
+                                "stop": stop_after_l0.isoformat(),
+                                "links": [{
+                                    "link": isp_validity_event_link_ref,
+                                    "link_mode": "by_ref",
+                                    "name": "PROCESSING_COMPLETENESS",
+                                    "back_ref": "ISP_VALIDITY"
+                                }],
+                                "values": [
+                                    {"name": "status",
+                                     "type": "text",
+                                     "value": "MISSING"},
+                                    {"name": "downlink_orbit",
+                                     "type": "double",
+                                     "value": downlink_orbit},
+                                    {"name": "satellite",
+                                     "type": "text",
+                                     "value": satellite},
+                                    {"name": "reception_station",
+                                     "type": "text",
+                                     "value": station},
+                                    {"name": "playback_type",
+                                     "type": "text",
+                                     "value": downlink_mode},
+                                    {"name": "matching_plan_status",
+                                     "type": "text",
+                                     "value": matching_status},
+                                    {"name": "sensing_orbit",
+                                     "type": "double",
+                                     "value": sensing_orbit}
+                                ]
+                            }
+                            list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
+                        # end if
+
+                        if imaging_mode in ["NOMINAL"]:
+                            isp_validity_processing_completeness_event = {
+                                "explicit_reference": session_id,
+                                "gauge": {
+                                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_" + channel,
+                                    "system": satellite
+                                },
+                                "start": start_after_l0.isoformat(),
+                                "stop": stop_after_l0.isoformat(),
+                                "links": [{
+                                    "link": isp_validity_event_link_ref,
+                                    "link_mode": "by_ref",
+                                    "name": "PROCESSING_COMPLETENESS",
+                                    "back_ref": "ISP_VALIDITY"
+                                }],
+                                "values": [
+                                    {"name": "status",
+                                     "type": "text",
+                                     "value": "MISSING"},
+                                    {"name": "downlink_orbit",
+                                     "type": "double",
+                                     "value": downlink_orbit},
+                                    {"name": "satellite",
+                                     "type": "text",
+                                     "value": satellite},
+                                    {"name": "reception_station",
+                                     "type": "text",
+                                     "value": station},
+                                    {"name": "playback_type",
+                                     "type": "text",
+                                     "value": downlink_mode},
+                                    {"name": "matching_plan_status",
+                                     "type": "text",
+                                     "value": matching_status},
+                                    {"name": "sensing_orbit",
+                                     "type": "double",
+                                     "value": sensing_orbit}
+                                ]
+                            }
+                            list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
+                        # end if
+                    # end if
+                # end for
+            # end if
 
             isp_gaps_intersected = ingestion_functions.intersect_timelines([received_datablock], merged_timeline_isp_gaps)
 
@@ -896,7 +1023,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     {"name": "reception_station",
                      "type": "text",
                      "value": station},
-                    {"name": "downlink_mode",
+                    {"name": "playback_type",
                      "type": "text",
                      "value": downlink_mode},
                     {"name": "matching_plan_status",
@@ -918,7 +1045,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             links_isp_completeness.append({
                 "link": isp_validity_event_link_ref,
                 "link_mode": "by_ref",
-                "name": "COMPLETENESS",
+                "name": "PLANNED_COMPLETENESS",
                 "back_ref": "ISP_VALIDITY"
             })
 
@@ -947,7 +1074,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         {"name": "reception_station",
                          "type": "text",
                          "value": station},
-                        {"name": "downlink_mode",
+                        {"name": "playback_type",
                          "type": "text",
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
@@ -957,7 +1084,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 }
 
                 # Insert isp_validity_event
-                list_of_events.append(isp_validity_completeness_event)
+                list_of_isp_completeness_events.append(isp_validity_completeness_event)
 
             # end for
         # end for
@@ -1042,21 +1169,31 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
     # end if
         
     # Insert completeness operation for the completeness analysis of the plan
-    if len(isp_planning_completeness_operation["events"]) > 0:
-        isp_planning_completeness_event_starts = [event["start"] for event in isp_planning_completeness_operation["events"]]
+    if len(list_of_isp_completeness_events) > 0:
+        isp_planning_completeness_event_starts = [event["start"] for event in list_of_isp_completeness_events]
         isp_planning_completeness_event_starts.sort()
-        isp_planning_completeness_event_stops = [event["stop"] for event in isp_planning_completeness_operation["events"]]
+        isp_planning_completeness_event_stops = [event["stop"] for event in list_of_isp_completeness_events]
         isp_planning_completeness_event_stops.sort()
 
-        isp_planning_completeness_generation_times.sort()
-        generation_time = isp_planning_completeness_generation_times[0]
-
-        isp_planning_completeness_operation["source"] = {
-            "name": source["name"],
-            "reception_time": source["reception_time"],
-            "generation_time": str(generation_time),
-            "validity_start": str(isp_planning_completeness_event_starts[0]),
-            "validity_stop": str(isp_planning_completeness_event_stops[-1])
+        # Generate the footprint of the events
+        list_of_isp_completeness_events_with_footprints = functions.associate_footprints(list_of_isp_completeness_events, satellite)
+        
+        # Completeness operation for the isp completeness analysis of the plan
+        isp_planning_completeness_operation = {
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": "isp_planning_completeness_" + os.path.basename(__file__),
+                "version": version
+            },
+            "source": {
+                "name": source["name"],
+                "reception_time": source["reception_time"],
+                "generation_time": source["generation_time"],
+                "validity_start": str(isp_planning_completeness_event_starts[0]),
+                "validity_stop": str(isp_planning_completeness_event_stops[-1])
+            },
+            "events": list_of_isp_completeness_events_with_footprints
         }
 
         list_of_planning_operations.append(isp_planning_completeness_operation)
@@ -1654,7 +1791,8 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
 
     # Extract the information of the received data
-    isp_status = _generate_received_data_information(xpath_xml, source, engine, query, list_of_events, list_of_planning_operations)
+    list_of_isp_validity_processing_completeness_events = []
+    isp_status = _generate_received_data_information(xpath_xml, source, engine, query, list_of_events, list_of_isp_validity_processing_completeness_events, list_of_planning_operations)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 30)
 
@@ -1680,14 +1818,13 @@ def process_file(file_path, engine, query, reception_time):
 
     # Build the xml
     data = {}
-    data["operations"] = list_of_planning_operations
 
     # Generate the footprint of the events
     list_of_events_with_footprint = functions.associate_footprints(list_of_events, satellite)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
 
-    data["operations"].append({
+    data["operations"] = [{
         "mode": "insert",
         "dim_signature": {
             "name": "RECEPTION_" + satellite,
@@ -1698,8 +1835,32 @@ def process_file(file_path, engine, query, reception_time):
         "explicit_references": list_of_explicit_references,
         "events": list_of_events_with_footprint,
         "annotations": list_of_annotations
-    })
+    }]
 
+    data["operations"] = data["operations"] + list_of_planning_operations
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
+
+    # Generate the footprint of the events
+    list_of_isp_validity_processing_completeness_events_with_footprint = functions.associate_footprints(list_of_isp_validity_processing_completeness_events, satellite)
+    
+    data["operations"].append({
+        "mode": "insert",
+        "dim_signature": {
+            "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
+            "exec": os.path.basename(__file__),
+            "version": version
+        },
+        "source": {
+            "name": file_name,
+            "reception_time": reception_time,
+            "generation_time": validity_start,
+            "validity_start": validity_start,
+            "validity_stop": validity_stop
+        },
+        "events": list_of_isp_validity_processing_completeness_events_with_footprint
+    })
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
 
     query.close_session()

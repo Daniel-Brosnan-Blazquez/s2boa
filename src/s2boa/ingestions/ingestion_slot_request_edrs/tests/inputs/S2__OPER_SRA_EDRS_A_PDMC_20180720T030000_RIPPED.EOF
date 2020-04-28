@@ -17,7 +17,7 @@
         <System>Sentinel PDGS</System>
         <Creator>SRA</Creator>
         <Creator_Version>3.0.4</Creator_Version>
-        <Creation_Date>UTC=2018-07-20T03:00:00</Creation_Date>
+        <Creation_Date>UTC=2018-07-21T03:00:00</Creation_Date>
       </Source>
     </Fixed_Header>
     <Variable_Header/>

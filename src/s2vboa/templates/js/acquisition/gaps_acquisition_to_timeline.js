@@ -5,7 +5,7 @@ var gaps_playbacks_timeline = [
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "downlink_orbit")|map(attribute='value')|first|int %}
     {% set station = event.eventTexts|selectattr("name", "equalto", "reception_station")|map(attribute='value')|first|string %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-    {% set playback_type = event.eventTexts|selectattr("name", "equalto", "downlink_mode")|map(attribute='value')|first|string %}
+    {% set playback_type = event.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
     {
         "id": "{{ event.event_uuid }}",
         "group": "{{ satellite }}",

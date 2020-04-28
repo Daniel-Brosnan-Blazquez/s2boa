@@ -67,10 +67,10 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check LINK_DETAILS events
         link_details = self.session.query(Annotation).join(AnnotationCnf).filter(AnnotationCnf.name == "LINK_DETAILS").all()
@@ -147,7 +147,7 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "value": "NOMINAL",
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "type": "text"
             },
             {
@@ -198,7 +198,7 @@ class TestDfepIngestion(unittest.TestCase):
             {
                 "value": "NOMINAL",
                 "type": "text",
-                "name": "downlink_mode"
+                "name": "playback_type"
             },
             {
                 "value": "-1.0",
@@ -260,7 +260,7 @@ class TestDfepIngestion(unittest.TestCase):
             {
                 "value": "NOMINAL",
                 "type": "text",
-                "name": "downlink_mode"
+                "name": "playback_type"
             },
             {
                 "value": "NO_MATCHED_PLANNED_PLAYBACK",
@@ -317,7 +317,7 @@ class TestDfepIngestion(unittest.TestCase):
             {
                 "type": "text",
                 "value": "NOMINAL",
-                "name": "downlink_mode"
+                "name": "playback_type"
             }
         ]
 
@@ -556,10 +556,10 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check LINK_DETAILS events
         link_details = self.session.query(Annotation).join(AnnotationCnf).filter(AnnotationCnf.name == "LINK_DETAILS").all()
@@ -628,7 +628,7 @@ class TestDfepIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "value": "NOMINAL",
                 "type": "text"
             },
@@ -678,7 +678,7 @@ class TestDfepIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "value": "NOMINAL",
                 "type": "text"
             },
@@ -718,7 +718,7 @@ class TestDfepIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "value": "NOMINAL",
                 "type": "text"
             },
@@ -827,7 +827,7 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "type": "text",
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "value": "NOMINAL"
             },
             {
@@ -881,7 +881,7 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "type": "text",
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "value": "NOMINAL"
             },
             {
@@ -941,7 +941,7 @@ class TestDfepIngestion(unittest.TestCase):
             {
                 "type": "text",
                 "value": "NOMINAL",
-                "name": "downlink_mode"
+                "name": "playback_type"
             },
             {
                 "type": "double",
@@ -1008,7 +1008,7 @@ class TestDfepIngestion(unittest.TestCase):
                 "value": "4.0"
             },
             {
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "type": "text",
                 "value": "NOMINAL"
             },
@@ -1059,10 +1059,10 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
                                                    Source.validity_stop == "2018-07-21T23:30:15").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check LINK_DETAILS events
         link_details = self.session.query(Annotation).join(AnnotationCnf).filter(AnnotationCnf.name == "LINK_DETAILS").all()
@@ -1165,10 +1165,10 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:27",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:27",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check LINK_DETAILS events
         link_details = self.session.query(Annotation).join(AnnotationCnf).filter(AnnotationCnf.name == "LINK_DETAILS").all()
@@ -1222,10 +1222,10 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check LINK_DETAILS events
         link_details = self.session.query(Annotation).join(AnnotationCnf).filter(AnnotationCnf.name == "LINK_DETAILS").all()
@@ -1295,7 +1295,7 @@ class TestDfepIngestion(unittest.TestCase):
             },
             {
                 "type": "text",
-                "name": "downlink_mode",
+                "name": "playback_type",
                 "value": "NOMINAL"
             },
             {
@@ -1339,22 +1339,26 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).all()
+
+        assert len(sources) == 8
+        
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:02.255634",
-                                                   Source.validity_stop == "2018-07-21T09:08:56.195941",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:52:29.993268",
+                                                   Source.validity_stop == "2018-07-21T08:54:18.226646",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:41.524661",
-                                                   Source.validity_stop == "2018-07-21T10:37:24.534390",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:33.728601",
+                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
 
@@ -1363,7 +1367,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF").all()
 
-        assert len(events) == 17
+        assert len(events) == 21
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -1372,12 +1376,22 @@ class TestDfepIngestion(unittest.TestCase):
 
         # Check specific ISP completeness
         isp_completeness_missing_left = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_%"),
-                                                                                 Event.start == "2018-07-21T08:36:02.255634",
+                                                                                 Event.start == "2018-07-21T08:36:08.255634",
                                                                                  Event.stop == "2018-07-21T08:52:29.993268").all()
 
         assert len(isp_completeness_missing_left) == 2
 
         isp_completeness_statuses = [event for event in isp_completeness_missing_left if len([value for value in event.eventTexts if value.name == "status" and value.value == "MISSING"]) > 0]
+
+        assert len(isp_completeness_statuses) == 2
+
+        isp_completeness_missing_right = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_%"),
+                                                                                 Event.start == "2018-07-21T08:54:18.226646",
+                                                                                 Event.stop == "2018-07-21T09:08:50.195941").all()
+
+        assert len(isp_completeness_missing_left) == 2
+
+        isp_completeness_statuses = [event for event in isp_completeness_missing_right if len([value for value in event.eventTexts if value.name == "status" and value.value == "MISSING"]) > 0]
 
         assert len(isp_completeness_statuses) == 2
 
@@ -1410,15 +1424,19 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
+        sources = self.session.query(Source).all()
+
+        assert len(sources) == 7
+        
         source = self.session.query(Source).filter(Source.validity_start == "2018-07-21 01:47:36",
                                                    Source.validity_stop == "2018-07-21T01:47:51",
                                                    Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
-        assert len(source) == 1
+        assert len(source) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T01:47:43.206477",
-                                                   Source.validity_stop == "2018-07-21T01:47:43.206477",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T01:47:42.854151",
+                                                   Source.validity_stop == "2018-07-21T01:47:43.833085",
                                                    Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
 
@@ -1523,22 +1541,26 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).all()
+
+        assert len(sources) == 8
+
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:02.255634",
-                                                   Source.validity_stop == "2018-07-21T09:08:56.195941",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:52:29.993268",
+                                                   Source.validity_stop == "2018-07-21T08:54:18.226646",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:07.255634",
-                                                   Source.validity_stop == "2018-07-21T10:37:24.534390",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:33.728601",
+                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
 
@@ -1547,7 +1569,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
 
-        assert len(events) == 19
+        assert len(events) == 21
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
@@ -1578,29 +1600,29 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:36:02.255634",
-                                                   Source.validity_stop == "2018-07-21T09:08:56.195941",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:52:29.993268",
+                                                   Source.validity_stop == "2018-07-21T08:54:18.226646",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:39.237394",
-                                                   Source.validity_stop == "2018-07-21T10:37:24.534390",
+        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:33.728601",
+                                                   Source.validity_stop == "2018-07-21T10:37:26.355940",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
 
-    def test_insert_rep_pass_with_planned_small_playback(self):
+    def test_insert_rep_pass_with_gaps_at_the_end(self):
 
         filename = "S2A_REP_PASS_GAPS_AT_THE_END_APID.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -1610,12 +1632,12 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == filename,
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
@@ -1638,12 +1660,12 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
+        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
                                                    Source.validity_stop == "2018-07-21T23:30:15",
                                                    Source.name == filename,
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
