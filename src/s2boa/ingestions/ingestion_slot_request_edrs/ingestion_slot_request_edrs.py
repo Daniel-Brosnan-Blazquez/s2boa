@@ -120,7 +120,9 @@ def process_file(file_path, engine, query, reception_time):
                                                  return_prime_events = False)
 
         status = "NO_MATCHED_PLAYBACK"
-        links = []
+        links_slot_request = []
+        links_dfep_schedule = []
+        links_station_schedule = []
         if len(playbacks["linked_events"]) > 0:
             for playback in playbacks["linked_events"]:
                 # Get the planned playback mean
@@ -131,10 +133,22 @@ def process_file(file_path, engine, query, reception_time):
 
                     if mean == "OCP":
                         status = "MATCHED_PLAYBACK"
-                        links.append({
+                        links_slot_request.append({
                             "link": str(playback.event_uuid),
                             "link_mode": "by_uuid",
                             "name": "SLOT_REQUEST_EDRS",
+                            "back_ref": "PLANNED_PLAYBACK"
+                        })
+                        links_dfep_schedule.append({
+                            "link": str(playback.event_uuid),
+                            "link_mode": "by_uuid",
+                            "name": "DFEP_SCHEDULE",
+                            "back_ref": "PLANNED_PLAYBACK"
+                        })
+                        links_station_schedule.append({
+                            "link": str(playback.event_uuid),
+                            "link_mode": "by_uuid",
+                            "name": "STATION_SCHEDULE",
                             "back_ref": "PLANNED_PLAYBACK"
                         })
                         value = {
@@ -177,7 +191,7 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "SLOT_REQUEST_EDRS",
                 "system": sentinel
             },
-            "links": links,
+            "links": links_slot_request,
             "start": start,
             "stop": stop,
             "values": [
@@ -214,7 +228,7 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "DFEP_SCHEDULE_COMPLETENESS",
                 "system": sentinel
             },
-            "links": links,
+            "links": links_dfep_schedule,
             "start": start,
             "stop": stop,
             "values": [
@@ -247,7 +261,7 @@ def process_file(file_path, engine, query, reception_time):
                 "name": "STATION_SCHEDULE_COMPLETENESS",
                 "system": sentinel
             },
-            "links": links,
+            "links": links_station_schedule,
             "start": start,
             "stop": stop,
             "values": [

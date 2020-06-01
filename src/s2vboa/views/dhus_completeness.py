@@ -51,7 +51,7 @@ def show_dhus_completeness():
         "operator": ">="
     }
     mission = "S2_"
-    levels = ["L1C", "L2A"]
+    levels = "ALL"
 
     window_size = 1
     start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
@@ -70,9 +70,7 @@ def show_dhus_completeness():
             mission = request.form["mission"]
         # end if
         if request.form["levels"] != "":
-            if request.form["levels"] != "ALL":
-                levels = [request.form["levels"]]
-            # end if
+                levels = request.form["levels"]
         # end if
 
     # end if
@@ -112,11 +110,9 @@ def show_sliding_dhus_completeness_parameters():
     window_size = float(request.args.get("window_size"))
     repeat_cycle = float(request.args.get("repeat_cycle"))
     mission = request.args.get("mission")
-    levels = ["L1C", "L2A"]
+    levels = "ALL"
     if request.args.get("levels") != "":
-        if request.args.get("levels") != "ALL":
-            levels = [request.args.get("levels")]
-        # end if
+        levels = request.args.get("levels")
     # end if
 
 
@@ -151,7 +147,7 @@ def show_sliding_dhus_completeness():
     repeat_cycle=1
 
     mission = "S2_"
-    levels = ["L1C", "L2A"]
+    levels = "ALL"
     
     if request.method == "POST":
 
@@ -160,9 +156,7 @@ def show_sliding_dhus_completeness():
         # end if
 
         if request.form["levels"] != "":
-            if request.form["levels"] != "ALL":
-                levels = [request.form["levels"]]
-            # end if
+            levels = request.form["levels"]
         # end if
 
         if request.form["dhus_completeness_window_delay"] != "":
@@ -264,7 +258,13 @@ def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, f
 
     info["processing_completeness"] = {}
     info["tls"] = {}
-    for level in levels:
+
+    parsed_levels = ["L1C", "L2A"]
+    if levels != "ALL":
+        parsed_levels = [levels]
+    # end if
+    
+    for level in parsed_levels:
         info["processing_completeness"][level] = [event for event in planned_imaging_events["linking_events"]["PROCESSING_COMPLETENESS"] if event.gauge.name == "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level]
         dss = [event.explicitRef.explicit_ref for event in info["processing_completeness"][level] if event.explicitRef != None]
         info["tls"][level] = query.get_linking_explicit_refs(explicit_refs = {"filter": dss, "op": "in"}, link_names = {"filter": ["TILE"], "op": "in"}, return_prime_explicit_refs = False)["linking_explicit_refs"]

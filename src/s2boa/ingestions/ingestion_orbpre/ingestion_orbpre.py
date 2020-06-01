@@ -616,7 +616,7 @@ def process_file(file_path, engine, query, reception_time):
                 "exec": os.path.basename(__file__),
                 "version": version
             },
-            "source": source,
+            "source": source_corrected,
             "events": list_of_completeness_events_with_footprint
         })
     # end if

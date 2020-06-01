@@ -137,19 +137,19 @@
         <div class="col-xs-3">
           <div class="panel panel-success">
             <div class="panel-heading" align="center" style="font-size: 20px">Acquired MSI duration (m)</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-acquired-msi">{{ (expected_acquisition_duration - missing_acquisition_duration)|round(3) }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-acquired-msi">{{ (expected_acquisition_duration_from_isp_completeness - missing_acquisition_duration)|round(3) }}</div>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="panel panel-success">
             <div class="panel-heading" align="center" style="font-size: 20px">Processed MSI duration up to L1C (m)</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-processed-to-l1c-msi">{{ (expected_acquisition_duration - missing_l1c_processing_duration)|round(3) }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-processed-to-l1c-msi">{{ (expected_processing_duration_l1c - missing_l1c_processing_duration)|round(3) }}</div>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="panel panel-success">
             <div class="panel-heading" align="center" style="font-size: 20px">Processed MSI duration up to L2A (m)</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-processed-to-l2a-msi">{{ (expected_acquisition_duration - missing_l2a_processing_duration)|round(3) }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-processed-to-l2a-msi">{{ (expected_processing_duration_l2a - missing_l2a_processing_duration)|round(3) }}</div>
           </div>
         </div>
         <div class="col-xs-3">
@@ -247,9 +247,11 @@
       <table width="100%" class="table table-striped table-bordered table-hover table-search" id="dhus-completeness-list-table">
         <thead>
           <tr>
-            <th colspan="6">Imaging acquisition information</th>
-            <th colspan="6">Tile information</th>
-            <th colspan="3">Datastrip information</th>
+            <th colspan="5">Datastrip information</th>
+            <th colspan="3">Tile status</th>
+            <th colspan="4">Dissemination information</th>
+            <th colspan="1">Datastrip</th>
+            <th colspan="2">Associated MSI acquisition</th>
           </tr>
           <tr>
             <th>Level</th>
@@ -257,13 +259,13 @@
             <th>Orbit</th>
             <th>Start</th>
             <th>Stop</th>
-            <th>Status</th>
             <th>Tile</th>
+            <th>Status</th>
+            <th>DHUS Product name</th>
             <th>DAM Publication time</th>
             <th>Sensing to DAM (m)</th>
             <th>DHUS Dissemination time</th>
             <th>DAM to DHUS (m)</th>
-            <th>DHUS Product name</th>
             <th>Datastrip</th>
             <th>Start</th>
             <th>Stop</th>
@@ -278,7 +280,13 @@
           {% set processing_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "PROCESSING_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
           {% set isp_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "ISP_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
 
-          {% for level in levels %}
+          {% set parsed_levels = [["L1C", "L2A"]] %}
+          {% if levels != "ALL" %}
+          {% do parsed_levels.pop() %}
+          {% do parsed_levels.append([levels]) %}
+          {% endif %}
+          
+          {% for level in parsed_levels[0] %}
           {% set processing_completeness_events = info["processing_completeness"][level]|selectattr("event_uuid", "in", processing_completeness_uuids)|list %}
           {% set isp_completeness_events = info["isp_completeness"]|selectattr("event_uuid", "in", isp_completeness_uuids)|list %}
           
@@ -429,13 +437,13 @@
             <th>Orbit</th>
             <th>Start</th>
             <th>Stop</th>
-            <th>Status</th>
             <th>Tile</th>
+            <th>Status</th>
+            <th>DHUS Product name</th>
             <th>DAM Publication time</th>
             <th>Sensing to DAM (m)</th>
             <th>DHUS Dissemination time</th>
             <th>DAM to DHUS (m)</th>
-            <th>DHUS Product name</th>
             <th>Datastrip</th>
             <th>Start</th>
             <th>Stop</th>

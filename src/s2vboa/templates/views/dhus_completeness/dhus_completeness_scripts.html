@@ -1,2 +1,12 @@
 <script type="text/javascript">
+  {% if sliding_window %}
+  var parameters = {
+      "window_delay": "{{ sliding_window['window_delay'] }}",
+      "window_size": "{{ sliding_window['window_size'] }}",
+      "mission": "{{ sliding_window['mission'] }}",
+      "levels": "{{ sliding_window['levels'] }}"
+  }
+  var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
+  vboa.update_view(parameters, repeat_cycle, "/views/sliding-dhus-completeness-parameters");
+  {% endif %}
 </script>
