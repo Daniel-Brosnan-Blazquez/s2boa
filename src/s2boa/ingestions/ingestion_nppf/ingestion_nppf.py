@@ -828,7 +828,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
                     "name": "DFEP_SCHEDULE_COMPLETENESS",
-                    "back_ref": "PLANNED_EVENT"
+                    "back_ref": "PLANNED_PLAYBACK"
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
@@ -847,7 +847,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
                     "name": "STATION_SCHEDULE_COMPLETENESS",
-                    "back_ref": "PLANNED_EVENT"
+                    "back_ref": "PLANNED_PLAYBACK"
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
@@ -866,7 +866,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                         "link": planning_event["link_ref"],
                         "link_mode": "by_ref",
                         "name": "PLAYBACK_COMPLETENESS",
-                        "back_ref": "PLANNED_EVENT"
+                        "back_ref": "PLANNED_PLAYBACK"
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
@@ -885,7 +885,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                         "link": planning_event["link_ref"],
                         "link_mode": "by_ref",
                         "name": "PLAYBACK_COMPLETENESS",
-                        "back_ref": "PLANNED_EVENT"
+                        "back_ref": "PLANNED_PLAYBACK"
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
@@ -913,7 +913,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
                     "name": "ISP_COMPLETENESS",
-                    "back_ref": "PLANNED_EVENT"
+                    "back_ref": "PLANNED_IMAGING"
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
@@ -930,7 +930,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
                     "name": "ISP_COMPLETENESS",
-                    "back_ref": "PLANNED_EVENT"
+                    "back_ref": "PLANNED_IMAGING"
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
@@ -949,7 +949,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
                     "name": "PROCESSING_COMPLETENESS",
-                    "back_ref": "PLANNED_EVENT"
+                    "back_ref": "PLANNED_IMAGING"
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
@@ -966,7 +966,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "link": planning_event["link_ref"],
                     "link_mode": "by_ref",
                     "name": "PROCESSING_COMPLETENESS",
-                    "back_ref": "PLANNED_EVENT"
+                    "back_ref": "PLANNED_IMAGING"
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
@@ -984,7 +984,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                         "link": planning_event["link_ref"],
                         "link_mode": "by_ref",
                         "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "PLANNED_EVENT"
+                        "back_ref": "PLANNED_IMAGING"
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
@@ -1003,7 +1003,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                         "link": planning_event["link_ref"],
                         "link_mode": "by_ref",
                         "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "PLANNED_EVENT"
+                        "back_ref": "PLANNED_IMAGING"
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
@@ -1022,7 +1022,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                         "link": planning_event["link_ref"],
                         "link_mode": "by_ref",
                         "name": "PROCESSING_COMPLETENESS",
-                        "back_ref": "PLANNED_EVENT"
+                        "back_ref": "PLANNED_IMAGING"
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
