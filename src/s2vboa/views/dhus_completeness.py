@@ -35,7 +35,7 @@ def show_dhus_completeness():
     current_app.logger.debug("DHUS completeness view")
 
     filters = {}
-    filters["limit"] = ["5"]    
+    filters["limit"] = ["20"]    
     if request.method == "POST":
         filters = request.form.to_dict(flat=False).copy()
     # end if
@@ -81,6 +81,41 @@ def show_dhus_completeness():
     filters["levels"] = levels
 
     return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, filters = filters)
+
+@bp.route("/dhus-completeness-by-datatake/<string:corrected_planned_imaging_uuid>")
+def show_specific_datatake(corrected_planned_imaging_uuid):
+    """
+    Specific dhus completeness view for one datatake related to the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Specific dhus completeness view")
+
+    # Get the events of the datatake
+    corrected_planned_imaging = query.get_events(event_uuids = {"filter": corrected_planned_imaging_uuid, "op": "=="})[0]
+    
+    filters = {}
+    filters["limit"] = [""]
+    filters["offset"] = [""]
+    start_filter = {
+        "date": corrected_planned_imaging.stop.isoformat(),
+        "operator": "<="
+    }
+    stop_filter = {
+        "date": corrected_planned_imaging.start.isoformat(),
+        "operator": ">="
+    }
+    mission = "S2_"
+    levels = "ALL"
+
+    filters["start"] = [stop_filter["date"]]
+    filters["stop"] = [start_filter["date"]]
+    filters["mission"] = [mission]
+
+    filters["start"] = [stop_filter["date"]]
+    filters["stop"] = [start_filter["date"]]
+    filters["mission"] = [mission]
+    filters["levels"] = levels
+
+    return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, filters = filters, corrected_planned_imaging_uuid = corrected_planned_imaging_uuid)
 
 @bp.route("/dhus-completeness-pages", methods=["POST"])
 def query_dhus_completeness_pages():
@@ -192,20 +227,23 @@ def show_sliding_dhus_completeness():
 
     return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, sliding_window)
 
-def query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, sliding_window = None, filters = None):
+def query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, sliding_window = None, filters = None, corrected_planned_imaging_uuid = None):
 
-    info = query_dhus_completeness_events(start_filter, stop_filter, mission, levels, filters)
+    info = query_dhus_completeness_events(start_filter, stop_filter, mission, levels, filters, corrected_planned_imaging_uuid)
 
     orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
 
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
-    
+
     route = "views/dhus_completeness/dhus_completeness.html"
+    if corrected_planned_imaging_uuid != None:
+        route = "views/dhus_completeness/dhus_completeness_datatake.html"
+    # end if
 
     return render_template(route, info=info, orbpre_events=orbpre_events, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, levels=levels, sliding_window=sliding_window, filters=filters)
 
-def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, filters):
+def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, filters, corrected_planned_imaging_uuid = None):
     """
     Query planned acquisition events.
     """
@@ -213,35 +251,39 @@ def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, f
 
     kwargs = {}
 
-    # Set offset and limit for the query
-    if filters and "offset" in filters and filters["offset"][0] != "":
-        kwargs["offset"] = filters["offset"][0]
-    # end if
-    if filters and "limit" in filters and filters["limit"][0] != "":
-        kwargs["limit"] = filters["limit"][0]
-    # end if
+    if corrected_planned_imaging_uuid == None:
+        # Set offset and limit for the query
+        if filters and "offset" in filters and filters["offset"][0] != "":
+            kwargs["offset"] = filters["offset"][0]
+        # end if
+        if filters and "limit" in filters and filters["limit"][0] != "":
+            kwargs["limit"] = filters["limit"][0]
+        # end if
 
-    # Set order by reception_time descending
-    kwargs["order_by"] = {"field": "start", "descending": True}
+        # Set order by reception_time descending
+        kwargs["order_by"] = {"field": "start", "descending": True}
 
-    # Start filter
-    if start_filter:
-        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-    # end if
+        # Start filter
+        if start_filter:
+            kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        # end if
 
-    # Stop filter
-    if stop_filter:
-        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-    # end if
+        # Stop filter
+        if stop_filter:
+            kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        # end if
 
-    # Mission
-    if mission:
-        kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
-                                    "type": "text",
-                                    "value": {"op": "like", "filter": mission}
-                                }]
+        # Mission
+        if mission:
+            kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
+                                        "type": "text",
+                                        "value": {"op": "like", "filter": mission}
+                                    }]
+        # end if
+        kwargs["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="}
+    else:
+        kwargs["event_uuids"] = {"filter": corrected_planned_imaging_uuid, "op": "=="}
     # end if
-    kwargs["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="}
     
     ####
     # Query planned imagings

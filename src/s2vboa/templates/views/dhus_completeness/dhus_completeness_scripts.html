@@ -1,4 +1,33 @@
 <script type="text/javascript">
+
+  {% include "js/dhus_completeness/dhus_completeness_functions.js" %}
+  
+  {% set parsed_levels = [["L1C", "L2A"]] %}
+  {% if levels != "ALL" %}
+  {% do parsed_levels.pop() %}
+  {% do parsed_levels.append([levels]) %}
+  {% endif %}
+  
+  {% for level in parsed_levels[0] %}
+
+  {% include "js/dhus_completeness/missing_segments_to_map.js" %}
+  var polygons_missing = [];
+  vboa.prepare_events_geometries_for_map(missing_segments, polygons_missing);
+
+  {% include "js/dhus_completeness/complete_segments_to_map.js" %}
+  var polygons_complete = [];
+  vboa.prepare_events_geometries_for_map(complete_segments, polygons_missing);
+
+  var polygons = polygons_missing.concat(polygons_complete);
+
+  {% if level == "L1C" %}
+  vboa.display_map("dhus-completeness-l1c-on-map", polygons);
+  {% else %}
+  vboa.display_map("dhus-completeness-l2a-on-map", polygons);
+  {% endif %}
+
+  {% endfor %}
+
   {% if sliding_window %}
   var parameters = {
       "window_delay": "{{ sliding_window['window_delay'] }}",

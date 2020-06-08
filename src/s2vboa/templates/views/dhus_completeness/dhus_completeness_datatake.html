@@ -69,11 +69,11 @@
 
 {% block content %}
 <div class="row">
-  <h1 class="page-header">Data Availability in DHUS, completeness from planning</h1>
+  <h1 class="page-header">Data Availability in DHUS, completeness of the datatake with UUID {{ info["imaging"][0].event_uuid }}</h1>
 </div>
 <!-- /.row -->
 
-{% include "views/dhus_completeness/dhus_completeness_content.html" %}
+{% include "views/dhus_completeness/dhus_completeness_datatake_content.html" %}
 {% endblock %}
 
 {% block scripts %}

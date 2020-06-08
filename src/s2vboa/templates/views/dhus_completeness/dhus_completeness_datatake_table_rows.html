@@ -5,16 +5,22 @@
   <td><a href="/eboa_nav/query-event-links/{{ original_imaging_uuid }}">{{ orbit }}</a></td>
   <td>{{ datastrip_start }}</td>
   <td>{{ datastrip_stop }}</td>
+  {% if tile_link %}
+  <td><a href="/eboa_nav/query-er-links/{{ tile_uuid }}">{{ tile }}</a></td>
+  {% else %}
+  <td>{{ tile }}</td>
+  {% endif %}
+  <td class="{{ status_class }}">{{ status }}</td>
+  <td>{{ dhus_product_name }}</td>
+  <td>{{ dam_publication_time }}</td>
+  <td>{{ sensing_to_dhus }}</td>
+  <td>{{ dhus_dissemination_time }}</td>
+  <td>{{ dam_to_dhus }}</td>
   {% if datastrip_link %}
-  <td><a href="/views/dhus-completeness-by-datatake/{{ corrected_imaging.event_uuid }}">{{ datastrip }}</a></td>
+  <td><a href="/eboa_nav/query-er-links/{{ datastrip_uuid }}">{{ datastrip }}</a></td>
   {% else %}
   <td>{{ datastrip }}</td>
   {% endif %}
-  <td class="{{ status_class }}">{{ status }}</td>
-  <td>{{ number_of_tiles }}</td>
-  <td>{{ number_of_tiles_in_dam }}</td>
-  <td>{{ number_of_tiles_in_dhus }}</td>
-  <td>{{ mean_time_to_dhus }}</td>
   <td>{{ corrected_imaging.start.isoformat() }}</td>
   <td>{{ corrected_imaging.stop.isoformat() }}</td>
 </tr>

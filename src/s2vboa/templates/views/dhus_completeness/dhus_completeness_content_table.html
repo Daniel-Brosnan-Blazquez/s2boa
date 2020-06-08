@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% if type_of_table == "COMPLETE" %}
+        <a data-toggle="collapse" data-parent="#accordion" href="#dhus-completeness-list-{{ type_of_table }}">Data availability in DHUS <span class="fa fa-angle-double-down"></span></a>
+        {% else %}
+        <a data-toggle="collapse" data-parent="#accordion" href="#dhus-completeness-list-{{ type_of_table }}" style="color:red">Missing dissemination to DHUS <span class="fa fa-angle-double-down"></span></a>
+        {% endif %}
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="dhus-completeness-list-{{ type_of_table }}">
+      <p>
+        <b>The following table shows the status of the publication of data in DHUS from planning</b>:
+      </p>
+      <a data-toggle="collapse" data-parent="#accordion" href="#dhus-completeness-columns-help-list-{{ type_of_table }}"><b>Columns help:</b> <span class="fa fa-angle-double-down"></span></a>
+      <div class="panel-body panel-collapse collapse" id="dhus-completeness-columns-help-list-{{ type_of_table }}">
+        {% include "views/dhus_completeness/dhus_completeness_content_columns_help.html" %}
+      </div>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="dhus-completeness-list-table-{{ type_of_table }}">
+        <thead>
+          <tr>
+            <th colspan="11">Datastrip information</th>
+            <th colspan="2">Associated MSI acquisition</th>
+          </tr>
+          <tr>
+            <th>Level</th>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Datastrip</th>
+            <th>Status</th>
+            <th># tiles</th>
+            <th># tiles in DAM</th>
+            <th># tiles in DHUS</th>
+            <th>mean time to DHUS (m)</th>
+            <th>Start</th>
+            <th>Stop</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for corrected_imaging in info["imaging_correction"] %}
+          {% set original_imaging_uuid = corrected_imaging.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute="event_uuid_link")|first %}
+          {% set original_imaging = info["imaging"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
+          {% set satellite = original_imaging.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute="value")|first|string %}
+          {% set orbit = original_imaging.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|first|int|string %}
+          {% set processing_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "PROCESSING_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
+          {% set isp_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "ISP_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
+
+          {% set parsed_levels = [["L1C", "L2A"]] %}
+          {% if levels != "ALL" %}
+          {% do parsed_levels.pop() %}
+          {% do parsed_levels.append([levels]) %}
+          {% endif %}
+          
+          {% for level in parsed_levels[0] %}
+          {% set processing_completeness_events = info["processing_completeness"][level]|selectattr("event_uuid", "in", processing_completeness_uuids)|list %}
+          {% set isp_completeness_events = info["isp_completeness"]|selectattr("event_uuid", "in", isp_completeness_uuids)|list %}
+          
+          {% for processing_completeness in processing_completeness_events|sort(attribute="start", reverse=True) %}
+
+          {% set processing_completeness_status = processing_completeness.eventTexts|selectattr("name", "equalto", "status")|map(attribute="value")|first|string %}
+          {% if processing_completeness_status == "MISSING" %}
+          {% set number_of_tiles = "N/A" %}
+          {% set number_of_tiles_in_dam = "N/A" %}
+          {% set number_of_tiles_in_dhus = "N/A" %}
+          {% set mean_time_to_dhus = "N/A" %}
+          {% set datastrip = "N/A" %}
+          {% set datastrip_start = processing_completeness.start.isoformat() %}
+          {% set datastrip_stop = processing_completeness.stop.isoformat() %}
+          {% set status_class = "bold-red" %}
+
+          {% set intersected_isp_completeness_segments = [processing_completeness]|convert_eboa_events_to_date_segments|intersect_timelines(isp_completeness_events|convert_eboa_events_to_date_segments) %}
+          {% set intersected_isp_completeness_missing_events = [] %}
+          {% for intersected_isp_completeness_segment in intersected_isp_completeness_segments %}
+          {% set intersected_isp_completeness_event = isp_completeness_events|selectattr("event_uuid", "equalto", intersected_isp_completeness_segment["id2"])|first %}
+          {% set intersected_isp_completeness_event_status = intersected_isp_completeness_event.eventTexts|selectattr("name", "equalto", "status")|map(attribute="value")|first|string %}
+          {% if intersected_isp_completeness_event_status == "MISSING" %}
+          {% do intersected_isp_completeness_missing_events.append(intersected_isp_completeness_event) %}
+          {% endif %}
+          {% endfor %}
+          
+          {% if intersected_isp_completeness_missing_events|length > 0 %}
+          {% set status = "MISSING ACQUISITION" %}
+          {% else %}
+          {% set status = "MISSING PROCESSING" %}
+          {% endif %}
+          
+          {% include "views/dhus_completeness/dhus_completeness_content_table_rows.html" %}
+          
+          {% else %}
+
+          {% set datastrip = processing_completeness.explicitRef.explicit_ref %}
+          {% set datastrip_uuid = processing_completeness.explicitRef.explicit_ref_uuid %}
+          {% set datastrip_link = True %}
+          {% set datastrip_start = processing_completeness.start.isoformat() %}
+          {% set datastrip_stop = processing_completeness.stop.isoformat() %}
+          
+          {% set tile_uuids = processing_completeness.explicitRef.explicitRefLinks|selectattr("name", "equalto", "TILE")|map(attribute="explicit_ref_uuid_link")|list %}
+
+          {% set tile_infos = info["tls"][level]|selectattr("explicit_ref_uuid", "in", tile_uuids)|list %}
+          {% set number_of_tiles = info["tls"][level]|length %}
+
+          {% set tile_data = {"number_of_tiles_in_dam": 0, "number_of_tiles_in_dhus": 0} %}
+          {% set times_to_dhus = [] %}
+          {% for tile_info in tile_infos %}
+
+          {% set dam_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|list %}
+          {% set dhus_dissemination_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|list %}
+
+          {% set dam_publication_status = dam_publication_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
+          {% set dhus_dissemination_status = dhus_dissemination_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
+          
+          {% if dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+          {% do tile_data.update({"number_of_tiles_in_dam": tile_data["number_of_tiles_in_dam"] + 1}) %}
+          {% do tile_data.update({"number_of_tiles_in_dhus": tile_data["number_of_tiles_in_dhus"] + 1}) %}
+          {% elif dam_publication_annotations|length > 0 and "MISSING" != dam_publication_status %}
+          {% do tile_data.update({"number_of_tiles_in_dam": tile_data["number_of_tiles_in_dam"] + 1}) %}
+          {% endif %}
+
+          {% if dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+          {% set dhus_dissemination_time_datetime = dhus_dissemination_annotations|map(attribute="annotationTimestamps")|flatten|selectattr("name", "equalto", "dhus_dissemination_time")|map(attribute="value")|sort|first %}
+          {% set dhus_dissemination_time = dhus_dissemination_time_datetime|string %}
+          {% do times_to_dhus.append(((dhus_dissemination_time_datetime - corrected_imaging.start).total_seconds() / 60)) %}
+          {% endif %}
+
+          {% endfor %}
+
+          {% if times_to_dhus|length > 0 %}
+          {% set mean_time_to_dhus = (times_to_dhus|sum / times_to_dhus|length)|round(3) %}
+          {% else %}
+          {% set mean_time_to_dhus = "N/A" %}
+          {% endif %}
+
+          {% set number_of_tiles_in_dhus = tile_data["number_of_tiles_in_dhus"] %}
+          {% set number_of_tiles_in_dam = tile_data["number_of_tiles_in_dam"] %}
+
+          {% if number_of_tiles == number_of_tiles_in_dhus %}
+          {% set status_class = "bold-green" %}
+          {% set status = "OK" %}
+          {% elif number_of_tiles == number_of_tiles_in_dam %}
+          {% set status_class = "bold-red" %}
+          {% set status = "MISSING DHUS DISSEMINATION" %}
+          {% else %}
+          {% set status_class = "bold-red" %}
+          {% set status = "MISSING DAM PUBLICATION" %}
+          {% endif %}
+          
+          {% include "views/dhus_completeness/dhus_completeness_content_table_rows.html" %}
+          
+          {% endif %}
+
+          {% endfor %}
+          
+          {% endfor %}
+
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Level</th>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Datastrip</th>
+            <th>Status</th>
+            <th># tiles</th>
+            <th># tiles in DAM</th>
+            <th># tiles in DHUS</th>
+            <th>mean time to DHUS (m)</th>
+            <th>Start</th>
+            <th>Stop</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+    </div>
+  </div>
+</div>
