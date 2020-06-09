@@ -1,4 +1,4 @@
-{% if missing_playbacks|length > 0 %}
+{% if missing_playbacks|length > 0 or acquisition_events["planned_playbacks_gaps_reception"]|length > 0 or acquisition_events["planned_playbacks_gaps_msi"]|length > 0 %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -41,10 +41,9 @@
           </tr>
         </thead>
         <tbody>
-          {% for original_playback in missing_playbacks %}
-          {% set original_playback_uuid = original_playback.event_uuid %}
-          {% set corrected_playback_uuid = original_playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
-          {% set corrected_playback = acquisition_events["playback_correction"]|selectattr("event_uuid", "equalto", corrected_playback_uuid)|first %}
+          {% for event in acquisition_events["playback_correction"] %}
+          {% set original_playback_uuid = event.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute='event_uuid_link')|first %}
+          {% set original_playback = acquisition_events["playback"]|selectattr("event_uuid", "equalto", original_playback_uuid)|first %}
 
           <!-- Analyze if playback suffered by gaps at MSI -->
           {% set playback_with_gaps_msi = acquisition_events["planned_playbacks_gaps_msi"]|selectattr("event_uuid", "equalto", original_playback_uuid)|list %}
@@ -53,8 +52,8 @@
           {% set playback_validity_explicit_refs = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|map(attribute='explicitRef')|map(attribute='explicit_ref')|unique|list %}
           {% set raw_isp_validities_with_packet_status_nok = acquisition_events["raw_isp_validity_events_with_packet_status_nok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
           
-          {% set playback_validity_uuid = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|first %}
-          {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "equalto", playback_validity_uuid)|first %}
+          {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|list %}
+          {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|sort(attribute="start")|first %}
           <!-- DFEP, station and SRA schedule -->
           {% set dfep_schedule_event = None %}
           {% set station_schedule_event = None %}
@@ -81,7 +80,7 @@
           {% set parameters_object = original_playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
           {% set parameters = original_playback.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
           <!--Playback Status-->
-          {% if not playback_validity_uuid %}
+          {% if playback_validity_uuids|length == 0 %}
           {% set playback_status = "MISSING" %}
           {% set playback_status_class = "bold-red" %}
           {% else %}
@@ -98,6 +97,7 @@
           {% set playback_status_class = "bold-orange" %}
           {% endif %}
           {% endif %}
+
           <!--Station schedule Status-->
           {% set station_schedule_status = "MISSING" %}
           {% set station_schedule_status_class = "bold-red" %}
@@ -113,15 +113,16 @@
           {% set dfep_schedule_status_class = "bold-green" %}
           {% endif %}
           <!--Values-->
+          {% if playback_status != "RECEIVED" or playback_with_gaps_msi|length > 0 %}
           <tr>
             <td>{{ satellite }}</td>
             <td>{{ orbit }}</td>
             <td>{{ station }}</td>
             <td>{{ type }}</td>
             {% if playback_status == "GAPS" %}
-            <td><a href="/views/specific-acquisition/{{ corrected_playback.event_uuid }}" class="{{ playback_status_class }}">{{ playback_status }}</a></td>
+            <td><a href="/views/specific-acquisition/{{ event.event_uuid }}" class="{{ playback_status_class }}">{{ playback_status }}</a></td>
             {% else %}
-            <td><a href="/views/specific-acquisition/{{ corrected_playback.event_uuid }}" class="{{ playback_status_class }}">{{ playback_status }}</a></td>
+            <td><a href="/views/specific-acquisition/{{ event.event_uuid }}" class="{{ playback_status_class }}">{{ playback_status }}</a></td>
             {% endif %}
             {% if type not in ["NOMINAL", "REGULAR", "RT", "NRT"] or playback_status == "MISSING" %}
             <td>N/A</td>            
@@ -138,32 +139,32 @@
             {% else %}
             <td class="bold-green">0</td>
             {% endif %}
-            <td>{{ corrected_playback.start.isoformat() }}</td>
-            <td>{{ corrected_playback.stop.isoformat() }}</td>
-            <td>{{ (corrected_playback.stop - corrected_playback.start).total_seconds()|round(3) }}</td>
-            <td>{{ (((corrected_playback.stop - corrected_playback.start).total_seconds()) / 60)|round(3) }}</td>
+            <td>{{ event.start.isoformat() }}</td>
+            <td>{{ event.stop.isoformat() }}</td>
+            <td>{{ (event.stop - event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (((event.stop - event.start).total_seconds()) / 60)|round(3) }}</td>
+            <td>
+              {% include "views/common/parameters.html" %}
+            </td>
             <td class="{{ station_schedule_status_class }}">{{ station_schedule_status }}</td>
             <td class="{{ dfep_schedule_status_class }}">{{ dfep_schedule_status }}</td>
             {% if playback_validity %}
-            <td>{{ (corrected_playback.start - playback_validity.start).total_seconds()|round(3) }}</td>
-            <td>{{ (corrected_playback.stop - playback_validity.stop).total_seconds()|round(3) }}</td>
+            <td>{{ (event.start - playback_validity.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - playback_validity.stop).total_seconds()|round(3) }}</td>
             {% else %}
             <td>N/A</td>
             <td>N/A</td>
             {% endif %}
-            <td>
-              {% include "views/common/parameters.html" %}
-            </td>
             {% if station_schedule_event %}
-            <td>{{ (corrected_playback.start - station_schedule_event.start).total_seconds()|round(3) }}</td>
-            <td>{{ (corrected_playback.stop - station_schedule_event.stop).total_seconds()|round(3) }}</td>
+            <td>{{ (event.start - station_schedule_event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - station_schedule_event.stop).total_seconds()|round(3) }}</td>
             {% else %}
             <td>N/A</td>
             <td>N/A</td>
             {% endif %}
             {% if dfep_schedule_event %}
-            <td>{{ (corrected_playback.start - dfep_schedule_event.start).total_seconds()|round(3) }}</td>
-            <td>{{ (corrected_playback.stop - dfep_schedule_event.stop).total_seconds()|round(3) }}</td>
+            <td>{{ (event.start - dfep_schedule_event.start).total_seconds()|round(3) }}</td>
+            <td>{{ (event.stop - dfep_schedule_event.stop).total_seconds()|round(3) }}</td>
             {% else %}
             <td>N/A</td>
             <td>N/A</td>
@@ -172,6 +173,7 @@
             <td><a href="/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"><i class="fa fa-link"></i></a></td>
             <td>{{original_playback.event_uuid}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
         </tbody>
         <tfoot>
