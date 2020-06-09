@@ -154,7 +154,7 @@
 {% endwith %}
 
 <!-- Missing playbacks -->
-{% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute="event_uuid_link")|list %}
+{% set playback_completeness_missing_uuids = acquisition_events["playback_completeness_channel"]|filter_events_by_text_value("status", "MISSING")|map(attribute='eventLinks')|flatten|selectattr("name", "in", ["PLANNED_PLAYBACK", "PLANNED_EVENT"])|map(attribute="event_uuid_link")|list %}
 
 {% set playback_with_no_playback_validity_uuids = acquisition_events["playback"]|reject_events_with_link_name("PLAYBACK_VALIDITY")|map(attribute="event_uuid")|list %}
 
