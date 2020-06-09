@@ -4,7 +4,7 @@
 {% include "views/common/header.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/dhus-completeness-pages", elements = info["imaging"], filters = filters %}
+{% with route = "/views/dhus-completeness-pages", elements = info["imaging_correction_limit"], filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 

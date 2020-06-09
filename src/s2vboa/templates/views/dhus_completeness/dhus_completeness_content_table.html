@@ -102,7 +102,7 @@
           {% set tile_uuids = processing_completeness.explicitRef.explicitRefLinks|selectattr("name", "equalto", "TILE")|map(attribute="explicit_ref_uuid_link")|list %}
 
           {% set tile_infos = info["tls"][level]|selectattr("explicit_ref_uuid", "in", tile_uuids)|list %}
-          {% set number_of_tiles = info["tls"][level]|length %}
+          {% set number_of_tiles = tile_infos|length %}
 
           {% set tile_data = {"number_of_tiles_in_dam": 0, "number_of_tiles_in_dhus": 0} %}
           {% set times_to_dhus = [] %}

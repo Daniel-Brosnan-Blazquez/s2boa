@@ -6,6 +6,8 @@ var complete_segments = [
     {% set planned_imaging_uuid = complete_processing_event.eventLinks|selectattr("name", "equalto", "PLANNED_IMAGING")|map(attribute="event_uuid_link")|first %}
     {% set planned_imaging = info["imaging"]|selectattr("event_uuid", "equalto", planned_imaging_uuid)|first %}
 
+    {% set corrected_planned_imaging_uuid = planned_imaging.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute="event_uuid_link")|first %}
+
     {% set satellite = complete_processing_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     {% set orbit = complete_processing_event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
 
@@ -69,7 +71,7 @@ var complete_segments = [
      
     {
         "id": "{{ complete_processing_event.event_uuid }}",
-        "tooltip": create_processing_tooltip_text("{{ satellite }}", "{{ orbit }}", "<span class='{{ status_class }}'>{{ status }}</span>", "<a href='/eboa_nav/query-er/{{ complete_processing_event.explicitRef.explicit_ref_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ complete_processing_event.start.isoformat() }}", "{{ complete_processing_event.stop.isoformat() }}", "{{ planned_imaging.source.name }}", "{{ complete_processing_event.event_uuid }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
+        "tooltip": create_processing_tooltip_text("{{ satellite }}", "{{ orbit }}", "<span class='{{ status_class }}'>{{ status }}</span>", "<a href='/views/dhus-completeness-by-datatake/{{ corrected_planned_imaging_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ complete_processing_event.start.isoformat() }}", "{{ complete_processing_event.stop.isoformat() }}", "{{ planned_imaging.source.name }}", "{{ complete_processing_event.event_uuid }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
         "geometries": [
             {% for geometry in complete_processing_event.eventGeometries %}
             {{ geometry.to_wkt() }},

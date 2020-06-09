@@ -3,11 +3,6 @@
 
 {% include "views/common/header.html" %}
 
-<!-- Pagination -->
-{% with route = "/views/dhus-completeness-pages", elements = info["imaging"], filters = filters %}
-{% include "vboa/pagination.html" %}
-{% endwith %}
-
 <!-- Summary -->
 {% include "views/dhus_completeness/dhus_completeness_summary.html" %}
 
