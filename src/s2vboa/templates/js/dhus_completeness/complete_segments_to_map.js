@@ -71,7 +71,7 @@ var complete_segments = [
      
     {
         "id": "{{ complete_processing_event.event_uuid }}",
-        "tooltip": create_processing_tooltip_text("{{ satellite }}", "{{ orbit }}", "<span class='{{ status_class }}'>{{ status }}</span>", "<a href='/views/dhus-completeness-by-datatake/{{ corrected_planned_imaging_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ complete_processing_event.start.isoformat() }}", "{{ complete_processing_event.stop.isoformat() }}", "{{ planned_imaging.source.name }}", "{{ complete_processing_event.event_uuid }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
+        "tooltip": create_processing_tooltip_text("{{ satellite }}", "{{ orbit }}", "<a class='{{ status_class }}' href='/views/dhus-completeness-by-datatake/{{ corrected_planned_imaging_uuid }}'>{{ status }}</a>", "<a href='/eboa_nav/query-er-links/{{ complete_processing_event.explicitRef.explicit_ref_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ complete_processing_event.start.isoformat() }}", "{{ complete_processing_event.stop.isoformat() }}", "{{ planned_imaging.source.name }}", "{{ complete_processing_event.event_uuid }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
         "geometries": [
             {% for geometry in complete_processing_event.eventGeometries %}
             {{ geometry.to_wkt() }},

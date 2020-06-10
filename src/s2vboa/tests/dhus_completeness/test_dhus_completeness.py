@@ -131,6 +131,13 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
+        filename = "S2__OPER_REP_ARC____MPS__20180721T110232_V20180721T085229_20180721T085414.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        
         filename = "S2__OPDHUS.xml"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 

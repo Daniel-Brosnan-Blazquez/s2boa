@@ -10,7 +10,7 @@
   {% else %}
   <td>{{ tile }}</td>
   {% endif %}
-  <td class="{{ status_class }}">{{ status }}</td>
+  <td><a class="{{ status_class }}" href="/views/dhus-completeness-by-datatake/{{ corrected_imaging.event_uuid }}">{{ status }}</a></td>
   <td>{{ dhus_product_name }}</td>
   <td>{{ dam_publication_time }}</td>
   <td>{{ sensing_to_dhus }}</td>

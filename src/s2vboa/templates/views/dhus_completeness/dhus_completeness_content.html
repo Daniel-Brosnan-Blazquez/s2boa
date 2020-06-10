@@ -17,8 +17,10 @@
 {% include "views/dhus_completeness/dhus_completeness_maps.html" %}
 
 <!-- Table with missing disseminations -->
+{% if missing_acquisition_duration > 0 or missing_processing_duration["L1C"] > 0 or missing_processing_duration["L2A"] > 0 or missing_tiles_in_dam["L1C"] > 0 or missing_tiles_in_dam["L2A"] or missing_tiles_in_dhus["L1C"] > 0 or missing_tiles_in_dhus["L2A"] > 0 %}
 {% set type_of_table = "MISSING" %}
 {% include "views/dhus_completeness/dhus_completeness_content_table.html" %}
+{% endif %}
 
 <!-- Complete table -->
 {% set type_of_table = "COMPLETE" %}
