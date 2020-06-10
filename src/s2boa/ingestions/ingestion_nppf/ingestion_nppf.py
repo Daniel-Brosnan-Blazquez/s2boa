@@ -801,8 +801,8 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
         if planning_event["gauge"]["name"] == "PLANNED_PLAYBACK":
             downlink_mode = [value["value"] for value in planning_event["values"] if value["name"] == "playback_type"][0]
             if downlink_mode == "SAD" or downlink_mode == "HKTM_SAD":
-                start = corrected_start + datetime.timedelta(seconds=3)
-                stop = start + datetime.timedelta(seconds=2)
+                start = corrected_start + datetime.timedelta(seconds=2)
+                stop = start
             elif downlink_mode == "HKTM":
                 # HKTM
                 start = corrected_start + datetime.timedelta(seconds=2)
