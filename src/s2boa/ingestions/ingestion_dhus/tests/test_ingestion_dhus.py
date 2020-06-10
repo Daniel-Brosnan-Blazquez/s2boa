@@ -81,10 +81,10 @@ class TestDhus(unittest.TestCase):
             }]
 
         #Check definite user_products
-        definite_dissemination_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "USER_PRODUCT"},
+        definite_user_product = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "USER_PRODUCT"},
                                                      explicit_refs = {"op": "like", "filter": "S2B_OPER_MSI_L1C_TL_SGS__20180719T124224_A007140_T36VXH_N02.06"})
 
-        assert definite_dissemination_time[0].get_structured_values() == [
+        assert definite_user_product[0].get_structured_values() == [
             {'type': 'text',
              'name': 'product_name',
              'value': 'S2B_MSIL1C_20180719T084559_N0206_R107_T36VXH_20180719T124224.SAFE'
@@ -96,6 +96,67 @@ class TestDhus(unittest.TestCase):
         assert len(dissemination_times) == 4
 
         #Check user_products
-        dissemination_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "USER_PRODUCT"})
+        user_products = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "USER_PRODUCT"})
+
+        assert len(user_products) == 3
+
+    def test_rep_dhus_overwritten_tiles(self):
+
+        filename = "S2B_OPER_REP_OPDPC__MPS__20200602T131228_V20200602T082744_20200602T082932.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2B_OPER_REP_OPDPC__EPA__20200604T150709_V20200602T082744_20200602T082932.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        
+        filename = "S2B_OPER_REP_OPDHUS_DHU1_20200604T210610.xml"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dhus.ingestion_dhus", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 15
+
+        # Check tile dissemination to DHUS
+        definite_dissemination_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DHUS_DISSEMINATION_TIME"},
+                                                     explicit_refs = {"op": "like", "filter": "S2B_OPER_MSI_L1C_TL_EPA__20200604T143611_A016921_T39XXA_N02.09"})
+
+        assert definite_dissemination_time[0].get_structured_values() == [
+            {'type': 'timestamp',
+             'name': 'dhus_dissemination_time',
+             'value': '2020-06-04T21:06:10'
+            }]
+
+        # Check tile overwritten
+        definite_dissemination_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DHUS_DISSEMINATION_TIME"},
+                                                     explicit_refs = {"op": "like", "filter": "S2B_OPER_MSI_L1C_TL_MPS__20200602T113231_A016921_T39XXA_N02.09"})
+
+        assert definite_dissemination_time[0].get_structured_values() == [
+            {'type': 'text',
+             'name': 'status',
+             'value': 'OVERWRITTEN'
+            },
+            {'type': 'timestamp',
+             'name': 'dhus_dissemination_time',
+             'value': '2020-06-04T21:06:10'
+            }]
+
+        #Check dissemination_times
+        dissemination_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "DHUS_DISSEMINATION_TIME"})
 
         assert len(dissemination_times) == 3
+
+        #Check user_products
+        user_products = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "USER_PRODUCT"})
+
+        assert len(user_products) == 2

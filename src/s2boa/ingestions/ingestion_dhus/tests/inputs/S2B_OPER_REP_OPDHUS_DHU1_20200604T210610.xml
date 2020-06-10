@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='ASCII'?>
+<Earth_Explorer_File>
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2B_OPER_REP_OPDHUS_DHU1_20200604T210610.xml</File_Name>
+      <File_Description/>
+      <Notes/>
+      <Mission/>
+      <File_Class>OPER</File_Class>
+      <File_Type>REP_OPDHUS</File_Type>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>DATAHUB</System>
+        <Creator>DAGC_Report_Generator</Creator>
+        <Creator_Version/>
+        <Creation_Date>UTC=20200604T210610</Creation_Date>
+      </Source>
+    </Fixed_Header>
+  </Earth_Explorer_Header>
+<Data_Block>
+    <Products>
+<Product name="S2B_MSIL1C_20200602T082609_N0209_R021_T39XXA_20200604T143611.SAFE">
+		<PDI>S2B_OPER_MSI_L1C_DS_EPA__20200604T143611_S20200602T082744_N02.09</PDI>
+		<PDI>S2B_OPER_MSI_L1C_TL_EPA__20200604T143611_A016921_T39XXA_N02.09</PDI>
+</Product>
+    </Products>
+</Data_Block>
+</Earth_Explorer_File>

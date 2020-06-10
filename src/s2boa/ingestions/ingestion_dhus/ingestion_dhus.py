@@ -131,6 +131,52 @@ def process_file(file_path, engine, query, reception_time):
                     }]
             }
             list_of_annotations.append(tile_user_product_annotation)
+
+            grouping_tile_id = tile_id[0:20] + "%" + tile_id[41:55] + "%"
+
+            # Get tiles which could be overwritten by this one
+            overwritten_tiles = query.get_explicit_refs(groups = {"filter": "L1C_TL", "op": "=="},
+                                                        explicit_refs = {"filter": grouping_tile_id, "op": "like"})
+
+            print(grouping_tile_id)
+            print(overwritten_tiles)
+            for tile_id in [tile.explicit_ref for tile in overwritten_tiles if tile.explicit_ref != tile_id]:
+                print(tile_id)
+                tile_dhus_dissemination_annotation = {
+                    "explicit_reference" : tile_id,
+                    "annotation_cnf": {
+                        "name": "DHUS_DISSEMINATION_TIME",
+                        "insertion_type": "INSERT_and_ERASE"
+                        },
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": "OVERWRITTEN"
+                        },
+                        {"name": "dhus_dissemination_time",
+                         "type": "timestamp",
+                         "value": creation_date
+                        }]
+                }
+                list_of_annotations.append(tile_dhus_dissemination_annotation)
+
+                tile_user_product_annotation = {
+                    "explicit_reference" : tile_id,
+                    "annotation_cnf": {
+                        "name": "USER_PRODUCT",
+                    },
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": "OVERWRITTEN"
+                        },
+                        {"name": "product_name",
+                         "type": "text",
+                         "value": product_name
+                        }]
+                }
+                list_of_annotations.append(tile_user_product_annotation)                
+            # end for
     #end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 50)
