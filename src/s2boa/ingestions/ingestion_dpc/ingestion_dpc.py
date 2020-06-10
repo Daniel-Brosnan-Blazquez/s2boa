@@ -42,7 +42,7 @@ logger = logging_module.logger
 
 version = "1.0"
 
-def process_file(file_path, engine, query, reception_time):
+def process_file(file_path, engine, query, reception_time, wait_previous_levels = False):
     """
     Function to process the file and insert its relevant information
     into the DDBB of the eboa
@@ -559,7 +559,7 @@ def process_file(file_path, engine, query, reception_time):
                 i = 0
                 upper_level_ers = get_upper_level_ers()
                 # Wait till the upper level production has been processed 10 minutes
-                while len(upper_level_ers) == 0 and i < 10*60:
+                while wait_previous_levels and len(upper_level_ers) == 0 and i < 10*60:
                     time.sleep(10)
                     i += 10
                     upper_level_ers = get_upper_level_ers()
