@@ -1,5 +1,5 @@
 """
-Ingestion module for the REP_PASS_E files of Sentinel-2
+Ingestion module for the REP_PASS_E_VGS files of Sentinel-2
 
 Written by DEIMOS Space S.L. (dibb)
 
