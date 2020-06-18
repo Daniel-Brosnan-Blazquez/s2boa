@@ -1,5 +1,5 @@
 """
-Automated tests for the ingestion of the REP_PASS_E files
+Automated tests for the ingestion of the REP_PASS_E_EDRS files
 
 Written by DEIMOS Space S.L. (femd)
 

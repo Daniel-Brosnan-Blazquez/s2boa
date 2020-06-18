@@ -328,7 +328,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
     # end if
 
 
-    return status
+    return general_status
 
 @debug
 def _generate_received_data_information(xpath_xml, source, engine, query, list_of_events, list_of_isp_validity_processing_completeness_events, list_of_planning_operations):
