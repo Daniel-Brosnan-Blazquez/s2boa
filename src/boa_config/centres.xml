@@ -30,6 +30,7 @@
     <list_of_alias>
       <name>CGS2</name>
       <name>SGS_</name>
+      <name>VGS2</name>
       <name>SVA1</name>
       <name>SVA_</name>
     </list_of_alias>
@@ -37,6 +38,27 @@
     <long_name>Svalvard</long_name>
     <print_name>SGS_</print_name>
   </centre>	
+
+  <centre>
+    <uris>
+      <uri>cgs3dag1.sentinel2.eo.esa.int</uri>
+      <uri>cgs3dag2.sentinel2.eo.esa.int</uri>
+      <uri>cgs3dag.sentinel2.eo.esa.int</uri>
+      <uri>cgs3ai1.cgs3.s2pdgs.esa.int</uri>
+      <uri>dfep5-inu-ctl-prod.cgs3.s2pdgs.esa.int</uri>
+      <uri>dfep2-inu-ctl-prod.cgs3.s2pdgs.esa.int</uri>
+    </uris>
+    <list_of_alias>
+      <name>CGS3</name>
+      <name>VGS1</name>
+      <name>INU_</name>
+      <name>INS_</name>
+      <name>IVS_</name>
+    </list_of_alias>
+    <name>INS_</name>
+    <long_name>Inuvik</long_name>
+    <print_name>INS_</print_name>
+  </centre>
   
   <centre>
     <uris>
@@ -55,23 +77,7 @@
     <long_name>Maspalomas</long_name>
     <print_name>MPS_</print_name>
   </centre>
-  
-  <centre>
-    <uris>
-      <uri>cgs3dag1.sentinel2.eo.esa.int</uri>
-      <uri>cgs3dag2.sentinel2.eo.esa.int</uri>
-      <uri>cgs3dag.sentinel2.eo.esa.int</uri>
-    </uris>
-    <list_of_alias>
-      <name>CGS3</name>
-      <name>FAI_</name>
-      <name>FAI1</name>
-    </list_of_alias>
-    <name>FAI_</name>
-    <long_name>Alaska</long_name>
-    <print_name>FAI_</print_name>
-  </centre>
-  
+    
   <centre>
     <uris>
       <uri>pac1dag1.sentinel2.eo.esa.int</uri>
