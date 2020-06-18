@@ -1723,3 +1723,18 @@ def get_centres_conf():
     centres_xpath = etree.XPathEvaluator(centres_xml)
 
     return centres_xpath
+
+def get_centre_name_by_alias(alias):
+
+    # Get the centres configuration
+    centres_xpath = get_centres_conf()
+
+    # Obtain the name related to the alias
+    names = centres_xpath("/centres_configuration/centre[boolean(list_of_alias/name[$alias = text()])]", alias = alias)
+    if len(names) > 0:
+        name = names[0].xpath("name")[0].text
+    else:
+        name = "UNKN"
+    # end if
+
+    return name
