@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Earth_Explorer_File>
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2A_OPER_MPL_FSSGS__PDMC_20200615T090008_V20200616T090000_20200622T090000</File_Name>
+      <File_Description>Schedule file</File_Description>
+      <Notes/>
+      <Mission>Sentinel-2A</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL_FSSGS_</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2020-06-16T09:00:00</Validity_Start>
+        <Validity_Stop>UTC=2020-06-22T09:00:00</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>DFEP</System>
+        <Creator>MPL</Creator>
+        <Creator_Version>00.01</Creator_Version>
+        <Creation_Date>UTC=2020-06-15T09:00:08</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header/>
+  </Earth_Explorer_Header>
+  <Data_Block type="xml">
+    <sched>
+      <station name="SGS_">
+        <acq id="S2A_26031">
+          <action>DELETE_RANGE</action>
+          <satellite>S2A</satellite>
+          <start>2020-06-16T10:32:56.759</start>
+          <stop>2020-06-22T07:42:56.972</stop>
+        </acq>
+        <acq id="S2A_26031">
+          <action>ADD</action>
+          <downlink_orbit>26031</downlink_orbit>
+          <satellite>S2A</satellite>
+          <start>2020-06-16T10:33:16.759</start>
+          <stop>2020-06-16T10:45:23.008</stop>
+          <configuration>SENTINEL2A.rb</configuration>
+        </acq>
+      </station>
+    </sched>
+  </Data_Block>
+</Earth_Explorer_File>

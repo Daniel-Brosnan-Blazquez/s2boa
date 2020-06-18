@@ -1,0 +1,2804 @@
+<?xml version ="1.0" encoding="UTF-8"?>
+<Earth_Explorer_File>
+   <Earth_Explorer_Header>
+      <Fixed_Header>
+         <File_Name>S2A_OPER_REP_PASS_E_VGS2_20200616T105621_V20200616T104814_20200616T105621</File_Name>
+         <File_Description>Acquisition Report</File_Description>
+         <Notes></Notes>
+         <Mission>Sentinel-2A</Mission>
+         <File_Class>OPER</File_Class>
+         <File_Type>REP_PASS_E</File_Type>
+         <Validity_Period>
+            <Validity_Start>UTC=2020-06-16T10:48:14</Validity_Start>
+            <Validity_Stop>UTC=2020-06-16T10:56:21</Validity_Stop>
+         </Validity_Period>
+         <File_Version>0001</File_Version>
+         <Source>
+            <System>VGS2</System>
+            <Creator>EISPProcessor</Creator>
+            <Creator_Version>1.0</Creator_Version>
+            <Creation_Date>UTC=2020-06-16T10:56:21</Creation_Date>
+         </Source>
+      </Fixed_Header>
+      <Variable_Header>
+         <Data_Block>XML</Data_Block>
+         <Downlink_Orbit>26031</Downlink_Orbit>
+         <Format_Reference>GMES-GSEG-EOPG-TN-10-0103</Format_Reference>
+      </Variable_Header>
+   </Earth_Explorer_Header>
+   <Data_Block type="xml">
+      <input_files>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00001.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00002.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00003.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00004.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00005.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00006.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00007.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00008.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00009.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00010.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00011.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00012.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00013.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00014.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00015.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00016.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00017.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00018.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00019.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00020.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00021.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00022.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00023.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00024.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00025.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00026.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00027.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00028.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00029.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00030.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00031.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00032.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00033.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00034.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00035.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00036.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00037.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00038.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00039.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00040.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00041.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00042.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00043.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00044.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00045.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00046.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00047.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00048.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00049.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00050.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00051.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00052.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00053.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00054.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00055.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00056.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00057.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00058.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00059.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00060.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00061.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00062.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00063.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00064.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00065.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00066.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00067.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00068.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00069.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00070.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00071.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00072.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00073.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00074.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00075.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00076.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00077.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00078.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00079.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00080.raw</input_file>
+         <input_file>DCS_05_S2A_20200616103316026031_ch1_DSDB_00081.raw</input_file>
+      </input_files>
+      <data_C1>
+         <Name>S2A</Name>
+         <Orbit>26031</Orbit>
+         <Configuration Standard="AOS">
+            <CaduLength>2044</CaduLength>
+            <SynchLength>4</SynchLength>
+            <RsLength>128</RsLength>
+            <ReedSolomon>None</ReedSolomon>
+            <CRC>false</CRC>
+            <InsertZoneSize>0</InsertZoneSize>
+            <RsStatusLength>2</RsStatusLength>
+            <FsStatusLength>8</FsStatusLength>
+            <TimeLength>8</TimeLength>
+         </Configuration>
+         <Status VCID="4">
+            <Description>Nominal Mission Data (Half scene 1)</Description>
+            <NumFrames>11900051</NumFrames>
+            <AcqStartTime>16-JUN-2020 10:48:14.593190</AcqStartTime>
+            <AcqStopTime>16-JUN-2020 10:56:21.385567</AcqStopTime>
+            <StartCounter>3930671</StartCounter>
+            <EndCounter>15871251</EndCounter>
+            <RsUncorrectable>0</RsUncorrectable>
+            <RsCorrectable>140</RsCorrectable>
+            <Gaps>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.744688</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.744996</PostAcqTime>
+                  <PreCounter>4186220</PreCounter>
+                  <PostCounter>4186222</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.878682</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.878990</PostAcqTime>
+                  <PreCounter>4190570</PreCounter>
+                  <PostCounter>4190572</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.879545</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.879810</PostAcqTime>
+                  <PreCounter>4190590</PreCounter>
+                  <PostCounter>4190592</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.902948</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.903178</PostAcqTime>
+                  <PreCounter>4191340</PreCounter>
+                  <PostCounter>4191342</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.978156</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.978377</PostAcqTime>
+                  <PreCounter>4193150</PreCounter>
+                  <PostCounter>4193152</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.978825</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.979002</PostAcqTime>
+                  <PreCounter>4193170</PreCounter>
+                  <PostCounter>4193172</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:23.991170</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:23.991441</PostAcqTime>
+                  <PreCounter>4193620</PreCounter>
+                  <PostCounter>4193622</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.046239</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.046466</PostAcqTime>
+                  <PreCounter>4195049</PreCounter>
+                  <PostCounter>4195051</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.048804</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.049399</PostAcqTime>
+                  <PreCounter>4195126</PreCounter>
+                  <PostCounter>4195128</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.081088</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.081368</PostAcqTime>
+                  <PreCounter>4196084</PreCounter>
+                  <PostCounter>4196086</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.114422</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.114675</PostAcqTime>
+                  <PreCounter>4197120</PreCounter>
+                  <PostCounter>4197122</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.136454</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.136789</PostAcqTime>
+                  <PreCounter>4197815</PreCounter>
+                  <PostCounter>4197817</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.155657</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.155979</PostAcqTime>
+                  <PreCounter>4198405</PreCounter>
+                  <PostCounter>4198407</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.177664</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.177889</PostAcqTime>
+                  <PreCounter>4198950</PreCounter>
+                  <PostCounter>4198952</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.727241</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.727408</PostAcqTime>
+                  <PreCounter>4200660</PreCounter>
+                  <PostCounter>4200662</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.730513</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.730664</PostAcqTime>
+                  <PreCounter>4200895</PreCounter>
+                  <PostCounter>4200897</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.752974</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.753147</PostAcqTime>
+                  <PreCounter>4202470</PreCounter>
+                  <PostCounter>4202472</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.767184</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.767387</PostAcqTime>
+                  <PreCounter>4203304</PreCounter>
+                  <PostCounter>4203306</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.778195</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.778379</PostAcqTime>
+                  <PreCounter>4204025</PreCounter>
+                  <PostCounter>4204027</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.786556</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.786752</PostAcqTime>
+                  <PreCounter>4204520</PreCounter>
+                  <PostCounter>4204522</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.796878</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.797068</PostAcqTime>
+                  <PreCounter>4205065</PreCounter>
+                  <PostCounter>4205067</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.798235</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.798531</PostAcqTime>
+                  <PreCounter>4205148</PreCounter>
+                  <PostCounter>4205150</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.799064</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.799222</PostAcqTime>
+                  <PreCounter>4205185</PreCounter>
+                  <PostCounter>4205187</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.805335</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.805501</PostAcqTime>
+                  <PreCounter>4205585</PreCounter>
+                  <PostCounter>4205587</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.805675</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.805825</PostAcqTime>
+                  <PreCounter>4205595</PreCounter>
+                  <PostCounter>4205597</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.807038</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.807217</PostAcqTime>
+                  <PreCounter>4205670</PreCounter>
+                  <PostCounter>4205672</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.810613</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.810775</PostAcqTime>
+                  <PreCounter>4205895</PreCounter>
+                  <PostCounter>4205897</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.819958</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.820357</PostAcqTime>
+                  <PreCounter>4206455</PreCounter>
+                  <PostCounter>4206457</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.821400</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.821567</PostAcqTime>
+                  <PreCounter>4206525</PreCounter>
+                  <PostCounter>4206527</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.824449</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.824620</PostAcqTime>
+                  <PreCounter>4206719</PreCounter>
+                  <PostCounter>4206721</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.826639</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.826810</PostAcqTime>
+                  <PreCounter>4206750</PreCounter>
+                  <PostCounter>4206752</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.830100</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.830268</PostAcqTime>
+                  <PreCounter>4206955</PreCounter>
+                  <PostCounter>4206957</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.833358</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.833527</PostAcqTime>
+                  <PreCounter>4207169</PreCounter>
+                  <PostCounter>4207171</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.834564</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.834756</PostAcqTime>
+                  <PreCounter>4207238</PreCounter>
+                  <PostCounter>4207240</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.842126</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.842319</PostAcqTime>
+                  <PreCounter>4207576</PreCounter>
+                  <PostCounter>4207578</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.842491</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.842657</PostAcqTime>
+                  <PreCounter>4207588</PreCounter>
+                  <PostCounter>4207590</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.843194</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.843346</PostAcqTime>
+                  <PreCounter>4207625</PreCounter>
+                  <PostCounter>4207627</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.844411</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.844592</PostAcqTime>
+                  <PreCounter>4207694</PreCounter>
+                  <PostCounter>4207696</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.847081</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.847444</PostAcqTime>
+                  <PreCounter>4207761</PreCounter>
+                  <PostCounter>4207763</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.847638</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.847798</PostAcqTime>
+                  <PreCounter>4207775</PreCounter>
+                  <PostCounter>4207777</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.848356</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.848531</PostAcqTime>
+                  <PreCounter>4207812</PreCounter>
+                  <PostCounter>4207814</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.848713</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.848874</PostAcqTime>
+                  <PreCounter>4207825</PreCounter>
+                  <PostCounter>4207827</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.854480</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.854673</PostAcqTime>
+                  <PreCounter>4208097</PreCounter>
+                  <PostCounter>4208099</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.855410</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.855701</PostAcqTime>
+                  <PreCounter>4208145</PreCounter>
+                  <PostCounter>4208147</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.855912</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.856199</PostAcqTime>
+                  <PreCounter>4208159</PreCounter>
+                  <PostCounter>4208161</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.858296</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.858474</PostAcqTime>
+                  <PreCounter>4208175</PreCounter>
+                  <PostCounter>4208177</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.858492</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.858651</PostAcqTime>
+                  <PreCounter>4208180</PreCounter>
+                  <PostCounter>4208182</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.861337</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.861508</PostAcqTime>
+                  <PreCounter>4208265</PreCounter>
+                  <PostCounter>4208267</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.861528</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.861812</PostAcqTime>
+                  <PreCounter>4208270</PreCounter>
+                  <PostCounter>4208272</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.863310</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.863478</PostAcqTime>
+                  <PreCounter>4208375</PreCounter>
+                  <PostCounter>4208377</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.864631</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.864790</PostAcqTime>
+                  <PreCounter>4208451</PreCounter>
+                  <PostCounter>4208453</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.864973</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.865141</PostAcqTime>
+                  <PreCounter>4208465</PreCounter>
+                  <PostCounter>4208467</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.866751</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.866915</PostAcqTime>
+                  <PreCounter>4208555</PreCounter>
+                  <PostCounter>4208557</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.867666</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.867979</PostAcqTime>
+                  <PreCounter>4208562</PreCounter>
+                  <PostCounter>4208564</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.868307</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.868626</PostAcqTime>
+                  <PreCounter>4208566</PreCounter>
+                  <PostCounter>4208568</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>2</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.868907</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.869086</PostAcqTime>
+                  <PreCounter>4208576</PreCounter>
+                  <PostCounter>4208579</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>22633</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.870698</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.871478</PostAcqTime>
+                  <PreCounter>4208669</PreCounter>
+                  <PostCounter>4231303</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>2</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.871483</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.871927</PostAcqTime>
+                  <PreCounter>4231304</PreCounter>
+                  <PostCounter>4231307</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.876155</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.876325</PostAcqTime>
+                  <PreCounter>4231555</PreCounter>
+                  <PostCounter>4231557</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.895079</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.895272</PostAcqTime>
+                  <PreCounter>4232674</PreCounter>
+                  <PostCounter>4232676</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.905740</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.905935</PostAcqTime>
+                  <PreCounter>4233336</PreCounter>
+                  <PostCounter>4233338</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.910195</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.910377</PostAcqTime>
+                  <PreCounter>4233515</PreCounter>
+                  <PostCounter>4233517</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.919491</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.919696</PostAcqTime>
+                  <PreCounter>4234125</PreCounter>
+                  <PostCounter>4234127</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.926933</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.927228</PostAcqTime>
+                  <PreCounter>4234468</PreCounter>
+                  <PostCounter>4234470</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.927931</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.928221</PostAcqTime>
+                  <PreCounter>4234522</PreCounter>
+                  <PostCounter>4234524</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.934091</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.934262</PostAcqTime>
+                  <PreCounter>4234915</PreCounter>
+                  <PostCounter>4234917</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.937722</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.937897</PostAcqTime>
+                  <PreCounter>4235090</PreCounter>
+                  <PostCounter>4235092</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.939211</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.939371</PostAcqTime>
+                  <PreCounter>4235180</PreCounter>
+                  <PostCounter>4235182</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.940547</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.940727</PostAcqTime>
+                  <PreCounter>4235256</PreCounter>
+                  <PostCounter>4235258</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.940741</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.940887</PostAcqTime>
+                  <PreCounter>4235260</PreCounter>
+                  <PostCounter>4235262</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.942356</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.942524</PostAcqTime>
+                  <PreCounter>4235358</PreCounter>
+                  <PostCounter>4235360</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.942697</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.942855</PostAcqTime>
+                  <PreCounter>4235370</PreCounter>
+                  <PostCounter>4235372</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>2</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.944876</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.945060</PostAcqTime>
+                  <PreCounter>4235503</PreCounter>
+                  <PostCounter>4235506</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.945225</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.945378</PostAcqTime>
+                  <PreCounter>4235514</PreCounter>
+                  <PostCounter>4235516</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.945528</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.945698</PostAcqTime>
+                  <PreCounter>4235520</PreCounter>
+                  <PostCounter>4235522</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.946027</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.946194</PostAcqTime>
+                  <PreCounter>4235544</PreCounter>
+                  <PostCounter>4235546</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.946219</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.946372</PostAcqTime>
+                  <PreCounter>4235550</PreCounter>
+                  <PostCounter>4235552</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.948919</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.949103</PostAcqTime>
+                  <PreCounter>4235614</PreCounter>
+                  <PostCounter>4235616</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.949760</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.949917</PostAcqTime>
+                  <PreCounter>4235657</PreCounter>
+                  <PostCounter>4235659</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.950252</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.950418</PostAcqTime>
+                  <PreCounter>4235679</PreCounter>
+                  <PostCounter>4235681</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.951237</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.951405</PostAcqTime>
+                  <PreCounter>4235734</PreCounter>
+                  <PostCounter>4235736</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.951558</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.951731</PostAcqTime>
+                  <PreCounter>4235743</PreCounter>
+                  <PostCounter>4235745</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.952901</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.953070</PostAcqTime>
+                  <PreCounter>4235827</PreCounter>
+                  <PostCounter>4235829</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.953399</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.953738</PostAcqTime>
+                  <PreCounter>4235830</PreCounter>
+                  <PostCounter>4235832</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.955146</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.955320</PostAcqTime>
+                  <PreCounter>4235855</PreCounter>
+                  <PostCounter>4235857</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>3</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.955343</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.955504</PostAcqTime>
+                  <PreCounter>4235861</PreCounter>
+                  <PostCounter>4235865</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.957086</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.957251</PostAcqTime>
+                  <PreCounter>4235893</PreCounter>
+                  <PostCounter>4235895</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.958232</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.958544</PostAcqTime>
+                  <PreCounter>4235901</PreCounter>
+                  <PostCounter>4235903</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.959223</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.959389</PostAcqTime>
+                  <PreCounter>4235921</PreCounter>
+                  <PostCounter>4235923</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.960402</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.960631</PostAcqTime>
+                  <PreCounter>4235989</PreCounter>
+                  <PostCounter>4235991</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.960964</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.961132</PostAcqTime>
+                  <PreCounter>4236013</PreCounter>
+                  <PostCounter>4236015</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.961791</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.961951</PostAcqTime>
+                  <PreCounter>4236057</PreCounter>
+                  <PostCounter>4236059</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.962422</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.962601</PostAcqTime>
+                  <PreCounter>4236084</PreCounter>
+                  <PostCounter>4236086</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.963108</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.963266</PostAcqTime>
+                  <PreCounter>4236120</PreCounter>
+                  <PostCounter>4236122</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.963758</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.963915</PostAcqTime>
+                  <PreCounter>4236153</PreCounter>
+                  <PostCounter>4236155</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.963935</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.964102</PostAcqTime>
+                  <PreCounter>4236159</PreCounter>
+                  <PostCounter>4236161</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.966301</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.966482</PostAcqTime>
+                  <PreCounter>4236212</PreCounter>
+                  <PostCounter>4236214</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.966669</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.966827</PostAcqTime>
+                  <PreCounter>4236226</PreCounter>
+                  <PostCounter>4236228</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.968553</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.968737</PostAcqTime>
+                  <PreCounter>4236242</PreCounter>
+                  <PostCounter>4236244</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.968737</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.968891</PostAcqTime>
+                  <PreCounter>4236244</PreCounter>
+                  <PostCounter>4236246</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.969068</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.969225</PostAcqTime>
+                  <PreCounter>4236250</PreCounter>
+                  <PostCounter>4236252</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.969249</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.969405</PostAcqTime>
+                  <PreCounter>4236256</PreCounter>
+                  <PostCounter>4236258</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.969410</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.969564</PostAcqTime>
+                  <PreCounter>4236259</PreCounter>
+                  <PostCounter>4236261</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.969872</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.970198</PostAcqTime>
+                  <PreCounter>4236262</PreCounter>
+                  <PostCounter>4236264</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.971616</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.971792</PostAcqTime>
+                  <PreCounter>4236295</PreCounter>
+                  <PostCounter>4236297</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.971819</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.971975</PostAcqTime>
+                  <PreCounter>4236303</PreCounter>
+                  <PostCounter>4236305</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>13048</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:24.973475</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:24.974153</PostAcqTime>
+                  <PreCounter>4236315</PreCounter>
+                  <PostCounter>4249364</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:30.454456</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:30.454688</PostAcqTime>
+                  <PreCounter>4426515</PreCounter>
+                  <PostCounter>4426517</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:30.461724</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:30.461925</PostAcqTime>
+                  <PreCounter>4426875</PreCounter>
+                  <PostCounter>4426877</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.040768</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.041036</PostAcqTime>
+                  <PreCounter>4430136</PreCounter>
+                  <PostCounter>4430138</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.044040</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.044239</PostAcqTime>
+                  <PreCounter>4430340</PreCounter>
+                  <PostCounter>4430342</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.048163</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.048345</PostAcqTime>
+                  <PreCounter>4430500</PreCounter>
+                  <PostCounter>4430502</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.060439</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.060666</PostAcqTime>
+                  <PreCounter>4431178</PreCounter>
+                  <PostCounter>4431180</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.061492</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.061682</PostAcqTime>
+                  <PreCounter>4431230</PreCounter>
+                  <PostCounter>4431232</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.067525</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.067767</PostAcqTime>
+                  <PreCounter>4431610</PreCounter>
+                  <PostCounter>4431612</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.068742</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.068907</PostAcqTime>
+                  <PreCounter>4431671</PreCounter>
+                  <PostCounter>4431673</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.073188</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.075768</PostAcqTime>
+                  <PreCounter>4431863</PreCounter>
+                  <PostCounter>4431865</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.081411</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.081595</PostAcqTime>
+                  <PreCounter>4431900</PreCounter>
+                  <PostCounter>4431902</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.085515</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.085693</PostAcqTime>
+                  <PreCounter>4432062</PreCounter>
+                  <PostCounter>4432064</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.087297</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.087545</PostAcqTime>
+                  <PreCounter>4432190</PreCounter>
+                  <PostCounter>4432192</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.088171</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.088313</PostAcqTime>
+                  <PreCounter>4432245</PreCounter>
+                  <PostCounter>4432247</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.090742</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.090932</PostAcqTime>
+                  <PreCounter>4432325</PreCounter>
+                  <PostCounter>4432327</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.096985</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.097156</PostAcqTime>
+                  <PreCounter>4432779</PreCounter>
+                  <PostCounter>4432781</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.101025</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.101193</PostAcqTime>
+                  <PreCounter>4433045</PreCounter>
+                  <PostCounter>4433047</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.104417</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.104577</PostAcqTime>
+                  <PreCounter>4433287</PreCounter>
+                  <PostCounter>4433289</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.105932</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.106088</PostAcqTime>
+                  <PreCounter>4433382</PreCounter>
+                  <PostCounter>4433384</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.108704</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.108956</PostAcqTime>
+                  <PreCounter>4433585</PreCounter>
+                  <PostCounter>4433587</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.110160</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.110305</PostAcqTime>
+                  <PreCounter>4433678</PreCounter>
+                  <PostCounter>4433680</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.110803</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.110950</PostAcqTime>
+                  <PreCounter>4433714</PreCounter>
+                  <PostCounter>4433716</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.111218</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.111371</PostAcqTime>
+                  <PreCounter>4433721</PreCounter>
+                  <PostCounter>4433723</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.114375</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.114589</PostAcqTime>
+                  <PreCounter>4433945</PreCounter>
+                  <PostCounter>4433947</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.117270</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.117431</PostAcqTime>
+                  <PreCounter>4434041</PreCounter>
+                  <PostCounter>4434043</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.117444</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.117589</PostAcqTime>
+                  <PreCounter>4434045</PreCounter>
+                  <PostCounter>4434047</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.120935</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.121100</PostAcqTime>
+                  <PreCounter>4434110</PreCounter>
+                  <PostCounter>4434112</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.125087</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.125979</PostAcqTime>
+                  <PreCounter>4434249</PreCounter>
+                  <PostCounter>4434251</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.130950</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.131172</PostAcqTime>
+                  <PreCounter>4434385</PreCounter>
+                  <PostCounter>4434387</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.133966</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.134275</PostAcqTime>
+                  <PreCounter>4434507</PreCounter>
+                  <PostCounter>4434509</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.138866</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.139258</PostAcqTime>
+                  <PreCounter>4434613</PreCounter>
+                  <PostCounter>4434615</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.145630</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.145818</PostAcqTime>
+                  <PreCounter>4434685</PreCounter>
+                  <PostCounter>4434687</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.146053</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.146300</PostAcqTime>
+                  <PreCounter>4434700</PreCounter>
+                  <PostCounter>4434702</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.150964</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.151359</PostAcqTime>
+                  <PreCounter>4434936</PreCounter>
+                  <PostCounter>4434938</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.151359</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.151584</PostAcqTime>
+                  <PreCounter>4434938</PreCounter>
+                  <PostCounter>4434940</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.152073</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.152296</PostAcqTime>
+                  <PreCounter>4434965</PreCounter>
+                  <PostCounter>4434967</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.153136</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.153380</PostAcqTime>
+                  <PreCounter>4434995</PreCounter>
+                  <PostCounter>4434997</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.153596</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.153802</PostAcqTime>
+                  <PreCounter>4435005</PreCounter>
+                  <PostCounter>4435007</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.155131</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.155327</PostAcqTime>
+                  <PreCounter>4435075</PreCounter>
+                  <PostCounter>4435077</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.156153</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.156329</PostAcqTime>
+                  <PreCounter>4435120</PreCounter>
+                  <PostCounter>4435122</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.161841</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.162141</PostAcqTime>
+                  <PreCounter>4435142</PreCounter>
+                  <PostCounter>4435144</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.162141</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.162500</PostAcqTime>
+                  <PreCounter>4435144</PreCounter>
+                  <PostCounter>4435146</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.162959</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.163213</PostAcqTime>
+                  <PreCounter>4435162</PreCounter>
+                  <PostCounter>4435164</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.163949</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.164157</PostAcqTime>
+                  <PreCounter>4435201</PreCounter>
+                  <PostCounter>4435203</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.167704</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.168094</PostAcqTime>
+                  <PreCounter>4435268</PreCounter>
+                  <PostCounter>4435270</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.170520</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.170782</PostAcqTime>
+                  <PreCounter>4435395</PreCounter>
+                  <PostCounter>4435397</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.172656</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.172928</PostAcqTime>
+                  <PreCounter>4435485</PreCounter>
+                  <PostCounter>4435487</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.179596</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.179804</PostAcqTime>
+                  <PreCounter>4435805</PreCounter>
+                  <PostCounter>4435807</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.181764</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.181936</PostAcqTime>
+                  <PreCounter>4435906</PreCounter>
+                  <PostCounter>4435908</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.184551</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.184825</PostAcqTime>
+                  <PreCounter>4436035</PreCounter>
+                  <PostCounter>4436037</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>3</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.185279</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.185693</PostAcqTime>
+                  <PreCounter>4436066</PreCounter>
+                  <PostCounter>4436070</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.187982</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.188247</PostAcqTime>
+                  <PreCounter>4436185</PreCounter>
+                  <PostCounter>4436187</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>4674</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.202132</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.202772</PostAcqTime>
+                  <PreCounter>4436345</PreCounter>
+                  <PostCounter>4441020</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.210012</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.210269</PostAcqTime>
+                  <PreCounter>4441250</PreCounter>
+                  <PostCounter>4441252</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.211743</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.212182</PostAcqTime>
+                  <PreCounter>4441265</PreCounter>
+                  <PostCounter>4441267</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.222752</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.223185</PostAcqTime>
+                  <PreCounter>4441725</PreCounter>
+                  <PostCounter>4441727</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.235073</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.235319</PostAcqTime>
+                  <PreCounter>4442246</PreCounter>
+                  <PostCounter>4442248</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.238930</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.239120</PostAcqTime>
+                  <PreCounter>4442356</PreCounter>
+                  <PostCounter>4442358</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.242651</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.243010</PostAcqTime>
+                  <PreCounter>4442415</PreCounter>
+                  <PostCounter>4442417</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.257353</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.257626</PostAcqTime>
+                  <PreCounter>4442767</PreCounter>
+                  <PostCounter>4442769</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.259416</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.259657</PostAcqTime>
+                  <PreCounter>4442840</PreCounter>
+                  <PostCounter>4442842</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.296969</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.297210</PostAcqTime>
+                  <PreCounter>4444075</PreCounter>
+                  <PostCounter>4444077</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.305119</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.305336</PostAcqTime>
+                  <PreCounter>4444555</PreCounter>
+                  <PostCounter>4444557</PostCounter>
+               </Gap>
+               <Gap>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PreAcqTime>16-JUN-2020 10:48:31.306479</PreAcqTime>
+                  <PostAcqTime>16-JUN-2020 10:48:31.306654</PostAcqTime>
+                  <PreCounter>4444625</PreCounter>
+                  <PostCounter>4444627</PostCounter>
+               </Gap>
+            </Gaps>
+            <ISP_Status>
+               <Status APID="0">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 1, 60m</Description>
+                  <NumPackets>4968</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.595707</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.274122</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="1">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 2, 10m</Description>
+                  <NumPackets>29808</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.636245</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.345596</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="2">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 3, 10m</Description>
+                  <NumPackets>29748</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.809023</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:24.996850</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>1</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.905416</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.908114</PostAcqTime>
+                        <PreCounter>119</PreCounter>
+                        <PostCounter>121</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:10.971950</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:10.971950</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="3">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 4, 10m</Description>
+                  <NumPackets>29664</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.469480</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.760702</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="4">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 5, 20m</Description>
+                  <NumPackets>14856</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.615331</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.884987</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="5">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 6, 20m</Description>
+                  <NumPackets>14903</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.657550</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.964370</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:23.990914</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:23.994410</PostAcqTime>
+                        <PreCounter>4</PreCounter>
+                        <PostCounter>6</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="6">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 7, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.699915</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.007739</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="7">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 8, 20m</Description>
+                  <NumPackets>29805</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.744615</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.098275</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>3</EstimatedLost>
+                  <PecErrors>4</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.730178</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.732597</PostAcqTime>
+                        <PreCounter>59</PreCounter>
+                        <PostCounter>61</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.043692</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.046392</PostAcqTime>
+                        <PreCounter>25</PreCounter>
+                        <PostCounter>27</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.081108</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.083515</PostAcqTime>
+                        <PreCounter>72</PreCounter>
+                        <PostCounter>74</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="8">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 8a, 20m</Description>
+                  <NumPackets>14770</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.417277</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.189741</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.866616</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.869222</PostAcqTime>
+                        <PreCounter>4</PreCounter>
+                        <PostCounter>6</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="9">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 0, Band 9, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.490475</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.217150</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="10">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 0, Band 10, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.518702</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.740456</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="11">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 0, Band 11, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.537992</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.785487</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="12">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 0, Band 12, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.603311</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.834247</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="16">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 1, 60m</Description>
+                  <NumPackets>4968</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.615465</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.281082</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="17">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 2, 10m</Description>
+                  <NumPackets>29745</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.728090</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.385440</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>80</EndCounter>
+               </Status>
+               <Status APID="18">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 3, 10m</Description>
+                  <NumPackets>29724</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.379133</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.604154</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>4</EstimatedLost>
+                  <PecErrors>5</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>3</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.952590</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.959599</PostAcqTime>
+                        <PreCounter>50</PreCounter>
+                        <PostCounter>54</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:10.971950</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:10.971950</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.963462</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.966161</PostAcqTime>
+                        <PreCounter>60</PreCounter>
+                        <PostCounter>62</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:10.971950</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:10.971950</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="19">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 4, 10m</Description>
+                  <NumPackets>29664</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.546641</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.862242</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="20">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 5, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.637498</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.919121</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="21">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 6, 20m</Description>
+                  <NumPackets>14903</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.679675</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.984559</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>1</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.080774</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.082994</PostAcqTime>
+                        <PreCounter>64</PreCounter>
+                        <PostCounter>66</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="22">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 7, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.722049</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.030510</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="23">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 8, 20m</Description>
+                  <NumPackets>29726</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.811057</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.167649</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>20</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.187506</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.191075</PostAcqTime>
+                        <PreCounter>57</PreCounter>
+                        <PostCounter>59</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="24">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 8a, 20m</Description>
+                  <NumPackets>14798</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.466690</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.210310</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>2</PecErrors>
+               </Status>
+               <Status APID="25">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 9, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.501314</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.726423</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="26">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 0, Band 10, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.528115</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.755141</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="27">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 0, Band 11, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.570190</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.809846</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="28">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 0, Band 12, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.633374</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.858120</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="32">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 1, 60m</Description>
+                  <NumPackets>4968</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.596082</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.274206</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="33">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 2, 10m</Description>
+                  <NumPackets>29808</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.636446</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.345734</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="34">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 3, 10m</Description>
+                  <NumPackets>29749</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.809168</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:24.997017</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <PecErrors>2</PecErrors>
+               </Status>
+               <Status APID="35">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 4, 10m</Description>
+                  <NumPackets>29664</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.469636</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.760848</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="36">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 5, 20m</Description>
+                  <NumPackets>14857</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.615422</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.885079</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="37">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 6, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.657642</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.964458</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="38">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 7, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.700010</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.007850</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>2</PecErrors>
+               </Status>
+               <Status APID="39">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 8, 20m</Description>
+                  <NumPackets>29807</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.744770</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.098446</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>12</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.087882</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.090199</PostAcqTime>
+                        <PreCounter>82</PreCounter>
+                        <PostCounter>84</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="40">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 8a, 20m</Description>
+                  <NumPackets>14771</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.417384</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.189833</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="41">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 1, Band 9, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.490581</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.217250</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="42">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 1, Band 10, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.518811</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.740553</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="43">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 1, Band 11, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.538101</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.785588</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="44">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 1, Band 12, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.603422</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.834348</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="48">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 1, 60m</Description>
+                  <NumPackets>4968</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.615585</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.281169</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="49">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 2, 10m</Description>
+                  <NumPackets>29744</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.728234</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.385126</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>79</EndCounter>
+               </Status>
+               <Status APID="50">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 3, 10m</Description>
+                  <NumPackets>29729</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.379275</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.604303</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <PecErrors>10</PecErrors>
+               </Status>
+               <Status APID="51">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 4, 10m</Description>
+                  <NumPackets>29664</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.546784</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.862396</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="52">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 5, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.637597</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.919218</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="53">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 6, 20m</Description>
+                  <NumPackets>14903</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.679768</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.984653</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>2</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:30.454258</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:30.455992</PostAcqTime>
+                        <PreCounter>56</PreCounter>
+                        <PostCounter>58</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="54">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 7, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.722142</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.030611</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="55">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 8, 20m</Description>
+                  <NumPackets>29724</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.811199</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.167792</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>3</EstimatedLost>
+                  <PecErrors>23</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.824116</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.827001</PostAcqTime>
+                        <PreCounter>90</PreCounter>
+                        <PostCounter>92</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.856203</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.860705</PostAcqTime>
+                        <PreCounter>134</PreCounter>
+                        <PostCounter>136</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.163539</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.167263</PostAcqTime>
+                        <PreCounter>27</PreCounter>
+                        <PostCounter>29</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="56">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 8a, 20m</Description>
+                  <NumPackets>14797</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.466794</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.210404</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.209745</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.212328</PostAcqTime>
+                        <PreCounter>45</PreCounter>
+                        <PostCounter>47</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="57">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 1, Band 9, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.501424</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.726524</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+                  <PecErrors>3</PecErrors>
+               </Status>
+               <Status APID="58">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 1, Band 10, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.528222</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.755244</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="59">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 1, Band 11, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.570303</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.809947</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="60">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 1, Band 12, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.633500</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.858227</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="64">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 1, 60m</Description>
+                  <NumPackets>4968</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.596213</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.274297</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="65">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 2, 10m</Description>
+                  <NumPackets>29808</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.636651</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.345874</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="66">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 3, 10m</Description>
+                  <NumPackets>29749</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.809309</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:24.997161</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <PecErrors>2</PecErrors>
+               </Status>
+               <Status APID="67">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 4, 10m</Description>
+                  <NumPackets>29664</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.469779</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.761004</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+               </Status>
+               <Status APID="68">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 5, 20m</Description>
+                  <NumPackets>14857</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.615515</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.885172</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="69">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 6, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.657733</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.964545</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="70">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 7, 20m</Description>
+                  <NumPackets>14903</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.700101</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.007945</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:30.461513</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:30.463182</PostAcqTime>
+                        <PreCounter>3</PreCounter>
+                        <PostCounter>5</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="71">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 8, 20m</Description>
+                  <NumPackets>29807</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.744924</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.098622</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <PecErrors>14</PecErrors>
+               </Status>
+               <Status APID="72">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 8a, 20m</Description>
+                  <NumPackets>14770</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.417491</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.189924</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>2</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.866495</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.869107</PostAcqTime>
+                        <PreCounter>3</PreCounter>
+                        <PostCounter>5</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="73">
+                  <Description>VNIR, VCM 0, Detector 0, WICOM 2, Band 9, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.490693</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.217341</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="74">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 2, Band 10, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.518928</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.740647</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="75">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 2, Band 11, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.538218</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.785689</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="76">
+                  <Description>SWIR, VCM 0, Detector 0, WICOM 2, Band 12, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.603537</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.834449</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="80">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 1, 60m</Description>
+                  <NumPackets>4968</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.615704</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.281277</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="81">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 2, 10m</Description>
+                  <NumPackets>29744</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.728383</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.385290</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:08.918525</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>79</EndCounter>
+               </Status>
+               <Status APID="82">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 3, 10m</Description>
+                  <NumPackets>29728</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.379421</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.604459</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>17</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.945733</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.948614</PostAcqTime>
+                        <PreCounter>41</PreCounter>
+                        <PostCounter>43</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:10.971950</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:10.971950</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="83">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 4, 10m</Description>
+                  <NumPackets>29664</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.546937</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.862545</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <PecErrors>2</PecErrors>
+               </Status>
+               <Status APID="84">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 5, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.637692</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.919316</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>2</PecErrors>
+               </Status>
+               <Status APID="85">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 6, 20m</Description>
+                  <NumPackets>14903</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.679860</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:25.984770</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <EstimatedLost>1</EstimatedLost>
+                  <PecErrors>1</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.048460</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.051140</PostAcqTime>
+                        <PreCounter>12</PreCounter>
+                        <PostCounter>14</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="86">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 7, 20m</Description>
+                  <NumPackets>14904</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.722236</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.030699</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="87">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 8, 20m</Description>
+                  <NumPackets>29723</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:15.811342</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.167937</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>143</EndCounter>
+                  <EstimatedLost>4</EstimatedLost>
+                  <PecErrors>13</PecErrors>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.844092</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.846750</PostAcqTime>
+                        <PreCounter>119</PreCounter>
+                        <PostCounter>121</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.848169</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.851094</PostAcqTime>
+                        <PreCounter>123</PreCounter>
+                        <PostCounter>125</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:24.855224</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:24.860366</PostAcqTime>
+                        <PreCounter>133</PreCounter>
+                        <PostCounter>135</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:07.364178</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:07.364178</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.138471</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.145022</PostAcqTime>
+                        <PreCounter>9</PreCounter>
+                        <PostCounter>11</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="88">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 8a, 20m</Description>
+                  <NumPackets>14798</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.466904</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.210495</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+                  <PecErrors>1</PecErrors>
+               </Status>
+               <Status APID="89">
+                  <Description>VNIR, VCM 0, Detector 1, WICOM 0, Band 9, 60m</Description>
+                  <NumPackets>4942</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.501527</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.726619</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+                  <EstimatedLost>2</EstimatedLost>
+                  <Gaps>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.234819</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.236996</PostAcqTime>
+                        <PreCounter>2</PreCounter>
+                        <PostCounter>4</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                     <Gap>
+                        <EstimatedLost>1</EstimatedLost>
+                        <PreAcqTime>16-JUN-2020 10:48:31.242382</PreAcqTime>
+                        <PostAcqTime>16-JUN-2020 10:48:31.245277</PostAcqTime>
+                        <PreCounter>11</PreCounter>
+                        <PostCounter>13</PostCounter>
+                        <PreSensTime>16-JUN-2020 09:14:21.795265</PreSensTime>
+                        <PostSensTime>16-JUN-2020 09:14:21.795265</PostSensTime>
+                     </Gap>
+                  </Gaps>
+               </Status>
+               <Status APID="90">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 0, Band 10, 60m</Description>
+                  <NumPackets>4944</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.528326</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.755342</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>23</EndCounter>
+               </Status>
+               <Status APID="91">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 0, Band 11, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.570415</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.810052</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="92">
+                  <Description>SWIR, VCM 0, Detector 1, WICOM 0, Band 12, 20m</Description>
+                  <NumPackets>14832</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:16.634728</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.858337</AcqStopTime>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>71</EndCounter>
+               </Status>
+               <Status APID="256">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 1, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="257">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 2, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="258">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 3, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="259">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 4, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="260">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 5, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="261">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 6, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="262">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 7, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="263">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 8, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="264">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 8a, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="265">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 0, Band 9, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="266">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 0, Band 10, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="267">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 0, Band 11, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="268">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 0, Band 12, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="272">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 1, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="273">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 2, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="274">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 3, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="275">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 4, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="276">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 5, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="277">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 6, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="278">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 7, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="279">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 8, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="280">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 8a, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="281">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 9, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="282">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 0, Band 10, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="283">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 0, Band 11, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="284">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 0, Band 12, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="288">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 1, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="289">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 2, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="290">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 3, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="291">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 4, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="292">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 5, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="293">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 6, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="294">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 7, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="295">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 8, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="296">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 8a, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="297">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 1, Band 9, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="298">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 1, Band 10, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="299">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 1, Band 11, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="300">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 1, Band 12, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="304">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 1, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="305">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 2, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="306">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 3, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="307">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 4, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="308">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 5, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="309">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 6, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="310">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 7, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="311">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 8, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="312">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 8a, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="313">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 1, Band 9, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="314">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 1, Band 10, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="315">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 1, Band 11, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="316">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 1, Band 12, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="320">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 1, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="321">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 2, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="322">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 3, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="323">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 4, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="324">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 5, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="325">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 6, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="326">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 7, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="327">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 8, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="328">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 8a, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="329">
+                  <Description>VNIR, VCM 1, Detector 0, WICOM 2, Band 9, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="330">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 2, Band 10, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="331">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 2, Band 11, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="332">
+                  <Description>SWIR, VCM 1, Detector 0, WICOM 2, Band 12, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="336">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 1, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="337">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 2, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="338">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 3, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="339">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 4, 10m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="340">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 5, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="341">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 6, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="342">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 7, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="343">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 8, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="344">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 8a, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="345">
+                  <Description>VNIR, VCM 1, Detector 1, WICOM 0, Band 9, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="346">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 0, Band 10, 60m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="347">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 0, Band 11, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="348">
+                  <Description>SWIR, VCM 1, Detector 1, WICOM 0, Band 12, 20m</Description>
+                  <NumPackets>0</NumPackets>
+               </Status>
+               <Status APID="2047">
+                  <Description></Description>
+                  <NumPackets>1</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:55:26.858337</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:26.858337</AcqStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>0</EndCounter>
+               </Status>
+               <Summary>
+                  <NumPackets>1337608</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:48:14.595707</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:56:21.385440</AcqStopTime>
+                  <EstimatedLost>28</EstimatedLost>
+                  <SensStartTime>16-JUN-2020 09:13:52.933091</SensStartTime>
+                  <SensStopTime>16-JUN-2020 09:26:16.134068</SensStopTime>
+                  <PecErrors>151</PecErrors>
+               </Summary>
+            </ISP_Status>
+         </Status>
+         <Status VCID="3">
+            <Description>Satellite Housekeeping Data</Description>
+            <NumFrames>18891</NumFrames>
+            <AcqStartTime>16-JUN-2020 10:55:27.964884</AcqStartTime>
+            <AcqStopTime>16-JUN-2020 10:56:16.426891</AcqStopTime>
+            <StartCounter>15832627</StartCounter>
+            <EndCounter>15851517</EndCounter>
+            <RsUncorrectable>0</RsUncorrectable>
+            <RsCorrectable>2</RsCorrectable>
+            <ISP_Status>
+               <Status APID="2047">
+                  <Description></Description>
+                  <NumPackets>1</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:55:27.964978</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:27.964978</AcqStopTime>
+                  <StartCounter>0</StartCounter>
+                  <EndCounter>0</EndCounter>
+               </Status>
+               <Summary>
+                  <NumPackets>1</NumPackets>
+                  <AcqStartTime>16-JUN-2020 10:55:27.964978</AcqStartTime>
+                  <AcqStopTime>16-JUN-2020 10:55:27.964978</AcqStopTime>
+               </Summary>
+            </ISP_Status>
+         </Status>
+         <Summary>
+            <NumFrames>11918942</NumFrames>
+            <AcqStartTime>16-JUN-2020 10:48:14.593190</AcqStartTime>
+            <AcqStopTime>16-JUN-2020 10:56:21.385567</AcqStopTime>
+            <RsUncorrectable>372</RsUncorrectable>
+            <RsCorrectable>142</RsCorrectable>
+         </Summary>
+      </data_C1>
+      <distribution_C1_ISP>
+         <output_file>S2A_OPER_STO_ISP__S_VGS2_20200616T105621_V20200616T091352_20200616T092608_C1_S001.DBL</output_file>
+      </distribution_C1_ISP>
+      <distribution_C1_TF>
+         <output_file>S2A_OPER_STO_VCDU_S_VGS2_20200616T105621_V20200616T105527_20200616T105616_C1_S001.DBL</output_file>
+      </distribution_C1_TF>
+   </Data_Block>
+</Earth_Explorer_File>
