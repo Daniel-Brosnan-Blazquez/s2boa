@@ -26,7 +26,7 @@
   </rule>
   <rule>
     <source_mask>S2A_OPER_REP_PASS_E_EDRS_........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_PASS_E</source_type>
+    <source_type>S2A_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition -f </command>
     </tool>
@@ -37,8 +37,20 @@
     </dependencies>
   </rule>
   <rule>
+    <source_mask>S2A_OPER_REP_PASS_E_VGS._........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2A_REP_PASS</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>S2A_MPL_FS</source_type>
+    </dependencies>
+  </rule>
+  <rule>
     <source_mask>S2A_OPER_REP_PASS_[2|5]_...._........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2A_REP_PASS_2_5</source_type>
+    <source_type>S2A_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition -f </command>
     </tool>
@@ -93,8 +105,7 @@
     <dependencies>
       <source_type>S2A_MPL__NPPF</source_type>
       <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
+      <source_type>S2A_REP_PASS</source_type>
     </dependencies>
   </rule>
   <!-- end S2A specific with dependecies  -->
@@ -125,7 +136,7 @@
   </rule>
   <rule>
     <source_mask>S2B_OPER_REP_PASS_E_EDRS_........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_PASS_E</source_type>
+    <source_type>S2B_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition -f </command>
     </tool>
@@ -136,8 +147,20 @@
     </dependencies>
   </rule>
   <rule>
+    <source_mask>S2B_OPER_REP_PASS_E_VGS._........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2B_REP_PASS</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
+      <source_type>S2B_MPL_FS</source_type>
+    </dependencies>
+  </rule>
+  <rule>
     <source_mask>S2B_OPER_REP_PASS_[2|5]_...._........T......_V........T......_........T.......*</source_mask>
-    <source_type>S2B_REP_PASS_2_5</source_type>
+    <source_type>S2B_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition -f </command>
     </tool>
@@ -192,8 +215,7 @@
     <dependencies>
       <source_type>S2B_MPL__NPPF</source_type>
       <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
+      <source_type>S2B_REP_PASS</source_type>
     </dependencies>
   </rule>
   <!-- end S2B specific with dependecies  -->
@@ -210,12 +232,10 @@
     <dependencies>
       <source_type>S2A_MPL__NPPF</source_type>
       <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_REP_PASS_E</source_type>
-      <source_type>S2A_REP_PASS_2_5</source_type>
+      <source_type>S2A_REP_PASS</source_type>
       <source_type>S2B_MPL__NPPF</source_type>
       <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_REP_PASS_E</source_type>
-      <source_type>S2B_REP_PASS_2_5</source_type>
+      <source_type>S2B_REP_PASS</source_type>
     </dependencies>
   </rule>
   <rule>
