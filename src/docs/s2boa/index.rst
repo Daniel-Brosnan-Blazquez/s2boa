@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to S2BOA's documentation!
-================================
+=================================
 
 .. toctree::
    :maxdepth: 2

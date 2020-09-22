@@ -1,0 +1,544 @@
+\chapter{Ingestion modules code documentation}
+\section{Subpackages}
+\label{\detokenize{s2boa:subpackages}}
+
+\subsection{s2boa.ingestions package}
+\label{\detokenize{s2boa.ingestions:s2boa-ingestions-package}}\label{\detokenize{s2boa.ingestions::doc}}
+
+\subsubsection{Submodules}
+\label{\detokenize{s2boa.ingestions:submodules}}
+
+\subsubsection{s2boa.ingestions.ingestion\_ai.ingestion\_ai module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_ai.ingestion_ai}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-ai-ingestion-ai-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_ai.ingestion\_ai@\spxentry{s2boa.ingestions.ingestion\_ai.ingestion\_ai}}\index{s2boa.ingestions.ingestion\_ai.ingestion\_ai@\spxentry{s2boa.ingestions.ingestion\_ai.ingestion\_ai}!module@\spxentry{module}}
+Ingestion module for the REP\_OPAI files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_ai.ingestion\_ai)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_ai.ingestion\_ai}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_ai.ingestion_ai.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_ai.ingestion\_ai.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_dam.ingestion\_dam module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_dam.ingestion_dam}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-dam-ingestion-dam-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_dam.ingestion\_dam@\spxentry{s2boa.ingestions.ingestion\_dam.ingestion\_dam}}\index{s2boa.ingestions.ingestion\_dam.ingestion\_dam@\spxentry{s2boa.ingestions.ingestion\_dam.ingestion\_dam}!module@\spxentry{module}}
+Ingestion module for the REP\_OPDAM files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_dam.ingestion\_dam)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_dam.ingestion\_dam}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_dam.ingestion_dam.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_dam.ingestion\_dam.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-dfep-acquisition-ingestion-dfep-acquisition-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition@\spxentry{s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition}}\index{s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition@\spxentry{s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition}!module@\spxentry{module}}
+Ingestion module for the REP\_PASS\_2|5 files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_dfep_schedule.ingestion_dfep_schedule}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-dfep-schedule-ingestion-dfep-schedule-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule@\spxentry{s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule}}\index{s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule@\spxentry{s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule}!module@\spxentry{module}}
+Ingestion module for the DFEP schedule files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_dfep_schedule.ingestion_dfep_schedule.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_dhus.ingestion\_dhus module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_dhus.ingestion_dhus}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-dhus-ingestion-dhus-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_dhus.ingestion\_dhus@\spxentry{s2boa.ingestions.ingestion\_dhus.ingestion\_dhus}}\index{s2boa.ingestions.ingestion\_dhus.ingestion\_dhus@\spxentry{s2boa.ingestions.ingestion\_dhus.ingestion\_dhus}!module@\spxentry{module}}
+Ingestion module for the REP\_OPDHUS files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_dhus.ingestion\_dhus)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_dhus.ingestion\_dhus}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_dhus.ingestion_dhus.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_dhus.ingestion\_dhus.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_dpc.ingestion\_dpc module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_dpc.ingestion_dpc}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-dpc-ingestion-dpc-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_dpc.ingestion\_dpc@\spxentry{s2boa.ingestions.ingestion\_dpc.ingestion\_dpc}}\index{s2boa.ingestions.ingestion\_dpc.ingestion\_dpc@\spxentry{s2boa.ingestions.ingestion\_dpc.ingestion\_dpc}!module@\spxentry{module}}
+Ingestion module for the DPC files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_dpc.ingestion\_dpc)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_dpc.ingestion\_dpc}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_dpc.ingestion_dpc.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_dpc.ingestion\_dpc.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}, \emph{\DUrole{n}{wait\_previous\_levels}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-edrs-acquisition-ingestion-edrs-acquisition-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition@\spxentry{s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition}}\index{s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition@\spxentry{s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition}!module@\spxentry{module}}
+Ingestion module for the REP\_PASS\_E\_VGS files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_lta.ingestion\_lta module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_lta.ingestion_lta}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-lta-ingestion-lta-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_lta.ingestion\_lta@\spxentry{s2boa.ingestions.ingestion\_lta.ingestion\_lta}}\index{s2boa.ingestions.ingestion\_lta.ingestion\_lta@\spxentry{s2boa.ingestions.ingestion\_lta.ingestion\_lta}!module@\spxentry{module}}
+Ingestion module for the REP\_OPLTA files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_lta.ingestion\_lta)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_lta.ingestion\_lta}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_lta.ingestion_lta.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_lta.ingestion\_lta.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_ltas.ingestion\_ltas module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_ltas.ingestion_ltas}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-ltas-ingestion-ltas-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_ltas.ingestion\_ltas@\spxentry{s2boa.ingestions.ingestion\_ltas.ingestion\_ltas}}\index{s2boa.ingestions.ingestion\_ltas.ingestion\_ltas@\spxentry{s2boa.ingestions.ingestion\_ltas.ingestion\_ltas}!module@\spxentry{module}}
+Ingestion module for the REP\_OPLTAS files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_ltas.ingestion\_ltas)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_ltas.ingestion\_ltas}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_ltas.ingestion_ltas.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_ltas.ingestion\_ltas.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_nppf.ingestion\_nppf module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_nppf.ingestion_nppf}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-nppf-ingestion-nppf-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_nppf.ingestion\_nppf@\spxentry{s2boa.ingestions.ingestion\_nppf.ingestion\_nppf}}\index{s2boa.ingestions.ingestion\_nppf.ingestion\_nppf@\spxentry{s2boa.ingestions.ingestion\_nppf.ingestion\_nppf}!module@\spxentry{module}}
+Ingestion module for the NPPF files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_nppf.ingestion\_nppf)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_nppf.ingestion\_nppf}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_nppf.ingestion_nppf.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_nppf.ingestion\_nppf.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_orbpre.ingestion_orbpre}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-orbpre-ingestion-orbpre-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre@\spxentry{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre}}\index{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre@\spxentry{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre}!module@\spxentry{module}}
+Ingestion module for the ORBPRE files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{get\_date\_from\_angle() (in module s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre)@\spxentry{get\_date\_from\_angle()}\spxextra{in module s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_orbpre.ingestion_orbpre.get_date_from_angle}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre.}}\sphinxbfcode{\sphinxupquote{get\_date\_from\_angle}}}{\emph{\DUrole{n}{angle}}, \emph{\DUrole{n}{orbital\_period}}, \emph{\DUrole{n}{ascending\_node\_time}}}{}
+\end{fulllineitems}
+
+\index{process\_file() (in module s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_orbpre.ingestion_orbpre.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-rep-arc-ingestion-rep-arc-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc@\spxentry{s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc}}\index{s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc@\spxentry{s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc}!module@\spxentry{module}}
+Ingestion module for the REP\_ARC files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-slot-request-edrs-ingestion-slot-request-edrs-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs@\spxentry{s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs}}\index{s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs@\spxentry{s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs}!module@\spxentry{module}}
+Ingestion module for the SRA (Slot request for unit A) files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-station-acquisition-report-ingestion-station-acquisition-report-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report@\spxentry{s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report}}\index{s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report@\spxentry{s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report}!module@\spxentry{module}}
+Ingestion module for the Station Acquisition Report files
+
+Written by DEIMOS Space S.L. (femd)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-ingestion-station-schedule-ingestion-station-schedule-module}}\index{module@\spxentry{module}!s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule@\spxentry{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule}}\index{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule@\spxentry{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule}!module@\spxentry{module}}
+Ingestion module for the Station schedule files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{process\_file() (in module s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule)@\spxentry{process\_file()}\spxextra{in module s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule.process_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule.}}\sphinxbfcode{\sphinxupquote{process\_file}}}{\emph{\DUrole{n}{file\_path}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{reception\_time}}}{}
+Function to process the file and insert its relevant information
+into the DDBB of the eboa
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{file\_path}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} path to the file to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} Engine instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} Query instance
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{reception\_time}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} time of the reception of the file by the triggering
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{Module contents}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions}}\label{\detokenize{s2boa.ingestions:module-contents}}\index{module@\spxentry{module}!s2boa.ingestions@\spxentry{s2boa.ingestions}}\index{s2boa.ingestions@\spxentry{s2boa.ingestions}!module@\spxentry{module}}
+
