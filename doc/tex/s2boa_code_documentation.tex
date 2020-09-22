@@ -539,6 +539,564 @@ into the DDBB of the eboa
 
 
 
-\subsubsection{Module contents}
-\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions}}\label{\detokenize{s2boa.ingestions:module-contents}}\index{module@\spxentry{module}!s2boa.ingestions@\spxentry{s2boa.ingestions}}\index{s2boa.ingestions@\spxentry{s2boa.ingestions}!module@\spxentry{module}}
+\subsubsection{s2boa.ingestions.errors module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.errors}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-errors-module}}\index{module@\spxentry{module}!s2boa.ingestions.errors@\spxentry{s2boa.ingestions.errors}}\index{s2boa.ingestions.errors@\spxentry{s2boa.ingestions.errors}!module@\spxentry{module}}
+Errors definition for the ingestions module
 
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{CentresConfigCannotBeRead@\spxentry{CentresConfigCannotBeRead}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.errors.CentresConfigCannotBeRead}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{exception }}\sphinxcode{\sphinxupquote{s2boa.ingestions.errors.}}\sphinxbfcode{\sphinxupquote{CentresConfigCannotBeRead}}}{\emph{\DUrole{n}{message}}}{}
+Bases: {\hyperref[\detokenize{s2boa.ingestions:s2boa.ingestions.errors.Error}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{s2boa.ingestions.errors.Error}}}}}
+
+Exception raised when the centres configuration file cannot be read.
+\begin{description}
+\item[{Attributes:}] \leavevmode
+message \textendash{} explanation of the error
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{CentresConfigDoesNotPassSchema@\spxentry{CentresConfigDoesNotPassSchema}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.errors.CentresConfigDoesNotPassSchema}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{exception }}\sphinxcode{\sphinxupquote{s2boa.ingestions.errors.}}\sphinxbfcode{\sphinxupquote{CentresConfigDoesNotPassSchema}}}{\emph{\DUrole{n}{message}}}{}
+Bases: {\hyperref[\detokenize{s2boa.ingestions:s2boa.ingestions.errors.Error}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{s2boa.ingestions.errors.Error}}}}}
+
+Exception raised when the centres configuration does not pass the schema.
+\begin{description}
+\item[{Attributes:}] \leavevmode
+message \textendash{} explanation of the error
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{Error@\spxentry{Error}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.errors.Error}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxcode{\sphinxupquote{s2boa.ingestions.errors.}}\sphinxbfcode{\sphinxupquote{Error}}}
+Bases: \sphinxcode{\sphinxupquote{Exception}}
+
+Base class for exceptions in this module.
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.functions module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.functions}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-functions-module}}\index{module@\spxentry{module}!s2boa.ingestions.functions@\spxentry{s2boa.ingestions.functions}}\index{s2boa.ingestions.functions@\spxentry{s2boa.ingestions.functions}!module@\spxentry{module}}
+Helper module for the ingestion\_functions. of files of Sentinel\sphinxhyphen{}2
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{L0\_L1A\_L1B\_processing() (in module s2boa.ingestions.functions)@\spxentry{L0\_L1A\_L1B\_processing()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.L0_L1A_L1B_processing}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{L0\_L1A\_L1B\_processing}}}{\emph{\DUrole{n}{source}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{granule\_timeline}}, \emph{\DUrole{n}{list\_of\_events}}, \emph{\DUrole{n}{datastrip}}, \emph{\DUrole{n}{granule\_timeline\_per\_detector}}, \emph{\DUrole{n}{list\_of\_operations}}, \emph{\DUrole{n}{system}}, \emph{\DUrole{n}{version}}, \emph{\DUrole{n}{filename}}, \emph{\DUrole{n}{satellite}}}{}
+Method to generate the events for the levels L0 and L1B
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{source}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} information of the source
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} object to access the engine of the EBOA
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} object to access the query interface of the EBOA
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{granule\_timeline}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}) \textendash{} list of granule segments to be processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{list\_of\_events}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}) \textendash{} list to store the events to be inserted into the eboa
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{datastrip}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} datastrip
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{granule\_timeline\_per\_detector}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} dict containing the granule segments per detector
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{list\_of\_operations}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}) \textendash{} list of operations to be inserted into EBOA
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{level}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} level of the outputs being processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{system}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} center where data has been processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{version}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} version of the processor used
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{filename}} \textendash{} name of the processor file
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+None
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{L1C\_L2A\_processing() (in module s2boa.ingestions.functions)@\spxentry{L1C\_L2A\_processing()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.L1C_L2A_processing}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{L1C\_L2A\_processing}}}{\emph{\DUrole{n}{source}}, \emph{\DUrole{n}{engine}}, \emph{\DUrole{n}{query}}, \emph{\DUrole{n}{list\_of\_events}}, \emph{\DUrole{n}{processing\_validity\_events}}, \emph{\DUrole{n}{datastrip}}, \emph{\DUrole{n}{list\_of\_operations}}, \emph{\DUrole{n}{system}}, \emph{\DUrole{n}{version}}, \emph{\DUrole{n}{filename}}, \emph{\DUrole{n}{satellite}}}{}
+Method to generate the events for the levels L1C and L2A
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{source}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} information of the source
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{engine}} (\sphinxstyleliteralemphasis{\sphinxupquote{Engine}}) \textendash{} object to access the engine of the EBOA
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{query}} (\sphinxstyleliteralemphasis{\sphinxupquote{Query}}) \textendash{} object to access the query interface of the EBOA
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{list\_of\_events}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}) \textendash{} list to store the events to be inserted into the eboa
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{processing\_validity\_events}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} dict containing the events linked to the sensing date from the datablock analysed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{datastrip}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} datastrip
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{list\_of\_operations}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}) \textendash{} list of operations to be inserted into EBOA
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{system}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} center where data has been processed
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{version}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} version of the processor used
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{filename}} \textendash{} name of the processor file
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+None
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{associate\_footprints() (in module s2boa.ingestions.functions)@\spxentry{associate\_footprints()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.associate_footprints}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{associate\_footprints}}}{\emph{\DUrole{n}{events}}, \emph{\DUrole{n}{satellite}}, \emph{\DUrole{n}{orbpre\_events}\DUrole{o}{=}\DUrole{default_value}{None}}, \emph{\DUrole{n}{return\_polygon\_format}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
+\end{fulllineitems}
+
+\index{build\_orbpre\_file() (in module s2boa.ingestions.functions)@\spxentry{build\_orbpre\_file()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.build_orbpre_file}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{build\_orbpre\_file}}}{\emph{\DUrole{n}{start\_events}}, \emph{\DUrole{n}{stop\_events}}, \emph{\DUrole{n}{satellite}}, \emph{\DUrole{n}{orbpre\_events}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+Method to generate an orbpre file from data inside the DDBB
+
+\end{fulllineitems}
+
+\index{convert\_from\_datetime\_gps\_to\_datetime\_utc() (in module s2boa.ingestions.functions)@\spxentry{convert\_from\_datetime\_gps\_to\_datetime\_utc()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.convert_from_datetime_gps_to_datetime_utc}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{convert\_from\_datetime\_gps\_to\_datetime\_utc}}}{\emph{\DUrole{n}{date}}}{}
+Method to convert a date in GPS precission to UTC
+:param date: date in GPS precission and ISO format
+:type date: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+date coverted in ISO 8601
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{convert\_from\_gps\_to\_utc() (in module s2boa.ingestions.functions)@\spxentry{convert\_from\_gps\_to\_utc()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.convert_from_gps_to_utc}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{convert\_from\_gps\_to\_utc}}}{\emph{\DUrole{n}{date}}}{}
+Method to convert a date in GPS precission to UTC
+:param date: date in GPS precission and ISO format
+:type date: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+date coverted in ISO 8601
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{correct\_footprint() (in module s2boa.ingestions.functions)@\spxentry{correct\_footprint()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.correct_footprint}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{correct\_footprint}}}{\emph{\DUrole{n}{coordinates}}}{}
+\end{fulllineitems}
+
+\index{correct\_list\_of\_coordinates\_for\_ds() (in module s2boa.ingestions.functions)@\spxentry{correct\_list\_of\_coordinates\_for\_ds()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.correct_list_of_coordinates_for_ds}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{correct\_list\_of\_coordinates\_for\_ds}}}{\emph{\DUrole{n}{list\_of\_coordinates}}}{}
+Method to correct the format of a given list of coordinates for a datastrip
+:param list\_of\_coordinates: list with coordinates
+:type list\_of\_coordinates: list
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+list\_of\_coordinates
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{correct\_list\_of\_coordinates\_for\_gr\_tl() (in module s2boa.ingestions.functions)@\spxentry{correct\_list\_of\_coordinates\_for\_gr\_tl()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.correct_list_of_coordinates_for_gr_tl}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{correct\_list\_of\_coordinates\_for\_gr\_tl}}}{\emph{\DUrole{n}{list\_of\_coordinates}}}{}
+Method to correct the format of a given list of coordinates for a granule or a tile
+:param list\_of\_coordinates: list with coordinates
+:type list\_of\_coordinates: list
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+list\_of\_coordinates
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_apid\_numbers() (in module s2boa.ingestions.functions)@\spxentry{get\_apid\_numbers()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_apid_numbers}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_apid\_numbers}}}{}{}
+Method to obtain the APID numbers used
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+list of APID numbers
+
+\item[{Return type}] \leavevmode
+list
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_band\_detector() (in module s2boa.ingestions.functions)@\spxentry{get\_band\_detector()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_band_detector}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_band\_detector}}}{\emph{\DUrole{n}{apid}}}{}
+Method to obtain the band and detector numbers related to the APID number
+\begin{description}
+\item[{The detector and the bands are determined from APID}] \leavevmode\begin{description}
+\item[{APID RANGE     DETECTOR}] \leavevmode
+0\sphinxhyphen{}15           12
+16\sphinxhyphen{}31           11
+32\sphinxhyphen{}47           10
+48\sphinxhyphen{}63           9
+64\sphinxhyphen{}79           8
+80\sphinxhyphen{}95           7
+
+256\sphinxhyphen{}271           6
+272\sphinxhyphen{}287           5
+288\sphinxhyphen{}303           4
+304\sphinxhyphen{}319           3
+320\sphinxhyphen{}335           2
+336\sphinxhyphen{}351           1
+
+\item[{APID MOD 16     BAND}] \leavevmode
+0           1
+1           2
+2           3
+3           4
+4           5
+5           6
+6           7
+7           8
+8           8a
+9           9
+10          10
+11          11
+12          12
+
+\end{description}
+
+\end{description}
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{apid}} \textendash{} APID number
+
+\item[{Returns}] \leavevmode
+band\_detector\_configuration
+
+\item[{Return type}] \leavevmode
+dict
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_centre\_name\_by\_alias() (in module s2boa.ingestions.functions)@\spxentry{get\_centre\_name\_by\_alias()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_centre_name_by_alias}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_centre\_name\_by\_alias}}}{\emph{\DUrole{n}{alias}}}{}
+\end{fulllineitems}
+
+\index{get\_centres\_conf() (in module s2boa.ingestions.functions)@\spxentry{get\_centres\_conf()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_centres_conf}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_centres\_conf}}}{}{}
+\end{fulllineitems}
+
+\index{get\_counter\_threshold() (in module s2boa.ingestions.functions)@\spxentry{get\_counter\_threshold()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_counter_threshold}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_counter\_threshold}}}{\emph{\DUrole{n}{band}}}{}~\begin{description}
+\item[{Method to obtain the counter threshold related to the band number}] \leavevmode\begin{description}
+\item[{BAND     COUNTER THRESHOLD    METRES}] \leavevmode
+1              23            60
+2\sphinxhyphen{}4           143            10
+5\sphinxhyphen{}7            71            20
+8             143            10
+8a             71            20
+9\sphinxhyphen{}10           23            60
+11\sphinxhyphen{}12          71            20
+
+\end{description}
+
+\end{description}
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{band}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} band number
+
+\item[{Returns}] \leavevmode
+counter\_threshold
+
+\item[{Return type}] \leavevmode
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_counter\_threshold\_from\_apid() (in module s2boa.ingestions.functions)@\spxentry{get\_counter\_threshold\_from\_apid()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_counter_threshold_from_apid}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_counter\_threshold\_from\_apid}}}{\emph{\DUrole{n}{apid}}}{}
+Method to obtain the counter threshold related to the apid number
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{apid}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} apid number
+
+\item[{Returns}] \leavevmode
+counter\_threshold
+
+\item[{Return type}] \leavevmode
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_vcid\_apid\_configuration() (in module s2boa.ingestions.functions)@\spxentry{get\_vcid\_apid\_configuration()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_vcid_apid_configuration}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_vcid\_apid\_configuration}}}{\emph{\DUrole{n}{vcid}}}{}
+Method to obtain the APID configuration related to the VCID number
+:param vcid: VCID number
+:type vcid: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+apid\_configuration
+
+\item[{Return type}] \leavevmode
+dict
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_vcid\_mode() (in module s2boa.ingestions.functions)@\spxentry{get\_vcid\_mode()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.get_vcid_mode}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{get\_vcid\_mode}}}{\emph{\DUrole{n}{vcid}}}{}
+Method to convert the VCID number into the storage mode
+:param vcid: VCID number
+:type vcid: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+mode
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{insert\_ingestion\_progress() (in module s2boa.ingestions.functions)@\spxentry{insert\_ingestion\_progress()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.insert_ingestion_progress}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{insert\_ingestion\_progress}}}{\emph{\DUrole{n}{session}}, \emph{\DUrole{n}{source}}, \emph{\DUrole{n}{progress}}}{}
+\end{fulllineitems}
+
+\index{list\_of\_coordinates\_to\_str\_geometry() (in module s2boa.ingestions.functions)@\spxentry{list\_of\_coordinates\_to\_str\_geometry()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.list_of_coordinates_to_str_geometry}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{list\_of\_coordinates\_to\_str\_geometry}}}{\emph{\DUrole{n}{list\_of\_coordinates}}}{}
+Method to receive a string of coordinates and return the same list but with a correct format
+:param list\_of\_coordinates: list with coordinates
+:type list\_of\_coordinates: list
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+geometry
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{obtain\_polygon\_format() (in module s2boa.ingestions.functions)@\spxentry{obtain\_polygon\_format()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.obtain_polygon_format}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{obtain\_polygon\_format}}}{\emph{\DUrole{n}{footprint}}}{}
+\end{fulllineitems}
+
+\index{three\_letter\_to\_iso\_8601() (in module s2boa.ingestions.functions)@\spxentry{three\_letter\_to\_iso\_8601()}\spxextra{in module s2boa.ingestions.functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.functions.three_letter_to_iso_8601}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.functions.}}\sphinxbfcode{\sphinxupquote{three\_letter\_to\_iso\_8601}}}{\emph{\DUrole{n}{date}}}{}
+Method to convert a date in three letter format to a date in ISO 8601 format
+:param date: date in three letter format (DD\sphinxhyphen{}MMM\sphinxhyphen{}YYYY HH:MM:SS.ssssss)
+:type date: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+date in ISO 8601 format (YYYY\sphinxhyphen{}MM\sphinxhyphen{}DDTHH:MM:SS)
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\subsubsection{s2boa.ingestions.xpath\_functions module}
+\label{\detokenize{s2boa.ingestions:module-s2boa.ingestions.xpath_functions}}\label{\detokenize{s2boa.ingestions:s2boa-ingestions-xpath-functions-module}}\index{module@\spxentry{module}!s2boa.ingestions.xpath\_functions@\spxentry{s2boa.ingestions.xpath\_functions}}\index{s2boa.ingestions.xpath\_functions@\spxentry{s2boa.ingestions.xpath\_functions}!module@\spxentry{module}}
+Helper module for the ingestion\_functions. of files of Sentinel\sphinxhyphen{}2 using functions in XPATH
+
+Written by DEIMOS Space S.L. (dibb)
+
+module eboa
+\index{dates\_difference() (in module s2boa.ingestions.xpath\_functions)@\spxentry{dates\_difference()}\spxextra{in module s2boa.ingestions.xpath\_functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.xpath_functions.dates_difference}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.xpath\_functions.}}\sphinxbfcode{\sphinxupquote{dates\_difference}}}{\emph{\DUrole{n}{dummy}}, \emph{\DUrole{n}{minuend}}, \emph{\DUrole{n}{subtrahend}}}{}
+Method to perform the difference between two dates from XPATH
+:param dummy: parameter not used by lxml
+:type dummy: None
+:param minuend: first date in the substruction
+:type date: str
+:param subtrahend: second date in the substruction
+:type date: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+seconds of difference
+
+\item[{Return type}] \leavevmode
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_counter\_threshold\_from\_apid() (in module s2boa.ingestions.xpath\_functions)@\spxentry{get\_counter\_threshold\_from\_apid()}\spxextra{in module s2boa.ingestions.xpath\_functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.xpath_functions.get_counter_threshold_from_apid}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.xpath\_functions.}}\sphinxbfcode{\sphinxupquote{get\_counter\_threshold\_from\_apid}}}{\emph{\DUrole{n}{dummy}}, \emph{\DUrole{n}{apid}}}{}
+Method to obtain the counter threshold of the related apid
+:param dummy: parameter not used by lxml
+:type dummy: None
+:param apid: apid number
+:type apid: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+counter\_threshold
+
+\item[{Return type}] \leavevmode
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{three\_letter\_to\_iso\_8601() (in module s2boa.ingestions.xpath\_functions)@\spxentry{three\_letter\_to\_iso\_8601()}\spxextra{in module s2boa.ingestions.xpath\_functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{s2boa.ingestions:s2boa.ingestions.xpath_functions.three_letter_to_iso_8601}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{s2boa.ingestions.xpath\_functions.}}\sphinxbfcode{\sphinxupquote{three\_letter\_to\_iso\_8601}}}{\emph{\DUrole{n}{dummy}}, \emph{\DUrole{n}{date}}}{}
+Method to convert a date in three letter format to a date in ISO 8601 format from XPATH
+:param dummy: parameter not used by lxml
+:type dummy: None
+:param date: date in three letter format (DD\sphinxhyphen{}MMM\sphinxhyphen{}YYYY HH:MM:SS.ssssss)
+:type date: str
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+date in ISO 8601 format (YYYY\sphinxhyphen{}MM\sphinxhyphen{}DDTHH:MM:SS)
+
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\renewcommand{\indexname}{Python Module Index}
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\bigletter{s}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.errors}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.errors}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.functions}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.functions}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_ai.ingestion\_ai}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_ai.ingestion_ai}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_dam.ingestion\_dam}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_dam.ingestion_dam}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_dfep\_acquisition.ingestion\_dfep\_acquisition}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_dfep\_schedule.ingestion\_dfep\_schedule}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_dfep_schedule.ingestion_dfep_schedule}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_dhus.ingestion\_dhus}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_dhus.ingestion_dhus}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_dpc.ingestion\_dpc}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_dpc.ingestion_dpc}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_edrs\_acquisition.ingestion\_edrs\_acquisition}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_lta.ingestion\_lta}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_lta.ingestion_lta}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_ltas.ingestion\_ltas}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_ltas.ingestion_ltas}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_nppf.ingestion\_nppf}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_nppf.ingestion_nppf}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_orbpre.ingestion\_orbpre}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_orbpre.ingestion_orbpre}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_rep\_arc.ingestion\_rep\_arc}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_slot\_request\_edrs.ingestion\_slot\_request\_edrs}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_station\_acquisition\_report.ingestion\_station\_acquisition\_report}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule}}
+\item\relax\sphinxstyleindexentry{s2boa.ingestions.xpath\_functions}\sphinxstyleindexpageref{s2boa.ingestions:\detokenize{module-s2boa.ingestions.xpath_functions}}
+\end{sphinxtheindex}
+
+\renewcommand{\indexname}{Index}
+\printindex

@@ -443,6 +443,7 @@ def three_letter_to_iso_8601(date):
 def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_events, datastrip, granule_timeline_per_detector, list_of_operations, system, version, filename, satellite):
     """
     Method to generate the events for the levels L0 and L1B
+
     :param source: information of the source
     :type source: dict
     :param engine: object to access the engine of the EBOA
@@ -914,6 +915,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
 def L1C_L2A_processing(source, engine, query, list_of_events, processing_validity_events, datastrip, list_of_operations, system, version, filename, satellite):
     """
     Method to generate the events for the levels L1C and L2A
+
     :param source: information of the source
     :type source: dict
     :param engine: object to access the engine of the EBOA

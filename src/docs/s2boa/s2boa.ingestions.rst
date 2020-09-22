@@ -124,10 +124,26 @@ s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule module
     :undoc-members:
     :show-inheritance:
 
-Module contents
----------------
+s2boa.ingestions.errors module
+------------------------------
 
-.. automodule:: s2boa.ingestions
+.. automodule:: s2boa.ingestions.errors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+s2boa.ingestions.functions module
+---------------------------------
+
+.. automodule:: s2boa.ingestions.functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+s2boa.ingestions.xpath_functions module
+---------------------------------------
+
+.. automodule:: s2boa.ingestions.xpath_functions
     :members:
     :undoc-members:
     :show-inheritance:
