@@ -1,0 +1,45 @@
+\section{Ingestion module for the MPL\_SP file}
+
+This sections describes the ingestion module for inserting the station schedule information received from the S2 Mission Planning.
+
+The associated ingestion processors are:
+
+\begin{itemize} 
+
+\item \textbf{s2boa.ingestions.ingestion\_station\_schedule.ingestion\_station\_schedule}
+  
+\end{itemize}
+
+This module uses the following \acrshort{dim} signatures:
+
+\begin{itemize} 
+
+\item \textbf{STATION\_SCHEDULE\_WWW\_XXX}: data corresponding to station schedule information associated to a specific station and satellite received from the Mission Planning.
+
+\item \textbf{COMPLETENESS\_NPPF\_XXX}: data corresponding to the definition of planning completeness used for analysis.
+  
+\end{itemize}
+
+Where XXX is the corresponding satellite id and WWW to the station ID.
+
+The figure \ref{fg:structure_ingestion_station_schedule} shows a simplified diagram of the structure of the data inserted (associated structure of values not included for simplicity).
+
+\begin{figure}[H]
+  \begin{center}
+	\centering\includegraphics[width=150mm]{../fig/structure_ingestion_station_schedule.png}
+	\caption{Structure of the data inserted by the ingestion module for the MPL\_SP file}
+	\label{fg:structure_ingestion_station_schedule}
+  \end{center}
+\end{figure}
+
+The table \ref{tb:description_events_ingestion_station_schedule} shows the description of the events inserted by the ingestion.
+
+\begin{landscape}
+\begin{longtable}{|M{0.15\linewidth}|M{0.05\linewidth}|M{0.10\linewidth}|M{0.10\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|}
+\hline \textbf{Gauge name} & \textbf{Gauge system} & \textbf{DIM signature} & \textbf{Insertion mode} & \textbf{Description} & \textbf{Start} & \textbf{Stop} \\ \hline
+\textbf{STATION\_SCHEDULE} & XXX & STATION\_SCHEDULE\_WWW\_XXX & ERASE\_and\_REPLACE\_per\_EVENT (insert) & Event for representing the \textbf{station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
+\textbf{STATION\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & ERASE\_and\_REPLACE (insert\_and\_erase) & Event for representing the \textbf{expectation of the Station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
+\caption{Table describing the events associated to the ingestion}
+\label{tb:description_events_ingestion_station_schedule}
+\end{longtable}
+\end{landscape}

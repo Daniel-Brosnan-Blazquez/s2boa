@@ -1,0 +1,43 @@
+\chapter{Ingestion modules}
+
+\acrshort{s2}\acrshort{boa} implements ingestion modules for the areas of data shown in figure \ref{fg:data_flow_s2boa}. This data is received inside files (ussually in XML format) from the Sentinel-2 \acrshort{pdgs}, stations and \acrshort{fos}.
+
+\begin{figure}[H]
+  \begin{center}
+	\centering\includegraphics[width=150mm]{../fig/data_flow_s2boa.png}
+	\caption{Areas of data related to the S2 mission}
+	\label{fg:data_flow_s2boa}
+  \end{center}
+\end{figure}
+
+
+This chapter describes each of the ingestion modules in the following sections. The figure \ref{fg:legened_structure_of_ingestions} shows the legend for the diagrams, used to represent the data stored.
+
+\begin{figure}[H]
+  \begin{center}
+	\centering\includegraphics[width=75mm]{../fig/legened_structure_of_ingestions.png}
+	\caption{Legend for the diagrams, used to represent the data stored}
+	\label{fg:legened_structure_of_ingestions}
+  \end{center}
+\end{figure}
+
+% Ingestion NPPF
+\input{ingestion_nppf.tex}
+
+% Ingestion ORBPRE
+\input{ingestion_orbpre.tex}
+
+% Ingestion MPL_SP
+\input{ingestion_station_schedule.tex}
+
+% Ingestion MPL_FS
+\input{ingestion_dfep_schedule.tex}
+
+% Ingestion SRA
+\input{ingestion_slot_request_edrs.tex}
+
+% Ingestion of the REP_PASS_[2|5]
+\input{ingestion_dfep_acquisition.tex}
+
+% Ingestion of the REP_PASS_E
+\input{ingestion_eisp.tex}

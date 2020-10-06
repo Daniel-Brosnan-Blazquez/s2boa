@@ -1,29 +1,67 @@
 \chapter{Purpose and scope}
 
-This component manages the storage of the data received following the next requirements:
+The purpose of this document is to explain the tailoring done for \acrshort{s2}\acrshort{boa} component, which is based on \acrshort{boa} for monitoring the mission Sentinel-2. The scope will be limited to explain technically the tailoring.
+
+\acrshort{s2}\acrshort{boa} uses \acrshort{boa}'s infrastructure to store the relevant data received from the external interfaces through the specific ingestion modules and allow its visualization through the specific views.
+
+These are the available specific ingestion modules:
 
 \begin{itemize} 
 
-\item Traceability of all the data to the source of information (even information created within the infrastructure)
+\item \textbf{ingestion\_nppf}: ingestion module for the planning received from the \acrshort{s2} Mission Planning
 
-\item No pre-configuration needed for inserting data
+\item \textbf{ingestion\_orbpre}: ingestion module for the orbit prediction received from the flight dynamics
 
-\item Include modern datatypes for storing the data
+\item \textbf{ingestion\_station\_schedule}: ingestion module for the station schedule received from the \acrshort{s2} Mission Planning
 
-\item Flexible structure for linking information to events and annotations
+\item \textbf{ingestion\_dfep\_schedule}: ingestion module for the \acrshort{dfep} schedule received from the \acrshort{s2} Mission Planning
 
-\item Flexible structure for linking events between them
+\item \textbf{ingestion\_slot\_request\_edrs}: ingestion module for the \acrshort{edrs} planning received from the \acrshort{s2} Mission Planning
 
-\item Flexible structure for linking explicit references between them
+\item \textbf{ingestion\_station\_acquisition\_report}: ingestion module for the station acquisition report sent by the station operators
 
-\item Continuous developtment/Continuous integration approach
+\item \textbf{ingestion\_dfep\_acquisition}: ingestion module for the acquisition analysis sent by the station
 
-\item Include geo-query functionalities
+\item \textbf{ingestion\_edrs\_acquisition}: ingestion module for the \acrshort{edrs} acquisition analysis sent by the \acrshort{eisp}
 
-\item Parallel insertion of data using the \acrshort{rdbms} parallelism mechanisms
+\item \textbf{ingestion\_vgs\_acquisition}: ingestion module for the station acquisition analysis sent by the \acrshort{eisp}
 
-\item Quick access to the information by which it can be managed dynamically depending on the needs of the users
+\item \textbf{ingestion\_dpc}: ingestion module for the processing generation analysis sent by the processor
+
+\item \textbf{ingestion\_rep\_arc}: ingestion module for the indexing of products
+
+\item \textbf{ingestion\_ai}: ingestion module for the archiving of products
+
+\item \textbf{ingestion\_dc}: ingestion module for the circulation of products
+
+\item \textbf{ingestion\_lta}: ingestion module for the long-term-archive of products
+
+\item \textbf{ingestion\_ltas}: ingestion module for the long-term-archive of products
+
+\item \textbf{ingestion\_dam}: ingestion module for the data access management of products
+
+\item \textbf{ingestion\_dhus}: ingestion module for the data availability of products to users
 
 \end{itemize}
 
-The scope of this component targets systems/tools with the need of storing time-tagged information. The data model used allows quick access to the information in a structured way.
+These are the available specific views:
+
+\begin{itemize} 
+
+\item \textbf{Planning}: view for planning study
+
+\item \textbf{\acrshort{tle} workflow}: view for the study of \acrshort{tle} circulation towards the expected destinations
+
+\item \textbf{Tracking}: view for following the \acrshort{s2} constellation
+  
+\item \textbf{Acquisition}: view for acquisition performance from planning study
+
+\item \textbf{\acrshort{hktm} workflow}: view for the study of \acrshort{hktm} circulation towards the expected destinations
+
+\item \textbf{Data availability at \acrshort{dhus}}: view for the study of the dissemination of production towards \acrshort{dhus}
+
+\item \textbf{Sensing data volumes}: view for the study of the volume of data, query driven by sensing timings
+
+\item \textbf{Archive data volumes}: view for the study of the volume of data, query driven by archiving timings
+  
+\end{itemize}
