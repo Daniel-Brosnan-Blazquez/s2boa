@@ -43,3 +43,19 @@ The table \ref{tb:description_events_ingestion_dfep_schedule} shows the descript
 \label{tb:description_events_ingestion_dfep_schedule}
 \end{longtable}
 \end{landscape}
+
+\subsection{Ingestion details}
+
+This section describes some ingestion details for inserting the data. In particular:
+
+\begin{itemize} 
+
+\item The correction of the generation time to avoid overriding data used for completeness analysis
+  
+\end{itemize}
+
+\subsubsection{Correction of the generation time}
+
+The generation time of the data extracted is one day before the validity start. This could be a problem as the processor of the ORBPRE files could override this data.
+
+To solve this issue the processor changes the generation time to be the validity start.

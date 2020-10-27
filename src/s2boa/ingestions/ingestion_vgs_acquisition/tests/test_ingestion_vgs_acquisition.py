@@ -511,10 +511,10 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
-        filename = "S2A_OPER_MPL_FSSGS__PDMC_20200615T090008_V20200616T090000_20200622T090000.EOF"
+        filename = "S2A_OPER_MPL_SPSGS__PDMC_20200615T090003_V20200616T090000_20200622T090000.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_schedule.ingestion_dfep_schedule", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

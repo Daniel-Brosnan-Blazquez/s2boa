@@ -525,7 +525,10 @@ def process_file(file_path, engine, query, reception_time):
     xpath_xml = etree.XPathEvaluator(parsed_xml)
 
     satellite = file_name[0:3]
-    generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+
+    # Generation time is changed to -1 days to avoid overriding data from EDRS and station scheduling
+    reported_generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+    generation_time = (parser.parse(reported_generation_time) + datetime.timedelta(days=-1)).isoformat()
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     validity_stop = (parser.parse(xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]) + datetime.timedelta(minutes=100)).isoformat()
 

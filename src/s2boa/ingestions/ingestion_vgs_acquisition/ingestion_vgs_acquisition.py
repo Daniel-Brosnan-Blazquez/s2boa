@@ -76,13 +76,11 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
     # Obtain downlink orbit
     downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
 
-    dfep_schedule_events = query.get_events(gauge_names = {"op": "==", "filter": "DFEP_SCHEDULE"},
+    dfep_schedule_events = query.get_events(gauge_names = {"op": "==", "filter": "STATION_SCHEDULE"},
                                             gauge_systems = {"op": "==", "filter": station},
                                             value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
                                                              {"name": {"op": "==", "filter": "orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}])
 
-    print(dfep_schedule_events)
-    
     planned_playbacks = []
     if len (dfep_schedule_events) > 0:
         planned_playback_uuids = [link.event_uuid_link for link in dfep_schedule_events[0].eventLinks if link.name == "PLANNED_PLAYBACK"]
