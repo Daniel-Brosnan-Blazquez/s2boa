@@ -613,7 +613,7 @@ def process_file(file_path, engine, query, reception_time):
         list_of_completeness_events_with_footprint = functions.associate_footprints(list_of_completeness_events, satellite, list_of_events)
 
         data["operations"].append({
-            "mode": "insert_and_erase",
+            "mode": "insert",
             "dim_signature": {
                 "name": "COMPLETENESS_NPPF_" + satellite,
                 "exec": os.path.basename(__file__),
