@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Earth_Explorer_File xmlns="http://eop-cfi.esa.int/CFI">
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2A_OPER_MPL_SPSGS__PDMC_20200615T090003_V20200616T090000_20200622T090000</File_Name>
+      <File_Description>Station Acquisition Plan File</File_Description>
+      <Notes/>
+      <Mission>Sentinel-2A</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL_SPSGS_</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2020-06-16T09:00:00</Validity_Start>
+        <Validity_Stop>UTC=2020-06-22T09:00:00</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>PDMC</System>
+        <Creator>MPL</Creator>
+        <Creator_Version>00.01</Creator_Version>
+        <Creation_Date>UTC=2020-06-15T09:00:03</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header/>
+  </Earth_Explorer_Header>
+  <Data_Block type="xml">
+    <SCHEDULE>
+      <ACQ id="26031_01">
+        <Orbit_Number>26031</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T10:32:56.759</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T10:45:35.008</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T10:33:16.759</Data_Start>
+        <Data_Stop>UTC=2020-06-16T10:45:23.008</Data_Stop>
+      </ACQ>
+      <ACQ id="26032_01">
+        <Orbit_Number>26032</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T12:12:47.369</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T12:25:43.329</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T12:13:16.621</Data_Start>
+        <Data_Stop>UTC=2020-06-16T12:25:31.329</Data_Stop>
+      </ACQ>
+      <ACQ id="26033_01">
+        <Orbit_Number>26033</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T13:52:22.368</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T14:00:22.312</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T13:52:42.368</Data_Start>
+        <Data_Stop>UTC=2020-06-16T13:59:48.838</Data_Stop>
+      </ACQ>
+      <ACQ id="26034_01">
+        <Orbit_Number>26034</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T15:31:43.412</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T15:44:29.133</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T15:32:03.412</Data_Start>
+        <Data_Stop>UTC=2020-06-16T15:44:17.133</Data_Stop>
+      </ACQ>
+      <ACQ id="26035_01">
+        <Orbit_Number>26035</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T17:11:10.209</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T17:23:52.380</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T17:11:30.209</Data_Start>
+        <Data_Stop>UTC=2020-06-16T17:23:40.380</Data_Stop>
+      </ACQ>
+      <ACQ id="26036_01">
+        <Orbit_Number>26036</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T18:50:48.355</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T19:03:30.472</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T18:51:08.355</Data_Start>
+        <Data_Stop>UTC=2020-06-16T19:03:18.472</Data_Stop>
+      </ACQ>
+      <ACQ id="26037_01">
+        <Orbit_Number>26037</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T20:32:43.724</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T20:43:24.118</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T20:33:03.724</Data_Start>
+        <Data_Stop>UTC=2020-06-16T20:43:12.118</Data_Stop>
+      </ACQ>
+      <ACQ id="26038_01">
+        <Orbit_Number>26038</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T22:11:55.068</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-16T22:23:31.570</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T22:12:15.068</Data_Start>
+        <Data_Stop>UTC=2020-06-16T22:23:19.570</Data_Stop>
+      </ACQ>
+      <ACQ id="26039_01">
+        <Orbit_Number>26039</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-16T23:54:05.062</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T00:03:52.926</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-16T23:54:25.062</Data_Start>
+        <Data_Stop>UTC=2020-06-16T23:55:42.517</Data_Stop>
+      </ACQ>
+      <ACQ id="26040_01">
+        <Orbit_Number>26040</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T01:37:03.000</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T01:44:36.610</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T01:37:23.000</Data_Start>
+        <Data_Stop>UTC=2020-06-17T01:39:17.710</Data_Stop>
+      </ACQ>
+      <ACQ id="26041_01">
+        <Orbit_Number>26041</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T03:19:55.201</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T03:26:10.844</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T03:20:15.201</Data_Start>
+        <Data_Stop>UTC=2020-06-17T03:25:58.844</Data_Stop>
+      </ACQ>
+      <ACQ id="26042_01">
+        <Orbit_Number>26042</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T05:01:37.250</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T05:08:57.709</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T05:01:57.250</Data_Start>
+        <Data_Stop>UTC=2020-06-17T05:08:45.709</Data_Stop>
+      </ACQ>
+      <ACQ id="26043_01">
+        <Orbit_Number>26043</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T06:42:24.495</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T06:51:52.122</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T06:42:44.495</Data_Start>
+        <Data_Stop>UTC=2020-06-17T06:51:40.122</Data_Stop>
+      </ACQ>
+      <ACQ id="26044_01">
+        <Orbit_Number>26044</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T08:22:47.774</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T08:33:58.812</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T08:23:07.774</Data_Start>
+        <Data_Stop>UTC=2020-06-17T08:33:46.812</Data_Stop>
+      </ACQ>
+      <ACQ id="26045_01">
+        <Orbit_Number>26045</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T10:02:56.636</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T10:15:13.240</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T10:03:16.636</Data_Start>
+        <Data_Stop>UTC=2020-06-17T10:15:01.240</Data_Stop>
+      </ACQ>
+      <ACQ id="26046_01">
+        <Orbit_Number>26046</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T11:48:12.243</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T11:55:46.909</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T11:48:32.243</Data_Start>
+        <Data_Stop>UTC=2020-06-17T11:55:34.909</Data_Stop>
+      </ACQ>
+      <ACQ id="26047_01">
+        <Orbit_Number>26047</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T13:22:31.502</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T13:35:23.761</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T13:23:49.222</Data_Start>
+        <Data_Stop>UTC=2020-06-17T13:35:11.761</Data_Stop>
+      </ACQ>
+      <ACQ id="26048_01">
+        <Orbit_Number>26048</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T15:01:56.103</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T15:14:42.009</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T15:02:16.103</Data_Start>
+        <Data_Stop>UTC=2020-06-17T15:14:30.009</Data_Stop>
+      </ACQ>
+      <ACQ id="26049_01">
+        <Orbit_Number>26049</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T16:41:18.297</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T16:54:01.995</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T16:41:38.297</Data_Start>
+        <Data_Stop>UTC=2020-06-17T16:53:49.995</Data_Stop>
+      </ACQ>
+      <ACQ id="26050_01">
+        <Orbit_Number>26050</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T18:20:53.076</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T18:33:35.304</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T18:21:13.076</Data_Start>
+        <Data_Stop>UTC=2020-06-17T18:33:23.304</Data_Stop>
+      </ACQ>
+      <ACQ id="26051_01">
+        <Orbit_Number>26051</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T20:02:33.147</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T20:13:24.453</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T20:02:53.147</Data_Start>
+        <Data_Stop>UTC=2020-06-17T20:13:12.453</Data_Stop>
+      </ACQ>
+      <ACQ id="26052_01">
+        <Orbit_Number>26052</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T21:42:12.067</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T21:53:27.902</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T21:42:32.067</Data_Start>
+        <Data_Stop>UTC=2020-06-17T21:53:15.902</Data_Stop>
+      </ACQ>
+      <ACQ id="26053_01">
+        <Orbit_Number>26053</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-17T23:23:19.723</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-17T23:29:20.211</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-17T23:23:39.723</Data_Start>
+        <Data_Stop>UTC=2020-06-17T23:29:08.211</Data_Stop>
+      </ACQ>
+      <ACQ id="26054_01">
+        <Orbit_Number>26054</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T01:06:06.783</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T01:14:19.982</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T01:06:26.783</Data_Start>
+        <Data_Stop>UTC=2020-06-18T01:14:07.982</Data_Stop>
+      </ACQ>
+      <ACQ id="26055_01">
+        <Orbit_Number>26055</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T02:49:08.994</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T02:55:34.620</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T02:49:28.994</Data_Start>
+        <Data_Stop>UTC=2020-06-18T02:55:22.620</Data_Stop>
+      </ACQ>
+      <ACQ id="26056_01">
+        <Orbit_Number>26056</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T04:31:14.351</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T04:38:02.363</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T04:31:34.351</Data_Start>
+        <Data_Stop>UTC=2020-06-18T04:37:50.363</Data_Stop>
+      </ACQ>
+      <ACQ id="26057_01">
+        <Orbit_Number>26057</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T06:12:13.664</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T06:21:07.106</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T06:12:33.664</Data_Start>
+        <Data_Stop>UTC=2020-06-18T06:20:55.106</Data_Stop>
+      </ACQ>
+      <ACQ id="26058_01">
+        <Orbit_Number>26058</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T07:52:42.433</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T08:03:23.181</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T07:53:02.433</Data_Start>
+        <Data_Stop>UTC=2020-06-18T08:03:11.181</Data_Stop>
+      </ACQ>
+      <ACQ id="26059_01">
+        <Orbit_Number>26059</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T09:32:55.317</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T09:44:45.386</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T09:33:15.317</Data_Start>
+        <Data_Stop>UTC=2020-06-18T09:44:33.386</Data_Stop>
+      </ACQ>
+      <ACQ id="26060_01">
+        <Orbit_Number>26060</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T11:12:54.608</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T11:25:46.768</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T11:13:14.608</Data_Start>
+        <Data_Stop>UTC=2020-06-18T11:25:34.768</Data_Stop>
+      </ACQ>
+      <ACQ id="26061_01">
+        <Orbit_Number>26061</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T12:52:39.198</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T13:05:33.648</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T12:53:14.631</Data_Start>
+        <Data_Stop>UTC=2020-06-18T13:05:21.648</Data_Stop>
+      </ACQ>
+      <ACQ id="26062_01">
+        <Orbit_Number>26062</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T14:32:08.010</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T14:44:55.096</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T14:32:28.010</Data_Start>
+        <Data_Stop>UTC=2020-06-18T14:44:43.096</Data_Stop>
+      </ACQ>
+      <ACQ id="26063_01">
+        <Orbit_Number>26063</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T16:11:27.354</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T16:24:12.866</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T16:11:47.354</Data_Start>
+        <Data_Stop>UTC=2020-06-18T16:24:00.866</Data_Stop>
+      </ACQ>
+      <ACQ id="26064_01">
+        <Orbit_Number>26064</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T17:51:00.729</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T18:03:41.578</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T17:51:20.729</Data_Start>
+        <Data_Stop>UTC=2020-06-18T18:03:29.578</Data_Stop>
+      </ACQ>
+      <ACQ id="26065_01">
+        <Orbit_Number>26065</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T19:32:03.835</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T19:43:26.062</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T19:32:23.835</Data_Start>
+        <Data_Stop>UTC=2020-06-18T19:43:14.062</Data_Stop>
+      </ACQ>
+      <ACQ id="26066_01">
+        <Orbit_Number>26066</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T21:12:35.713</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T21:23:25.416</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T21:12:55.713</Data_Start>
+        <Data_Stop>UTC=2020-06-18T21:23:13.416</Data_Stop>
+      </ACQ>
+      <ACQ id="26067_01">
+        <Orbit_Number>26067</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-18T22:52:39.588</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-18T23:03:38.043</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-18T22:52:59.588</Data_Start>
+        <Data_Stop>UTC=2020-06-18T23:03:26.043</Data_Stop>
+      </ACQ>
+      <ACQ id="26068_01">
+        <Orbit_Number>26068</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T00:35:12.313</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T00:44:06.679</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T00:35:32.313</Data_Start>
+        <Data_Stop>UTC=2020-06-19T00:35:47.313</Data_Stop>
+      </ACQ>
+      <ACQ id="26069_01">
+        <Orbit_Number>26069</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T02:18:17.036</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T02:25:05.684</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T02:18:37.036</Data_Start>
+        <Data_Stop>UTC=2020-06-19T02:18:52.036</Data_Stop>
+      </ACQ>
+      <ACQ id="26070_01">
+        <Orbit_Number>26070</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T04:00:45.262</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T04:07:10.510</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T04:01:05.262</Data_Start>
+        <Data_Stop>UTC=2020-06-19T04:06:58.510</Data_Stop>
+      </ACQ>
+      <ACQ id="26071_01">
+        <Orbit_Number>26071</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T05:42:00.297</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T05:50:12.581</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T05:42:20.297</Data_Start>
+        <Data_Stop>UTC=2020-06-19T05:50:00.581</Data_Stop>
+      </ACQ>
+      <ACQ id="26072_01">
+        <Orbit_Number>26072</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T07:22:35.741</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T07:32:44.914</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T07:22:55.741</Data_Start>
+        <Data_Stop>UTC=2020-06-19T07:32:32.914</Data_Stop>
+      </ACQ>
+      <ACQ id="26073_01">
+        <Orbit_Number>26073</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T09:02:52.818</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T09:14:32.512</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T09:03:12.818</Data_Start>
+        <Data_Stop>UTC=2020-06-19T09:14:20.512</Data_Stop>
+      </ACQ>
+      <ACQ id="26074_01">
+        <Orbit_Number>26074</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T10:42:56.185</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T10:55:40.688</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T10:43:16.185</Data_Start>
+        <Data_Stop>UTC=2020-06-19T10:55:28.688</Data_Stop>
+      </ACQ>
+      <ACQ id="26075_01">
+        <Orbit_Number>26075</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T12:22:45.438</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T12:35:41.241</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T12:23:16.207</Data_Start>
+        <Data_Stop>UTC=2020-06-19T12:35:29.241</Data_Stop>
+      </ACQ>
+      <ACQ id="26076_01">
+        <Orbit_Number>26076</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T14:02:18.853</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T14:15:07.906</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T14:02:38.853</Data_Start>
+        <Data_Stop>UTC=2020-06-19T14:14:55.906</Data_Stop>
+      </ACQ>
+      <ACQ id="26077_01">
+        <Orbit_Number>26077</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T15:41:38.903</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T15:54:24.794</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T15:41:58.903</Data_Start>
+        <Data_Stop>UTC=2020-06-19T15:54:12.794</Data_Stop>
+      </ACQ>
+      <ACQ id="26078_01">
+        <Orbit_Number>26078</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T17:21:07.662</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T17:33:49.308</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T17:21:27.662</Data_Start>
+        <Data_Stop>UTC=2020-06-19T17:33:37.308</Data_Stop>
+      </ACQ>
+      <ACQ id="26079_01">
+        <Orbit_Number>26079</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T19:00:54.459</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T19:13:29.006</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T19:01:14.459</Data_Start>
+        <Data_Stop>UTC=2020-06-19T19:13:17.006</Data_Stop>
+      </ACQ>
+      <ACQ id="26080_01">
+        <Orbit_Number>26080</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T20:42:43.872</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T20:53:24.108</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T20:43:03.872</Data_Start>
+        <Data_Stop>UTC=2020-06-19T20:53:12.108</Data_Stop>
+      </ACQ>
+      <ACQ id="26081_01">
+        <Orbit_Number>26081</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-19T22:22:05.158</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-19T22:33:32.888</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-19T22:22:25.158</Data_Start>
+        <Data_Stop>UTC=2020-06-19T22:33:20.888</Data_Stop>
+      </ACQ>
+      <ACQ id="26082_01">
+        <Orbit_Number>26082</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T00:04:21.058</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T00:13:55.886</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T00:04:41.058</Data_Start>
+        <Data_Stop>UTC=2020-06-20T00:04:56.058</Data_Stop>
+      </ACQ>
+      <ACQ id="26083_01">
+        <Orbit_Number>26083</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T01:47:21.626</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T01:54:42.895</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T01:47:41.626</Data_Start>
+        <Data_Stop>UTC=2020-06-20T01:48:54.721</Data_Stop>
+      </ACQ>
+      <ACQ id="26084_01">
+        <Orbit_Number>26084</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T03:30:08.852</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T03:36:24.439</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T03:30:28.852</Data_Start>
+        <Data_Stop>UTC=2020-06-20T03:36:12.439</Data_Stop>
+      </ACQ>
+      <ACQ id="26085_01">
+        <Orbit_Number>26085</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T05:11:43.567</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T05:19:16.328</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T05:12:03.567</Data_Start>
+        <Data_Stop>UTC=2020-06-20T05:19:04.328</Data_Stop>
+      </ACQ>
+      <ACQ id="26086_01">
+        <Orbit_Number>26086</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T06:52:27.465</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T07:02:05.817</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T06:52:47.465</Data_Start>
+        <Data_Stop>UTC=2020-06-20T07:01:53.817</Data_Stop>
+      </ACQ>
+      <ACQ id="26087_01">
+        <Orbit_Number>26087</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T08:32:49.098</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T08:44:09.204</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T08:33:09.098</Data_Start>
+        <Data_Stop>UTC=2020-06-20T08:43:57.204</Data_Stop>
+      </ACQ>
+      <ACQ id="26088_01">
+        <Orbit_Number>26088</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T10:12:56.632</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T10:25:20.958</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T10:13:16.632</Data_Start>
+        <Data_Stop>UTC=2020-06-20T10:25:08.958</Data_Stop>
+      </ACQ>
+      <ACQ id="26089_01">
+        <Orbit_Number>26089</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T11:52:50.231</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T12:05:45.919</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T11:53:16.509</Data_Start>
+        <Data_Stop>UTC=2020-06-20T12:05:33.919</Data_Stop>
+      </ACQ>
+      <ACQ id="26090_01">
+        <Orbit_Number>26090</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T13:32:28.430</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T13:45:19.877</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T13:33:16.529</Data_Start>
+        <Data_Stop>UTC=2020-06-20T13:44:06.409</Data_Stop>
+      </ACQ>
+      <ACQ id="26091_01">
+        <Orbit_Number>26091</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T15:11:51.757</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T15:24:37.486</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T15:12:11.757</Data_Start>
+        <Data_Stop>UTC=2020-06-20T15:24:25.486</Data_Stop>
+      </ACQ>
+      <ACQ id="26092_01">
+        <Orbit_Number>26092</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T16:51:15.278</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T17:03:58.456</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T16:51:35.278</Data_Start>
+        <Data_Stop>UTC=2020-06-20T17:03:46.456</Data_Stop>
+      </ACQ>
+      <ACQ id="26093_01">
+        <Orbit_Number>26093</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T18:30:50.958</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T18:43:33.346</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T18:31:10.958</Data_Start>
+        <Data_Stop>UTC=2020-06-20T18:43:21.346</Data_Stop>
+      </ACQ>
+      <ACQ id="26094_01">
+        <Orbit_Number>26094</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T20:12:38.199</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T20:23:24.013</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T20:12:58.199</Data_Start>
+        <Data_Stop>UTC=2020-06-20T20:23:12.013</Data_Stop>
+      </ACQ>
+      <ACQ id="26095_01">
+        <Orbit_Number>26095</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T21:51:59.586</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T22:03:28.802</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T21:52:19.586</Data_Start>
+        <Data_Stop>UTC=2020-06-20T22:03:16.802</Data_Stop>
+      </ACQ>
+      <ACQ id="26096_01">
+        <Orbit_Number>26096</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-20T23:33:34.091</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-20T23:43:47.069</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-20T23:33:54.091</Data_Start>
+        <Data_Stop>UTC=2020-06-20T23:43:35.069</Data_Stop>
+      </ACQ>
+      <ACQ id="26097_01">
+        <Orbit_Number>26097</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T01:16:25.222</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T01:24:24.916</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T01:16:45.222</Data_Start>
+        <Data_Stop>UTC=2020-06-21T01:17:00.222</Data_Stop>
+      </ACQ>
+      <ACQ id="26098_01">
+        <Orbit_Number>26098</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T02:59:24.939</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T03:05:45.655</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T02:59:44.939</Data_Start>
+        <Data_Stop>UTC=2020-06-21T03:05:33.655</Data_Stop>
+      </ACQ>
+      <ACQ id="26099_01">
+        <Orbit_Number>26099</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T04:41:22.409</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T04:48:20.352</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T04:41:42.409</Data_Start>
+        <Data_Stop>UTC=2020-06-21T04:48:08.352</Data_Stop>
+      </ACQ>
+      <ACQ id="26100_01">
+        <Orbit_Number>26100</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T06:22:17.327</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T06:31:23.133</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T06:22:37.327</Data_Start>
+        <Data_Stop>UTC=2020-06-21T06:31:11.133</Data_Stop>
+      </ACQ>
+      <ACQ id="26101_01">
+        <Orbit_Number>26101</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T08:02:44.158</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T08:13:35.511</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T08:03:04.158</Data_Start>
+        <Data_Stop>UTC=2020-06-21T08:13:23.511</Data_Stop>
+      </ACQ>
+      <ACQ id="26102_01">
+        <Orbit_Number>26102</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T09:42:55.689</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T09:54:55.192</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T09:43:15.689</Data_Start>
+        <Data_Stop>UTC=2020-06-21T09:54:43.192</Data_Stop>
+      </ACQ>
+      <ACQ id="26103_01">
+        <Orbit_Number>26103</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T11:22:53.590</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T11:35:47.061</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T11:23:13.590</Data_Start>
+        <Data_Stop>UTC=2020-06-21T11:35:35.061</Data_Stop>
+      </ACQ>
+      <ACQ id="26104_01">
+        <Orbit_Number>26104</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T13:02:36.593</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T13:15:30.376</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T13:03:13.611</Data_Start>
+        <Data_Stop>UTC=2020-06-21T13:15:18.376</Data_Stop>
+      </ACQ>
+      <ACQ id="26105_01">
+        <Orbit_Number>26105</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T14:42:03.944</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T14:54:50.536</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T14:42:23.944</Data_Start>
+        <Data_Stop>UTC=2020-06-21T14:54:38.536</Data_Stop>
+      </ACQ>
+      <ACQ id="26106_01">
+        <Orbit_Number>26106</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T16:21:24.058</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T16:34:08.909</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T16:21:44.058</Data_Start>
+        <Data_Stop>UTC=2020-06-21T16:33:56.909</Data_Stop>
+      </ACQ>
+      <ACQ id="26107_01">
+        <Orbit_Number>26107</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T18:00:57.685</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T18:13:39.119</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T18:01:17.685</Data_Start>
+        <Data_Stop>UTC=2020-06-21T18:13:27.119</Data_Stop>
+      </ACQ>
+      <ACQ id="26108_01">
+        <Orbit_Number>26108</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T19:42:16.121</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T19:53:25.173</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T19:42:36.121</Data_Start>
+        <Data_Stop>UTC=2020-06-21T19:53:13.173</Data_Stop>
+      </ACQ>
+      <ACQ id="26109_01">
+        <Orbit_Number>26109</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T21:22:29.543</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T21:33:25.905</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T21:22:49.543</Data_Start>
+        <Data_Stop>UTC=2020-06-21T21:33:13.905</Data_Stop>
+      </ACQ>
+      <ACQ id="26110_01">
+        <Orbit_Number>26110</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-21T23:02:52.326</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-21T23:13:40.070</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-21T23:03:12.326</Data_Start>
+        <Data_Stop>UTC=2020-06-21T23:13:28.070</Data_Stop>
+      </ACQ>
+      <ACQ id="26111_01">
+        <Orbit_Number>26111</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-22T00:45:30.142</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-22T00:54:10.767</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-22T00:45:50.142</Data_Start>
+        <Data_Stop>UTC=2020-06-22T00:53:58.767</Data_Stop>
+      </ACQ>
+      <ACQ id="26112_01">
+        <Orbit_Number>26112</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-22T02:28:34.831</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-22T02:35:14.550</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-22T02:28:54.831</Data_Start>
+        <Data_Stop>UTC=2020-06-22T02:30:01.178</Data_Stop>
+      </ACQ>
+      <ACQ id="26113_01">
+        <Orbit_Number>26113</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-22T04:10:55.701</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-22T04:17:27.228</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-22T04:11:15.701</Data_Start>
+        <Data_Stop>UTC=2020-06-22T04:17:15.228</Data_Stop>
+      </ACQ>
+      <ACQ id="26114_01">
+        <Orbit_Number>26114</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-22T05:52:05.057</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-22T06:00:31.007</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-22T05:52:25.057</Data_Start>
+        <Data_Stop>UTC=2020-06-22T06:00:19.007</Data_Stop>
+      </ACQ>
+      <ACQ id="26115_01">
+        <Orbit_Number>26115</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-06-22T07:32:38.114</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-06-22T07:42:56.972</Acquisition_Stop>
+        <Data_Start>UTC=2020-06-22T07:32:58.114</Data_Start>
+        <Data_Stop>UTC=2020-06-22T07:42:44.972</Data_Stop>
+      </ACQ>
+    </SCHEDULE>
+  </Data_Block>
+</Earth_Explorer_File>

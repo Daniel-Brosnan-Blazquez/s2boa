@@ -50,7 +50,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-14T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
@@ -59,7 +59,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-14T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "like"})
@@ -164,7 +164,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-14T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
@@ -173,7 +173,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-14T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "like"})
@@ -315,7 +315,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-14T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
@@ -324,7 +324,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-14T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "like"})

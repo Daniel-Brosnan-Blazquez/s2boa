@@ -2,7 +2,7 @@
 <Earth_Explorer_File xmlns="http://eop-cfi.esa.int/CFI">
   <Earth_Explorer_Header>
     <Fixed_Header>
-      <File_Name>S2B_OPER_MPL_SPSGS__PDMC_20201015T090002_V20201015T090000_20201021T090000</File_Name>
+      <File_Name>S2B_OPER_MPL_SPSGS__PDMC_20201014T090002_V20201015T090000_20201021T090000</File_Name>
       <File_Description>Station Acquisition Plan File</File_Description>
       <Notes/>
       <Mission>Sentinel-2B</Mission>
@@ -17,7 +17,7 @@
         <System>PDMC</System>
         <Creator>MPL</Creator>
         <Creator_Version>00.01</Creator_Version>
-        <Creation_Date>UTC=2020-10-15T09:00:02</Creation_Date>
+        <Creation_Date>UTC=2020-10-14T09:00:02</Creation_Date>
       </Source>
     </Fixed_Header>
     <Variable_Header/>

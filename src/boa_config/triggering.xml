@@ -45,7 +45,7 @@
     <dependencies>
       <source_type>S2A_MPL__NPPF</source_type>
       <source_type>S2A_MPL_ORBPRE</source_type>
-      <source_type>S2A_MPL_FS</source_type>
+      <source_type>S2A_MPL_SP</source_type>
     </dependencies>
   </rule>
   <rule>
@@ -155,7 +155,7 @@
     <dependencies>
       <source_type>S2B_MPL__NPPF</source_type>
       <source_type>S2B_MPL_ORBPRE</source_type>
-      <source_type>S2B_MPL_FS</source_type>
+      <source_type>S2B_MPL_SP</source_type>
     </dependencies>
   </rule>
   <rule>

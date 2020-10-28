@@ -177,15 +177,16 @@ def process_file(file_path, engine, query, reception_time):
     xpath_xml = etree.XPathEvaluator(parsed_xml)
 
     satellite = file_name[0:3]
-    generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+    reported_generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     validity_start = xpath_xml("/Earth_Explorer_File/Data_Block/sched/station/acq[action = 'DELETE_RANGE']/start")[0].text
     validity_stop = xpath_xml("/Earth_Explorer_File/Data_Block/sched/station/acq[action = 'DELETE_RANGE']/stop")[0].text
     station = xpath_xml("/Earth_Explorer_File/Data_Block/sched/station")[0].get("name")
 
+    # Generation time is changed to be the validity start to avoid overriding data by the ingestion_orbpre.py module
     source = {
         "name": file_name,
         "reception_time": reception_time,
-        "generation_time": generation_time,
+        "generation_time": validity_start,
         "validity_start": validity_start,
         "validity_stop": validity_stop
     }

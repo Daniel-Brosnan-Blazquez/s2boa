@@ -349,7 +349,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "isp_status"
             },
             {
-                "value": "COMPLETE",
+                "value": "INCOMPLETE",
                 "type": "text",
                 "name": "acquisition_status"
             }
@@ -1044,8 +1044,8 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         # Check specific playback completeness
         playback_completeness_2 = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_%"),
-                                                                                 Event.start == "2018-07-21T07:25:26.346331",
-                                                                                 Event.stop == "2018-07-21T07:25:28.346331").all()
+                                                                                 Event.start == "2018-07-21T07:25:25.346331",
+                                                                                 Event.stop == "2018-07-21T07:25:25.346331").all()
 
         assert len(playback_completeness_2) == 1
 
@@ -1092,7 +1092,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((44.328656 -20.659768, 41.616702 -20.078294, 41.616702 -20.078294, 44.328656 -20.659768))"
+                        "value": "POLYGON ((44.369734 -20.482395, 41.660996 -19.901229, 41.660996 -19.901229, 44.369734 -20.482395))"
                     }
                 ]
             }

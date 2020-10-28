@@ -950,6 +950,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(events) == 0
 
+        # Check that the validity period of the input has taken into consideration the deletion queue
+        sources = self.session.query(Source).filter(Source.generation_time == "2018-07-17T11:41:50").all()
+        assert len(sources) == 1
 
     def test_playback_mean_not_ending(self):
         filename = "S2A_NPPF_PLAYBACK_MEAN_NOT_ENDING.EOF"
@@ -963,3 +966,19 @@ class TestEngine(unittest.TestCase):
         events = self.session.query(Event).all()
 
         assert len(events) == 0
+
+    def test_generation_time_greater_than_validity_start(self):
+
+        filename = "S2A_NPPF_GENERATION_TIME_GREATER_THAN_VALIDITY_START.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        # Check number of events generated
+        events = self.session.query(Event).all()
+
+        assert len(events) == 0
+
+        # Check that the validity period of the input has taken into consideration the deletion queue
+        sources = self.session.query(Source).filter(Source.generation_time == "2018-07-20T11:00:00").all()
+        assert len(sources) == 1

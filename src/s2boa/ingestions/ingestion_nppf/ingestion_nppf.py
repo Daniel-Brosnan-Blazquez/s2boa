@@ -1056,10 +1056,17 @@ def process_file(file_path, engine, query, reception_time):
     xpath_xml = etree.XPathEvaluator(parsed_xml)
 
     satellite = file_name[0:3]
-    generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+    reported_generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]    
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     deletion_queue = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_EVRQs/EVRQ[RQ/RQ_Name='MGSYQDEL']")
+
+    # Generation time is changed to be the validity start in case the generation time is greater than the validity start to avoid problems on completeness analysis
+    generation_time = reported_generation_time
+    if reported_generation_time > validity_start:
+        generation_time = validity_start
+    # end if
+
     if len(deletion_queue) == 1:
         validity_start = deletion_queue[0].xpath("RQ/RQ_Execution_Time")[0].text.split("=")[1]
     # end if

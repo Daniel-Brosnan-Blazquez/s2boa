@@ -59,15 +59,19 @@ The table \ref{tb:description_events_ingestion_orbpre} shows the description of 
 \end{longtable}
 \end{landscape}
 
-\section{Ingestion details}
+\subsection{Ingestion details}
 
 This section describes some ingestion details for inserting the data. In particular:
 
 \begin{itemize} 
 
 \item The algorithm to correct the timing of the planning events
+
+\item The correction of the generation time to avoid overriding data used for completeness analysis
   
 \end{itemize}
+
+\subsubsection{Algorithm to correct the timing of the planning events}
 
 The algorithm to correct the timing of the planning events is as follows:
 
@@ -102,3 +106,9 @@ For every planning event:
   \(UTC time = t + s \)
   
 \end{itemize}
+
+\subsubsection{Correction of the generation time}
+
+The validity start of the ORBPRE is almost equal to the generation time. This makes the data extracted to be in priority with respect to the data extracted of other components which would need to be in priority.
+
+To solve this issue the processor changes the generation time to be the generation time minus 1 day.

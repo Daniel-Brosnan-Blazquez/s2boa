@@ -61,3 +61,19 @@ The table \ref{tb:description_events_ingestion_nppf} shows the description of th
 \label{tb:description_events_ingestion_nppf}
 \end{longtable}
 \end{landscape}
+
+\subsection{Ingestion details}
+
+This section describes some ingestion details for inserting the data. In particular:
+
+\begin{itemize} 
+
+\item The correction of the generation time when is greater than the validity start
+  
+\end{itemize}
+
+\subsubsection{Correction of the generation time}
+
+Due to an operation procedure using the \acrshort{s2mp}, the generation time could be greater than the validity start. This could result into having deprecated data in the DDBB.
+
+To solve this issue the processor changes the generation time to be the validity start when the first is greater.
