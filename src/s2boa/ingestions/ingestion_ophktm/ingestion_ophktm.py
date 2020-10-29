@@ -1,7 +1,7 @@
 """
 Ingestion module for the REP_OPHKTM files of Sentinel-2
 
-Written by DEIMOS Space S.L. (femd)
+Written by DEIMOS Space S.L. (jubv)
 
 module eboa
 """
@@ -79,10 +79,6 @@ def process_file(file_path, engine, query, reception_time):
     creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     # Obtain the creation date
     creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
-    # Obtain the validity start
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
-    # Obtain the validity stop
-    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     # Obtain the acquisition_center
     acquisition_center = xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct/acquisition_center")[0].text
     # Obtain the downlink_orbit
@@ -91,9 +87,9 @@ def process_file(file_path, engine, query, reception_time):
     generation_date = xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct/generation_date")[0].text
     # Obtain the product_id
     product_id = xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct/product_id")[0].text
-    product_id = product_id.replace(".SAFE", "")
-    #Obtain the key
-    key = product_id + "-" + satellite + "-" + station_alias + "-" + downlink_orbit
+    product_id_without_extension = product_id.replace(".SAFE", "")
+    # Obtain the key
+    key = product_id_without_extension + "-" + satellite + "-" + station_alias + "-" + downlink_orbit
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
     # This is for registrering the ingestion progress
@@ -107,48 +103,55 @@ def process_file(file_path, engine, query, reception_time):
     if len(general_source_progress) > 0:
         general_source_progress = general_source_progress[0]
     # end if
-    
+
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
-    
+
     # Obtain the planned playback to associate the orbit number and link the production
-    start_hktm_playback = product_id[20:35]
-    stop_hktm_playback = product_id[36:51]
-    start_planned_playback = (parser.parse(start_hktm_playback) - datetime.timedelta(seconds=30)).isoformat()
-    stop_planned_playback = (parser.parse(stop_hktm_playback) + datetime.timedelta(seconds=30)).isoformat()
-    corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
-                                                   value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
-                                                                    {"name": {"op": "==", "filter": "downlink_orbit"}, "type": "text", "value": {"op": "==", "filter": downlink_orbit}},
-                                                                    {"name": {"op": "==", "filter": "acquisition_center"}, "type": "text", "value": {"op": "==", "filter": station_alias}}])
-        
+    linking_planned_playback_to_station_schedule = query.get_linking_events(gauge_names = {"op": "==", "filter": "STATION_SCHEDULE"},
+                                                                          gauge_systems = {"op": "==", "filter": station_alias},
+                                                                          value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
+                                                                                           {"name": {"op": "==", "filter": "orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}],
+                                                                          link_names = {"op": "==", "filter": "PLANNED_PLAYBACK"},
+                                                                          return_prime_events = False)
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 20)
     
-    if len(corrected_planned_playbacks) > 0:
-        for corrected_planned_playback in corrected_planned_playbacks:
+    if len(linking_planned_playback_to_station_schedule["linking_events"]) > 0:
+        planned_playbacks = linking_planned_playback_to_station_schedule["linking_events"]
+        planned_hktm_playbacks = [planned_playback for planned_playback in planned_playbacks for event_text in planned_playback.eventTexts if event_text.name == "playback_type" and event_text.value in ["HKTM", "HKTM_SAD"]]
+        if len(planned_hktm_playbacks) > 0:
+            planned_hktm_playback = planned_hktm_playbacks[0]
             htkm_links.append({
-                "link": str(corrected_planned_playback[0].event_uuid_link),
+                "link": str(planned_hktm_playback.event_uuid),
                 "link_mode": "by_uuid",
                 "name": "HKTM_PRODUCTION_VGS",
                 "back_ref": "PLANNED_PLAYBACK"
             })
-        # end for
+        # end if
     # end if
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 30)
 
     # Obtain the executed playback to link the information
     playbacks_validity_3 = query.get_events(gauge_names = {"op": "==", "filter": "PLAYBACK_VALIDITY_3"},
-                                      value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
-                                                       {"name": {"op": "==", "filter": "downlink_orbit"}, "type": "text", "value": {"op": "==", "filter": downlink_orbit}},
-                                                       {"name": {"op": "==", "filter": "acquisition_center"}, "type": "text", "value": {"op": "==", "filter": station_alias}}])
+                                            gauge_systems = {"op": "==", "filter": station_alias},
+                                            value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
+                                                             {"name": {"op": "==", "filter": "downlink_orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}])
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
+    
     if len(playbacks_validity_3) > 0:
-        for playback_validity_3 in playbacks_validity_3:
-            htkm_links.append({
-                "link": str(playback_validity_3[0].event_uuid),
-                "link_mode": "by_uuid",
-                "name": "HKTM_PRODUCTION_VGS",
-                "back_ref": "PLAYBACK_VALIDITY"
-            })
-        # end for
+        htkm_links.append({
+            "link": str(playbacks_validity_3[0].event_uuid),
+            "link_mode": "by_uuid",
+            "name": "HKTM_PRODUCTION_VGS",
+            "back_ref": "PLAYBACK_VALIDITY"
+        })
     # end if
 
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 50)
+    
+    # Values for the event and annotation
     hktm_values = [
                 {"name": "satellite",
                  "type": "text",
@@ -162,9 +165,12 @@ def process_file(file_path, engine, query, reception_time):
                  "type": "double",
                  "value": downlink_orbit
                 }]
-    
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
+
+    # Generate annotation
     acquisition_details = {
-            "explicit_reference": product_id,
+            "explicit_reference": product_id_without_extension,
             "annotation_cnf": {
                 "name": "ACQUISITION_DETAILS",
                 "system": station_alias,
@@ -175,19 +181,19 @@ def process_file(file_path, engine, query, reception_time):
     
     list_of_annotations.append(acquisition_details)
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 50)
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
 
     hktm_production_vgs_event = {
             "key": key,
-            "explicit_reference": product_id,
+            "explicit_reference": product_id_without_extension,
             "gauge": {
                 "insertion_type": "EVENT_KEYS",
                 "name": "HKTM_PRODUCTION_VGS",
                 "system": station_alias
             },
             "links": htkm_links,
-            "start": parser.parse(start_hktm_playback).isoformat(),
-            "stop": parser.parse(stop_hktm_playback).isoformat(),
+            "start": generation_date,
+            "stop": generation_date,
             "values": hktm_values
             }
     
@@ -206,8 +212,8 @@ def process_file(file_path, engine, query, reception_time):
                     "name": file_name,
                     "reception_time": reception_time,
                     "generation_time": creation_date,
-                    "validity_start": parser.parse(start_hktm_playback).isoformat(),
-                    "validity_stop": parser.parse(stop_hktm_playback).isoformat()
+                    "validity_start": generation_date,
+                    "validity_stop": generation_date
                 },
                 "annotations": list_of_annotations,
                 "events": list_of_events
