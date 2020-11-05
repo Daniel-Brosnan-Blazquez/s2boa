@@ -1814,7 +1814,7 @@ def process_file(file_path, engine, query, reception_time):
     # Extract the information of the distribution
     _generate_acquisition_coverage(xpath_xml, source, engine, query, list_of_events)
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 85)
 
     # Build the xml
     data = {}
