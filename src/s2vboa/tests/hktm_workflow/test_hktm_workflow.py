@@ -633,7 +633,7 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert summary_missing_production
 
-        assert summary_missing_production.text == "3"
+        assert summary_missing_production.text == "2"
 
         # Check if table with issues appears
         issues_hktm_table = wait.until(EC.visibility_of_element_located((By.ID,"hktm-workflow-issues-hktm-table_wrapper")))

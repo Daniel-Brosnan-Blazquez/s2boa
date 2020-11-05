@@ -4,10 +4,10 @@
 {% set missing_hktm_production = hktm_workflow_events["playback"]|reject_events_with_link_name("HKTM_PRODUCTION")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list %}
 
 <!-- Missing HKTM products, data not received from PDGS -->
-{% set missing_hktm_production_data_not_received_from_pdgs = hktm_workflow_events["playback"]|reject_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|list %}
+{% set missing_hktm_production_data_not_received_from_pdgs = hktm_workflow_events["playback"]|reject_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|reject_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list %}
 
 <!-- Missing HKTM products, data not received from satellite -->
-{% set missing_hktm_production_data_not_received_from_satellite = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|reject_events_with_link_name("PLAYBACK_VALIDITY")|list %}
+{% set missing_hktm_production_data_not_received_from_satellite = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|reject_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list %}
 
 <!-- Missing HKTM products, PDGS did not generate production but data was received -->
 {% set missing_hktm_production_data_received = hktm_workflow_events["playback"]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|filter_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list %}
