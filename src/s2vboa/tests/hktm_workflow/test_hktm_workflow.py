@@ -478,6 +478,9 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert summary_generated.text == "1"
 
+        # Check number of elements in summary
+        assert len(summary_expected.find_elements_by_xpath("../../../div")) == 2
+
         # General table
         general_table = self.driver.find_element_by_id("hktm-workflow-list-hktm-table")
 
