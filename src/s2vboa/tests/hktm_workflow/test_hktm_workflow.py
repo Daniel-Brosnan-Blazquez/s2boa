@@ -440,6 +440,13 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
+        filename = "S2A_OPER_MPL_SPSGS__PDMC_20200128T090002_V20200129T000000_20200129T060000.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        
         filename = "S2A_REP_PASS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
@@ -447,16 +454,19 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
+        filename = "S2A_OPER_REP_OPHKTM_VGS2_20200129T034000_V20200129T032508_20200129T032513.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_ophktm.ingestion_ophktm", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        
         filename = "S2__REP_OPDC.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dc.ingestion_dc", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
-
-        sources = self.query_eboa.get_sources()
-
-        assert len(sources) == 9
 
         wait = WebDriverWait(self.driver,5)
 
