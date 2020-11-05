@@ -1,0 +1,1002 @@
+<Earth_Explorer_File>
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2B_OPER_MPL__NPPF__20201001T120000_20201019T150000_0001</File_Name>
+      <File_Description/>
+      <Notes/>
+      <Mission>Sentinel2B</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL__NPPF_</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2020-10-01T12:00:00</Validity_Start>
+        <Validity_Stop>UTC=2020-10-19T15:00:00</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>PDMC</System>
+        <Creator>MPL</Creator>
+        <Creator_Version>00.01</Creator_Version>
+        <Creation_Date>UTC=2020-09-28T11:12:21</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header>
+      <LogFile_Name>s2mp.log</LogFile_Name>
+    </Variable_Header>
+  </Earth_Explorer_Header>
+  <Data_Block>
+    <SPF/>
+    <List_of_EVRQs count="7271">
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-01T14:30:00.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MGSYQDEL</RQ_Name>
+          <RQ_Description>Delete queue request</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Ground Manual Schedule</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-01T14:30:00.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18655</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>62.6784</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="3">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DORB_NO</RQ_Parameter_Name>
+              <RQ_Parameter_Description>DORB_NO</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>18655</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DORB_ANG</RQ_Parameter_Name>
+              <RQ_Parameter_Description>DORB_ANG</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>10939</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DTTQ_TIM</RQ_Parameter_Name>
+              <RQ_Parameter_Description>DTTQ_TIM</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>2020.275.14.30.00.000</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T10:52:43.585</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPXBSBOP</RQ_Name>
+          <RQ_Description>XBS X-band on - STBY to Operational</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T10:52:43.585</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18853</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>77.8256</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T10:53:08.585</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPNOM</RQ_Name>
+          <RQ_Description>MMFU PS Playback nominal "Data stored" </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T10:53:08.585</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18853</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>79.3037</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T11:04:55.135</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPSTP</RQ_Name>
+          <RQ_Description>MMFU Playback stop </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T11:04:55.135</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18853</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>121.0994</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_RWD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene rewind flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_DUP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene duplication flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T11:05:06.135</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPBHS</RQ_Name>
+          <RQ_Description>MMFU HKTM/SAD PS Playback.</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T11:05:06.135</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18853</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>121.7522</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FRHK</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flags for HKTM PS</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FSAD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flags for SAD PS</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T11:05:32.135</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPXBOPSB</RQ_Name>
+          <RQ_Description>XBS X-band off - Operational to STBY</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T11:05:32.135</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18853</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>123.2956</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:32:31.279</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPXBSBOP</RQ_Name>
+          <RQ_Description>XBS X-band on - STBY to Operational</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:32:31.279</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>74.6165</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:32:56.279</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPNOM</RQ_Name>
+          <RQ_Description>MMFU PS Playback nominal "Data stored" </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:32:56.279</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>76.0951</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:44:49.763</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPSTP</RQ_Name>
+          <RQ_Description>MMFU Playback stop </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:44:49.763</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>118.2920</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_RWD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene rewind flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_DUP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene duplication flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:45:00.763</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPBHS</RQ_Name>
+          <RQ_Description>MMFU HKTM/SAD PS Playback.</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:45:00.763</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>118.9443</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FRHK</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flags for HKTM PS</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FSAD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flags for SAD PS</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:45:26.763</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPXBOPSB</RQ_Name>
+          <RQ_Description>XBS X-band off - Operational to STBY</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:45:26.763</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>120.4865</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:47:43.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPG2STRT</RQ_Name>
+          <RQ_Description>OCP-GEO2 Start Downlink Request</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>OCP Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:47:43.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>128.5788</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="34">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>ACQ_TYPE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Type of acquisition</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>COM_TYPE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Type of Communication Mode</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>UNC_CONE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Angular size of the Uncertainty Cone for initial acquisition and reacquisition</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1000</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>STR_T_S</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Synchronisation time T0</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1286801611</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DUR_SAS</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Duration of Spatial Acquisition Phase 1</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>26</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>PROP_DEL</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Delay from the Start Propagation to Start Phase 1</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>20</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>TRAJC_AZ</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Coarse Starting Az</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>TRAJC_EL</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Coarse Starting El</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>ABS_STRT</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Absolute start time </RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1286801491</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>ABS_STOP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Absolute stop time </RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1286802586</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_0</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_1</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_2</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_3</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_4</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_5</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_6</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_7</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_0</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_1</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_2</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_3</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_4</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_5</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_6</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_7</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_0</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_1</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_2</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_3</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_4</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_5</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_6</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_7</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:54:38.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPNOM</RQ_Name>
+          <RQ_Description>MMFU PS Playback nominal "Data stored" </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:54:38.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>153.3778</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T12:56:41.151</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPSTP</RQ_Name>
+          <RQ_Description>MMFU Playback stop </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T12:56:41.151</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>160.7823</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_RWD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene rewind flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_DUP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene duplication flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T13:02:41.315</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPNOM</RQ_Name>
+          <RQ_Description>MMFU PS Playback nominal "Data stored" </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T13:02:41.315</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>182.5056</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T13:06:33.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPSTP</RQ_Name>
+          <RQ_Description>MMFU Playback stop </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T13:06:33.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>196.4703</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_RWD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene rewind flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_DUP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene duplication flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T13:06:44.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPBSA</RQ_Name>
+          <RQ_Description>MMFU SAD PS Playback.</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T13:06:44.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>197.1321</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T13:07:41.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPOCPRY2</RQ_Name>
+          <RQ_Description>OCP GoTo Ready Mode Request from communication mode</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>OCP Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T13:07:41.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18854</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>200.5588</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T14:12:03.108</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPXBSBOP</RQ_Name>
+          <RQ_Description>XBS X-band on - STBY to Operational</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T14:12:03.108</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18855</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>70.4671</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T14:12:28.108</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPNOM</RQ_Name>
+          <RQ_Description>MMFU PS Playback nominal "Data stored" </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T14:12:28.108</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18855</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>71.9466</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T14:24:14.437</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPSTP</RQ_Name>
+          <RQ_Description>MMFU Playback stop </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T14:24:14.437</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18855</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>113.7120</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_RWD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene rewind flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_DUP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene duplication flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T14:24:25.437</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPBHS</RQ_Name>
+          <RQ_Description>MMFU HKTM/SAD PS Playback.</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T14:24:25.437</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18855</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>114.3636</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FRHK</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flags for HKTM PS</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FSAD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flags for SAD PS</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2020-10-15T14:24:51.437</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPXBOPSB</RQ_Name>
+          <RQ_Description>XBS X-band off - Operational to STBY</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2020-10-15T14:24:51.437</RQ_Execution_Time>
+          <RQ_Absolute_orbit>18855</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>115.9041</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+    </List_of_EVRQs>
+  </Data_Block>
+</Earth_Explorer_File>
