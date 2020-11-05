@@ -16,7 +16,7 @@
   
   vboa.display_pie("hktm-workflow-pie-processing-status", data)
 
-  var distribution_data = [{{ hktm_workflow_events["hktm_production"]|length - missing_hktm_circulation_to_fos|length - hktm_incompletely_distributed|length }}, {{ missing_hktm_circulation_to_fos|length }}, {{ hktm_incompletely_distributed|length }}]
+  var distribution_data = [{{ hktm_workflow_events["hktm_production"]|length + hktm_workflow_events["hktm_production_vgs"]|length - missing_hktm_circulation_to_fos|length - hktm_incompletely_distributed|length }}, {{ missing_hktm_circulation_to_fos|length }}, {{ hktm_incompletely_distributed|length }}]
   var distribution_background_color = ["green", "gold", "gold"]
   var distribution_labels = ["# distributed to FOS", "# not distributed to FOS", "# incompletely distributed to FOS"]
   var data = {
@@ -30,7 +30,7 @@
   {% endif %}
 
   <!-- HKTM circulated to FOS -->
-  {% set hktm_circulated_to_fos = hktm_workflow_events["hktm_production"]|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+  {% set hktm_circulated_to_fos = hktm_workflow_events["hktm_production"] + hktm_workflow_events["hktm_production_vgs"]|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
 
   {% if (hktm_circulated_to_fos|length) > 0 %}
   
