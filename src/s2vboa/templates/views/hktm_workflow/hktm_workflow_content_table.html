@@ -6,9 +6,8 @@
 {% set comments = "" %}
 {% endif %}
 
-{% set hktm_production_event_uuids_list = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION")|list %}
-{% set hktm_production_vgs_event_uuids_list = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|list %}
-{% set hktm_production_event_uuids = hktm_production_event_uuids_list + hktm_production_vgs_event_uuids_list|map(attribute='event_uuid_link')|list %}
+{% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION")|map(attribute='event_uuid_link')|list %}
+{% set hktm_production_vgs_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|map(attribute='event_uuid_link')|list %}
 
 {% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events_limit|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
 
@@ -21,8 +20,13 @@
 {% set circulation_time_to_fos = "N/A" %}
 {% set circulation_time_to_fos_class = "bold-red" %}
 
-{% if hktm_production_event_uuids|length > 0 %}
-{% set hktm_production_events = hktm_workflow_events["hktm_production"] + hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
+{% if hktm_production_vgs_event_uuids|length > 0 %}
+{% set hktm_production_events = hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_vgs_event_uuids)|list %}
+{% elif hktm_production_event_uuids|length > 0 %}
+{% set hktm_production_events = hktm_workflow_events["hktm_production"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
+{% endif %}
+
+{% if hktm_production_events|length > 0 %}
 
 {% for hktm_production_event in hktm_production_events %}
 {% set successful_circulation_to_fos = [hktm_production_event]|map(attribute="explicitRef")|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
