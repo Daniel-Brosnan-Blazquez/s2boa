@@ -6,7 +6,7 @@
 {% set comments = "" %}
 {% endif %}
 
-{% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION")|map(attribute='event_uuid_link')|list %}
+{% set hktm_production_vgs_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|map(attribute='event_uuid_link')|list %}
 
 {% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events_limit|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
 
@@ -19,11 +19,11 @@
 {% set circulation_time_to_fos = "N/A" %}
 {% set circulation_time_to_fos_class = "bold-red" %}
 
-{% if hktm_production_event_uuids|length > 0 %}
-{% set hktm_production_events = hktm_workflow_events["hktm_production"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
+{% if hktm_production_vgs_event_uuids|length > 0 %}
+{% set hktm_production_vgs_events = hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_vgs_event_uuids)|list %}
 
-{% for hktm_production_event in hktm_production_events %}
-{% set successful_circulation_to_fos = [hktm_production_event]|map(attribute="explicitRef")|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+{% for hktm_production_vgs_event in hktm_production_vgs_events %}
+{% set successful_circulation_to_fos = [hktm_production_vgs_event]|map(attribute="explicitRef")|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
 
 {% if successful_circulation_to_fos|length > 0 %}
 {% set circulation_time_to_fos_annotation = successful_circulation_to_fos|map(attribute="annotations")|flatten|filter_annotations("CIRCULATION_TIME")|filter_annotations_by_text_value("destination", "FOS_")|first %}
@@ -52,7 +52,7 @@
   {% endif %}
   <td class="{{ status_class[0] }}">{{ status[0] }}</td>
   <td class="{{ completeness_status_class[0] }}">{{ completeness_status[0] }}</td>
-  <td><a href="/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}">{{ [hktm_production_event]|map(attribute="explicitRef.explicit_ref")|first }}</a></td>
+  <td><a href="/eboa_nav/query-er/{{ hktm_production_vgs_event.explicit_ref_uuid }}">{{ [hktm_production_vgs_event]|map(attribute="explicitRef.explicit_ref")|first }}</a></td>
   <td class="{{ circulation_time_to_fos_class }}">{{ circulation_time_to_fos }}</td>
   <td class="{{ delta_to_fos_class }}">{{ delta_to_fos }}</td>
   <td>{{ comments }}</td>

@@ -152,14 +152,14 @@
         <div class="col-xs-3">
           <div class="panel panel-success">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of generated HKTM products</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-hktm-workflow-generated">{{ hktm_workflow_events["playback"]|length - missing_hktm_production|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-hktm-workflow-generated">{{ hktm_workflow_events["playback"]|length - missing_hktm_production_vgs|length }}</div>
           </div>
         </div>
-        {% if missing_hktm_production|length > 0 %}
+        {% if missing_hktm_production_vgs|length > 0 %}
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing HKTM products</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-hktm-workflow-missing-production">{{ missing_hktm_production|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-hktm-workflow-missing-production">{{ missing_hktm_production_vgs|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -210,7 +210,7 @@
 
 {% if orbpre_events_limit|length > 0 %}
 
-{% if missing_hktm_production|length > 0 or missing_hktm_circulation_to_fos|length > 0 or hktm_incompletely_distributed|length > 0 %}
+{% if missing_hktm_production_vgs|length > 0 or missing_hktm_circulation_to_fos|length > 0 or hktm_incompletely_distributed|length > 0 %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='ASCII'?>
+<Earth_Explorer_File>
+  <Earth_Explorer_Header>
+	<Fixed_Header>
+  	<File_Name>S2B_OPER_REP_OPHKTM_VGS2_20201015T131302_V20201015T125641_20201015T125641.EOF</File_Name>
+  	<File_Description></File_Description>
+  	<Notes></Notes>
+  	<Mission></Mission>
+  	<File_Class>OPER</File_Class>
+  	<File_Type>REP_OPHKTM</File_Type>
+  	<Validity_Period>
+    	<Validity_Start>UTC=2020-10-15T12:56:41.000000Z</Validity_Start>
+    	<Validity_Stop>UTC=2020-10-15T12:56:41.000000Z</Validity_Stop>
+  	</Validity_Period>
+  	<File_Version>0001</File_Version>
+  	<Source>
+    	<System>VGS2</System>
+    	<Creator>HKTMReport</Creator>
+    	<Creator_Version>0.1</Creator_Version>
+    	<Creation_Date>UTC=2020-10-15T13:13:02.000000Z</Creation_Date>
+  	</Source>
+	</Fixed_Header>
+  </Earth_Explorer_Header>
+  <Data_Block>
+	<IngestedProducts>
+  	<IngestedProduct>
+    	<product_id>S2B_OPER_PRD_HKTM___20201015T125434_20201015T125511_0001.SAFE</product_id>
+    	<satellite>S2B</satellite>
+    	<acquisition_center>VGS2</acquisition_center>
+    	<downlink_orbit>18854</downlink_orbit>
+    	<generation_date>2020-10-15T12:56:41.000983Z</generation_date>
+  	</IngestedProduct>
+	</IngestedProducts>
+  </Data_Block>
+</Earth_Explorer_File>

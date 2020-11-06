@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Earth_Explorer_File xmlns="http://eop-cfi.esa.int/CFI">
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2B_OPER_MPL_SPSGS__PDMC_20201014T090002_V20201015T090000_20201021T090000</File_Name>
+      <File_Description>Station Acquisition Plan File</File_Description>
+      <Notes/>
+      <Mission>Sentinel-2B</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL_SPSGS_</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2020-10-15T09:00:00</Validity_Start>
+        <Validity_Stop>UTC=2020-10-21T09:00:00</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>PDMC</System>
+        <Creator>MPL</Creator>
+        <Creator_Version>00.01</Creator_Version>
+        <Creation_Date>UTC=2020-10-14T09:00:02</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header/>
+  </Earth_Explorer_Header>
+  <Data_Block type="xml">
+    <SCHEDULE>
+      <ACQ id="18852_01">
+        <Orbit_Number>18852</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2B</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-10-15T09:12:51.227</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-10-15T09:24:34.405</Acquisition_Stop>
+        <Data_Start>UTC=2020-10-15T09:13:47.176</Data_Start>
+        <Data_Stop>UTC=2020-10-15T09:24:22.405</Data_Stop>
+      </ACQ>
+      <ACQ id="18853_01">
+        <Orbit_Number>18853</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2B</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-10-15T10:52:53.248</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-10-15T11:05:41.797</Acquisition_Stop>
+        <Data_Start>UTC=2020-10-15T10:53:13.247</Data_Start>
+        <Data_Stop>UTC=2020-10-15T11:05:29.796</Data_Stop>
+      </ACQ>
+      <ACQ id="18854_01">
+        <Orbit_Number>18854</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2B</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-10-15T12:32:40.968</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-10-15T12:45:36.452</Acquisition_Stop>
+        <Data_Start>UTC=2020-10-15T12:33:00.967</Data_Start>
+        <Data_Stop>UTC=2020-10-15T12:45:24.451</Data_Stop>
+      </ACQ>
+      <ACQ id="18855_01">
+        <Orbit_Number>18855</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2B</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-10-15T14:12:12.824</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-10-15T14:25:01.153</Acquisition_Stop>
+        <Data_Start>UTC=2020-10-15T14:12:32.823</Data_Start>
+        <Data_Stop>UTC=2020-10-15T14:24:49.152</Data_Stop>
+      </ACQ>
+      <ACQ id="18856_01">
+        <Orbit_Number>18856</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2B</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-10-15T15:51:32.001</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-10-15T16:04:18.174</Acquisition_Stop>
+        <Data_Start>UTC=2020-10-15T15:51:52.000</Data_Start>
+        <Data_Stop>UTC=2020-10-15T16:04:06.173</Data_Stop>
+      </ACQ>
+      <ACQ id="18857_01">
+        <Orbit_Number>18857</Orbit_Number>
+        <Station_Id>SGS_</Station_Id>
+        <Satellite_Id>S2B</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2020-10-15T17:31:02.953</Acquisition_Start>
+        <Acquisition_Stop>UTC=2020-10-15T17:43:44.032</Acquisition_Stop>
+        <Data_Start>UTC=2020-10-15T17:31:22.952</Data_Start>
+        <Data_Stop>UTC=2020-10-15T17:43:32.032</Data_Stop>
+      </ACQ>
+    </SCHEDULE>
+  </Data_Block>
+</Earth_Explorer_File>
