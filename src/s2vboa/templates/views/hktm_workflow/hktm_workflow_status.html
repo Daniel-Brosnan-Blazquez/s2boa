@@ -1,14 +1,11 @@
-{% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION")|map(attribute='event_uuid_link')|list %}
 {% set hktm_production_vgs_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|map(attribute='event_uuid_link')|list %}
 
 {% if hktm_production_vgs_event_uuids|length > 0 %}
-{% set hktm_production_events = hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_vgs_event_uuids)|list %}
-{% elif hktm_production_event_uuids|length > 0 %}
-{% set hktm_production_events = hktm_workflow_events["hktm_production"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
+{% set hktm_production_vgs_events = hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_vgs_event_uuids)|list %}
 {% endif %}
 
-{% set missing_circulation_to_fos = hktm_production_events|map(attribute="explicitRef")|unique|list|reject_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
-{% set successful_circulation_to_fos = hktm_production_events|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+{% set missing_circulation_to_fos = hktm_production_vgs_events|map(attribute="explicitRef")|unique|list|reject_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
+{% set successful_circulation_to_fos = hktm_production_vgs_events|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
 
 {% set station_report_event_uuid = event.eventLinks|selectattr("name", "equalto", "STATION_ACQUISITION_REPORT")|map(attribute='event_uuid_link')|list %}
 {% set station_report_flag = "N/A" %}
@@ -23,10 +20,10 @@
 {% elif [event]|filter_events_with_link_name("DFEP_ACQUISITION_VALIDITY")|reject_events_with_link_name("PLAYBACK_VALIDITY")|list|length > 0 %}
 {% do status.append("MISSING DATA FROM SATELLITE") %}
 {% do status_class.append("bold-red") %}
-{% elif [event]|reject_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list|length > 0 %}
+{% elif [event]|reject_events_with_link_name("PLAYBACK_VALIDITY")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list|length > 0 %}
 {% do status.append("PENDING ACQUISITION") %}
 {% do status_class.append("bold-orange") %}
-{% elif [event]|reject_events_with_link_name("HKTM_PRODUCTION")|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list|length > 0 %}
+{% elif [event]|reject_events_with_link_name("HKTM_PRODUCTION_VGS")|list|length > 0 %}
 {% do status.append("MISSING PRODUCTION") %}
 {% do status_class.append("bold-red") %}
 {% elif missing_circulation_to_fos|length > 0 and successful_circulation_to_fos|length == 0 %}
