@@ -1,5 +1,6 @@
 {% set hktm_production_vgs_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|map(attribute='event_uuid_link')|list %}
 
+{% set hktm_production_vgs_events = [] %}
 {% if hktm_production_vgs_event_uuids|length > 0 %}
 {% set hktm_production_vgs_events = hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_vgs_event_uuids)|list %}
 {% endif %}
