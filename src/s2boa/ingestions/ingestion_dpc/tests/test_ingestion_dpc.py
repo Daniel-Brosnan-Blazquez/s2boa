@@ -54,7 +54,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -62,7 +62,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 8
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -70,7 +72,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -145,7 +149,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2B_OPER_REP_OPDPC_L0_3_SCENES.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -155,7 +159,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2019-07-15T15:10:54", "op": "=="}],
+                                              validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
                                              validity_stop_filters = [{"date": "2019-07-15T15:10:59", "op": "=="}],
                                               generation_time_filters = [{"date": "2019-07-15T19:59:38", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2B", "op": "=="},
@@ -163,7 +169,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2019-07-15T15:10:54", "op": "=="}],
+                                              validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
                                              validity_stop_filters = [{"date": "2019-07-15T19:59:32.335", "op": "=="}],
                                               generation_time_filters = [{"date": "2019-07-15T19:59:38", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2B", "op": "=="},
@@ -172,7 +180,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2009-12-10T23:51:34.000", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2019-07-15T15:10:47", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2019-07-15T15:10:54", "op": "=="}],
+                                              validity_start_filters = [{"date": "2009-12-10T23:51:34.000", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2019-07-15T19:59:38", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -200,12 +210,14 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -213,7 +225,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -221,7 +235,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -389,13 +405,15 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -403,7 +421,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -411,7 +431,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -486,7 +508,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0_L1A_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -494,7 +516,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 8
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2019-07-15T18:04:03", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2019-07-15T18:04:03", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2019-07-15T18:06:38", "op": "=="}],
+                                              validity_start_filters = [{"date": "2019-07-15T18:04:03", "op": "=="}],
                                              validity_stop_filters = [{"date": "2019-07-15T23:18:02.353", "op": "=="}],
                                               generation_time_filters = [{"date": "2019-07-15T23:18:12", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -502,7 +526,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2019-07-15T18:04:03", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2019-07-15T18:06:38", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2019-07-15T23:18:12", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -519,7 +545,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -527,7 +553,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 7
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -535,7 +563,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -552,20 +582,22 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -573,7 +605,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -582,7 +616,9 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -590,7 +626,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -699,20 +737,22 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -720,7 +760,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "like"},
@@ -728,7 +770,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -737,7 +781,9 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -745,7 +791,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -754,7 +802,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -935,20 +985,22 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -956,7 +1008,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -964,7 +1018,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -973,7 +1029,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -982,7 +1040,9 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -990,7 +1050,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -998,7 +1060,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1007,7 +1071,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -1118,20 +1184,22 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                               dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1139,7 +1207,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                               dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1148,7 +1218,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -1157,7 +1229,9 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                               dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1165,7 +1239,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                               dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1174,7 +1250,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -1269,27 +1347,29 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L0_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1297,7 +1377,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1305,7 +1387,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1314,7 +1398,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -1323,7 +1409,9 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(sources) == 1
 
         # L1B
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:55:47", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1331,7 +1419,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:55:47", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1339,7 +1429,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T10:55:38.778000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:55:47", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1348,7 +1440,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:55:47", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -1357,7 +1451,9 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1365,7 +1461,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1373,7 +1471,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T11:00:38.066000", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1382,7 +1482,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
+                                              validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
                                              validity_stop_filters = [{"date": "2100-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
@@ -1821,14 +1923,14 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0_WITH_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -2320,49 +2422,49 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L0_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1C_L2A.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L0U_L0_2.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L0_L1B_2.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_L1B_L1C_2.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -2447,7 +2549,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -2455,7 +2557,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(sources) == 4
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "=="},
@@ -2501,14 +2605,14 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2A_OPER_REP_OPDPC_HKTM_2.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -2520,7 +2624,9 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(events) == 2
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T03:27:24", "op": "=="}],
                                              processors = {"filter": "ingestion_dpc.py", "op": "=="},
@@ -2589,7 +2695,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -2668,7 +2774,7 @@ class TestDpcIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

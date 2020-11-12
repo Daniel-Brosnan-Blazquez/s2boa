@@ -245,7 +245,9 @@ def process_file(file_path, engine, query, reception_time):
                     "reception_time": reception_time,
                     "generation_time": creation_date,
                     "validity_start": validity_start_hktm,
-                    "validity_stop": validity_stop_hktm
+                    "validity_stop": validity_stop_hktm,
+                    "reported_validity_start": validity_start,
+                    "reported_validity_stop": validity_stop
                 },
                 "events": list_of_events_hktm[satellite],
                 "explicit_references": list_of_explicit_references_hktm[satellite]

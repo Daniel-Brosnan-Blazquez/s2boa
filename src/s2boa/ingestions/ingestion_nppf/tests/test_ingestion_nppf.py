@@ -68,8 +68,9 @@ class TestEngine(unittest.TestCase):
         assert len(events) == 38
 
         # Check that the validity period of the input has taken into consideration the deletion queue
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T13:40:00.000",
-                                                                                 Source.validity_stop == "2018-08-06T14:00:00").all()
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-20T11:00:00.000",
+                                                   Source.validity_start == "2018-07-20T13:40:00.000",
+                                                   Source.validity_stop == "2018-08-06T14:00:00").all()
 
         assert len(source) == 1
 
@@ -980,5 +981,6 @@ class TestEngine(unittest.TestCase):
         assert len(events) == 0
 
         # Check that the validity period of the input has taken into consideration the deletion queue
-        sources = self.session.query(Source).filter(Source.generation_time == "2018-07-20T11:00:00").all()
+        sources = self.session.query(Source).filter(Source.generation_time == "2018-07-20T11:00:00",
+                                                    Source.reported_generation_time == "2018-07-24T11:41:50").all()
         assert len(sources) == 1

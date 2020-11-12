@@ -69,11 +69,13 @@ def process_file(file_path, engine, query, reception_time):
     downlink_status = xpath_xml("/Earth_Explorer_File/Data_Block/StationAcquisitionReport/StationDownlinkDetails/DownlinkStatus")[0].text
 
     generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    validity_start = reported_validity_start
     if start < validity_start:
         validity_start = start
     # end if
-    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    validity_stop = reported_validity_stop
     if stop > validity_stop:
         validity_stop = stop
     # end if
@@ -99,7 +101,9 @@ def process_file(file_path, engine, query, reception_time):
         "reception_time": reception_time,
         "generation_time": generation_time,
         "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_stop": validity_stop,
+        "reported_validity_start": reported_validity_start,
+        "reported_validity_stop": reported_validity_stop
     }
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)

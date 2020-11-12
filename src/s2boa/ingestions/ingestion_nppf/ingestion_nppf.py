@@ -820,7 +820,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             # DFEP schedule completeness
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                     "name": "DFEP_SCHEDULE_COMPLETENESS",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -839,7 +839,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             # Station schedule completeness
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                     "name": "STATION_SCHEDULE_COMPLETENESS",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -858,7 +858,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if downlink_mode != "SAD":
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                         "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -877,7 +877,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if downlink_mode != "HKTM":
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                         "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -905,7 +905,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                     "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -922,7 +922,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             list_of_completeness_events.append(completeness_event)
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                     "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -941,7 +941,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             imaging_mode = [value["value"] for value in planning_event["values"] if value["name"] == "imaging_mode"][0]
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                     "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -958,7 +958,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             list_of_completeness_events.append(completeness_event)
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                     "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -976,7 +976,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if imaging_mode in ["SUN_CAL", "DARK_CAL_CSM_OPEN", "DARK_CAL_CSM_CLOSE", "VICARIOUS_CAL", "RAW", "TEST"]:
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                         "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -995,7 +995,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if imaging_mode in ["NOMINAL", "VICARIOUS_CAL", "TEST"]:
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                         "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -1014,7 +1014,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if imaging_mode in ["NOMINAL"]:
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
                         "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -1057,16 +1057,17 @@ def process_file(file_path, engine, query, reception_time):
 
     satellite = file_name[0:3]
     reported_generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]    
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     deletion_queue = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_EVRQs/EVRQ[RQ/RQ_Name='MGSYQDEL']")
 
     # Generation time is changed to be the validity start in case the generation time is greater than the validity start to avoid problems on completeness analysis
     generation_time = reported_generation_time
-    if reported_generation_time > validity_start:
-        generation_time = validity_start
+    if reported_generation_time > reported_validity_start:
+        generation_time = reported_validity_start
     # end if
 
+    validity_start = reported_validity_start
     if len(deletion_queue) == 1:
         validity_start = deletion_queue[0].xpath("RQ/RQ_Execution_Time")[0].text.split("=")[1]
     # end if
@@ -1075,7 +1076,9 @@ def process_file(file_path, engine, query, reception_time):
         "name": file_name,
         "reception_time": reception_time,
         "generation_time": generation_time,
+        "reported_generation_time": reported_generation_time,
         "validity_start": validity_start,
+        "reported_validity_start": reported_validity_start,
         "validity_stop": validity_stop
     }
 
@@ -1182,6 +1185,9 @@ def process_file(file_path, engine, query, reception_time):
         # Generate the footprint of the events
         list_of_completeness_events_with_footprint = functions.associate_footprints(list_of_completeness_events, satellite)
 
+        source_with_priority = source.copy()
+        source_with_priority["priority"] = 10
+
         data["operations"].append({
             "mode": "insert",
             "dim_signature": {
@@ -1189,7 +1195,7 @@ def process_file(file_path, engine, query, reception_time):
                 "exec": os.path.basename(__file__),
                 "version": version
             },
-            "source": source,
+            "source": source_with_priority,
             "events": list_of_completeness_events_with_footprint
         })
     # end if

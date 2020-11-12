@@ -67,7 +67,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(sources) == 2
@@ -556,7 +558,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(sources) == 2
@@ -1059,7 +1063,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T23:18:43",
+                                                    Source.reported_validity_stop == "2018-07-21T23:30:15",
+                                                    Source.validity_start == "2018-07-21T08:54:26.359237",
                                                    Source.validity_stop == "2018-07-21T23:30:15").all()
 
         assert len(sources) == 2
@@ -1165,7 +1171,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:27",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T10:35:27",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(sources) == 2
@@ -1222,7 +1230,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39").all()
 
         assert len(sources) == 2
@@ -1343,21 +1353,27 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(sources) == 8
         
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
         assert len(sources) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:52:29.993268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T08:52:29.993268",
                                                    Source.validity_stop == "2018-07-21T08:54:18.226646",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:33.728601",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T10:35:33.728601",
                                                    Source.validity_stop == "2018-07-21T10:37:26.355940",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
@@ -1428,14 +1444,18 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(sources) == 7
         
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21 01:47:36",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T01:47:36",
+                                                    Source.reported_validity_stop == "2018-07-21T01:47:51",
+                                                    Source.validity_start == "2018-07-21 01:47:36",
                                                    Source.validity_stop == "2018-07-21T01:47:51",
                                                    Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T01:47:42.854151",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T01:47:36",
+                                                    Source.reported_validity_stop == "2018-07-21T01:47:51",
+                                                    Source.validity_start == "2018-07-21T01:47:42.854151",
                                                    Source.validity_stop == "2018-07-21T01:47:43.833085",
                                                    Source.name == "S2A_REP_PASS_ONLY_HKTM.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
@@ -1545,21 +1565,27 @@ class TestDfepIngestion(unittest.TestCase):
 
         assert len(sources) == 8
 
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
         assert len(sources) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:52:29.993268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T08:52:29.993268",
                                                    Source.validity_stop == "2018-07-21T08:54:18.226646",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:33.728601",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T10:35:33.728601",
                                                    Source.validity_stop == "2018-07-21T10:37:26.355940",
                                                    Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
@@ -1600,21 +1626,27 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
 
         assert len(sources) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:52:29.993268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T08:52:29.993268",
                                                    Source.validity_stop == "2018-07-21T08:54:18.226646",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_dfep_acquisition.py").all()
 
         assert len(source) == 1
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T10:35:33.728601",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-21T10:35:33.728601",
                                                    Source.validity_stop == "2018-07-21T10:37:26.355940",
                                                    Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "playback_planning_completeness_ingestion_dfep_acquisition.py").all()
@@ -1632,7 +1664,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-20T22:00:12.859222",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
+                                                    Source.reported_validity_stop == "2018-07-21T10:37:39",
+                                                    Source.validity_start == "2018-07-20T22:00:12.859222",
                                                    Source.validity_stop == "2018-07-21T10:37:39",
                                                    Source.name == filename,
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()
@@ -1660,7 +1694,9 @@ class TestDfepIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        sources = self.session.query(Source).filter(Source.validity_start == "2018-07-21T08:54:26.359237",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T23:18:43",
+                                                    Source.reported_validity_stop == "2018-07-21T23:30:15",
+                                                    Source.validity_start == "2018-07-21T08:54:26.359237",
                                                    Source.validity_stop == "2018-07-21T23:30:15",
                                                    Source.name == filename,
                                                    Source.processor == "ingestion_dfep_acquisition.py").all()

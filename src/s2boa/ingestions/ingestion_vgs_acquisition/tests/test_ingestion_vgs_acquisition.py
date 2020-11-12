@@ -62,7 +62,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         assert len(sources) == 2
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2020-06-15T21:02:44.999376",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2020-06-16T10:48:14",
+                                                   Source.reported_validity_stop == "2020-06-16T10:56:03",
+                                                   Source.validity_start == "2020-06-15T21:02:44.999376",
                                                    Source.validity_stop == "2020-06-16T10:56:03.533806").all()
 
         assert len(source) == 2
@@ -285,7 +287,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         assert len(sources) == 2
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2020-06-16T09:13:34.933091",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2020-06-16T10:48:14",
+                                                   Source.reported_validity_stop == "2020-06-16T10:56:21",
+                                                   Source.validity_start == "2020-06-16T09:13:34.933091",
                                                    Source.validity_stop == "2020-06-16T10:56:21.385567").all()
 
         assert len(source) == 2
@@ -536,7 +540,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2020-06-15T21:02:44.999376",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2020-06-16T10:48:14",
+                                                   Source.reported_validity_stop == "2020-06-16T10:56:03",
+                                                   Source.validity_start == "2020-06-15T21:02:44.999376",
                                                    Source.validity_stop == "2020-06-16T10:56:03.533806").all()
 
         assert len(source) == 2
@@ -1125,7 +1131,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         assert len(annotations) == 0
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2020-06-16T10:48:14",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2020-06-16T10:48:14",
+                                                   Source.reported_validity_stop == "2020-06-16T10:56:21",
+                                                   Source.validity_start == "2020-06-16T10:48:14",
                                                    Source.validity_stop == "2020-06-16T10:56:21").all()
 
         assert len(source) == 1

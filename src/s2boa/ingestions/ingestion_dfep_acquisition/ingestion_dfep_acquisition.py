@@ -246,7 +246,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                 "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_" + channel,
                 "system": satellite
             },
@@ -298,7 +298,10 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                 "reception_time": source["reception_time"],
                 "generation_time": source["generation_time"],
                 "validity_start": str(playback_planning_completeness_event_starts[0]),
-                "validity_stop": str(playback_planning_completeness_event_stops[-1])
+                "validity_stop": str(playback_planning_completeness_event_stops[-1]),
+                "reported_validity_start": source["reported_validity_start"],
+                "reported_validity_stop": source["reported_validity_stop"],
+                "priority": 30
             },
             "events": list_of_playback_completeness_events_with_footprints
         }
@@ -731,7 +734,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     isp_validity_processing_completeness_event = {
                         "explicit_reference": session_id,
                         "gauge": {
-                            "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                            "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                             "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_" + channel,
                             "system": satellite
                         },
@@ -775,7 +778,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         isp_validity_processing_completeness_event = {
                             "explicit_reference": session_id,
                             "gauge": {
-                                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                                 "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_" + channel,
                                 "system": satellite
                             },
@@ -817,7 +820,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                             isp_validity_processing_completeness_event = {
                                 "explicit_reference": session_id,
                                 "gauge": {
-                                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                                     "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1A_CHANNEL_" + channel,
                                     "system": satellite
                                 },
@@ -860,7 +863,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                             isp_validity_processing_completeness_event = {
                                 "explicit_reference": session_id,
                                 "gauge": {
-                                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                                     "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_" + channel,
                                     "system": satellite
                                 },
@@ -903,7 +906,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                             isp_validity_processing_completeness_event = {
                                 "explicit_reference": session_id,
                                 "gauge": {
-                                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                                     "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_" + channel,
                                     "system": satellite
                                 },
@@ -1054,7 +1057,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "explicit_reference": session_id,
                     "key": session_id + "_CHANNEL_" + channel,
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                        "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                         "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_" + channel,
                         "system": satellite
                     },
@@ -1191,7 +1194,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "reception_time": source["reception_time"],
                 "generation_time": source["generation_time"],
                 "validity_start": str(isp_planning_completeness_event_starts[0]),
-                "validity_stop": str(isp_planning_completeness_event_stops[-1])
+                "validity_stop": str(isp_planning_completeness_event_stops[-1]),
+                "reported_validity_start": source["reported_validity_start"],
+                "reported_validity_stop": source["reported_validity_stop"],
+                "priority": 30
             },
             "events": list_of_isp_completeness_events_with_footprints
         }
@@ -1728,8 +1734,8 @@ def process_file(file_path, engine, query, reception_time):
 
     acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStartTime")
     
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
-    validity_starts = [validity_start]
+    reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    validity_starts = [reported_validity_start]
     if len(sensing_starts) > 0:
         # Set the validity start to be the first sensing timing acquired to avoid error ingesting
         sensing_starts_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_start.text) for sensing_start in sensing_starts]
@@ -1753,8 +1759,8 @@ def process_file(file_path, engine, query, reception_time):
     validity_start = validity_starts[0]
 
     acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStopTime")
-    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
-    validity_stops = [validity_stop]
+    reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    validity_stops = [reported_validity_stop]
     if len(acquisition_stops) > 0:
         # Set the validity stop to be the last acquisition timing registered to avoid error ingesting
         acquisition_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(acquisition_stop.text) for acquisition_stop in acquisition_stops]
@@ -1772,7 +1778,9 @@ def process_file(file_path, engine, query, reception_time):
         "reception_time": reception_time,
         "generation_time": generation_time,
         "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_stop": validity_stop,
+        "reported_validity_start": reported_validity_start,
+        "reported_validity_stop": reported_validity_stop
     }
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
@@ -1856,7 +1864,10 @@ def process_file(file_path, engine, query, reception_time):
             "reception_time": reception_time,
             "generation_time": validity_start,
             "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_stop": validity_stop,
+            "reported_validity_start": reported_validity_start,
+            "reported_validity_stop": reported_validity_stop,
+            "priority": 10
         },
         "events": list_of_isp_validity_processing_completeness_events_with_footprint
     })

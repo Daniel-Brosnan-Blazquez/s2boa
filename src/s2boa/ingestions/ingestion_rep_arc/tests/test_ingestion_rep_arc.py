@@ -54,7 +54,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -62,7 +62,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 7
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29   ", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                                  validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                                   generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -207,12 +209,14 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:39:19", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -220,7 +224,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -392,13 +398,15 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:39:19", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -406,7 +414,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -502,7 +512,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -520,7 +530,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -528,7 +538,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 5
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29.000000", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29.000000", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -547,20 +559,22 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29   ", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29   ", "op": "=="}],
                                                  validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                                   generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -570,7 +584,9 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 1
 
         #L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                          validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                           generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -679,20 +695,22 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         #L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                              processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
@@ -701,7 +719,9 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 1
 
         #L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                          validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                           generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                          processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
@@ -884,20 +904,22 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:39:19", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -905,7 +927,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -915,7 +939,9 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                              processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
@@ -923,7 +949,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1048,27 +1076,29 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T115133_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
         # L0
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:39:19", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1076,7 +1106,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:01:40", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -1085,7 +1117,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:39:19", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1093,7 +1127,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:39:19", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1102,7 +1138,9 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 1
 
         # L1B
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:51:33", "op": "=="}],
                                              processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
@@ -1110,7 +1148,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1118,7 +1158,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1126,7 +1168,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1135,7 +1179,9 @@ class TestEngine(unittest.TestCase):
         assert len(sources) == 1
 
         # L1C
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                               dim_signatures = {"filter": "INDEXING_S2A", "op": "=="},
@@ -1144,7 +1190,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
@@ -1152,7 +1200,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -1160,7 +1210,9 @@ class TestEngine(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
+                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
+                                                  validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T10:42:52", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
@@ -1562,14 +1614,14 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0_WITH_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
@@ -1921,7 +1973,7 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20191204T231921_V20191204T220619_20191204T220738.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc", file_path, "2018-01-01T00:00:00")
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

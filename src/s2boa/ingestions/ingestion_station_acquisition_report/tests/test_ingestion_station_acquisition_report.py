@@ -61,8 +61,10 @@ class TestEngine(unittest.TestCase):
         assert len(events) == 1
 
         # Check that the validity period of the input is correctly taken
-        source_period = self.session.query(Source).filter(Source.validity_start == "2018-07-24T10:44:12",
-                                                                                 Source.validity_stop == "2018-07-24T10:48:57").all()
+        source_period = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-24T10:44:12",
+                                                          Source.reported_validity_stop == "2018-07-24T10:48:57",
+                                                          Source.validity_start == "2018-07-24T10:44:12",
+                                                          Source.validity_stop == "2018-07-24T10:48:57").all()
 
         assert len(source_period) == 1
 
@@ -221,7 +223,9 @@ class TestEngine(unittest.TestCase):
 
         ingestion.command_process_file("s2boa.ingestions.ingestion_station_acquisition_report.ingestion_station_acquisition_report", file_path, "2018-01-01T00:00:00")
         
-        period = self.session.query(Source).filter(Source.validity_start >= "2018-07-24T08:53:17",
+        period = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-24T08:53:56",
+                                                          Source.reported_validity_stop == "2018-07-24T09:05:03",
+                                                          Source.validity_start >= "2018-07-24T08:53:17",
                                                                                  Source.validity_stop <= "2018-07-24T09:05:17").all()
 
         assert len(period) == 1

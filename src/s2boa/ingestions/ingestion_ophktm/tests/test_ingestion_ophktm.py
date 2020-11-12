@@ -66,7 +66,9 @@ class TestOphktm(unittest.TestCase):
 
         assert len(events) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-10-15T12:56:41.000983", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-10-15T12:56:41", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-10-15T12:56:41", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-10-15T12:56:41.000983", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-10-15T12:56:41.000983", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-10-15T13:13:02", "op": "=="}],
                                               processors = {"filter": "ingestion_ophktm.py", "op": "=="},
@@ -168,7 +170,9 @@ class TestOphktm(unittest.TestCase):
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-10-15T12:56:41.000983", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-10-15T12:56:41", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-10-15T12:56:41", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-10-15T12:56:41.000983", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-10-15T12:56:41.000983", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-10-15T13:13:02", "op": "=="}],
                                               processors = {"filter": "ingestion_ophktm.py", "op": "=="},

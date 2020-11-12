@@ -142,7 +142,7 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
         # Station schedule completeness event
         station_schedule_completeness_event = {
             "gauge": {
-                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                 "name": "STATION_SCHEDULE_COMPLETENESS",
                 "system": satellite
             },
@@ -211,7 +211,7 @@ def process_file(file_path, engine, query, reception_time):
     xpath_xml = etree.XPathEvaluator(parsed_xml)
 
     satellite = file_name[0:3]
-    reported_generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+    generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     station = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/File_Type")[0].text[6:]
@@ -220,7 +220,7 @@ def process_file(file_path, engine, query, reception_time):
     source = {
         "name": file_name,
         "reception_time": reception_time,
-        "generation_time": validity_start,
+        "generation_time": generation_time,
         "validity_start": validity_start,
         "validity_stop": validity_stop
     }
@@ -261,6 +261,9 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
 
     if len(list_of_completeness_events) > 0:
+        source_with_priority = source.copy()
+        source_with_priority["priority"] = 30
+
         data["operations"].append({
             "mode": "insert",
             "dim_signature": {
@@ -268,7 +271,7 @@ def process_file(file_path, engine, query, reception_time):
                 "exec": os.path.basename(__file__),
                 "version": version
             },
-            "source": source,
+            "source": source_with_priority,
             "events": list_of_completeness_events
         })
     # end if

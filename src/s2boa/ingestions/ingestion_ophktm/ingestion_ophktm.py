@@ -76,9 +76,10 @@ def process_file(file_path, engine, query, reception_time):
     # Obtain the alias of the station
     station_alias = functions.get_centre_name_by_alias(system)
     # Obtain the creation date
-    creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
-    # Obtain the creation date
-    creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+    reported_generation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
+    # Obtain validity period
+    reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # Obtain the acquisition_center
     acquisition_center = xpath_xml("/Earth_Explorer_File/Data_Block/IngestedProducts/IngestedProduct/acquisition_center")[0].text
     # Obtain the downlink_orbit
@@ -211,9 +212,11 @@ def process_file(file_path, engine, query, reception_time):
                 "source": {
                     "name": file_name,
                     "reception_time": reception_time,
-                    "generation_time": creation_date,
+                    "generation_time": reported_generation_date,
                     "validity_start": generation_date,
-                    "validity_stop": generation_date
+                    "validity_stop": generation_date,
+                    "reported_validity_start": reported_validity_start,
+                    "reported_validity_stop": reported_validity_stop
                 },
                 "annotations": list_of_annotations,
                 "events": list_of_events

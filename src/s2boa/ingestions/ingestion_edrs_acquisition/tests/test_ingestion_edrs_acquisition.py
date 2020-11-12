@@ -62,7 +62,9 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         assert len(sources) == 2
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20 17:33:12.859268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-20 17:33:12.859268",
                                                    Source.validity_stop == "2018-07-21T07:37:55.121772").all()
 
         assert len(source) == 2
@@ -313,7 +315,9 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         assert len(annotations) == 1
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T17:33:12.859268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-20T17:33:12.859268",
                                                    Source.validity_stop == "2018-07-21T07:37:55.121772").all()
 
         assert len(source) == 2
@@ -747,7 +751,9 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         assert len(annotations) == 0
 
         # Check that the validity period of the input has taken into consideration the MSI sensing received
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T07:28:23",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-21T07:28:23",
                                                    Source.validity_stop == "2018-07-21T07:37:55").all()
 
         assert len(source) == 1
@@ -784,14 +790,18 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         assert returned_value[1]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T17:33:12.859268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-20T17:33:12.859268",
                                                    Source.validity_stop == "2018-07-21T07:37:55.121772",
                                                    Source.name == "S2A_OPER_REP_PASS_E_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "ingestion_edrs_acquisition.py").all()
 
         assert len(source) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T05:22:08.947423",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-21T05:22:08.947423",
                                                    Source.validity_stop == "2018-07-21T05:40:35.417601",
                                                    Source.name == "S2A_OPER_REP_PASS_E_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_edrs_acquisition.py").all()
@@ -1135,14 +1145,18 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
 
         assert len(sources) == 10
         
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-20T17:33:12.859268",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-20T17:33:12.859268",
                                                    Source.validity_stop == "2018-07-21T07:37:55.121772",
                                                    Source.name == "S2A_OPER_REP_PASS_E_PLAYBACK_RT.EOF",
                                                    Source.processor == "ingestion_edrs_acquisition.py").all()
 
         assert len(source) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T05:22:08.947423",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-21T05:22:08.947423",
                                                    Source.validity_stop == "2018-07-21T05:40:35.417601",
                                                    Source.name == "S2A_OPER_REP_PASS_E_PLAYBACK_RT.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_edrs_acquisition.py").all()
@@ -1403,7 +1417,9 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T01:47:42.854151",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-21T01:47:42.854151",
                                                    Source.validity_stop == "2018-07-21T01:47:43.833085",
                                                    Source.name == "S2A_OPER_REP_PASS_E_ONLY_HKTM.EOF",
                                                    Source.processor == "ingestion_edrs_acquisition.py").all()
@@ -1447,14 +1463,18 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         assert returned_value[1]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
         # Check sources
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T05:22:08.947423",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-21T05:22:08.947423",
                                                    Source.validity_stop == "2018-07-21T07:37:40.689924",
                                                    Source.name == "S2A_OPER_REP_PASS_E_NO_SAD.EOF",
                                                    Source.processor == "ingestion_edrs_acquisition.py").all()
 
         assert len(source) == 2
 
-        source = self.session.query(Source).filter(Source.validity_start == "2018-07-21T05:22:08.947423",
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-21T05:22:08.947423",
                                                    Source.validity_stop == "2018-07-21T05:40:35.417601",
                                                    Source.name == "S2A_OPER_REP_PASS_E_NO_SAD.EOF",
                                                    Source.processor == "isp_planning_completeness_ingestion_edrs_acquisition.py").all()

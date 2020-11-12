@@ -62,7 +62,9 @@ class TestAi(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T01:00:01", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T01:00:01", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2018-07-21T13:00:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T01:00:01", "op": "=="}],
                                               validity_stop_filters = [{"date": "2018-07-21T13:00:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T13:00:01", "op": "=="}],
                                               processors = {"filter": "ingestion_ai.py", "op": "like"},
@@ -102,7 +104,9 @@ class TestAi(unittest.TestCase):
 
         assert len(events) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T07:05:18", "op": "=="}],
                                              processors = {"filter": "ingestion_ai.py", "op": "=="},
@@ -111,7 +115,9 @@ class TestAi(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T07:05:18", "op": "=="}],
                                              processors = {"filter": "ingestion_ai.py", "op": "=="},
@@ -187,7 +193,9 @@ class TestAi(unittest.TestCase):
 
         assert len(sources) == 9
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T07:05:18", "op": "=="}],
                                              processors = {"filter": "ingestion_ai.py", "op": "=="},
@@ -196,7 +204,9 @@ class TestAi(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T07:05:18", "op": "=="}],
                                              processors = {"filter": "ingestion_ai.py", "op": "=="},
@@ -279,7 +289,9 @@ class TestAi(unittest.TestCase):
 
         assert len(sources) == 5
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T07:05:18", "op": "=="}],
                                               processors = {"filter": "ingestion_ai.py", "op": "=="},
@@ -288,7 +300,9 @@ class TestAi(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T07:05:18", "op": "=="}],
                                               processors = {"filter": "ingestion_ai.py", "op": "=="},

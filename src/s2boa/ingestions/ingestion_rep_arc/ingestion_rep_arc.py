@@ -40,7 +40,7 @@ logger = logging_module.logger
 
 version = "1.0"
 
-def process_file(file_path, engine, query, reception_time):
+def process_file(file_path, engine, query, reception_time, wait_previous_levels = True):
     """
     Function to process the file and insert its relevant information
     into the DDBB of the eboa
@@ -85,9 +85,9 @@ def process_file(file_path, engine, query, reception_time):
     # Obtain the creation date from the file name as the annotation creation date is not always correct
     creation_date = file_name[25:40]
     # Obtain the validity start
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # Obtain the validity stop
-    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     # Obtain the datastrip
     datastrip_info = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_Type[contains(text(),'_DS')]]")[0]
     # Obtain the datastrip ID
@@ -110,15 +110,19 @@ def process_file(file_path, engine, query, reception_time):
         "name": file_name,
         "reception_time": reception_time,
         "generation_time": creation_date,
-        "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_start": reported_validity_start,
+        "validity_stop": reported_validity_stop,
+        "reported_validity_start": reported_validity_start,
+        "reported_validity_stop": reported_validity_stop
     }
     source_processing = {
         "name": file_name,
         "reception_time": reception_time,
         "generation_time": datastrip_generation_time_minus_1,
-        "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_start": reported_validity_start,
+        "validity_stop": reported_validity_stop,
+        "reported_validity_start": reported_validity_start,
+        "reported_validity_stop": reported_validity_stop
     }
 
 
@@ -600,7 +604,7 @@ def process_file(file_path, engine, query, reception_time):
         # end for
 
         if level == "L0" or level == "L1A" or level == "L1B":
-            functions.L0_L1A_L1B_processing(source_processing, engine, query, granule_timeline,list_of_events_for_processing,datastrip_id,granule_timeline_per_detector, list_of_operations, system, version, os.path.basename(__file__), satellite)
+            functions.L0_L1A_L1B_processing(source_processing, engine, query, granule_timeline,list_of_events_for_processing,datastrip_id,granule_timeline_per_detector, list_of_operations, system, version, os.path.basename(__file__), satellite, 30)
         elif (level == "L1C" or level == "L2A"):
             def get_upper_level_ers():
                 upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "=="},
@@ -615,7 +619,7 @@ def process_file(file_path, engine, query, reception_time):
             i = 0
             upper_level_ers = get_upper_level_ers()
             # Wait till the upper level production has been processed 10 minutes
-            while len(upper_level_ers) == 0 and i < 10*60:
+            while wait_previous_levels and len(upper_level_ers) == 0 and i < 10*60:
                 time.sleep(10)
                 i += 10
                 upper_level_ers = get_upper_level_ers()
@@ -630,7 +634,7 @@ def process_file(file_path, engine, query, reception_time):
                 processing_validity_events = query.get_events(gauge_names = {"filter": ["PROCESSING_VALIDITY"], "op": "in"},
                                                                     explicit_refs = {"filter": er, "op": "=="})
 
-                functions.L1C_L2A_processing(source_processing, engine, query, list_of_events_for_processing, processing_validity_events, datastrip_id, list_of_operations, system, version, os.path.basename(__file__), satellite)
+                functions.L1C_L2A_processing(source_processing, engine, query, list_of_events_for_processing, processing_validity_events, datastrip_id, list_of_operations, system, version, os.path.basename(__file__), satellite, 30)
             # end if
         # end if
 

@@ -42,7 +42,7 @@ logger = logging_module.logger
 
 version = "1.0"
 
-def process_file(file_path, engine, query, reception_time, wait_previous_levels = False):
+def process_file(file_path, engine, query, reception_time, wait_previous_levels = True):
     """
     Function to process the file and insert its relevant information
     into the DDBB of the eboa
@@ -92,9 +92,9 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     # Obtain the creation date
     creation_date = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     # Obtain the validity start
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     # Obtain the validity stop
-    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     # Obtain the workplan current status
     workplan_current_status = xpath_xml("/Earth_Explorer_File/Data_Block/SUP_WORKPLAN_REPORT/SPECIFIC_HEADER/SUPERVISION_INFO/WORKPLAN_CURRENT_STATUS")[0].text
     # Obtain the workplan message
@@ -112,8 +112,10 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "name": file_name,
         "reception_time": reception_time,
         "generation_time": creation_date,
-        "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_start": reported_validity_start,
+        "validity_stop": reported_validity_stop,
+        "reported_validity_start": reported_validity_start,
+        "reported_validity_stop": reported_validity_stop
     }
 
 
@@ -544,7 +546,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             list_of_explicit_references.append(explicit_reference)
 
             if level == "L0" or level == "L1A" or level == "L1B":
-                functions.L0_L1A_L1B_processing(source, engine, query, granule_timeline,list_of_events,ds_output,granule_timeline_per_detector, list_of_operations, system, version, os.path.basename(__file__), satellite)
+                functions.L0_L1A_L1B_processing(source, engine, query, granule_timeline,list_of_events,ds_output,granule_timeline_per_detector, list_of_operations, system, version, os.path.basename(__file__), satellite, 40)
             elif (level == "L1C" or level == "L2A"):
                 def get_upper_level_ers():
                     upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "=="},
@@ -574,7 +576,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                     processing_validity_events = query.get_events(gauge_names = {"filter": ["PROCESSING_VALIDITY"], "op": "in"},
                                                                           explicit_refs = {"filter": er, "op": "=="})
 
-                    functions.L1C_L2A_processing(source, engine, query, list_of_events, processing_validity_events, ds_output, list_of_operations, system, version, os.path.basename(__file__), satellite)
+                    functions.L1C_L2A_processing(source, engine, query, list_of_events, processing_validity_events, ds_output, list_of_operations, system, version, os.path.basename(__file__), satellite, 40)
                 # end if
             # end if
 
@@ -888,7 +890,9 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         source = {
             "name": file_name,
             "reception_time": reception_time,
-            "generation_time": creation_date
+            "generation_time": creation_date,
+            "reported_validity_start": reported_validity_start,
+            "reported_validity_stop": reported_validity_stop
         }
 
         event_starts = [event["start"] for event in list_of_configuration_events]
@@ -917,8 +921,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "name": file_name,
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
-            "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
         }
         data["operations"].append({
             "mode": "insert",
@@ -940,8 +944,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "name": file_name,
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
-            "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
         }
 
         data["operations"].append({
@@ -964,8 +968,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "name": file_name,
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
-            "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
         }
 
         data["operations"].append({
@@ -988,8 +992,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "name": file_name,
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
-            "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
         }
 
         data["operations"].append({
@@ -1012,8 +1016,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "name": file_name,
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
-            "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
         }
 
         data["operations"].append({
@@ -1036,8 +1040,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "name": file_name,
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
-            "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
         }
 
         data["operations"].append({

@@ -56,7 +56,9 @@ class TestDc(unittest.TestCase):
 
         assert len(events) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T02:30:02", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T03:30:04", "op": "=="}],
                                              processors = {"filter": "ingestion_dc.py", "op": "=="},
@@ -65,7 +67,9 @@ class TestDc(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T02:30:02", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T02:30:02", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T02:30:02", "op": "=="}],
                                              validity_stop_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T03:30:04", "op": "=="}],
                                              processors = {"filter": "ingestion_dc.py", "op": "=="},
@@ -163,7 +167,9 @@ class TestDc(unittest.TestCase):
 
         assert len(sources) == 9
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:30:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T04:00:05", "op": "=="}],
                                               processors = {"filter": "ingestion_dc.py", "op": "=="},
@@ -172,7 +178,9 @@ class TestDc(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:30:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-01-29T03:30:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T04:00:05", "op": "=="}],
                                               processors = {"filter": "ingestion_dc.py", "op": "=="},
@@ -255,7 +263,9 @@ class TestDc(unittest.TestCase):
 
         assert len(sources) == 5
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:30:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:25:08", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-01-29T03:25:13", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T04:00:05", "op": "=="}],
                                               processors = {"filter": "ingestion_dc.py", "op": "=="},
@@ -264,7 +274,9 @@ class TestDc(unittest.TestCase):
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-01-29T03:30:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-01-29T03:00:01", "op": "=="}],
                                               validity_stop_filters = [{"date": "2020-01-29T03:30:01", "op": "=="}],
                                               generation_time_filters = [{"date": "2020-01-29T04:00:05", "op": "=="}],
                                               processors = {"filter": "ingestion_dc.py", "op": "=="},

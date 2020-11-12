@@ -440,7 +440,7 @@ def three_letter_to_iso_8601(date):
 ###########
 # Functions for helping with the ingestion of processing information
 ###########
-def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_events, datastrip, granule_timeline_per_detector, list_of_operations, system, version, filename, satellite):
+def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_events, datastrip, granule_timeline_per_detector, list_of_operations, system, version, filename, satellite, priority):
     """
     Method to generate the events for the levels L0 and L1B
 
@@ -682,7 +682,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         planning_processing_completeness_event = {
             "explicit_reference": datastrip,
             "gauge": {
-                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                 "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level,
                 "system": satellite
             },
@@ -742,7 +742,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             processing_reception_completeness_event = {
                 "explicit_reference": datastrip,
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                     "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level + "_CHANNEL_" + channel,
                     "system": satellite
                 },
@@ -872,7 +872,10 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "reception_time": source["reception_time"],
                 "generation_time": source["generation_time"],
                 "validity_start": completeness_event_starts[0],
-                "validity_stop": completeness_event_stops[-1]
+                "validity_stop": completeness_event_stops[-1],
+                "reported_validity_start": source["reported_validity_start"],
+                "reported_validity_stop": source["reported_validity_stop"],
+                "priority": priority
             },
             "events": list_of_planning_processing_completeness_events_with_footprints
         }
@@ -901,7 +904,10 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "reception_time": source["reception_time"],
                 "generation_time": source["generation_time"],
                 "validity_start": completeness_event_starts[0],
-                "validity_stop": completeness_event_stops[-1]
+                "validity_stop": completeness_event_stops[-1],
+                "reported_validity_start": source["reported_validity_start"],
+                "reported_validity_stop": source["reported_validity_stop"],
+                "priority": priority
             },
             "events": list_of_isp_processing_completeness_events_with_footprints
         }
@@ -912,7 +918,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
     return general_status
 # end def
 
-def L1C_L2A_processing(source, engine, query, list_of_events, processing_validity_events, datastrip, list_of_operations, system, version, filename, satellite):
+def L1C_L2A_processing(source, engine, query, list_of_events, processing_validity_events, datastrip, list_of_operations, system, version, filename, satellite, priority):
     """
     Method to generate the events for the levels L1C and L2A
 
@@ -1072,7 +1078,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         planning_processing_completeness_event = {
             "explicit_reference": datastrip,
             "gauge": {
-                "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                 "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_" + level,
                 "system": satellite
             },
@@ -1134,7 +1140,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             processing_reception_completeness_event = {
                 "explicit_reference": datastrip,
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_per_EVENT",
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                     "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + level + "_CHANNEL_" + channel,
                     "system": satellite
                 },
@@ -1263,7 +1269,10 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                     "reception_time": source["reception_time"],
                     "generation_time": source["generation_time"],
                     "validity_start": completeness_event_starts[0],
-                    "validity_stop": completeness_event_stops[-1]
+                    "validity_stop": completeness_event_stops[-1],
+                    "reported_validity_start": source["reported_validity_start"],
+                    "reported_validity_stop": source["reported_validity_stop"],
+                    "priority": priority
                 },
                 "events": list_of_planning_processing_completeness_events_with_footprints
             }
@@ -1292,7 +1301,10 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                     "reception_time": source["reception_time"],
                     "generation_time": source["generation_time"],
                     "validity_start": completeness_event_starts[0],
-                    "validity_stop": completeness_event_stops[-1]
+                    "validity_stop": completeness_event_stops[-1],
+                    "reported_validity_start": source["reported_validity_start"],
+                    "reported_validity_stop": source["reported_validity_stop"],
+                    "priority": priority
                 },
                 "events": list_of_isp_processing_completeness_events_with_footprints
             }
