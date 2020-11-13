@@ -13,14 +13,17 @@
   <td><a class="{{ status_class }}" href="/views/dhus-completeness-by-datatake/{{ corrected_imaging.event_uuid }}">{{ status }}</a></td>
   <td>{{ dhus_product_name }}</td>
   <td>{{ dam_publication_time }}</td>
-  <td>{{ sensing_to_dhus }}</td>
   <td>{{ dhus_dissemination_time }}</td>
+  <td>{{ dhus_publication_time }}</td>
   <td>{{ dam_to_dhus }}</td>
+  <td>{{ sensing_to_dhus }}</td>
+  <td>{{ sensing_to_dhus_publication }}</td>
   {% if datastrip_link %}
   <td><a href="/eboa_nav/query-er-links/{{ datastrip_uuid }}">{{ datastrip }}</a></td>
   {% else %}
   <td>{{ datastrip }}</td>
   {% endif %}
+  <td>{{ datatake }}</td>
   <td>{{ corrected_imaging.start.isoformat() }}</td>
   <td>{{ corrected_imaging.stop.isoformat() }}</td>
 </tr>

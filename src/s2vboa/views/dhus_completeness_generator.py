@@ -18,13 +18,20 @@ version = "1.0"
 
 def generate_report(begin, end, metadata, parameters = None):
 
+    levels = "ALL"
+    if "levels" in parameters:
+        if parameters["levels"] in ["L1C", "L2A", "ALL"]:
+            levels = parameters["levels"]
+        # end if
+    # end if
+    
     app = create_app()
     client = app.test_client()
     response = client.post("/views/dhus-completeness", data={
         "start": begin,
         "stop": end,
         "mission": "S2_",
-        "levels": "ALL",
+        "levels": levels,
     })
 
     html_file_path = export_html(response)

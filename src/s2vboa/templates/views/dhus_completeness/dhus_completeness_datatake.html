@@ -1,5 +1,12 @@
 {% extends "panel/index.html" %}
 
+<!-- Levels to analyze -->
+{% set parsed_levels = [["L1C", "L2A"]] %}
+{% if levels != "ALL" %}
+{% do parsed_levels.pop() %}
+{% do parsed_levels.append([levels]) %}
+{% endif %}
+
 <!-- Expected acquired MSI duration from planning -->
 {% set expected_acquisition_duration = ((info["imaging"]|get_timeline_duration) / 60)|round(3) %}
 
@@ -42,6 +49,21 @@
 
 <!-- Generated l2a tiles -->
 {% do generated_tiles.update({"L2A": info["tls"]["L2A"]|length}) %}
+
+<!-- Missing publication to DHUS of tiles -->
+{% set missing_publication_tiles_in_dhus_annotaion_uuids = {} %}
+{% set missing_publication_tiles_in_dhus_explicit_ref_uuids = {} %}
+{% set missing_publication_tiles_in_dhus = {} %}
+
+<!-- Missing publication to DHUS of l1c tiles -->
+{% do missing_publication_tiles_in_dhus_annotaion_uuids.update({"L1C": info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_PUBLICATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list}) %}
+{% do missing_publication_tiles_in_dhus_explicit_ref_uuids.update({"L1C": info["tls"]["L1C"]|map(attribute="annotations")|flatten|selectattr("annotation_uuid", "in", missing_publication_tiles_in_dhus_annotaion_uuids["L1C"])|map(attribute="explicit_ref_uuid")|list|sort|unique|list}) %}
+{% do missing_publication_tiles_in_dhus.update({"L1C": missing_publication_tiles_in_dhus_explicit_ref_uuids["L1C"]|length}) %}
+
+<!-- Missing publication to DHUS of l2a tiles -->
+{% do missing_publication_tiles_in_dhus_annotaion_uuids.update({"L2A": info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DHUS_PUBLICATION_TIME")|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="annotation_uuid")|list|sort|unique|list}) %}
+{% do missing_publication_tiles_in_dhus_explicit_ref_uuids.update({"L2A": info["tls"]["L2A"]|map(attribute="annotations")|flatten|selectattr("annotation_uuid", "in", missing_publication_tiles_in_dhus_annotaion_uuids["L2A"])|map(attribute="explicit_ref_uuid")|list|sort|unique|list}) %}
+{% do missing_publication_tiles_in_dhus.update({"L2A": missing_publication_tiles_in_dhus_explicit_ref_uuids["L2A"]|length}) %}
 
 <!-- Missing dissemination to DHUS of tiles -->
 {% set missing_tiles_in_dhus_annotaion_uuids = {} %}

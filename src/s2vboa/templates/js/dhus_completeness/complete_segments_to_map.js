@@ -12,6 +12,7 @@ var complete_segments = [
     {% set orbit = complete_processing_event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
 
     {% set missing_dissemination_tiles = [] %}
+    {% set missing_publication_tiles = [] %}
     {% set tile_uuids = complete_processing_event.explicitRef.explicitRefLinks|selectattr("name", "equalto", "TILE")|map(attribute="explicit_ref_uuid_link")|list %}
 
     {% set tile_infos = info["tls"][level]|selectattr("explicit_ref_uuid", "in", tile_uuids)|list %}
@@ -20,14 +21,15 @@ var complete_segments = [
 
     {% set tile_uuid = tile_info.explicit_ref_uuid %}
     {% set tile = tile_info.explicit_ref %}
-    {% set tile_link = True %}
     {% set dam_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|list %}
     {% set dhus_dissemination_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|list %}
+    {% set dhus_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_PUBLICATION_TIME")|list %}
     {% set dhus_product_annotation = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "USER_PRODUCT")|first %}
     {% set footprint_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "FOOTPRINT")|list %}
 
     {% set dam_publication_status = dam_publication_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
     {% set dhus_dissemination_status = dhus_dissemination_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
+    {% set dhus_publication_status = dhus_publication_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
 
     {% set footprint = "N/A" %}
     {% if footprint_annotations|length > 0 %}
@@ -39,15 +41,19 @@ var complete_segments = [
     {% set dhus_product = dhus_product_annotation.annotationTexts|selectattr("name", "equalto", "product_name")|map(attribute="value")|first|string %}
     {% endif %}
     
-    {% if dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+    {% if dhus_publication_annotations|length > 0 and "MISSING" != dhus_publication_status  %}
     {% set status = "OK" %}
+    {% elif dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+    {% set status = "MISSING DHUS PUBLICATION" %}
     {% elif dam_publication_annotations|length > 0 and "MISSING" != dam_publication_status %}
     {% set status = "MISSING DHUS DISSEMINATION" %}
     {% else %}
     {% set status = "MISSING DAM PUBLICATION" %}
     {% endif %}
 
-    {% if status != "OK" %}
+    {% if status == "MISSING DHUS PUBLICATION" %}
+    {% do missing_publication_tiles.append({"tile": tile, "dhus_product": dhus_product, "status": status, "footprint": footprint}) %}
+    {% elif status == "MISSING DHUS DISSEMINATION" %}
     {% do missing_dissemination_tiles.append({"tile": tile, "dhus_product": dhus_product, "status": status, "footprint": footprint}) %}
     {% endif %}
 
@@ -57,13 +63,18 @@ var complete_segments = [
     {% set stroke_color = "green" %}
     {% set status_class = "bold-green" %}
     {% set fill_color = "rgba(0,255,0,0.3)" %}
-    {% if missing_dissemination_tiles|length == tile_infos|length %}
+    {% if missing_publication_tiles|length == tile_infos|length %}
+    {% set stroke_color = "yellow" %}
+    {% set status = "MISSING PUBLICATION" %}
+    {% set status_class = "bold-yellow" %}
+    {% set fill_color = "rgba(245, 229, 27, 0.3)" %}
+    {% elif missing_dissemination_tiles|length == tile_infos|length %}
     {% set stroke_color = "yellow" %}
     {% set status = "MISSING DISSEMINATION" %}
     {% set status_class = "bold-yellow" %}
     {% set fill_color = "rgba(245, 229, 27, 0.3)" %}
     {% elif missing_dissemination_tiles|length > 0 %}
-    {% set status = "INCOMPLETE" %}
+    {% set status = "INCOMPLETE DISSEMINATION" %}
     {% set stroke_color = "orange" %}
     {% set status_class = "bold-orange" %}
     {% set fill_color = "rgba(255,165,0,0.3)" %}

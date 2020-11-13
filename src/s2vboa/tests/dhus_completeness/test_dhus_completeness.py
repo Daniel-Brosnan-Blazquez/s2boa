@@ -75,17 +75,9 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert header_no_data
 
-        table_details_no_data = wait.until(EC.visibility_of_element_located((By.ID,"acquisition-details-no-acquisitions")))
+        table_details_no_data = wait.until(EC.visibility_of_element_located((By.ID,"dhus-completeness-no-expected-dissemination")))
 
         assert table_details_no_data
-
-        map_no_data = wait.until(EC.visibility_of_element_located((By.ID,"acquisition-map-no-acquisitions")))
-
-        assert map_no_data
-
-        station_reports_no_data = wait.until(EC.visibility_of_element_located((By.ID,"station-reports-no-reports")))
-
-        assert station_reports_no_data
 
     def test_dhus_completeness(self):
 
@@ -142,6 +134,13 @@ class TestDhusCompletenessView(unittest.TestCase):
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dhus.ingestion_dhus", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "test_input_file_containing_dhus_publication_timings.xml"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_publication_dhus.ingestion_publication_dhus", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 

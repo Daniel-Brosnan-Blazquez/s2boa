@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xml:base="https://scihub.copernicus.eu/dhus/odata/v1/">
+  <id>https://scihub.copernicus.eu/dhus/odata/v1/Products</id>
+  <title type="text">Products</title>
+  <updated>2020-11-12T11:43:12.223Z</updated>
+  <author>
+    <name/>
+  </author>
+  <link href="Products" rel="self" title="Products"/>
+  <entry>
+    <id>https://scihub.copernicus.eu/dhus/odata/v1/Products('29495799-93a5-4444-90cc-8d1d2df84d79')</id>
+    <title type="text">S2B_MSIL1C_20180721T085229_N0206_R107_T35QME_20180721T104253</title>
+    <updated>2020-11-05T12:00:11.234Z</updated>
+    <category term="DHuS.Product" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"/>
+    <link href="Products('29495799-93a5-4444-90cc-8d1d2df84d79')" rel="edit" title="Product"/>
+    <link href="Products('29495799-93a5-4444-90cc-8d1d2df84d79')/$value" rel="edit-media" type="application/octet-stream"/>
+    <content type="application/octet-stream" src="Products('29495799-93a5-4444-90cc-8d1d2df84d79')/$value"/>
+    <m:properties>
+      <d:Id>29495799-93a5-4444-90cc-8d1d2df84d79</d:Id>
+      <d:CreationDate>2020-11-05T12:00:11.234</d:CreationDate>
+    </m:properties>
+  </entry>
+</feed>

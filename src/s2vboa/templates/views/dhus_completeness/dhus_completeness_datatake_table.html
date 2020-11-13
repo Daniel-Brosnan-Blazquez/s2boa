@@ -24,9 +24,9 @@
           <tr>
             <th colspan="5">Datastrip information</th>
             <th colspan="3">Tile status</th>
-            <th colspan="4">Dissemination information</th>
+            <th colspan="6">Dissemination information</th>
             <th colspan="1">Datastrip</th>
-            <th colspan="2">Associated MSI acquisition</th>
+            <th colspan="3">Associated MSI acquisition</th>
           </tr>
           <tr>
             <th>Level</th>
@@ -38,10 +38,13 @@
             <th>Status</th>
             <th>DHUS Product name</th>
             <th>DAM Publication time</th>
-            <th>Sensing to DHUS (m)</th>
             <th>DHUS Dissemination time</th>
+            <th>DHUS Publication time</th>
             <th>DAM to DHUS (m)</th>
+            <th>Sensing to DHUS pick-up point (m)</th>
+            <th>Sensing to DHUS publication (m)</th>
             <th>Datastrip</th>
+            <th>Datatake</th>
             <th>Start</th>
             <th>Stop</th>
           </tr>
@@ -72,9 +75,12 @@
           {% set tile = "N/A" %}
           {% set dhus_product_name = "N/A" %}
           {% set dam_publication_time = "N/A" %}
-          {% set sensing_to_dhus = "N/A" %}
           {% set dhus_dissemination_time = "N/A" %}
+          {% set dhus_publication_time = "N/A" %}
           {% set dam_to_dhus = "N/A" %}
+          {% set sensing_to_dhus = "N/A" %}
+          {% set sensing_to_dhus_publication = "N/A" %}
+          {% set datatake = "N/A" %}
           {% set datastrip = "N/A" %}
           {% set datastrip_start = processing_completeness.start.isoformat() %}
           {% set datastrip_stop = processing_completeness.stop.isoformat() %}
@@ -100,6 +106,13 @@
           
           {% else %}
 
+          {% set datatake_annotations = processing_completeness.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "DATATAKE")|list %}
+          {% if datatake_annotations|length > 0 %}
+          {% set datatake = datatake_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "datatake_identifier")|map(attribute="value")|first %}
+          {% else %}
+          {% set datatake = "N/A" %}
+          {% endif %}
+          
           {% set datastrip = processing_completeness.explicitRef.explicit_ref %}
           {% set datastrip_uuid = processing_completeness.explicitRef.explicit_ref_uuid %}
           {% set datastrip_link = True %}
@@ -118,13 +131,18 @@
           {% set dam_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|list %}
           {% set dhus_dissemination_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|list %}
           {% set dhus_product_annotation = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "USER_PRODUCT")|first %}
+          {% set dhus_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_PUBLICATION_TIME")|list %}
 
           {% set dam_publication_status = dam_publication_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
           {% set dhus_dissemination_status = dhus_dissemination_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
-          
-          {% if dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+          {% set dhus_publication_status = dhus_publication_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
+
+          {% if dhus_publication_annotations|length > 0 and "MISSING" != dhus_publication_status  %}
           {% set status_class = "bold-green" %}
           {% set status = "OK" %}
+          {% elif dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+          {% set status_class = "bold-red" %}
+          {% set status = "MISSING DHUS PUBLICATION" %}
           {% elif dam_publication_annotations|length > 0 and "MISSING" != dam_publication_status %}
           {% set status_class = "bold-red" %}
           {% set status = "MISSING DHUS DISSEMINATION" %}
@@ -139,11 +157,11 @@
           {% else %}
           {% set dam_publication_time = "N/A" %}
           {% endif %}
-
+          
           {% if dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
           {% set dhus_dissemination_time_datetime = dhus_dissemination_annotations|map(attribute="annotationTimestamps")|flatten|selectattr("name", "equalto", "dhus_dissemination_time")|map(attribute="value")|sort|first %}
           {% set dhus_dissemination_time = dhus_dissemination_time_datetime|string %}
-          {% set sensing_to_dhus = ((dhus_dissemination_time_datetime - corrected_imaging.start).total_seconds() / 60)|round(3) %}
+          {% set sensing_to_dhus = ((dhus_dissemination_time_datetime - corrected_imaging.stop).total_seconds() / 60)|round(3) %}
 
           {% if dam_publication_annotations|length > 0 and "MISSING" != dam_publication_status  %}
           {% set dam_to_dhus = ((dhus_dissemination_time_datetime - dam_publication_time_datetime).total_seconds() / 60)|round(3) %}
@@ -156,6 +174,15 @@
           {% set sensing_to_dhus = "N/A" %}
           {% endif %}
 
+          {% if dhus_publication_annotations|length > 0 and "MISSING" != dhus_publication_status  %}
+          {% set dhus_publication_time_datetime = dhus_publication_annotations|map(attribute="annotationTimestamps")|flatten|selectattr("name", "equalto", "dhus_publication_time")|map(attribute="value")|sort|first %}
+          {% set dhus_publication_time = dhus_publication_time_datetime|string %}
+          {% set sensing_to_dhus_publication = ((dhus_publication_time_datetime - corrected_imaging.stop).total_seconds() / 60)|round(3) %}
+          {% else %}
+          {% set dhus_publication_time = "N/A" %}
+          {% set sensing_to_dhus_publication = "N/A" %}
+          {% endif %}
+          
           {% if dhus_product_annotation %}
           {% set dhus_product_name = dhus_product_annotation.annotationTexts|selectattr("name", "equalto", "product_name")|map(attribute="value")|first|string %}
           {% else %}
@@ -185,10 +212,13 @@
             <th>Status</th>
             <th>DHUS Product name</th>
             <th>DAM Publication time</th>
-            <th>Sensing to DHUS (m)</th>
             <th>DHUS Dissemination time</th>
+            <th>DHUS Publication time</th>
             <th>DAM to DHUS (m)</th>
+            <th>Sensing to DHUS pick-up point (m)</th>
+            <th>Sensing to DHUS publication (m)</th>
             <th>Datastrip</th>
+            <th>Datatake</th>
             <th>Start</th>
             <th>Stop</th>
           </tr>

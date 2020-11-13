@@ -32,3 +32,31 @@ function create_tile_tooltip_text(satellite, orbit, status, tile, datastrip, pla
         '<tr><td>Planned imaging</td><td><a href="' + link_to_planned_imaging_details + '"><i class="fa fa-link"></i></a></td></tr>' +
         "</table>"
 };
+
+/* Function to create the text for the tooltip of the tile e2e timeliness*/
+function create_tile_e2e_timeliness_tooltip_text(satellite, orbit, tile, delta_to_dhus_publication, datastrip, plan_file, link_to_planned_imaging_details){
+
+    return "<table border='1'>" +
+        "<tr><td>Tile</td><td>" + tile + "</td></tr>" +
+        "<tr><td>Satellite</td><td>" + satellite + "</td></tr>" +
+        "<tr><td>Orbit</td><td>" + orbit + "</td></tr>" +
+        "<tr><td>Datastrip</td><td>" + datastrip + "</td></tr>" +
+        "<tr><td>Sensing stop - publication in DHUS (m)</td><td>" + delta_to_dhus_publication + "</td></tr>" +
+        "<tr><td>Plan file</td><td>" + plan_file + "</td></tr>" +
+        '<tr><td>Planned imaging</td><td><a href="' + link_to_planned_imaging_details + '"><i class="fa fa-link"></i></a></td></tr>' +
+        "</table>"
+};
+
+/* Function to create the text for the tooltip of the datastrip e2e timeliness*/
+function create_datastrip_e2e_timeliness_tooltip_text(satellite, orbit, datatake, datastrip, mean_sensing_to_dhus_publication, plan_file, link_to_planned_imaging_details){
+
+    return "<table border='1'>" +
+        "<tr><td>Datatake</td><td>" + datatake + "</td></tr>" +
+        "<tr><td>Datastrip</td><td>" + datastrip + "</td></tr>" +
+        "<tr><td>Satellite</td><td>" + satellite + "</td></tr>" +
+        "<tr><td>Orbit</td><td>" + orbit + "</td></tr>" +
+        "<tr><td>Mean (sensing stop - publication in DHUS) of related tiles (m)</td><td>" + mean_sensing_to_dhus_publication + "</td></tr>" +
+        "<tr><td>Plan file</td><td>" + plan_file + "</td></tr>" +
+        '<tr><td>Planned imaging</td><td><a href="' + link_to_planned_imaging_details + '"><i class="fa fa-link"></i></a></td></tr>' +
+        "</table>"
+};
