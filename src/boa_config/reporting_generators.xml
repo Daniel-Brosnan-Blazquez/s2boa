@@ -70,6 +70,22 @@
       <parameter name="type">COMPLETE</parameter>
     </parameters>
   </generator>
+  <generator name="Data availability in DHUS generator (Complete view Only L1C)" description="Generator of the DHUS completeness report covering all missions but only L1C">
+    <command>rboa_reporting.py -p s2vboa.views.dhus_completeness_generator</command>
+    <name_format>S2__REP__DATAAVDH1C_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">COMPLETE</parameter>
+      <parameter name="levels">L1C</parameter>
+    </parameters>
+  </generator>
+  <generator name="Data availability in DHUS generator (Complete view Only L2A)" description="Generator of the DHUS completeness report covering all missions but only L2A">
+    <command>rboa_reporting.py -p s2vboa.views.dhus_completeness_generator</command>
+    <name_format>S2__REP__DATAAVDH2A_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">COMPLETE</parameter>
+      <parameter name="levels">L2A</parameter>
+    </parameters>
+  </generator>
   <generator name="Data availability in DHUS generator (Anomalies/Alerts view)" description="Generator of the DHUS completeness report covering all missions and all levels and reporting only anomalies and alerts">
     <command>rboa_reporting.py -p s2vboa.views.dhus_completeness_generator</command>
     <name_format>S2__REP__DATADHUSAA_%C_%B_%E.html</name_format>
