@@ -74,6 +74,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     list_of_dam_annotations = []
     list_of_lta_annotations = []
     list_of_dhus_annotations = []
+    list_of_dhus_publication_annotations = []
     list_of_events_for_processing = []
     list_of_timelines = []
     list_of_operations = []
@@ -600,6 +601,20 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 }
                 list_of_dhus_annotations.append(dhus_dissemination_status_annotation)
 
+                dhus_publication_status_annotation = {
+                "explicit_reference": item_id,
+                "annotation_cnf": {
+                    "name": "DHUS_PUBLICATION_TIME",
+                    "insertion_type": "INSERT_and_ERASE"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_dhus_publication_annotations.append(dhus_publication_status_annotation)
+
             # end if
         # end for
 
@@ -749,6 +764,22 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             },
             "source": source_processing,
             "annotations": list_of_dhus_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
+
+    if len(list_of_dhus_publication_annotations) > 0:
+        data["operations"].append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "DHUS_PUBLICATION",
+                  "exec": os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source_processing,
+            "annotations": list_of_dhus_publication_annotations,
         })
 
     # end if

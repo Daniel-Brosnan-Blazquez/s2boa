@@ -78,6 +78,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     list_of_lta_annotations = []
     list_of_dc_annotations = []
     list_of_dhus_annotations = []
+    list_of_dhus_publication_annotations = []
     list_of_events = []
     list_of_timelines = []
     list_of_configuration_events = []
@@ -332,6 +333,21 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 }]
             }
             list_of_dhus_annotations.append(dhus_dissemination_status_annotation)
+
+            dhus_publication_status_annotation = {
+            "explicit_reference": tile_t,
+            "annotation_cnf": {
+                "name": "DHUS_PUBLICATION_TIME",
+                "insertion_type": "INSERT_and_ERASE"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_dhus_publication_annotations.append(dhus_publication_status_annotation)
+
         # end for
 
         # Loop over each TCI in the ouput
@@ -1033,8 +1049,32 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
 
     # end if
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 96)
 
+    if len(list_of_dhus_publication_annotations) > 0:
+        source = {
+            "name": file_name,
+            "reception_time": reception_time,
+            "generation_time": workplan_end_datetime,
+            "validity_start": reported_validity_start,
+            "validity_stop": reported_validity_stop
+        }
+
+        data["operations"].append({
+            "mode": "insert",
+            "dim_signature": {
+                  "name": "DHUS_PUBLICATION",
+                  "exec": os.path.basename(__file__),
+                  "version": version
+            },
+            "source": source,
+            "annotations": list_of_dhus_publication_annotations,
+        })
+
+    # end if
+
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 97)
+    
     if len(list_of_dc_annotations) > 0:
         source = {
             "name": file_name,
