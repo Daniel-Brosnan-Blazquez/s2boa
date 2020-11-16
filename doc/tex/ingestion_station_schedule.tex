@@ -37,8 +37,8 @@ The table \ref{tb:description_events_ingestion_station_schedule} shows the descr
 \begin{landscape}
 \begin{longtable}{|M{0.15\linewidth}|M{0.05\linewidth}|M{0.10\linewidth}|M{0.10\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|}
 \hline \textbf{Gauge name} & \textbf{Gauge system} & \textbf{DIM signature} & \textbf{Insertion mode} & \textbf{Description} & \textbf{Start} & \textbf{Stop} \\ \hline
-\textbf{STATION\_SCHEDULE} & XXX & STATION\_SCHEDULE\_WWW\_XXX & ERASE\_and\_REPLACE\_per\_EVENT (insert) & Event for representing the \textbf{station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
-\textbf{STATION\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & ERASE\_and\_REPLACE (insert\_and\_erase) & Event for representing the \textbf{expectation of the Station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
+\textbf{STATION\_SCHEDULE} & XXX & STATION\_SCHEDULE\_WWW\_XXX & INSERT\_and\_ERASE\_per\_EVENT (insert) & Event for representing the \textbf{station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
+\textbf{STATION\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE (insert\_and\_erase) & Event for representing the \textbf{expectation of the Station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
 \caption{Table describing the events associated to the ingestion}
 \label{tb:description_events_ingestion_station_schedule}
 \end{longtable}
