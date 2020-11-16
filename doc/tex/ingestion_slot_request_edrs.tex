@@ -16,7 +16,7 @@ This module uses the following \acrshort{dim} signatures:
 
 \item \textbf{SLOT\_REQUEST\_EDRS}: data corresponding to the slot request information associated to the EDRS service.
 
-\item \textbf{COMPLETENESS\_NPPF\_XXX}: data corresponding to the definition of planning completeness used for analysis.
+\item \textbf{COMPLETENESS\_NPPF\_XXX}: data corresponding to the definition of planning completeness used for analysis. \textbf{Priority is equal to 30}.
   
 \end{itemize}
 
@@ -37,9 +37,9 @@ The table \ref{tb:description_events_ingestion_slot_request_edrs} shows the desc
 \begin{landscape}
 \begin{longtable}{|M{0.15\linewidth}|M{0.05\linewidth}|M{0.10\linewidth}|M{0.10\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|}
 \hline \textbf{Gauge name} & \textbf{Gauge system} & \textbf{DIM signature} & \textbf{Insertion mode} & \textbf{Description} & \textbf{Start} & \textbf{Stop} \\ \hline
-\textbf{SLOT\_REQUEST\_EDRS} & XXX & SLOT\_REQUEST\_EDRS & INSERT\_and\_ERASE\_per\_EVENT (insert) & Event for representing the \textbf{slot request for \acrshort{edrs}} & UTC value inside the Start\_Time node & UTC value inside the Stop\_Time node \\ \hline
-\textbf{STATION\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE (insert\_and\_erase) & Event for representing the \textbf{expectation of the Station schedule} & UTC value inside the Start\_Time node & UTC value inside the Stop\_Time node \\ \hline
-\textbf{DFEP\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE (insert\_and\_erase) & Event for representing the \textbf{expectation of the DFEP schedule} & UTC value inside the Start\_Time node & UTC value inside the Stop\_Time node \\ \hline
+\textbf{SLOT\_REQUEST\_EDRS} & XXX & SLOT\_REQUEST\_EDRS & INSERT\_and\_ERASE\_per\_EVENT\_with\_PRIORITY (insert) & Event for representing the \textbf{slot request for \acrshort{edrs}} & UTC value inside the Start\_Time node & UTC value inside the Stop\_Time node \\ \hline
+\textbf{STATION\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE & Event for representing the \textbf{expectation of the Station schedule} & UTC value inside the Start\_Time node & UTC value inside the Stop\_Time node \\ \hline
+\textbf{DFEP\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE & Event for representing the \textbf{expectation of the DFEP schedule} & UTC value inside the Start\_Time node & UTC value inside the Stop\_Time node \\ \hline
 \caption{Table describing the events associated to the ingestion}
 \label{tb:description_events_ingestion_slot_request_edrs}
 \end{longtable}

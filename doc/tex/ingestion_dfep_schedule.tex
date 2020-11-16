@@ -16,7 +16,7 @@ This module uses the following \acrshort{dim} signatures:
 
 \item \textbf{DFEP\_SCHEDULE\_WWW\_XXX}: data corresponding to DFEP schedule information associated to a specific station and satellite received from the Mission Planning.
 
-\item \textbf{COMPLETENESS\_NPPF\_XXX}: data corresponding to the definition of planning completeness used for analysis.
+\item \textbf{COMPLETENESS\_NPPF\_XXX}: data corresponding to the definition of planning completeness used for analysis. \textbf{Priority is equal to 30}.
   
 \end{itemize}
 
@@ -37,8 +37,8 @@ The table \ref{tb:description_events_ingestion_dfep_schedule} shows the descript
 \begin{landscape}
 \begin{longtable}{|M{0.15\linewidth}|M{0.05\linewidth}|M{0.10\linewidth}|M{0.10\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|}
 \hline \textbf{Gauge name} & \textbf{Gauge system} & \textbf{DIM signature} & \textbf{Insertion mode} & \textbf{Description} & \textbf{Start} & \textbf{Stop} \\ \hline
-\textbf{DFEP\_SCHEDULE} & XXX & DFEP\_SCHEDULE\_WWW\_XXX & INSERT\_and\_ERASE\_per\_EVENT (insert) & Event for representing the \textbf{DFEP schedule} & UTC value inside the start node & UTC value inside the stop node \\ \hline
-\textbf{DFEP\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE (insert\_and\_erase) & Event for representing the \textbf{expectation of the DFEP schedule} & UTC value inside the start node & UTC value inside the stop node \\ \hline
+\textbf{DFEP\_SCHEDULE} & XXX & DFEP\_SCHEDULE\_WWW\_XXX & INSERT\_and\_ERASE\_per\_EVENT\_with\_PRIORITY (insert) & Event for representing the \textbf{DFEP schedule} & UTC value inside the start node & UTC value inside the stop node \\ \hline
+\textbf{DFEP\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE & Event for representing the \textbf{expectation of the DFEP schedule} & UTC value inside the start node & UTC value inside the stop node \\ \hline
 \caption{Table describing the events associated to the ingestion}
 \label{tb:description_events_ingestion_dfep_schedule}
 \end{longtable}
