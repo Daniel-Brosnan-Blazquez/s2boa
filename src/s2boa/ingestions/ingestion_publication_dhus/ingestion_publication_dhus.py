@@ -107,7 +107,7 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : user_product_annotation.explicitRef.explicit_ref,
             "annotation_cnf": {
                 "name": "DHUS_PUBLICATION_TIME",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "dhus_publication_time",
@@ -132,7 +132,8 @@ def process_file(file_path, engine, query, reception_time):
             "reception_time": reception_time,
             "generation_time": creation_date,
             "validity_start": creation_date,
-            "validity_stop": creation_date
+            "validity_stop": creation_date,
+            "priority": 20
         },
         "annotations": list_of_annotations
     }]}

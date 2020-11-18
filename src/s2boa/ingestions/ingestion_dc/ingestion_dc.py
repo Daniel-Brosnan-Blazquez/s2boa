@@ -178,7 +178,7 @@ def process_file(file_path, engine, query, reception_time):
         list_of_annotations.append(circulation_annotation)
 
         if "PRD_HKTM__" in product_id and source == "PDMC" and destination == "FOS_":
-            circulation_annotation["annotation_cnf"]["insertion_type"] = "INSERT_and_ERASE"
+            circulation_annotation["annotation_cnf"]["insertion_type"] = "INSERT_and_ERASE_with_PRIORITY"
         # end if
         
         if "PRD_HKTM__" in product_id and not product_id in hktm_products:
@@ -324,7 +324,8 @@ def process_file(file_path, engine, query, reception_time):
             "reception_time": reception_time,
             "generation_time": creation_date,
             "validity_start": validity_start,
-            "validity_stop": validity_stop
+            "validity_stop": validity_stop,
+            "priority": 20
         },
         "annotations": list_of_annotations
     })

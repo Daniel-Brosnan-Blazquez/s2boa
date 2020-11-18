@@ -195,7 +195,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             # "annotation_cnf": {
             #     "name": "ARCHIVING_TIME",
             #     "system": "EPA_",
-            #     "insertion_type": "INSERT_and_ERASE"
+            #     "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             #     },
             # "values": [
             #     {"name": "status",
@@ -211,7 +211,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             #     "annotation_cnf": {
             #         "name": "ARCHIVING_TIME",
             #         "system": system,
-            #         "insertion_type": "INSERT_and_ERASE"
+            #         "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             #         },
             #     "values": [
             #         {"name": "status",
@@ -226,7 +226,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             # "explicit_reference": granule_t,
             # "annotation_cnf": {
             #     "name": "CATALOGING_TIME",
-            #     "insertion_type": "INSERT_and_ERASE"
+            #     "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             #     },
             # "values": [
             #     {"name": "status",
@@ -264,7 +264,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -280,7 +280,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "annotation_cnf": {
                     "name": "ARCHIVING_TIME",
                     "system": system,
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -296,7 +296,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "LONG_TERM_ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -310,7 +310,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "explicit_reference": tile_t,
             "annotation_cnf": {
                 "name": "CATALOGING_TIME",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -324,7 +324,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "explicit_reference": tile_t,
             "annotation_cnf": {
                 "name": "DHUS_DISSEMINATION_TIME",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -338,7 +338,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "explicit_reference": tile_t,
             "annotation_cnf": {
                 "name": "DHUS_PUBLICATION_TIME",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -374,7 +374,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -390,7 +390,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "annotation_cnf": {
                     "name": "ARCHIVING_TIME",
                     "system": system,
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -406,7 +406,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "LONG_TERM_ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -490,7 +490,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -506,7 +506,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "annotation_cnf": {
                     "name": "ARCHIVING_TIME",
                     "system": system,
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -521,7 +521,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "explicit_reference": ds_output,
             "annotation_cnf": {
                 "name": "CATALOGING_TIME",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -536,7 +536,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "LONG_TERM_ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -796,7 +796,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -812,7 +812,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "annotation_cnf": {
                     "name": "ARCHIVING_TIME",
                     "system": system,
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -828,7 +828,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "LONG_TERM_ARCHIVING_TIME",
                 "system": "EPA_",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -938,7 +938,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
         data["operations"].append({
             "mode": "insert",
@@ -961,7 +962,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
 
         data["operations"].append({
@@ -985,7 +987,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
 
         data["operations"].append({
@@ -1009,7 +1012,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
 
         data["operations"].append({
@@ -1033,7 +1037,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
 
         data["operations"].append({
@@ -1057,7 +1062,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
 
         data["operations"].append({
@@ -1081,7 +1087,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "reception_time": reception_time,
             "generation_time": workplan_end_datetime,
             "validity_start": reported_validity_start,
-            "validity_stop": reported_validity_stop
+            "validity_stop": reported_validity_stop,
+            "priority": 10
         }
 
         data["operations"].append({

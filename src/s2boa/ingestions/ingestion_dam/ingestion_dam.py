@@ -83,7 +83,8 @@ def process_file(file_path, engine, query, reception_time):
         "reception_time": reception_time,
         "generation_time": creation_date,
         "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_stop": validity_stop,
+        "priority": 20
     }
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
@@ -125,7 +126,7 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : product_id,
             "annotation_cnf": {
                 "name": "CATALOGING_TIME",
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "cataloging_time",

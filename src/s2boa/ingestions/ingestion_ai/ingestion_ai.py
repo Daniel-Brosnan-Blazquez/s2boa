@@ -85,7 +85,8 @@ def process_file(file_path, engine, query, reception_time):
         "reception_time": reception_time,
         "generation_time": creation_date,
         "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_stop": validity_stop,
+        "priority": 20
     }
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
@@ -116,7 +117,7 @@ def process_file(file_path, engine, query, reception_time):
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": system,
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             },
             "values": [
                 {"name": "archiving_time",

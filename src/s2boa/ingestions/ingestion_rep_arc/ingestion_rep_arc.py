@@ -107,14 +107,15 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     # Obtain the sensing identifier
     sensing_identifier = datastrip_id[41:57]
     # Source for the main operation
-    source_indexing = {
+    source_annotations = {
         "name": file_name,
         "reception_time": reception_time,
         "generation_time": creation_date,
         "validity_start": reported_validity_start,
         "validity_stop": reported_validity_stop,
         "reported_validity_start": reported_validity_start,
-        "reported_validity_stop": reported_validity_stop
+        "reported_validity_stop": reported_validity_stop,
+        "priority": 5
     }
     source_processing = {
         "name": file_name,
@@ -292,7 +293,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "explicit_reference": item_id,
         "annotation_cnf": {
             "name": "INDEXING_TIME",
-            "system": system
+            "system": system,
+            "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
         },
             "values": [
                 {"name": "indexing_time",
@@ -302,9 +304,6 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         }
         list_of_annotations.append(indexing_time_annotation)
 
-        if "_DS_" in item_id:
-            indexing_time_annotation["annotation_cnf"]["insertion_type"] = "INSERT_and_ERASE"
-        # end if
     # end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
@@ -367,7 +366,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "annotation_cnf": {
             "name": "ARCHIVING_TIME",
             "system": "EPA_",
-            "insertion_type": "INSERT_and_ERASE"
+            "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             },
         "values": [
             {"name": "status",
@@ -383,7 +382,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             "annotation_cnf": {
                 "name": "ARCHIVING_TIME",
                 "system": system,
-                "insertion_type": "INSERT_and_ERASE"
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 },
             "values": [
                 {"name": "status",
@@ -398,7 +397,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "explicit_reference": datastrip_id,
         "annotation_cnf": {
             "name": "CATALOGING_TIME",
-            "insertion_type": "INSERT_and_ERASE"
+            "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             },
         "values": [
             {"name": "status",
@@ -413,7 +412,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "annotation_cnf": {
             "name": "LONG_TERM_ARCHIVING_TIME",
             "system": "EPA_",
-            "insertion_type": "INSERT_and_ERASE"
+            "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
             },
         "values": [
             {"name": "status",
@@ -468,7 +467,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 # "annotation_cnf": {
                 #     "name": "ARCHIVING_TIME",
                 #     "system": "EPA_",
-                #     "insertion_type": "INSERT_and_ERASE"
+                #     "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 #     },
                 # "values": [
                 #     {"name": "status",
@@ -484,7 +483,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 #     "annotation_cnf": {
                 #         "name": "ARCHIVING_TIME",
                 #         "system": system,
-                #         "insertion_type": "INSERT_and_ERASE"
+                #         "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 #         },
                 #     "values": [
                 #         {"name": "status",
@@ -499,7 +498,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 # "explicit_reference": granule_t,
                 # "annotation_cnf": {
                 #     "name": "CATALOGING_TIME",
-                #     "insertion_type": "INSERT_and_ERASE"
+                #     "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                 #     },
                 # "values": [
                 #     {"name": "status",
@@ -531,7 +530,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "annotation_cnf": {
                     "name": "ARCHIVING_TIME",
                     "system": "EPA_",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -547,7 +546,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                     "annotation_cnf": {
                         "name": "ARCHIVING_TIME",
                         "system": system,
-                        "insertion_type": "INSERT_and_ERASE"
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                         },
                     "values": [
                         {"name": "status",
@@ -563,7 +562,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "annotation_cnf": {
                     "name": "LONG_TERM_ARCHIVING_TIME",
                     "system": "EPA_",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -577,7 +576,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "explicit_reference": item_id,
                 "annotation_cnf": {
                     "name": "CATALOGING_TIME",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -591,7 +590,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "explicit_reference": item_id,
                 "annotation_cnf": {
                     "name": "DHUS_DISSEMINATION_TIME",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -605,7 +604,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 "explicit_reference": item_id,
                 "annotation_cnf": {
                     "name": "DHUS_PUBLICATION_TIME",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "status",
@@ -664,7 +663,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
               "exec": os.path.basename(__file__),
               "version": version
         },
-        "source": source_indexing,
+        "source": source_annotations,
         "annotations": list_of_annotations,
         "explicit_references": list_of_explicit_references
         }]
@@ -705,7 +704,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 91)
     
     data["operations"] = data["operations"] + list_of_operations    
-            
+    
     if len(list_of_ai_annotations) > 0:
         data["operations"].append({
             "mode": "insert",
@@ -714,7 +713,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                   "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_processing,
+            "source": source_annotations,
             "annotations": list_of_ai_annotations,
         })
 
@@ -730,7 +729,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                   "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_processing,
+            "source": source_annotations,
             "annotations": list_of_dam_annotations,
         })
 
@@ -746,7 +745,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                   "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_processing,
+            "source": source_annotations,
             "annotations": list_of_lta_annotations,
         })
 
@@ -762,7 +761,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                   "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_processing,
+            "source": source_annotations,
             "annotations": list_of_dhus_annotations,
         })
 
@@ -778,7 +777,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                   "exec": os.path.basename(__file__),
                   "version": version
             },
-            "source": source_processing,
+            "source": source_annotations,
             "annotations": list_of_dhus_publication_annotations,
         })
 

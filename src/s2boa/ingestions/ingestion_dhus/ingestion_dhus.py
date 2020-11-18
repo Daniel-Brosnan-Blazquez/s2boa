@@ -81,7 +81,8 @@ def process_file(file_path, engine, query, reception_time):
         "reception_time": reception_time,
         "generation_time": creation_date,
         "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_stop": validity_stop,
+        "priority": 20
     }
 
 
@@ -109,7 +110,7 @@ def process_file(file_path, engine, query, reception_time):
                 "explicit_reference" : tile_id,
                 "annotation_cnf": {
                     "name": "DHUS_DISSEMINATION_TIME",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                     {"name": "dhus_dissemination_time",
@@ -143,7 +144,7 @@ def process_file(file_path, engine, query, reception_time):
             "explicit_reference" : datastrip.text,
                 "annotation_cnf": {
                     "name": "DHUS_DISSEMINATION_TIME",
-                    "insertion_type": "INSERT_and_ERASE"
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
                     },
                 "values": [
                         {"name": "dhus_dissemination_time",
