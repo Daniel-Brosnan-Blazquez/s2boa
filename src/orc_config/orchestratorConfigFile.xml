@@ -27,6 +27,12 @@
       </DataProvider>
 
       <DataProvider isTriggerType="yes">
+	      <DataType>OPHKTM</DataType>
+	      <FileType>*REP_OPHKTM*</FileType>
+	      <Directory>[update]/data/l0-in/</Directory>
+      </DataProvider>
+
+      <DataProvider isTriggerType="yes">
 	      <DataType>REPARC</DataType>
 	      <FileType>*REP_ARC___*</FileType>
 	      <Directory>[update]/data/l0-in/</Directory>
@@ -131,13 +137,14 @@
       <PriorityRule rank="7"     class="DataType" type="REPACQ"      sort="DESC" />
       <PriorityRule rank="8"     class="DataType" type="DPC"         sort="DESC" />
       <PriorityRule rank="9"     class="DataType" type="REPARC"      sort="DESC" />
-      <PriorityRule rank="10"    class="DataType" type="OPAI"        sort="DESC" />
-      <PriorityRule rank="11"    class="DataType" type="OPLTA"       sort="DESC" />
-      <PriorityRule rank="12"    class="DataType" type="OPLTAS"      sort="DESC" />
-      <PriorityRule rank="13"    class="DataType" type="OPDAM"       sort="DESC" />
-      <PriorityRule rank="14"    class="DataType" type="OPDHUS"      sort="DESC" />
-      <PriorityRule rank="15"    class="DataType" type="OPDC"        sort="DESC" />
-      <PriorityRule rank="16"    class="DataType" type="DEC_F_RECV"  sort="DESC" />      
+      <PriorityRule rank="10"    class="DataType" type="OPHKTM"      sort="DESC" />
+      <PriorityRule rank="11"    class="DataType" type="OPAI"        sort="DESC" />
+      <PriorityRule rank="12"    class="DataType" type="OPLTA"       sort="DESC" />
+      <PriorityRule rank="13"    class="DataType" type="OPLTAS"      sort="DESC" />
+      <PriorityRule rank="14"    class="DataType" type="OPDAM"       sort="DESC" />
+      <PriorityRule rank="15"    class="DataType" type="OPDHUS"      sort="DESC" />
+      <PriorityRule rank="16"    class="DataType" type="OPDC"        sort="DESC" />
+      <PriorityRule rank="17"    class="DataType" type="DEC_F_RECV"  sort="DESC" />      
    </List_of_PriorityRules>
 
    <!-- ====================================================== -->
@@ -187,6 +194,12 @@
       </ProcessingRule>   
 
       <ProcessingRule dataType="DPC" triggerType="DPC" coverage="SAME">
+	      <executable>eboa_triggering.py -r -f %F</executable>
+	      <List_of_Inputs>
+	      </List_of_Inputs>
+      </ProcessingRule>   
+
+      <ProcessingRule dataType="OPHKTM" triggerType="OPHKTM" coverage="SAME">
 	      <executable>eboa_triggering.py -r -f %F</executable>
 	      <List_of_Inputs>
 	      </List_of_Inputs>
