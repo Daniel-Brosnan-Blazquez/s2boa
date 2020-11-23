@@ -566,6 +566,53 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert comments.text == ""
 
+        planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
+        hktm_production_vgs = self.query_eboa.get_events(gauge_names ={"filter": "HKTM_PRODUCTION_VGS", "op":"=="})
+        
+        # HKTM circulation info
+        hktm_circulation_info = [
+            {
+                "id": str(hktm_production_vgs[0].event_uuid),
+                "group": "S2A",
+                "x": "2020-01-29T02:57:51.366847",
+                "y": "38338560.0",
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
+                "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
+                "</table>"
+            },
+        ]
+        
+        returned_htkm_circulation_info = self.driver.execute_script('return hktm_circulation_events;')
+        assert hktm_circulation_info == returned_htkm_circulation_info
+
+        # HKTM size info
+        hktm_size_info = [
+            {
+                "id": str(hktm_production_vgs[0].event_uuid),
+                "group": "S2A",
+                "x": "2020-01-29T02:57:51.366847",
+                "y": "38338560.0",
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
+                "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
+                "</table>"
+            },
+        ]
+        
+        returned_htkm_size_info = self.driver.execute_script('return hktm_size_events;')
+        assert hktm_size_info == returned_htkm_size_info
+        
     def test_hktm_workflow_with_ophktm_and_planning_and_rep_pass(self):
 
         filename = "S2B_OPER_MPL__NPPF__20201001T120000_20201019T150000_0001.EOF"

@@ -21,6 +21,7 @@ var hktm_circulation_events = [
     {% if successful_circulation_to_fos|length > 0 %}
     {% set circulation_time_to_fos_annotation = successful_circulation_to_fos|map(attribute="annotations")|flatten|filter_annotations("CIRCULATION_TIME")|filter_annotations_by_text_value("destination", "FOS_")|first %}
     {% set circulation_time_to_fos_datetime = circulation_time_to_fos_annotation.annotationTimestamps|selectattr("name", "equalto", "circulation_time")|map(attribute='value')|first %}
+    {% set product_size_to_fos = circulation_time_to_fos_annotation.annotationDoubles|selectattr("name", "equalto", "product_size")|map(attribute='value')|first %}
     {% set circulation_time_to_fos = circulation_time_to_fos_datetime.isoformat() %}
 
     {% set delta_to_fos = ((circulation_time_to_fos_datetime - orbpre_event["start"]).total_seconds()/ 60)|round(3) %}
@@ -32,14 +33,15 @@ var hktm_circulation_events = [
         "id": "{{ hktm_production_event.event_uuid }}",
         "group": "{{ satellite }}",
         "x": "{{ orbpre_event.start.isoformat() }}",
-        "y": "{{ delta_to_fos }}",
+        "y": "{{ product_size_to_fos }}",
         "tooltip": "<table border='1'>" +
             "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a></td></tr>" +
             "<tr><td>Satellite</td><td>{{ satellite }}</td></tr>" +
             "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ orbit }}</a></td></tr>" +
             "<tr><td>ANX time</td><td>{{ orbpre_event.start.isoformat() }}</td></tr>" +
             "<tr><td>PDMC-FOS time</td><td>{{ circulation_time_to_fos }}</td></tr>" +
-            "<tr><td>Delta to FOS</td><td class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</td></tr>" +
+            "<tr><td>Delta to FOS (m)</td><td class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</td></tr>" +
+            "<tr><td>Product size (B)</td><td>{{ product_size_to_fos }}</td></tr>" +
             "</table>"
     },
     {% endif %}

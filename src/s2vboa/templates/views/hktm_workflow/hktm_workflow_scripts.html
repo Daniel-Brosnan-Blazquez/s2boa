@@ -54,14 +54,42 @@
   min: 0
   },
   title: {
-  text: "Delta time to FOS",
+  text: "Delta time to FOS (m)",
   }
   }
   }
   };
   
   vboa.display_bar_time("hktm-workflow-dissemination-evolution", items, groups, options);
+
+  {% with events = hktm_workflow_events["playback"] %}
+  {% include "js/hktm_workflow/hktm_size_to_bar.js" %}
+  {% endwith %}
+
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_bar(hktm_size_events, items, groups);
+
+  var options = {
+  legend: true,
+  style: "bar",
+  barChart: {width:50, align:'center', sideBySide:true},
+  height: 350,
+  dataAxis: {
+  left: {
+  range: {
+  min: 0
+  },
+  title: {
+  text: "Product size (B)",
+  }
+  }
+  }
+  };
   
+  vboa.display_bar_time("hktm-product-size-evolution", items, groups, options);
+
   {% endif %}
   
   {% if sliding_window %}
