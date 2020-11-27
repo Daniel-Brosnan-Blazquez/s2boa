@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Earth_Explorer_File schemaVersion="2.1" xmlns="http://eop-cfi.esa.int/CFI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://eop-cfi.esa.int/CFI http://eop-cfi.esa.int/CFI/EE_CFI_SCHEMAS/EO_OPER_MPL_ORBPRE_0201.XSD">
+
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2B_OPER_MPL_ORBPRE_20201125T030111_20201205T030111_0001</File_Name>
+      <File_Description>FOS Predicted Orbit File</File_Description>
+      <Notes></Notes>
+      <Mission>SENTINEL 2B</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL_ORBPRE</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2020-11-25T03:01:11</Validity_Start>
+        <Validity_Stop>UTC=2020-12-05T03:01:11</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>FOS</System>
+        <Creator>NAPEOS</Creator>
+        <Creator_Version>3.0</Creator_Version>
+        <Creation_Date>UTC=2020-11-25T03:01:10</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header>
+      <Ref_Frame>EARTH_FIXED</Ref_Frame>
+      <Time_Reference>UTC</Time_Reference>
+    </Variable_Header>
+  </Earth_Explorer_Header>
+
+  <Data_Block type="xml">
+    <List_of_OSVs count="143">
+      <OSV>
+        <TAI>TAI=2020-11-25T23:27:07.600549</TAI>
+        <UTC>UTC=2020-11-25T23:26:30.600549</UTC>
+        <UT1>UT1=2020-11-25T23:26:30.421146</UT1>
+        <Absolute_Orbit>+19447</Absolute_Orbit>
+        <X unit="m">+6954069.155</X>
+        <Y unit="m">-1747278.702</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">-0406.464952</VX>
+        <VY unit="m/s">-1581.688071</VY>
+        <VZ unit="m/s">+7374.428523</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T01:07:49.482246</TAI>
+        <UTC>UTC=2020-11-26T01:07:12.482246</UTC>
+        <UT1>UT1=2020-11-26T01:07:12.302823</UT1>
+        <Absolute_Orbit>+19448</Absolute_Orbit>
+        <X unit="m">+5550309.765</X>
+        <Y unit="m">-4539468.204</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">-1040.655654</VX>
+        <VY unit="m/s">-1258.486803</VY>
+        <VZ unit="m/s">+7374.367559</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T02:48:31.386493</TAI>
+        <UTC>UTC=2020-11-26T02:47:54.386493</UTC>
+        <UT1>UT1=2020-11-26T02:47:54.207052</UT1>
+        <Absolute_Orbit>+19449</Absolute_Orbit>
+        <X unit="m">+3092065.091</X>
+        <Y unit="m">-6469326.789</Y>
+        <Z unit="m">-0000000.000</Z>
+        <VX unit="m/s">-1476.987437</VX>
+        <VY unit="m/s">-0696.234863</VY>
+        <VZ unit="m/s">+7374.382957</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T04:29:13.367042</TAI>
+        <UTC>UTC=2020-11-26T04:28:36.367042</UTC>
+        <UT1>UT1=2020-11-26T04:28:36.187583</UT1>
+        <Absolute_Orbit>+19450</Absolute_Orbit>
+        <X unit="m">+0046581.888</X>
+        <Y unit="m">-7170035.317</Y>
+        <Z unit="m">-0000000.000</Z>
+        <VX unit="m/s">-1632.659393</VX>
+        <VY unit="m/s">-0001.880790</VY>
+        <VZ unit="m/s">+7374.535470</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T06:09:55.408091</TAI>
+        <UTC>UTC=2020-11-26T06:09:18.408091</UTC>
+        <UT1>UT1=2020-11-26T06:09:18.228614</UT1>
+        <Absolute_Orbit>+19451</Absolute_Orbit>
+        <X unit="m">-3007726.997</X>
+        <Y unit="m">-6508701.565</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">-1478.355993</VX>
+        <VY unit="m/s">+0692.873967</VY>
+        <VZ unit="m/s">+7374.661663</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T07:50:37.393264</TAI>
+        <UTC>UTC=2020-11-26T07:50:00.393264</UTC>
+        <UT1>UT1=2020-11-26T07:50:00.213769</UT1>
+        <Absolute_Orbit>+19452</Absolute_Orbit>
+        <X unit="m">-5490671.330</X>
+        <Y unit="m">-4610931.314</Y>
+        <Z unit="m">-0000000.000</Z>
+        <VX unit="m/s">-1043.302419</VX>
+        <VY unit="m/s">+1255.997376</VY>
+        <VZ unit="m/s">+7374.757096</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T09:31:19.319433</TAI>
+        <UTC>UTC=2020-11-26T09:30:42.319433</UTC>
+        <UT1>UT1=2020-11-26T09:30:42.139920</UT1>
+        <Absolute_Orbit>+19453</Absolute_Orbit>
+        <X unit="m">-6930544.377</X>
+        <Y unit="m">-1837282.195</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">-0410.007663</VX>
+        <VY unit="m/s">+1580.652886</VY>
+        <VZ unit="m/s">+7374.746220</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T11:12:01.219583</TAI>
+        <UTC>UTC=2020-11-26T11:11:24.219583</UTC>
+        <UT1>UT1=2020-11-26T11:11:24.040052</UT1>
+        <Absolute_Orbit>+19454</Absolute_Orbit>
+        <X unit="m">-7053792.784</X>
+        <Y unit="m">+1285413.216</Y>
+        <Z unit="m">-0000000.000</Z>
+        <VX unit="m/s">+0301.321337</VX>
+        <VY unit="m/s">+1605.003706</VY>
+        <VZ unit="m/s">+7374.732644</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T12:52:43.105819</TAI>
+        <UTC>UTC=2020-11-26T12:52:06.105819</UTC>
+        <UT1>UT1=2020-11-26T12:52:05.926270</UT1>
+        <Absolute_Orbit>+19455</Absolute_Orbit>
+        <X unit="m">-5837065.078</X>
+        <Y unit="m">+4163934.159</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">+0955.406680</VX>
+        <VY unit="m/s">+1324.361979</VY>
+        <VZ unit="m/s">+7374.661767</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T14:33:25.025459</TAI>
+        <UTC>UTC=2020-11-26T14:32:48.025459</UTC>
+        <UT1>UT1=2020-11-26T14:32:47.845891</UT1>
+        <Absolute_Orbit>+19456</Absolute_Orbit>
+        <X unit="m">-3511460.197</X>
+        <Y unit="m">+6251519.091</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">+1427.883425</VX>
+        <VY unit="m/s">+0792.048487</VY>
+        <VZ unit="m/s">+7374.518840</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T16:14:07.025008</TAI>
+        <UTC>UTC=2020-11-26T16:13:30.025008</UTC>
+        <UT1>UT1=2020-11-26T16:13:29.845422</UT1>
+        <Absolute_Orbit>+19457</Absolute_Orbit>
+        <X unit="m">-0518523.977</X>
+        <Y unit="m">+7151479.460</Y>
+        <Z unit="m">-0000000.000</Z>
+        <VX unit="m/s">+1628.944836</VX>
+        <VY unit="m/s">+0109.421728</VY>
+        <VZ unit="m/s">+7374.440720</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T17:54:49.069133</TAI>
+        <UTC>UTC=2020-11-26T17:54:12.069133</UTC>
+        <UT1>UT1=2020-11-26T17:54:11.889529</UT1>
+        <Absolute_Orbit>+19458</Absolute_Orbit>
+        <X unit="m">+2572925.208</X>
+        <Y unit="m">+6692683.406</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">+1520.758561</VX>
+        <VY unit="m/s">-0593.892757</VY>
+        <VZ unit="m/s">+7374.454321</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T19:35:31.091046</TAI>
+        <UTC>UTC=2020-11-26T19:34:54.091046</UTC>
+        <UT1>UT1=2020-11-26T19:34:53.911424</UT1>
+        <Absolute_Orbit>+19459</Absolute_Orbit>
+        <X unit="m">+5175455.192</X>
+        <Y unit="m">+4962458.938</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">+1123.757540</VX>
+        <VY unit="m/s">-1184.530037</VY>
+        <VZ unit="m/s">+7374.505141</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T21:16:13.040607</TAI>
+        <UTC>UTC=2020-11-26T21:15:36.040607</UTC>
+        <UT1>UT1=2020-11-26T21:15:35.860967</UT1>
+        <Absolute_Orbit>+19460</Absolute_Orbit>
+        <X unit="m">+6794777.022</X>
+        <Y unit="m">+2289599.148</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">+0513.144314</VX>
+        <VY unit="m/s">-1550.270815</VY>
+        <VZ unit="m/s">+7374.492143</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-26T22:56:54.920309</TAI>
+        <UTC>UTC=2020-11-26T22:56:17.920309</UTC>
+        <UT1>UT1=2020-11-26T22:56:17.740650</UT1>
+        <Absolute_Orbit>+19461</Absolute_Orbit>
+        <X unit="m">+7123372.910</X>
+        <Y unit="m">-0818130.366</Y>
+        <Z unit="m">+0000000.000</Z>
+        <VX unit="m/s">-0195.054516</VX>
+        <VY unit="m/s">-1621.399280</VY>
+        <VZ unit="m/s">+7374.449937</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+      <OSV>
+        <TAI>TAI=2020-11-27T00:37:36.803750</TAI>
+        <UTC>UTC=2020-11-27T00:36:59.803750</UTC>
+        <UT1>UT1=2020-11-27T00:36:59.624075</UT1>
+        <Absolute_Orbit>+19462</Absolute_Orbit>
+        <X unit="m">+6098791.424</X>
+        <Y unit="m">-3770543.016</Y>
+        <Z unit="m">-0000000.000</Z>
+        <VX unit="m/s">-0866.264913</VX>
+        <VY unit="m/s">-1384.382315</VY>
+        <VZ unit="m/s">+7374.399323</VZ>
+        <Quality>0000000000000</Quality>
+      </OSV>
+    </List_of_OSVs>
+  </Data_Block>
+
+</Earth_Explorer_File>
