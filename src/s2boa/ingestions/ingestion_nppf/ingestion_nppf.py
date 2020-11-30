@@ -1037,7 +1037,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
 
     return corrected_planning_events
 
-def process_file(file_path, engine, query, reception_time):
+def process_file(file_path, engine, query, reception_time, tgz_filename = None):
     """Function to process the file and insert its relevant information
     into the DDBB of the eboa
     
@@ -1051,7 +1051,11 @@ def process_file(file_path, engine, query, reception_time):
     :type reception_time: str
     """
     list_of_events = []
-    file_name = os.path.basename(file_path)
+    if tgz_filename != None:
+        file_name = tgz_filename
+    else:
+        file_name = os.path.basename(file_path)
+    # end if
     parsed_xml = etree.parse(file_path)
     xpath_xml = etree.XPathEvaluator(parsed_xml)
 
