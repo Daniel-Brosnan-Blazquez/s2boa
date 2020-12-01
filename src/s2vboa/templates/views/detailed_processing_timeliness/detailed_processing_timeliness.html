@@ -1,7 +1,7 @@
 {% extends "panel/index.html" %}
 {% block content %}
 <div class="row">
-  <h1 class="page-header">Detailed processing view</h1>
+  <h1 class="page-header">Detailed processing timeliness view</h1>
 </div>
 <!-- /.row -->
 <div class="row">
@@ -130,6 +130,7 @@
 </div>
 {% include "views/common/header.html" %}
 
+{% if events["processing_validity"]|length > 0 %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -167,11 +168,11 @@
           {% endif %}
           <tr>
             <td><a href="/eboa_nav/query-er/{{ processing_validity.explicitRef.explicit_ref_uuid }}">{{ processing_validity.explicitRef.explicit_ref }}</a></td>
-            <td>{{ processing_validity.start }}</td>
-            <td>{{ processing_validity.stop }}</td>
+            <td>{{ processing_validity.start.isoformat() }}</td>
+            <td>{{ processing_validity.stop.isoformat() }}</td>
             <td>{{ ((processing_validity.get_duration()) / 60)|round(3) }}</td>
-            <td>{{ timeliness.start }}</td>
-            <td>{{ timeliness.stop }}</td>
+            <td>{{ timeliness.start.isoformat() }}</td>
+            <td>{{ timeliness.stop.isoformat() }}</td>
             <td>{{ ((timeliness.get_duration()) / 60)|round(3) }}</td>
             <td>{{ datatake }}</td>
           </tr>
@@ -231,11 +232,11 @@
           {% endif %}
           <tr>
             <td>{{ sensing_identifier }}</td>
-            <td>{{ processing_validity_group[0].start }}</td>
-            <td>{{ processing_validity_group[-1].stop }}</td>
+            <td>{{ processing_validity_group[0].start.isoformat() }}</td>
+            <td>{{ processing_validity_group[-1].stop.isoformat() }}</td>
             <td>{{ ((processing_validity_group[-1].stop - processing_validity_group[0].start).total_seconds() / 60)|round(3) }}</td>
-            <td>{{ timeliness_group[0].start }}</td>
-            <td>{{ timeliness_group[-1].stop }}</td>
+            <td>{{ timeliness_group[0].start.isoformat() }}</td>
+            <td>{{ timeliness_group[-1].stop.isoformat() }}</td>
             <td>{{ ((timeliness_group[-1].stop - timeliness_group[0].start).total_seconds() / 60)|round(3) }}</td>
             <td>{{ datatakes|join(", ") }}</td>
           </tr>
@@ -337,6 +338,25 @@
   </div>
 </div>
 
+{% else %}
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness--no-datastrips">Detailed processing timeliness <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+
+    <div id="detailed-processing-timeliness--no-datastrips">
+      <br/>
+      <p style="text-indent: 1em">There are no datastrips during the requested period.</p>
+      <br/>
+    </div>
+  </div>
+</div>
+
+{% endif %}
 {% endblock %}
 {% block scripts %}
 {{ super() }}

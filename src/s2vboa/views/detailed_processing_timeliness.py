@@ -277,16 +277,26 @@ def query_detailed_processing_timeliness_and_render(kwargs = None, filters = Non
     elif "generation_start_filter" in kwargs:
         start_filter = kwargs["generation_start_filter"]
     elif "datastrips" in kwargs:
-        sorted_processing_validity_events = processing_validity_events.copy()
-        sorted_processing_validity_events.sort(key=lambda x: x.start)
-        start_filter = {
-            "date": sorted_processing_validity_events[-1].stop.isoformat(),
-            "op": "<="
-        }
-        stop_filter = {
-            "date": sorted_processing_validity_events[0].start.isoformat(),
-            "op": ">="
-        }
+        if len(processing_validity_events) > 0:
+            sorted_processing_validity_events = processing_validity_events.copy()
+            sorted_processing_validity_events.sort(key=lambda x: x.start)
+            start_filter = {
+                "date": sorted_processing_validity_events[-1].stop.isoformat(),
+                "op": "<="
+            }
+            stop_filter = {
+                "date": sorted_processing_validity_events[0].start.isoformat(),
+                "op": ">="
+            }
+        else:
+            start_filter = {
+                "date": (datetime.datetime.now()).isoformat(),
+                "op": "<="
+            }
+            stop_filter = {
+                "date": (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(),
+                "op": ">="
+            }
     # end if
 
     if "sensing_stop_filter" in kwargs:

@@ -75,7 +75,7 @@ class TestDetailedProcessingTimelinessView(unittest.TestCase):
 
         assert header_no_data
 
-        table_details_no_data = wait.until(EC.visibility_of_element_located((By.ID,"detailed-processing-timeliness-no-expected-datastrips")))
+        table_details_no_data = wait.until(EC.visibility_of_element_located((By.ID,"detailed-processing-timeliness-no-datastrips")))
 
         assert table_details_no_data
 
