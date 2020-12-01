@@ -20,12 +20,12 @@ def query_orbpre_events(query, current_app, start_filter = None, stop_filter = N
 
     # Start filter
     if start_filter:
-        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
     # end if
 
     # Stop filter
     if stop_filter:
-        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
     # end if
 
     # Mission
@@ -66,12 +66,12 @@ def get_start_stop_filters(query, current_app, request, window_size, mission, fi
         if filters["start"][0] != "":
             stop_filter = {
                 "date": filters["start"][0],
-                "operator": ">="
+                "op": ">="
             }
             if filters["stop"][0] == "":
                 start_filter = {
                     "date": (parser.parse(filters["start"][0]) + datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": "<="
+                    "op": "<="
                 }
             # end if
         elif filters["start_orbit"][0] != "":
@@ -89,13 +89,13 @@ def get_start_stop_filters(query, current_app, request, window_size, mission, fi
                 orbpre_event = orbpre_events[0]
                 stop_filter = {
                     "date": orbpre_event.start.isoformat(),
-                    "operator": ">="
+                    "op": ">="
                 }
             # end if
             if len(orbpre_events) > 0 and filters["stop_orbit"][0] == "":
                 start_filter = {
                     "date": (orbpre_event.start + datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": "<="
+                    "op": "<="
                 }
             # end if
         # end if
@@ -103,12 +103,12 @@ def get_start_stop_filters(query, current_app, request, window_size, mission, fi
         if filters["stop"][0] != "":
             start_filter = {
                 "date": filters["stop"][0],
-                "operator": "<="
+                "op": "<="
             }
             if filters["start"][0] == "":
                 stop_filter = {
                     "date": (parser.parse(filters["stop"][0]) - datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": ">="
+                    "op": ">="
                 }
             # end if
         elif filters["stop_orbit"][0] != "":
@@ -126,13 +126,13 @@ def get_start_stop_filters(query, current_app, request, window_size, mission, fi
                 orbpre_event = orbpre_events[0]
                 start_filter = {
                     "date": orbpre_event.stop.isoformat(),
-                    "operator": "<="
+                    "op": "<="
                 }
             # end if
             if len(orbpre_events) > 0 and filters["start_orbit"][0] == "":
                 stop_filter = {
                     "date": (orbpre_event.stop - datetime.timedelta(days=window_size)).isoformat(),
-                    "operator": ">="
+                    "op": ">="
                 }
             # end if
         # end if

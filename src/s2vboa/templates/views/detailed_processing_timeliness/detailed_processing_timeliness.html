@@ -1,0 +1,368 @@
+{% extends "panel/index.html" %}
+{% block content %}
+<div class="row">
+  <h1 class="page-header">Detailed processing view</h1>
+</div>
+<!-- /.row -->
+<div class="row">
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#query-interface">Query interface <span class="fa fa-angle-double-down"></span></a>
+        </h3>
+      </div>
+      <div class="panel-body panel-collapse collapse" id="query-interface">
+        <ul class="nav nav-tabs responsive-tabs">
+          <li class="active"><a href="#detailed-processing-timeliness-query-window">Query window</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="detailed-processing-timeliness-query-window">          
+            <form role="form" method=post action="/views/detailed-processing-timeliness">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    start: now - 2 hours <br/>
+                    stop: now <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_static_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Sensing start and stop -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Sensing start</label>
+                    <div class="input-group date">
+                      <input type="text" class="form-control" name="sensing_start" id="sensing-start-input"/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                    <label>Sensing stop</label>
+                    <div class="input-group date">
+                      <input type="text" class="form-control" name="sensing_stop" id="sensing-stop-input"/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Sensing orbits -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Sensing start orbit</label>
+                    <div>
+                      <input type="text" class="form-control" name="sensing_start_orbit" id="sensing-start-orbit"/>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                    <label>Sensing stop orbit</label>
+                    <div>
+                      <input type="text" class="form-control" name="sensing_stop_orbit" id="sensing-stop-orbit"/>
+                    </div>
+                  </div>
+                </div>
+                <!-- Generation start and stop -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Generation start</label>
+                    <div class="input-group date">
+                      <input type="text" class="form-control" name="generation_start" id="generation-start-input"/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                    <label>Generation stop</label>
+                    <div class="input-group date">
+                      <input type="text" class="form-control" name="generation_stop" id="generation-stop-input"/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Datastrips -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Datastrip</label>
+                    <div class="input-group" style="width: 100%">
+                      <input class="form-control" style="width: 80%" name="datastrip" id="detailed-processing-timeliness-datastrip-text"/>
+                      <select class="form-control" style="padding-left: 0; width: 20%" name="datastrip_operator" id="detailed-processing-timeliness-datastrip-operator">
+                        {% include "eboa_nav/operators.html" %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                    <label id="detailed-processing-timeliness-datastrips-in-checkbox">Explicit references (<input type="checkbox" name="er_notin_check"><span class="label-text"><b>Not in)</b></span></label>
+                    <input class="form-control" placeholder="Fill for searching items with exact matching" onkeyup="vboa.fill_elements_into_selector(this, '/eboa_nav/query-jsonify-ers', 'explicit_ref', 20, 0)" id="detailed-processing-timeliness-datastrips-in-text"/><i class="circle"></i>
+                    <select name="datastrips" data-placeholder="Select several options..." size="4" hidden multiple="" tabidex="-1" id="detailed-processing-timeliness-datastrips-in-select">
+                    </select>
+                  </div>
+                </div>
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="detailed-processing-timeliness-limit" value="10"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "views/common/header.html" %}
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-div-processing-duration-per-level">Processing duration per level <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-div-processing-duration-per-level">
+      <p>
+        <b>The following table shows the processing duration of the related datastrips per level</b>:
+      </p>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="detailed-processing-timeliness-table-processing-duration-per-level">
+        <thead>
+          <tr>
+            <th>Datastrip</th>
+            <th>Sensing start</th>
+            <th>Sensing stop</th>
+            <th>Sensing duration (m)</th>
+            <th>Processing start</th>
+            <th>Processing stop</th>
+            <th>Processing duration (m)</th>
+            <th>Datatake</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for processing_validity in events["processing_validity"]|sort(attribute="explicitRef.explicit_ref")|sort(attribute="start") %}
+          {% set timeliness = events["timeliness"]|selectattr("explicitRef.explicit_ref", "equalto", processing_validity.explicitRef.explicit_ref)|first %}
+          {% set datatake_annotations = processing_validity.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "DATATAKE")|list %}
+          {% if datatake_annotations|length > 0 %}
+          {% set datatake = datatake_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "datatake_identifier")|map(attribute="value")|first %}
+          {% else %}
+          {% set datatake = "N/A" %}
+          {% endif %}
+          <tr>
+            <td><a href="/eboa_nav/query-er/{{ processing_validity.explicitRef.explicit_ref_uuid }}">{{ processing_validity.explicitRef.explicit_ref }}</a></td>
+            <td>{{ processing_validity.start }}</td>
+            <td>{{ processing_validity.stop }}</td>
+            <td>{{ ((processing_validity.get_duration()) / 60)|round(3) }}</td>
+            <td>{{ timeliness.start }}</td>
+            <td>{{ timeliness.stop }}</td>
+            <td>{{ ((timeliness.get_duration()) / 60)|round(3) }}</td>
+            <td>{{ datatake }}</td>
+          </tr>
+          {% endfor %}
+        <tfoot>
+          <tr>
+            <th>Datastrip</th>
+            <th>Sensing start</th>
+            <th>Sensing stop</th>
+            <th>Sensing duration (m)</th>
+            <th>Processing start</th>
+            <th>Processing stop</th>
+            <th>Processing duration (m)</th>
+            <th>Datatake</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-div-processing-duration-per-datastrip">Processing duration per sensing identifier (from L0 to the uppest level)<span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-div-processing-duration-per-datastrip">
+      <p>
+        <b>The following table shows the processing duration per sensing identifier (from L0 to the uppest level)</b>:
+      </p>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="detailed-processing-timeliness-table-processing-duration-per-datastrip">
+        <thead>
+          <tr>
+            <th>Sensing identifier</th>
+            <th>Sensing start</th>
+            <th>Sensing stop</th>
+            <th>Sensing duration (m)</th>
+            <th>Processing start</th>
+            <th>Processing stop</th>
+            <th>Processing duration (m)</th>
+            <th>Datatakes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sensing_identifier, processing_validity_group in events["processing_validity"]|sort(attribute="start")|group_by_substring("explicitRef.explicit_ref", "41", "57") %}
+          {% set timeliness_group = events["timeliness"]|selectattr("explicitRef.explicit_ref", "in", processing_validity_group|map(attribute="explicitRef.explicit_ref")|list)|sort(attribute="start") %}
+          {% set datatake_annotations = processing_validity_group|map(attribute="explicitRef.annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DATATAKE")|list %}
+          {% if datatake_annotations|length > 0 %}
+          {% set datatakes = datatake_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "datatake_identifier")|map(attribute="value")|list %}
+          {% else %}
+          {% set datatake = "N/A" %}
+          {% endif %}
+          <tr>
+            <td>{{ sensing_identifier }}</td>
+            <td>{{ processing_validity_group[0].start }}</td>
+            <td>{{ processing_validity_group[-1].stop }}</td>
+            <td>{{ ((processing_validity_group[-1].stop - processing_validity_group[0].start).total_seconds() / 60)|round(3) }}</td>
+            <td>{{ timeliness_group[0].start }}</td>
+            <td>{{ timeliness_group[-1].stop }}</td>
+            <td>{{ ((timeliness_group[-1].stop - timeliness_group[0].start).total_seconds() / 60)|round(3) }}</td>
+            <td>{{ datatakes|join(", ") }}</td>
+          </tr>
+          {% endfor %}
+        <tfoot>
+          <tr>
+            <th>Sensing identifier</th>
+            <th>Sensing start</th>
+            <th>Sensing stop</th>
+            <th>Sensing duration (m)</th>
+            <th>Processing start</th>
+            <th>Processing stop</th>
+            <th>Processing duration (m)</th>
+            <th>Datatakes</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-all-levels-timeline">Timeline with the processing timeliness for all levels <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-all-levels-timeline">
+      <div>
+        <p>
+          <b>Legend</b>:
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightpink; stroke:lightblue"/>
+          </svg> MSI_L0__DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:gold; stroke:lightblue"/>
+          </svg> MSI_L1A__DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightblue; stroke:lightblue"/>
+          </svg> MSI_L1B_DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightgreen; stroke:lightblue"/>
+          </svg> MSI_L1C_DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:burlywood; stroke:lightblue"/>
+          </svg> MSI_L2A_DS
+        </p>
+      </div>
+      <br/>
+      <div id="detailed-processing-timeliness-all-levels-timeline">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-step-info-timeline">Timeline with the processing timeliness for all levels <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-step-info-timeline">
+      <div>
+        <p>
+          <b>Legend</b>:
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightpink; stroke:lightblue"/>
+          </svg> MSI_L0__DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:gold; stroke:lightblue"/>
+          </svg> MSI_L1A__DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightblue; stroke:lightblue"/>
+          </svg> MSI_L1B_DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightgreen; stroke:lightblue"/>
+          </svg> MSI_L1C_DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:burlywood; stroke:lightblue"/>
+          </svg> MSI_L2A_DS
+        </p>
+      </div>
+      <br/>
+      <div id="detailed-processing-timeliness-step-info-timeline">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+  {% include "js/detailed_processing_timeliness/processing_timeliness_per_level_timeline.js" %}
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_timeline(processing_timeliness_per_level_timeline, items, groups);
+  vboa.display_timeline("detailed-processing-timeliness-all-levels-timeline", items, groups);
+
+  /* Apply overflow to the previously created timeline */  
+  setTimeout(function () {
+      var vis_item_overflows = document.getElementById("detailed-processing-timeliness-all-levels-timeline").getElementsByClassName("vis-item-overflow");
+
+      for (const vis_item_overflow of vis_item_overflows){
+          vis_item_overflow.style.overflow = "visible";
+      }
+  }, 1000);
+
+  {% include "js/detailed_processing_timeliness/processing_timeliness_per_step_timeline.js" %}
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_timeline(processing_timeliness_per_step_timeline, items, groups);
+  vboa.display_timeline("detailed-processing-timeliness-step-info-timeline", items, groups);
+
+</script>
+{% endblock %}

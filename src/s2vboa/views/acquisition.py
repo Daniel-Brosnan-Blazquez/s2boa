@@ -44,11 +44,11 @@ def show_acquisition():
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=1)).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
     mission = "S2_"
 
@@ -97,11 +97,11 @@ def show_specific_acquisition(corrected_planned_playback_uuid):
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": corrected_planned_playback.stop.isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": corrected_planned_playback.start.isoformat(),
-        "operator": ">="
+        "op": ">="
     }
     mission = "S2_"
 
@@ -150,11 +150,11 @@ def show_sliding_acquisition_parameters():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -204,11 +204,11 @@ def show_sliding_acquisition():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -288,12 +288,12 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
 
         # Start filter
         if start_filter:
-            kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+            kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
         # end if
 
         # Stop filter
         if stop_filter:
-            kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+            kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
         # end if
 
 

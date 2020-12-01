@@ -44,11 +44,11 @@ def show_planning():
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": (datetime.datetime.now() + datetime.timedelta(days=5)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=2)).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
     mission = "S2_"
 
@@ -116,11 +116,11 @@ def show_sliding_planning_parameters():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -170,11 +170,11 @@ def show_sliding_planning():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -240,14 +240,14 @@ def query_planning_events(start_filter = None, stop_filter = None, mission = Non
 
     # Start filter
     if start_filter:
-        kwargs_imaging["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
-        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+        kwargs_imaging["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
+        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
     # end if
 
     # Stop filter
     if stop_filter:
-        kwargs_imaging["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
-        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+        kwargs_imaging["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
+        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
     # end if
 
     # Set offset and limit for the query

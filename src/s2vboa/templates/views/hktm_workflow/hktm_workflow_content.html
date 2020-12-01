@@ -263,7 +263,7 @@
           {% set completeness_status_class = [] %}          
           {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
           
-          {% if status[0] != "OK" or completeness_status[0] != "OK" %}
+          {% if status[0] != "OK" or (completeness_status[0] != "OK" and completeness_status[0] != "N/A") %}
 
           {% include "views/hktm_workflow/hktm_workflow_content_table.html" %}
           

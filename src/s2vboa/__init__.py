@@ -22,6 +22,7 @@ from s2vboa.views import tracking
 from s2vboa.views import dhus_completeness
 from s2vboa.views import sensing_data_volumes
 from s2vboa.views import archive_data_volumes
+from s2vboa.views import detailed_processing_timeliness
 
 def create_app():
     """
@@ -36,6 +37,7 @@ def create_app():
     app.register_blueprint(dhus_completeness.bp)
     app.register_blueprint(sensing_data_volumes.bp)
     app.register_blueprint(archive_data_volumes.bp)
+    app.register_blueprint(detailed_processing_timeliness.bp)
 
     s2vboa_templates_folder = os.path.dirname(__file__) + "/templates"
 

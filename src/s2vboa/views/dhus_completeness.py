@@ -44,11 +44,11 @@ def show_dhus_completeness():
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=1)).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
     mission = "S2_"
     levels = "ALL"
@@ -97,11 +97,11 @@ def show_specific_datatake(corrected_planned_imaging_uuid):
     filters["offset"] = [""]
     start_filter = {
         "date": corrected_planned_imaging.stop.isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": corrected_planned_imaging.start.isoformat(),
-        "operator": ">="
+        "op": ">="
     }
     mission = "S2_"
     levels = "ALL"
@@ -153,11 +153,11 @@ def show_sliding_dhus_completeness_parameters():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -210,11 +210,11 @@ def show_sliding_dhus_completeness():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -265,12 +265,12 @@ def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, f
 
         # Start filter
         if start_filter:
-            kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["operator"]}]
+            kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
         # end if
 
         # Stop filter
         if stop_filter:
-            kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["operator"]}]
+            kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
         # end if
 
         # Mission

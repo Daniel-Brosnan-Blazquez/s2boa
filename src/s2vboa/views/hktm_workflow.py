@@ -35,23 +35,26 @@ def show_hktm_workflow():
     current_app.logger.debug("HKTM Workflow view")
 
     filters = {}
-    filters["limit"] = ["20"]    
-    if request.method == "POST":
-        filters = request.form.to_dict(flat=False).copy()
-    # end if
-    filters["offset"] = [""]
-
+    filters["limit"] = ["20"]
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=1)).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
     mission = "S2_"
 
+    if request.method == "POST":
+        filters = request.form.to_dict(flat=False).copy()
+        if request.form["mission"] != "":
+            mission = request.form["mission"]
+        # end if
+    # end if
+    filters["offset"] = [""]
+    
     window_size = 1
     start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
 
@@ -61,14 +64,6 @@ def show_hktm_workflow():
 
     if stop_filter_calculated != None:
         stop_filter = stop_filter_calculated
-    # end if
-
-    if request.method == "POST":
-
-        if request.form["mission"] != "":
-            mission = request.form["mission"]
-        # end if
-
     # end if
 
     filters["start"] = [stop_filter["date"]]
@@ -107,11 +102,11 @@ def show_sliding_hktm_workflow_parameters():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
@@ -158,11 +153,11 @@ def show_sliding_hktm_workflow():
 
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
-        "operator": "<="
+        "op": "<="
     }
     stop_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=(window_delay+window_size))).isoformat(),
-        "operator": ">="
+        "op": ">="
     }
 
     sliding_window = {
