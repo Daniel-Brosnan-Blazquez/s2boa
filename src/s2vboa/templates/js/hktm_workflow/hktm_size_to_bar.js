@@ -5,6 +5,7 @@ var hktm_size_events = [
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+    {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
     {% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|map(attribute='event_uuid_link')|list %}
 
     {% if hktm_production_event_uuids|length > 0 %}
@@ -38,6 +39,7 @@ var hktm_size_events = [
             "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a></td></tr>" +
             "<tr><td>Satellite</td><td>{{ satellite }}</td></tr>" +
             "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ orbit }}</a></td></tr>" +
+            "<tr><td>Station</td><td>{{ station }}</td></tr>" +
             "<tr><td>ANX time</td><td>{{ orbpre_event.start.isoformat() }}</td></tr>" +
             "<tr><td>PDMC-FOS time</td><td>{{ circulation_time_to_fos }}</td></tr>" +
             "<tr><td>Delta to FOS (m)</td><td class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</td></tr>" +

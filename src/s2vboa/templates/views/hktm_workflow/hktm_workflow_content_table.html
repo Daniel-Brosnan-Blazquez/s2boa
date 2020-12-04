@@ -45,6 +45,11 @@
 <tr>
   <td>{{ satellite }}</td>
   <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ orbit }}</a></td>
+  {% if station %}
+  <td>{{ station }}</td>
+  {% else %}
+  <td>N/A</td>
+  {% endif %}
   {% if orbpre_event %}
   <td>{{ orbpre_event["start"].isoformat() }}</td>
   {% else %}
@@ -62,6 +67,11 @@
 <tr>
   <td>{{ satellite }}</td>
   <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ orbit }}</a></td>
+  {% if station %}
+  <td>{{ station }}</td>
+  {% else %}
+  <td>N/A</td>
+  {% endif %}
   {% if orbpre_event %}
   <td>{{ orbpre_event["start"].isoformat() }}</td>
   {% else %}

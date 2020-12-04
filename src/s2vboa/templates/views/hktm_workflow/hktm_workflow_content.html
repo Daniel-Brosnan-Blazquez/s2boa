@@ -242,6 +242,7 @@
           <tr>
             <th>Satellite</th>
             <th>Orbit</th>
+            <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
             <th>Completeness status</th>
@@ -253,8 +254,9 @@
         </thead>
         <tbody>
           {% for event in hktm_workflow_events["playback"]|sort(attribute="start", reverse=True) %}
-          {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
+          {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}       
           {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
           {% set status = [] %}
           {% set status_class = [] %}          
           {% include "views/hktm_workflow/hktm_workflow_status.html" %}          
@@ -274,6 +276,7 @@
           <tr>
             <th>Satellite</th>
             <th>Orbit</th>
+            <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
             <th>Completeness status</th>
@@ -311,6 +314,7 @@
           <tr>
             <th>Satellite</th>
             <th>Orbit</th>
+            <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
             <th>Completeness status</th>
@@ -324,12 +328,15 @@
           {% for orbpre_event in orbpre_events_limit|sort(attribute="start", reverse=True) %}
           {% set satellite = orbpre_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}          
           {% set orbit = orbpre_event.eventDoubles|selectattr("name", "equalto", "orbit")|map(attribute='value')|first|int %}
-          {% set orbpre_intersection_playback = [orbpre_event]|convert_eboa_events_to_date_segments|intersect_timelines(hktm_workflow_events["playback"]|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}
+          {% set orbpre_intersection_playbacks = [orbpre_event]|convert_eboa_events_to_date_segments|intersect_timelines(hktm_workflow_events["playback"]|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|list %}
 
-          {% if orbpre_intersection_playback %}
+          {% if orbpre_intersection_playbacks|length > 0 %}
+          {% for orbpre_intersection_playback in orbpre_intersection_playbacks %}
           {% set event = hktm_workflow_events["playback"]|selectattr("event_uuid", "==", orbpre_intersection_playback["id2"])|first %}
 
           {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+
           {% set status = [] %}
           {% set status_class = [] %}
           {% include "views/hktm_workflow/hktm_workflow_status.html" %}
@@ -339,11 +346,17 @@
           {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
 
           {% include "views/hktm_workflow/hktm_workflow_content_table.html" %}
+          {% endfor %}
 
           {% else %}
           <tr>
             <td>{{ satellite }}</td>
             <td>{{ orbit }}</td>
+            {% if station %}
+            <td>{{ station }}</td>
+            {% else %}
+            <td>N/A</td>
+            {% endif %}
             <td>{{ orbpre_event["start"].isoformat() }}</td>
             <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
             <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
@@ -359,6 +372,7 @@
           <tr>
             <th>Satellite</th>
             <th>Orbit</th>
+            <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
             <th>Completeness status</th>
