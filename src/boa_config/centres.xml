@@ -129,9 +129,30 @@
       <uri>pdmcdax1.pdmc.s2pdgs.esa.int</uri>
       <uri>pdmcdax2.pdmc.s2pdgs.esa.int</uri>
       <uri>pdmcdam1.sentinel2.eo.esa.int</uri>
+      <uri>pdmcdam2.sentinel2.eo.esa.int</uri>
+      <uri>pdmcdam3.sentinel2.eo.esa.int</uri>
+      <uri>pdmcdam4.sentinel2.eo.esa.int</uri>
+      <uri>pdmcdam5.sentinel2.eo.esa.int</uri>
+      <uri>pdmcdam6.sentinel2.eo.esa.int</uri>
+      <uri>pdmcdag1.sentinel2.eo.esa.int</uri>
+      <uri>@vpmcdag1.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdag2.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam1.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam2.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam3.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam4.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam5.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam6.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam7.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdam8.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdax1.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcdax2.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcmpa3.vpmc.s2pdgs.local</uri>
+      <uri>@vpmcmpa4.vpmc.s2pdgs.local</uri>
     </uris>
     <list_of_alias>
       <name>PDMC</name>
+      <name>VPMC</name>
     </list_of_alias>
     <name>PDMC</name>
     <long_name>ESRIN dissemination and management centre</long_name>
