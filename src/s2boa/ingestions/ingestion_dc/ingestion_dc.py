@@ -115,7 +115,8 @@ def process_file(file_path, engine, query, reception_time):
     #                       "(contains(ProductId, 'MPL_FS') and not(contains(ProductId, 'MPL_FSACK'))) or " +
     #                       "contains(ProductId, 'MPL_SP'))]"):
     # For the moment, the majority of reports are not treated
-    for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_CirculatedItems/CirculatedItem[boolean(Result[text() = 'Success']) and  " +
+    for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_CirculatedItems/CirculatedItem[boolean(Result[text() = 'Success']) and " +
+                          "not(Centre = '') and " +
                           "(contains(ProductId, 'OPER_CNF') or " +
                           "contains(ProductId, 'OPER_GIP') or " +
                           "contains(ProductId, 'PRD_HKTM__') or " +
@@ -131,7 +132,13 @@ def process_file(file_path, engine, query, reception_time):
         circulation_time = item.xpath("DeliveryTime")[0].text[:-1]
 
         # Obtain the source of the circulation
-        source = item.xpath("Centre")[0].text
+        source_centre = item.xpath("Centre")[0].text
+        sources = centres_xpath("/centres_configuration/centre[boolean(list_of_alias/name = $source_centre)]", source_centre = source_centre)
+        if len(sources) > 0:
+            source = sources[0].xpath("name")[0].text
+        else:
+            source = source_centre
+        # end if
 
         # Obtain the destination of the circulation
         destination_location = item.xpath("DestinationLocation")[0].text
@@ -177,7 +184,7 @@ def process_file(file_path, engine, query, reception_time):
         }
         list_of_annotations.append(circulation_annotation)
 
-        if "PRD_HKTM__" in product_id and source == "PDMC" and destination == "FOS_":
+        if "PRD_HKTM__" in product_id and source in ["PDMC", "VPMC"] and destination == "FOS_":
             circulation_annotation["annotation_cnf"]["insertion_type"] = "INSERT_and_ERASE_with_PRIORITY"
         # end if
         

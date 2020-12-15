@@ -37,24 +37,24 @@ def show_detailed_processing_timeliness():
     kwargs = {}
     
     filters = {}
+    filters["limit"] = ["10"]
     if request.method == "POST":
         filters = request.form.to_dict(flat=False).copy()
     # end if
     
-    # Default query parameters (now - 3 hours, now, S2_)
-    if filters["datastrip"][0] == "":
+    # Default query parameters (now - 6 hours, now - 3 hours, S2_)
+    if not("datastrip" in filters) or ("datastrip" in filters and filters["datastrip"][0] == ""):
         kwargs["generation_start_filter"] = {
-            "date": (datetime.datetime.now()).isoformat(),
+            "date": (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(),
             "op": "<="
         }
         kwargs["generation_stop_filter"] = {
-            "date": (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(),
+            "date": (datetime.datetime.now() - datetime.timedelta(hours=6)).isoformat(),
             "op": ">="
         }
     # end if
     mission = "S2_"
     
-    filters["limit"] = ["10"]
     window_size = 0.125
     if request.method == "POST":
 
@@ -202,7 +202,7 @@ def query_detailed_processing_timeliness_and_render(kwargs = None, filters = Non
         limit = filters["limit"][0]
     # end if
 
-    if "sensing_start_filter" in kwargs or "sensing_stop_filter" in kwargs or "datastrips" in kwargs:
+    if "sensing_start_filter" in kwargs or "sensing_stop_filter" in kwargs or ("datastrips" in kwargs and not "generation_start_filter" in kwargs):
         #############################
         # Query processing validity #
         #############################
@@ -228,8 +228,6 @@ def query_detailed_processing_timeliness_and_render(kwargs = None, filters = Non
         query_kwargs["limit"] = limit
         query_kwargs["offset"] = offset
 
-        current_app.logger.debug(query_kwargs)
-
         processing_validity_events = query.get_events(**query_kwargs)
         datastrips = [event.explicitRef for event in processing_validity_events]
         timeliness_events = query.get_events(gauge_names = {"filter": "TIMELINESS", "op": "=="},
@@ -252,6 +250,7 @@ def query_detailed_processing_timeliness_and_render(kwargs = None, filters = Non
         # end if
 
         query_kwargs["gauge_names"] = {"filter": "TIMELINESS", "op": "=="}
+        query_kwargs["gauge_systems"] = {"filter": "", "op": "!="}
         query_kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                     "type": "text",
                                     "value": {"op": "like", "filter": kwargs["mission"]}
@@ -259,8 +258,6 @@ def query_detailed_processing_timeliness_and_render(kwargs = None, filters = Non
 
         query_kwargs["limit"] = limit
         query_kwargs["offset"] = offset
-
-        current_app.logger.debug(query_kwargs)
 
         timeliness_events = query.get_events(**query_kwargs)
         datastrips = [event.explicitRef for event in timeliness_events]
@@ -290,11 +287,11 @@ def query_detailed_processing_timeliness_and_render(kwargs = None, filters = Non
             }
         else:
             start_filter = {
-                "date": (datetime.datetime.now()).isoformat(),
+                "date": (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(),
                 "op": "<="
             }
             stop_filter = {
-                "date": (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(),
+                "date": (datetime.datetime.now() - datetime.timedelta(hours=6)).isoformat(),
                 "op": ">="
             }
     # end if

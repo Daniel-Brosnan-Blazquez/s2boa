@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Earth_Explorer_File xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="/DATA_STRUCTURE/DC_OperationReport.xsd">
+    <Earth_Explorer_Header>
+        <Fixed_Header>
+            <File_Name>S2__OPER_REP_OPDC___VPMC_20201210T113103_V20201210T103101_20201210T110101.EOF</File_Name>
+            <File_Description/>
+            <Notes/>
+            <Mission>Sentinel-2</Mission>
+            <File_Class>OPERation Activities</File_Class>
+            <File_Type>REP_OPDC__</File_Type>
+            <Validity_Period>
+               <Validity_Start>UTC=2020-12-10T10:31:01</Validity_Start>
+               <Validity_Stop>UTC=2020-12-10T11:01:01</Validity_Stop>
+            </Validity_Period>
+            <File_Version>0001</File_Version>
+            <Source>
+               <System>VPMC</System>
+               <Creator>DC__</Creator>
+               <Creator_Version>1.4.0</Creator_Version>
+               <Creation_Date>UTC=2020-12-10T11:31:03</Creation_Date>
+            </Source>
+         </Fixed_Header>
+        <Variable_Header/>
+    </Earth_Explorer_Header>
+    <Data_Block>
+        <List_of_CirculatedItems>
+            <CirculatedItem>
+                <Centre>VPMC</Centre>
+                <ProductId>S2A_OPER_PRD_HKTM___20201210T104201_20201210T104243_0001.tar</ProductId>
+                <OrderId>2671899</OrderId>
+                <Result>Success</Result>
+                <TransferMechanism>DC</TransferMechanism>
+                <DeliveryTime>2020-12-10T10:47:55Z</DeliveryTime>
+                <DeliveryType>SFTP</DeliveryType>
+                <DestinationLocation>sftp://s2apdgs@senxser.esoc.ops.esa.int/home/s2apdgs/fromPDGS/S2A_OPER_PRD_HKTM___20201210T104201_20201210T104243_0001.tar</DestinationLocation>
+                <ProductSize>39833600</ProductSize>
+            </CirculatedItem>
+            <CirculatedItem>
+                <Centre>VPMC</Centre>
+                <ProductId>S2B_OPER_AUX_SADATA_EPAE_20201210T104402_V20201210T072950_20201210T091030_A019652_WF_LN.tar</ProductId>
+                <OrderId>2672137</OrderId>
+                <Result>Success</Result>
+                <TransferMechanism>DC</TransferMechanism>
+                <DeliveryTime>2020-12-10T10:53:21Z</DeliveryTime>
+                <DeliveryType>FS</DeliveryType>
+                <DestinationLocation>/s2/mcc-storage/DC_BASKET/LPOD_IN_BASKET/S2B_OPER_AUX_SADATA_EPAE_20201210T104402_V20201210T072950_20201210T091030_A019652_WF_LN.tar</DestinationLocation>
+                <ProductSize>29996032</ProductSize>
+            </CirculatedItem>
+        </List_of_CirculatedItems>
+        <List_Of_MRFs>
+        </List_Of_MRFs>
+    </Data_Block>
+</Earth_Explorer_File>
