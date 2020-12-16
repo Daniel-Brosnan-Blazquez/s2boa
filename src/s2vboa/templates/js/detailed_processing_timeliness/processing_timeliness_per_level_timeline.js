@@ -34,10 +34,10 @@ var processing_timeliness_per_level_timeline = [
         "tooltip": "<table border='1'>" +
             "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-er/{{ timeliness.explicitRef.explicit_ref_uuid }}'>{{ timeliness.explicitRef.explicit_ref }}</a></td></tr>" +
             "<tr><td>Sensing start</td><td>{{ processing_validity.start.isoformat() }}</td></tr>" +
-            "<tr><td>Sensing start</td><td>{{ processing_validity.stop.isoformat() }}</td></tr>" +
+            "<tr><td>Sensing stop</td><td>{{ processing_validity.stop.isoformat() }}</td></tr>" +
             "<tr><td>Sensing duration (m)</td><td>{{ ((processing_validity.get_duration()) / 60)|round(3) }}</td></tr>" +
             "<tr><td>Processing start</td><td>{{ timeliness.start.isoformat() }}</td></tr>" +
-            "<tr><td>Processing start</td><td>{{ timeliness.stop.isoformat() }}</td></tr>" +
+            "<tr><td>Processing stop</td><td>{{ timeliness.stop.isoformat() }}</td></tr>" +
             "<tr><td>Processing duration (m)</td><td>{{ ((timeliness.get_duration()) / 60)|round(3) }}</td></tr>" +
             "<tr><td>Datatake</td><td>{{ datatake }}</td></tr>" +
             "</table>",
