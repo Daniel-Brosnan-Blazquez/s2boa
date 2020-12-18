@@ -35,7 +35,7 @@
         "step_Archive_L1B_Request": {"workflow": "L1AB Workflow", "macro_step": "L1A/B image compression and PDI generation"},
         "step_Workflow_Cancel": {"workflow": "L1AB Workflow", "macro_step": "L1A/B image compression and PDI generation"},
         "step_Get_List_Tile": {"workflow": "L1AB Workflow", "macro_step": "L1C Request"},
-        "step_Get_List_Tile_Request_L1C": {"workflow": "L1AB Workflow", "macro_step": "L1C Request"}
+        "step_Get_List_Tile_Request_L1C": {"workflow": "L1AB Workflow", "macro_step": "L1C Initialization"}
     },
     "MSI_L1C_DS": {
         "Init_Workflow": {"workflow": "L1C Workflow", "macro_step": "L1C Initialization"},
@@ -51,7 +51,7 @@
         "Archive_TILE": {"workflow": "L1C Workflow", "macro_step": "L1C processing and PDI generation"},
         "Archive_TCI": {"workflow": "L1C Workflow", "macro_step": "L1C processing and PDI generation"},
         "Workflow_Cancel": {"workflow": "L1C Workflow", "macro_step": "L1C processing and PDI generation"},
-        "Request_L2A": {"workflow": "L1C Workflow", "macro_step": "L2A Request"},
+        "Request_L2A": {"workflow": "L1C Workflow", "macro_step": "L2A Initialization"},
     },
     "MSI_L2A_DS": {
         "Init_Workflow": {"workflow": "L2A Workflow", "macro_step": "L2A Initialization"},
@@ -154,7 +154,7 @@ var processing_timeliness_per_macro_step_timeline = [
     {
         "id": "{{ macro_step }} / {{ macro_steps_segments[datastrip]['id'] }}",
         "group": "",
-        "timeline": "",
+        "timeline": "DS_{{ macro_steps_segments[datastrip]['sensing_identifier'] }}",
         "content": "{{ macro_step }} / {{ macro_steps_segments[datastrip]['sensing_identifier'] }}",
         "start": "{{ start.isoformat() }}",
         "stop": "{{ stop.isoformat() }}",
@@ -177,59 +177,3 @@ var processing_timeliness_per_macro_step_timeline = [
     {% endfor %}
     {% endfor %}
 ]
-
-{% for sensing_identifier, timeliness_group in events["timeliness"]|sort(attribute="explicitRef.explicit_ref")|group_by_substring("explicitRef.explicit_ref", "41", "57") %}    
-{% for timeliness in timeliness_group %}
-{% set processing_validity = events["processing_validity"]|selectattr("explicitRef.explicit_ref", "in", timeliness.explicitRef.explicit_ref)|first %}
-
-{% set datatake_annotations = timeliness.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "DATATAKE")|list %}
-{% if datatake_annotations|length > 0 %}
-{% set datatake = datatake_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "datatake_identifier")|map(attribute="value")|first %}
-{% else %}
-{% set datatake = "N/A" %}
-{% endif %}
-
-{% set level = timeliness.explicitRef.explicit_ref[9:19] %}
-
-{% set step_info_group = events["step_info"]|selectattr("explicitRef.explicit_ref", "in", timeliness.explicitRef.explicit_ref) %}
-
-{% for step_info in step_info_group %}
-
-{% set step_identifier = step_info.eventTexts|selectattr("name", "equalto", "id")|map(attribute="value")|first %}
-
-{% if level == "MSI_L1A_DS" %}
-{% set class_name = "background-light-yellow" %}
-{% elif level == "MSI_L1B_DS" %}
-{% set class_name = "background-light-blue" %}
-{% elif level == "MSI_L1C_DS" %}
-{% set class_name = "background-light-green" %}
-{% elif level == "MSI_L2A_DS" %}
-{% set class_name = "background-light-brown" %}
-{% else %}
-/* MSI_LO__DS */
-{% set class_name = "background-light-pink" %}
-{% endif %}
-    
-{% set micro_step_group_list = ["N/A"] %}
-{% for micro_step_group_definition in macro_micro_step_relation[level].keys() %}
-{% if step_identifier.startswith(micro_step_group_definition) %}
-{% do micro_step_group_list.pop() %}
-{% do micro_step_group_list.append(micro_step_group_definition) %}
-{% endif %}
-{% endfor %}
-
-{% set micro_step_group = micro_step_group_list[0] %}
-{% if micro_step_group == "N/A" %}
-{% set macro_step = "N/A" %}
-{% else %}
-{% set macro_step = macro_micro_step_relation[level][micro_step_group]["macro_step"] %}
-{% endif %}
-console.log("LEVEL: {{ level }}, MICRO STEP: {{ step_identifier }}, MICRO STEP GROUP: {{ micro_step_group }}, MACRO STEP: {{ macro_step }}")
-{% if not step_identifier.startswith(macro_micro_step_relation[level].keys()|convert_to_tuple) %}
-console.log("MISSING STEP: {{ step_identifier }}, level: {{ level }}")
-{% set class_name = "background-red" %}
-{% endif %}
-
-{% endfor %}
-{% endfor %}
-{% endfor %}
