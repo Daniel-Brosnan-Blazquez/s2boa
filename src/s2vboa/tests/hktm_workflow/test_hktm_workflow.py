@@ -608,7 +608,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "id": str(hktm_production_vgs[0].event_uuid),
                 "group": "S2A",
                 "x": "2020-01-29T02:57:51.366847",
-                "y": "38338560.0",
+                "y": "31.494",
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +

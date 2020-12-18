@@ -34,7 +34,7 @@ var hktm_circulation_events = [
         "id": "{{ hktm_production_event.event_uuid }}",
         "group": "{{ satellite }}",
         "x": "{{ orbpre_event.start.isoformat() }}",
-        "y": "{{ product_size_to_fos }}",
+        "y": "{{ delta_to_fos }}",
         "tooltip": "<table border='1'>" +
             "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a></td></tr>" +
             "<tr><td>Satellite</td><td>{{ satellite }}</td></tr>" +
