@@ -12,14 +12,25 @@
 
   {% include "js/dhus_completeness/missing_segments_to_map.js" %}
   var polygons_missing = [];
-  vboa.prepare_events_geometries_for_map(missing_segments, polygons_missing);
+  {% if level == "L1C" %}
+  var missing_segments_l1c = missing_segments;
+  vboa.prepare_events_geometries_for_map(missing_segments_l1c, polygons_missing);
+  {% else %}
+  var missing_segments_l2a = missing_segments;
+  vboa.prepare_events_geometries_for_map(missing_segments_l2a, polygons_missing);
+  {% endif %}
 
   {% include "js/dhus_completeness/complete_segments_to_map.js" %}
   var polygons_complete = [];
-  vboa.prepare_events_geometries_for_map(complete_segments, polygons_missing);
+  {% if level == "L1C" %}
+  var complete_segments_l1c = complete_segments;
+  vboa.prepare_events_geometries_for_map(complete_segments_l1c, polygons_missing);
+  {% else %}
+  var complete_segments_l2a = complete_segments;
+  vboa.prepare_events_geometries_for_map(complete_segments_l2a, polygons_missing);
+  {% endif %}
 
   var polygons = polygons_missing.concat(polygons_complete);
-
   {% if level == "L1C" %}
   vboa.display_map("dhus-completeness-l1c-on-map", polygons);
   {% else %}
@@ -27,27 +38,26 @@
   {% endif %}
 
   {% include "js/dhus_completeness/published_tiles_in_dhus_e2e_timeliness.js" %}
-
   var groups = [];
   var items = [];
-
-  vboa.prepare_events_data_for_bar(e2e_timeliness_tiles_published_in_dhus, items, groups);
+  {% if level == "L1C" %}
+  var e2e_timeliness_tiles_published_in_dhus_l1c = e2e_timeliness_tiles_published_in_dhus;
+  vboa.prepare_events_data_for_bar(e2e_timeliness_tiles_published_in_dhus_l1c, items, groups);
+  {% else %}
+  var e2e_timeliness_tiles_published_in_dhus_l2a = e2e_timeliness_tiles_published_in_dhus;
+  vboa.prepare_events_data_for_bar(e2e_timeliness_tiles_published_in_dhus_l2a, items, groups);
+  {% endif %}
 
   var options = {
-  legend: true,
-  style: "bar",
-  barChart: {width:50, align:'center', sideBySide:true},
-  height: 350,
-  dataAxis: {
-  left: {
-  range: {
-  min: 0
-  },
-  title: {
-  text: "Sensing stop - publication in DHUS",
-  }
-  }
-  }
+      legend: true,
+      style: "bar",
+      barChart: {width:50, align:'center', sideBySide:true},
+      height: 350,
+      dataAxis: {left: {
+                  range: {min: 0},
+                  title: {text: "Sensing stop - publication in DHUS",}
+                }
+      }
   };
   
   {% if level == "L1C" %}
