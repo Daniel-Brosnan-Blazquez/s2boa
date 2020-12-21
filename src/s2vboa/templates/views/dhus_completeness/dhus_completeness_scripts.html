@@ -1,5 +1,6 @@
 <script type="text/javascript">
 
+  {% if info["imaging_correction"]|length > 0 %}
   {% include "js/dhus_completeness/dhus_completeness_functions.js" %}
   
   {% set parsed_levels = [["L1C", "L2A"]] %}
@@ -77,5 +78,6 @@
   }
   var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
   vboa.update_view(parameters, repeat_cycle, "/views/sliding-dhus-completeness-parameters");
+  {% endif %}
   {% endif %}
 </script>
