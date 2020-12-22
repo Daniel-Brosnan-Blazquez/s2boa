@@ -7,7 +7,7 @@
 # module boa
 #################################################################
 
-USAGE="Usage: `basename $0` -e path_to_eboa_src -v path_to_vboa_src -d path_to_dockerfile -p path_to_dockerfile_pkg -o path_to_orc_packets -f path_to_eopcfi -u uid_host_user_to_map [-t path_to_tailored] [-a app] [-c boa_tailoring_configuration_path] [-x orc_configuration_path] [-l version]"
+USAGE="Usage: `basename $0` -e path_to_eboa_src -v path_to_vboa_src -d path_to_dockerfile -p path_to_dockerfile_pkg -o path_to_orc_packets -f path_to_eopcfi -u uid_host_user_to_map [-t path_to_tailored] [-a app] [-c boa_tailoring_configuration_path] [-l version]"
 
 ########
 # Initialization
@@ -21,7 +21,7 @@ PATH_TO_ORC=""
 VERSION="0.1.0"
 UID_HOST_USER_TO_MAP=""
 
-while getopts e:v:d:p:t:a:o:c:x:p:l:f:u: option
+while getopts e:v:d:t:a:o:c:p:l:f:u: option
 do
     case "${option}"
         in
@@ -33,7 +33,6 @@ do
         a) APP=${OPTARG}; APP_CALL="-a ${OPTARG}";;
         o) PATH_TO_ORC=${OPTARG}; PATH_TO_ORC_CALL="-o ${OPTARG}";;
         c) PATH_TO_BOA_TAILORING_CONFIGURATION=${OPTARG}; PATH_TO_BOA_TAILORING_CONFIGURATION_CALL="-c ${OPTARG}";;
-        x) PATH_TO_ORC_CONFIGURATION=${OPTARG}; PATH_TO_ORC_CONFIGURATION_CALL="-x ${OPTARG}";;
         u) UID_HOST_USER_TO_MAP=${OPTARG}; UID_HOST_USER_TO_MAP_CALL="-u ${OPTARG}";;        
         l) VERSION=${OPTARG}; VERSION_CALL="-l ${OPTARG}";;
         f) PATH_TO_EOPCFI=${OPTARG};;
@@ -83,7 +82,7 @@ done
 APP_CONTAINER="boa_app"
 
 # Generate docker image
-$PATH_TO_VBOA/generate_docker_image.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_TAILORED_CALL $PATH_TO_DOCKERFILE_CALL $PATH_TO_DOCKERFILE_PKG_CALL $APP_CALL $PATH_TO_ORC_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $PATH_TO_ORC_CONFIGURATION_CALL $UID_HOST_USER_TO_MAP_CALL $VERSION_CALL
+$PATH_TO_VBOA/generate_docker_image.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_TAILORED_CALL $PATH_TO_DOCKERFILE_CALL $PATH_TO_DOCKERFILE_PKG_CALL $APP_CALL $PATH_TO_ORC_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $UID_HOST_USER_TO_MAP_CALL $VERSION_CALL
 
 # Include the EOP CFI
 # Compile source

@@ -1137,3 +1137,46 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
                                                    Source.validity_stop == "2020-06-16T10:56:21").all()
 
         assert len(source) == 1
+
+    #Issues to be fixed in the ingestion
+    def test_insert_rep_pass_planning_with_2_playbacks_same_orbit(self):
+
+        filename = "S2A_OPER_MPL__NPPF_2_playbacks_same_orbit.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_OPER_MPL_ORBPRE_2_playbacks_same_orbit.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_OPER_MPL_SPSGS__PDMC_2_playbacks_same_orbit.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2A_OPER_REP_PASS_E_VGS2_2_playbacks_same_orbit.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check PLAYBACK_VALIDITY events
+        playback_validity_20_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_20")).all()
+
+        assert len(playback_validity_20_events) == 1
+
+        # Check link with planned playbacks
+        planned_playback_events = self.query_eboa.get_linking_events(event_uuids = {"filter": str(playback_validity_20_events[0].event_uuid), "op": "=="}, link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
+
+        assert len(planned_playback_events["linking_events"]) == 2
+
+        

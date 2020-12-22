@@ -323,3 +323,96 @@ class TestDc(unittest.TestCase):
             }
         ]
         
+    def test_rep_dc_vpmc(self):
+
+        filename = "S2__OPER_REP_OPDC___VPMC_20201210T113103_V20201210T103101_20201210T110101.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dc.ingestion_dc", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 2
+
+        events = self.query_eboa.get_events()
+
+        assert len(events) == 1
+
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-12-10T10:31:01", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-12-10T11:01:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-12-10T10:42:01", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2020-12-10T10:42:43", "op": "=="}],
+                                              generation_time_filters = [{"date": "2020-12-10T11:31:03", "op": "=="}],
+                                             processors = {"filter": "ingestion_dc.py", "op": "=="},
+                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
+                                             names = {"filter": "S2__OPER_REP_OPDC___VPMC_20201210T113103_V20201210T103101_20201210T110101.EOF", "op": "=="})
+
+        assert len(sources) == 1
+
+        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-12-10T10:31:01", "op": "=="}],
+                                             reported_validity_stop_filters = [{"date": "2020-12-10T11:01:01", "op": "=="}],
+                                              validity_start_filters = [{"date": "2020-12-10T10:31:01", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2020-12-10T11:01:01", "op": "=="}],
+                                              generation_time_filters = [{"date": "2020-12-10T11:31:03", "op": "=="}],
+                                             processors = {"filter": "ingestion_dc.py", "op": "=="},
+                                              dim_signatures = {"filter": "CIRCULATION", "op": "=="},
+                                             names = {"filter": "S2__OPER_REP_OPDC___VPMC_20201210T113103_V20201210T103101_20201210T110101.EOF", "op": "=="})
+
+        assert len(sources) == 1
+        
+        # Check production playback validity
+        production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20201210T104201_20201210T104243_0001", "op": "like"},
+                                                                    gauge_names = {"filter": "HKTM_PRODUCTION_PLAYBACK_VALIDITY", "op": "like"},
+                                                                    sources = {"filter": "S2__OPER_REP_OPDC___VPMC_20201210T113103_V20201210T103101_20201210T110101.EOF", "op": "=="},
+                                                                    start_filters = [{"date": "2020-12-10T10:42:01", "op": "=="}],
+                                                                    stop_filters = [{"date": "2020-12-10T10:42:43", "op": "=="}])
+
+        assert len(production_playback_validities) == 1
+        production_playback_validity = production_playback_validities[0]
+
+        assert production_playback_validity.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            }
+        ]
+
+        # Check number of annotations
+        circulation_times = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CIRCULATION_TIME"})
+
+        assert len(circulation_times) == 2
+
+        # Check circulation time
+        hktm_circulation_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "CIRCULATION_TIME"},
+                                                         explicit_refs = {"op": "like", "filter": "S2A_OPER_PRD_HKTM___20201210T104201_20201210T104243_0001"})
+
+        assert hktm_circulation_time[0].get_structured_values() == [
+            {
+                "name": "circulation_time",
+                "type": "timestamp",
+                "value": "2020-12-10T10:47:55"
+            },
+            {
+                "name": "source",
+                "type": "text",
+                "value": "PDMC"
+            },
+            {
+                "name": "destination",
+                "type": "text",
+                "value": "FOS_"
+            },
+            {
+                "name": "destination_location",
+                "type": "text",
+                "value": "sftp://s2apdgs@senxser.esoc.ops.esa.int/home/s2apdgs/fromPDGS/S2A_OPER_PRD_HKTM___20201210T104201_20201210T104243_0001.tar"
+            },
+            {
+                "name": "product_size",
+                "type": "double",
+                "value": "39833600.0"
+            }
+        ]

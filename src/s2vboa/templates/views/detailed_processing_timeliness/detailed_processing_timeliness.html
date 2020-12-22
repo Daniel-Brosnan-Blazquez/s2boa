@@ -1,7 +1,7 @@
 {% extends "panel/index.html" %}
 {% block content %}
 <div class="row">
-  <h1 class="page-header">Detailed processing view</h1>
+  <h1 class="page-header">Detailed processing timeliness view</h1>
 </div>
 <!-- /.row -->
 <div class="row">
@@ -130,6 +130,7 @@
 </div>
 {% include "views/common/header.html" %}
 
+{% if events["processing_validity"]|length > 0 %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -167,11 +168,11 @@
           {% endif %}
           <tr>
             <td><a href="/eboa_nav/query-er/{{ processing_validity.explicitRef.explicit_ref_uuid }}">{{ processing_validity.explicitRef.explicit_ref }}</a></td>
-            <td>{{ processing_validity.start }}</td>
-            <td>{{ processing_validity.stop }}</td>
+            <td>{{ processing_validity.start.isoformat() }}</td>
+            <td>{{ processing_validity.stop.isoformat() }}</td>
             <td>{{ ((processing_validity.get_duration()) / 60)|round(3) }}</td>
-            <td>{{ timeliness.start }}</td>
-            <td>{{ timeliness.stop }}</td>
+            <td>{{ timeliness.start.isoformat() }}</td>
+            <td>{{ timeliness.stop.isoformat() }}</td>
             <td>{{ ((timeliness.get_duration()) / 60)|round(3) }}</td>
             <td>{{ datatake }}</td>
           </tr>
@@ -221,7 +222,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for sensing_identifier, processing_validity_group in events["processing_validity"]|sort(attribute="start")|group_by_substring("explicitRef.explicit_ref", "41", "57") %}
+          {% for sensing_identifier, processing_validity_group in events["processing_validity"]|sort(attribute="start")|group_by_substring("explicitRef.explicit_ref", "41", "57", False) %}
           {% set timeliness_group = events["timeliness"]|selectattr("explicitRef.explicit_ref", "in", processing_validity_group|map(attribute="explicitRef.explicit_ref")|list)|sort(attribute="start") %}
           {% set datatake_annotations = processing_validity_group|map(attribute="explicitRef.annotations")|flatten|selectattr("annotationCnf.name", "equalto", "DATATAKE")|list %}
           {% if datatake_annotations|length > 0 %}
@@ -231,11 +232,11 @@
           {% endif %}
           <tr>
             <td>{{ sensing_identifier }}</td>
-            <td>{{ processing_validity_group[0].start }}</td>
-            <td>{{ processing_validity_group[-1].stop }}</td>
+            <td>{{ processing_validity_group[0].start.isoformat() }}</td>
+            <td>{{ processing_validity_group[-1].stop.isoformat() }}</td>
             <td>{{ ((processing_validity_group[-1].stop - processing_validity_group[0].start).total_seconds() / 60)|round(3) }}</td>
-            <td>{{ timeliness_group[0].start }}</td>
-            <td>{{ timeliness_group[-1].stop }}</td>
+            <td>{{ timeliness_group[0].start.isoformat() }}</td>
+            <td>{{ timeliness_group[-1].stop.isoformat() }}</td>
             <td>{{ ((timeliness_group[-1].stop - timeliness_group[0].start).total_seconds() / 60)|round(3) }}</td>
             <td>{{ datatakes|join(", ") }}</td>
           </tr>
@@ -261,10 +262,10 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-all-levels-timeline">Timeline with the processing timeliness for all levels <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-all-levels-timeline-legend">Timeline with the processing timeliness for all levels <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
-    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-all-levels-timeline">
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-all-levels-timeline-legend">
       <div>
         <p>
           <b>Legend</b>:
@@ -301,10 +302,50 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-step-info-timeline">Timeline with the processing timeliness for all levels <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-macro-steps-timeline-legend">Timeline with the processing timeliness for all levels per macro step <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
-    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-step-info-timeline">
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-macro-steps-timeline-legend">
+      <div>
+        <p>
+          <b>Legend</b>:
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightpink; stroke:lightblue"/>
+          </svg> MSI_L0__DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:gold; stroke:lightblue"/>
+          </svg> MSI_L1A__DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightblue; stroke:lightblue"/>
+          </svg> MSI_L1B_DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:lightgreen; stroke:lightblue"/>
+          </svg> MSI_L1C_DS
+          <br/>
+          <svg width="20" height="12">
+            <rect width="20" height="12" style="fill:burlywood; stroke:lightblue"/>
+          </svg> MSI_L2A_DS
+        </p>
+      </div>
+      <br/>
+      <div class="apply-timeliness-overflow" id="detailed-processing-timeliness-macro-steps-timeline">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness-step-info-timeline-legend">Timeline with the processing timeliness for all levels per micro step <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <div class="panel-body panel-collapse collapse in" id="detailed-processing-timeliness-step-info-timeline-legend">
       <div>
         <p>
           <b>Legend</b>:
@@ -337,10 +378,30 @@
   </div>
 </div>
 
+{% else %}
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#detailed-processing-timeliness--no-datastrips">Detailed processing timeliness <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+
+    <div id="detailed-processing-timeliness-no-datastrips">
+      <br/>
+      <p style="text-indent: 1em">There are no datastrips during the requested period.</p>
+      <br/>
+    </div>
+  </div>
+</div>
+
+{% endif %}
 {% endblock %}
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
+  {% if events["processing_validity"]|length > 0 %}
   {% include "js/detailed_processing_timeliness/processing_timeliness_per_level_timeline.js" %}
   var groups = [];
   var items = [];
@@ -357,12 +418,20 @@
       }
   }, 1000);
 
+  {% include "js/detailed_processing_timeliness/processing_timeliness_per_macro_step_timeline.js" %}
+  var groups = [];
+  var items = [];
+  
+  vboa.prepare_events_data_for_timeline(processing_timeliness_per_macro_step_timeline, items, groups);
+  vboa.display_timeline("detailed-processing-timeliness-macro-steps-timeline", items, groups);
+  
   {% include "js/detailed_processing_timeliness/processing_timeliness_per_step_timeline.js" %}
   var groups = [];
   var items = [];
 
   vboa.prepare_events_data_for_timeline(processing_timeliness_per_step_timeline, items, groups);
   vboa.display_timeline("detailed-processing-timeliness-step-info-timeline", items, groups);
+  {% endif %}
 
 </script>
 {% endblock %}

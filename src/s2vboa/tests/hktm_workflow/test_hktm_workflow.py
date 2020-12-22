@@ -64,7 +64,7 @@ class TestHktmWorkflowView(unittest.TestCase):
 
     def test_hktm_workflow_no_data(self):
 
-        wait = WebDriverWait(self.driver,5);
+        wait = WebDriverWait(self.driver,5)
 
         self.driver.get("http://localhost:5000/views/hktm-workflow")
 
@@ -91,6 +91,7 @@ class TestHktmWorkflowView(unittest.TestCase):
         
         
     def test_hktm_workflow_only_nppf_and_orbpre(self):
+        
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
@@ -150,31 +151,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24039"
 
-        anx_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+        station = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert anx_time.text == "2020-01-29T02:57:51.366847"
 
-        status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+        status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert status.text == "PENDING ACQUISITION"
 
-        completeness_status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+        completeness_status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert completeness_status.text == "N/A"
 
-        hktm_product = issues_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+        hktm_product = issues_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+        pdmc_fos_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = issues_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        time_fos = issues_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = issues_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        comments = issues_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
 
@@ -189,31 +194,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24040"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = issues_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
 
         assert anx_time.text == "2020-01-29T04:38:33.357330"
 
-        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert comments.text == ""
 
@@ -225,31 +234,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24039"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+        station = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert anx_time.text == "2020-01-29T02:57:51.366847"
 
-        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert status.text == "PENDING ACQUISITION"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert completeness_status.text == "N/A"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
         
@@ -321,31 +334,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24039"
 
-        anx_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+        station = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert anx_time.text == "2020-01-29T02:57:51.366847"
 
-        status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+        status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert status.text == "MISSING PRODUCTION"
 
-        completeness_status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+        completeness_status = issues_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert completeness_status.text == "OK"
 
-        hktm_product = issues_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+        hktm_product = issues_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+        pdmc_fos_time = issues_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = issues_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        time_fos = issues_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = issues_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        comments = issues_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
 
@@ -360,31 +377,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24040"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = issues_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
 
         assert anx_time.text == "2020-01-29T04:38:33.357330"
 
-        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert comments.text == ""
 
@@ -396,31 +417,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24039"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+        station = issues_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert anx_time.text == "2020-01-29T02:57:51.366847"
 
-        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert status.text == "MISSING PRODUCTION"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert completeness_status.text == "OK"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
         
@@ -502,31 +527,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24040"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
 
         assert anx_time.text == "2020-01-29T04:38:33.357330"
 
-        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert comments.text == ""
 
@@ -538,31 +567,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "24039"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
         assert anx_time.text == "2020-01-29T02:57:51.366847"
 
-        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
 
         assert status.text == "OK"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
 
         assert completeness_status.text == "OK"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
 
         assert hktm_product.text == "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
 
         assert pdmc_fos_time.text == "2020-01-29T03:29:21"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert time_fos.text == "31.494"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
 
@@ -575,11 +608,12 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "id": str(hktm_production_vgs[0].event_uuid),
                 "group": "S2A",
                 "x": "2020-01-29T02:57:51.366847",
-                "y": "38338560.0",
+                "y": "31.494",
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
                 "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
                 "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
                 "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
                 "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
@@ -602,6 +636,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
                 "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
                 "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
                 "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
                 "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
@@ -709,31 +744,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18858"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
 
         assert anx_time.text == "2020-10-15T18:54:40.931594"
 
-        status = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert comments.text == ""
 
@@ -746,31 +785,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18857"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[2]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[2]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[2]/td[4]")
 
         assert anx_time.text == "2020-10-15T17:13:58.892870"
 
-        status = general_table.find_element_by_xpath("tbody/tr[2]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[2]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[2]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[2]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[2]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[2]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[2]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert comments.text == ""
 
@@ -783,31 +826,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18856"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[3]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[3]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[3]/td[4]")
 
         assert anx_time.text == "2020-10-15T15:33:16.850267"
 
-        status = general_table.find_element_by_xpath("tbody/tr[3]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[3]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[3]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[3]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[3]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[3]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[3]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[3]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert comments.text == ""
 
@@ -820,31 +867,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18855"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[4]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[4]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[4]/td[4]")
 
         assert anx_time.text == "2020-10-15T13:52:34.882710"
 
-        status = general_table.find_element_by_xpath("tbody/tr[4]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[4]/td[5]")
 
         assert status.text == "PENDING ACQUISITION"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[4]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[4]/td[6]")
 
         assert completeness_status.text == "N/A"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[4]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[4]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[4]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert comments.text == ""
 
@@ -857,31 +908,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18854"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[5]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[5]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[5]/td[4]")
 
         assert anx_time.text == "2020-10-15T12:11:52.978670"
 
-        status = general_table.find_element_by_xpath("tbody/tr[5]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[5]/td[5]")
 
         assert status.text == "MISSING CIRCULATION TO FOS"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[5]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[5]/td[6]")
 
         assert completeness_status.text == "N/A"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[5]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[5]/td[7]")
 
         assert hktm_product.text == "S2B_OPER_PRD_HKTM___20201015T125434_20201015T125511_0001"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[5]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[5]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[5]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[5]/td[10]")
 
         assert comments.text == ""
 
@@ -894,31 +949,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18853"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[6]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[6]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[6]/td[4]")
 
         assert anx_time.text == "2020-10-15T10:31:11.089630"
 
-        status = general_table.find_element_by_xpath("tbody/tr[6]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[6]/td[5]")
 
         assert status.text == "PENDING ACQUISITION"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[6]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[6]/td[6]")
 
         assert completeness_status.text == "N/A"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[6]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[6]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[6]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[6]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[6]/td[10]")
 
         assert comments.text == ""
 
@@ -931,31 +990,35 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert orbit.text == "18852"
 
-        anx_time = general_table.find_element_by_xpath("tbody/tr[7]/td[3]")
+        station = general_table.find_element_by_xpath("tbody/tr[7]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[7]/td[4]")
 
         assert anx_time.text == "2020-10-15T08:50:29.168713"
 
-        status = general_table.find_element_by_xpath("tbody/tr[7]/td[4]")
+        status = general_table.find_element_by_xpath("tbody/tr[7]/td[5]")
 
         assert status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        completeness_status = general_table.find_element_by_xpath("tbody/tr[7]/td[5]")
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[7]/td[6]")
 
         assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
 
-        hktm_product = general_table.find_element_by_xpath("tbody/tr[7]/td[6]")
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[7]/td[7]")
 
         assert hktm_product.text == "N/A"
 
-        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[7]/td[7]")
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[7]/td[8]")
 
         assert pdmc_fos_time.text == "N/A"
 
-        time_fos = general_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+        time_fos = general_table.find_element_by_xpath("tbody/tr[7]/td[9]")
 
         assert time_fos.text == "N/A"
 
-        comments = general_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+        comments = general_table.find_element_by_xpath("tbody/tr[7]/td[10]")
 
         assert comments.text == ""
 

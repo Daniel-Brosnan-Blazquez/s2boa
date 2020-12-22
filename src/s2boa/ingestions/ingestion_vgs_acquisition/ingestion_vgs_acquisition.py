@@ -83,7 +83,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
 
     planned_playbacks = []
     if len (dfep_schedule_events) > 0:
-        planned_playback_uuids = [link.event_uuid_link for link in dfep_schedule_events[0].eventLinks if link.name == "PLANNED_PLAYBACK"]
+        planned_playback_uuids = [link.event_uuid_link for dfep_schedule_event in dfep_schedule_events for link in dfep_schedule_event.eventLinks if link.name == "PLANNED_PLAYBACK"]
 
         planned_playbacks_and_playback_completeness = query.get_linking_events(event_uuids = {"op": "in", "filter": planned_playback_uuids}, link_names = {"filter": "PLAYBACK_COMPLETENESS", "op": "=="})
         planned_playbacks = planned_playbacks_and_playback_completeness["prime_events"]
