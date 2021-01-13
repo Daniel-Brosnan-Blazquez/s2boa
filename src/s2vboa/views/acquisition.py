@@ -360,12 +360,19 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     # Get PLANNED_PLAYBACK events associated to the PLAYBACK_VALIDITY events with gaps at MSI
     events["planned_playbacks_gaps_msi"] = [event for event in events["playback"] if event.event_uuid in unique_planned_playback_with_msi_gaps_uuids]
 
-    ## Get RAW_ISP_VALIDITY events with packet status != OK associated to the PLAYBACK_VALIDITY events
     unique_playback_validity_ers = set([event.explicitRef.explicit_ref for event in events["playback_validity"]])
+    # Get RAW_ISP_VALIDITY events with packet status != OK associated to the PLAYBACK_VALIDITY events
     events["raw_isp_validity_events_with_packet_status_nok"] = query.get_events(explicit_refs = {"filter": list(unique_playback_validity_ers), "op": "in"},
                                                      value_filters = [{"name": {"op": "==", "filter": "packet_status"},
                                                                        "type": "text",
                                                                        "value": {"op": "!=", "filter": "OK"}
+                                                     }])
+
+    # Get RAW_ISP_VALIDITY events with packet status = OK associated to the PLAYBACK_VALIDITY events
+    events["raw_isp_validity_events_with_packet_status_ok"] = query.get_events(explicit_refs = {"filter": list(unique_playback_validity_ers), "op": "in"},
+                                                     value_filters = [{"name": {"op": "==", "filter": "packet_status"},
+                                                                       "type": "text",
+                                                                       "value": {"op": "==", "filter": "OK"}
                                                      }])
 
     return events

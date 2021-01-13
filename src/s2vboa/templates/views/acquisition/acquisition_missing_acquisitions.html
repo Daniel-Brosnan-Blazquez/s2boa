@@ -21,7 +21,8 @@
             <th>Playback Type</th>
             <th>Playback Status</th>
             <th>ISP completeness</th>
-            <th>Missing packets</th>            
+            <th>Missing packets</th>
+            <th>Link session</th>
             <th>Start</th>
             <th>Stop</th>
             <th>Duration (s)</th>
@@ -51,9 +52,11 @@
           {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|unique|list %}
           {% set playback_validity_explicit_refs = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|map(attribute='explicitRef')|map(attribute='explicit_ref')|unique|list %}
           {% set raw_isp_validities_with_packet_status_nok = acquisition_events["raw_isp_validity_events_with_packet_status_nok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
-          
+          {% set raw_isp_validities_with_packet_status_ok = acquisition_events["raw_isp_validity_events_with_packet_status_ok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
+          {% set missing_packets_missing_last_scene_half_swath = raw_isp_validities_with_packet_status_ok|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "num_packets")|sum(attribute='value') % 12960 %}
           {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|list %}
           {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|sort(attribute="start")|first %}
+          {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
           <!-- DFEP, station and SRA schedule -->
           {% set dfep_schedule_event = None %}
           {% set station_schedule_event = None %}
@@ -70,11 +73,12 @@
           <!-- Station schedule -->
           {% if station_schedule_uuid %}
           {% set station_schedule_event = acquisition_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
+          {% set link_session = satellite + "_" + station_schedule_event.start.isoformat() %}
           {% elif sra_schedule_uuid %}
           {% set station_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "equalto", sra_schedule_uuid)|first %}
+          {% set link_session = station_schedule_event.explicitRef.explicit_ref %}
           {% endif %}
           {% set type = original_playback.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
-          {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
           {% set orbit = original_playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
           {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
           {% set parameters_object = original_playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
@@ -113,7 +117,7 @@
           {% set dfep_schedule_status_class = "bold-green" %}
           {% endif %}
           <!--Values-->
-          {% if playback_status != "RECEIVED" or playback_with_gaps_msi|length > 0 %}
+          {% if playback_status != "RECEIVED" or playback_with_gaps_msi|length > 0 or (missing_packets_missing_last_scene_half_swath != 0 and type in ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
           <tr>
             <td>{{ satellite }}</td>
             <td>{{ orbit }}</td>
@@ -129,15 +133,24 @@
             {% elif playback_with_gaps_msi|length > 0 %}
             <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-orange">INCOMPLETE</a></td>
             {% else %}
-            <td class="bold-green">OK</td>
+            <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-green">OK</a></td>
             {% endif %}
             {% if type not in ["NOMINAL", "REGULAR", "RT", "NRT"] or playback_status == "MISSING" %}
             <td>N/A</td>            
             {% elif raw_isp_validities_with_packet_status_nok|length > 0 %}
             {% set missing_packets = raw_isp_validities_with_packet_status_nok|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "diff_expected_received")|sum(attribute='value') %}
             <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-red">{{ missing_packets }}</a></td>
+            {% elif missing_packets_missing_last_scene_half_swath != 0 %}
+            <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-red">{{ missing_packets_missing_last_scene_half_swath }} (MMFU half swath anomaly)</a></td>
             {% else %}
             <td class="bold-green">0</td>
+            {% endif %}
+            {% if playback_validity_explicit_refs|length > 0 %}
+            <td>{{ playback_validity_explicit_refs|first }}</td>
+            {% elif station_schedule_event %}
+            <td>{{ link_session }}</td>
+            {% else %}
+            <td>N/A</td>
             {% endif %}
             <td>{{ event.start.isoformat() }}</td>
             <td>{{ event.stop.isoformat() }}</td>
@@ -184,7 +197,8 @@
             <th>Playback Type</th>
             <th>Playback Status</th>
             <th>ISP completeness</th>
-            <th>Missing packets</th>            
+            <th>Missing packets</th>
+            <th>Link session</th>
             <th>Start</th>
             <th>Stop</th>
             <th>Duration (s)</th>
