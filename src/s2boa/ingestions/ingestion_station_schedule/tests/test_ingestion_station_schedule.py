@@ -65,7 +65,7 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T10:24:30.609", "op": "=="}],
                                               validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-20T09:00:05", "op": "=="}],
                                                       dim_signatures = {"filter": "STATION_SCHEDULE_MPS__S2A", "op": "=="},
@@ -76,7 +76,7 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T10:24:30.609", "op": "=="}],
                                               validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-20T09:00:05", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
@@ -209,7 +209,7 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T10:24:30.609", "op": "=="}],
                                               validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-20T09:00:05", "op": "=="}],
                                                       dim_signatures = {"filter": "STATION_SCHEDULE_MPS__S2A", "op": "=="},
@@ -220,7 +220,7 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T10:24:30.609", "op": "=="}],
                                               validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-20T09:00:05", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
