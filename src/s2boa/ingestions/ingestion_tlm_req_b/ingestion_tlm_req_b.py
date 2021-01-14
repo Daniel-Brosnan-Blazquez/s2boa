@@ -50,20 +50,20 @@ def define_telemetry_values(satellite, value):
     return telemetry_values
 
 # Memory occupation events
-def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_name): 
+@debug
+def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_name):
+
+    telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name=$parameter_name]", parameter_name = parameter_name)
     if parameter_name == 'MST00058':
-        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00058']")
         gauge_name = "NOMINAL_MEMORY_OCCUPATION"
     # end if
     if parameter_name == 'MST00059':
-        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00059']")
         gauge_name = "NRT_MEMORY_OCCUPATION"
     # end if
     if parameter_name == 'MST00192':
-        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00192']")
         gauge_name = "LAST_REPLAYED_SCENE"
     # end if
-         
+
     first_time = True
     for telemetry_value in telemetry_values_list:
         if first_time:
@@ -104,6 +104,7 @@ def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_nam
     list_of_events.append(memory_occupation_event)
 
 # Discrepancy events
+@debug
 def discrepancy_events(xpath_xml, list_of_events, satellite, parameter_name_1, parameter_name_2):
     if parameter_name_2 == 'MST00202':
         gauge_name = "DISCREPANCY_CHANNEL_2_NOMINAL_MEMORY_OCCUPATION"
@@ -120,19 +121,20 @@ def discrepancy_events(xpath_xml, list_of_events, satellite, parameter_name_1, p
         telemetry_values_channel_2 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00205']")
         telemetry_values_channel_1 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00192']")
     # end if
-    
-    i = 0
-    for telemetry_value in telemetry_values_channel_2: 
-        time_start_channel_2 = telemetry_value.xpath("TimeStampAsciiA")[0].text
-        time_start_channel_2 = datetime.datetime.strptime(time_start_channel_2, '%Y-%m-%dT%H:%M:%S.%f')
-        time_start_channel_1 = telemetry_values_channel_1[i].xpath("TimeStampAsciiA")[0].text
-        time_start_channel_1 = datetime.datetime.strptime(time_start_channel_1, '%Y-%m-%dT%H:%M:%S.%f')
-        diff_time = time_start_channel_2 - time_start_channel_1
-        if diff_time.total_seconds() < 6.0:
-            if int(telemetry_value.xpath("EngineeringValue")[0].text) != int(telemetry_values_channel_1[i].xpath("EngineeringValue")[0].text):
+
+    telemetry_hash_channel_1 = {}
+    for telemetry_value in telemetry_values_channel_1:
+        telemetry_hash_channel_1[telemetry_value.xpath("TimeStampAsciiA")[0].text.split(".")[0]] = telemetry_value.xpath("EngineeringValue")[0].text
+    # end for
+
+    for telemetry_value in telemetry_values_channel_2:
+        time_start_channel_2 = telemetry_value.xpath("TimeStampAsciiA")[0].text.split(".")[0]
+        try:
+            engineering_value_channel_1 = telemetry_hash_channel_1[time_start_channel_2]
+            if telemetry_value.xpath("EngineeringValue")[0].text != engineering_value_channel_1:
                 event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
                 event_stop = telemetry_value.xpath("TimeStampAsciiA")[0].text
-                discrepancy_value = int(telemetry_values_channel_1[i].xpath("EngineeringValue")[0].text) - int(telemetry_value.xpath("EngineeringValue")[0].text)
+                discrepancy_value = int(engineering_value_channel_1) - int(telemetry_value.xpath("EngineeringValue")[0].text)
                 telemetry_values = define_telemetry_values(satellite, discrepancy_value)
                 discrepancy_event = {
                     "gauge": {
@@ -146,11 +148,13 @@ def discrepancy_events(xpath_xml, list_of_events, satellite, parameter_name_1, p
                 }
                 list_of_events.append(discrepancy_event)
             # end if
-        # end if
-        i = i+1
+        except:
+            pass
+        # end try
     # end for
 
 # Memory gap events
+@debug
 def gap_events(xpath_xml, list_of_events, satellite, parameter_name): 
     if parameter_name == 'MST00058':
         gauge_name = "NOMINAL_MEMORY_OCCUPATION_CHANNEL_1_GAP"
@@ -209,7 +213,7 @@ def gap_events(xpath_xml, list_of_events, satellite, parameter_name):
         previous_time = current_time
     # end loop
 
-
+@debug
 def process_file(file_path, engine, query, reception_time):
     """Function to process the file and insert its relevant information
     into the DDBB of the eboa
