@@ -14,6 +14,7 @@ import json
 
 import tempfile
 
+
 # Import xml parser
 from lxml import etree
 
@@ -50,43 +51,43 @@ def define_telemetry_values(satellite, value):
 
 # Memory occupation events
 def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_name): 
-    telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement")
     if parameter_name == 'MST00058':
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00058']")
         gauge_name = "NOMINAL_MEMORY_OCCUPATION"
     # end if
     if parameter_name == 'MST00059':
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00059']")
         gauge_name = "NRT_MEMORY_OCCUPATION"
     # end if
     if parameter_name == 'MST00192':
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00192']")
         gauge_name = "LAST_REPLAYED_SCENE"
     # end if
          
     first_time = True
     for telemetry_value in telemetry_values_list:
-        if telemetry_value.xpath("Name")[0].text == parameter_name:
-            if first_time:
-                engineering_value = telemetry_value.xpath("EngineeringValue")[0].text
-                event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
-                telemetry_values = define_telemetry_values(satellite, engineering_value)
-                first_time = False
-            # end if
-            if int(telemetry_value.xpath("EngineeringValue")[0].text) != int(engineering_value):
-                event_stop = telemetry_value.xpath("TimeStampAsciiA")[0].text
-                memory_occupation_event = {
-                "gauge": {
-                    "name": gauge_name,
-                    "system": satellite,
-                    "insertion_type": "INSERT_and_ERASE"
-                },
-                "values": telemetry_values,
-                "start": event_start,
-                "stop": event_stop
-                }
-                list_of_events.append(memory_occupation_event)
-                engineering_value = telemetry_value.xpath("EngineeringValue")[0].text
-                event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
-                telemetry_values = define_telemetry_values(satellite, engineering_value)
-            # end if
+        if first_time:
+            engineering_value = telemetry_value.xpath("EngineeringValue")[0].text
+            event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
+            telemetry_values = define_telemetry_values(satellite, engineering_value)
+            first_time = False
+        # end if
+        if int(telemetry_value.xpath("EngineeringValue")[0].text) != int(engineering_value):
+            event_stop = telemetry_value.xpath("TimeStampAsciiA")[0].text
+            memory_occupation_event = {
+            "gauge": {
+                "name": gauge_name,
+                "system": satellite,
+                "insertion_type": "INSERT_and_ERASE"
+            },
+            "values": telemetry_values,
+            "start": event_start,
+            "stop": event_stop
+            }
+            list_of_events.append(memory_occupation_event)
+            engineering_value = telemetry_value.xpath("EngineeringValue")[0].text
+            event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
+            telemetry_values = define_telemetry_values(satellite, engineering_value)
         # end if
     # end loop
     event_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
@@ -104,30 +105,34 @@ def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_nam
 
 # Discrepancy events
 def discrepancy_events(xpath_xml, list_of_events, satellite, parameter_name_1, parameter_name_2):
-    list_of_engineering_values = []
-    telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement")
     if parameter_name_2 == 'MST00202':
         gauge_name = "DISCREPANCY_CHANNEL_2_NOMINAL_MEMORY_OCCUPATION"
+        telemetry_values_channel_2 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00202']")
+        telemetry_values_channel_1 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00058']")
     # end if
     if parameter_name_2 == 'MST00203':
         gauge_name = "DISCREPANCY_CHANNEL_2_NRT_MEMORY_OCCUPATION"
+        telemetry_values_channel_2 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00203']")
+        telemetry_values_channel_1 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00059']")
     # end if
     if parameter_name_2 == 'MST00205':
         gauge_name = "DISCREPANCY_CHANNEL_2_LAST_REPLAYED_SCENE"
+        telemetry_values_channel_2 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00205']")
+        telemetry_values_channel_1 = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00192']")
     # end if
-    for telemetry_value in telemetry_values_list:
-        if telemetry_value.xpath("Name")[0].text == parameter_name_1:
-            list_of_engineering_values.append(telemetry_value.xpath("EngineeringValue")[0].text)
-        # end if
-    # end for
     
     i = 0
-    for telemetry_value in telemetry_values_list: 
-        if telemetry_value.xpath("Name")[0].text == parameter_name_2:
-            if int(telemetry_value.xpath("EngineeringValue")[0].text) != int(list_of_engineering_values[i]):
+    for telemetry_value in telemetry_values_channel_2: 
+        time_start_channel_2 = telemetry_value.xpath("TimeStampAsciiA")[0].text
+        time_start_channel_2 = datetime.datetime.strptime(time_start_channel_2, '%Y-%m-%dT%H:%M:%S.%f')
+        time_start_channel_1 = telemetry_values_channel_1[i].xpath("TimeStampAsciiA")[0].text
+        time_start_channel_1 = datetime.datetime.strptime(time_start_channel_1, '%Y-%m-%dT%H:%M:%S.%f')
+        diff_time = time_start_channel_2 - time_start_channel_1
+        if diff_time.total_seconds() < 6.0:
+            if int(telemetry_value.xpath("EngineeringValue")[0].text) != int(telemetry_values_channel_1[i].xpath("EngineeringValue")[0].text):
                 event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
                 event_stop = telemetry_value.xpath("TimeStampAsciiA")[0].text
-                discrepancy_value = int(list_of_engineering_values[i]) - int(telemetry_value.xpath("EngineeringValue")[0].text)
+                discrepancy_value = int(telemetry_values_channel_1[i].xpath("EngineeringValue")[0].text) - int(telemetry_value.xpath("EngineeringValue")[0].text)
                 telemetry_values = define_telemetry_values(satellite, discrepancy_value)
                 discrepancy_event = {
                     "gauge": {
@@ -141,63 +146,67 @@ def discrepancy_events(xpath_xml, list_of_events, satellite, parameter_name_1, p
                 }
                 list_of_events.append(discrepancy_event)
             # end if
-            i += 1
         # end if
+        i = i+1
     # end for
 
 # Memory gap events
 def gap_events(xpath_xml, list_of_events, satellite, parameter_name): 
-    telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement")
     if parameter_name == 'MST00058':
         gauge_name = "NOMINAL_MEMORY_OCCUPATION_CHANNEL_1_GAP"
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00058']")
     # end if
     if parameter_name == 'MST00202':
         gauge_name = "NOMINAL_MEMORY_OCCUPATION_CHANNEL_2_GAP"
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00202']")
     # end if
     if parameter_name == 'MST00059':
         gauge_name = "NRT_MEMORY_OCCUPATION_CHANNEL_1_GAP"
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00059']")
     # end if
     if parameter_name == 'MST00203':
         gauge_name = "NRT_MEMORY_OCCUPATION_CHANNEL_2_GAP"
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00203']")
     # end if
     if parameter_name == 'MST00192':
         gauge_name = "LAST_REPLAYED_SCENE_CHANNEL_1_GAP"
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00192']")
     # end if
     if parameter_name == 'MST00205':
         gauge_name = "LAST_REPLAYED_SCENE_CHANNEL_2_GAP"
+        telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00205']")
     # end if
     first_time = True
     for telemetry_value in telemetry_values_list:
-        if telemetry_value.xpath("Name")[0].text == parameter_name:
-            if first_time:
-                previous_time = telemetry_value.xpath("TimeStampAsciiA")[0].text
-                first_time = False
-            # end if
-            current_time = telemetry_value.xpath("TimeStampAsciiA")[0].text
-            time_start = datetime.datetime.strptime(previous_time, '%Y-%m-%dT%H:%M:%S.%f')
-            time_stop = datetime.datetime.strptime(current_time, '%Y-%m-%dT%H:%M:%S.%f')
-            diff_time = time_stop - time_start
-            if diff_time.total_seconds() > 6.0:
-                telemetry_values = [
-                    {
-                        "name": "satellite",
-                        "type": "text",
-                        "value": satellite
-                    }
-                ]
-                gap_event = {
-                    "gauge": {
-                        "name": gauge_name,
-                        "system": satellite,
-                        "insertion_type": "INSERT_and_ERASE"
-                    },
-                    "values": telemetry_values,
-                    "start": previous_time,
-                    "stop": current_time
+        if first_time:
+            previous_time = telemetry_value.xpath("TimeStampAsciiA")[0].text
+            first_time = False
+        # end if
+        current_time = telemetry_value.xpath("TimeStampAsciiA")[0].text
+        time_start = datetime.datetime.strptime(previous_time, '%Y-%m-%dT%H:%M:%S.%f')
+        time_stop = datetime.datetime.strptime(current_time, '%Y-%m-%dT%H:%M:%S.%f')
+        diff_time = time_stop - time_start
+        if diff_time.total_seconds() > 6.0:
+            telemetry_values = [
+                {
+                    "name": "satellite",
+                    "type": "text",
+                    "value": satellite
                 }
-                list_of_events.append(gap_event)
-            # end if
-            previous_time = current_time
+            ]
+            gap_event = {
+                "gauge": {
+                    "name": gauge_name,
+                    "system": satellite,
+                    "insertion_type": "INSERT_and_ERASE"
+                },
+                "values": telemetry_values,
+                "start": previous_time,
+                "stop": current_time
+            }
+            list_of_events.append(gap_event)
+        #end if 
+        previous_time = current_time
     # end loop
 
 
