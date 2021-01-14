@@ -104,7 +104,7 @@
     <!-- window_delay is set to 4 hours -->
     <window_delay>-4.833333333</window_delay>
     <!-- window_size is set to 1 week -->
-    <window_size>7</window_size>
+    <window_size>5</window_size>
     <date>
       <time>10:00:00</time>
     </date>

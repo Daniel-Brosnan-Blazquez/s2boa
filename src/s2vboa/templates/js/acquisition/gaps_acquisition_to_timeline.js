@@ -13,7 +13,7 @@ var gaps_playbacks_timeline = [
         "start": "{{ event.start.isoformat() }}",
         "stop": "{{ event.stop.isoformat() }}",
         "tooltip": create_acquisition_tooltip_text("{{ satellite }}", "{{ orbit }}", "{{ station }}", "<span class='bold-red'>GAPS</span>", "{{ event.start.isoformat() }}", "{{ event.stop.isoformat() }}", "{{ playback_type }}", "N/A", "{{ event.source.name }}", "{{ playback_validity_uuid }}", "/eboa_nav/query-event-links/{{ playback_validity_uuid }}"),
-        "className": "background-red"
+        "className": "fill-border-red"
     },
     {% endfor %}
 ]

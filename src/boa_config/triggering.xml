@@ -37,7 +37,7 @@
     </dependencies>
   </rule>
   <rule>
-    <source_mask>S2A_OPER_REP_PASS_E_VGS._........T......_V........T......_........T.......*</source_mask>
+    <source_mask>S2A_OPER_REP_PASS_E_...._........T......_V........T......_........T.......*</source_mask>
     <source_type>S2A_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition -f </command>
@@ -160,7 +160,7 @@
     </dependencies>
   </rule>
   <rule>
-    <source_mask>S2B_OPER_REP_PASS_E_VGS._........T......_V........T......_........T.......*</source_mask>
+    <source_mask>S2B_OPER_REP_PASS_E_...._........T......_V........T......_........T.......*</source_mask>
     <source_type>S2B_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition -f </command>

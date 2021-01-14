@@ -192,63 +192,67 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert playback_missing_packets.text == "N/A"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        link_session = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert link_session.text == "N/A"
+
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert start.text == "2018-07-21T10:35:32.524661"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert duration_s.text == "96.006"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert duration_m.text == "1.6"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_start_acq.text == "N/A"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_stop_acq.text == "N/A"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[22]")
 
         assert plan_file.text == "S2A_NPPF.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[23]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[24]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -289,7 +293,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+            "className": "fill-border-red"
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
@@ -310,7 +314,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+            "className": "fill-border-red"
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
@@ -331,7 +335,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-red"
+              "className": "fill-border-red"
             }
         ]
 
@@ -504,63 +508,67 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert playback_missing_packets.text == "0"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        link_session = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert link_session.text == "REP_PASS_2_2018-07-21T10:35:27"
+
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert start.text == "2018-07-21T10:35:32.524661"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert duration_s.text == "96.006"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert duration_m.text == "1.6"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_start_acq.text == "-1.204"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_stop_acq.text == "-6.189"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[22]")
 
         assert plan_file.text == "S2A_NPPF.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[23]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[24]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -602,7 +610,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
@@ -623,7 +631,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
@@ -644,7 +652,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-green"
+              "className": "fill-border-green"
             }
         ]
 
@@ -797,63 +805,67 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert playback_missing_packets.text == "0"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        link_session = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert link_session.text == "REP_PASS_2_2018-07-21T10:35:27"
+
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert start.text == "2018-07-21T10:35:15.907236"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert duration_s.text == "112.624"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert duration_m.text == "1.877"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_start_acq.text == "-17.821"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_stop_acq.text == "-6.189"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[22]")
 
         assert plan_file.text == "S2A_NPPF_PARTIAL.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[23]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[24]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -895,7 +907,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
@@ -916,7 +928,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[2].event_uuid),
              "group": "S2A",
@@ -937,7 +949,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-green"
+              "className": "fill-border-green"
             }
         ]
 
@@ -966,7 +978,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+            "className": "fill-border-red"
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
@@ -987,7 +999,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_PARTIAL.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+            "className": "fill-border-red"
              }
         ]
 
@@ -1250,7 +1262,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+            "className": "fill-border-red"
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
@@ -1271,7 +1283,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-red"
+            "className": "fill-border-red"
              },
             {"id": str(playback_completeness_channel_1[1].event_uuid),
              "group": "S2A",
@@ -1292,7 +1304,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-red"
+              "className": "fill-border-red"
             },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
@@ -1313,7 +1325,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-red"
+              "className": "fill-border-red"
             },
            {"id": str(playback_completeness_channel_1[2].event_uuid),
             "group": "S2A",
@@ -1334,7 +1346,7 @@ class TestAcquisitionView(unittest.TestCase):
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                          "</table>",
-           "className": "background-red"
+           "className": "fill-border-red"
             },
            {"id": str(playback_completeness_channel_2[2].event_uuid),
             "group": "S2A",
@@ -1355,7 +1367,7 @@ class TestAcquisitionView(unittest.TestCase):
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                          "</table>",
-           "className": "background-red"
+           "className": "fill-border-red"
             },
            {"id": str(playback_completeness_channel_2[3].event_uuid),
             "group": "S2A",
@@ -1376,7 +1388,7 @@ class TestAcquisitionView(unittest.TestCase):
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                          "</table>",
-             "className": "background-red"
+             "className": "fill-border-red"
            }
         ]
 
@@ -1687,7 +1699,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
@@ -1708,7 +1720,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
@@ -1729,7 +1741,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-green"
+              "className": "fill-border-green"
             }
         ]
 
@@ -1757,7 +1769,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-             "className": "background-red"
+             "className": "fill-border-red"
              },
             {"id": str(playback_completeness_channel_2[2].event_uuid),
              "group": "S2A",
@@ -1778,7 +1790,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[2].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-             "className": "background-red"
+             "className": "fill-border-red"
             },
             {"id": str(playback_completeness_channel_1[2].event_uuid),
              "group": "S2A",
@@ -1799,7 +1811,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-red"
+              "className": "fill-border-red"
             },
             {"id": str(playback_completeness_channel_2[3].event_uuid),
              "group": "S2A",
@@ -1820,7 +1832,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[3].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-red"
+              "className": "fill-border-red"
             },
            {"id": str(playback_completeness_channel_1[3].event_uuid),
             "group": "S2A",
@@ -1841,7 +1853,7 @@ class TestAcquisitionView(unittest.TestCase):
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                          "</table>",
-           "className": "background-red"
+           "className": "fill-border-red"
             },
            {"id": str(playback_completeness_channel_2[4].event_uuid),
             "group": "S2A",
@@ -1862,7 +1874,7 @@ class TestAcquisitionView(unittest.TestCase):
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[4].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                          "</table>",
-           "className": "background-red"
+           "className": "fill-border-red"
             },
            {"id": str(playback_completeness_channel_2[5].event_uuid),
             "group": "S2A",
@@ -1883,7 +1895,7 @@ class TestAcquisitionView(unittest.TestCase):
                          "<tr><td>Plan file</td><td>S2A_NPPF_2.EOF</td></tr>" +
                          '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[5].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                          "</table>",
-             "className": "background-red"
+             "className": "fill-border-red"
            }
         ]
 
@@ -2198,63 +2210,67 @@ class TestAcquisitionView(unittest.TestCase):
 
         assert playback_missing_packets.text == "400.0"
 
-        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+        link_session = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[8]")
+
+        assert link_session.text == "REP_PASS_2_2018-07-21T10:35:27"
+
+        start = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
 
         assert start.text == "2018-07-21T10:35:32.524661"
 
-        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[9]")
+        stop = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert stop.text == "2018-07-21T10:37:08.530863"
 
-        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
+        duration_s = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
 
         assert duration_s.text == "96.006"
 
-        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[11]")
+        duration_m = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
 
         assert duration_m.text == "1.6"
 
-        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[12]")
+        parameters = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
 
         assert parameters.text == "MEM_FREE=1\nSCN_DUP=0\nSCN_RWD=1"
 
-        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[13]")
+        station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
 
         assert station_schedule.text == "MISSING"
 
-        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[14]")
+        dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
 
         assert station_schedule.text == "MISSING"
 
-        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[15]")
+        delta_start_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
 
         assert delta_start_acq.text == "-1.204"
 
-        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[16]")
+        delta_stop_acq = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
 
         assert delta_stop_acq.text == "-6.189"
 
-        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[17]")
+        delta_start_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
 
         assert delta_start_station_schedule.text == "N/A"
 
-        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[18]")
+        delta_stop_station_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
 
         assert delta_stop_station_schedule.text == "N/A"
 
-        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[19]")
+        delta_start_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
 
         assert delta_start_dfep_schedule.text == "N/A"
 
-        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[20]")
+        delta_stop_dfep_schedule = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
 
         assert delta_stop_dfep_schedule.text == "N/A"
 
-        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[21]")
+        plan_file = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[22]")
 
         assert plan_file.text == "S2A_NPPF.EOF"
 
-        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[23]")
+        uuid = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[24]")
 
         assert re.match("........-....-....-....-............", uuid.text)
 
@@ -2296,7 +2312,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-green"
+            "className": "fill-border-green"
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
@@ -2317,7 +2333,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[1].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-              "className": "background-green"
+              "className": "fill-border-green"
             }
         ]
 
@@ -2346,7 +2362,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>Plan file</td><td>S2A_NPPF.EOF</td></tr>" +
                           '<tr><td>Details</td><td><a href="/eboa_nav/query-event-links/' + str(original_events[0].event_uuid) + '"><i class="fa fa-link"></i></a></td></tr>' +
                           "</table>",
-            "className": "background-orange"
+            "className": "fill-border-orange"
              }
         ]
 
@@ -2445,3 +2461,40 @@ class TestAcquisitionView(unittest.TestCase):
         station_reports_no_data = wait.until(EC.visibility_of_element_located((By.ID,"station-reports-no-reports")))
 
         assert station_reports_no_data
+
+    def test_acquisition_mmfu_half_swath_missing(self):
+
+        filename = "S2B_OPER_MPL__NPPF__20210107T120000_20210125T150000_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2B_OPER_MPL_ORBPRE_20210112T030110_20210122T030110_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2B_OPER_MPL_SPSGS__PDMC_20210111T090001_V20210112T090000_20210118T090000.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2B_OPER_REP_PASS_E_VGS2_20210112T182418_V20210112T181713_20210112T182415.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        filename = "S2B_OPER_REP_PASS_E_VGS2_20210112T182433_V20210112T181714_20210112T182430.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]

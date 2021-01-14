@@ -209,6 +209,9 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                     completeness_status = status
                 # end if
 
+                start = planned_playback_completeness_starts[0] - datetime.timedelta(seconds=1)
+                stop = planned_playback_completeness_stops[-1] + datetime.timedelta(seconds=1)
+                
                 list_of_playback_completeness_events.append({
                     "explicit_reference": session_id,
                     "gauge": {
@@ -229,8 +232,8 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                             "name": "PLAYBACK_COMPLETENESS",
                             "back_ref": "PLAYBACK_VALIDITY"
                         }],
-                    "start": planned_playback_completeness_starts[0].isoformat(),
-                    "stop": planned_playback_completeness_stops[-1].isoformat(),
+                    "start": start.isoformat(),
+                    "stop": stop.isoformat(),
                     "values": [
                         {"name": "status",
                          "type": "text",

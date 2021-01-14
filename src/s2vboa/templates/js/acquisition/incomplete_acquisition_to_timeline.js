@@ -21,7 +21,7 @@ var incomplete_playbacks_timeline = [
         "start": "{{ event.start.isoformat() }}",
         "stop": "{{ event.stop.isoformat() }}",
         "tooltip": create_acquisition_tooltip_text("{{ satellite }}", "{{ orbit }}", "{{ station }}", "<a href='/views/specific-acquisition/{{ corrected_planned_playback_uuid }}'><span class='bold-orange'>INCOMPLETE</span></a>", "{{ event.start.isoformat() }}", "{{ event.stop.isoformat() }}", "{{ playback_type }}", "{{ playback_mean }}", "{{ original_playback.source.name }}", "{{ original_playback.event_uuid }}", "/eboa_nav/query-event-links/{{ original_playback.event_uuid }}"),
-        "className": "background-orange"
+        "className": "fill-border-orange"
     },
     {% endfor %}
 ]
