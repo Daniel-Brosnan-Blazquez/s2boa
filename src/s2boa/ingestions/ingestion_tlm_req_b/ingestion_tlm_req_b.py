@@ -155,7 +155,7 @@ def discrepancy_events(xpath_xml, list_of_events, satellite, parameter_name_1, p
 
 # Memory gap events
 @debug
-def gap_events(xpath_xml, list_of_events, satellite, parameter_name): 
+def gap_events(xpath_xml, list_of_events, satellite, parameter_name, validity_start, validity_stop): 
     if parameter_name == 'MST00058':
         gauge_name = "NOMINAL_MEMORY_OCCUPATION_CHANNEL_1_GAP"
         telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name='MST00058']")
@@ -183,7 +183,7 @@ def gap_events(xpath_xml, list_of_events, satellite, parameter_name):
     first_time = True
     for telemetry_value in telemetry_values_list:
         if first_time:
-            previous_time = telemetry_value.xpath("TimeStampAsciiA")[0].text
+            previous_time = validity_start+'.00'
             first_time = False
         # end if
         current_time = telemetry_value.xpath("TimeStampAsciiA")[0].text
@@ -212,6 +212,29 @@ def gap_events(xpath_xml, list_of_events, satellite, parameter_name):
         #end if 
         previous_time = current_time
     # end loop
+    time_start = datetime.datetime.strptime(previous_time, '%Y-%m-%dT%H:%M:%S.%f')
+    time_stop = datetime.datetime.strptime(validity_stop + '.00', '%Y-%m-%dT%H:%M:%S.%f')
+    diff_time = time_stop - time_start
+    if diff_time.total_seconds() > 6.0:
+        telemetry_values = [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": satellite
+            }
+        ]
+        gap_event = {
+            "gauge": {
+                "name": gauge_name,
+                "system": satellite,
+                "insertion_type": "INSERT_and_ERASE"
+            },
+            "values": telemetry_values,
+            "start": previous_time,
+            "stop": validity_stop
+        }
+        list_of_events.append(gap_event)
+    #end if 
 
 @debug
 def process_file(file_path, engine, query, reception_time):
@@ -297,17 +320,18 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
 
     # add nominal memory occupation for channel 1 gap events
-    gap_events(xpath_xml, list_of_events, satellite, 'MST00058')
+    #gap_events(xpath_xml, list_of_events, satellite, 'MST00058')
+    gap_events(xpath_xml, list_of_events, satellite, 'MST00058', validity_start, validity_stop)
     # add nominal memory occupation for channel 2 gap events
-    gap_events(xpath_xml, list_of_events, satellite, 'MST00059')
+    gap_events(xpath_xml, list_of_events, satellite, 'MST00059', validity_start, validity_stop)
     # add nrt memory occupation for channel 1 gap events
-    gap_events(xpath_xml, list_of_events, satellite, 'MST00202')
+    gap_events(xpath_xml, list_of_events, satellite, 'MST00202', validity_start, validity_stop)
     # add nrt memory occupation for channel 1 gap events
-    gap_events(xpath_xml, list_of_events, satellite, 'MST00203')
+    gap_events(xpath_xml, list_of_events, satellite, 'MST00203', validity_start, validity_stop)
     # add last replayed scene for channel 1 gap events
-    gap_events(xpath_xml, list_of_events, satellite, 'MST00192')
+    gap_events(xpath_xml, list_of_events, satellite, 'MST00192', validity_start, validity_stop)
     # add last replayed scene for channel 2 gap events
-    gap_events(xpath_xml, list_of_events, satellite, 'MST00205')
+    gap_events(xpath_xml, list_of_events, satellite, 'MST00205', validity_start, validity_stop)
 
 
     data = {"operations": [{
