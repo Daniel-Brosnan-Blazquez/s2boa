@@ -277,6 +277,7 @@
       <source_type>S2B_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
+  <!-- Rules with no dependencies -->
   <rule skip="true">
     <source_mask>S2._OPER_REP_OPDC___MPC__........T......_V........T......_........T.......*</source_mask>
     <source_type>REP_OPDC</source_type>
