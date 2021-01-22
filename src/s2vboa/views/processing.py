@@ -9,6 +9,7 @@ module s2vboa
 import sys
 import json
 import datetime
+import re
 from dateutil import parser
 
 # Import flask utilities
@@ -178,9 +179,82 @@ def show_sliding_processing():
 
 def query_processing_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None):
 
+    processing_events = query_processing_events(start_filter, stop_filter, mission, filters)
+
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
     
     template = "views/processing/processing.html"
 
-    return render_template(template, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template(template, processing_events=processing_events, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+
+def query_processing_events(start_filter = None, stop_filter = None, mission = None, filters = None):
+    """
+    Query planned processing events.
+    """
+    current_app.logger.debug("Query planned processing events")
+
+    kwargs_playback = {}
+
+    # Set offset and limit for the query
+    if filters and "offset" in filters and filters["offset"][0] != "":
+        kwargs_playback["offset"] = filters["offset"][0]
+    # end if
+    if filters and "limit" in filters and filters["limit"][0] != "":
+        kwargs_playback["limit"] = filters["limit"][0]
+    # end if
+
+    # Set order by reception_time descending
+    kwargs_playback["order_by"] = {"field": "start", "descending": True}
+
+    # Start filter
+    if start_filter:
+        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
+    # end if
+
+    # Stop filter
+    if stop_filter:
+        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
+    # end if
+
+    # Mission
+    if mission:
+        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
+                                    "type": "text",
+                                    "value": {"op": "like", "filter": mission}
+                                }]
+    # end if
+    kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
+
+    # Specify the main query parameters
+    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+    
+    # Query planned playbacks
+    planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+    planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, 
+                                                                          link_names = {"filter": ["PLAYBACK_VALIDITY"], "op": "in"}, 
+                                                                          return_prime_events = False)
+
+    events = {}
+    events["playback_correction"] = planned_playback_correction_events["prime_events"]
+    events["playback_validity"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] if (event.gauge.name not in ("PLAYBACK_VALIDITY_3", "PLAYBACK_VALIDITY_2"))]
+    events["playback_validity_channel_1"] = query.get_events(event_uuids = {"filter": [event.event_uuid for event in events["playback_validity"]], "op": "in"},
+                                                             value_filters = [{"name": {"op": "==", "filter": "channel"},
+                                                                              "type": "double",
+                                                                              "value": {"op": "==", "filter": "1"}
+                                                             }])
+    
+    # PLANNED_PLAYBACK with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
+    playback_validity_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in events["playback_validity"]], "op": "in"})
+    events["playback"] = [event for event in playback_validity_events["linked_events"] if event.gauge.name == "PLANNED_PLAYBACK"]
+
+    # ISP_VALIDITY, linked to the PLAYBACK_VALIDITY events with channel 1
+    isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity_channel_1"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
+    unique_isp_validity_event_uuids = set(isp_validity_event_uuids)
+    events["isp_validity_channel_1"] = query.get_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"})
+    
+    # ISP_VALIDITY_PROCESSING_COMPLETENESS_L[0_|1A|1B|1C|2A]_CHANNEL_1, linked to the ISP_VALIDITY events
+    isp_validity_events_links = query.get_linked_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"})
+    events["isp_validity_processing_completeness_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if re.search("^ISP_VALIDITY_PROCESSING_COMPLETENESS.*CHANNEL_1$", event.gauge.name)]
+
+    return events

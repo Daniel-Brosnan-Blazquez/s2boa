@@ -1,5 +1,7 @@
 {% extends "panel/index.html" %}
 
+{% set isp_validity_processing_completeness_channel_1_missing = processing_events["isp_validity_processing_completeness_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+
 {% block content %}
 <div class="row">
   <h1 class="page-header">Processing view</h1>
@@ -8,14 +10,12 @@
 {% include "views/processing/processing_query.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/processing-pages", elements = element, filters = filters %}
+{% with route = "/views/processing-pages", elements = processing_events["playback_correction"], filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
-{% with show = {"sources": True} %}
+{{ processing_events }}
 {% include "views/processing/processing_summary_content.html" %}
-{% endwith %}
-
 {% include "views/processing/processing_content.html" %}
 
 {% endblock %}
