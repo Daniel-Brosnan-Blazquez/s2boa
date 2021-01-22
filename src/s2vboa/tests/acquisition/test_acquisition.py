@@ -2498,3 +2498,24 @@ class TestAcquisitionView(unittest.TestCase):
         returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        wait = WebDriverWait(self.driver,5);
+        
+        self.driver.get("http://localhost:5000/views/acquisition")
+
+        functions.query(self.driver, wait, "S2_", start = "2014-07-20T00:00:14", stop = "2021-07-21T23:55:14", table_details = True, map = True, station_reports = True)
+
+        #Acquisitions table
+
+        table = self.driver.find_element_by_id("acquisition-details-table")
+
+        rows_half_swath_mmfu_anomaly = table.find_elements_by_xpath("tbody/tr/td/a[contains(text(),'(possible MMFU half swath anomaly)')]")
+        
+        assert len(rows_half_swath_mmfu_anomaly) == 1
+
+        table = self.driver.find_element_by_id("acquisition-missing-table")
+
+        rows_half_swath_mmfu_anomaly = table.find_elements_by_xpath("tbody/tr/td/a[contains(text(),'(possible MMFU half swath anomaly)')]")
+
+        assert len(rows_half_swath_mmfu_anomaly) == 1
+

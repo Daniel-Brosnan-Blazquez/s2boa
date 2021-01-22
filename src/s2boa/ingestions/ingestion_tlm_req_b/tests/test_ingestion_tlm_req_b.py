@@ -173,7 +173,163 @@ class TestTlmReqB(unittest.TestCase):
                                                 start_filters = [{"date": "2020-11-26T00:00:00.131650", "op": "=="}])
 
         assert len(tlm_no_gap_events) == 0
-        
+
+    def test_insert_tlm_req_with_discrepancy_and_gaps(self):
+
+        filename = "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        sources = self.query_eboa.get_sources()
+        assert len(sources) == 1
+
+        # Check number of events generated
+        events = self.query_eboa.get_events()
+        assert len(events) == 7271 
+
+        # Check source
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2020-11-26T00:00:00", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2020-11-27T00:00:00", "op": "=="}],
+                                              generation_time_filters = [{"date": "2020-11-26T00:00:00", "op": "=="}],
+                                              processors = {"filter": "ingestion_tlm_req_b.py", "op": "=="},
+                                              dim_signatures = {"filter": "MEMORY_EVOLUTION_S2B", "op": "=="},
+                                              names = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="})
+
+        assert len(sources) == 1
+
+        # Check that first nominal memory event is missing
+        tlm_memory_events = self.query_eboa.get_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T00:00:00.131650", "op": "=="}])
+
+        assert len(tlm_memory_events) == 0
+
+        # Check discrepancy event - first event
+        tlm_discrepancy_events = self.query_eboa.get_events(gauge_names = {"filter": "DISCREPANCY_CHANNEL_2_NRT_MEMORY_OCCUPATION", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T00:00:00.131650", "op": "=="}])
+
+        assert len(tlm_discrepancy_events) == 1
+        tlm_discrepancy_event = tlm_discrepancy_events[0]
+
+        assert tlm_discrepancy_event.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2B" 
+            },
+            {
+                "name": "number_of_scenes",
+                "type": "double",
+                "value": "-1.0"
+            }
+        ]
+
+        # Check discrepancy event - middle event
+        tlm_discrepancy_events = self.query_eboa.get_events(gauge_names = {"filter": "DISCREPANCY_CHANNEL_2_NOMINAL_MEMORY_OCCUPATION", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T00:00:10.131509", "op": "=="}])
+
+        assert len(tlm_discrepancy_events) == 1
+        tlm_discrepancy_event = tlm_discrepancy_events[0]
+
+        assert tlm_discrepancy_event.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2B" 
+            },
+            {
+                "name": "number_of_scenes",
+                "type": "double",
+                "value": "5.0"
+            }
+        ]
+
+        # Check discrepancy event - last event
+        tlm_discrepancy_events = self.query_eboa.get_events(gauge_names = {"filter": "DISCREPANCY_CHANNEL_2_LAST_REPLAYED_SCENE", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T23:59:55.132073", "op": "=="}])
+
+        assert len(tlm_discrepancy_events) == 1
+        tlm_discrepancy_event = tlm_discrepancy_events[0]
+
+        assert tlm_discrepancy_event.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2B" 
+            },
+            {
+                "name": "number_of_scenes",
+                "type": "double",
+                "value": "3.0"
+            }
+        ]
+
+        # Check that no discrepancy event exists when there is a gap in only one of the channels
+        # check gap in first event
+        tlm_gap_event = self.query_eboa.get_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_CHANNEL_1_GAP", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T00:00:00.00", "op": "=="}])
+
+        assert len(tlm_gap_event) == 1
+        tlm_gap_event = tlm_gap_event[0]
+        assert tlm_gap_event.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2B" 
+            }
+        ]
+        #check no discrepancy
+        tlm_no_discrepancy_event = self.query_eboa.get_events(gauge_names = {"filter": "DISCREPANCY_CHANNEL_2_NOMINAL_MEMORY_OCCUPATION", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T00:00:00.00", "op": "=="}])
+        assert len(tlm_no_discrepancy_event) == 0
+
+        # Check gap event
+        tlm_gap_events = self.query_eboa.get_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_CHANNEL_1_GAP", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T06:36:25.132008", "op": "=="}])
+
+        assert len(tlm_gap_events) == 1
+        tlm_gap_event = tlm_gap_events[0]
+
+        assert tlm_gap_event.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2B" 
+            }
+        ]
+
+        # Check last gap event
+        tlm_gap_events = self.query_eboa.get_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION_CHANNEL_1_GAP", "op": "=="},
+                                                gauge_systems = {"filter": "S2B", "op": "=="},
+                                                sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
+                                                start_filters = [{"date": "2020-11-26T23:59:50.132000", "op": "=="}])
+
+        assert len(tlm_gap_events) == 1
+        tlm_gap_event = tlm_gap_events[0]
+
+        assert tlm_gap_event.get_structured_values() == [
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2B" 
+            }
+        ]
         
 
     def test_insert_tlm_req_with_plan_and_orbpre(self):

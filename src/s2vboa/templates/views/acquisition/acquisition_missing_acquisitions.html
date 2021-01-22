@@ -1,4 +1,4 @@
-{% if missing_playbacks|length > 0 or acquisition_events["planned_playbacks_gaps_reception"]|length > 0 or acquisition_events["planned_playbacks_gaps_msi"]|length > 0 %}
+{% if missing_playbacks|length > 0 or acquisition_events["planned_playbacks_gaps_reception"]|length > 0 or acquisition_events["planned_playbacks_gaps_msi"]|length > 0 or half_mmfu_anomaly_cases|length > 0 %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -52,8 +52,6 @@
           {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|unique|list %}
           {% set playback_validity_explicit_refs = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|map(attribute='explicitRef')|map(attribute='explicit_ref')|unique|list %}
           {% set raw_isp_validities_with_packet_status_nok = acquisition_events["raw_isp_validity_events_with_packet_status_nok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
-          {% set raw_isp_validities_with_packet_status_ok = acquisition_events["raw_isp_validity_events_with_packet_status_ok"]|selectattr("explicitRef.explicit_ref", "in", playback_validity_explicit_refs)|list %}
-          {% set missing_packets_missing_last_scene_half_swath = raw_isp_validities_with_packet_status_ok|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "num_packets")|sum(attribute='value') % 12960 %}
           {% set playback_validity_uuids = original_playback.eventLinks|selectattr("name", "match", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|list %}
           {% set playback_validity = acquisition_events["playback_validity"]|selectattr("event_uuid", "in", playback_validity_uuids)|sort(attribute="start")|first %}
           {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
@@ -117,7 +115,7 @@
           {% set dfep_schedule_status_class = "bold-green" %}
           {% endif %}
           <!--Values-->
-          {% if playback_status != "RECEIVED" or playback_with_gaps_msi|length > 0 or (missing_packets_missing_last_scene_half_swath != 0 and type in ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
+          {% if playback_status != "RECEIVED" or playback_with_gaps_msi|length > 0 or (original_playback.event_uuid in half_mmfu_anomaly_cases and type in ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
           <tr>
             <td>{{ satellite }}</td>
             <td>{{ orbit }}</td>
@@ -140,8 +138,8 @@
             {% elif raw_isp_validities_with_packet_status_nok|length > 0 %}
             {% set missing_packets = raw_isp_validities_with_packet_status_nok|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "diff_expected_received")|sum(attribute='value') %}
             <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-red">{{ missing_packets }}</a></td>
-            {% elif missing_packets_missing_last_scene_half_swath != 0 %}
-            <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-red">{{ missing_packets_missing_last_scene_half_swath }} (MMFU half swath anomaly)</a></td>
+            {% elif original_playback.event_uuid in half_mmfu_anomaly_cases %}
+            <td><a href="/eboa_nav/query-events-by-er/{{ playback_validity_explicit_refs|first }}" class="bold-red">6480 (possible MMFU half swath anomaly)</a></td>
             {% else %}
             <td class="bold-green">0</td>
             {% endif %}
