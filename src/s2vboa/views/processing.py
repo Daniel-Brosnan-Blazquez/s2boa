@@ -181,12 +181,14 @@ def query_processing_and_render(start_filter = None, stop_filter = None, mission
 
     processing_events = query_processing_events(start_filter, stop_filter, mission, filters)
 
+    orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
+
     reporting_start = stop_filter["date"]
     reporting_stop = start_filter["date"]
     
     template = "views/processing/processing.html"
 
-    return render_template(template, processing_events=processing_events, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template(template, processing_events=processing_events, orbpre_events=orbpre_events, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_processing_events(start_filter = None, stop_filter = None, mission = None, filters = None):
     """
@@ -244,8 +246,8 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
                                                                               "value": {"op": "==", "filter": "1"}
                                                              }])
     
-    # PLANNED_PLAYBACK with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
-    playback_validity_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in events["playback_validity"]], "op": "in"})
+    # PLANNED_PLAYBACK channel 1 with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
+    playback_validity_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in events["playback_validity_channel_1"]], "op": "in"})
     events["playback"] = [event for event in playback_validity_events["linked_events"] if event.gauge.name == "PLANNED_PLAYBACK"]
 
     # ISP_VALIDITY, linked to the PLAYBACK_VALIDITY events with channel 1
