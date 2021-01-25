@@ -8,7 +8,6 @@
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="summary-processing">
-      {% if "sources" in show and show["sources"] == True %}
        <!-- Playbacks -->
       <div class="col-xs-3">
         <div class="panel panel-primary">
@@ -23,20 +22,24 @@
           <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["isp_validity_channel_1"]|length }}</div>
         </div>
       </div>
-      <!-- Datastrips -->
+      <!-- Missing -->
+      {% if isp_validity_processing_completeness_channel_1_missing|length > 0 %}
       <div class="col-xs-3">
-        {% if isp_validity_processing_completeness_channel_1_missing|length > 0 %}
         <div class="panel panel-danger">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of of missing processing for L0|L1A|L1B|L1C|L2A</div>
+          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing</div>
           <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_channel_1_missing|length }}</div>
-        {% else %}
-        <div class="panel panel-success">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of sources alerts</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: green">{{ processing_events["isp_validity_processing_completeness_channel_1"]|length }}</div>
-        {% endif %}
         </div>
       </div>
       {% endif %}
+      <!-- Pie chart for processing status -->
+        {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
     </div>
   </div>
 </div>
