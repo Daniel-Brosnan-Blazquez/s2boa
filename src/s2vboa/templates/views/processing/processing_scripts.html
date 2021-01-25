@@ -1,0 +1,27 @@
+<script type="text/javascript">
+  
+  {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+  processing_data = [{{ processing_events["isp_validity_processing_completeness_channel_1"]|length - isp_validity_processing_completeness_channel_1_missing|length }}, {{ isp_validity_processing_completeness_channel_1_missing|length }}]
+  processing_background_color = ["green", "darkred"]
+  processing_labels = ["# processed", "# missing"]
+
+  var data = {datasets: [{data: processing_data,
+                          backgroundColor: processing_background_color
+                        }],
+              labels: processing_labels
+  }
+  
+  vboa.display_pie("processing-pie-processing-status", data)
+  {% endif %}
+  
+  {% if sliding_window %}
+  var parameters = {
+  "window_delay": "{{ sliding_window['window_delay'] }}",
+  "window_size": "{{ sliding_window['window_size'] }}",
+  "mission": "{{ sliding_window['mission'] }}"
+  }
+  var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
+  vboa.update_view(parameters, repeat_cycle, "/views/sliding-processing-parameters");
+  {% endif %}
+
+</script>
