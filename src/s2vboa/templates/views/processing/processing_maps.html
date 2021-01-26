@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#processing-on-map-section">Data availability in DHUS completeness on the map <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="processing-on-map-section">
+      {% set class = "col-xs-12" %}
+      {% if "L1C" in parsed_levels[0] and "L2A" in parsed_levels[0] %}
+      {% set class = "col-xs-6" %}
+      {% endif %}
+      {% if "L1C" in parsed_levels[0] %}
+      <div class="{{ class }}">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#processing-l1c-on-map-section">Data availability in DHUS completeness for level 1C on the map <span class="fa fa-angle-double-down"></span></a>
+            </h3>
+          </div>
+          <div class="panel-body panel-collapse collapse in" id="processing-l1c-on-map-section">
+            <div id="processing-l1c-on-map">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if "L2A" in parsed_levels[0] %}
+      <div class="{{ class }}">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#processing-l2a-on-map-section">Data availability in DHUS completeness for level 2A on the map <span class="fa fa-angle-double-down"></span></a>
+            </h3>
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body panel-collapse collapse in" id="processing-l2a-on-map-section">
+            <div id="processing-l2a-on-map">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

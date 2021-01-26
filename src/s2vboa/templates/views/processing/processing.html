@@ -1,6 +1,11 @@
 {% extends "panel/index.html" %}
 
 {% set isp_validity_processing_completeness_channel_1_missing = processing_events["isp_validity_processing_completeness_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l0_channel_1_missing = processing_events["isp_validity_processing_completeness_l0_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1a_channel_1_missing = processing_events["isp_validity_processing_completeness_l1a_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1b_channel_1_missing = processing_events["isp_validity_processing_completeness_l1b_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1c_channel_1_missing = processing_events["isp_validity_processing_completeness_l1c_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l2a_channel_1_missing = processing_events["isp_validity_processing_completeness_l2a_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
 
 {% block content %}
 <div class="row">
@@ -14,22 +19,11 @@
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
-{{ processing_events }}
 {% include "views/processing/processing_summary_content.html" %}
 {% include "views/processing/processing_content.html" %}
 
 {% endblock %}
 {% block scripts %}
 {{ super() }}
-<script type="text/javascript">}
-  {% if sliding_window %}
-  var parameters = {
-  "window_delay": "{{ sliding_window['window_delay'] }}",
-  "window_size": "{{ sliding_window['window_size'] }}",
-  "mission": "{{ sliding_window['mission'] }}"
-  }
-  var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
-  vboa.update_view(parameters, repeat_cycle, "/views/sliding-processing-parameters");
-  {% endif %}
-</script>
+{% include "views/processing/processing_scripts.html" %}
 {% endblock %}
