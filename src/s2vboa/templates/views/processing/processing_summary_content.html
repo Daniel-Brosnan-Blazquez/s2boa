@@ -8,38 +8,172 @@
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="summary-processing">
-       <!-- Playbacks -->
-      <div class="col-xs-3">
-        <div class="panel panel-primary">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["playback"]|length }}</div>
-        </div>
-      </div>
-      <!-- Datastrips -->
-      <div class="col-xs-3">
-        <div class="panel panel-primary">
-          <div class="panel-heading" align="center" style="font-size: 20px"> Number of received datastrips</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["isp_validity_channel_1"]|length }}</div>
-        </div>
-      </div>
-      <!-- Missing -->
-      {% if isp_validity_processing_completeness_channel_1_missing|length > 0 %}
-      <div class="col-xs-3">
-        <div class="panel panel-danger">
-          <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing</div>
-          <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_channel_1_missing|length }}</div>
-        </div>
-      </div>
-      {% endif %}
       <!-- Pie chart for processing status -->
-        {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+      {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+      <div class="row">
+        <!-- Level L0 -->
+        {% if processing_events["isp_validity_processing_completeness_l0_channel_1"]|length > 0 %}
         <div class="col-xs-3">
           <div class="panel panel-primary">
-            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status" width="400" height="300"></canvas></div>
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing L0</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status-l0" width="400" height="300"></canvas></div>
           </div>
         </div>
         {% endif %}
+        <!-- Level L1A -->
+        {% if processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing L1A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status-l1a" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L1B -->
+        {% if processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing L1B</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status-l1b" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L1C -->
+        {% if processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing L1C</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status-l1c" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L2A -->
+        {% if processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Status of processing L2A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="processing-pie-processing-status-l2a" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="row">
+        <!-- Playbacks -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["playback"]|length }}</div>
+          </div>
+        </div>
+        <!-- Datastrips -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Number of received datastrips</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["isp_validity_channel_1"]|length }}</div>
+          </div>
+        </div>
+        <!-- Missing L0 -->
+        {% if isp_validity_processing_completeness_l0_channel_1_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L0</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l0_channel_1_missing|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Missing L1A -->
+        {% if isp_validity_processing_completeness_l1a_channel_1_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L1A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Missing L1B -->
+        {% if isp_validity_processing_completeness_l1b_channel_1_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L1B</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Missing L1C -->
+        {% if isp_validity_processing_completeness_l1c_channel_1_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L1C</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Missing L2A -->
+        {% if isp_validity_processing_completeness_l2a_channel_1_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L2A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <!-- Suummary table -->
+      {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+      <div class="row">
+        <table id="processing-summary-table" align="center" class="table table-striped table-bordered table-hover table-static">
+          <tr>
+            <th>Level</th>
+            <th>Expected</th>
+            <th>Missing</th>
+            <th>Performance (%)</th>
+          </tr>
+          {% if processing_events["isp_validity_processing_completeness_l0_channel_1"]|length > 0 %}
+          <tr>
+            <td class="highlight">L0</td>
+            <td>{{ processing_events["isp_validity_processing_completeness_l0_channel_1"]|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l0_channel_1_missing|length }}</td>
+            <td>{{ (processing_events["isp_validity_processing_completeness_l0_channel_1"]|length - isp_validity_processing_completeness_l0_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l0_channel_1"]|length * 100 }}</td>
+          </tr>
+          {% endif %}
+          {% if processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length > 0 %}
+          <tr>
+            <td class="highlight">L1A</td>
+            <td>{{ processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}</td>
+            <td>{{ (processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length - isp_validity_processing_completeness_l1a_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length * 100 }}</td>
+          </tr>
+          {% endif %}
+          {% if processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length > 0 %}
+          <tr>
+            <td class="highlight">L1B</td>
+            <td>{{ processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}</td>
+            <td>{{ (processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length - isp_validity_processing_completeness_l1b_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length * 100 }}</td>
+          </tr>
+          {% endif %}
+          {% if processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length > 0 %}
+          <tr>
+            <td class="highlight">L1C</td>
+            <td>{{ processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}</td>
+            <td>{{ (processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length - isp_validity_processing_completeness_l1c_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length * 100 }}</td>
+          </tr>
+          {% endif %}
+          {% if processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length > 0 %}
+          <tr>
+            <td class="highlight">L2A</td>
+            <td>{{ processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}</td>
+            <td>{{ (processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length - isp_validity_processing_completeness_l2a_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length * 100 }}</td>
+          </tr>
+          {% endif %}
+        </table>
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
+
+

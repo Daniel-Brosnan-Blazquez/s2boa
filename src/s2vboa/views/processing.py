@@ -258,5 +258,10 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
     # ISP_VALIDITY_PROCESSING_COMPLETENESS_L[0_|1A|1B|1C|2A]_CHANNEL_1, linked to the ISP_VALIDITY events
     isp_validity_events_links = query.get_linked_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"})
     events["isp_validity_processing_completeness_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if re.search("^ISP_VALIDITY_PROCESSING_COMPLETENESS.*CHANNEL_1$", event.gauge.name)]
+    events["isp_validity_processing_completeness_l0_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_1"]
+    events["isp_validity_processing_completeness_l1a_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1A_CHANNEL_1"]
+    events["isp_validity_processing_completeness_l1b_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_1"]
+    events["isp_validity_processing_completeness_l1c_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1"]
+    events["isp_validity_processing_completeness_l2a_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_1"]
 
     return events

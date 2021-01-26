@@ -1,6 +1,11 @@
 {% extends "panel/index.html" %}
 
 {% set isp_validity_processing_completeness_channel_1_missing = processing_events["isp_validity_processing_completeness_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l0_channel_1_missing = processing_events["isp_validity_processing_completeness_l0_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1a_channel_1_missing = processing_events["isp_validity_processing_completeness_l1a_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1b_channel_1_missing = processing_events["isp_validity_processing_completeness_l1b_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1c_channel_1_missing = processing_events["isp_validity_processing_completeness_l1c_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
+{% set isp_validity_processing_completeness_l2a_channel_1_missing = processing_events["isp_validity_processing_completeness_l2a_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
 
 {% block content %}
 <div class="row">
