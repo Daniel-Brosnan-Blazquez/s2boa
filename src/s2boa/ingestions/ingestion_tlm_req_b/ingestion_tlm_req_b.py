@@ -14,6 +14,8 @@ import json
 
 import tempfile
 
+import pdb
+
 
 # Import xml parser
 from lxml import etree
@@ -49,9 +51,40 @@ def define_telemetry_values(satellite, value):
     }]
     return telemetry_values
 
+def check_links(planned_correction_events, planned_events, linked_events, event_start, event_stop, gauge_name, back_ref, engineering_value):
+
+    planned_correction_matching_at_start = [event for event in planned_correction_events if event.start < event_stop and event.start > event_start]
+    for planned_matching in planned_correction_matching_at_start: 
+        planned_uuids = [link.event_uuid_link for link in planned_matching.eventLinks if link.name == "PLANNED_EVENT"]
+        if len(planned_uuids) > 0:
+            linked_events.append({
+                "link": str(planned_uuids[0]),
+                "link_mode": "by_uuid",
+                "name": gauge_name +" _AT_START",
+                "back_ref": back_ref
+            })
+        #end if
+    #end for
+
+
+    planned_correction_matching_at_stop = [event for event in planned_correction_events if event.stop > (event_start - datetime.timedelta(seconds=20)) and event.stop < event_stop and (event_stop - event_start).total_seconds() > 10]
+    for planned_matching in planned_correction_matching_at_stop: 
+        rewind = [value.value for value in planned_matching.eventDoubles if value.name == "SCN_RWD"]
+        planned_uuids = [link.event_uuid_link for link in planned_matching.eventLinks if link.name == "PLANNED_EVENT"]
+        if len(planned_uuids) > 0 and not (engineering_value == "3" and back_ref == "PLANNED_PLAYBACK" and rewind[0] == 0):
+            linked_events.append({
+                "link": str(planned_uuids[0]),
+                "link_mode": "by_uuid",
+                "name": gauge_name +" _AT_STOP",
+                "back_ref": back_ref
+            })
+        #end if
+    #end for
+
+
 # Memory occupation events
 @debug
-def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_name):
+def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_name, planned_events, linked_events):
 
     telemetry_values_list = xpath_xml("/Earth_Explorer_File/ResponsePart/Response/ParamResponse/ParamSampleList/ParamSampleListElement[Name=$parameter_name]", parameter_name = parameter_name)
     if parameter_name == 'MST00058':
@@ -63,8 +96,14 @@ def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_nam
     if parameter_name == 'MST00192':
         gauge_name = "LAST_REPLAYED_SCENE"
     # end if
-
     first_time = True
+    planned_playback_correction_events = planned_events["planned_playback_correction_events_and_linking"]["prime_events"]
+    planned_playback_events = planned_events["planned_playback_correction_events_and_linking"]["linking_events"]
+    planned_imaging_correction_events = planned_events["planned_imaging_correction_events_and_linking"]["prime_events"]
+    planned_imaging_events = planned_events["planned_imaging_correction_events_and_linking"]["linking_events"]
+    planned_cut_imaging_correction_events = planned_events["planned_cut_imaging_correction_events_and_linking"]["prime_events"]
+    planned_cut_imaging_events = planned_events["planned_cut_imaging_correction_events_and_linking"]["linking_events"]
+    
     for telemetry_value in telemetry_values_list:
         if first_time:
             engineering_value = telemetry_value.xpath("EngineeringValue")[0].text
@@ -74,12 +113,17 @@ def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_nam
         # end if
         if int(telemetry_value.xpath("EngineeringValue")[0].text) != int(engineering_value):
             event_stop = telemetry_value.xpath("TimeStampAsciiA")[0].text
+            check_links(planned_playback_correction_events, planned_playback_events, linked_events, parser.parse(event_start), parser.parse(event_stop), gauge_name, "PLANNED_PLAYBACK", engineering_value)
+            check_links(planned_imaging_correction_events, planned_imaging_events, linked_events, parser.parse(event_start), parser.parse(event_stop), gauge_name, "PLANNED_IMAGING", engineering_value)
+            check_links(planned_cut_imaging_correction_events, planned_cut_imaging_events, linked_events, parser.parse(event_start), parser.parse(event_stop), gauge_name, "PLANNED_CUT_IMAGING", engineering_value)
+            
             memory_occupation_event = {
             "gauge": {
                 "name": gauge_name,
                 "system": satellite,
                 "insertion_type": "INSERT_and_ERASE"
             },
+            "links": linked_events,
             "values": telemetry_values,
             "start": event_start,
             "stop": event_stop
@@ -89,19 +133,27 @@ def memory_occupation_events(xpath_xml, list_of_events, satellite, parameter_nam
             event_start = telemetry_value.xpath("TimeStampAsciiA")[0].text
             telemetry_values = define_telemetry_values(satellite, engineering_value)
         # end if
+        linked_events = []
     # end loop
     event_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
+    check_links(planned_playback_correction_events, planned_playback_events, linked_events, parser.parse(event_start), parser.parse(event_stop), gauge_name, "PLANNED_PLAYBACK", engineering_value)
+    check_links(planned_imaging_correction_events, planned_imaging_events, linked_events, parser.parse(event_start), parser.parse(event_stop), gauge_name, "PLANNED_IMAGING", engineering_value)
+    check_links(planned_cut_imaging_correction_events, planned_cut_imaging_events, linked_events, parser.parse(event_start), parser.parse(event_stop), gauge_name, "PLANNED_CUT_IMAGING", engineering_value)
     memory_occupation_event = {
         "gauge": {
             "name": gauge_name,
             "system": satellite,
             "insertion_type": "INSERT_and_ERASE"
         },
+        "links": linked_events,
         "values": telemetry_values,
         "start": event_start,
         "stop": event_stop
         }
     list_of_events.append(memory_occupation_event)
+    linked_events = []
+
+
 
 # Discrepancy events
 @debug
@@ -264,6 +316,7 @@ def process_file(file_path, engine, query, reception_time):
 
     list_of_annotations = []
     list_of_events = []
+    linked_events = []
 
     # Obtain the satellite
     satellite = file_name[0:3]
@@ -287,9 +340,31 @@ def process_file(file_path, engine, query, reception_time):
     # end if
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
 
+
+    #get the plans to associate their begining and end to the number of scenes
+    planned_events = {}
+    planned_events["planned_playback_correction_events_and_linking"] = query.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "=="}, 
+                                                                                                gauge_systems = {"filter": satellite, "op": "=="}, 
+                                                                                                value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}], 
+                                                                                                start_filters = [{"date": validity_stop, "op": "<"}], 
+                                                                                                stop_filters = [{"date": validity_start, "op": ">"}], 
+                                                                                                link_names = {"filter": "PLANNED_EVENT", "op": "=="})
+    planned_events["planned_imaging_correction_events_and_linking"] = query.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING_CORRECTION", "op": "=="}, 
+                                                                                                gauge_systems = {"filter": satellite, "op": "=="}, 
+                                                                                                value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}], 
+                                                                                                start_filters = [{"date": validity_stop, "op": "<"}], 
+                                                                                                stop_filters = [{"date": validity_start, "op": ">"}], 
+                                                                                                link_names = {"filter": "PLANNED_EVENT", "op": "=="})
+    planned_events["planned_cut_imaging_correction_events_and_linking"] = query.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="}, 
+                                                                                                gauge_systems = {"filter": satellite, "op": "=="}, 
+                                                                                                value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}], 
+                                                                                                start_filters = [{"date": validity_stop, "op": "<"}], 
+                                                                                                stop_filters = [{"date": validity_start, "op": ">"}], 
+                                                                                                link_names = {"filter": "PLANNED_EVENT", "op": "=="})
+
     # add events
     # add nominal memory occupation events
-    memory_occupation_events(xpath_xml, list_of_events, satellite, 'MST00058')
+    memory_occupation_events(xpath_xml, list_of_events, satellite, 'MST00058', planned_events, linked_events)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 20)
 
@@ -299,7 +374,7 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 40)
 
     # add ntr memory occupation events
-    memory_occupation_events(xpath_xml, list_of_events, satellite, 'MST00059')
+    memory_occupation_events(xpath_xml, list_of_events, satellite, 'MST00059', planned_events, linked_events)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 50)
 
@@ -309,7 +384,7 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
 
     # add last replayed scene events
-    memory_occupation_events(xpath_xml, list_of_events, satellite, 'MST00192')
+    memory_occupation_events(xpath_xml, list_of_events, satellite, 'MST00192', planned_events, linked_events)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
 
