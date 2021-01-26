@@ -1307,21 +1307,6 @@ class TestDfepIngestion(unittest.TestCase):
                 "type": "text",
                 "name": "playback_type",
                 "value": "NOMINAL"
-            },
-            {
-                "type": "double",
-                "name": "estimated_lost",
-                "value": "1023.0"
-            },
-            {
-                "type": "double",
-                "name": "pre_counter",
-                "value": "6280314.0"
-            },
-            {
-                "type": "double",
-                "name": "post_counter",
-                "value": "6281338.0"
             }
         ]
 
