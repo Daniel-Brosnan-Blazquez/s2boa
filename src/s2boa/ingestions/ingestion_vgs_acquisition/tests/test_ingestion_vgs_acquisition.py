@@ -129,7 +129,7 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 57
+        assert len(events) == 8
 
         # Check PLAYBACK_VALIDITY events
         playback_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_%")).all()
@@ -354,7 +354,7 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 186
+        assert len(events) == 17
 
         # Check PLAYBACK_VALIDITY events
         playback_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_%")).all()
@@ -532,7 +532,7 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603.EOF").all()
 
-        assert len(events) == 65
+        assert len(events) == 16
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -750,15 +750,15 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
             }
         ]
 
-        # Check PLAYBACKGA_Ps events
+        # Check PLAYBACK_GAPs events
         playback_gap_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_GAP")).all()
 
-        assert len(playback_gap_events) == 51
+        assert len(playback_gap_events) == 2
 
         # Check definite PLAYBACK_GAP
         playback_gap_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLAYBACK_GAP",
                                                                                  Event.start == "2020-06-16T10:48:23.626966",
-                                                                                 Event.stop == "2020-06-16T10:48:23.627164").all()
+                                                                                 Event.stop == "2020-06-16T10:48:24.827651").all()
 
         assert len(playback_gap_event1) == 1
 
@@ -794,28 +794,13 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
                 "value": "NOMINAL"
             },
             {
-                "type": "double",
-                "name": "estimated_lost",
-                "value": "1.0"
-            },
-            {
-                "type": "double",
-                "name": "pre_counter",
-                "value": "7487409.0"
-            },
-            {
-                "type": "double",
-                "name": "post_counter",
-                "value": "7487411.0"
-            },
-            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((6.138941 45.590469, 2.531048 46.266423, 2.531048 46.266423, 6.138941 45.590469))"
+                        "value": "POLYGON ((6.109869 45.520791, 2.506363 46.196208, 2.506363 46.196208, 6.109869 45.520791))"
                     }
                 ]
             }

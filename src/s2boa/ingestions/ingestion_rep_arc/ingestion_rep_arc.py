@@ -124,7 +124,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "validity_start": reported_validity_start,
         "validity_stop": reported_validity_stop,
         "reported_validity_start": reported_validity_start,
-        "reported_validity_stop": reported_validity_stop
+        "reported_validity_stop": reported_validity_stop,
+        "priority": 50
     }
 
 
@@ -421,6 +422,42 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             }]
         }
         list_of_lta_annotations.append(lta_archiving_annotation)
+
+        # Number of components
+        number_of_granules = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_GR')]"))
+        number_of_tiles = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_TL')]"))
+        print(number_of_granules)
+        print(number_of_tiles)
+        if number_of_granules > 0:
+            number_of_granules_annotation = {
+                "explicit_reference": datastrip_id,
+                "annotation_cnf": {
+                    "name": "NUMBER_OF_GRANULES",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                },
+                "values": [
+                    {"name": "number",
+                     "type": "double",
+                     "value": number_of_granules
+                     }]
+            }
+            list_of_annotations.append(number_of_granules_annotation)
+        # end if
+        if number_of_tiles > 0:
+            number_of_tiles_annotation = {
+                "explicit_reference": datastrip_id,
+                "annotation_cnf": {
+                    "name": "NUMBER_OF_TILES",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                },
+                "values": [
+                    {"name": "number",
+                     "type": "double",
+                     "value": number_of_tiles
+                     }]
+            }
+            list_of_annotations.append(number_of_tiles_annotation)
+        # end if
         
         for item in xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata"):
             item_id = item.xpath("Catalogues/S2CatalogueReport/S2EarthObservation/Inventory_Metadata/File_ID")[0].text
