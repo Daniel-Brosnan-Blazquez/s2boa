@@ -613,16 +613,19 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         reception_matching_status = "NO_MATCHED_ISP_VALIDITY"
         sensing_orbit = ""
         downlink_orbit = ""
+        imaging_mode = ""
 
         # Planning completeness
         if len(corrected_planned_imagings) > 0:
             corrected_planned_imaging = corrected_planned_imagings[0]
             planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
             planning_matching_status = "MATCHED_PLANNED_IMAGING"
-            sensing_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
-                                                                    event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
+
+            sensing_orbit_values = [value for value in corrected_planned_imaging.eventDoubles if value.name == "start_orbit"]
             sensing_orbit = str(sensing_orbit_values[0].value)
+
+            imaging_mode_values = [value for value in corrected_planned_imaging.eventTexts if value.name == "imaging_mode"]
+            imaging_mode = str(imaging_mode_values[0].value)
 
             links_processing_validity.append({
                 "link": str(planned_imaging_uuid),
@@ -646,31 +649,27 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         # Received Imaging Completeness
         if len(isp_validities) > 0:
             reception_matching_status = "MATCHED_ISP_VALIDITY"
-            isp_validity_segments = ingestion_functions.convert_eboa_events_to_date_segments(isp_validities)
-            intersected_isp_validities = ingestion_functions.get_intersected_timeline_with_idx(ingestion_functions.intersect_timelines([datablock], isp_validity_segments), 2)
-            greater_isp_validity_segment = ingestion_functions.get_greater_segment(intersected_isp_validities)
-            isp_validity = [isp_validity for isp_validity in isp_validities if isp_validity.event_uuid == greater_isp_validity_segment["id"]][0]
 
-            isp_validity_uuid = isp_validity.event_uuid
+            for isp_validity in isp_validities:
 
-            downlink_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "==", "filter": "downlink_orbit"}, "type": "double"}],
-                                                                     event_uuids = {"op": "in", "filter": [isp_validity_uuid]})
-            downlink_orbit = str(downlink_orbit_values[0].value)
+                isp_validity_uuid = isp_validity.event_uuid
 
-            links_processing_validity.append({
-                "link": str(isp_validity_uuid),
-                "link_mode": "by_uuid",
-                "name": "PROCESSING_VALIDITY",
-                "back_ref": "ISP_VALIDITY"
-            })
-            links_processing_reception_completeness.append({
-                "link": str(isp_validity_uuid),
-                "link_mode": "by_uuid",
-                "name": "PROCESSING_COMPLETENESS",
-                "back_ref": "ISP_VALIDITY"
-            })
+                downlink_orbit_values = [value for value in isp_validity.eventDoubles if value.name == "downlink_orbit"]
+                downlink_orbit = str(downlink_orbit_values[0].value)
 
+                links_processing_validity.append({
+                    "link": str(isp_validity_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PROCESSING_VALIDITY",
+                    "back_ref": "ISP_VALIDITY"
+                })
+                links_processing_reception_completeness.append({
+                    "link": str(isp_validity_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PROCESSING_COMPLETENESS",
+                    "back_ref": "ISP_VALIDITY"
+                })
+            # end for
         # end if
 
         links_planning_processing_completeness.append({
@@ -727,6 +726,13 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
+            })
+        # end if
+        if imaging_mode != "":
+            planning_processing_completeness_event["values"].append({
+                "name": "imaging_mode",
+                "type": "text",
+                "value": imaging_mode
             })
         # end if
         list_of_planning_processing_completeness_events.append(planning_processing_completeness_event)
@@ -789,6 +795,13 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                     "value": downlink_orbit
                 })
             # end if
+            if imaging_mode != "":
+                processing_reception_completeness_event["values"].append({
+                    "name": "imaging_mode",
+                    "type": "text",
+                    "value": imaging_mode
+                })
+            # end if
 
             list_of_isp_processing_completeness_events.append(processing_reception_completeness_event)
         # end for
@@ -844,6 +857,13 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
+            })
+        # end if
+        if imaging_mode != "":
+            processing_validity_event["values"].append({
+                "name": "imaging_mode",
+                "type": "text",
+                "value": imaging_mode
             })
         # end if
 
@@ -1017,16 +1037,18 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         reception_matching_status = "NO_MATCHED_ISP_VALIDITY"
         sensing_orbit = ""
         downlink_orbit = ""
+        imaging_mode = ""
 
         # Planning completeness
         if len(planned_cut_imagings) > 0:
             planned_imaging = planned_cut_imagings[0]
             planned_imaging_uuid = planned_imaging.event_uuid
             planning_matching_status = "MATCHED_PLANNED_IMAGING"
-            sensing_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "==", "filter": "start_orbit"}, "type": "double"}],
-                                                                    event_uuids = {"op": "in", "filter": [planned_imaging_uuid]})
+            sensing_orbit_values = [value for value in planned_imaging.eventDoubles if value.name == "start_orbit"]
             sensing_orbit = str(sensing_orbit_values[0].value)
+
+            imaging_mode_values = [value for value in planned_imaging.eventTexts if value.name == "imaging_mode"]
+            imaging_mode = str(imaging_mode_values[0].value)
 
             links_processing_validity.append({
                 "link": str(planned_imaging_uuid),
@@ -1045,28 +1067,27 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         # Received Imaging Completeness
         if len(isp_validities) > 0:
             reception_matching_status = "MATCHED_ISP_VALIDITY"
-            isp_validity = isp_validities[0]
+            for isp_validity in isp_validities:
+                isp_validity_uuid = isp_validity.event_uuid
 
-            isp_validity_uuid = isp_validity.event_uuid
+                downlink_orbit_values = query.get_event_values_interface(value_type="double",
+                                                                        value_filters=[{"name": {"op": "==", "filter": "downlink_orbit"}, "type": "double"}],
+                                                                         event_uuids = {"op": "in", "filter": [isp_validity_uuid]})
+                downlink_orbit = str(downlink_orbit_values[0].value)
 
-            downlink_orbit_values = query.get_event_values_interface(value_type="double",
-                                                                    value_filters=[{"name": {"op": "==", "filter": "downlink_orbit"}, "type": "double"}],
-                                                                     event_uuids = {"op": "in", "filter": [isp_validity_uuid]})
-            downlink_orbit = str(downlink_orbit_values[0].value)
-
-            links_processing_validity.append({
-                "link": str(isp_validity_uuid),
-                "link_mode": "by_uuid",
-                "name": "PROCESSING_VALIDITY",
-                "back_ref": "ISP_VALIDITY"
-            })
-            links_processing_reception_completeness.append({
-                "link": str(isp_validity_uuid),
-                "link_mode": "by_uuid",
-                "name": "PROCESSING_COMPLETENESS",
-                "back_ref": "ISP_VALIDITY"
-            })
-
+                links_processing_validity.append({
+                    "link": str(isp_validity_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PROCESSING_VALIDITY",
+                    "back_ref": "ISP_VALIDITY"
+                })
+                links_processing_reception_completeness.append({
+                    "link": str(isp_validity_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PROCESSING_COMPLETENESS",
+                    "back_ref": "ISP_VALIDITY"
+                })
+            # end for
         # end if
 
         links_planning_processing_completeness.append({
@@ -1124,6 +1145,13 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
+            })
+        # end if
+        if imaging_mode != "":
+            planning_processing_completeness_event["values"].append({
+                "name": "imaging_mode",
+                "type": "text",
+                "value": imaging_mode
             })
         # end if
 
@@ -1188,6 +1216,13 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                     "value": downlink_orbit
                 })
             # end if
+            if imaging_mode != "":
+                processing_reception_completeness_event["values"].append({
+                    "name": "imaging_mode",
+                    "type": "text",
+                    "value": imaging_mode
+                })
+            # end if
 
             list_of_isp_processing_completeness_events.append(processing_reception_completeness_event)
         # end for
@@ -1243,6 +1278,13 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
+            })
+        # end if
+        if imaging_mode != "":
+            processing_validity_event["values"].append({
+                "name": "imaging_mode",
+                "type": "text",
+                "value": imaging_mode
             })
         # end if
 

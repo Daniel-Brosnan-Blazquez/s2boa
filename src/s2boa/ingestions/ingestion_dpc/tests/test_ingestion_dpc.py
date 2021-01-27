@@ -307,6 +307,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "sensing_orbit"
             },
             {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
@@ -363,6 +368,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "sensing_orbit",
                 "value": "16077.0",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
@@ -872,6 +882,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "type": "double"
             },
             {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
@@ -928,6 +943,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "sensing_orbit",
                 "value": "16077.0",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
@@ -1158,6 +1178,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "16078.0",
                 "name": "downlink_orbit",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
@@ -1584,6 +1609,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "downlink_orbit"
             },
             {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
@@ -1652,6 +1682,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "16078.0",
                 "name": "downlink_orbit",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
@@ -1740,6 +1775,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "downlink_orbit",
                 "value": "16078.0",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
@@ -1842,6 +1882,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "downlink_orbit",
                 "value": "16078.0",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
@@ -1985,6 +2030,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "downlink_orbit"
             },
             {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
@@ -2045,6 +2095,11 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "16078.0",
                 "name": "downlink_orbit",
                 "type": "double"
+            },
+            {
+                "name": "imaging_mode",
+                "type": "text",
+                "value": "NOMINAL"
             },
             {
                 "name": "footprint_details",
