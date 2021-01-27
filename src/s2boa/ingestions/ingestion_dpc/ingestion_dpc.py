@@ -116,7 +116,8 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         "validity_start": reported_validity_start,
         "validity_stop": reported_validity_stop,
         "reported_validity_start": reported_validity_start,
-        "reported_validity_stop": reported_validity_stop
+        "reported_validity_stop": reported_validity_stop,
+        "priority": 100
     }
 
 
@@ -154,7 +155,9 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         ds_input = input[0].text
 
         # Loop over each granule in the ouput
-        for granule in output_msi.xpath("*[name() = 'GRANULES_ID' and contains(text(),'_GR_')]"):
+        granules = output_msi.xpath("*[name() = 'GRANULES_ID' and contains(text(),'_GR_')]")
+        number_of_granules = len(granules)
+        for granule in granules:
             # Obtain the granule id
             granule_t = granule.text
             level_gr = granule_t[13:16].replace("_","")
@@ -241,7 +244,9 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         # end for
 
         # Loop over each tile in the output
-        for tile in output_msi.xpath("*[name() = 'GRANULES_ID' and contains(text(),'_TL_')]"):
+        tiles = output_msi.xpath("*[name() = 'GRANULES_ID' and contains(text(),'_TL_')]")
+        number_of_tiles = len(tiles)
+        for tile in tiles:
             # Obtain the tile id
             tile_t = tile.text
             level_tl = tile_t[13:16]
@@ -351,7 +356,9 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         # end for
 
         # Loop over each TCI in the ouput
-        for true_color in output_msi.xpath("*[name() = 'GRANULES_ID' and contains(text(),'_TC_')]"):
+        true_colors = output_msi.xpath("*[name() = 'GRANULES_ID' and contains(text(),'_TC_')]")
+        number_of_true_colors = len(true_colors)
+        for true_color in true_colors:
             # Obtain the true color imaging id
             true_color_t = true_color.text
             level_tc = true_color_t[13:16]
@@ -545,6 +552,53 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 }]
             }
             list_of_lta_annotations.append(lta_archiving_annotation)
+
+            # Number of components
+            if number_of_granules > 0:
+                number_of_granules_annotation = {
+                    "explicit_reference": ds_output,
+                    "annotation_cnf": {
+                        "name": "NUMBER_OF_GRANULES",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                    },
+                    "values": [
+                        {"name": "number",
+                         "type": "double",
+                         "value": number_of_granules
+                         }]
+                }
+                list_of_annotations.append(number_of_granules_annotation)
+            # end if
+            if number_of_tiles > 0:
+                number_of_tiles_annotation = {
+                    "explicit_reference": ds_output,
+                    "annotation_cnf": {
+                        "name": "NUMBER_OF_TILES",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                    },
+                    "values": [
+                        {"name": "number",
+                         "type": "double",
+                         "value": number_of_tiles
+                         }]
+                }
+                list_of_annotations.append(number_of_tiles_annotation)
+            # end if
+            if number_of_true_colors > 0:
+                number_of_true_colors_annotation = {
+                    "explicit_reference": ds_output,
+                    "annotation_cnf": {
+                        "name": "NUMBER_OF_TCS",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                    },
+                    "values": [
+                        {"name": "number",
+                         "type": "double",
+                         "value": number_of_true_colors
+                         }]
+                }
+                list_of_annotations.append(number_of_true_colors_annotation)
+            # end if
             
             explicit_reference = {
                 "group": level + "_DS",

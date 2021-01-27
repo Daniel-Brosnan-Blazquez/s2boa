@@ -106,67 +106,74 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
 
         status = "COMPLETE"
 
+        # Process playback gaps
         gaps = vcid.xpath("Gaps/Gap")
-        for gap in gaps:
-            general_status = "INCOMPLETE"
-            status = "INCOMPLETE"
-            start = functions.three_letter_to_iso_8601(gap.xpath("PreAcqTime")[0].text)
-            stop = functions.three_letter_to_iso_8601(gap.xpath("PostAcqTime")[0].text)
-            estimated_lost = gap.xpath("EstimatedLost")[0].text
-            pre_counter = gap.xpath("PreCounter")[0].text
-            post_counter = gap.xpath("PostCounter")[0].text
-            gap_event = {
-                "explicit_reference": session_id,
-                "key": session_id + "_CHANNEL_" + channel,
-                "gauge": {
-                    "insertion_type": "EVENT_KEYS",
-                    "name": "PLAYBACK_GAP",
-                    "system": station
-                },
-                "start": start,
-                "stop": stop,
-                "links": [
-                    {
-                        "link": playback_validity_event_link_ref,
-                        "link_mode": "by_ref",
+        if len(gaps) > 0:
+            i = 0
+            start_datetime = parser.parse(functions.three_letter_to_iso_8601(gaps[0].xpath("PreAcqTime")[0].text))
+            while i < len(gaps):
+                i += 1
+                general_status = "INCOMPLETE"
+                status = "INCOMPLETE"
+                stop_datetime = parser.parse(functions.three_letter_to_iso_8601(gaps[i-1].xpath("PostAcqTime")[0].text))
+
+                # Check that the difference between its stop and the start of the following (if exists) is lower than 1 second
+                if i < len(gaps):
+                    start_next_datetime = parser.parse(functions.three_letter_to_iso_8601(gaps[i].xpath("PreAcqTime")[0].text))
+                    if (start_next_datetime - stop_datetime).total_seconds() < 1:
+                        continue
+                    # end if
+                # end if
+                
+                gap_event = {
+                    "explicit_reference": session_id,
+                    "key": session_id + "_CHANNEL_" + channel,
+                    "gauge": {
+                        "insertion_type": "EVENT_KEYS",
                         "name": "PLAYBACK_GAP",
-                        "back_ref": "PLAYBACK_VALIDITY"
-                    }],
-                "values": [
-                    {"name": "downlink_orbit",
-                     "type": "double",
-                     "value": downlink_orbit},
-                    {"name": "satellite",
-                     "type": "text",
-                     "value": satellite},
-                    {"name": "reception_station",
-                     "type": "text",
-                     "value": station},
-                    {"name": "channel",
-                     "type": "double",
-                     "value": channel},
-                    {"name": "vcid",
-                     "type": "double",
-                     "value": vcid_number},
-                    {"name": "playback_type",
-                     "type": "text",
-                     "value": downlink_mode},
-                    {"name": "estimated_lost",
-                     "type": "double",
-                     "value": estimated_lost},
-                    {"name": "pre_counter",
-                     "type": "double",
-                     "value": pre_counter},
-                    {"name": "post_counter",
-                     "type": "double",
-                     "value": post_counter}
-                ]
-            }
+                        "system": station
+                    },
+                    "start": start_datetime.isoformat(),
+                    "stop": stop_datetime.isoformat(),
+                    "links": [
+                        {
+                            "link": playback_validity_event_link_ref,
+                            "link_mode": "by_ref",
+                            "name": "PLAYBACK_GAP",
+                            "back_ref": "PLAYBACK_VALIDITY"
+                        }],
+                    "values": [
+                        {"name": "downlink_orbit",
+                         "type": "double",
+                         "value": downlink_orbit},
+                        {"name": "satellite",
+                         "type": "text",
+                         "value": satellite},
+                        {"name": "reception_station",
+                         "type": "text",
+                         "value": station},
+                        {"name": "channel",
+                         "type": "double",
+                         "value": channel},
+                        {"name": "vcid",
+                         "type": "double",
+                         "value": vcid_number},
+                        {"name": "playback_type",
+                         "type": "text",
+                         "value": downlink_mode}
+                    ]
+                }
 
-            # Insert gap_event
-            list_of_events.append(gap_event)
+                # Insert gap_event
+                list_of_events.append(gap_event)
 
-        # end for
+                # Move start to the next start if exists
+                if i < len(gaps):
+                    start_datetime = parser.parse(functions.three_letter_to_iso_8601(gaps[i].xpath("PreAcqTime")[0].text))
+                # end if
+
+            # end while
+        # end if
 
         matching_status = "NO_MATCHED_PLANNED_PLAYBACK"
         links = []

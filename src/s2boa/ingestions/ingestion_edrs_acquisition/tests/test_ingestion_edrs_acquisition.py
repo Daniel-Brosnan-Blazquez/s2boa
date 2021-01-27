@@ -705,21 +705,6 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "value": "NOMINAL"
             },
             {
-                "type": "double",
-                "name": "estimated_lost",
-                "value": "392733.0"
-            },
-            {
-                "type": "double",
-                "name": "pre_counter",
-                "value": "2399762.0"
-            },
-            {
-                "type": "double",
-                "name": "post_counter",
-                "value": "2792496.0"
-            },
-            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [

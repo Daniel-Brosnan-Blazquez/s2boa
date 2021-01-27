@@ -2544,6 +2544,56 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(missing_planning_completeness_2) == 1
 
+        # Check number of components of the datastrips
+        number_of_components = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "NUMBER_OF_GRANULES"},
+                                                               explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"})
+
+        assert len(number_of_components) == 1
+
+        assert number_of_components[0].get_structured_values() == [
+            {
+                "name": "number",
+                "type": "double",
+                "value": "360.0"
+            }
+        ]
+        number_of_components = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "NUMBER_OF_GRANULES"},
+                                                               explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06"})
+
+        assert len(number_of_components) == 1
+
+        assert number_of_components[0].get_structured_values() == [
+            {
+                "name": "number",
+                "type": "double",
+                "value": "324.0"
+            }
+        ]
+        number_of_components = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "NUMBER_OF_TILES"},
+                                                               explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06"})
+
+        assert len(number_of_components) == 1
+
+        assert number_of_components[0].get_structured_values() == [
+            {
+                "name": "number",
+                "type": "double",
+                "value": "31.0"
+            }
+        ]
+        number_of_components = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "NUMBER_OF_TILES"},
+                                                               explicit_refs = {"op": "like", "filter": "S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08"})
+
+        assert len(number_of_components) == 1
+
+        assert number_of_components[0].get_structured_values() == [
+            {
+                "name": "number",
+                "type": "double",
+                "value": "19.0"
+            }
+        ]
+
     def test_dpc_report_hktm_only(self):
 
         filename = "S2A_OPER_REP_OPDPC_HKTM.EOF"
