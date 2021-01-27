@@ -118,6 +118,51 @@
           </div>
         </div>
         {% endif %}
+        <!-- Incomplete L0 -->
+        {% if isp_validity_processing_completeness_l0_channel_1_incomplete|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L0</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l0_channel_1_incomplete|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Incomplete L1A -->
+        {% if isp_validity_processing_completeness_l1a_channel_1_incomplete|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L1A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1a_channel_1_incomplete|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Incomplete L1B -->
+        {% if isp_validity_processing_completeness_l1b_channel_1_incomplete|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L1B</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1b_channel_1_incomplete|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Incomplete L1C -->
+        {% if isp_validity_processing_completeness_l1c_channel_1_incomplete|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L1C</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1c_channel_1_incomplete|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Incomplete L2A -->
+        {% if isp_validity_processing_completeness_l2a_channel_1_incomplete|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L2A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l2a_channel_1_incomplete|length }}</div>
+          </div>
+        </div>
+        {% endif %}
       </div>
       <!-- Suummary table -->
       {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
@@ -127,6 +172,7 @@
             <th>Level</th>
             <th>Expected</th>
             <th>Missing</th>
+            <th>Incomplete</th>
             <th>Performance (%)</th>
           </tr>
           {% if processing_events["isp_validity_processing_completeness_l0_channel_1"]|length > 0 %}
@@ -134,6 +180,7 @@
             <td class="highlight">L0</td>
             <td>{{ processing_events["isp_validity_processing_completeness_l0_channel_1"]|length }}</td>
             <td>{{ isp_validity_processing_completeness_l0_channel_1_missing|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l0_channel_1_incomplete|length }}</td>
             <td>{{ (processing_events["isp_validity_processing_completeness_l0_channel_1"]|length - isp_validity_processing_completeness_l0_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l0_channel_1"]|length * 100 }}</td>
           </tr>
           {% endif %}
@@ -142,6 +189,7 @@
             <td class="highlight">L1A</td>
             <td>{{ processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length }}</td>
             <td>{{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l1a_channel_1_incomplete|length }}</td>
             <td>{{ (processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length - isp_validity_processing_completeness_l1a_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length * 100 }}</td>
           </tr>
           {% endif %}
@@ -150,6 +198,7 @@
             <td class="highlight">L1B</td>
             <td>{{ processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length }}</td>
             <td>{{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l1b_channel_1_incomplete|length }}</td>
             <td>{{ (processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length - isp_validity_processing_completeness_l1b_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length * 100 }}</td>
           </tr>
           {% endif %}
@@ -158,6 +207,7 @@
             <td class="highlight">L1C</td>
             <td>{{ processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length }}</td>
             <td>{{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l1c_channel_1_incomplete|length }}</td>
             <td>{{ (processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length - isp_validity_processing_completeness_l1c_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length * 100 }}</td>
           </tr>
           {% endif %}
@@ -166,6 +216,7 @@
             <td class="highlight">L2A</td>
             <td>{{ processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length }}</td>
             <td>{{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}</td>
+            <td>{{ isp_validity_processing_completeness_l2a_channel_1_incomplete|length }}</td>
             <td>{{ (processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length - isp_validity_processing_completeness_l2a_channel_1_missing|length) / processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length * 100 }}</td>
           </tr>
           {% endif %}
