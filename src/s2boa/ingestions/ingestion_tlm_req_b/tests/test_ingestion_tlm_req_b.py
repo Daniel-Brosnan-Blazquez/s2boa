@@ -353,3 +353,258 @@ class TestTlmReqB(unittest.TestCase):
         returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        #NOMINAL_MEMORY_OCCUPATION LINKS CHECK
+
+        nominal_memory_links = self.query_eboa.get_linking_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                    stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                    link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
+        planned_playback_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}])
+
+        assert len(nominal_memory_links["linking_events"]) == len(planned_playback_events)
+
+
+        nominal_memory_links_at_start_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_START", "op": "=="})
+
+        assert len(nominal_memory_links_at_start_planned_playback["linking_events"]) == len(planned_playback_events) - 2
+
+        nominal_memory_links_at_stop_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
+
+        assert len(nominal_memory_links_at_stop_planned_playback["linking_events"]) == len(planned_playback_events) - 3
+
+        planned_imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}])
+        
+        nominal_memory_links_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                    stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                    link_names = {"filter": "PLANNED_IMAGING", "op": "=="})
+
+        assert len(planned_imaging_events) + 1 == len(nominal_memory_links_imaging["linking_events"])
+
+        nominal_memory_links_at_start_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_START", "op": "=="})
+
+        assert len(nominal_memory_links_at_start_planned_imaging["linking_events"]) == len(planned_imaging_events) - 3
+
+        nominal_memory_links_at_stop_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                            stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                            link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
+
+        assert len(nominal_memory_links_at_stop_planned_imaging["linking_events"]) == len(planned_imaging_events) - 1
+
+        planned_cut_imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}])
+        
+        nominal_memory_links_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                    stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                    link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
+        
+        assert len(planned_cut_imaging_events) + 1 == len(nominal_memory_links_cut_imaging["linking_events"])
+
+        nominal_memory_links_at_start_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_START", "op": "=="})
+
+        assert len(nominal_memory_links_at_start_planned_cut_imaging["linking_events"]) == len(planned_cut_imaging_events) - 3
+
+        nominal_memory_links_at_stop_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
+
+        assert len(nominal_memory_links_at_stop_planned_cut_imaging["linking_events"]) == len(planned_cut_imaging_events) - 2
+
+        #NRT_MEMORY_OCCUPATION LINKS CHECK
+
+        nrt_memory_links = self.query_eboa.get_linking_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                    stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                    link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
+        
+        assert len(nrt_memory_links["linking_events"]) == len(planned_playback_events)
+
+
+        nrt_memory_links_at_start_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NRT_MEMORY_OCCUPATION_AT_START", "op": "=="})
+
+        assert len(nrt_memory_links_at_start_planned_playback["linking_events"]) == 1
+
+        nrt_memory_links_at_stop_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NRT_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
+
+        assert len(nrt_memory_links_at_stop_planned_playback["linking_events"]) == 1
+
+        nrt_memory_links_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                    stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                    link_names = {"filter": "PLANNED_IMAGING", "op": "=="})
+        assert len(planned_imaging_events) + 1 == len(nrt_memory_links_imaging["linking_events"])
+
+        nrt_memory_links_at_start_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NRT_MEMORY_OCCUPATION_AT_START", "op": "=="})
+
+        assert len(nrt_memory_links_at_start_planned_imaging["linking_events"]) == 1
+
+        nrt_memory_links_at_stop_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                            stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                            link_names = {"filter": "NRT_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
+
+        assert len(nrt_memory_links_at_stop_planned_imaging["linking_events"]) == 1
+
+        nrt_memory_links_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                    stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                    link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
+        
+        assert len(planned_cut_imaging_events) + 1 == len(nrt_memory_links_cut_imaging["linking_events"])
+
+        nrt_memory_links_at_start_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NRT_MEMORY_OCCUPATION_AT_START", "op": "=="})
+
+        assert len(nrt_memory_links_at_start_planned_cut_imaging["linking_events"]) == 1
+
+        nrt_memory_links_at_stop_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "NRT_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
+
+        assert len(nrt_memory_links_at_stop_planned_cut_imaging["linking_events"]) == 1
+
+        #LAST_REPLAYED_SCENE LINKS CHECK
+
+        last_replayed_links = self.query_eboa.get_linking_events(gauge_names = {"filter": "LAST_REPLAYED_SCENE", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                    stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                    link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
+        
+        assert len(last_replayed_links["linking_events"]) == len(planned_playback_events)
+
+
+        last_replayed_links_at_start_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "LAST_REPLAYED_SCENE_AT_START", "op": "=="})
+
+        assert len(last_replayed_links_at_start_planned_playback["linking_events"]) == len(planned_playback_events) - 2
+
+        last_replayed_links_at_stop_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "LAST_REPLAYED_SCENE_AT_STOP", "op": "=="})
+
+        assert len(last_replayed_links_at_stop_planned_playback["linking_events"]) == len(planned_playback_events) - 2
+
+        last_replayed_links_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "LAST_REPLAYED_SCENE", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                    stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                    link_names = {"filter": "PLANNED_IMAGING", "op": "=="})
+        assert len(planned_imaging_events) + 1 == len(last_replayed_links_imaging["linking_events"])
+
+        last_replayed_links_at_start_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "LAST_REPLAYED_SCENE_AT_START", "op": "=="})
+
+        assert len(last_replayed_links_at_start_planned_imaging["linking_events"]) == 24
+
+        last_replayed_links_at_stop_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
+                                                                            stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
+                                                                            link_names = {"filter": "LAST_REPLAYED_SCENE_AT_STOP", "op": "=="})
+
+        assert len(last_replayed_links_at_stop_planned_imaging["linking_events"]) == 15
+
+        last_replayed_links_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "LAST_REPLAYED_SCENE", "op": "=="}, 
+                                                                    gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                    start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                    stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                    link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
+        
+        assert len(planned_cut_imaging_events) + 1 == len(last_replayed_links_cut_imaging["linking_events"])
+
+        last_replayed_links_at_start_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "LAST_REPLAYED_SCENE_AT_START", "op": "=="})
+
+        assert len(last_replayed_links_at_start_planned_cut_imaging["linking_events"]) == 24
+
+        last_replayed_links_at_stop_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
+                                                                            gauge_systems = {"filter": "S2B", "op": "=="}, 
+                                                                            value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
+                                                                            start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
+                                                                            stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
+                                                                            link_names = {"filter": "LAST_REPLAYED_SCENE_AT_STOP", "op": "=="})
+
+        assert len(last_replayed_links_at_stop_planned_cut_imaging["linking_events"]) == 15
