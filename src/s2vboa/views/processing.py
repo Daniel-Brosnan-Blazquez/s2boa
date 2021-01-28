@@ -53,6 +53,23 @@ def show_processing():
     }
     mission = "S2_"
 
+    show = {}
+    show["map"]=True
+    show["timeline"]=True
+
+    if request.method == "POST":
+        if not "show_processing_map" in request.form:
+            show["map"] = False
+        else:
+            show["map"]=True
+        # end if
+        if not "show_processing_timeline" in request.form:
+            show["timeline"] = False
+        else:
+            show["timeline"]=True
+        # end if
+    # end if
+
     window_size = 1
     start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
 
@@ -76,7 +93,7 @@ def show_processing():
     filters["stop"] = [start_filter["date"]]
     filters["mission"] = [mission]
 
-    return query_processing_and_render(start_filter, stop_filter, mission, filters = filters)
+    return query_processing_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/processing-pages", methods=["POST"])
 def query_processing_pages():
@@ -108,6 +125,23 @@ def show_sliding_processing_parameters():
     repeat_cycle = float(request.args.get("repeat_cycle"))
     mission = request.args.get("mission")
 
+    show = {}
+    show["map"]=True
+    show["timeline"]=True
+
+    if request.method == "POST":
+        if not "show_processing_map" in request.form:
+            show["map"] = False
+        else:
+            show["map"]=True
+        # end if
+        if not "show_processing_timeline" in request.form:
+            show["timeline"] = False
+        else:
+            show["timeline"]=True
+        # end if
+    # end if
+    
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
         "op": "<="
@@ -124,7 +158,7 @@ def show_sliding_processing_parameters():
         "mission": mission
     }
 
-    return query_processing_and_render(start_filter, stop_filter, mission, sliding_window)
+    return query_processing_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
 @bp.route("/sliding-processing", methods=["GET", "POST"])
 def show_sliding_processing():
@@ -175,9 +209,9 @@ def show_sliding_processing():
         "mission": mission
     }
 
-    return query_processing_and_render(start_filter, stop_filter, mission, sliding_window)
+    return query_processing_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
-def query_processing_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None):
+def query_processing_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None):
 
     processing_events = query_processing_events(start_filter, stop_filter, mission, filters)
 
@@ -188,7 +222,7 @@ def query_processing_and_render(start_filter = None, stop_filter = None, mission
     
     template = "views/processing/processing.html"
 
-    return render_template(template, processing_events=processing_events, orbpre_events=orbpre_events, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template(template, processing_events=processing_events, orbpre_events=orbpre_events, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
 def query_processing_events(start_filter = None, stop_filter = None, mission = None, filters = None):
     """
@@ -264,4 +298,18 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
     events["isp_validity_processing_completeness_l1c_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1"]
     events["isp_validity_processing_completeness_l2a_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_1"]
 
+    # Obtain downlink status for each ISP_VALIDITY_PROCESSING_COMPLETENESS_L[0_|1A|1B|1C|2A]_CHANNEL_1 event
+    events["isp_validity_processing_completeness_channel_1_with_downlink_status"] = {}
+    for isp_validity_event_uuid in list(unique_isp_validity_event_uuids):
+        isp_validity_event_links = query.get_linked_events(event_uuids = {"filter": str(isp_validity_event_uuid), "op": "=="})
+        isp_validity_processing_completeness_channel_1_events = [event for event in isp_validity_event_links["linked_events"] if re.search("^ISP_VALIDITY_PROCESSING_COMPLETENESS.*CHANNEL_1$", event.gauge.name)]
+        isp_validity_processing_completeness_channel_1_event_not_missing = 0
+        for isp_validity_processing_completeness_channel_1_event in isp_validity_processing_completeness_channel_1_events:
+            for value in isp_validity_processing_completeness_channel_1_event.eventTexts:
+                if value.name == "status" and value.value != "MISSING": isp_validity_processing_completeness_channel_1_event_not_missing += 1
+            # end for
+        # end for
+        for isp_validity_processing_completeness_channel_1_event in isp_validity_processing_completeness_channel_1_events: 
+            events["isp_validity_processing_completeness_channel_1_with_downlink_status"][isp_validity_processing_completeness_channel_1_event.event_uuid] = [len(isp_validity_processing_completeness_channel_1_events), isp_validity_processing_completeness_channel_1_event_not_missing]
+    # end for
     return events
