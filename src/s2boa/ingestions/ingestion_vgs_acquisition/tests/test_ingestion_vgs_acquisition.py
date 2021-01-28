@@ -129,7 +129,7 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 8
+        assert len(events) == 9
 
         # Check PLAYBACK_VALIDITY events
         playback_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_%")).all()
@@ -249,6 +249,11 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
                 "name": "num_frames",
                 "type": "double",
                 "value": "11932267.0"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             },{
                 "name": "expected_num_packets",
                 "type": "double",
@@ -475,6 +480,10 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
                 "type": "double",
                 "value": "11900051.0"
             },{
+                "name": "sad_status",
+                "type": "text",
+                "value": "MISSING"
+            },{
                 "name": "expected_num_packets",
                 "type": "double",
                 "value": "0.0"
@@ -532,7 +541,7 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603.EOF").all()
 
-        assert len(events) == 16
+        assert len(events) == 17
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -641,6 +650,11 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
                 "name": "num_frames",
                 "value": "11932267.0",
                 "type": "double"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             },
             {
                 "name": "expected_num_packets",
@@ -961,6 +975,11 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
                 "name": "sensing_orbit"
             },
             {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
+            },
+            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
@@ -1164,4 +1183,107 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
 
         assert len(planned_playback_events["linking_events"]) == 2
 
-        
+
+    def test_insert_rep_pass_with_partial_sad(self):
+        filename = "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603_PARTIAL_SAD.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check number of sources generated
+        sources = self.session.query(Source).all()
+
+        assert len(sources) == 2
+
+        # Check that the validity period of the input has taken into consideration the MSI sensing received
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2020-06-16T10:48:14",
+                                                   Source.reported_validity_stop == "2020-06-16T10:56:03",
+                                                   Source.validity_start == "2020-06-15T21:02:44.999376",
+                                                   Source.validity_stop == "2020-06-16T10:56:03.533806").all()
+
+        assert len(source) == 2
+
+        raw_isp_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name == "RAW_ISP_VALIDITY").all()
+
+        assert len(raw_isp_validity_events) == 1
+
+        assert raw_isp_validity_events[0].get_structured_values() == [
+            {
+                "name": "status",
+                "type": "text",
+                "value": "INCOMPLETE"
+            },{
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "26031.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "reception_station",
+                "type": "text",
+                "value": "SGS_"
+            },{
+                "name": "channel",
+                "type": "double",
+                "value": "2.0"
+            },{
+                "name": "vcid",
+                "type": "double",
+                "value": "20.0"
+            },{
+                "name": "playback_type",
+                "type": "text",
+                "value": "NOMINAL"
+            },{
+                "name": "num_packets",
+                "type": "double",
+                "value": "1341361.0"
+            },{
+                "name": "num_frames",
+                "type": "double",
+                "value": "11932267.0"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "PARTIAL"
+            },{
+                "name": "expected_num_packets",
+                "type": "double",
+                "value": "0.0"
+            },{
+                "name": "diff_expected_received",
+                "type": "double",
+                "value": "-1341361.0"
+            },{
+                "name": "packet_status",
+                "type": "text",
+                "value": "MISSING"
+            }
+        ]
+
+        sad_data_events = self.session.query(Event).join(Gauge).filter(Gauge.name == "SAD_DATA",
+                                                                       Event.start == "2020-06-16T09:19:56.163529",
+                                                                       Event.stop == "2020-06-16T10:45:01.024779").all()
+
+        assert len(sad_data_events) == 1
+
+        assert sad_data_events[0].get_structured_values() == [
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "26031.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "reception_station",
+                "type": "text",
+                "value": "SGS_"
+            }
+        ]

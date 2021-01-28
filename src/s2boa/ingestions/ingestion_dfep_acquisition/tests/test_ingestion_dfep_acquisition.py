@@ -59,7 +59,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 13
+        assert len(events) == 14
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -161,6 +161,11 @@ class TestDfepIngestion(unittest.TestCase):
                 "value": "-1.0",
                 "name": "sensing_orbit",
                 "type": "double"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             }
         ]
 
@@ -206,6 +211,11 @@ class TestDfepIngestion(unittest.TestCase):
                 "value": "-1.0",
                 "type": "double",
                 "name": "sensing_orbit"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             }
         ]
 
@@ -392,6 +402,11 @@ class TestDfepIngestion(unittest.TestCase):
                 "name": "packet_status",
                 "type": "text",
                 "value": "OK"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             }
         ]
 
@@ -550,7 +565,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 18
+        assert len(events) == 19
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -645,6 +660,11 @@ class TestDfepIngestion(unittest.TestCase):
                 "name": "sensing_orbit",
                 "value": "-1.0",
                 "type": "double"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             }
         ]
 
@@ -690,6 +710,11 @@ class TestDfepIngestion(unittest.TestCase):
                 "name": "sensing_orbit",
                 "value": "-1.0",
                 "type": "double"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             }
         ]
 
@@ -730,6 +755,11 @@ class TestDfepIngestion(unittest.TestCase):
                 "name": "sensing_orbit",
                 "value": "-1.0",
                 "type": "double"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             }
         ]
 
@@ -1055,7 +1085,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 16
+        assert len(events) == 17
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1222,7 +1252,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 14
+        assert len(events) == 15
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -1368,7 +1398,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF").all()
 
-        assert len(events) == 21
+        assert len(events) == 22
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -1580,7 +1610,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
 
-        assert len(events) == 21
+        assert len(events) == 22
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).join(Source).filter(Source.name == "S2A_REP_PASS_PLAYBACK_RT.EOF").all()
@@ -1661,7 +1691,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 14
+        assert len(events) == 15
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T08:53:56.579788",
@@ -1691,7 +1721,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == filename).all()
 
-        assert len(events) == 17
+        assert len(events) == 18
 
         isp_gap_event = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                      Event.start == "2018-07-21T20:18:50.458085",

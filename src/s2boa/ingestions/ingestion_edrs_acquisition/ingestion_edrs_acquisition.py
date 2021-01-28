@@ -377,6 +377,49 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
     # Obtain downlink orbit
     downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
 
+    # SAD data analysis
+    sad_data = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[NumFrames > 0 and (@VCID = 2)]/ISP_Status/Status[@APID = 150]")
+    sad_start = None
+    sad_stop = None
+    if len(sad_data) > 0:
+        sad_start = functions.convert_from_gps_to_utc(sad_data[0].xpath("three_letter_to_iso_8601(string(SensStartTime))"))
+        sad_stop = functions.convert_from_gps_to_utc(sad_data[0].xpath("three_letter_to_iso_8601(string(SensStopTime))"))
+
+        if sad_start > sad_stop:
+            sad_start_aux = sad_start
+            sad_start = sad_stop
+            sad_stop = sad_start_aux
+        # end if
+        
+        sad_data_event = {
+            "link_ref": "SAD_DATA",
+            "explicit_reference": session_id,
+            "key": session_id + "_CHANNEL_" + channel,
+            "gauge": {
+                "insertion_type": "EVENT_KEYS",
+                "name": "SAD_DATA",
+                "system": "EDRS"
+            },
+            "start": sad_start,
+            "stop": sad_stop,
+            "values": [
+                {"name": "downlink_orbit",
+                 "type": "double",
+                 "value": downlink_orbit},
+                {"name": "satellite",
+                 "type": "text",
+                 "value": satellite},
+                {"name": "reception_station",
+                 "type": "text",
+                 "value": "EDRS"}
+            ]
+        }
+
+        # Insert sad_data event
+        list_of_events.append(sad_data_event)
+
+    # end if
+    
     # List for the isp completeness analysis of the plan
     list_of_isp_completeness_events = []
 
@@ -641,6 +684,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
 
         # end for
 
+        sad_status = "MISSING"
+        if len(sad_data) > 0 and (sad_start > corrected_sensing_start or sad_stop < corrected_sensing_stop):
+            sad_status = "PARTIAL"
+        elif len(sad_data) > 0:
+            sad_status = "COMPLETE"
+        # end if
+        
         raw_isp_validity_event = {
             "link_ref": raw_isp_validity_event_link_ref,
             "explicit_reference": session_id,
@@ -682,6 +732,20 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                  "value": vcid.xpath("NumFrames")[0].text}
             ]
         }
+
+        raw_isp_validity_event["values"].append(
+            {"name": "sad_status",
+             "type": "text",
+             "value": sad_status})
+        if len(sad_data) > 0:
+            raw_isp_validity_event["links"] = [
+                {
+                    "link": "SAD_DATA",
+                    "link_mode": "by_ref",
+                    "name": "RAW_ISP_VALIDITY",
+                    "back_ref": "SAD_DATA"
+                }]
+        # end if
 
         # Insert raw_isp_validity_event
         list_of_events.append(raw_isp_validity_event)
@@ -755,6 +819,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 # ISP validity event
                 isp_validity_event_link_ref = "ISP_VALIDITY_" + vcid_number + "_" + str(isp_validity_valid_segment["start"])
 
+                sad_status = "MISSING"
+                if len(sad_data) > 0 and (sad_start > isp_validity_valid_segment["start"].isoformat() or sad_stop < isp_validity_valid_segment["stop"].isoformat()):
+                    sad_status = "PARTIAL"
+                elif len(sad_data) > 0:
+                    sad_status = "COMPLETE"
+                # end if
+
                 isp_validity_processing_completeness_event = {
                     "explicit_reference": session_id,
                     "gauge": {
@@ -797,10 +868,33 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": sensing_orbit}
                     ]
                 }
+
+                isp_validity_processing_completeness_event["values"].append(
+                    {"name": "sad_status",
+                     "type": "text",
+                     "value": sad_status})
+                if len(sad_data) > 0:
+                    isp_validity_processing_completeness_event["links"].append(
+                        {
+                            "link": "SAD_DATA",
+                            "link_mode": "by_ref",
+                            "name": "PROCESSING_COMPLETENESS",
+                            "back_ref": "SAD_DATA"
+                        })
+                # end if
+
                 list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
 
                 start_after_l0 = isp_validity_valid_segment["start"] + datetime.timedelta(seconds=6)
                 stop_after_l0 = isp_validity_valid_segment["stop"] - datetime.timedelta(seconds=6)
+
+                sad_status = "MISSING"
+                if len(sad_data) > 0 and (sad_start > start_after_l0.isoformat() or sad_stop < stop_after_l0.isoformat()):
+                    sad_status = "PARTIAL"
+                elif len(sad_data) > 0:
+                    sad_status = "COMPLETE"
+                # end if
+
                 if stop_after_l0 > start_after_l0:
                     isp_validity_processing_completeness_event = {
                         "explicit_reference": session_id,
@@ -844,9 +938,32 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                              "value": sensing_orbit}
                         ]
                     }
+                    
+                    isp_validity_processing_completeness_event["values"].append(
+                        {"name": "sad_status",
+                         "type": "text",
+                         "value": sad_status})
+                    if len(sad_data) > 0:
+                        isp_validity_processing_completeness_event["links"].append(
+                            {
+                                "link": "SAD_DATA",
+                                "link_mode": "by_ref",
+                                "name": "PROCESSING_COMPLETENESS",
+                                "back_ref": "SAD_DATA"
+                            })
+                    # end if
+
                     list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
 
                     if imaging_mode in ["SUN_CAL", "DARK_CAL_CSM_OPEN", "DARK_CAL_CSM_CLOSE", "VICARIOUS_CAL", "RAW", "TEST"]:
+
+                        sad_status = "MISSING"
+                        if len(sad_data) > 0 and (sad_start > start_after_l0.isoformat() or sad_stop < stop_after_l0.isoformat()):
+                            sad_status = "PARTIAL"
+                        elif len(sad_data) > 0:
+                            sad_status = "COMPLETE"
+                        # end if
+
                         isp_validity_processing_completeness_event = {
                             "explicit_reference": session_id,
                             "gauge": {
@@ -889,10 +1006,33 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": sensing_orbit}
                             ]
                         }
+
+                        isp_validity_processing_completeness_event["values"].append(
+                            {"name": "sad_status",
+                             "type": "text",
+                             "value": sad_status})
+                        if len(sad_data) > 0:
+                            isp_validity_processing_completeness_event["links"].append(
+                                {
+                                    "link": "SAD_DATA",
+                                    "link_mode": "by_ref",
+                                    "name": "PROCESSING_COMPLETENESS",
+                                    "back_ref": "SAD_DATA"
+                                })
+                        # end if
+
                         list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
                     # end if
 
                     if imaging_mode in ["NOMINAL", "VICARIOUS_CAL", "TEST"]:
+
+                        sad_status = "MISSING"
+                        if len(sad_data) > 0 and (sad_start > start_after_l0.isoformat() or sad_stop < stop_after_l0.isoformat()):
+                            sad_status = "PARTIAL"
+                        elif len(sad_data) > 0:
+                            sad_status = "COMPLETE"
+                        # end if
+
                         isp_validity_processing_completeness_event = {
                             "explicit_reference": session_id,
                             "gauge": {
@@ -935,10 +1075,33 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": sensing_orbit}
                             ]
                         }
+                        
+                        isp_validity_processing_completeness_event["values"].append(
+                            {"name": "sad_status",
+                             "type": "text",
+                             "value": sad_status})
+                        if len(sad_data) > 0:
+                            isp_validity_processing_completeness_event["links"].append(
+                                {
+                                    "link": "SAD_DATA",
+                                    "link_mode": "by_ref",
+                                    "name": "PROCESSING_COMPLETENESS",
+                                    "back_ref": "SAD_DATA"
+                                })
+                        # end if
+
                         list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
                     # end if
 
                     if imaging_mode in ["NOMINAL"]:
+
+                        sad_status = "MISSING"
+                        if len(sad_data) > 0 and (sad_start > start_after_l0.isoformat() or sad_stop < stop_after_l0.isoformat()):
+                            sad_status = "PARTIAL"
+                        elif len(sad_data) > 0:
+                            sad_status = "COMPLETE"
+                        # end if
+
                         isp_validity_processing_completeness_event = {
                             "explicit_reference": session_id,
                             "gauge": {
@@ -981,6 +1144,21 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": sensing_orbit}
                             ]
                         }
+
+                        isp_validity_processing_completeness_event["values"].append(
+                            {"name": "sad_status",
+                             "type": "text",
+                             "value": sad_status})
+                        if len(sad_data) > 0:
+                            isp_validity_processing_completeness_event["links"].append(
+                                {
+                                    "link": "SAD_DATA",
+                                    "link_mode": "by_ref",
+                                    "name": "PROCESSING_COMPLETENESS",
+                                    "back_ref": "SAD_DATA"
+                                })
+                        # end if
+
                         list_of_isp_validity_processing_completeness_events.append(isp_validity_processing_completeness_event)
                     # end if
                 # end if
@@ -1021,6 +1199,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     # end for
                 # end for
 
+                sad_status = "MISSING"
+                if len(sad_data) > 0 and (sad_start > isp_validity_valid_segment["start"].isoformat() or sad_stop < isp_validity_valid_segment["stop"].isoformat()):
+                    sad_status = "PARTIAL"
+                elif len(sad_data) > 0:
+                    sad_status = "COMPLETE"
+                # end if
+
                 isp_validity_event = {
                     "link_ref": isp_validity_event_link_ref,
                     "explicit_reference": session_id,
@@ -1060,6 +1245,20 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": sensing_orbit}
                     ]
                 }
+
+                isp_validity_event["values"].append(
+                    {"name": "sad_status",
+                     "type": "text",
+                     "value": sad_status})
+                if len(sad_data) > 0:
+                    isp_validity_event["links"].append(
+                        {
+                            "link": "SAD_DATA",
+                            "link_mode": "by_ref",
+                            "name": "ISP_VALIDITY",
+                            "back_ref": "SAD_DATA"
+                        })
+                # end if
                 
                 # Insert isp_validity_event
                 list_of_events.append(isp_validity_event)
@@ -1067,6 +1266,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 completeness_status = "RECEIVED"
                 if isp_validity_status != "COMPLETE":
                     completeness_status = isp_validity_status
+                # end if
+
+                sad_status = "MISSING"
+                if len(sad_data) > 0 and (sad_start > isp_validity_valid_segment["start"].isoformat() or sad_stop < isp_validity_valid_segment["stop"].isoformat()):
+                    sad_status = "PARTIAL"
+                elif len(sad_data) > 0:
+                    sad_status = "COMPLETE"
                 # end if
 
                 isp_validity_completeness_event = {
@@ -1119,6 +1325,20 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": sensing_orbit}
                     ]
                 }
+
+                isp_validity_completeness_event["values"].append(
+                    {"name": "sad_status",
+                     "type": "text",
+                     "value": sad_status})
+                if len(sad_data) > 0:
+                    isp_validity_completeness_event["links"].append(
+                        {
+                            "link": "SAD_DATA",
+                            "link_mode": "by_ref",
+                            "name": "PLANNED_PROCESSING_COMPLETENESS",
+                            "back_ref": "SAD_DATA"
+                        })
+                # end if
 
                 # Insert isp_validity_event
                 list_of_isp_completeness_events.append(isp_validity_completeness_event)

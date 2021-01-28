@@ -129,7 +129,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 3
+        assert len(events) == 4
 
         # Check ISP_VALIDITY events
         playback_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_%")).all()
@@ -249,6 +249,11 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "num_frames",
                 "type": "double",
                 "value": "17927163.0"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             },{
                 "name": "expected_num_packets",
                 "type": "double",
@@ -307,7 +312,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_OPER_REP_PASS_E_CONTAINING_GAPS.EOF").all()
 
-        assert len(events) == 21
+        assert len(events) == 22
 
         # Check number of annotations generated
         annotations = self.session.query(Annotation).all()
@@ -416,6 +421,11 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "num_frames",
                 "value": "17927163.0",
                 "type": "double"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             },
             {
                 "name": "expected_num_packets",
@@ -796,7 +806,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_OPER_REP_PASS_E_CONTAINING_ALL_DATA_TO_BE_PROCESS.EOF").all()
 
-        assert len(events) == 17
+        assert len(events) == 18
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -956,6 +966,11 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "type": "double",
                 "value": "16075.0",
                 "name": "sensing_orbit"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
             },
             {
                 "name": "footprint_details",
@@ -1151,7 +1166,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_OPER_REP_PASS_E_PLAYBACK_RT.EOF").all()
 
-        assert len(events) == 17
+        assert len(events) == 18
 
         # Check PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL events
         isp_completeness_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL%")).all()
@@ -1313,6 +1328,11 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "sensing_orbit"
             },
             {
+                "name": "sad_status",
+                "type": "text",
+                "value": "COMPLETE"
+            },
+            {
                 "name": "footprint_details",
                 "type": "object",
                 "values": [
@@ -1465,3 +1485,107 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                                                    Source.processor == "isp_planning_completeness_ingestion_edrs_acquisition.py").all()
 
         assert len(source) == 1
+
+    def test_insert_rep_pass_with_partial_sad(self):
+        filename = "S2A_OPER_REP_PASS_E_PARTIAL_SAD.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+
+        # Check number of sources generated
+        sources = self.session.query(Source).all()
+
+        assert len(sources) == 2
+
+        # Check that the validity period of the input has taken into consideration the MSI sensing received
+        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
+                                                   Source.reported_validity_stop == "2018-07-21T07:37:55",
+                                                   Source.validity_start == "2018-07-20 17:33:12.859268",
+                                                   Source.validity_stop == "2018-07-21T07:37:55.121772").all()
+
+        assert len(source) == 2
+
+        raw_isp_validity_events = self.session.query(Event).join(Gauge).filter(Gauge.name == "RAW_ISP_VALIDITY").all()
+
+        assert len(raw_isp_validity_events) == 1
+
+        assert raw_isp_validity_events[0].get_structured_values() == [
+            {
+                "name": "status",
+                "type": "text",
+                "value": "COMPLETE"
+            },{
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16076.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "reception_station",
+                "type": "text",
+                "value": "EDRS"
+            },{
+                "name": "channel",
+                "type": "double",
+                "value": "2.0"
+            },{
+                "name": "vcid",
+                "type": "double",
+                "value": "20.0"
+            },{
+                "name": "playback_type",
+                "type": "text",
+                "value": "NOMINAL"
+            },{
+                "name": "num_packets",
+                "type": "double",
+                "value": "1931040.0"
+            },{
+                "name": "num_frames",
+                "type": "double",
+                "value": "17927163.0"
+            },
+            {
+                "name": "sad_status",
+                "type": "text",
+                "value": "PARTIAL"
+            },{
+                "name": "expected_num_packets",
+                "type": "double",
+                "value": "0.0"
+            },{
+                "name": "diff_expected_received",
+                "type": "double",
+                "value": "-1931040.0"
+            },{
+                "name": "packet_status",
+                "type": "text",
+                "value": "MISSING"
+            }
+        ]
+
+        sad_data_events = self.session.query(Event).join(Gauge).filter(Gauge.name == "SAD_DATA",
+                                                                       Event.start == "2018-07-21T05:30:21.024835",
+                                                                       Event.stop == "2018-07-21T07:25:21.024899").all()
+
+        assert len(sad_data_events) == 1
+
+        assert sad_data_events[0].get_structured_values() == [
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16076.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "reception_station",
+                "type": "text",
+                "value": "EDRS"
+            }
+        ]
