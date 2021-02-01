@@ -546,7 +546,7 @@ class TestEngine(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 6
+        assert len(sources) == 7
 
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                                  reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
@@ -563,6 +563,16 @@ class TestEngine(unittest.TestCase):
                                                  gauge_names = {"op": "like", "filter": "PROCESSING_VALIDITY"})
 
         assert len(processing_validities) == 0
+
+        ers = self.query_eboa.get_explicit_refs()
+
+        assert len(ers) == 33
+
+        linked_ers = self.query_eboa.get_linked_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "=="}, back_ref = True)
+
+        assert len(linked_ers["linked_explicit_refs"]) == 32
+
+        assert len(linked_ers["explicit_refs_linking"]) == 32
 
     def test_rep_arc_L1C_with_L0(self):
 

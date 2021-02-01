@@ -587,6 +587,15 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(processing_validities) == 0
 
+
+        ers = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_L1C_%", "op": "like"})
+
+        assert len(ers) == 63
+
+        linking_ers = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "=="}, link_names = {"filter": ["TILE", "TCI"], "op": "in"})
+        
+        assert len(linking_ers["linking_explicit_refs"]) == 62
+
     def test_dpc_report_L1C_with_L0(self):
 
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
