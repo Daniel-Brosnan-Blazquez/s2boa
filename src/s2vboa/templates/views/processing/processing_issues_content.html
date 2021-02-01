@@ -1,18 +1,19 @@
+{% if isp_validity_processing_completeness_channel_1_incomplete|length > 0 or isp_validity_processing_completeness_channel_1_missing_no_sad|length > 0 or isp_validity_processing_completeness_channel_1_missing|length > 0 %}
+{% set events = isp_validity_processing_completeness_channel_1_incomplete + isp_validity_processing_completeness_channel_1_missing_no_sad + isp_validity_processing_completeness_channel_1_missing %}
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#processing-datastrips">Processing datastrips <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#associated-processing-missing-processings" style="color:red">Missing or incomplete datastrips <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     <!-- /.panel-heading -->
-    <div class="panel-body panel-collapse collapse in" id="processing-datastrips">
-      {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+    <div class="panel-body panel-collapse collapse in" id="associated-processing-missing-processings">
       <p>
-        <b>The following table shows the datastrips</b>:
+        <b>The following table shows the datastrips which have been missing or incomplete</b>:
       </p>
       <!--table-->
-      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="processing-darastrips-table">
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="processing-missing-table">
         <thead>
           <tr>
             <th>Satellite</th>
@@ -26,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for event in processing_events["isp_validity_processing_completeness_channel_1"] %}
+          {% for event in events %}
           {% set original_isp_validity_uuids = event.eventLinks|selectattr("name", "equalto", "ISP_VALIDITY")|map(attribute='event_uuid_link')|list %}
           {% set original_isp_validity = processing_events["isp_validity_channel_1"]|selectattr("event_uuid", "in", original_isp_validity_uuids)|first %}
           {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
@@ -34,19 +35,16 @@
           {% set station = original_isp_validity.eventTexts|selectattr("name", "equalto", "reception_station")|map(attribute='value')|first|string %}
           {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
           {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+          {% set status = event.eventTexts|selectattr("name", "equalto", "sad_status")|map(attribute='value')|first|string %}
+          {% if status and status == "MISSING" %}
+          {% set status = status + "_SAD" %}
+          {% else %}
           {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
-          {% if status not in ("INCOMPLETE", "COMPLETE") %}
-          {% set sad_status = event.eventTexts|selectattr("name", "equalto", "sad_status")|map(attribute='value')|first|string %}
-          {% if sad_status and sad_status in ("MISSING", "PARTIAL") %}
-          {% set status = sad_status + "_SAD" %}
-          {% endif %}
           {% endif %}
           {% if status in ("MISSING", "MISSING_SAD") %}
           {% set status_class = "bold-red" %}
-          {% elif status in ("INCOMPLETE", "PARTIAL_SAD") %}
+          {% elif status == "INCOMPLETE" %}
           {% set status_class = "bold-orange" %}
-          {% else %}
-          {% set status_class = "bold-green" %}
           {% endif %}
           {% set datastrip = original_isp_validity.event_uuid %}
           {% set sad_data = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list|first %}
@@ -76,12 +74,8 @@
             <th>SAD coverage</th>
           </tr>
         </tfoot>
-      </table>
-      {% else %}
-      <div>
-        <p id="no-processing-data" style="text-indent: 1em">There are no datastrips during the requested period.</p>
-      </div>
-      {% endif %}
+      </table> 
     </div>
   </div>
 </div>
+{% endif %}

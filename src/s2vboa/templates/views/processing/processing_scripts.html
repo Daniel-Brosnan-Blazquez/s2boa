@@ -232,7 +232,7 @@
   {% endif %}
 
   //Timelines
-  {% if show["timeline"] %}
+  {% if show["timeline"] and processing_events["isp_validity_processing_completeness_channel_1"]|length > 0%}
   // Missing
   {% with events = isp_validity_processing_completeness_channel_1_missing %}
   {% include "js/processing/missing_processing_to_timeline.js" %}
