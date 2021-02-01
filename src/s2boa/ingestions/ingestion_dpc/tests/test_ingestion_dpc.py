@@ -561,7 +561,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 8
+        assert len(sources) == 7
 
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],

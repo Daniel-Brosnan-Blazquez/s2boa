@@ -408,21 +408,23 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         }
         list_of_dam_annotations.append(cataloging_annotation)
 
-        lta_archiving_annotation = {
-        "explicit_reference": datastrip_id,
-        "annotation_cnf": {
-            "name": "LONG_TERM_ARCHIVING_TIME",
-            "system": "EPA_",
-            "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
-            },
-        "values": [
-            {"name": "status",
-             "type": "text",
-             "value": "MISSING"
-            }]
-        }
-        list_of_lta_annotations.append(lta_archiving_annotation)
-
+        if level in ["L0", "L1B"]:
+            lta_archiving_annotation = {
+            "explicit_reference": datastrip_id,
+            "annotation_cnf": {
+                "name": "LONG_TERM_ARCHIVING_TIME",
+                "system": "EPA_",
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_lta_annotations.append(lta_archiving_annotation)
+        # end if
+        
         # Number of components
         number_of_granules = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_GR')]"))
         number_of_tiles = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_TL')]"))
@@ -594,21 +596,23 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                     list_of_ai_annotations.append(archiving_annotation)
                 # end if
 
-                lta_archiving_annotation = {
-                "explicit_reference": item_id,
-                "annotation_cnf": {
-                    "name": "LONG_TERM_ARCHIVING_TIME",
-                    "system": "EPA_",
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
-                    },
-                "values": [
-                    {"name": "status",
-                     "type": "text",
-                     "value": "MISSING"
-                    }]
-                }
-                list_of_lta_annotations.append(lta_archiving_annotation)
-
+                if level in ["L0", "L1B"]:
+                    lta_archiving_annotation = {
+                    "explicit_reference": item_id,
+                    "annotation_cnf": {
+                        "name": "LONG_TERM_ARCHIVING_TIME",
+                        "system": "EPA_",
+                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                        },
+                    "values": [
+                        {"name": "status",
+                         "type": "text",
+                         "value": "MISSING"
+                        }]
+                    }
+                    list_of_lta_annotations.append(lta_archiving_annotation)
+                # end if
+                
                 cataloging_annotation = {
                 "explicit_reference": item_id,
                 "annotation_cnf": {
