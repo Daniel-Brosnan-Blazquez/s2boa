@@ -709,6 +709,15 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
     
     # Adjust sources / operations
+    operation = {
+        "mode": "insert",
+        "dim_signature": {
+            "name": "PROCESSING_" + satellite,
+            "exec": os.path.basename(__file__),
+            "version": version
+        },
+        "source": source_processing
+    }
     if len(list_of_events_for_processing) > 0:
         event_starts = [event["start"] for event in list_of_events_for_processing]
         event_starts.sort()
@@ -723,19 +732,15 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
 
         # Generate the footprint of the events
         list_of_events_for_processing_with_footprint = functions.associate_footprints(list_of_events_for_processing, satellite)
-        
-        data["operations"].append({
-            "mode": "insert",
-            "dim_signature": {
-                "name": "PROCESSING_" + satellite,
-                "exec": os.path.basename(__file__),
-                "version": version
-            },
-            "source": source_processing,
-            "annotations": list_of_annotations_for_processing,
-            "explicit_references": list_of_explicit_references_for_processing,
-            "events": list_of_events_for_processing_with_footprint
-        })
+
+        operation["annotations"] = list_of_annotations_for_processing
+        operation["explicit_references"] = list_of_explicit_references_for_processing
+        operation["events"] = list_of_events_for_processing_with_footprint
+        data["operations"].append(operation)
+    elif len(list_of_explicit_references_for_processing) > 0:
+        operation["annotations"] = list_of_annotations_for_processing
+        operation["explicit_references"] = list_of_explicit_references_for_processing
+        data["operations"].append(operation)
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 91)
