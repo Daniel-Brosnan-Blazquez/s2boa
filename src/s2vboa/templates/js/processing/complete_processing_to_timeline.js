@@ -1,5 +1,5 @@
 
-var processing_geometries_missing = [
+var complete_processing_timeline = [
     {% for event in events %}
     {% set downlink_orbit = event.eventDoubles|selectattr("name", "equalto", "downlink_orbit")|map(attribute='value')|first|string %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
@@ -9,16 +9,12 @@ var processing_geometries_missing = [
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {
         "id": "{{ event.event_uuid }}",
+        "group": "{{ satellite }}",
+        "timeline": "{{ level }}",
+        "start": "{{ event.start.isoformat() }}",
+        "stop": "{{ event.stop.isoformat() }}",
         "tooltip": "",
-        "geometries": [
-            {% for geometry in event.eventGeometries %}
-            {{ geometry.to_wkt() }},
-            {% endfor %}
-        ],
-        "style": {
-            "stroke_color": "red",
-            "fill_color": "rgba(255,0,0,0.3)",
-        }
+        "className": "fill-border-green"
     },
     {% endfor %}
 ]

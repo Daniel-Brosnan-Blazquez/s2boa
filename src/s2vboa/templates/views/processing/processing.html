@@ -1,5 +1,6 @@
 {% extends "panel/index.html" %}
 
+<!-- Cover by SAD -->
 <!-- Missing ISP_VALIDITY_PROCESSING_COMPLETENESS -->
 {% set isp_validity_processing_completeness_channel_1_missing = processing_events["isp_validity_processing_completeness_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
 {% set isp_validity_processing_completeness_l0_channel_1_missing = processing_events["isp_validity_processing_completeness_l0_channel_1"]|filter_events_by_text_value("status", "MISSING") %}
@@ -24,6 +25,23 @@
 {% set isp_validity_processing_completeness_l1c_channel_1_complete = processing_events["isp_validity_processing_completeness_l1c_channel_1"]|filter_events_by_text_value("status", "COMPLETE") %}
 {% set isp_validity_processing_completeness_l2a_channel_1_complete = processing_events["isp_validity_processing_completeness_l2a_channel_1"]|filter_events_by_text_value("status", "COMPLETE") %}
 
+<!-- Not cover by SAD -->
+<!-- Missing ISP_VALIDITY_PROCESSING_COMPLETENESS -->
+{% set isp_validity_processing_completeness_channel_1_missing_no_sad = processing_events["isp_validity_processing_completeness_channel_1"]|filter_events_by_text_value("sad_status", "MISSING") %}
+{% set isp_validity_processing_completeness_l0_channel_1_missing_no_sad = processing_events["isp_validity_processing_completeness_l0_channel_1"]|filter_events_by_text_value("sad_status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1a_channel_1_missing_no_sad = processing_events["isp_validity_processing_completeness_l1a_channel_1"]|filter_events_by_text_value("sad_status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1b_channel_1_missing_no_sad = processing_events["isp_validity_processing_completeness_l1b_channel_1"]|filter_events_by_text_value("sad_status", "MISSING") %}
+{% set isp_validity_processing_completeness_l1c_channel_1_missing_no_sad = processing_events["isp_validity_processing_completeness_l1c_channel_1"]|filter_events_by_text_value("sad_status", "MISSING") %}
+{% set isp_validity_processing_completeness_l2a_channel_1_missing_no_sad = processing_events["isp_validity_processing_completeness_l2a_channel_1"]|filter_events_by_text_value("sad_status", "MISSING") %}
+
+<!-- Partial ISP_VALIDITY_PROCESSING_COMPLETENESS -->
+{% set isp_validity_processing_completeness_channel_1_partial_no_sad = processing_events["isp_validity_processing_completeness_channel_1"]|filter_events_by_text_value("sad_status", "PARTIAL") %}
+{% set isp_validity_processing_completeness_l0_channel_1_partial_no_sad = processing_events["isp_validity_processing_completeness_l0_channel_1"]|filter_events_by_text_value("sad_status", "PARTIAL") %}
+{% set isp_validity_processing_completeness_l1a_channel_1_partial_no_sad = processing_events["isp_validity_processing_completeness_l1a_channel_1"]|filter_events_by_text_value("sad_status", "PARTIAL") %}
+{% set isp_validity_processing_completeness_l1b_channel_1_partial_no_sad = processing_events["isp_validity_processing_completeness_l1b_channel_1"]|filter_events_by_text_value("sad_status", "PARTIAL") %}
+{% set isp_validity_processing_completeness_l1c_channel_1_partial_no_sad = processing_events["isp_validity_processing_completeness_l1c_channel_1"]|filter_events_by_text_value("sad_status", "PARTIAL") %}
+{% set isp_validity_processing_completeness_l2a_channel_1_partial_no_sad = processing_events["isp_validity_processing_completeness_l2a_channel_1"]|filter_events_by_text_value("sad_status", "PARTIAL") %}
+
 {% block content %}
 <div class="row">
   <h1 class="page-header">Processing view</h1>
@@ -37,7 +55,10 @@
 {% endwith %}
 
 {% include "views/processing/processing_summary_content.html" %}
+{% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
 {% include "views/processing/processing_maps.html" %}
+{% include "views/processing/processing_timelines.html" %}
+{% endif %}
 {% include "views/processing/processing_content.html" %}
 
 {% endblock %}

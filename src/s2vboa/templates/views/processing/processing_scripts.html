@@ -105,6 +105,154 @@
 
   vboa.display_map("processing-l0-on-map", polygons);
   {% endif %}
+  // Level L1A
+  {% if processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length > 0 %}
+  // Missing
+  var polygons_missing = [];
+  {% if isp_validity_processing_completeness_l1a_channel_1_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1a_channel_1_missing %}
+  {% include "js/processing/missing_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
+  {% endif %}
+  // Complete 
+  var polygons_complete = [];
+  {% if isp_validity_processing_completeness_l1a_channel_1_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1a_channel_1_complete %}
+  {% include "js/processing/complete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
+  var polygons = polygons_complete.concat(polygons_missing);
+  {% endif %}
+  // Incomplete 
+  var polygons_incomplete = [];
+  {% if isp_validity_processing_completeness_l1a_channel_1_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1a_channel_1_incomplete %}
+  {% include "js/processing/incomplete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
+  polygons = polygons.concat(polygons_incomplete); 
+  {% endif %}                                                  
+
+  vboa.display_map("processing-l1a-on-map", polygons);
+  {% endif %}
+  // Level L1B
+  {% if processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length > 0 %}
+  // Missing
+  var polygons_missing = [];
+  {% if isp_validity_processing_completeness_l1b_channel_1_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1b_channel_1_missing %}
+  {% include "js/processing/missing_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
+  {% endif %}
+  // Complete 
+  var polygons_complete = [];
+  {% if isp_validity_processing_completeness_l1b_channel_1_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1b_channel_1_complete %}
+  {% include "js/processing/complete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
+  var polygons = polygons_complete.concat(polygons_missing);
+  {% endif %}
+  // Incomplete 
+  var polygons_incomplete = [];
+  {% if isp_validity_processing_completeness_l1b_channel_1_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1b_channel_1_incomplete %}
+  {% include "js/processing/incomplete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
+  polygons = polygons.concat(polygons_incomplete); 
+  {% endif %}                                                  
+
+  vboa.display_map("processing-l1b-on-map", polygons);
+  {% endif %}
+  // Level L1C
+  {% if processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length > 0 %}
+  // Missing
+  var polygons_missing = [];
+  {% if isp_validity_processing_completeness_l1c_channel_1_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1c_channel_1_missing %}
+  {% include "js/processing/missing_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
+  {% endif %}
+  // Complete 
+  var polygons_complete = [];
+  {% if isp_validity_processing_completeness_l1c_channel_1_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1c_channel_1_complete %}
+  {% include "js/processing/complete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
+  var polygons = polygons_complete.concat(polygons_missing);
+  {% endif %}
+  // Incomplete 
+  var polygons_incomplete = [];
+  {% if isp_validity_processing_completeness_l1c_channel_1_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1c_channel_1_incomplete %}
+  {% include "js/processing/incomplete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
+  polygons = polygons.concat(polygons_incomplete); 
+  {% endif %}                                                  
+
+  vboa.display_map("processing-l1c-on-map", polygons);
+  {% endif %}
+  // Level L2A
+  {% if processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length > 0 %}
+  // Missing
+  var polygons_missing = [];
+  {% if isp_validity_processing_completeness_l2a_channel_1_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l2a_channel_1_missing %}
+  {% include "js/processing/missing_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
+  {% endif %}
+  // Complete 
+  var polygons_complete = [];
+  {% if isp_validity_processing_completeness_l2a_channel_1_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l2a_channel_1_complete %}
+  {% include "js/processing/complete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
+  var polygons = polygons_complete.concat(polygons_missing);
+  {% endif %}
+  // Incomplete 
+  var polygons_incomplete = [];
+  {% if isp_validity_processing_completeness_l2a_channel_1_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l2a_channel_1_incomplete %}
+  {% include "js/processing/incomplete_processing_to_map.js" %}
+  {% endwith %}
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
+  polygons = polygons.concat(polygons_incomplete); 
+  {% endif %}                                                  
+
+  vboa.display_map("processing-l2a-on-map", polygons);
+  {% endif %}
+  {% endif %}
+
+  //Timelines
+  {% if show["timeline"] %}
+  // Missing
+  {% with events = isp_validity_processing_completeness_channel_1_missing %}
+  {% include "js/processing/missing_processing_to_timeline.js" %}
+  {% endwith %}
+
+  {% with events = isp_validity_processing_completeness_channel_1_complete %}
+  {% include "js/processing/complete_processing_to_timeline.js" %}
+  {% endwith %}
+
+  {% with events = isp_validity_processing_completeness_channel_1_incomplete %}
+  {% include "js/processing/incomplete_processing_to_timeline.js" %}
+  {% endwith %}
+  var events = missing_processing_timeline.concat(complete_processing_timeline)
+  events = events.concat(incomplete_processing_timeline)  
+
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_timeline(events, items, groups);
+  vboa.display_timeline("processing-timeline", items, groups);
   {% endif %}
   
   {% if sliding_window %}
