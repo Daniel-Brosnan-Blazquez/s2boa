@@ -297,6 +297,9 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
     events["isp_validity_processing_completeness_l1b_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_1"]
     events["isp_validity_processing_completeness_l1c_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1"]
     events["isp_validity_processing_completeness_l2a_channel_1"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_1"]
+    
+    # SAD_DATA, linked to the ISP_VALIDITY events 
+    events["sad_data"] = [event for event in isp_validity_events_links["linked_events"] if event.gauge.name == "SAD_DATA"]
 
     # Obtain processing status for each ISP_VALIDITY_PROCESSING_COMPLETENESS_L[0_|1A|1B|1C|2A]_CHANNEL_1 event
     events["isp_validity_processing_completeness_channel_1_with_processing_status"] = {}
