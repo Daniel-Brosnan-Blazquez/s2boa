@@ -17,7 +17,7 @@ var complete_processing_timeline = [
         "timeline": "{{ level }}",
         "start": "{{ event.start.isoformat() }}",
         "stop": "{{ event.stop.isoformat() }}",
-        "tooltip": "",
+        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ downlink_orbit }}", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a class=bold-green>{{ status }}</a>", "/eboa_nav/query-event-links/{{ sad_data }}", "/eboa_nav/query-event-links/{{ datastrip }}"),
         "className": "fill-border-green"
     },
     {% endfor %}
