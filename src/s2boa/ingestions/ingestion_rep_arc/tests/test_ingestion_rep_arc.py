@@ -546,7 +546,7 @@ class TestEngine(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 7
+        assert len(sources) == 6
 
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                                  reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
@@ -791,17 +791,6 @@ class TestEngine(unittest.TestCase):
                                          validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                           generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                              dim_signatures = {"filter": "ARCHIVING", "op": "=="},
-                                         processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
-                                         names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
-                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                         validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
-                                          generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
-                                             dim_signatures = {"filter": "LONG_TERM_ARCHIVING", "op": "=="},
                                          processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
                                          names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF", "op": "like"})
 
@@ -1077,17 +1066,6 @@ class TestEngine(unittest.TestCase):
                                              validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
                                              dim_signatures = {"filter": "ARCHIVING", "op": "=="},
-                                             processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
-                                             names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                                 reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
-                                                  validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:14.000618", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T11:11:24", "op": "=="}],
-                                             dim_signatures = {"filter": "LONG_TERM_ARCHIVING", "op": "=="},
                                              processors = {"filter": "ingestion_rep_arc.py", "op": "like"},
                                              names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF", "op": "like"})
 
