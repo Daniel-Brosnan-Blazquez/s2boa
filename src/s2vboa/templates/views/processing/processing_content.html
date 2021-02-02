@@ -2,14 +2,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#processing-datastrips">Processing datastrips <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#processing-datastrips">Processing completeness of the datastrips <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="processing-datastrips">
       {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
       <p>
-        <b>The following table shows the datastrips</b>:
+        <b>The following table shows the processing of the datastrips</b>:
       </p>
       <!--table-->
       <table width="100%" class="table table-striped table-bordered table-hover table-search" id="processing-darastrips-table">
@@ -48,8 +48,9 @@
           {% else %}
           {% set status_class = "bold-green" %}
           {% endif %}
-          {% set datastrip = original_isp_validity.event_uuid %}
-          {% set sad_data = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list|first %}
+          {% set datastrip_er = event.explicitRef.explicit_ref %}
+          {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
+          {% set sad_data = processing_events["sad_data"]|selectattr("event_uuid", "in", sad_data_uuids)|first %}
           
           <!--Values-->
           <tr>
@@ -59,8 +60,8 @@
             <td>{{ level }}</td>
             <td>{{ sensing_orbit }}</td>
             <td><a class="{{ status_class }}">{{ status }}</a></td>
-            <td><a href="/eboa_nav/query-event-links/{{ datastrip }}"><i class="fa fa-link"></i></a></td>
-            <td><a href="/eboa_nav/query-event-links/{{ sad_data }}"><i class="fa fa-link"></i></a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ datastrip_er }}</a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ sad_data.event_uuid }}">{{ sad_data.start ~ "_" ~ sad_data.stop }}</a></td>
           </tr>
         {% endfor %}
         </tbody>
