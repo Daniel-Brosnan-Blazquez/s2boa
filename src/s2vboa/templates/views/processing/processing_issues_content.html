@@ -57,8 +57,8 @@
             <td>{{ level }}</td>
             <td>{{ sensing_orbit }}</td>
             <td><a class="{{ status_class }}">{{ status }}</a></td>
-            <td>{{ datastrip }}</td>
-            <td>{{ sad_data }}</td>
+            <td><a href="/eboa_nav/query-event-links/{{ datastrip }}"><i class="fa fa-link"></i></a></td>
+            <td><a href="/eboa_nav/query-event-links/{{ sad_data }}"><i class="fa fa-link"></i></a></td>
           </tr>
         {% endfor %}
         </tbody>
