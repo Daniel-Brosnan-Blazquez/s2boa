@@ -59,7 +59,7 @@
             <td>{{ station }}</td>
             <td>{{ level }}</td>
             <td>{{ sensing_orbit }}</td>
-            <td><a class="{{ status_class }}">{{ status }}</a></td>
+            <td><a href="/views/specific-processing/{{ original_isp_validity.event_uuid }}" class="{{ status_class }}">{{ status }}</a></td>
             <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ datastrip_er }}</a></td>
             <td><a href="/eboa_nav/query-event-links/{{ sad_data.event_uuid }}">{{ sad_data.start ~ "_" ~ sad_data.stop }}</a></td>
           </tr>
