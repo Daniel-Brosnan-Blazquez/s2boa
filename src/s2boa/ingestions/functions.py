@@ -884,7 +884,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             "mode": "insert",
             "dim_signature": {
                 "name": "COMPLETENESS_NPPF_" + satellite,
-                "exec": filename,
+                "exec": level + "_" + filename,
                 "version": version
             },
             "source": {
@@ -916,7 +916,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             "mode": "insert",
             "dim_signature": {
                 "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
-                "exec": filename,
+                "exec": level + "_" + filename,
                 "version": version
             },
             "source": {
@@ -1303,7 +1303,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "mode": "insert",
                 "dim_signature": {
                     "name": "COMPLETENESS_NPPF_" + satellite,
-                    "exec": filename,
+                    "exec": level + "_" + filename,
                     "version": version
                 },
                 "source": {
@@ -1335,7 +1335,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                 "mode": "insert",
                 "dim_signature": {
                     "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
-                    "exec": filename,
+                    "exec": level + "_" + filename,
                     "version": version
                 },
                 "source": {

@@ -1037,6 +1037,98 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
 
     return corrected_planning_events
 
+@debug
+def _associate_acquisition_schedules(acquisition_schedule_events, planned_playbacks, planned_playback_means):
+    """
+    Method to associate the acquisition schedule events to the plan
+    """
+    station_schedule_events = [event for event in acquisition_schedule_events if event.gauge.name == "STATION_SCHEDULE"]
+    dfep_schedule_events = [event for event in acquisition_schedule_events if event.gauge.name == "DFEP_SCHEDULE"]
+    station_schedule_completeness_events = [event for event in acquisition_schedule_events if event.gauge.name == "STATION_SCHEDULE_COMPLETENESS"]
+    dfep_schedule_completeness_events = [event for event in acquisition_schedule_events if event.gauge.name == "DFEP_SCHEDULE_COMPLETENESS"]
+    sra_events = [event for event in acquisition_schedule_events if event.gauge.name == "SLOT_REQUEST_EDRS"]
+    for planned_playback in planned_playbacks:
+        planned_playback_mean_ref = [link["link"] for link in planned_playback["links"] if link["back_ref"] == "PLANNED_PLAYBACK_MEAN"][0]
+        planned_playback_mean = [planned_playback_mean for planned_playback_mean in planned_playback_means if planned_playback_mean["link_ref"] == planned_playback_mean_ref][0]
+
+        mean = [value["value"] for value in planned_playback_mean["values"] if value["name"] == "playback_mean"][0]
+
+        station_schedule_completeness_event = [event for event in station_schedule_completeness_events for value in event.eventTexts if value.name == "playback_mean" and value.value == mean and parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
+        if len(station_schedule_completeness_event) > 0:
+            planned_playback["links"].append({
+                "link": str(station_schedule_completeness_event[0].event_uuid),
+                "link_mode": "by_uuid",
+                "name": "PLANNED_PLAYBACK",
+                "back_ref": "STATION_SCHEDULE_COMPLETENESS"
+            })
+        # end if
+
+        dfep_schedule_completeness_event = [event for event in dfep_schedule_completeness_events for value in event.eventTexts if value.name == "playback_mean" and value.value == mean and parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
+        if len(dfep_schedule_completeness_event) > 0:
+            planned_playback["links"].append({
+                "link": str(dfep_schedule_completeness_event[0].event_uuid),
+                "link_mode": "by_uuid",
+                "name": "PLANNED_PLAYBACK",
+                "back_ref": "DFEP_SCHEDULE_COMPLETENESS"
+            })
+        # end if
+
+        station = None
+        if mean == "OCP":
+            sra_event = [event for event in sra_events if parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
+            if len(sra_event) > 0:
+                planned_playback["links"].append({
+                    "link": str(sra_event[0].event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PLANNED_PLAYBACK",
+                    "back_ref": "SLOT_REQUEST_EDRS"
+                })
+                station = "EDRS"
+            # end if
+        else:
+            station_schedule_event = [event for event in station_schedule_events if parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
+            if len(station_schedule_event) > 0:
+                planned_playback["links"].append({
+                    "link": str(station_schedule_event[0].event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PLANNED_PLAYBACK",
+                    "back_ref": "STATION_SCHEDULE"
+                })
+                station = [value.value for value in station_schedule_event[0].eventTexts if value.name == "station"][0]
+            # end if
+
+            dfep_schedule_event = [event for event in dfep_schedule_events if parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
+            if len(dfep_schedule_event) > 0:
+                planned_playback["links"].append({
+                    "link": str(dfep_schedule_event[0].event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "PLANNED_PLAYBACK",
+                    "back_ref": "DFEP_SCHEDULE"
+                })
+                station = [value.value for value in dfep_schedule_event[0].eventTexts if value.name == "station"][0]
+            # end if
+        # end if
+
+        # Associate station to the values of the planned playback
+        if station:
+            planned_playback["values"].append({
+                "name": "station_schedule",
+                "type": "object",
+                "values": [{"name": "station",
+                            "type": "text",
+                            "value": station}]
+            })
+            planned_playback["values"].append({
+                "name": "dfep_schedule",
+                "type": "object",
+                "values": [{"name": "station",
+                            "type": "text",
+                            "value": station}]
+            })
+        # end if
+        
+    # end for
+
 def process_file(file_path, engine, query, reception_time, tgz_filename = None):
     """Function to process the file and insert its relevant information
     into the DDBB of the eboa
@@ -1138,7 +1230,7 @@ def process_file(file_path, engine, query, reception_time, tgz_filename = None):
                                                            "value": {"filter": str(int(stop_orbits[-1]) + 1), "op": "<="}}],
                                          order_by = {"field": "start", "descending": False})
     # end if
-        
+
     list_of_corrected_events = []
     list_of_completeness_events = []
     if len(orbpre_events) > 0:
@@ -1156,7 +1248,24 @@ def process_file(file_path, engine, query, reception_time, tgz_filename = None):
 
         list_of_corrected_events = _correct_planning_events(orbpre_events, planning_events_covered_by_orbpre, list_of_completeness_events)
     # end if
-        
+
+    ###
+    # Generate acquisition schedule events
+    ###
+    # Get acquisition schedule events
+    acquisition_schedule_events =  query.get_events(gauge_names = {"filter": ["STATION_SCHEDULE", "DFEP_SCHEDULE", "STATION_SCHEDULE_COMPLETENESS", "DFEP_SCHEDULE_COMPLETENESS", "SLOT_REQUEST_EDRS"], "op": "in"},
+                                                    gauge_systems = {"filter": satellite, "op": "=="},
+                                                    start_filters = [{"date": validity_start, "op": ">"}],
+                                                    stop_filters = [{"date": validity_stop, "op": "<"}],
+                                                    order_by = {"field": "start", "descending": False})
+    if len(acquisition_schedule_events) > 0:
+
+        planned_playbacks_covered_by_schedule = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_PLAYBACK" and parser.parse(event["start"]) < acquisition_schedule_events[0].stop and parser.parse(event["stop"]) > acquisition_schedule_events[-1].start]
+        planned_playback_means_covered_by_schedule = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_PLAYBACK_MEAN" and parser.parse(event["start"]) < acquisition_schedule_events[0].stop and parser.parse(event["stop"]) > acquisition_schedule_events[-1].start]
+
+        _associate_acquisition_schedules(acquisition_schedule_events, planned_playbacks_covered_by_schedule, planned_playback_means_covered_by_schedule)
+    # end if
+    
     # Build the xml
     data = {"operations": [{
         "mode": "insert_and_erase",

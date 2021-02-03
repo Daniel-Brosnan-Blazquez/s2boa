@@ -52,9 +52,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check number of sources generated
         sources = self.session.query(Source).all()
@@ -282,9 +282,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_PASS_E_VGS2_20200616T105621_V20200616T104814_20200616T105621.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check number of sources generated
         sources = self.session.query(Source).all()
@@ -513,30 +513,30 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         filename = "S2A_OPER_MPL__NPPF__20200604T120000_20200622T150000_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_MPL_ORBPRE_20200616T030222_20200626T030222_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_MPL_SPSGS__PDMC_20200615T090003_V20200616T090000_20200622T090000.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check number of events generated
         events = self.session.query(Event).join(Source).filter(Source.name == "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603.EOF").all()
@@ -1120,9 +1120,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_PASS_E_NO_DATA.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check number of events generated
         events = self.session.query(Event).all()
@@ -1148,30 +1148,30 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         filename = "S2A_OPER_MPL__NPPF_2_playbacks_same_orbit.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_MPL_ORBPRE_2_playbacks_same_orbit.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_MPL_SPSGS__PDMC_2_playbacks_same_orbit.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_REP_PASS_E_VGS2_2_playbacks_same_orbit.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check PLAYBACK_VALIDITY events
         playback_validity_20_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLAYBACK_VALIDITY_20")).all()
@@ -1188,9 +1188,9 @@ class TestVgsAcquisitionIngestion(unittest.TestCase):
         filename = "S2A_OPER_REP_PASS_E_VGS2_20200616T105604_V20200616T104814_20200616T105603_PARTIAL_SAD.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check number of sources generated
         sources = self.session.query(Source).all()
