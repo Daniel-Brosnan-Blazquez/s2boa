@@ -109,8 +109,8 @@ def process_file(file_path, engine, query, reception_time):
 
     # Obtain the planned playback to associate the orbit number and link the production
     linking_planned_playback_to_station_schedule = query.get_linking_events(gauge_names = {"op": "==", "filter": "STATION_SCHEDULE"},
-                                                                          gauge_systems = {"op": "==", "filter": station_alias},
-                                                                          value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
+                                                                          gauge_systems = {"op": "==", "filter": satellite},
+                                                                          value_filters = [{"name": {"op": "==", "filter": "station"}, "type": "text", "value": {"op": "==", "filter": station_alias}},
                                                                                            {"name": {"op": "==", "filter": "orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}],
                                                                           link_names = {"op": "==", "filter": "PLANNED_PLAYBACK"},
                                                                           return_prime_events = False)

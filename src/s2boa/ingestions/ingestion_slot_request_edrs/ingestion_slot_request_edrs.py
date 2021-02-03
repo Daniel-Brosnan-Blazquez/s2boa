@@ -120,7 +120,6 @@ def process_file(file_path, engine, query, reception_time):
                                                  link_names = {"filter": ["TIME_CORRECTION"], "op": "in"},
                                                  return_prime_events = False)
 
-        status = "NO_MATCHED_PLAYBACK"
         links_slot_request = []
         links_dfep_schedule = []
         links_station_schedule = []
@@ -133,7 +132,6 @@ def process_file(file_path, engine, query, reception_time):
                     mean = [value.value for value in playback.eventTexts if value.name == "playback_mean"][0]
 
                     if mean == "OCP":
-                        status = "MATCHED_PLAYBACK"
                         links_slot_request.append({
                             "link": str(playback.event_uuid),
                             "link_mode": "by_uuid",
@@ -207,10 +205,7 @@ def process_file(file_path, engine, query, reception_time):
                  "value": str(orbit)},
                 {"name": "satellite",
                  "type": "text",
-                 "value": sentinel},
-                {"name": "status",
-                 "type": "text",
-                 "value": status}
+                 "value": sentinel}
             ]
         }
 
@@ -245,9 +240,12 @@ def process_file(file_path, engine, query, reception_time):
                 {"name": "satellite",
                  "type": "text",
                  "value": sentinel},
-                {"name": "status",
+                {"name": "station",
                  "type": "text",
-                 "value": status}
+                 "value": "EDRS"},
+                {"name": "playback_mean",
+                 "type": "text",
+                 "value": "OCP"}
             ]
         }
 
@@ -278,9 +276,12 @@ def process_file(file_path, engine, query, reception_time):
                 {"name": "satellite",
                  "type": "text",
                  "value": sentinel},
-                {"name": "status",
+                {"name": "station",
                  "type": "text",
-                 "value": status}
+                 "value": "EDRS"},
+                {"name": "playback_mean",
+                 "type": "text",
+                 "value": "OCP"}
             ]
         }
 
