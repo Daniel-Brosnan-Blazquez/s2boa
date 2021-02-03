@@ -37,7 +37,7 @@ class TestTlmReqB(unittest.TestCase):
         self.engine_eboa = Engine()
         self.query_eboa = Query()
 
-        # Create session to connectx to the database
+        # Create session to connect to the database
         self.session = Session()
 
         # Clear all tables before executing the test
@@ -275,7 +275,7 @@ class TestTlmReqB(unittest.TestCase):
         ]
 
         # Check that no discrepancy event exists when there is a gap in only one of the channels
-        # check gap in first event
+        # Check gap in first event
         tlm_gap_event = self.query_eboa.get_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_CHANNEL_1_GAP", "op": "=="},
                                                 gauge_systems = {"filter": "S2B", "op": "=="},
                                                 sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
@@ -290,7 +290,7 @@ class TestTlmReqB(unittest.TestCase):
                 "value": "S2B" 
             }
         ]
-        #check no discrepancy
+        # Check no discrepancy
         tlm_no_discrepancy_event = self.query_eboa.get_events(gauge_names = {"filter": "DISCREPANCY_CHANNEL_2_NOMINAL_MEMORY_OCCUPATION", "op": "=="},
                                                 gauge_systems = {"filter": "S2B", "op": "=="},
                                                 sources = {"filter": "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF", "op": "=="},
@@ -354,8 +354,9 @@ class TestTlmReqB(unittest.TestCase):
 
         assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
 
-        #NOMINAL_MEMORY_OCCUPATION LINKS CHECK
+        # CHECK NOMINAL_MEMORY_OCCUPATION LINKS
 
+        # Check planned_playback events
         nominal_memory_links = self.query_eboa.get_linking_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
@@ -366,9 +367,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                 start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
                                                                 stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}])
 
-        assert len(nominal_memory_links["linking_events"]) == len(planned_playback_events)
+        assert len(nominal_memory_links["linking_events"]) == 31
 
-
+        # Check nominal memory links to start planned playback events
         nominal_memory_links_at_start_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -376,8 +377,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_START", "op": "=="})
 
-        assert len(nominal_memory_links_at_start_planned_playback["linking_events"]) == len(planned_playback_events) - 2
+        assert len(nominal_memory_links_at_start_planned_playback["linking_events"]) == 29
 
+        # Check nominal memory links to stop planned playback events
         nominal_memory_links_at_stop_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -385,8 +387,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
 
-        assert len(nominal_memory_links_at_stop_planned_playback["linking_events"]) == len(planned_playback_events) - 3
+        assert len(nominal_memory_links_at_stop_planned_playback["linking_events"]) == 28
 
+        # Check planned imaging events
         planned_imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                 value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
                                                                 start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
@@ -398,8 +401,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                     stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
                                                                     link_names = {"filter": "PLANNED_IMAGING", "op": "=="})
 
-        assert len(planned_imaging_events) + 1 == len(nominal_memory_links_imaging["linking_events"])
+        assert len(nominal_memory_links_imaging["linking_events"]) == 54
 
+        # Check nominal memory links to start planned imaging events
         nominal_memory_links_at_start_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -407,8 +411,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_START", "op": "=="})
 
-        assert len(nominal_memory_links_at_start_planned_imaging["linking_events"]) == len(planned_imaging_events) - 3
+        assert len(nominal_memory_links_at_start_planned_imaging["linking_events"]) == 50
 
+        # Check nominal memory links to stop planned imaging events
         nominal_memory_links_at_stop_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -416,8 +421,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
                                                                             link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
 
-        assert len(nominal_memory_links_at_stop_planned_imaging["linking_events"]) == len(planned_imaging_events) - 1
+        assert len(nominal_memory_links_at_stop_planned_imaging["linking_events"]) == 52
 
+        # Check planned cut imaging events
         planned_cut_imaging_events = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                 value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
                                                                 start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
@@ -429,8 +435,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                     stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                     link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
         
-        assert len(planned_cut_imaging_events) + 1 == len(nominal_memory_links_cut_imaging["linking_events"])
+        assert len(nominal_memory_links_cut_imaging["linking_events"]) == 54
 
+        # Check nominal memory links to start planned cut imaging events
         nominal_memory_links_at_start_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -438,8 +445,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_START", "op": "=="})
 
-        assert len(nominal_memory_links_at_start_planned_cut_imaging["linking_events"]) == len(planned_cut_imaging_events) - 3
+        assert len(nominal_memory_links_at_start_planned_cut_imaging["linking_events"]) == 50
 
+        # Check nominal memory links to stop planned cut imaging events
         nominal_memory_links_at_stop_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -447,19 +455,20 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "NOMINAL_MEMORY_OCCUPATION_AT_STOP", "op": "=="})
 
-        assert len(nominal_memory_links_at_stop_planned_cut_imaging["linking_events"]) == len(planned_cut_imaging_events) - 2
+        assert len(nominal_memory_links_at_stop_planned_cut_imaging["linking_events"]) == 51
 
-        #NRT_MEMORY_OCCUPATION LINKS CHECK
+        # CHECK NRT_MEMORY_OCCUPATION LINKS
 
+        # Check nrt memory links to planned playback events
         nrt_memory_links = self.query_eboa.get_linking_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
                                                                     stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
                                                                     link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
         
-        assert len(nrt_memory_links["linking_events"]) == len(planned_playback_events)
+        assert len(nrt_memory_links["linking_events"]) == 31
 
-
+        # Check nrt memory links to start planned playback events
         nrt_memory_links_at_start_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -469,6 +478,7 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(nrt_memory_links_at_start_planned_playback["linking_events"]) == 1
 
+        # Check nrt memory links to stop planned playback events
         nrt_memory_links_at_stop_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -478,13 +488,15 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(nrt_memory_links_at_stop_planned_playback["linking_events"]) == 1
 
+        # Check nrt memory links to planned imaging events
         nrt_memory_links_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
                                                                     stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
                                                                     link_names = {"filter": "PLANNED_IMAGING", "op": "=="})
-        assert len(planned_imaging_events) + 1 == len(nrt_memory_links_imaging["linking_events"])
+        assert len(nrt_memory_links_imaging["linking_events"]) == 54
 
+        # Check nrt memory links to start planned imaging events
         nrt_memory_links_at_start_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -494,6 +506,7 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(nrt_memory_links_at_start_planned_imaging["linking_events"]) == 1
 
+        # Check nrt memory links to stop planned imaging events
         nrt_memory_links_at_stop_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -503,14 +516,16 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(nrt_memory_links_at_stop_planned_imaging["linking_events"]) == 1
 
+        # Check nrt memory links to planned cut imaging events
         nrt_memory_links_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
                                                                     stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                     link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
         
-        assert len(planned_cut_imaging_events) + 1 == len(nrt_memory_links_cut_imaging["linking_events"])
+        assert len(nrt_memory_links_cut_imaging["linking_events"]) == 54
 
+        # Check nrt memory links to start planned cut imaging events
         nrt_memory_links_at_start_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -520,6 +535,7 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(nrt_memory_links_at_start_planned_cut_imaging["linking_events"]) == 1
 
+        # Check nrt memory links to stop planned cut imaging events
         nrt_memory_links_at_stop_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -529,17 +545,18 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(nrt_memory_links_at_stop_planned_cut_imaging["linking_events"]) == 1
 
-        #LAST_REPLAYED_SCENE LINKS CHECK
+        # CHECK LAST_REPLAYED_SCENE LINKS 
 
+        # Check last replayed links to planned playback events
         last_replayed_links = self.query_eboa.get_linking_events(gauge_names = {"filter": "LAST_REPLAYED_SCENE", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
                                                                     stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
                                                                     link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="})
         
-        assert len(last_replayed_links["linking_events"]) == len(planned_playback_events)
+        assert len(last_replayed_links["linking_events"]) == 31
 
-
+        # Check last replayed links to start planned playback events
         last_replayed_links_at_start_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -547,8 +564,9 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "LAST_REPLAYED_SCENE_AT_START", "op": "=="})
 
-        assert len(last_replayed_links_at_start_planned_playback["linking_events"]) == len(planned_playback_events) - 2
+        assert len(last_replayed_links_at_start_planned_playback["linking_events"]) == 29
 
+        # Check last replayed links to stop planned playback events
         last_replayed_links_at_stop_planned_playback = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "playback_type"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -556,15 +574,18 @@ class TestTlmReqB(unittest.TestCase):
                                                                             stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                             link_names = {"filter": "LAST_REPLAYED_SCENE_AT_STOP", "op": "=="})
 
-        assert len(last_replayed_links_at_stop_planned_playback["linking_events"]) == len(planned_playback_events) - 2
+        assert len(last_replayed_links_at_stop_planned_playback["linking_events"]) == 29
 
+        # Check last replayed links to planned imaging events
         last_replayed_links_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "LAST_REPLAYED_SCENE", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-27T00:00:00", "op": "<"}], 
                                                                     stop_filters = [{"date": "2020-11-26T00:00:00", "op": ">"}], 
                                                                     link_names = {"filter": "PLANNED_IMAGING", "op": "=="})
-        assert len(planned_imaging_events) + 1 == len(last_replayed_links_imaging["linking_events"])
 
+        assert len(last_replayed_links_imaging["linking_events"]) == 54
+
+        # Check last replayed links to start planned imaging events
         last_replayed_links_at_start_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -574,6 +595,7 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(last_replayed_links_at_start_planned_imaging["linking_events"]) == 24
 
+        # Check last replayed links to stop planned imaging events
         last_replayed_links_at_stop_planned_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -583,14 +605,16 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(last_replayed_links_at_stop_planned_imaging["linking_events"]) == 15
 
+        # Check last replayed links to planned cut imaging events
         last_replayed_links_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "LAST_REPLAYED_SCENE", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-26T00:00:00", "op": ">="}], 
                                                                     stop_filters = [{"date": "2020-11-27T00:00:00", "op": "<="}], 
                                                                     link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
         
-        assert len(planned_cut_imaging_events) + 1 == len(last_replayed_links_cut_imaging["linking_events"])
+        assert len(last_replayed_links_cut_imaging["linking_events"]) == 54
 
+        # Check last replayed links to start planned cut imaging events
         last_replayed_links_at_start_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
@@ -600,6 +624,7 @@ class TestTlmReqB(unittest.TestCase):
 
         assert len(last_replayed_links_at_start_planned_cut_imaging["linking_events"]) == 24
 
+        # Check last replayed links to stop planned cut imaging events
         last_replayed_links_at_stop_planned_cut_imaging = self.query_eboa.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="},
                                                                             gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                             value_filters = [{"name": {"op": "==", "filter": "imaging_mode"}, "type": "text", "value": {"op": "notin", "filter": ["HKTM", "HKTM_SAD", "SAD"]}}],
