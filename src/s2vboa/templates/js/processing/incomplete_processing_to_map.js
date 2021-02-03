@@ -14,7 +14,7 @@ var processing_geometries_incomplete = [
     {% set sad_data = processing_events["sad_data"]|selectattr("event_uuid", "in", sad_data_uuids)|first %}
     {
         "id": "{{ event.event_uuid }}",
-        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ downlink_orbit }}", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a class=bold-green>{{ status }}</a>", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ datastrip_er }}</a>", "<a href='/eboa_nav/query-event-links/{{ sad_data.event_uuid }}'>{{ sad_data.start ~ "_" ~ sad_data.stop }}</a>"),
+        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ downlink_orbit }}", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a href='/views/specific-processing/{{ original_isp_validity.event_uuid }}' class=bold-gold>{{ status }}</a>", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ datastrip_er }}</a>", "<a href='/eboa_nav/query-event-links/{{ sad_data.event_uuid }}'>{{ sad_data.start ~ "_" ~ sad_data.stop }}</a>"),
         "geometries": [
             {% for geometry in event.eventGeometries %}
             {{ geometry.to_wkt() }},
