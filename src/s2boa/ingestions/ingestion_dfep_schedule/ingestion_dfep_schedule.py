@@ -66,11 +66,8 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
                                             link_names = {"filter": "TIME_CORRECTION", "op": "=="},
                                             return_prime_events = False)
 
-        status = "MATCHED_PLAYBACK"
         links = []
-        if len(playbacks["linked_events"]) == 0:
-            status = "NO_MATCHED_PLAYBACK"
-        else:
+        if len(playbacks["linked_events"]) > 0:
             for playback in playbacks["linked_events"]:
                 links.append({
                     "link": str(playback.event_uuid),
@@ -99,7 +96,7 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
             "gauge": {
                 "insertion_type": "INSERT_and_ERASE",
                 "name": "DFEP_SCHEDULE",
-                "system": station
+                "system": satellite
             },
             "links": links,
             "start": start,
@@ -113,10 +110,7 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
                  "value": satellite},
                 {"name": "station",
                  "type": "text",
-                 "value": station},
-                {"name": "status",
-                 "type": "text",
-                 "value": status}
+                 "value": station}
             ]
         }
 
@@ -143,9 +137,9 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
                 {"name": "station",
                  "type": "text",
                  "value": station},
-                {"name": "status",
+                {"name": "playback_mean",
                  "type": "text",
-                 "value": status}
+                 "value": "XBAND"}
             ]
         }
 

@@ -54,9 +54,9 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         #Check sources
         sources = self.query_eboa.get_sources()
@@ -110,10 +110,6 @@ class TestEngine(unittest.TestCase):
                 "name": "satellite",
                 "type": "text",
                 "value": "S2A"
-            },{
-                "name": "status",
-                "type": "text",
-                "value": "NO_MATCHED_PLAYBACK"
             }
         ]
 
@@ -138,9 +134,13 @@ class TestEngine(unittest.TestCase):
                 "type": "text",
                 "value": "S2A"
             },{
-                "name": "status",
+                "name": "station",
                 "type": "text",
-                "value": "NO_MATCHED_PLAYBACK"
+                "value": "EDRS"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
             }
         ]
 
@@ -165,9 +165,13 @@ class TestEngine(unittest.TestCase):
                 "type": "text",
                 "value": "S2A"
             },{
-                "name": "status",
+                "name": "station",
                 "type": "text",
-                "value": "NO_MATCHED_PLAYBACK"
+                "value": "EDRS"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
             }
         ]
         
@@ -187,23 +191,23 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         #Check sources
         sources = self.query_eboa.get_sources()
@@ -252,10 +256,6 @@ class TestEngine(unittest.TestCase):
                 "name": "satellite",
                 "type": "text",
                 "value": "S2A"
-            },{
-                "name": "status",
-                "type": "text",
-                "value": "MATCHED_PLAYBACK"
             }
         ]
 
@@ -486,9 +486,13 @@ class TestEngine(unittest.TestCase):
                 "type": "text",
                 "value": "S2A"
             },{
-                "name": "status",
+                "name": "station",
                 "type": "text",
-                "value": "MATCHED_PLAYBACK"
+                "value": "EDRS"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
             }
         ]
 
@@ -513,8 +517,256 @@ class TestEngine(unittest.TestCase):
                 "type": "text",
                 "value": "S2A"
             },{
-                "name": "status",
+                "name": "station",
                 "type": "text",
-                "value": "MATCHED_PLAYBACK"
+                "value": "EDRS"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
+            }
+        ]
+
+    def test_mpl_fs_with_plan_at_latest_position(self):
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_NPPF_2.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        #Check sources
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 7
+
+        definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T03:00:00", "op": "=="}],
+                                                      dim_signatures = {"filter": "SLOT_REQUEST_EDRS_EDRS-A", "op": "=="},
+                                              processors = {"filter": "ingestion_slot_request_edrs.py", "op": "like"},
+                                              names = {"filter": "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF", "op": "like"})
+
+        assert len(definite_source) == 1
+
+        definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              reported_validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
+                                              generation_time_filters = [{"date": "2018-07-21T03:00:00", "op": "=="}],
+                                                      dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
+                                              processors = {"filter": "ingestion_slot_request_edrs.py", "op": "like"},
+                                              names = {"filter": "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF", "op": "like"})
+
+        assert len(definite_source) == 1
+
+        #Check definite event
+        definite_event = self.query_eboa.get_events(gauge_names = {"filter": "SLOT_REQUEST_EDRS", "op": "like"})
+
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "session_id",
+                "type": "text",
+                "value": "L20180608110336202000111"
+            },{
+                "name": "edrs_unit",
+                "type": "text",
+                "value": "EDRS-A"
+            },{
+                "name": "orbit",
+                "type": "double",
+                "value": "16073.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            }
+        ]
+
+        #Check explicit_refs
+        explicit_refs = self.query_eboa.get_explicit_refs()
+
+        assert len(explicit_refs) == 1
+
+        #Check a definite explicit_ref
+        definite_explicit_ref = self.query_eboa.get_explicit_refs(groups = {"filter": "EDRS_SESSION_IDs", "op": "like"},
+                                                          explicit_refs = {"filter": "L20180608110336202000111", "op": "like"})
+
+        assert len(definite_explicit_ref) == 1
+
+        planned_playback_events = self.query_eboa.get_events(start_filters = [{"date": "2018-07-21 02:48:22", "op": "=="}],
+                                              stop_filters = [{"date": "2018-07-21 03:04:04", "op": "=="}])
+
+        assert len(planned_playback_events) == 1
+
+        planned_playback_correction_events = self.query_eboa.get_events(start_filters = [{"date": "2018-07-21 02:48:27.472821", "op": "=="}],
+                                              stop_filters = [{"date": "2018-07-21 03:04:08.957963", "op": "=="}])
+
+        assert len(planned_playback_correction_events) == 1
+
+        planned_playback_event = planned_playback_events[0]
+
+        planned_playback_correction_event = planned_playback_correction_events[0]
+
+        # Check links with PLANNED_PLAYBACK_CORRECTION
+        link_to_plan = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(planned_playback_event.event_uuid)], "op": "in"},
+                                                    event_uuids = {"filter": [str(definite_event[0].event_uuid)], "op": "in"},
+                                                    link_names = {"filter": "PLANNED_PLAYBACK", "op": "like"})
+
+        assert len(link_to_plan) == 1
+
+        link_from_plan = self.query_eboa.get_event_links(event_uuids = {"filter": [str(planned_playback_event.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(definite_event[0].event_uuid)], "op": "in"},
+                                                    link_names = {"filter": "SLOT_REQUEST_EDRS", "op": "like"})
+
+        assert len(link_from_plan) == 1
+
+        assert planned_playback_event.get_structured_values() == [
+            {
+                "name": "start_request",
+                "type": "text",
+                "value": "MPMMPNOM"
+            },{
+                "name": "stop_request",
+                "type": "text",
+                "value": "MPMMPSTP"
+            },{
+                "name": "start_orbit",
+                "type": "double",
+                "value": "16073.0"
+            },{
+                "name": "start_angle",
+                "type": "double",
+                "value": "289.7725"
+            },{
+                "name": "stop_orbit",
+                "type": "double",
+                "value": "16073.0"
+            },{
+                "name": "stop_angle",
+                "type": "double",
+                "value": "345.8436"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
+            },{
+                "name": "playback_type",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
+                "name": "parameters",
+                "type": "object",
+                "values": [
+                    {
+                        "name": "MEM_FREE",
+                        "type": "double",
+                        "value": "1.0"
+                    },{
+                        "name": "SCN_DUP",
+                        "type": "double",
+                        "value": "0.0"
+                    },{
+                        "name": "SCN_RWD",
+                        "type": "double",
+                        "value": "1.0"
+                    }
+                ]
+            },
+            {
+                "name": "station_schedule",
+                "type": "object",
+                "values": [{"name": "station",
+                            "type": "text",
+                            "value": "EDRS"}]},
+            {
+                "name": "dfep_schedule",
+                "type": "object",
+                "values": [{"name": "station",
+                            "type": "text",
+                            "value": "EDRS"}]}
+        ]
+
+        #Check definite event
+        definite_event = self.query_eboa.get_events(gauge_names = {"filter": "DFEP_SCHEDULE_COMPLETENESS", "op": "like"})
+
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "session_id",
+                "type": "text",
+                "value": "L20180608110336202000111"
+            },{
+                "name": "edrs_unit",
+                "type": "text",
+                "value": "EDRS-A"
+            },{
+                "name": "orbit",
+                "type": "double",
+                "value": "16073.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "station",
+                "type": "text",
+                "value": "EDRS"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
+            }
+        ]
+
+        #Check definite event
+        definite_event = self.query_eboa.get_events(gauge_names = {"filter": "STATION_SCHEDULE_COMPLETENESS", "op": "like"})
+
+        assert definite_event[0].get_structured_values() == [
+            {
+                "name": "session_id",
+                "type": "text",
+                "value": "L20180608110336202000111"
+            },{
+                "name": "edrs_unit",
+                "type": "text",
+                "value": "EDRS-A"
+            },{
+                "name": "orbit",
+                "type": "double",
+                "value": "16073.0"
+            },{
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },{
+                "name": "station",
+                "type": "text",
+                "value": "EDRS"
+            },{
+                "name": "playback_mean",
+                "type": "text",
+                "value": "OCP"
             }
         ]

@@ -54,9 +54,9 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         sources = self.query_eboa.get_sources()
 
@@ -195,23 +195,23 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
         # Check sources
         # L0
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
@@ -401,16 +401,16 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_REP_PASS_NO_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
         # L0
@@ -501,30 +501,30 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         sources = self.query_eboa.get_sources(names = {"filter": "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF", "op": "like"})
 
@@ -540,9 +540,9 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         sources = self.query_eboa.get_sources()
 
@@ -579,16 +579,16 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
         # L0
@@ -701,30 +701,30 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
         #L0
@@ -993,37 +993,37 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_REP_PASS_NO_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
         # L0
@@ -1215,44 +1215,44 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_REP_PASS_NO_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T115133_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
         # L0
@@ -1846,37 +1846,37 @@ class TestEngine(unittest.TestCase):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_ORBPRE.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2A_REP_PASS_WITH_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T110140_L0_WITH_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2__OPER_REP_ARC____EPA__20180721T111124_L1C.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check processing validities
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
@@ -2236,9 +2236,9 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_ARC____EPA__20191204T231921_V20191204T220619_20191204T220738.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_rep_arc.ingestion_rep_arc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         footprint_annotations = self.query_eboa.get_annotations(annotation_cnf_names = {"filter": "FOOTPRINT", "op": "=="})
         

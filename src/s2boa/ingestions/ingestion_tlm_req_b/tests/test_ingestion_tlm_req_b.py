@@ -54,9 +54,9 @@ class TestTlmReqB(unittest.TestCase):
         filename = "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         sources = self.query_eboa.get_sources()
         assert len(sources) == 1
@@ -179,9 +179,9 @@ class TestTlmReqB(unittest.TestCase):
         filename = "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001_DISCREPANCY_VERSION.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         sources = self.query_eboa.get_sources()
         assert len(sources) == 1
@@ -336,23 +336,23 @@ class TestTlmReqB(unittest.TestCase):
         filename = "S2B_OPER_MPL__NPPF__20201112T120000_20201130T150000_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2B_OPER_MPL_ORBPRE_20201125T030111_20201205T030111_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         filename = "S2B_OPER_TLM__REQ_B_20201126T000000_20201127T000000_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         #NOMINAL_MEMORY_OCCUPATION LINKS CHECK
 

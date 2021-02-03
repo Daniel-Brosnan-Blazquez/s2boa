@@ -54,9 +54,9 @@ class TestEngine(unittest.TestCase):
         filename = "S2__OPER_REP_OPLTAS_UPA__20180722T060002_RIPPED.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_ltas.ingestion_ltas", file_path, "2018-01-01T00:00:00")
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_ltas.ingestion_ltas", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         sources = self.query_eboa.get_sources()
 

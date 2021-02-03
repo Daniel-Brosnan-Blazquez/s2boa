@@ -69,11 +69,8 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
                                             link_names = {"filter": "TIME_CORRECTION", "op": "=="},
                                             return_prime_events = False)
 
-        status = "MATCHED_PLAYBACK"
         links = []
-        if len(playbacks["linked_events"]) == 0:
-            status = "NO_MATCHED_PLAYBACK"
-        else:
+        if len(playbacks["linked_events"]) > 0:
             for playback in playbacks["linked_events"]:
                 links.append({
                     "link": str(playback.event_uuid),
@@ -103,7 +100,7 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
             "gauge": {
                 "insertion_type": "INSERT_and_ERASE",
                 "name": "STATION_SCHEDULE",
-                "system": station
+                "system": satellite
             },
             "links": links,
             "start": data_start,
@@ -118,9 +115,6 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
                 {"name": "station",
                  "type": "text",
                  "value": station},
-                {"name": "status",
-                 "type": "text",
-                 "value": status},
                 {"name": "acquisition_start",
                  "type": "timestamp",
                  "value": acquisition_start},
@@ -132,7 +126,7 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
                  "value": str((parser.parse(data_start) - parser.parse(acquisition_start)).total_seconds())},
                 {"name": "delta_stop",
                  "type": "double",
-                 "value": str((parser.parse(data_stop) - parser.parse(acquisition_stop)).total_seconds())},
+                 "value": str((parser.parse(data_stop) - parser.parse(acquisition_stop)).total_seconds())}
             ]
         }
 
@@ -159,9 +153,6 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
                 {"name": "station",
                  "type": "text",
                  "value": station},
-                {"name": "status",
-                 "type": "text",
-                 "value": status},
                 {"name": "acquisition_start",
                  "type": "timestamp",
                  "value": acquisition_start},
@@ -174,6 +165,9 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
                 {"name": "delta_stop",
                  "type": "double",
                  "value": str((parser.parse(data_stop) - parser.parse(acquisition_stop)).total_seconds())},
+                {"name": "playback_mean",
+                 "type": "text",
+                 "value": "XBAND"}
             ]
         }
 
