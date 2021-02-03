@@ -63,14 +63,14 @@
         <div class="col-xs-3">
           <div class="panel panel-primary">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of received playbacks</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["playback"]|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-processing-playbacks">{{ processing_events["playback"]|length }}</div>
           </div>
         </div>
         <!-- Datastrips -->
         <div class="col-xs-3">
           <div class="panel panel-primary">
             <div class="panel-heading" align="center" style="font-size: 20px"> Number of received datastrips</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue">{{ processing_events["isp_validity_channel_1"]|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-processing-datastrips">{{ processing_events["isp_validity_channel_1"]|length }}</div>
           </div>
         </div>
         <!-- Missing L0 -->
@@ -78,7 +78,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L0</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l0_channel_1_missing|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-l0">{{ isp_validity_processing_completeness_l0_channel_1_missing|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -87,7 +87,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L1A</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-l1a">{{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -96,7 +96,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L1B</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-l1b">{{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -105,7 +105,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L1C</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-l1c">{{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -114,7 +114,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing processing L2A</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-l2a">{{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -123,7 +123,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L0</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l0_channel_1_incomplete|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-incomplete-l0">{{ isp_validity_processing_completeness_l0_channel_1_incomplete|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -132,7 +132,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L1A</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1a_channel_1_incomplete|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-incomplete-l1a">{{ isp_validity_processing_completeness_l1a_channel_1_incomplete|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -141,7 +141,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L1B</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1b_channel_1_incomplete|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-incomplete-l1b">{{ isp_validity_processing_completeness_l1b_channel_1_incomplete|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -150,7 +150,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L1C</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1c_channel_1_incomplete|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-incomplete-l1c">{{ isp_validity_processing_completeness_l1c_channel_1_incomplete|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -159,7 +159,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of incomplete processing L2A</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l2a_channel_1_incomplete|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-incomplete-l2a">{{ isp_validity_processing_completeness_l2a_channel_1_incomplete|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -168,7 +168,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing L0 processing not covered by SAD</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l0_channel_1_missing_no_sad|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-not-covered-sad-l0">{{ isp_validity_processing_completeness_l0_channel_1_missing_no_sad|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -177,7 +177,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing L1A processing not covered by SAD</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1a_channel_1_missing_no_sad|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-not-covered-sad-l1a">{{ isp_validity_processing_completeness_l1a_channel_1_missing_no_sad|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -186,7 +186,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing L1B processing not covered by SAD</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1b_channel_1_missing_no_sad|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-not-covered-sad-l1b">{{ isp_validity_processing_completeness_l1b_channel_1_missing_no_sad|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -195,7 +195,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing L1C processing not covered by SAD</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l1c_channel_1_missing_no_sad|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-not-covered-sad-l1c">{{ isp_validity_processing_completeness_l1c_channel_1_missing_no_sad|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -204,7 +204,7 @@
         <div class="col-xs-3">
           <div class="panel panel-danger">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of missing L2A processing not covered by SAD</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred">{{ isp_validity_processing_completeness_l2a_channel_1_missing_no_sad|length + isp_validity_processing_completeness_channel_1_partial_no_sad|length }}</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-processing-missing-not-covered-sad-l2a">{{ isp_validity_processing_completeness_l2a_channel_1_missing_no_sad|length + isp_validity_processing_completeness_channel_1_partial_no_sad|length }}</div>
           </div>
         </div>
         {% endif %}
@@ -212,7 +212,7 @@
       <!-- Suummary table -->
       {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
       <div class="row">
-        <table id="processing-summary-table" align="center" class="table table-striped table-bordered table-hover table-static">
+        <table id="summary-processing-table" align="center" class="table table-striped table-bordered table-hover table-static">
           <tr>
             <th>Level</th>
             <th>Expected</th>

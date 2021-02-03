@@ -5,73 +5,73 @@
   // Pie chart for processing status
   // Level L0
   {% if processing_events["isp_validity_processing_completeness_l0_channel_1"]|length > 0 %}
-  processing_data = [{{ processing_events["isp_validity_processing_completeness_l0_channel_1"]|length - isp_validity_processing_completeness_l0_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l0_channel_1_missing|length }}]
+  processing_data_l0 = [{{ processing_events["isp_validity_processing_completeness_l0_channel_1"]|length - isp_validity_processing_completeness_l0_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l0_channel_1_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
-  var data = {datasets: [{data: processing_data,
+  var data = {datasets: [{data: processing_data_l0,
                           backgroundColor: processing_background_color
                         }],
               labels: processing_labels
   }
   
-  vboa.display_pie("processing-pie-processing-status-l0", data)
+  vboa.display_pie("processing-pie-performance-l0", data)
   {% endif %}
   // Level L1A
   {% if processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length > 0 %}
-  processing_data = [{{ processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length - isp_validity_processing_completeness_l1a_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}]
+  processing_data_l1a = [{{ processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length - isp_validity_processing_completeness_l1a_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
-  var data = {datasets: [{data: processing_data,
+  var data = {datasets: [{data: processing_data_l1a,
                           backgroundColor: processing_background_color
                         }],
               labels: processing_labels
   }
   
-  vboa.display_pie("processing-pie-processing-status-l1a", data)
+  vboa.display_pie("processing-pie-performance-l1a", data)
   {% endif %}
   // Level L1B
   {% if processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length > 0 %}
-  processing_data = [{{ processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length - isp_validity_processing_completeness_l1b_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}]
+  processing_data_l1b = [{{ processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length - isp_validity_processing_completeness_l1b_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
-  var data = {datasets: [{data: processing_data,
+  var data = {datasets: [{data: processing_data_l1b,
                           backgroundColor: processing_background_color
                         }],
               labels: processing_labels
   }
   
-  vboa.display_pie("processing-pie-processing-status-l1b", data)
+  vboa.display_pie("processing-pie-performance-l1b", data)
   {% endif %}
   // Level L1C
   {% if processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length > 0 %}
-  processing_data = [{{ processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length - isp_validity_processing_completeness_l1c_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}]
+  processing_data_l1c = [{{ processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length - isp_validity_processing_completeness_l1c_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
-  var data = {datasets: [{data: processing_data,
+  var data = {datasets: [{data: processing_data_l1c,
                           backgroundColor: processing_background_color
                         }],
               labels: processing_labels
   }
   
-  vboa.display_pie("processing-pie-processing-status-l1c", data)
+  vboa.display_pie("processing-pie-performance-l1c", data)
   {% endif %}
   // Level L2A
   {% if processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length > 0 %}
-  processing_data = [{{ processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length - isp_validity_processing_completeness_l2a_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}]
+  processing_data_l2a = [{{ processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length - isp_validity_processing_completeness_l2a_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
-  var data = {datasets: [{data: processing_data,
+  var data = {datasets: [{data: processing_data_l2a,
                           backgroundColor: processing_background_color
                         }],
               labels: processing_labels
   }
   
-  vboa.display_pie("processing-pie-processing-status-l2a", data)
+  vboa.display_pie("processing-pie-performance-l2a", data)
   {% endif %}
   
   // Map
@@ -84,6 +84,7 @@
   {% with events = isp_validity_processing_completeness_l0_channel_1_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_missing_l0 = processing_geometries_missing;
   vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
   {% endif %}
   // Complete 
@@ -92,6 +93,7 @@
   {% with events = isp_validity_processing_completeness_l0_channel_1_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_complete_l0 = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
   var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
@@ -101,6 +103,7 @@
   {% with events = isp_validity_processing_completeness_l0_channel_1_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_incomplete_l0 = processing_geometries_incomplete;
   vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
   polygons = polygons.concat(polygons_incomplete); 
   {% endif %}                                                  
@@ -115,6 +118,7 @@
   {% with events = isp_validity_processing_completeness_l1a_channel_1_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_missing_l1a = processing_geometries_missing;
   vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
   {% endif %}
   // Complete 
@@ -123,6 +127,7 @@
   {% with events = isp_validity_processing_completeness_l1a_channel_1_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_complete_l1a = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
   var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
@@ -132,6 +137,7 @@
   {% with events = isp_validity_processing_completeness_l1a_channel_1_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_incomplete_l1a = processing_geometries_incomplete;
   vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
   polygons = polygons.concat(polygons_incomplete); 
   {% endif %}                                                  
@@ -146,6 +152,7 @@
   {% with events = isp_validity_processing_completeness_l1b_channel_1_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_missing_l1b = processing_geometries_missing;
   vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
   {% endif %}
   // Complete 
@@ -154,6 +161,7 @@
   {% with events = isp_validity_processing_completeness_l1b_channel_1_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_complete_l1b = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
   var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
@@ -163,6 +171,7 @@
   {% with events = isp_validity_processing_completeness_l1b_channel_1_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_incomplete_l1b = processing_geometries_incomplete;
   vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
   polygons = polygons.concat(polygons_incomplete); 
   {% endif %}                                                  
@@ -177,6 +186,7 @@
   {% with events = isp_validity_processing_completeness_l1c_channel_1_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_missing_l1c = processing_geometries_missing;
   vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
   {% endif %}
   // Complete 
@@ -185,6 +195,7 @@
   {% with events = isp_validity_processing_completeness_l1c_channel_1_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_complete_l1c = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
   var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
@@ -194,6 +205,7 @@
   {% with events = isp_validity_processing_completeness_l1c_channel_1_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_incomplete_l1c = processing_geometries_incomplete;
   vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
   polygons = polygons.concat(polygons_incomplete); 
   {% endif %}                                                  
@@ -208,6 +220,7 @@
   {% with events = isp_validity_processing_completeness_l2a_channel_1_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_missing_l2a = processing_geometries_missing;
   vboa.prepare_events_geometries_for_map(processing_geometries_missing, polygons_missing);
   {% endif %}
   // Complete 
@@ -216,6 +229,7 @@
   {% with events = isp_validity_processing_completeness_l2a_channel_1_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_complete_l2a = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
   var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
@@ -225,6 +239,7 @@
   {% with events = isp_validity_processing_completeness_l2a_channel_1_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
+  var processing_geometries_incomplete_l2a = processing_geometries_incomplete;
   vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
   polygons = polygons.concat(polygons_incomplete); 
   {% endif %}                                                  
