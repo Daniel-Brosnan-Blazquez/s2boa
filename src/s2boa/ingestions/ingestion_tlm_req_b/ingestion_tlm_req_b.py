@@ -14,8 +14,6 @@ import json
 
 import tempfile
 
-import pdb
-
 
 # Import xml parser
 from lxml import etree
@@ -60,7 +58,7 @@ def check_links(planned_correction_events, planned_events, linked_events, event_
             linked_events.append({
                 "link": str(planned_uuids[0]),
                 "link_mode": "by_uuid",
-                "name": gauge_name +" _AT_START",
+                "name": gauge_name + "_AT_START",
                 "back_ref": back_ref
             })
         #end if
@@ -75,12 +73,12 @@ def check_links(planned_correction_events, planned_events, linked_events, event_
             linked_events.append({
                 "link": str(planned_uuids[0]),
                 "link_mode": "by_uuid",
-                "name": gauge_name +" _AT_STOP",
+                "name": gauge_name + "_AT_STOP",
                 "back_ref": back_ref
             })
         #end if
     #end for
-
+ 
 
 # Memory occupation events
 @debug
@@ -341,7 +339,7 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
 
 
-    #get the plans to associate their begining and end to the number of scenes
+    #get plan events (planned playback, planned imaging and planned cut imaging)
     planned_events = {}
     planned_events["planned_playback_correction_events_and_linking"] = query.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "=="}, 
                                                                                                 gauge_systems = {"filter": satellite, "op": "=="}, 
