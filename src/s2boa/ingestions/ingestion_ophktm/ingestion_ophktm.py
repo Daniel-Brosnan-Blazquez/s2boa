@@ -115,6 +115,16 @@ def process_file(file_path, engine, query, reception_time):
                                                                           link_names = {"op": "==", "filter": "PLANNED_PLAYBACK"},
                                                                           return_prime_events = False)
 
+    if len(linking_planned_playback_to_station_schedule["linking_events"]) == 0:
+        # This is to be able to get the previous events with system equal to the station
+        linking_planned_playback_to_station_schedule = query.get_linking_events(gauge_names = {"op": "==", "filter": "STATION_SCHEDULE"},
+                                                                                gauge_systems = {"op": "==", "filter": station_alias},
+                                                                                value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
+                                                                                                 {"name": {"op": "==", "filter": "orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}],
+                                                                                link_names = {"op": "==", "filter": "PLANNED_PLAYBACK"},
+                                                                                return_prime_events = False)
+    # end if
+
     functions.insert_ingestion_progress(session_progress, general_source_progress, 20)
     
     if len(linking_planned_playback_to_station_schedule["linking_events"]) > 0:
