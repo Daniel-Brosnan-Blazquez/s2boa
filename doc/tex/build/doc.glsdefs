@@ -1,0 +1,690 @@
+\ifglsentryexists{boa}{}%
+{%
+\gls@defglossaryentry{boa}%
+{%
+name={BOA},%
+sort={BOA},%
+type={acronym},%
+first={Business Operation Analysis\glsspace (BOA)},%
+firstplural={Business Operation Analysiss\glsspace (BOAs)},%
+text={BOA},%
+plural={BOAs},%
+description={Business Operation Analysis},%
+descriptionplural={Business Operation Analysis\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Business Operation Analysis},%
+longplural={Business Operation Analysiss},%
+short={BOA},%
+shortplural={BOAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{eboa}{}%
+{%
+\gls@defglossaryentry{eboa}%
+{%
+name={E-BOA},%
+sort={E-BOA},%
+type={acronym},%
+first={Engine for Business Operation Analysis\glsspace (E-BOA)},%
+firstplural={Engine for Business Operation Analysiss\glsspace (E-BOAs)},%
+text={E-BOA},%
+plural={E-BOAs},%
+description={Engine for Business Operation Analysis},%
+descriptionplural={Engine for Business Operation Analysis\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Engine for Business Operation Analysis},%
+longplural={Engine for Business Operation Analysiss},%
+short={E-BOA},%
+shortplural={E-BOAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rdbms}{}%
+{%
+\gls@defglossaryentry{rdbms}%
+{%
+name={RDBMS},%
+sort={RDBMS},%
+type={acronym},%
+first={Relational Database Management System\glsspace (RDBMS)},%
+firstplural={Relational Database Management Systems\glsspace (RDBMSs)},%
+text={RDBMS},%
+plural={RDBMSs},%
+description={Relational Database Management System},%
+descriptionplural={Relational Database Management System\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Relational Database Management System},%
+longplural={Relational Database Management Systems},%
+short={RDBMS},%
+shortplural={RDBMSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{uuid}{}%
+{%
+\gls@defglossaryentry{uuid}%
+{%
+name={UUID},%
+sort={UUID},%
+type={acronym},%
+first={Universally unique identifier\glsspace (UUID)},%
+firstplural={Universally unique identifiers\glsspace (UUIDs)},%
+text={UUID},%
+plural={UUIDs},%
+description={Universally unique identifier},%
+descriptionplural={Universally unique identifier\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Universally unique identifier},%
+longplural={Universally unique identifiers},%
+short={UUID},%
+shortplural={UUIDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{pid}{}%
+{%
+\gls@defglossaryentry{pid}%
+{%
+name={PID},%
+sort={PID},%
+type={acronym},%
+first={Process identifier\glsspace (PID)},%
+firstplural={Process identifiers\glsspace (PIDs)},%
+text={PID},%
+plural={PIDs},%
+description={Process identifier},%
+descriptionplural={Process identifier\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Process identifier},%
+longplural={Process identifiers},%
+short={PID},%
+shortplural={PIDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{api}{}%
+{%
+\gls@defglossaryentry{api}%
+{%
+name={API},%
+sort={API},%
+type={acronym},%
+first={Application Programming Interface\glsspace (API)},%
+firstplural={Application Programming Interfaces\glsspace (APIs)},%
+text={API},%
+plural={APIs},%
+description={Application Programming Interface},%
+descriptionplural={Application Programming Interface\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Application Programming Interface},%
+longplural={Application Programming Interfaces},%
+short={API},%
+shortplural={APIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{tle}{}%
+{%
+\gls@defglossaryentry{tle}%
+{%
+name={TLE},%
+sort={TLE},%
+type={acronym},%
+first={Two Line Elements\glsspace (TLE)},%
+firstplural={Two Line Elementss\glsspace (TLEs)},%
+text={TLE},%
+plural={TLEs},%
+description={Two Line Elements},%
+descriptionplural={Two Line Elements\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Two Line Elements},%
+longplural={Two Line Elementss},%
+short={TLE},%
+shortplural={TLEs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{hktm}{}%
+{%
+\gls@defglossaryentry{hktm}%
+{%
+name={HKTM},%
+sort={HKTM},%
+type={acronym},%
+first={House Keeping Telemetry\glsspace (HKTM)},%
+firstplural={House Keeping Telemetrys\glsspace (HKTMs)},%
+text={HKTM},%
+plural={HKTMs},%
+description={House Keeping Telemetry},%
+descriptionplural={House Keeping Telemetry\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={House Keeping Telemetry},%
+longplural={House Keeping Telemetrys},%
+short={HKTM},%
+shortplural={HKTMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{dfep}{}%
+{%
+\gls@defglossaryentry{dfep}%
+{%
+name={DFEP},%
+sort={DFEP},%
+type={acronym},%
+first={Demodulator and Front End Processor\glsspace (DFEP)},%
+firstplural={Demodulator and Front End Processors\glsspace (DFEPs)},%
+text={DFEP},%
+plural={DFEPs},%
+description={Demodulator and Front End Processor},%
+descriptionplural={Demodulator and Front End Processor\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Demodulator and Front End Processor},%
+longplural={Demodulator and Front End Processors},%
+short={DFEP},%
+shortplural={DFEPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{efep}{}%
+{%
+\gls@defglossaryentry{efep}%
+{%
+name={EFEP},%
+sort={EFEP},%
+type={acronym},%
+first={EDRS Front End Processor\glsspace (EFEP)},%
+firstplural={EDRS Front End Processors\glsspace (EFEPs)},%
+text={EFEP},%
+plural={EFEPs},%
+description={EDRS Front End Processor},%
+descriptionplural={EDRS Front End Processor\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={EDRS Front End Processor},%
+longplural={EDRS Front End Processors},%
+short={EFEP},%
+shortplural={EFEPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{s2}{}%
+{%
+\gls@defglossaryentry{s2}%
+{%
+name={S2},%
+sort={S2},%
+type={acronym},%
+first={Sentinel-2\glsspace (S2)},%
+firstplural={Sentinel-2s\glsspace (S2s)},%
+text={S2},%
+plural={S2s},%
+description={Sentinel-2},%
+descriptionplural={Sentinel-2\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Sentinel-2},%
+longplural={Sentinel-2s},%
+short={S2},%
+shortplural={S2s},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{s2mp}{}%
+{%
+\gls@defglossaryentry{s2mp}%
+{%
+name={S2MP},%
+sort={S2MP},%
+type={acronym},%
+first={Sentinel-2 Mission Planning\glsspace (S2MP)},%
+firstplural={Sentinel-2 Mission Plannings\glsspace (S2MPs)},%
+text={S2MP},%
+plural={S2MPs},%
+description={Sentinel-2 Mission Planning},%
+descriptionplural={Sentinel-2 Mission Planning\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Sentinel-2 Mission Planning},%
+longplural={Sentinel-2 Mission Plannings},%
+short={S2MP},%
+shortplural={S2MPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{eisp}{}%
+{%
+\gls@defglossaryentry{eisp}%
+{%
+name={EISP},%
+sort={EISP},%
+type={acronym},%
+first={EDRS Instrument Source Packet (applicable also to VGS)\glsspace (EISP)},%
+firstplural={EDRS Instrument Source Packet (applicable also to VGS)s\glsspace (EISPs)},%
+text={EISP},%
+plural={EISPs},%
+description={EDRS Instrument Source Packet (applicable also to VGS)},%
+descriptionplural={EDRS Instrument Source Packet (applicable also to VGS)\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={EDRS Instrument Source Packet (applicable also to VGS)},%
+longplural={EDRS Instrument Source Packet (applicable also to VGS)s},%
+short={EISP},%
+shortplural={EISPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{edrs}{}%
+{%
+\gls@defglossaryentry{edrs}%
+{%
+name={EDRS},%
+sort={EDRS},%
+type={acronym},%
+first={European Data Relay System\glsspace (EDRS)},%
+firstplural={European Data Relay Systems\glsspace (EDRSs)},%
+text={EDRS},%
+plural={EDRSs},%
+description={European Data Relay System},%
+descriptionplural={European Data Relay System\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={European Data Relay System},%
+longplural={European Data Relay Systems},%
+short={EDRS},%
+shortplural={EDRSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{dhus}{}%
+{%
+\gls@defglossaryentry{dhus}%
+{%
+name={DHuS},%
+sort={DHuS},%
+type={acronym},%
+first={Data Hub Software\glsspace (DHuS)},%
+firstplural={Data Hub Softwares\glsspace (DHuSs)},%
+text={DHuS},%
+plural={DHuSs},%
+description={Data Hub Software},%
+descriptionplural={Data Hub Software\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Data Hub Software},%
+longplural={Data Hub Softwares},%
+short={DHuS},%
+shortplural={DHuSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{fos}{}%
+{%
+\gls@defglossaryentry{fos}%
+{%
+name={FOS},%
+sort={FOS},%
+type={acronym},%
+first={Flight Operation Segment\glsspace (FOS)},%
+firstplural={Flight Operation Segments\glsspace (FOSs)},%
+text={FOS},%
+plural={FOSs},%
+description={Flight Operation Segment},%
+descriptionplural={Flight Operation Segment\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Flight Operation Segment},%
+longplural={Flight Operation Segments},%
+short={FOS},%
+shortplural={FOSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{pdgs}{}%
+{%
+\gls@defglossaryentry{pdgs}%
+{%
+name={PDGS},%
+sort={PDGS},%
+type={acronym},%
+first={Payload Data Ground Segment\glsspace (PDGS)},%
+firstplural={Payload Data Ground Segments\glsspace (PDGSs)},%
+text={PDGS},%
+plural={PDGSs},%
+description={Payload Data Ground Segment},%
+descriptionplural={Payload Data Ground Segment\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Payload Data Ground Segment},%
+longplural={Payload Data Ground Segments},%
+short={PDGS},%
+shortplural={PDGSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{dim}{}%
+{%
+\gls@defglossaryentry{dim}%
+{%
+name={DIM},%
+sort={DIM},%
+type={acronym},%
+first={Data Ingestion Module\glsspace (DIM)},%
+firstplural={Data Ingestion Modules\glsspace (DIMs)},%
+text={DIM},%
+plural={DIMs},%
+description={Data Ingestion Module},%
+descriptionplural={Data Ingestion Module\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Data Ingestion Module},%
+longplural={Data Ingestion Modules},%
+short={DIM},%
+shortplural={DIMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{msi}{}%
+{%
+\gls@defglossaryentry{msi}%
+{%
+name={MSI},%
+sort={MSI},%
+type={acronym},%
+first={MultiSpectral Instrument\glsspace (MSI)},%
+firstplural={MultiSpectral Instruments\glsspace (MSIs)},%
+text={MSI},%
+plural={MSIs},%
+description={MultiSpectral Instrument},%
+descriptionplural={MultiSpectral Instrument\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={MultiSpectral Instrument},%
+longplural={MultiSpectral Instruments},%
+short={MSI},%
+shortplural={MSIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{vcid}{}%
+{%
+\gls@defglossaryentry{vcid}%
+{%
+name={VCID},%
+sort={VCID},%
+type={acronym},%
+first={Virtual Channel Identifier\glsspace (VCID)},%
+firstplural={Virtual Channel Identifiers\glsspace (VCIDs)},%
+text={VCID},%
+plural={VCIDs},%
+description={Virtual Channel Identifier},%
+descriptionplural={Virtual Channel Identifier\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Virtual Channel Identifier},%
+longplural={Virtual Channel Identifiers},%
+short={VCID},%
+shortplural={VCIDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{isp}{}%
+{%
+\gls@defglossaryentry{isp}%
+{%
+name={ISP},%
+sort={ISP},%
+type={acronym},%
+first={Instrument Source Packet\glsspace (ISP)},%
+firstplural={Instrument Source Packets\glsspace (ISPs)},%
+text={ISP},%
+plural={ISPs},%
+description={Instrument Source Packet},%
+descriptionplural={Instrument Source Packet\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Instrument Source Packet},%
+longplural={Instrument Source Packets},%
+short={ISP},%
+shortplural={ISPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{anx}{}%
+{%
+\gls@defglossaryentry{anx}%
+{%
+name={ANX},%
+sort={ANX},%
+type={acronym},%
+first={Ascending Node Crossing\glsspace (ANX)},%
+firstplural={Ascending Node Crossings\glsspace (ANXs)},%
+text={ANX},%
+plural={ANXs},%
+description={Ascending Node Crossing},%
+descriptionplural={Ascending Node Crossing\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Ascending Node Crossing},%
+longplural={Ascending Node Crossings},%
+short={ANX},%
+shortplural={ANXs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{dpc}{}%
+{%
+\gls@defglossaryentry{dpc}%
+{%
+name={DPC},%
+sort={DPC},%
+type={acronym},%
+first={Data Processing Center\glsspace (DPC)},%
+firstplural={Data Processing Centers\glsspace (DPCs)},%
+text={DPC},%
+plural={DPCs},%
+description={Data Processing Center},%
+descriptionplural={Data Processing Center\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Data Processing Center},%
+longplural={Data Processing Centers},%
+short={DPC},%
+shortplural={DPCs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

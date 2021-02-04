@@ -1,0 +1,3 @@
+\def \vhCurrentVersion {1.0}
+\def \vhCurrentDate {12.10.2020}
+\newsetsimple \vhAllAuthorsSet {DIBB}
