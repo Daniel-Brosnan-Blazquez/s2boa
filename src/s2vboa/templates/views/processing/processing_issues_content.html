@@ -23,6 +23,8 @@
             <th>Sensing orbit</th>
             <th>Datastrip status</th>
             <th>Datastrip</th>
+            <th>Start</th>
+            <th>Stop</th>
             <th>SAD coverage</th>
           </tr>
         </thead>
@@ -47,6 +49,8 @@
           {% set status_class = "bold-orange" %}
           {% endif %}
           {% set datastrip = "N/A" %}
+          {% set datastrip_start = original_isp_validity.start.isoformat() %}
+          {% set datastrip_stop = original_isp_validity.stop.isoformat() %}
           {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
           {% set sad_data = processing_events["sad_data"]|selectattr("event_uuid", "in", sad_data_uuids)|first %}
           
@@ -59,6 +63,8 @@
             <td>{{ sensing_orbit }}</td>
             <td><a href="/views/specific-processing/{{ original_isp_validity.event_uuid }}" class="{{ status_class }}">{{ status }}</a></td>
             <td>{{ datastrip }}</td>
+            <td>{{ datastrip_start }}</td>
+            <td>{{ datastrip_stop }}</td>
             <td><a href="/eboa_nav/query-event-links/{{ sad_data.event_uuid }}">{{ sad_data.start ~ "_" ~ sad_data.stop }}</a></td>
           </tr>
         {% endfor %}
@@ -72,6 +78,8 @@
             <th>Sensing orbit</th>
             <th>Datastrip status</th>
             <th>Datastrip</th>
+            <th>Start</th>
+            <th>Stop</th>
             <th>SAD coverage</th>
           </tr>
         </tfoot>
