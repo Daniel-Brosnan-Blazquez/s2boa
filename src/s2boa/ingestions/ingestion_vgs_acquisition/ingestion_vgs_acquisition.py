@@ -81,6 +81,14 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                                             value_filters = [{"name": {"op": "==", "filter": "station"}, "type": "text", "value": {"op": "==", "filter": station}},
                                                              {"name": {"op": "==", "filter": "orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}])
 
+    if len(dfep_schedule_events) == 0:
+        # This is to be able to get the previous events with system equal to the station
+        dfep_schedule_events = query.get_events(gauge_names = {"op": "==", "filter": "STATION_SCHEDULE"},
+                                                gauge_systems = {"op": "==", "filter": station},
+                                                value_filters = [{"name": {"op": "==", "filter": "satellite"}, "type": "text", "value": {"op": "==", "filter": satellite}},
+                                                                 {"name": {"op": "==", "filter": "orbit"}, "type": "double", "value": {"op": "==", "filter": downlink_orbit}}])
+    # end if
+
     planned_playbacks = []
     if len (dfep_schedule_events) > 0:
         planned_playback_uuids = [link.event_uuid_link for dfep_schedule_event in dfep_schedule_events for link in dfep_schedule_event.eventLinks if link.name == "PLANNED_PLAYBACK"]
