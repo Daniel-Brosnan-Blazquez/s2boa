@@ -15,15 +15,15 @@ import jinja2
 
 # Import vboa
 import vboa
-from s2vboa.views import planning
-from s2vboa.views import hktm_workflow
-from s2vboa.views import acquisition
-from s2vboa.views import processing
-from s2vboa.views import tracking
-from s2vboa.views import dhus_completeness
-from s2vboa.views import sensing_data_volumes
-from s2vboa.views import archive_data_volumes
-from s2vboa.views import detailed_processing_timeliness
+from s2vboa.views.planning import planning
+from s2vboa.views.hktm_workflow import hktm_workflow
+from s2vboa.views.acquisition import acquisition
+from s2vboa.views.processing import processing
+from s2vboa.views.tracking import tracking
+from s2vboa.views.dhus_completeness import dhus_completeness
+from s2vboa.views.sensing_data_volumes import sensing_data_volumes
+from s2vboa.views.archive_data_volumes import archive_data_volumes
+from s2vboa.views.detailed_processing_timeliness import detailed_processing_timeliness
 
 def create_app():
     """
