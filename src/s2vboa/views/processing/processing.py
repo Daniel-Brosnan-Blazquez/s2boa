@@ -153,7 +153,7 @@ def show_sliding_processing_parameters():
     """
     Processing sliding view for the Sentinel-2 mission.
     """
-    current_app.logger.debug("Sliding acquistion view with parameters")
+    current_app.logger.debug("Sliding processing view with parameters")
 
     window_delay = float(request.args.get("window_delay"))
     window_size = float(request.args.get("window_size"))
