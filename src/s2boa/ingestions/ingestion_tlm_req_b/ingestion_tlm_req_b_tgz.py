@@ -11,7 +11,7 @@ import tempfile
 import os
 
 # Import NPPF ingestion
-from s2boa.ingestions.ingestion_nppf import ingestion_nppf
+from s2boa.ingestions.ingestion_tlm_req_b import ingestion_tlm_req_b
 
 # Import ingestion_functions.helpers
 import eboa.ingestion.functions as ingestion_functions
@@ -67,7 +67,7 @@ def process_file(file_path, engine, query, reception_time):
     eof_path = eof.name
     eof.close()
 
-    data = ingestion_nppf.process_file(eof_path, engine, query, reception_time)
+    data = ingestion_tlm_req_b.process_file(eof_path, engine, query, reception_time)
     
     # Remove temporary folder
     temporary_folder.cleanup()

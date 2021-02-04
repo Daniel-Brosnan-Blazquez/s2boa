@@ -122,10 +122,10 @@
     </dependencies>
   </rule>
   <rule>
-    <source_mask>S2A_OPER_TLM__REQ_B_........T......_........T......_.....EOF</source_mask>
+    <source_mask>S2A_OPER_TLM__REQ_B_........T......_........T......_.....TGZ</source_mask>
     <source_type>TLM__REQ_B</source_type>
     <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b -f </command>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b_tgz -f </command>
     </tool>
     <dependencies>
       <source_type>S2A_MPL__NPPF</source_type>
@@ -256,10 +256,10 @@
     </dependencies>
   </rule>
   <rule>
-    <source_mask>S2B_OPER_TLM__REQ_B_........T......_........T......_.....EOF</source_mask>
+    <source_mask>S2B_OPER_TLM__REQ_B_........T......_........T......_.....TGZ</source_mask>
     <source_type>TLM__REQ_B</source_type>
     <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b -f </command>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_tlm_req_b.ingestion_tlm_req_b_tgz -f </command>
     </tool>
     <dependencies>
       <source_type>S2B_MPL__NPPF</source_type>
