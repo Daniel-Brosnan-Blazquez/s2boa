@@ -1,0 +1,21 @@
+{% extends "panel/index.html" %}
+
+{% block content %}
+<div class="row">
+  <h1 class="page-header">Data allocation view</h1>
+</div>
+<!-- /.row -->
+{% include "views/data_allocation/data_allocation_query.html" %}
+
+<!-- Pagination -->
+{% with route = "/views/data-allocation-pages", elements = elements, filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
+{% include "views/data_allocation/data_allocation_summary_content.html" %}
+{% include "views/data_allocation/data_allocation_content.html" %}
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+{% endblock %}

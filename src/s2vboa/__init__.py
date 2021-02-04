@@ -16,6 +16,7 @@ import jinja2
 # Import vboa
 import vboa
 from s2vboa.views.planning import planning
+from s2vboa.views.data_allocation import data_allocation
 from s2vboa.views.hktm_workflow import hktm_workflow
 from s2vboa.views.acquisition import acquisition
 from s2vboa.views.processing import processing
@@ -32,6 +33,7 @@ def create_app():
     app = vboa.create_app()
 
     app.register_blueprint(planning.bp)
+    app.register_blueprint(data_allocation.bp)
     app.register_blueprint(hktm_workflow.bp)
     app.register_blueprint(acquisition.bp)
     app.register_blueprint(processing.bp)
