@@ -17,14 +17,19 @@ var missing_processing_timeline = [
     {% set datastrip_start = original_isp_validity.start.isoformat() %}
     {% set datastrip_stop = original_isp_validity.stop.isoformat() %}
     {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
+    {% set sad_data_info = "N/A" %}
+    {% if sad_data_uuids|length > 0 %}
     {% set sad_data = processing_events["sad_data"]|selectattr("event_uuid", "in", sad_data_uuids)|first %}
+    {% set sad_data_info = "<a href='/eboa_nav/query-event-links/" + sad_data.event_uuid|string + "'>" + sad_data.start.isoformat() + "_" + sad_data.stop.isoformat() + "</a>" %}
+    {% else %}
+    {% endif %}
     {
         "id": "{{ event.event_uuid }}",
         "group": "{{ satellite }}",
         "timeline": "{{ level }}",
         "start": "{{ event.start.isoformat() }}",
         "stop": "{{ event.stop.isoformat() }}",
-        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "<a href='/views/specific-processing/{{ original_planned_playback.event_uuid }}'>{{ downlink_orbit }}</a>", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<span class=bold-red>{{ status }}</span>", "{{ datastrip }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "<a href='/eboa_nav/query-event-links/{{ sad_data.event_uuid }}'>{{ sad_data.start.isoformat() ~ "_" ~ sad_data.stop.isoformat() }}</a>"),
+        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "<a href='/views/specific-processing/{{ original_planned_playback.event_uuid }}'>{{ downlink_orbit }}</a>", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<span class=bold-red>{{ status }}</span>", "{{ datastrip }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "{{ sad_data_info }}"),
         "className": "fill-border-red"
     },
     {% endfor %}

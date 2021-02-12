@@ -65,7 +65,11 @@
     {% endif %}
     <td>{{ datastrip_start }}</td>
     <td>{{ datastrip_stop }}</td>
+    {% if sad_data %}
     <td><a href="/eboa_nav/query-event-links/{{ sad_data.event_uuid }}">{{ sad_data.start.isoformat() ~ "_" ~ sad_data.stop.isoformat() }}</a></td>
+    {% else %}
+    <td>N/A</td>
+    {% endif %}
     </tr>
 {% endfor %}
 </tbody>
