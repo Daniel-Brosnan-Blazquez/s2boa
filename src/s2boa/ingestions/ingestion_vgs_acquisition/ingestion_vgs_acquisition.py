@@ -1529,6 +1529,7 @@ def process_file(file_path, engine, query, reception_time):
     reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     # Set the validity start to be the first sensing received to avoid error ingesting
     sensing_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Status/SensStartTime")
+    sensing_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[@VCID = 2 or @VCID = 4 or @VCID = 5 or @VCID = 6 or @VCID = 20 or @VCID = 21 or @VCID = 22]/ISP_Status/Status/SensStopTime")
 
     acquisition_starts = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/ISP_Status/Status/AcqStartTime")
 
@@ -1551,6 +1552,14 @@ def process_file(file_path, engine, query, reception_time):
         validity_start = reported_validity_start
     # end if
 
+    if len(sensing_stops) > 0:
+        # Set the validity stop to be the first sensing timing acquired to avoid error ingesting
+        sensing_stops_in_iso_8601 = [functions.three_letter_to_iso_8601(sensing_stop.text) for sensing_stop in sensing_stops]
+
+        # Sort list
+        sensing_stops_in_iso_8601.sort()
+    # end if
+    
     acquisition_stops = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status/AcqStopTime")
     if len(acquisition_stops) > 0:
         # Set the validity stop to be the last acquisition timing registered to avoid error ingesting
@@ -1558,7 +1567,11 @@ def process_file(file_path, engine, query, reception_time):
 
         # Sort list
         acquisition_stops_in_iso_8601.sort()
-        validity_stop = acquisition_stops_in_iso_8601[-1]
+        if len(sensing_stops) > 0 and sensing_stops_in_iso_8601[-1] > acquisition_stops_in_iso_8601[-1]:
+            validity_stop = sensing_stops_in_iso_8601[-1]
+        else:
+            validity_stop = acquisition_stops_in_iso_8601[-1]
+        # end if
     else:
         validity_stop = reported_validity_stop
     # end if
