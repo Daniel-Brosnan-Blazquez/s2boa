@@ -842,6 +842,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 elif len(sad_data) > 0:
                     sad_status = "COMPLETE"
                 # end if
+
+                start_l0 = isp_validity_valid_segment["start"] + datetime.timedelta(seconds=6)
+                stop_l0 = isp_validity_valid_segment["stop"] - datetime.timedelta(seconds=6)
+                if start_l0 > stop_l0:
+                    start_l0 = isp_validity_valid_segment["start"]
+                    stop_l0 = isp_validity_valid_segment["stop"]
+                # end if
                 
                 isp_validity_processing_completeness_event = {
                     "explicit_reference": session_id,
@@ -850,8 +857,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                         "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_" + channel,
                         "system": satellite
                     },
-                    "start": isp_validity_valid_segment["start"].isoformat(),
-                    "stop": isp_validity_valid_segment["stop"].isoformat(),
+                    "start": start_l0.isoformat(),
+                    "stop": stop_l0.isoformat(),
                     "links": [{
                         "link": isp_validity_event_link_ref,
                         "link_mode": "by_ref",
