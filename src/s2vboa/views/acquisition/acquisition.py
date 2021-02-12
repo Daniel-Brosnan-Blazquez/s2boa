@@ -35,7 +35,7 @@ def show_acquisition():
     current_app.logger.debug("Acquisition view")
 
     filters = {}
-    filters["limit"] = ["100"]    
+    filters["limit"] = ["20"]    
     if request.method == "POST":
         filters = request.form.to_dict(flat=False).copy()
     # end if
