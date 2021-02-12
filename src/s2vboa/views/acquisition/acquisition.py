@@ -35,13 +35,13 @@ def show_acquisition():
     current_app.logger.debug("Acquisition view")
 
     filters = {}
-    filters["limit"] = ["100"]    
+    filters["limit"] = ["20"]    
     if request.method == "POST":
         filters = request.form.to_dict(flat=False).copy()
     # end if
     filters["offset"] = [""]
 
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period (now - 1 days, now)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
         "op": "<="

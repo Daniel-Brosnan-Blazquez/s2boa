@@ -42,7 +42,7 @@ def show_data_allocation():
     # end if
     filters["offset"] = [""]
 
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period (now - 1 days, now)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
         "op": "<="
@@ -52,21 +52,6 @@ def show_data_allocation():
         "op": ">="
     }
     mission = "S2_"
-
-    show = {}
-
-    """ if request.method == "POST":
-        if not "show_processing_map" in request.form:
-            show["map"] = False
-        else:
-            show["map"]=True
-        # end if
-        if not "show_processing_timeline" in request.form:
-            show["timeline"] = False
-        else:
-            show["timeline"]=True
-        # end if
-    # end if """
 
     window_size = 1
     start_filter_calculated, stop_filter_calculated = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
@@ -91,7 +76,7 @@ def show_data_allocation():
     filters["stop"] = [start_filter["date"]]
     filters["mission"] = [mission]
 
-    return query_data_allocation_and_render(start_filter, stop_filter, mission, show, filters = filters)
+    return query_data_allocation_and_render(start_filter, stop_filter, mission, filters = filters)
 
 @bp.route("/data-allocation-pages", methods=["POST"])
 def query_data_allocation_pages():
@@ -102,14 +87,13 @@ def query_data_allocation_pages():
     filters = request.json
 
     mission = filters["mission"][0]
-    show = filters["show"][0]
     mission = filters["mission"][0]
 
     # window_size is not used, here only for using the same API
     window_size = None
     start_filter, stop_filter = s2vboa_functions.get_start_stop_filters(query, current_app, request, window_size, mission, filters)
 
-    return query_data_allocation_and_render(start_filter, stop_filter, mission, show, filters = filters)
+    return query_data_allocation_and_render(start_filter, stop_filter, mission, filters = filters)
 
 @bp.route("/sliding-data-allocation-parameters", methods=["GET", "POST"])
 def show_sliding_data_allocation_parameters():
@@ -122,21 +106,6 @@ def show_sliding_data_allocation_parameters():
     window_size = float(request.args.get("window_size"))
     repeat_cycle = float(request.args.get("repeat_cycle"))
     mission = request.args.get("mission")
-
-    show = {}
-
-    """ if request.method == "POST":
-        if not "show_processing_map" in request.form:
-            show["map"] = False
-        else:
-            show["map"]=True
-        # end if
-        if not "show_processing_timeline" in request.form:
-            show["timeline"] = False
-        else:
-            show["timeline"]=True
-        # end if
-    # end if """
     
     start_filter = {
         "date": (datetime.datetime.now() - datetime.timedelta(days=window_delay)).isoformat(),
@@ -154,7 +123,7 @@ def show_sliding_data_allocation_parameters():
         "mission": mission
     }
 
-    return query_data_allocation_and_render(start_filter, stop_filter, mission, show, sliding_window)
+    return query_data_allocation_and_render(start_filter, stop_filter, mission, sliding_window)
 
 @bp.route("/sliding-data-allocation", methods=["GET", "POST"])
 def show_sliding_data_allocation():
@@ -168,8 +137,6 @@ def show_sliding_data_allocation():
     repeat_cycle=1
 
     mission = "S2_"
-
-    show = {}
 
     if request.method == "POST":
 
@@ -207,11 +174,11 @@ def show_sliding_data_allocation():
         "mission": mission
     }
 
-    return query_data_allocation_and_render(start_filter, stop_filter, mission, show, sliding_window)
+    return query_data_allocation_and_render(start_filter, stop_filter, mission, sliding_window)
 
-def query_data_allocation_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None):
+def query_data_allocation_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None):
 
-    data_allocation_events = query_data_allocation_events(start_filter, stop_filter, mission, filters)
+    data_allocation_structure = build_data_allocation_structure(start_filter, stop_filter, mission, filters)
 
     orbpre_events = s2vboa_functions.query_orbpre_events(query, current_app, start_filter, stop_filter, mission)
 
@@ -220,45 +187,45 @@ def query_data_allocation_and_render(start_filter = None, stop_filter = None, mi
     
     template = "views/data_allocation/data_allocation.html"
 
-    return render_template(template, data_allocation_events=data_allocation_events, orbpre_events=orbpre_events, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
+    return render_template(template, data_allocation_structure=data_allocation_structure, orbpre_events=orbpre_events, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
-def query_data_allocation_events(start_filter = None, stop_filter = None, mission = None, filters = None):
+def build_data_allocation_structure(start_filter = None, stop_filter = None, mission = None, filters = None):
     """
-    Query data allocation events.
+    Build data allocation structure.
     """
-    current_app.logger.debug("Query data allocation events")
+    current_app.logger.debug("Build data allocation structure")
 
-    kwargs_playback = {}
+    kwargs = {}
     
     # Set offset and limit for the query
     if filters and "offset" in filters and filters["offset"][0] != "":
-        kwargs_playback["offset"] = filters["offset"][0]
+        kwargs["offset"] = filters["offset"][0]
     # end if
     if filters and "limit" in filters and filters["limit"][0] != "":
-        kwargs_playback["limit"] = filters["limit"][0]
+        kwargs["limit"] = filters["limit"][0]
     # end if
 
     # Set order by reception_time descending
-    kwargs_playback["order_by"] = {"field": "start", "descending": True}
+    kwargs["order_by"] = {"field": "start", "descending": True}
 
     # Start filter
     if start_filter:
-        kwargs_playback["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
+        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
     # end if
 
     # Stop filter
     if stop_filter:
-        kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
+        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
     # end if
 
     # Mission
     if mission:
-        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
+        kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                     "type": "text",
                                     "value": {"op": "like", "filter": mission}
                                 }]
     # end if
 
-    events = {}
+    structure = {}
     
-    return events
+    return structure

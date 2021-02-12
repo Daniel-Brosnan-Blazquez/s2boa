@@ -1259,9 +1259,8 @@ def process_file(file_path, engine, query, reception_time, tgz_filename = None):
                                                     stop_filters = [{"date": validity_stop, "op": "<"}],
                                                     order_by = {"field": "start", "descending": False})
     if len(acquisition_schedule_events) > 0:
-
-        planned_playbacks_covered_by_schedule = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_PLAYBACK" and parser.parse(event["start"]) < acquisition_schedule_events[0].stop and parser.parse(event["stop"]) > acquisition_schedule_events[-1].start]
-        planned_playback_means_covered_by_schedule = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_PLAYBACK_MEAN" and parser.parse(event["start"]) < acquisition_schedule_events[0].stop and parser.parse(event["stop"]) > acquisition_schedule_events[-1].start]
+        planned_playbacks_covered_by_schedule = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_PLAYBACK" and parser.parse(event["start"]) < acquisition_schedule_events[-1].stop and parser.parse(event["stop"]) > acquisition_schedule_events[0].start]
+        planned_playback_means_covered_by_schedule = [event for event in list_of_events if event["gauge"]["name"] == "PLANNED_PLAYBACK_MEAN" and parser.parse(event["start"]) < acquisition_schedule_events[-1].stop and parser.parse(event["stop"]) > acquisition_schedule_events[0].start]
 
         _associate_acquisition_schedules(acquisition_schedule_events, planned_playbacks_covered_by_schedule, planned_playback_means_covered_by_schedule)
     # end if

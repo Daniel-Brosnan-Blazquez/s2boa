@@ -43,7 +43,7 @@ def show_tracking():
         filters = request.form.to_dict(flat=False).copy()
     # end if
 
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period (now - 100 minutes, now)
     window_size = 0.069
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),

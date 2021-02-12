@@ -36,7 +36,7 @@ def show_hktm_workflow():
 
     filters = {}
     filters["limit"] = ["20"]
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period (now - 1 days, now)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
         "op": "<="

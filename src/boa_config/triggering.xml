@@ -37,6 +37,18 @@
     </dependencies>
   </rule>
   <rule>
+    <source_mask>S2A_OPER_REP_PASS_E_PAC1_........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2A_REP_PASS</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>SRA_EDRS</source_type>
+    </dependencies>
+  </rule>
+  <rule>
     <source_mask>S2A_OPER_REP_PASS_E_...._........T......_V........T......_........T.......*</source_mask>
     <source_type>S2A_REP_PASS</source_type>
     <tool>
@@ -160,6 +172,18 @@
   </rule>
   <rule>
     <source_mask>S2B_OPER_REP_PASS_E_EDRS_........T......_V........T......_........T.......*</source_mask>
+    <source_type>S2B_REP_PASS</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
+      <source_type>SRA_EDRS</source_type>
+    </dependencies>
+  </rule>
+  <rule>
+    <source_mask>S2B_OPER_REP_PASS_E_PAC1_........T......_V........T......_........T.......*</source_mask>
     <source_type>S2B_REP_PASS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_acquisition.ingestion_edrs_acquisition -f </command>

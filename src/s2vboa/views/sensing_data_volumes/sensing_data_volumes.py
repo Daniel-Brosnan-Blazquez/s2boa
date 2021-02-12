@@ -41,7 +41,7 @@ def show_sensing_data_volumes():
     # end if
     filters["offset"] = [""]
 
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period (now - 1 days, now)
     start_filter = {
         "date": (datetime.datetime.now()).isoformat(),
         "operator": "<="
