@@ -50,7 +50,7 @@ class TestProcessingView(unittest.TestCase):
         self.session = Session()
 
         # Clear all tables before executing the test
-        #self.query_eboa.clear_db()
+        self.query_eboa.clear_db()
 
     def tearDown(self):
         # Close connections to the DDBB
@@ -81,7 +81,7 @@ class TestProcessingView(unittest.TestCase):
     
     def test_processing_dpc_L0_L1B_L1C_L2A_with_plan_and_rep_pass(self):
 
-        """ filename = "S2A_NPPF.EOF"
+        filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
@@ -149,7 +149,7 @@ class TestProcessingView(unittest.TestCase):
 
         returned_value = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
-        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"] """
+        assert returned_value[0]["status"] == eboa_engine.exit_codes["OK"]["status"]
         
         wait = WebDriverWait(self.driver,5)
 
@@ -363,11 +363,11 @@ class TestProcessingView(unittest.TestCase):
 
         # L1B
         isp_validity_processing_completeness_l1b_1 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_1", "op":"=="},
-                                                                                start_filters =[{"date": "2018-07-21T08:54:09", "op":"=="}],
-                                                                                stop_filters = [{"date": "2018-07-21T09:06:41", "op": "=="}])
-        isp_validity_processing_completeness_l1b_2 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_1", "op":"=="},
                                                                                 start_filters =[{"date": "2018-07-21T08:52:31", "op":"=="}],
                                                                                 stop_filters = [{"date": "2018-07-21T08:54:09", "op": "=="}])
+        isp_validity_processing_completeness_l1b_2 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_1", "op":"=="},
+                                                                                start_filters =[{"date": "2018-07-21T08:54:09", "op":"=="}],
+                                                                                stop_filters = [{"date": "2018-07-21T09:06:41", "op": "=="}])
         
         map_l1b_complete_tooltip_info = [
             {
@@ -387,12 +387,12 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Level</td><td>L1B</td></tr>" +
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_1[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_1[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
-            }, 
+            },
             {
                 "geometries": [
                         isp_validity_processing_completeness_l1b_2[0].eventGeometries[0].to_wkt()
@@ -410,12 +410,12 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Level</td><td>L1B</td></tr>" +
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_2[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_2[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
-            },
+            }, 
         ]
 
         returned_processing_geometries_complete_l1b = self.driver.execute_script('return processing_geometries_complete_l1b;')
@@ -423,11 +423,11 @@ class TestProcessingView(unittest.TestCase):
 
         # L1C
         isp_validity_processing_completeness_l1c_1 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1", "op":"=="},
-                                                                                start_filters =[{"date": "2018-07-21T08:54:09", "op":"=="}],
-                                                                                stop_filters = [{"date": "2018-07-21T09:06:41", "op": "=="}])
-        isp_validity_processing_completeness_l1c_2 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1", "op":"=="},
                                                                                 start_filters =[{"date": "2018-07-21T08:52:31", "op":"=="}],
                                                                                 stop_filters = [{"date": "2018-07-21T08:54:09", "op": "=="}])
+        isp_validity_processing_completeness_l1c_2 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1", "op":"=="},
+                                                                                start_filters =[{"date": "2018-07-21T08:54:09", "op":"=="}],
+                                                                                stop_filters = [{"date": "2018-07-21T09:06:41", "op": "=="}])
         
         map_l1c_complete_tooltip_info = [
             {
@@ -447,12 +447,12 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Level</td><td>L1C</td></tr>" +
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_1[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_1[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
-            }, 
+            },
             {
                 "geometries": [
                         isp_validity_processing_completeness_l1c_2[0].eventGeometries[0].to_wkt()
@@ -470,12 +470,12 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Level</td><td>L1C</td></tr>" +
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_2[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_2[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
-            },
+            }, 
         ]
 
         returned_processing_geometries_complete_l1c = self.driver.execute_script('return processing_geometries_complete_l1c;')
@@ -553,6 +553,48 @@ class TestProcessingView(unittest.TestCase):
             {
                 "className": "fill-border-green",
                 "group": "S2A",
+                "id": str(isp_validity_processing_completeness_l1b_1[0].event_uuid),
+                "start": "2018-07-21T08:52:31",
+                "stop": "2018-07-21T08:54:09",
+                "timeline": "L1B",
+                "tooltip": "<table border='1'>" + 
+                "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l1b_1[0].event_uuid) + "</td></tr>" + 
+                "<tr><td>Satellite</td><td>S2A</td></tr>" + 
+                "<tr><td>Downlink orbit</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "'>16078.0</a></td></tr>" +
+                "<tr><td>Station</td><td>MPS_</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_1[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
+                "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
+                "</table>"
+            },
+            {
+                "className": "fill-border-green",
+                "group": "S2A",
+                "id": str(isp_validity_processing_completeness_l1c_1[0].event_uuid),
+                "start": "2018-07-21T08:52:31",
+                "stop": "2018-07-21T08:54:09",
+                "timeline": "L1C",
+                "tooltip": "<table border='1'>" + 
+                "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l1c_1[0].event_uuid) + "</td></tr>" + 
+                "<tr><td>Satellite</td><td>S2A</td></tr>" + 
+                "<tr><td>Downlink orbit</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "'>16078.0</a></td></tr>" +
+                "<tr><td>Station</td><td>MPS_</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_1[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
+                "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
+                "</table>"
+            },     
+            {
+                "className": "fill-border-green",
+                "group": "S2A",
                 "id": str(isp_validity_processing_completeness_l2a[0].event_uuid),
                 "start": "2018-07-21T08:52:31",
                 "stop": "2018-07-21T08:54:14",
@@ -595,30 +637,9 @@ class TestProcessingView(unittest.TestCase):
             {
                 "className": "fill-border-green",
                 "group": "S2A",
-                "id": str(isp_validity_processing_completeness_l1b_1[0].event_uuid),
+                "id": str(isp_validity_processing_completeness_l1b_2[0].event_uuid),
                 "start": "2018-07-21T08:54:09",
                 "stop": "2018-07-21T09:06:41",
-                "timeline": "L1B",
-                "tooltip": "<table border='1'>" + 
-                "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l1b_1[0].event_uuid) + "</td></tr>" + 
-                "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Downlink orbit</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "'>16078.0</a></td></tr>" +
-                "<tr><td>Station</td><td>MPS_</td></tr>" +
-                "<tr><td>Level</td><td>L1B</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
-                "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_1[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
-                "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
-                "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
-                "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
-                "</table>"
-            },
-            {
-                "className": "fill-border-green",
-                "group": "S2A",
-                "id": str(isp_validity_processing_completeness_l1b_2[0].event_uuid),
-                "start": "2018-07-21T08:52:31",
-                "stop": "2018-07-21T08:54:09",
                 "timeline": "L1B",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l1b_2[0].event_uuid) + "</td></tr>" + 
@@ -628,28 +649,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Level</td><td>L1B</td></tr>" +
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_2[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
-                "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
-                "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
-                "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
-                "</table>"
-            },
-            {
-                "className": "fill-border-green",
-                "group": "S2A",
-                "id": str(isp_validity_processing_completeness_l1c_1[0].event_uuid),
-                "start": "2018-07-21T08:54:09",
-                "stop": "2018-07-21T09:06:41",
-                "timeline": "L1C",
-                "tooltip": "<table border='1'>" + 
-                "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l1c_1[0].event_uuid) + "</td></tr>" + 
-                "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Downlink orbit</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "'>16078.0</a></td></tr>" +
-                "<tr><td>Station</td><td>MPS_</td></tr>" +
-                "<tr><td>Level</td><td>L1C</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
-                "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_1[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b_2[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
@@ -659,8 +659,8 @@ class TestProcessingView(unittest.TestCase):
                 "className": "fill-border-green",
                 "group": "S2A",
                 "id": str(isp_validity_processing_completeness_l1c_2[0].event_uuid),
-                "start": "2018-07-21T08:52:31",
-                "stop": "2018-07-21T08:54:09",
+                "start": "2018-07-21T08:54:09",
+                "stop": "2018-07-21T09:06:41",
                 "timeline": "L1C",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l1c_2[0].event_uuid) + "</td></tr>" + 
@@ -670,12 +670,12 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Level</td><td>L1C</td></tr>" +
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><span class=bold-green>COMPLETE</span></td></tr>" +
-                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_2[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c_2[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_SGS__20180721T123126_S20180721T085407_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
-            },     
+            }, 
         ]
 
         returned_complete_processing_timeline = self.driver.execute_script('return complete_processing_timeline;')
