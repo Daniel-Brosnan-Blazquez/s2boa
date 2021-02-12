@@ -46,7 +46,7 @@ class TestOrbpre(unittest.TestCase):
         #Check sources
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 2
+        assert len(sources) == 1
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
@@ -56,15 +56,6 @@ class TestOrbpre(unittest.TestCase):
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
 
         assert len(definite_source1) == 1
-
-        definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
-                                                       processors = {"filter": "ingestion_orbpre.py", "op": "like"},
-                                                       names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
-                                                       dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "like"})
-
-        assert len(definite_source2) == 1
 
         #Check events
         events = self.query_eboa.get_events()
@@ -311,7 +302,7 @@ class TestOrbpre(unittest.TestCase):
         #Check sources
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 5
+        assert len(sources) == 4
 
         definite_source1 = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        reported_validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
@@ -323,17 +314,6 @@ class TestOrbpre(unittest.TestCase):
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
 
         assert len(definite_source1) == 1
-
-        definite_source2 = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
-                                                       reported_validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
-                                                       validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
-                                                       validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
-                                                       processors = {"filter": "ingestion_orbpre.py", "op": "like"},
-                                                       names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
-                                                       dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "like"})
-
-        assert len(definite_source2) == 1
 
         definite_source3 = self.query_eboa.get_sources(names = {"filter": "S2A_NPPF.EOF", "op": "like"})
 

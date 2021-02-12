@@ -531,6 +531,8 @@ def process_file(file_path, engine, query, reception_time):
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     validity_stop = (parser.parse(reported_validity_stop) + datetime.timedelta(minutes=100)).isoformat()
+    validity_start_corrected = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[1]/UTC")[0].text.split("=")[1]
+    validity_stop_corrected = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last()]/UTC")[0].text.split("=")[1]
 
     source = {
         "name": file_name,
@@ -540,19 +542,7 @@ def process_file(file_path, engine, query, reception_time):
         "validity_stop": validity_stop,
         "reported_validity_stop": reported_validity_stop
     }
-
-    validity_start_corrected = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[1]/UTC")[0].text.split("=")[1]
-    validity_stop_corrected = xpath_xml("/Earth_Explorer_File/Data_Block/List_of_OSVs/OSV[last()]/UTC")[0].text.split("=")[1]
-    source_corrected = {
-        "name": file_name,
-        "reception_time": reception_time,
-        "generation_time": generation_time,
-        "validity_start": validity_start_corrected,
-        "validity_stop": validity_stop_corrected,
-        "reported_validity_start": validity_start,
-        "reported_validity_stop": reported_validity_stop
-    }
-
+    
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
     # This is for registrering the ingestion progress
     query_general_source = Query()
@@ -581,11 +571,18 @@ def process_file(file_path, engine, query, reception_time):
     corrected_planning_events = _generate_corrected_planning_events(satellite, start_orbit, stop_orbit, list_of_events, list_of_completeness_events, query)
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
-    
-    # Generate the footprint of the events
-    corrected_planning_events_with_footprint = functions.associate_footprints(corrected_planning_events, satellite, list_of_events)
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
+    completeness = "true"
+    completeness_message = ""
+    if len(corrected_planning_events) == 0:
+        completeness = "false"
+        completeness_message = "MISSING_PLANNING"
+    # end if
+
+    source["ingestion_completeness"] = {
+        "check": completeness,
+        "message": completeness_message
+    } 
     
     # Build the xml
     data = {"operations": [{
@@ -597,26 +594,39 @@ def process_file(file_path, engine, query, reception_time):
         },
         "source": source,
         "events": list_of_events
-    },
-    {
-        "mode": "insert_and_erase",
-        "dim_signature": {
-            "name": "CORRECTED_NPPF_" + satellite,
-            "exec": os.path.basename(__file__),
-            "version": version
-        },
-        "source": source_corrected,
-        "events": corrected_planning_events_with_footprint
     }]}
 
-    functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
+
+    if len(corrected_planning_events) > 0:
+        # Generate the footprint of the events
+        corrected_planning_events_with_footprint = functions.associate_footprints(corrected_planning_events, satellite, list_of_events)
+
+        data["operations"].append({
+            "mode": "insert_and_erase",
+            "dim_signature": {
+                "name": "CORRECTED_NPPF_" + satellite,
+                "exec": os.path.basename(__file__),
+                "version": version
+            },
+            "source": {
+                "name": file_name,
+                "reception_time": reception_time,
+                "generation_time": generation_time,
+                "validity_start": validity_start_corrected,
+                "validity_stop": validity_stop_corrected,
+                "reported_validity_start": validity_start,
+                "reported_validity_stop": reported_validity_stop
+            },
+            "events": corrected_planning_events_with_footprint
+        })
+    # end if
+    
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 90)
     
     if len(list_of_completeness_events) > 0:
         # Generate the footprint of the events
         list_of_completeness_events_with_footprint = functions.associate_footprints(list_of_completeness_events, satellite, list_of_events)
-
-        source_corrected_with_priority = source_corrected.copy()
-        source_corrected_with_priority["priority"] = 20
         
         data["operations"].append({
             "mode": "insert",
@@ -625,7 +635,16 @@ def process_file(file_path, engine, query, reception_time):
                 "exec": os.path.basename(__file__),
                 "version": version
             },
-            "source": source_corrected_with_priority,
+            "source": {
+                "name": file_name,
+                "reception_time": reception_time,
+                "generation_time": generation_time,
+                "validity_start": validity_start_corrected,
+                "validity_stop": validity_stop_corrected,
+                "reported_validity_start": validity_start,
+                "reported_validity_stop": reported_validity_stop,
+                "priority": 20
+            },
             "events": list_of_completeness_events_with_footprint
         })
     # end if
