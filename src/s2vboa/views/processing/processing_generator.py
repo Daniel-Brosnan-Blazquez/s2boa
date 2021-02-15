@@ -24,6 +24,8 @@ def generate_report(begin, end, metadata, parameters = None):
         "start": begin,
         "stop": end,
         "mission": "S2_",
+        "show_processing_map": True,
+        "show_processing_timeline": True
     })
 
     html_file_path = export_html(response)
