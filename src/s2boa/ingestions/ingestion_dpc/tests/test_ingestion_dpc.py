@@ -2986,3 +2986,47 @@ class TestDpcIngestion(unittest.TestCase):
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        # Check links with isp_validity INS - VGS1
+        processing_validity_vgs1 = self.query_eboa.get_events(gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "=="},
+                                                       gauge_systems = {"filter": "VGS1", "op": "=="})
+        assert len(processing_validity_vgs1) == 1
+
+        isp_validity_ins = self.query_eboa.get_events(gauge_names = {"filter": "ISP_VALIDITY", "op": "=="},
+                                                       gauge_systems = {"filter": "INS_", "op": "=="},
+                                                      start_filters = [{"date": "2021-02-16T03:08:06.643354", "op": "=="}])
+        assert len(isp_validity_ins) == 1
+        
+        link_to_isp_validity = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_vgs1[0].event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(isp_validity_ins[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "PROCESSING_VALIDITY", "op": "like"})
+
+        assert len(link_to_isp_validity) == 1
+
+        link_from_isp_validity = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(isp_validity_ins[0].event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(processing_validity_vgs1[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "ISP_VALIDITY", "op": "like"})
+
+        assert len(link_from_isp_validity) == 1
+
+        # Check links with isp_validity SGS - VGS2
+        processing_validity_vgs2 = self.query_eboa.get_events(gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "=="},
+                                                       gauge_systems = {"filter": "VGS2", "op": "=="})
+        assert len(processing_validity_vgs2) == 1
+
+        isp_validity_sgs = self.query_eboa.get_events(gauge_names = {"filter": "ISP_VALIDITY", "op": "=="},
+                                                       gauge_systems = {"filter": "SGS_", "op": "=="})
+        assert len(isp_validity_sgs) == 1
+        
+        link_to_isp_validity = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_vgs2[0].event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(isp_validity_sgs[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "PROCESSING_VALIDITY", "op": "like"})
+
+        assert len(link_to_isp_validity) == 1
+
+        link_from_isp_validity = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(isp_validity_sgs[0].event_uuid)], "op": "in"},
+                                                       event_uuids = {"filter": [str(processing_validity_vgs2[0].event_uuid)], "op": "in"},
+                                                       link_names = {"filter": "ISP_VALIDITY", "op": "like"})
+
+        assert len(link_from_isp_validity) == 1
+
