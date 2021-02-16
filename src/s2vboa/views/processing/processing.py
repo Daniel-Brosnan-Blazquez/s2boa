@@ -102,19 +102,19 @@ def show_specific_processing(planned_playback_uuid):
     """
     current_app.logger.debug("Specific processing view")
 
-    # Get the events of the datastrip
-    isp_validity = query.get_events(event_uuids = {"filter": planned_playback_uuid, "op": "=="})[0]
+    # Get the events of the planned playback
+    planned_playback = query.get_events(event_uuids = {"filter": planned_playback_uuid, "op": "=="})[0]
     
     filters = {}
     filters["limit"] = [""]
     filters["offset"] = [""]
     # Initialize reporting period (now - 2 days, now + 5 days)
     start_filter = {
-        "date": isp_validity.stop.isoformat(),
+        "date": planned_playback.stop.isoformat(),
         "op": "<="
     }
     stop_filter = {
-        "date": isp_validity.start.isoformat(),
+        "date": planned_playback.start.isoformat(),
         "op": ">="
     }
     mission = "S2_"
@@ -297,12 +297,11 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
             kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
         # end if
 
-        # Mission and playback type (because satellit.value != playback_type.value)
-        kwargs_playback["value_filters"] = [{"name": {"op": "in", "filter": ["satellite", "playback_type"]},
+        # Mission
+        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                             "type": "text",
-                                            "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT", mission]}
+                                            "value": {"op": "==", "filter": mission}
                                             }]
-
         
         kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
 
@@ -311,39 +310,51 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
         
         # Query planned playbacks
         planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
-        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, 
+        planned_playback_correction_events_filtered_by_playback_type = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["prime_events"]], "op": "in"},
+                                                                                               value_filters = [{"name": {"op": "==", "filter": "playback_type"},
+                                                                                                                "type": "text",
+                                                                                                                "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT"]}
+                                            }])
+        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events_filtered_by_playback_type["linked_events"]], "op": "in"}, 
                                                                               link_names = {"filter": ["PLAYBACK_VALIDITY"], "op": "in"}, 
                                                                               return_prime_events = False)
-        events["playback_validity_channel_1"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 1)]
+        events["playback_validity_channel_2"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 2)]
     else:
         playback_validity_linking_events = query.get_linking_events(event_uuids = {"filter": planned_playback_uuid, "op": "=="},
                                                                     link_names = {"filter": "PLAYBACK_VALIDITY", "op": "=="}, 
                                                                     return_prime_events = False)
-        events["playback_validity_channel_1"] = playback_validity_linking_events["linking_events"]
+        events["playback_validity_channel_2"] = playback_validity_linking_events["linking_events"]
     # end if
-   
-    # PLANNED_PLAYBACK channel 1 with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
-    playback_validity_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in events["playback_validity_channel_1"]], "op": "in"})
+
+    # PLANNED_PLAYBACK channel 2 with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
+    playback_validity_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in events["playback_validity_channel_2"]], "op": "in"})
     events["playback"] = [event for event in playback_validity_events["linked_events"] if event.gauge.name == "PLANNED_PLAYBACK"]
 
-    # ISP_VALIDITY, linked to the PLAYBACK_VALIDITY events with channel 1
-    isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity_channel_1"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
+    # ISP_VALIDITY, linked to the PLAYBACK_VALIDITY events with channel 2
+    isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity_channel_2"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
     unique_isp_validity_event_uuids = set(isp_validity_event_uuids)
-    events["isp_validity_channel_1"] = query.get_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"})
+    events["isp_validity_channel_2"] = query.get_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"})
     
-    # ISP_VALIDITY_PROCESSING_COMPLETENESS_L[0_|1A|1B|1C|2A]_CHANNEL_1, linked to the ISP_VALIDITY events
+    # ISP_VALIDITY_PROCESSING_COMPLETENESS_L[0_|1A|1B|1C|2A]_channel_2, linked to the ISP_VALIDITY events
     isp_validity_events_links = query.get_linking_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"},
                                                         link_names = {"filter": ["PROCESSING_COMPLETENESS", "SAD_DATA"], "op": "in"}, 
                                                         return_prime_events = False)
     
-    events["isp_validity_processing_completeness_channel_1"] = [event for event in isp_validity_events_links["linking_events"] if re.search("^ISP_VALIDITY_PROCESSING_COMPLETENESS.*CHANNEL_1$", event.gauge.name)]
-    events["isp_validity_processing_completeness_l0_channel_1"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_1"]
-    events["isp_validity_processing_completeness_l1a_channel_1"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1A_CHANNEL_1"]
-    events["isp_validity_processing_completeness_l1b_channel_1"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_1"]
-    events["isp_validity_processing_completeness_l1c_channel_1"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_1"]
-    events["isp_validity_processing_completeness_l2a_channel_1"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_1"]
+    events["isp_validity_processing_completeness_channel_2"] = [event for event in isp_validity_events_links["linking_events"] if re.search("^ISP_VALIDITY_PROCESSING_COMPLETENESS.*CHANNEL_2$", event.gauge.name)]
+    events["isp_validity_processing_completeness_l0_channel_2"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_2"]
+    events["isp_validity_processing_completeness_l1a_channel_2"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1A_CHANNEL_2"]
+    events["isp_validity_processing_completeness_l1b_channel_2"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_2"]
+    events["isp_validity_processing_completeness_l1c_channel_2"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_2"]
+    events["isp_validity_processing_completeness_l2a_channel_2"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_2"]
     
     # SAD_DATA, linked to the ISP_VALIDITY events 
     events["sad_data"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "SAD_DATA"]
 
+    # PROCESSING_VALIDITY for the start stop values used in tables
+    isp_validity_processing_completeness_channel_2_events_links = query.get_linking_events(event_uuids = {"filter": [event.event_uuid for event in events["isp_validity_processing_completeness_channel_2"]], "op": "in"},
+                                                                                          link_names = {"filter": "PROCESSING_VALIDITY", "op": "=="}, 
+                                                                                          return_prime_events = False)
+    
+    events["processing_validity"] = [event for event in isp_validity_processing_completeness_channel_2_events_links["linking_events"] if event.gauge.name == "PROCESSING_VALIDITY"]
+    
     return events

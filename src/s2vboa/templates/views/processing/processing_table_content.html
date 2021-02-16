@@ -13,13 +13,16 @@
     </tr>
 </thead>
 <tbody>
-    {% for event in events %}
+    {% for event in events|sort(attribute="gauge.name")|sort(attribute="start") %}
+    {% set processing_validity_uuids = event.eventLinks|selectattr("name", "equalto", "PROCESSING_VALIDITY")|map(attribute='event_uuid_link')|list %}
+    {% set processing_validity = processing_events["processing_validity"]|selectattr("event_uuid", "in", processing_validity_uuids)|first %}
     {% set original_isp_validity_uuids = event.eventLinks|selectattr("name", "equalto", "ISP_VALIDITY")|map(attribute='event_uuid_link')|list %}
-    {% set original_isp_validity = processing_events["isp_validity_channel_1"]|selectattr("event_uuid", "in", original_isp_validity_uuids)|first %}
+    {% set original_isp_validity = processing_events["isp_validity_channel_2"]|selectattr("event_uuid", "in", original_isp_validity_uuids)|first %}
     {% set original_playback_validity_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|list %}
-    {% set original_playback_validity = processing_events["playback_validity_channel_1"]|selectattr("event_uuid", "in", original_playback_validity_uuids)|first %}
+    {% set original_playback_validity = processing_events["playback_validity_channel_2"]|selectattr("event_uuid", "in", original_playback_validity_uuids)|first %}
     {% set original_planned_playback_uuids = original_playback_validity.eventLinks|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute='event_uuid_link')|list %}
     {% set original_planned_playback = processing_events["playback"]|selectattr("event_uuid", "in", original_planned_playback_uuids)|first %}
+    {% set original_planned_playback_correction_uuid = original_planned_playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     {% set downlink_orbit = event.eventDoubles|selectattr("name", "equalto", "downlink_orbit")|map(attribute='value')|first|string %}
     {% set station = original_isp_validity.eventTexts|selectattr("name", "equalto", "reception_station")|map(attribute='value')|first|string %}
@@ -45,23 +48,28 @@
     {% if not datastrip_er %}
     {% set datastrip_er = "N/A" %}}
     {% endif %}
-    {% set datastrip_start = original_isp_validity.start.isoformat() %}
-    {% set datastrip_stop = original_isp_validity.stop.isoformat() %}
+    {% if status in ("COMPLETE", "INCOMPLETE") %}
+    {% set datastrip_start = processing_validity.start.isoformat() %}
+    {% set datastrip_stop = processing_validity.stop.isoformat() %}
+    {% else %}
+    {% set datastrip_start = event.start.isoformat() %}
+    {% set datastrip_stop = event.stop.isoformat() %}
+    {% endif %}
     {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
     {% set sad_data = processing_events["sad_data"]|selectattr("event_uuid", "in", sad_data_uuids)|first %}
     
     <!--Values-->
     <tr>
     <td>{{ satellite }}</td>
-    <td><a href="/views/specific-processing/{{ original_planned_playback.event_uuid }}">{{ downlink_orbit }}</a></td>
+    <td><a href="/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}">{{ downlink_orbit }}</a></td>
     <td>{{ station }}</td>
     <td>{{ level }}</td>
     <td>{{ sensing_orbit }}</td>
-    <td><span class="{{ status_class }}">{{ status }}</span></td>
+    <td><a href="/views/specific-processing/{{ original_planned_playback.event_uuid }}" class="{{ status_class }}">{{ status }}</a></td>
     {% if status in ("COMPLETE", "INCOMPLETE") and datastrip_er != "N/A" %}
     <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ datastrip_er }}</a></td>
     {% else %}
-    <td>N/A</td>
+    <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">N/A</a></td>
     {% endif %}
     <td>{{ datastrip_start }}</td>
     <td>{{ datastrip_stop }}</td>

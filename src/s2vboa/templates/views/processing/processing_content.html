@@ -7,13 +7,13 @@
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="processing-completeness">
-      {% if processing_events["isp_validity_processing_completeness_channel_1"]|length > 0 %}
+      {% if processing_events["isp_validity_processing_completeness_channel_2"]|length > 0 %}
       <p>
         <b>The following table shows the processing of the datastrips</b>:
       </p>
       <!--table-->
       <table width="100%" class="table table-striped table-bordered table-hover table-search" id="processing-completeness-table">
-      {% with events = processing_events["isp_validity_processing_completeness_channel_1"]|sort(attribute="gauge.name")|sort(attribute="start") %}
+      {% with events = processing_events["isp_validity_processing_completeness_channel_2"] %}
       {% include "views/processing/processing_table_content.html" %}
       {% endwith %}
       </table>
