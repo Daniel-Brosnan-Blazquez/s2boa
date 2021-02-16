@@ -4,8 +4,8 @@
 
   // Pie chart for processing status
   // Level L0
-  {% if processing_events["isp_validity_processing_completeness_l0_channel_1"]|length > 0 %}
-  processing_data_l0 = [{{ processing_events["isp_validity_processing_completeness_l0_channel_1"]|length - isp_validity_processing_completeness_l0_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l0_channel_1_missing|length }}]
+  {% if processing_events["isp_validity_processing_completeness_l0_channel_2"]|length > 0 %}
+  processing_data_l0 = [{{ processing_events["isp_validity_processing_completeness_l0_channel_2"]|length - isp_validity_processing_completeness_l0_channel_2_missing|length }}, {{ isp_validity_processing_completeness_l0_channel_2_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -18,8 +18,8 @@
   vboa.display_pie("processing-pie-performance-l0", data)
   {% endif %}
   // Level L1A
-  {% if processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length > 0 %}
-  processing_data_l1a = [{{ processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length - isp_validity_processing_completeness_l1a_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1a_channel_1_missing|length }}]
+  {% if processing_events["isp_validity_processing_completeness_l1a_channel_2"]|length > 0 %}
+  processing_data_l1a = [{{ processing_events["isp_validity_processing_completeness_l1a_channel_2"]|length - isp_validity_processing_completeness_l1a_channel_2_missing|length }}, {{ isp_validity_processing_completeness_l1a_channel_2_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -32,8 +32,8 @@
   vboa.display_pie("processing-pie-performance-l1a", data)
   {% endif %}
   // Level L1B
-  {% if processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length > 0 %}
-  processing_data_l1b = [{{ processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length - isp_validity_processing_completeness_l1b_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1b_channel_1_missing|length }}]
+  {% if processing_events["isp_validity_processing_completeness_l1b_channel_2"]|length > 0 %}
+  processing_data_l1b = [{{ processing_events["isp_validity_processing_completeness_l1b_channel_2"]|length - isp_validity_processing_completeness_l1b_channel_2_missing|length }}, {{ isp_validity_processing_completeness_l1b_channel_2_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -46,8 +46,8 @@
   vboa.display_pie("processing-pie-performance-l1b", data)
   {% endif %}
   // Level L1C
-  {% if processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length > 0 %}
-  processing_data_l1c = [{{ processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length - isp_validity_processing_completeness_l1c_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l1c_channel_1_missing|length }}]
+  {% if processing_events["isp_validity_processing_completeness_l1c_channel_2"]|length > 0 %}
+  processing_data_l1c = [{{ processing_events["isp_validity_processing_completeness_l1c_channel_2"]|length - isp_validity_processing_completeness_l1c_channel_2_missing|length }}, {{ isp_validity_processing_completeness_l1c_channel_2_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -60,8 +60,8 @@
   vboa.display_pie("processing-pie-performance-l1c", data)
   {% endif %}
   // Level L2A
-  {% if processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length > 0 %}
-  processing_data_l2a = [{{ processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length - isp_validity_processing_completeness_l2a_channel_1_missing|length }}, {{ isp_validity_processing_completeness_l2a_channel_1_missing|length }}]
+  {% if processing_events["isp_validity_processing_completeness_l2a_channel_2"]|length > 0 %}
+  processing_data_l2a = [{{ processing_events["isp_validity_processing_completeness_l2a_channel_2"]|length - isp_validity_processing_completeness_l2a_channel_2_missing|length }}, {{ isp_validity_processing_completeness_l2a_channel_2_missing|length }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -77,11 +77,11 @@
   // Map
   {% if show["map"] %}
   // Level L0
-  {% if processing_events["isp_validity_processing_completeness_l0_channel_1"]|length > 0 %}
+  {% if processing_events["isp_validity_processing_completeness_l0_channel_2"]|length > 0 %}
   // Missing
   var polygons_missing = [];
-  {% if isp_validity_processing_completeness_l0_channel_1_missing|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l0_channel_1_missing %}
+  {% if isp_validity_processing_completeness_l0_channel_2_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l0_channel_2_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_missing_l0 = processing_geometries_missing;
@@ -89,33 +89,33 @@
   {% endif %}
   // Complete 
   var polygons_complete = [];
-  {% if isp_validity_processing_completeness_l0_channel_1_complete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l0_channel_1_complete %}
+  {% if isp_validity_processing_completeness_l0_channel_2_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l0_channel_2_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_complete_l0 = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
-  var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
+  var polygons = polygons_complete.concat(polygons_missing);
   // Incomplete 
   var polygons_incomplete = [];
-  {% if isp_validity_processing_completeness_l0_channel_1_incomplete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l0_channel_1_incomplete %}
+  {% if isp_validity_processing_completeness_l0_channel_2_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l0_channel_2_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_incomplete_l0 = processing_geometries_incomplete;
-  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
-  polygons = polygons.concat(polygons_incomplete); 
-  {% endif %}                                                  
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete); 
+  {% endif %}
+  polygons = polygons.concat(polygons_incomplete);                                                  
 
   vboa.display_map("processing-l0-on-map", polygons);
   {% endif %}
   // Level L1A
-  {% if processing_events["isp_validity_processing_completeness_l1a_channel_1"]|length > 0 %}
+  {% if processing_events["isp_validity_processing_completeness_l1a_channel_2"]|length > 0 %}
   // Missing
   var polygons_missing = [];
-  {% if isp_validity_processing_completeness_l1a_channel_1_missing|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1a_channel_1_missing %}
+  {% if isp_validity_processing_completeness_l1a_channel_2_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1a_channel_2_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_missing_l1a = processing_geometries_missing;
@@ -123,33 +123,33 @@
   {% endif %}
   // Complete 
   var polygons_complete = [];
-  {% if isp_validity_processing_completeness_l1a_channel_1_complete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1a_channel_1_complete %}
+  {% if isp_validity_processing_completeness_l1a_channel_2_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1a_channel_2_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_complete_l1a = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
-  var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
+  var polygons = polygons_complete.concat(polygons_missing);
   // Incomplete 
   var polygons_incomplete = [];
-  {% if isp_validity_processing_completeness_l1a_channel_1_incomplete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1a_channel_1_incomplete %}
+  {% if isp_validity_processing_completeness_l1a_channel_2_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1a_channel_2_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_incomplete_l1a = processing_geometries_incomplete;
-  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
-  polygons = polygons.concat(polygons_incomplete); 
-  {% endif %}                                                  
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete); 
+  {% endif %} 
+  polygons = polygons.concat(polygons_incomplete);                                                 
 
   vboa.display_map("processing-l1a-on-map", polygons);
   {% endif %}
   // Level L1B
-  {% if processing_events["isp_validity_processing_completeness_l1b_channel_1"]|length > 0 %}
+  {% if processing_events["isp_validity_processing_completeness_l1b_channel_2"]|length > 0 %}
   // Missing
   var polygons_missing = [];
-  {% if isp_validity_processing_completeness_l1b_channel_1_missing|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1b_channel_1_missing %}
+  {% if isp_validity_processing_completeness_l1b_channel_2_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1b_channel_2_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_missing_l1b = processing_geometries_missing;
@@ -157,33 +157,33 @@
   {% endif %}
   // Complete 
   var polygons_complete = [];
-  {% if isp_validity_processing_completeness_l1b_channel_1_complete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1b_channel_1_complete %}
+  {% if isp_validity_processing_completeness_l1b_channel_2_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1b_channel_2_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_complete_l1b = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
-  var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
+  var polygons = polygons_complete.concat(polygons_missing);
   // Incomplete 
   var polygons_incomplete = [];
-  {% if isp_validity_processing_completeness_l1b_channel_1_incomplete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1b_channel_1_incomplete %}
+  {% if isp_validity_processing_completeness_l1b_channel_2_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1b_channel_2_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_incomplete_l1b = processing_geometries_incomplete;
-  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
-  polygons = polygons.concat(polygons_incomplete); 
-  {% endif %}                                                  
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete); 
+  {% endif %}  
+  polygons = polygons.concat(polygons_incomplete);                                                
 
   vboa.display_map("processing-l1b-on-map", polygons);
   {% endif %}
   // Level L1C
-  {% if processing_events["isp_validity_processing_completeness_l1c_channel_1"]|length > 0 %}
+  {% if processing_events["isp_validity_processing_completeness_l1c_channel_2"]|length > 0 %}
   // Missing
   var polygons_missing = [];
-  {% if isp_validity_processing_completeness_l1c_channel_1_missing|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1c_channel_1_missing %}
+  {% if isp_validity_processing_completeness_l1c_channel_2_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1c_channel_2_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_missing_l1c = processing_geometries_missing;
@@ -191,33 +191,33 @@
   {% endif %}
   // Complete 
   var polygons_complete = [];
-  {% if isp_validity_processing_completeness_l1c_channel_1_complete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1c_channel_1_complete %}
+  {% if isp_validity_processing_completeness_l1c_channel_2_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1c_channel_2_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_complete_l1c = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
-  var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
+  var polygons = polygons_complete.concat(polygons_missing);
   // Incomplete 
   var polygons_incomplete = [];
-  {% if isp_validity_processing_completeness_l1c_channel_1_incomplete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l1c_channel_1_incomplete %}
+  {% if isp_validity_processing_completeness_l1c_channel_2_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l1c_channel_2_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_incomplete_l1c = processing_geometries_incomplete;
-  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
-  polygons = polygons.concat(polygons_incomplete); 
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete); 
   {% endif %}                                                  
+  polygons = polygons.concat(polygons_incomplete);
 
   vboa.display_map("processing-l1c-on-map", polygons);
   {% endif %}
   // Level L2A
-  {% if processing_events["isp_validity_processing_completeness_l2a_channel_1"]|length > 0 %}
+  {% if processing_events["isp_validity_processing_completeness_l2a_channel_2"]|length > 0 %}
   // Missing
   var polygons_missing = [];
-  {% if isp_validity_processing_completeness_l2a_channel_1_missing|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l2a_channel_1_missing %}
+  {% if isp_validity_processing_completeness_l2a_channel_2_missing|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l2a_channel_2_missing %}
   {% include "js/processing/missing_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_missing_l2a = processing_geometries_missing;
@@ -225,41 +225,41 @@
   {% endif %}
   // Complete 
   var polygons_complete = [];
-  {% if isp_validity_processing_completeness_l2a_channel_1_complete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l2a_channel_1_complete %}
+  {% if isp_validity_processing_completeness_l2a_channel_2_complete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l2a_channel_2_complete %}
   {% include "js/processing/complete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_complete_l2a = processing_geometries_complete;
   vboa.prepare_events_geometries_for_map(processing_geometries_complete, polygons_complete);
-  var polygons = polygons_complete.concat(polygons_missing);
   {% endif %}
+  var polygons = polygons_complete.concat(polygons_missing);
   // Incomplete 
   var polygons_incomplete = [];
-  {% if isp_validity_processing_completeness_l2a_channel_1_incomplete|length > 0 %}
-  {% with events = isp_validity_processing_completeness_l2a_channel_1_incomplete %}
+  {% if isp_validity_processing_completeness_l2a_channel_2_incomplete|length > 0 %}
+  {% with events = isp_validity_processing_completeness_l2a_channel_2_incomplete %}
   {% include "js/processing/incomplete_processing_to_map.js" %}
   {% endwith %}
   var processing_geometries_incomplete_l2a = processing_geometries_incomplete;
-  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete);
-  polygons = polygons.concat(polygons_incomplete); 
-  {% endif %}                                                  
+  vboa.prepare_events_geometries_for_map(processing_geometries_incomplete, polygons_incomplete); 
+  {% endif %} 
+  polygons = polygons.concat(polygons_incomplete);                                                 
 
   vboa.display_map("processing-l2a-on-map", polygons);
   {% endif %}
   {% endif %}
 
   //Timelines
-  {% if show["timeline"] and processing_events["isp_validity_processing_completeness_channel_1"]|length > 0%}
+  {% if show["timeline"] and processing_events["isp_validity_processing_completeness_channel_2"]|length > 0 %}
   // Missing
-  {% with events = isp_validity_processing_completeness_channel_1_missing %}
+  {% with events = isp_validity_processing_completeness_channel_2_missing %}
   {% include "js/processing/missing_processing_to_timeline.js" %}
   {% endwith %}
 
-  {% with events = isp_validity_processing_completeness_channel_1_complete %}
+  {% with events = isp_validity_processing_completeness_channel_2_complete %}
   {% include "js/processing/complete_processing_to_timeline.js" %}
   {% endwith %}
 
-  {% with events = isp_validity_processing_completeness_channel_1_incomplete %}
+  {% with events = isp_validity_processing_completeness_channel_2_incomplete %}
   {% include "js/processing/incomplete_processing_to_timeline.js" %}
   {% endwith %}
   var events = missing_processing_timeline.concat(complete_processing_timeline)
