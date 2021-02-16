@@ -8,7 +8,7 @@
 {% include "views/data_allocation/data_allocation_query.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/data-allocation-pages", elements = elements, filters = filters %}
+{% with route = "/views/data-allocation-pages", elements = data_allocation_structure["events"]["planned_playback"], filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 

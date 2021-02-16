@@ -227,52 +227,54 @@ def build_data_allocation_structure(start_filter = None, stop_filter = None, mis
     kwargs["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
 
     # Specify the main query parameters
-    kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+    kwargs["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
 
-    # Query planned playbacks
-    planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+    # Query corrected planned playbacks and planned playbacks
+    planned_playback_correction_events = query.get_linked_events(**kwargs)
 
+    # Query playback validity and last scenes replayed
     planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, 
                                                                           link_names = {"filter": ["PLAYBACK_VALIDITY", "LAST_REPLAYED_SCENE_AT_START", "LAST_REPLAYED_SCENE_AT_STOP"], "op": "in"}, 
                                                                           return_prime_events = False)
     
+    events = {}
+    events["corrected_planned_playback"] = planned_playback_correction_events["prime_events"]
+    events["planned_playback"] = planned_playback_correction_events["linked_events"]
+    events["playback_validity"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 2)]
+    events["last_replayed_scene"] = planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_START"] + planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_STOP"]
+
+    # Query isp validity linked to the playback validity events
+    isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
+    events["isp_validity"] = query.get_events(event_uuids = {"filter": isp_validity_event_uuids, "op": "in"})
+    
+    # Obtain first isp validity with status complete
+    # Note: if this is not available, the algorithm cannot start
     structure = {}
-    structure["playback_validity_channel_1"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 1)]
-    structure["last_replayed_scene_at_start"] = sorted((event for event in planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_START"]), key=lambda x: x.start)
-    structure["last_replayed_scene_at_stop"] = [event for event in planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_STOP"]]
-    
-    # PLANNED_PLAYBACK channel 1 with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
-    playback_validity_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in structure["playback_validity_channel_1"]], "op": "in"})
-    structure["playback"] = [event for event in playback_validity_events["linked_events"] if event.gauge.name == "PLANNED_PLAYBACK"]
+    structure["events"] = events
+    events["planned_cut_imaging"] = {}
 
-    # ISP_VALIDITY, linked to the PLAYBACK_VALIDITY events with channel 1
-    isp_validity_event_uuids = [link.event_uuid_link for event in structure["playback_validity_channel_1"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
-    unique_isp_validity_event_uuids = set(isp_validity_event_uuids)
-    structure["isp_validity_channel_1"] = query.get_events(event_uuids = {"filter": list(unique_isp_validity_event_uuids), "op": "in"})
+    isp_validity_with_status_complete = [event for event in events["isp_validity"] for value in event.eventTexts if value.name == "status" and value.value == "COMPLETE"]
     
-    # First ISP_VALIDITY, linked to the PLAYBACK_VALIDITY events with channel 1 with status COMPLETE
-    structure["isp_validity_channel_1_first_status_complete"] = None
-    for event in structure["isp_validity_channel_1"]:
-        if any(value.name == "status" and value.value == "COMPLETE" for value in event.eventTexts): structure["isp_validity_channel_1_first_status_complete"] = event
+    if len(isp_validity_with_status_complete) > 0:
+        isp_validity_with_status_complete.sort(key = lambda x: x.start)
+        first_isp_validity_with_status_complete = isp_validity_with_status_complete[0]
     
-    # PLANNED_CUT_IMAGING, linked to the first ISP_VALIDITY event with status COMPLETE
-    isp_validity_events_links = query.get_linking_events(event_uuids = {"filter": structure["isp_validity_channel_1_first_status_complete"].event_uuid, "op": "=="},
-                                                        link_names = {"filter": "PLANNED_IMAGING", "op": "=="}, 
-                                                        return_prime_events = False)
+        # Query planned cut imaging linked to the first isp validity event with status complete
+        planned_cut_imaging_linking_to_first_isp_validity = query.get_linking_events(event_uuids = {"filter": str(isp_validity_with_status_complete[0].event_uuid), "op": "=="},
+                                                                                     link_names = {"filter": "PLANNED_IMAGING", "op": "=="}, 
+                                                                                     return_prime_events = False)
     
-    structure["planned_cut_imaging"] = [event for event in isp_validity_events_links["linking_events"] if event.gauge.name == "PLANNED_CUT_IMAGING"]
+        # Query associated planned cut imaging correction linked to the planned cut imaging event
+        associated_planned_cut_imaging_correction = query.get_linking_events(event_uuids = {"filter": str(planned_cut_imaging_linking_to_first_isp_validity["linking_events"][0].event_uuid), "op": "=="},
+                                                                             link_names = {"filter": "TIME_CORRECTION", "op": "=="}, 
+                                                                             return_prime_events = False)
 
-    # PLANNED_CUT_IMAGING_CORRECTION, linked to the PLANNED_CUT_IMAGING events
-    planned_cut_imaging_events_links = query.get_linking_events(event_uuids = {"filter": [event.event_uuid for event in structure["planned_cut_imaging"]], "op": "in"},
-                                                                link_names = {"filter": "TIME_CORRECTION", "op": "=="}, 
-                                                                return_prime_events = False)
+        # Query corrected planned cut imaging
+        # Note: start_filter is associated to the stop of the coverage of the window
+        events["planned_cut_imaging"] = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
+                                                         start_filters = [{"date": associated_planned_cut_imaging_correction["linking_events"][0].start.isoformat(), "op": ">="}],
+                                                         stop_filters = [{"date": start_filter["date"], "op": "<="}])
 
-    structure["planned_cut_imaging_correction"] = [event for event in planned_cut_imaging_events_links["linking_events"] if event.gauge.name == "PLANNED_CUT_IMAGING_CORRECTION"]
-    
-    previous_planned_cut_imaging_corrections = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
-                                                               start = {"date": structure["last_replayed_scene_at_start"][0].start, "op": ">"},
-                                                               stop = {"date": stop_filter["date"], "op": "<"})
-    
-    structure["planned_cut_imaging_correction"].extend(previous_planned_cut_imaging_corrections)
+    # end if
 
     return structure
