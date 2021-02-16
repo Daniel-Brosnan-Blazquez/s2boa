@@ -650,7 +650,10 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         if len(isp_validities) > 0:
             reception_matching_status = "MATCHED_ISP_VALIDITY"
 
-            for isp_validity in isp_validities:
+            datablock_duration = (datablock["stop"] - datablock["start"]).total_seconds()
+            filtered_isp_validities = [isp_validity for isp_validity in isp_validities if abs(isp_validity.get_duration() - datablock_duration) < 10]
+
+            for isp_validity in filtered_isp_validities:
 
                 isp_validity_uuid = isp_validity.event_uuid
 

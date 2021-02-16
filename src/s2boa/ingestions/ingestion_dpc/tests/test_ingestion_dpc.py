@@ -2942,3 +2942,47 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "24039.0"
             }
         ]
+
+    def test_2_rep_pass_2_dpcs(self):
+
+        filename = "S2A_OPER_MPL__NPPF__20210211T120000_20210301T150000_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_MPL_ORBPRE_20210215T030224_20210225T030224_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0        
+        
+        filename = "S2A_OPER_REP_PASS_E_VGS1_20210216T045903_V20210216T043319_20210216T044103.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_PASS_E_VGS2_20210216T050024_V20210216T044508_20210216T044715.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS1_20210216T052316_V20210216T030809_20210216T032014.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS2_20210216T050845_V20210216T032007_20210216T032253.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
