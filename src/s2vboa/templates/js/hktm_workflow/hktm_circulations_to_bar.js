@@ -8,6 +8,13 @@ var hktm_circulation_events = [
     {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
     {% set hktm_production_event_uuids = event.eventLinks|selectattr("name", "equalto", "HKTM_PRODUCTION_VGS")|map(attribute='event_uuid_link')|list %}
 
+    {% set status = [] %}
+    {% set status_class = [] %}     	 
+    {% include "views/hktm_workflow/hktm_workflow_status.html" %}
+    {% set completeness_status = [] %}
+    {% set completeness_status_class = [] %}     	 
+    {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
+    
     {% if hktm_production_event_uuids|length > 0 %}
     {% set hktm_production_events = hktm_workflow_events["hktm_production_vgs"]|selectattr("event_uuid", "in", hktm_production_event_uuids)|list %}
 
@@ -35,7 +42,7 @@ var hktm_circulation_events = [
         "group": "{{ satellite }}",
         "x": "{{ orbpre_event.start.isoformat() }}",
         "y": "{{ delta_to_fos }}",
-        "tooltip": create_hktm_workflow_tooltip_text("<a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a>", "{{ satellite }}", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ orbit }}</a>", "{{ station }}", "{{ orbpre_event.start.isoformat() }}", "{{ circulation_time_to_fos }}", "<span class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</span>", "{{ product_size_to_fos }}")
+        "tooltip": create_hktm_workflow_tooltip_text("<a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a>", "{{ satellite }}", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ orbit }}</a>", "{{ station }}", "<span class='{{ status_class[0] }}'>{{ status[0] }}</span>", "<span class='{{ completeness_status_class[0] }}'>{{ completeness_status[0] }}</span>","{{ orbpre_event.start.isoformat() }}", "{{ circulation_time_to_fos }}", "<span class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</span>", "{{ product_size_to_fos }}")
     },
     {% endif %}
     {% endif %}
