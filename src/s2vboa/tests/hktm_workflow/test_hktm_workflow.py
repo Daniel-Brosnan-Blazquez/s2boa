@@ -614,9 +614,11 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
                 "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
                 "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-green'>OK</span></td></tr>" +
                 "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
                 "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
-                "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-green'>31.494</span></td></tr>" +
                 "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
                 "</table>"
             },
@@ -637,9 +639,11 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
                 "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
                 "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-green'>OK</span></td></tr>" +
                 "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
                 "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
-                "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-green'>31.494</span></td></tr>" +
                 "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
                 "</table>"
             },
