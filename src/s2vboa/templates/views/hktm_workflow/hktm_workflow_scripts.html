@@ -30,9 +30,8 @@
   {% endif %}
 
   <!-- HKTM circulated to FOS -->
-  {% set hktm_circulated_to_fos = hktm_workflow_events["hktm_production_vgs"]|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
 
-  {% if (hktm_circulated_to_fos|length) > 0 %}
+  {% if not (missing_hktm_circulation_to_fos|length) > 0 %}
   
   {% with events = hktm_workflow_events["playback"] %}
   {% include "js/hktm_workflow/hktm_circulations_to_bar.js" %}
