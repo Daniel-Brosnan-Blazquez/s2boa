@@ -300,17 +300,15 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
         # Mission
         kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
                                             "type": "text",
-                                            "value": {"op": "==", "filter": mission}
+                                            "value": {"op": "like", "filter": mission}
                                             }]
         
         kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
-
-        # Specify the main query parameters
-        kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
-        
+ 
         # Query planned playbacks
-        planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
-        planned_playback_correction_events_filtered_by_playback_type = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["prime_events"]], "op": "in"},
+        planned_playback_correction_events = query.get_events(**kwargs_playback)
+        planned_playback_correction_events_filtered_by_playback_type = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events], "op": "in"},
+                                                                                               link_names = {"filter": "TIME_CORRECTION", "op": "=="},
                                                                                                value_filters = [{"name": {"op": "==", "filter": "playback_type"},
                                                                                                                 "type": "text",
                                                                                                                 "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT"]}

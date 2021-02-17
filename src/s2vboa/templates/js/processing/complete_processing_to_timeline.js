@@ -16,11 +16,7 @@ var complete_processing_timeline = [
     {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
     {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
-    {% set datastrip_er = event.explicitRef.explicit_ref %}
-    {% if not datastrip_er %}
-    {% set datastrip_er = "N/A" %}}
-    {% endif %}
-    {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>" + datastrip_er + "</a>" %}
+    {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>" + event.explicitRef.explicit_ref + "</a>" %}
     {% set datastrip_start = processing_validity.start.isoformat() %}
     {% set datastrip_stop = processing_validity.stop.isoformat() %}
     {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
