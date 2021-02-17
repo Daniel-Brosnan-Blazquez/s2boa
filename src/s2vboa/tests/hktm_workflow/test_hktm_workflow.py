@@ -616,7 +616,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "<tr><td>Station</td><td>SGS_</td></tr>" +
                 "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
                 "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
-                "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-green'>31.494</span></td></tr>" +
                 "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
                 "</table>"
             },
@@ -639,7 +639,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "<tr><td>Station</td><td>SGS_</td></tr>" +
                 "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
                 "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
-                "<tr><td>Delta to FOS (m)</td><td class='bold-green'>31.494</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-green'>31.494</span></td></tr>" +
                 "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
                 "</table>"
             },
