@@ -67,7 +67,7 @@ def process_file(file_path, engine, query, reception_time):
     eof_path = eof.name
     eof.close()
 
-    data = ingestion_tlm_req_b.process_file(eof_path, engine, query, reception_time)
+    data = ingestion_tlm_req_b.process_file(eof_path, engine, query, reception_time, tgz_filename = file_name)
     
     # Remove temporary folder
     temporary_folder.cleanup()

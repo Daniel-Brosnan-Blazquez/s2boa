@@ -362,7 +362,7 @@ def gap_events(xpath_xml, list_of_events, satellite, parameter_name, validity_st
     # end if 
 
 @debug
-def process_file(file_path, engine, query, reception_time):
+def process_file(file_path, engine, query, reception_time, tgz_filename = None):
     """Function to process the file and insert its relevant information
     into the DDBB of the eboa
     
@@ -375,7 +375,11 @@ def process_file(file_path, engine, query, reception_time):
     :param reception_time: time of the reception of the file by the triggering
     :type reception_time: str
     """
-    file_name = os.path.basename(file_path)
+    if tgz_filename != None:
+        file_name = tgz_filename
+    else:
+        file_name = os.path.basename(file_path)
+    # end if
 
     # Remove namespaces
     new_file = tempfile.NamedTemporaryFile()
