@@ -24,6 +24,18 @@
   <h1 class="page-header">HKTM Workflow Status view</h1>
 </div>
 <!-- /.row -->
+{% include "views/hktm_workflow/hktm_workflow_query.html" %}
+
+<!-- Pagination -->
+{% with route = "/views/hktm-workflow-pages", elements = orbpre_events_limit, filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
+{% include "views/hktm_workflow/hktm_workflow_summary_content.html" %}
+{% if orbpre_events_limit|length > 0 %}
+{% include "views/hktm_workflow/hktm_workflow_issues_content.html" %}
+
+{% endif %}
 {% include "views/hktm_workflow/hktm_workflow_content.html" %}
 {% endblock %}
 

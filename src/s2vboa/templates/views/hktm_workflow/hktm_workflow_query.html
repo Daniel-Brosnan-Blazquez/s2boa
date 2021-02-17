@@ -1,0 +1,103 @@
+<div class="row">
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#query-interface">Query interface <span class="fa fa-angle-double-down"></span></a>
+        </h3>
+      </div>
+      <div class="panel-body panel-collapse collapse" id="query-interface">
+        <ul class="nav nav-tabs responsive-tabs">
+          <li class="active"><a href="#hktm-workflow-query-window">Query window</a></li>
+          <li><a href="#hktm-workflow-sliding-window">Sliding window</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="hktm-workflow-query-window">
+            <form role="form" method=post action="/views/hktm-workflow">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    start: now - 1 day <br/>
+                    stop: now <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_static_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Start and stop -->
+                <div class="row">
+                  {% include "eboa_nav/start_stop_without_operators.html" %}
+                </div>
+                <!-- Orbits -->
+                {% include "views/common/start_stop_orbits.html" %}
+                <!-- Limit -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Limit</label>
+                    <input type="text" class="form-control" style="width: 100%" name="limit" id="hktm-workflow-limit" value="20"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane" id="hktm-workflow-sliding-window">
+            <form role="form" method=post action="/views/sliding-hktm-workflow">
+              <div>
+                <!-- Default values message -->
+                <div class="row">
+                  <br/>
+                  <p style="margin-left:20px">
+                    The default behaviour is: <br/>
+                    window delay: 0 days <br/>
+                    window size: 1 days <br/>
+                    repeat cycle: 1 minute <br/>
+                    mission: S2_ <br/>
+                  </p>
+                </div>
+                <!-- Missions -->
+                {% with id = "mission_sliding_query" %}
+                {% include "views/common/missions.html" %}
+                {% endwith %}
+                <br/>
+                <!-- Delay -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window delay (days)</label>
+                    <input type="text" class="form-control" name="hktm_workflow_window_delay" id="hktm-workflow-window-delay"/>
+                  </div>
+                </div>
+                <!-- Duration -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Window size (days)</label>
+                    <input type="text" class="form-control" name="hktm_workflow_window_size" id="hktm-workflow-window-size"/>
+                  </div>
+                </div>
+                <!-- Repeat cycle (minutes) -->
+                <div class="row">
+                  <div class="col-xs-3">
+                    <label>Repeat cycle (minutes)</label>
+                    <input type="text" class="form-control" name="hktm_workflow_repeat_cycle" id="hktm-workflow-repeat-cycle"/>
+                  </div>
+                </div>
+                <div>
+                  <button id="query-submit-button" type="submit" class="btn btn-primary" style="margin-top: 12px">Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "views/common/header.html" %}

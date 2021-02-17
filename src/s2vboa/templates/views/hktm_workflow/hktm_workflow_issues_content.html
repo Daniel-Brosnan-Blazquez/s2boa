@@ -1,0 +1,71 @@
+{% if missing_hktm_production_vgs|length > 0 or missing_hktm_circulation_to_fos|length > 0 or hktm_incompletely_distributed|length > 0 %}
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-issues-hktm" style="color:red">Issues with the HKTM circulation to FOS <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="hktm-workflow-issues-hktm">
+      <p>
+        <b>The following table shows the list of issues occurred for the circulation of HKTM products to FOS</b>:
+      </p>
+      <a data-toggle="collapse" data-parent="#accordion" href="#hktm-workflow-columns-help-issues-hktm"><b>Columns help:</b> <span class="fa fa-angle-double-down"></span></a>
+      <div class="panel-body panel-collapse collapse" id="hktm-workflow-columns-help-issues-hktm">
+        {% include "views/hktm_workflow/hktm_workflow_columns_help.html" %}
+      </div>
+      <!--table-->
+      <table width="100%" class="table table-striped table-bordered table-hover table-search" id="hktm-workflow-issues-hktm-table">
+        <thead>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>ANX time</th>
+            <th>Status</th>
+            <th>Completeness status</th>
+            <th>HKTM product</th>
+            <th>PDMC-FOS time</th>
+            <th>Time delivery to FOS (min.)</th>            
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in hktm_workflow_events["playback"]|sort(attribute="start", reverse=True) %}
+          {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}       
+          {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+          {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+          {% set status = [] %}
+          {% set status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_status.html" %}          
+
+          {% set completeness_status = [] %}
+          {% set completeness_status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
+          
+          {% if status[0] != "OK" or (completeness_status[0] != "OK" and completeness_status[0] != "N/A") %}
+          {% include "views/hktm_workflow/hktm_workflow_content_table.html" %}
+          {% endif %}
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Satellite</th>
+            <th>Orbit</th>
+            <th>Station</th>
+            <th>ANX time</th>
+            <th>Status</th>
+            <th>Completeness status</th>
+            <th>HKTM Product</th>
+            <th>PDMC-FOS time</th>
+            <th>Time delivery to FOS (min.)</th>            
+            <th>Comments</th>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+    </div>
+  </div>
+</div>
+{% endif %}
