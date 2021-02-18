@@ -25,9 +25,9 @@
           </div>
         </div>
       </div>
+      {% if hktm_circulated_to_fos|length > 0 %}
       <div class="row">
         <!-- Dissemination delay evolution chart -->
-        {% if not (missing_hktm_circulation_to_fos|length) > 0 %}
         <div class="col-xs-6">
           <div class="panel panel-primary">
             <div class="panel-heading" align="center" style="font-size: 20px">Evolution of the dissemination delay from ANX time</div>
