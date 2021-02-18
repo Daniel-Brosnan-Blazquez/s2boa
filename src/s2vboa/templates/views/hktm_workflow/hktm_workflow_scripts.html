@@ -33,7 +33,7 @@
 
   <!-- HKTM circulated to FOS -->
 
-  {% if not (missing_hktm_circulation_to_fos|length) > 0 %}
+  {% if hktm_circulated_to_fos|length > 0 %}
   
   {% with events = hktm_workflow_events["playback"] %}
   {% include "js/hktm_workflow/hktm_circulations_to_bar.js" %}
