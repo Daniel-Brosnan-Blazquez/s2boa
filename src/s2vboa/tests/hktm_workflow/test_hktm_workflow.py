@@ -1251,7 +1251,7 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert comments.text == ""
 
-        planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
+        planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="}, order_by = {"field": "start", "descending": True})
         hktm_production_vgs = self.query_eboa.get_events(gauge_names ={"filter": "HKTM_PRODUCTION_VGS", "op":"=="})
         
         # HKTM circulation info
