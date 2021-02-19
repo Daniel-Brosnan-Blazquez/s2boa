@@ -11,7 +11,7 @@ import unittest
 import time
 import subprocess
 import datetime
-import s2vboa.tests.dhus_completeness.aux_functions as functions
+import s2vboa.tests.detailed_processing_timeliness.aux_functions as functions
 import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -68,16 +68,16 @@ class TestDetailedProcessingTimelinessView(unittest.TestCase):
 
         self.driver.get("http://localhost:5000/views/detailed-processing-timeliness")
 
-        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800", table_details = True, map = True, station_reports = True)
+        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "17600", stop_orbit = "17800")
 
         # Check header generated
         header_no_data = wait.until(EC.visibility_of_element_located((By.ID,"header-no-data")))
 
         assert header_no_data
 
-        table_details_no_data = wait.until(EC.visibility_of_element_located((By.ID,"detailed-processing-timeliness-no-datastrips")))
+        div_no_data = wait.until(EC.visibility_of_element_located((By.ID,"detailed-processing-timeliness-no-datastrips")))
 
-        assert table_details_no_data
+        assert div_no_data
 
     def test_detailed_processing_timeliness(self):
 

@@ -75,9 +75,9 @@ class TestDataAllocationView(unittest.TestCase):
 
         assert header_no_data
 
-        table_details_no_data = wait.until(EC.visibility_of_element_located((By.ID,"no-data-allocation-structure")))
+        div_no_data = wait.until(EC.visibility_of_element_located((By.ID,"no-data-allocation-structure")))
 
-        assert table_details_no_data
+        assert div_no_data
     
     def test_data_allocation(self):
 

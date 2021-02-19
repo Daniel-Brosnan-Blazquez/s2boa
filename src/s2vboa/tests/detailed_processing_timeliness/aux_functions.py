@@ -19,7 +19,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver import ActionChains,TouchActions
 from selenium.webdriver.common.keys import Keys
 
-def query(driver, wait, mission = None, start = None, stop = None, start_orbit = None, stop_orbit = None, table_details = True, map = True, station_reports = True):
+def query(driver, wait, mission = None, start = None, stop = None, start_orbit = None, stop_orbit = None):
 
     query_interface = driver.find_element_by_partial_link_text("Query interface")
     i = 0
@@ -36,39 +36,24 @@ def query(driver, wait, mission = None, start = None, stop = None, start_orbit =
 
     if start is not None:
         # Select start date
-        startTime = driver.find_element_by_id("start-input")
+        startTime = driver.find_element_by_id("sensing-start-input")
         ActionChains(driver).double_click(startTime).perform()
         startTime.send_keys(start)
     #   end if
 
     if stop is not None:
         # Select stop date
-        stopTime = driver.find_element_by_id("stop-input")
+        stopTime = driver.find_element_by_id("sensing-stop-input")
         ActionChains(driver).double_click(stopTime).perform()
         stopTime.send_keys(stop)
     # end if
 
     if start_orbit is not None:
-        driver.find_element_by_id("start-orbit").send_keys(start_orbit)
+        driver.find_element_by_id("sensing-start-orbit").send_keys(start_orbit)
     # end if
 
     if stop_orbit is not None:
-        driver.find_element_by_id("stop-orbit").send_keys(stop_orbit)
-    # end if
-
-    if table_details is not True:
-        # Click on show table_details
-        click(driver.find_element_by_id("show-acquisition-table-details"))
-    # end if
-
-    if map is not True:
-        # Click on show map
-        click(driver.find_element_by_id("show-acquisition-map"))
-    # end if
-
-    if station_reports is not True:
-        # Click on show station_reports
-        click(driver.find_element_by_id("show-station-reports"))
+        driver.find_element_by_id("sensing-stop-orbit").send_keys(stop_orbit)
     # end if
 
     click(driver.find_element_by_id("query-submit-button"))
