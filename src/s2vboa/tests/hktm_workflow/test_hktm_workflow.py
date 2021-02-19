@@ -12,6 +12,7 @@ import time
 import subprocess
 import datetime
 import s2vboa.tests.hktm_workflow.aux_functions as functions
+import vboa.tests.functions as functions_vboa
 import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -265,6 +266,36 @@ class TestHktmWorkflowView(unittest.TestCase):
         comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
+
+        planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
+        planned_playback_correction = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
+        
+        # HKTM timeline info
+        hktm_timeline_info = [
+            {
+                "id": str(planned_playback[0].event_uuid),
+                "group": "S2A",
+                "timeline": "N/A",
+                "start": planned_playback_correction[0].start.isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>Station</td><td>N/A</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-orange'>PENDING ACQUISITION</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-orange"
+            },
+        ]
+        
+        returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
+        assert hktm_timeline_info == returned_hktm_timeline_events
         
     def test_hktm_workflow_only_nppf_and_orbpre_and_rep_pass(self):
 
@@ -448,6 +479,36 @@ class TestHktmWorkflowView(unittest.TestCase):
         comments = general_table.find_element_by_xpath("tbody/tr[last()]/td[10]")
 
         assert comments.text == ""
+
+        planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
+        planned_playback_correction = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
+        
+        # HKTM timeline info
+        hktm_timeline_info = [
+            {
+                "id": str(planned_playback[0].event_uuid),
+                "group": "S2A",
+                "timeline": "N/A",
+                "start": planned_playback_correction[0].start.isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>Station</td><td>N/A</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-red'>MISSING PRODUCTION</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-red"
+            },
+        ]
+        
+        returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
+        assert hktm_timeline_info == returned_hktm_timeline_events
         
     def test_hktm_workflow(self):
 
@@ -600,6 +661,7 @@ class TestHktmWorkflowView(unittest.TestCase):
         assert comments.text == ""
 
         planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="})
+        planned_playback_correction = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="})
         hktm_production_vgs = self.query_eboa.get_events(gauge_names ={"filter": "HKTM_PRODUCTION_VGS", "op":"=="})
         
         # HKTM circulation info
@@ -651,6 +713,33 @@ class TestHktmWorkflowView(unittest.TestCase):
         
         returned_htkm_size_info = self.driver.execute_script('return hktm_size_events;')
         assert hktm_size_info == returned_htkm_size_info
+
+        # HKTM timeline info
+        hktm_timeline_info = [
+            {
+                "id": str(planned_playback[0].event_uuid),
+                "group": "S2A",
+                "timeline": "SGS_",
+                "start": planned_playback_correction[0].start.isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-green'>31.494</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
+                "</table>",
+                "className": "fill-border-green"
+            },
+        ]
+        
+        returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
+        assert hktm_timeline_info == returned_hktm_timeline_events
         
     def test_hktm_workflow_with_ophktm_and_planning_and_rep_pass(self):
 
@@ -1026,6 +1115,93 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert comments.text == ""
 
+        hktm_production_vgs = self.query_eboa.get_events(gauge_names ={"filter": "HKTM_PRODUCTION_VGS", "op":"=="})
+        planned_playback_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2020-10-15T11:05:06.135000", "op":"=="}],
+                                                    stop_filters = [{"date": "2020-10-15T11:05:06.135000", "op": "=="}])
+        planned_playback_correction_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                   start_filters =[{"date": "2020-10-15T11:05:16.311091", "op":"=="}],
+                                                                   stop_filters = [{"date": "2020-10-15T11:05:16.311091", "op": "=="}])
+        planned_playback_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2020-10-15T12:45:00.763000", "op":"=="}],
+                                                    stop_filters = [{"date": "2020-10-15T12:45:00.763000", "op": "=="}])
+        planned_playback_correction_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                   start_filters =[{"date": "2020-10-15T12:45:10.889278", "op":"=="}],
+                                                                   stop_filters = [{"date": "2020-10-15T12:45:10.889278", "op": "=="}])
+        planned_playback_3 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2020-10-15T14:24:25.437000", "op":"=="}],
+                                                    stop_filters = [{"date": "2020-10-15T14:24:25.437000", "op": "=="}])
+        planned_playback_correction_3 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                   start_filters =[{"date": "2020-10-15T14:24:35.530000", "op":"=="}],
+                                                                   stop_filters = [{"date": "2020-10-15T14:24:35.530000", "op": "=="}])
+        
+        # HKTM timeline info
+        hktm_timeline_info = [
+            {
+                "id": str(planned_playback_1[0].event_uuid),
+                "group": "S2B",
+                "timeline": "SGS_",
+                "start": planned_playback_correction_1[0].start.isoformat(),
+                "stop": (planned_playback_correction_1[0].start + (planned_playback_correction_1[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2B</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback_1[0].event_uuid) + "'>18853</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-orange'>PENDING ACQUISITION</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-10-15T10:31:11.089630</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-orange"
+            },
+            {
+                "id": str(planned_playback_2[0].event_uuid),
+                "group": "S2B",
+                "timeline": "SGS_",
+                "start": planned_playback_correction_2[0].start.isoformat(),
+                "stop": (planned_playback_correction_2[0].start + (planned_playback_correction_2[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2B_OPER_PRD_HKTM___20201015T125434_20201015T125511_0001</a></td></tr>" +
+                "<tr><td>Satellite</td><td>S2B</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback_2[0].event_uuid) + "'>18854</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-red'>MISSING CIRCULATION TO FOS</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-10-15T12:11:52.978670</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-red"
+            },
+            {
+                "id": str(planned_playback_3[0].event_uuid),
+                "group": "S2B",
+                "timeline": "SGS_",
+                "start": planned_playback_correction_3[0].start.isoformat(),
+                "stop": (planned_playback_correction_3[0].start + (planned_playback_correction_3[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2B</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback_3[0].event_uuid) + "'>18855</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-orange'>PENDING ACQUISITION</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-10-15T13:52:34.882710</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-orange"
+            },
+        ]
+        
+        returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
+        functions_vboa.verify_js_var(returned_hktm_timeline_events, hktm_timeline_info)
+        
     def test_hktm_workflow_with_missing(self):
 
         filename = "S2A_NPPF.EOF"
@@ -1252,6 +1428,7 @@ class TestHktmWorkflowView(unittest.TestCase):
         assert comments.text == ""
 
         planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="}, order_by = {"field": "start", "descending": True})
+        planned_playback_correction = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="}, order_by = {"field": "start", "descending": True})
         hktm_production_vgs = self.query_eboa.get_events(gauge_names ={"filter": "HKTM_PRODUCTION_VGS", "op":"=="})
         
         # HKTM circulation info
@@ -1303,3 +1480,51 @@ class TestHktmWorkflowView(unittest.TestCase):
         
         returned_htkm_size_info = self.driver.execute_script('return hktm_size_events;')
         assert hktm_size_info == returned_htkm_size_info
+        
+        # HKTM timeline info
+        hktm_timeline_info = [
+            {
+                "id": str(planned_playback[0].event_uuid),
+                "group": "S2A",
+                "timeline": "SGS_",
+                "start": planned_playback_correction[0].start.isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[0].event_uuid) + "'>24039</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-01-29T02:57:51.366847</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>2020-01-29T03:29:21</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-green'>31.494</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>38338560.0</td></tr>" +
+                "</table>",
+                "className": "fill-border-green"
+            },
+            {
+                "id": str(planned_playback[1].event_uuid),
+                "group": "S2A",
+                "timeline": "N/A",
+                "start": planned_playback_correction[1].start.isoformat(),
+                "stop": (planned_playback_correction[1].start + (planned_playback_correction[1].start.resolution * 1000000)*10).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2A</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_playback[1].event_uuid) + "'>16073</a></td></tr>" +
+                "<tr><td>Station</td><td>N/A</td></tr>" +
+                "<tr><td>Status</td><td><span class='bold-red'>MISSING PRODUCTION</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-green'>OK</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2018-07-21T01:27:21.897531</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-red"
+            },
+        ]
+        
+        returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
+        functions_vboa.verify_js_var(returned_hktm_timeline_events, hktm_timeline_info)
+        

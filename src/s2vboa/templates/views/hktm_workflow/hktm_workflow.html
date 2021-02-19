@@ -36,9 +36,10 @@
 
 {% include "views/hktm_workflow/hktm_workflow_summary_content.html" %}
 {% if orbpre_events_limit|length > 0 %}
+{% include "views/hktm_workflow/hktm_workflow_timeliness.html" %}
 {% include "views/hktm_workflow/hktm_workflow_issues_content.html" %}
-
 {% endif %}
+
 {% include "views/hktm_workflow/hktm_workflow_content.html" %}
 {% endblock %}
 

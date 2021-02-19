@@ -92,6 +92,17 @@
   vboa.display_bar_time("hktm-product-size-evolution", items, groups, options);
 
   {% endif %}
+
+  //Timelines
+  {% with events = hktm_workflow_events["playback"] %}
+  {% include "js/hktm_workflow/hktm_to_timeline.js" %}
+  {% endwith %} 
+
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_timeline(hktm_timeline_events, items, groups);
+  vboa.display_timeline("hktm-workflow-timeline", items, groups);
   
   {% if sliding_window %}
   var parameters = {
