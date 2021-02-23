@@ -277,7 +277,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2A",
                 "timeline": "N/A",
                 "start": planned_playback_correction[0].start.isoformat(),
-                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -490,7 +490,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2A",
                 "timeline": "N/A",
                 "start": planned_playback_correction[0].start.isoformat(),
-                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -721,7 +721,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2A",
                 "timeline": "SGS_",
                 "start": planned_playback_correction[0].start.isoformat(),
-                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1142,7 +1142,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2B",
                 "timeline": "SGS_",
                 "start": planned_playback_correction_1[0].start.isoformat(),
-                "stop": (planned_playback_correction_1[0].start + (planned_playback_correction_1[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction_1[0].start + (planned_playback_correction_1[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
                 "<tr><td>Satellite</td><td>S2B</td></tr>" +
@@ -1162,7 +1162,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2B",
                 "timeline": "SGS_",
                 "start": planned_playback_correction_2[0].start.isoformat(),
-                "stop": (planned_playback_correction_2[0].start + (planned_playback_correction_2[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction_2[0].start + (planned_playback_correction_2[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2B_OPER_PRD_HKTM___20201015T125434_20201015T125511_0001</a></td></tr>" +
                 "<tr><td>Satellite</td><td>S2B</td></tr>" +
@@ -1182,7 +1182,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2B",
                 "timeline": "SGS_",
                 "start": planned_playback_correction_3[0].start.isoformat(),
-                "stop": (planned_playback_correction_3[0].start + (planned_playback_correction_3[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction_3[0].start + (planned_playback_correction_3[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
                 "<tr><td>Satellite</td><td>S2B</td></tr>" +
@@ -1488,7 +1488,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2A",
                 "timeline": "SGS_",
                 "start": planned_playback_correction[0].start.isoformat(),
-                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction[0].start + (planned_playback_correction[0].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001</a></td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
@@ -1508,7 +1508,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "group": "S2A",
                 "timeline": "N/A",
                 "start": planned_playback_correction[1].start.isoformat(),
-                "stop": (planned_playback_correction[1].start + (planned_playback_correction[1].start.resolution * 1000000)*10).isoformat(),
+                "stop": (planned_playback_correction[1].start + (planned_playback_correction[1].start.resolution * 1000000)*600).isoformat(),
                 "tooltip": "<table border='1'>" +
                 "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
                 "<tr><td>Satellite</td><td>S2A</td></tr>" +
