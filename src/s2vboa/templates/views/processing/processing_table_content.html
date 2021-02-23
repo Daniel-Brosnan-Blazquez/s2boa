@@ -9,6 +9,7 @@
     <th>Datastrip</th>
     <th>Start</th>
     <th>Stop</th>
+    <th>Duration (m)</th>
     <th>SAD coverage</th>
     </tr>
 </thead>
@@ -48,10 +49,12 @@
     {% set datastrip = event.explicitRef.explicit_ref %}
     {% set datastrip_start = processing_validity.start.isoformat() %}
     {% set datastrip_stop = processing_validity.stop.isoformat() %}
+    {% set duration = (((processing_validity.stop - processing_validity.start).total_seconds()) / 60)|round(3) %}
     {% else %}
     {% set datastrip = "N/A" %}
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}
+    {% set duration = (((event.stop - event.start).total_seconds()) / 60)|round(3) %}
     {% endif %}
     {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
     {% set sad_data = processing_events["sad_data"]|selectattr("event_uuid", "in", sad_data_uuids)|first %}
@@ -67,6 +70,7 @@
     <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ datastrip }}</a></td>
     <td>{{ datastrip_start }}</td>
     <td>{{ datastrip_stop }}</td>
+    <td>{{ duration }}</td>
     {% if sad_data %}
     <td><a href="/eboa_nav/query-event-links/{{ sad_data.event_uuid }}">{{ sad_data.start.isoformat() ~ "_" ~ sad_data.stop.isoformat() }}</a></td>
     {% else %}
@@ -86,6 +90,7 @@
     <th>Datastrip</th>
     <th>Start</th>
     <th>Stop</th>
+    <th>Duration (m)</th>
     <th>SAD coverage</th>
     </tr>
 </tfoot>

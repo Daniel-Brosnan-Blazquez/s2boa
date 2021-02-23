@@ -19,6 +19,7 @@ var processing_geometries_incomplete = [
     {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>" + event.explicitRef.explicit_ref + "</a>" %}
     {% set datastrip_start = processing_validity.start.isoformat() %}
     {% set datastrip_stop = processing_validity.stop.isoformat() %}
+    {% set duration = (((processing_validity.stop - processing_validity.start).total_seconds()) / 60)|round(3) %}
     {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
     {% set sad_data_info = "N/A" %}
     {% if sad_data_uuids|length > 0 %}
@@ -27,7 +28,7 @@ var processing_geometries_incomplete = [
     {% endif %}
     {
         "id": "{{ event.event_uuid }}",
-        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "<a href='/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}'>{{ downlink_orbit }}</a>", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a href='/views/specific-processing/{{ original_planned_playback.event_uuid }}' class=bold-orange>{{ status }}</a>", "{{ datastrip }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "<a href='/eboa_nav/query-event-links/{{ sad_data.event_uuid }}'>{{ sad_data.start.isoformat() ~ "_" ~ sad_data.stop.isoformat() }}</a>"),
+        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "<a href='/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}'>{{ downlink_orbit }}</a>", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a href='/views/specific-processing/{{ original_planned_playback.event_uuid }}' class=bold-orange>{{ status }}</a>", "{{ datastrip }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "{{ duration }}", "<a href='/eboa_nav/query-event-links/{{ sad_data.event_uuid }}'>{{ sad_data.start.isoformat() ~ "_" ~ sad_data.stop.isoformat() }}</a>"),
         "geometries": [
             {% for geometry in event.eventGeometries %}
             {{ geometry.to_wkt() }},

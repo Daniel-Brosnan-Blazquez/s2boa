@@ -309,6 +309,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
@@ -343,6 +344,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
@@ -377,6 +379,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             }, 
@@ -411,6 +414,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             }, 
@@ -430,7 +434,7 @@ class TestProcessingView(unittest.TestCase):
         missing_timeline_tooltip_info = [
             {
                 "className": "fill-border-red",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l0[0].event_uuid),
                 "start": "2018-07-21T08:52:35.993268",
                 "stop": "2018-07-21T08:54:12.226646",
@@ -446,12 +450,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
             {
                 "className": "fill-border-red",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l1b[0].event_uuid),
                 "start": "2018-07-21T08:52:35.993268",
                 "stop": "2018-07-21T08:54:12.226646",
@@ -467,12 +472,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
             {
                 "className": "fill-border-red",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l1c[0].event_uuid),
                 "start": "2018-07-21T08:52:35.993268",
                 "stop": "2018-07-21T08:54:12.226646",
@@ -488,12 +494,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },     
             {
                 "className": "fill-border-red",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l2a[0].event_uuid),
                 "start": "2018-07-21T08:52:35.993268",
                 "stop": "2018-07-21T08:54:12.226646",
@@ -509,13 +516,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
         ]
 
         returned_missing_processing_timeline = self.driver.execute_script('return missing_processing_timeline;')
-        #assert missing_timeline_tooltip_info == returned_missing_processing_timeline
         functions_vboa.verify_js_var(returned_missing_processing_timeline, missing_timeline_tooltip_info)
         
         # Complete
@@ -569,8 +576,12 @@ class TestProcessingView(unittest.TestCase):
         stop = missing_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
+        
+        duration = missing_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -611,7 +622,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -651,8 +666,12 @@ class TestProcessingView(unittest.TestCase):
         stop = missing_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
+        
+        duration = missing_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -693,7 +712,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
         
@@ -737,7 +760,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -778,7 +805,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -819,7 +850,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -860,7 +895,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -908,7 +947,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -949,7 +992,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -990,7 +1037,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1031,7 +1082,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
         
@@ -1079,7 +1134,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1120,7 +1179,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1161,7 +1224,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1202,7 +1269,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert duration.text == "1.604"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1439,12 +1510,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.833</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
         ]
 
-        returned_processing_geometries_complete_l0 = self.driver.execute_script('return processing_geometries_complete_l0;') 
+        returned_processing_geometries_complete_l0 = self.driver.execute_script('return processing_geometries_complete_l0;')
         functions_vboa.verify_js_var(returned_processing_geometries_complete_l0, map_l0_complete_tooltip_info)
 
         # L1B
@@ -1475,6 +1547,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
@@ -1512,6 +1585,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
@@ -1549,6 +1623,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             }, 
@@ -1573,7 +1648,7 @@ class TestProcessingView(unittest.TestCase):
         complete_timeline_tooltip_info = [
             {
                 "className": "fill-border-green",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l0[0].event_uuid),
                 "start": "2018-07-21T08:52:29",
                 "stop": "2018-07-21T08:54:19",
@@ -1589,12 +1664,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.833</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
             {
                 "className": "fill-border-green",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l1b[0].event_uuid),
                 "start": "2018-07-21T08:52:31",
                 "stop": "2018-07-21T08:54:14",
@@ -1610,12 +1686,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
             {
                 "className": "fill-border-green",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l1c[0].event_uuid),
                 "start": "2018-07-21T08:52:31",
                 "stop": "2018-07-21T08:54:14",
@@ -1631,12 +1708,13 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },     
             {
                 "className": "fill-border-green",
-                "group": "S2A",
+                "group": "S2A;MPS_",
                 "id": str(isp_validity_processing_completeness_l2a[0].event_uuid),
                 "start": "2018-07-21T08:52:31",
                 "stop": "2018-07-21T08:54:14",
@@ -1652,6 +1730,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08</a></td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
                 "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
                 "</table>"
             },
@@ -1706,7 +1785,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:19"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert duration.text == "1.833"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1747,7 +1830,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert duration.text == "1.717"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1788,7 +1875,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+
+        assert duration.text == "1.717"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1829,7 +1920,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert duration.text == "1.717"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1877,7 +1972,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:19"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert duration.text == "1.833"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1918,7 +2017,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert duration.text == "1.717"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1959,7 +2062,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+
+        assert duration.text == "1.717"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -2000,7 +2107,11 @@ class TestProcessingView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert duration.text == "1.717"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
