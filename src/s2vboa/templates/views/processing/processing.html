@@ -50,7 +50,7 @@
 {% include "views/processing/processing_query.html" %}
 
 <!-- Pagination -->
-{% with route = "/views/processing-pages", elements = processing_events["playback"], filters = filters %}
+{% with route = "/views/processing-pages", elements = processing_events["planned_playback_correction"], filters = filters %}
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
