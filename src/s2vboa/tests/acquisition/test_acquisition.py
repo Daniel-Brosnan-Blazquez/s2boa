@@ -174,7 +174,7 @@ class TestAcquisitionView(unittest.TestCase):
 
         station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
-        assert station.text == ""
+        assert station.text == "N/A"
 
         playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
@@ -276,14 +276,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_missing = [
             {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:41.524661",
              "stop": "2018-07-21T10:36:59.530863",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
@@ -297,14 +297,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:41.524661",
              "stop": "2018-07-21T10:36:59.530863",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
@@ -318,14 +318,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:37:21.534390",
              "stop": "2018-07-21T10:37:21.534390",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:21.534390</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:21.534390</td></tr>" +
@@ -351,7 +351,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
@@ -375,7 +375,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:41.524661</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:36:59.530863</td></tr>" +
@@ -399,7 +399,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:21.534390</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:21.534390</td></tr>" +
@@ -490,7 +490,7 @@ class TestAcquisitionView(unittest.TestCase):
 
         station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
-        assert station.text == ""
+        assert station.text == "N/A"
 
         playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
@@ -593,14 +593,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_received = [
             {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:33.728601",
              "stop": "2018-07-21T10:37:14.719834",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.728601</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.719834</td></tr>" +
@@ -614,14 +614,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:33.760977",
              "stop": "2018-07-21T10:37:14.753003",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.760977</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.753003</td></tr>" +
@@ -635,14 +635,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:37:20.858708",
              "stop": "2018-07-21T10:37:26.355940",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:20.858708</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:26.355940</td></tr>" +
@@ -668,7 +668,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.728601</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.719834</td></tr>" +
@@ -692,7 +692,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.760977</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.753003</td></tr>" +
@@ -716,7 +716,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:20.858708</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:26.355940</td></tr>" +
@@ -787,7 +787,7 @@ class TestAcquisitionView(unittest.TestCase):
 
         station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
-        assert station.text == ""
+        assert station.text == "N/A"
 
         playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
@@ -890,14 +890,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_received = [
             {"id": str(playback_completeness_channel_1[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:33.728601",
              "stop": "2018-07-21T10:37:14.719834",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.728601</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.719834</td></tr>" +
@@ -911,14 +911,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:33.760977",
              "stop": "2018-07-21T10:37:14.753003",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.760977</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.753003</td></tr>" +
@@ -932,14 +932,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[2].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:37:20.858708",
              "stop": "2018-07-21T10:37:26.355940",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:20.858708</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:26.355940</td></tr>" +
@@ -961,14 +961,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_missing = [
             {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:24.907236",
              "stop": "2018-07-21T10:35:33.728601",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.728601</td></tr>" +
@@ -982,14 +982,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:24.907236",
              "stop": "2018-07-21T10:35:33.760977",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.760977</td></tr>" +
@@ -1015,7 +1015,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.728601</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.719834</td></tr>" +
@@ -1039,7 +1039,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.760977</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.753003</td></tr>" +
@@ -1063,7 +1063,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:20.858708</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:26.355940</td></tr>" +
@@ -1094,7 +1094,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.728601</td></tr>" +
@@ -1118,7 +1118,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:24.907236</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:35:33.760977</td></tr>" +
@@ -1245,14 +1245,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_missing = [
             {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:03:25.140258",
              "stop": "2018-07-24T12:14:48.025786",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
@@ -1266,14 +1266,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:03:25.140258",
              "stop": "2018-07-24T12:14:48.025786",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
@@ -1287,14 +1287,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_1[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:15:10.023123",
              "stop": "2018-07-24T12:15:10.023123",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:15:10.023123</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:15:10.023123</td></tr>" +
@@ -1308,14 +1308,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:15:10.023123",
              "stop": "2018-07-24T12:15:10.023123",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:15:10.023123</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:15:10.023123</td></tr>" +
@@ -1329,14 +1329,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
            {"id": str(playback_completeness_channel_1[2].event_uuid),
             "group": "S2A",
-            "timeline": "",
+            "timeline": "N/A",
             "start": "2018-07-24T12:17:57.403836",
             "stop": "2018-07-24T12:28:40.906438",
              "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
-                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Station</td><td>N/A</td></tr>" +
                          "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[2].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                          "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
                          "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
@@ -1350,14 +1350,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
            {"id": str(playback_completeness_channel_2[2].event_uuid),
             "group": "S2A",
-            "timeline": "",
+            "timeline": "N/A",
             "start": "2018-07-24T12:17:57.403836",
             "stop": "2018-07-24T12:28:40.906438",
              "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
-                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Station</td><td>N/A</td></tr>" +
                          "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[2].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                          "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
                          "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
@@ -1371,14 +1371,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
            {"id": str(playback_completeness_channel_2[3].event_uuid),
             "group": "S2A",
-            "timeline": "",
+            "timeline": "N/A",
             "start": "2018-07-24T12:29:02.911137",
             "stop": "2018-07-24T12:29:02.911137",
             "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
-                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Station</td><td>N/A</td></tr>" +
                          "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[3].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                          "<tr><td>Start</td><td>2018-07-24T12:29:02.911137</td></tr>" +
                          "<tr><td>Stop</td><td>2018-07-24T12:29:02.911137</td></tr>" +
@@ -1408,7 +1408,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:03:16.140258</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:14:57.025786</td></tr>" +
@@ -1432,7 +1432,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:15:08.023123</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:15:08.023123</td></tr>" +
@@ -1456,7 +1456,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[2].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:17:48.403836</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:28:49.906438</td></tr>" +
@@ -1480,7 +1480,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[3].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:29:00.911137</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:29:00.911137</td></tr>" +
@@ -1752,14 +1752,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_missing = [
             {"id": str(playback_completeness_channel_1[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:03:25.140258",
              "stop": "2018-07-24T12:14:48.025786",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[2].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
@@ -1773,14 +1773,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[2].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:03:25.140258",
              "stop": "2018-07-24T12:14:48.025786",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[2].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:03:25.140258</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:14:48.025786</td></tr>" +
@@ -1794,14 +1794,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
             {"id": str(playback_completeness_channel_1[2].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:15:10.023123",
              "stop": "2018-07-24T12:15:10.023123",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[3].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:15:10.023123</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:15:10.023123</td></tr>" +
@@ -1815,14 +1815,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
             {"id": str(playback_completeness_channel_2[3].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-24T12:15:10.023123",
              "stop": "2018-07-24T12:15:10.023123",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[3].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:15:10.023123</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:15:10.023123</td></tr>" +
@@ -1836,14 +1836,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
            {"id": str(playback_completeness_channel_1[3].event_uuid),
             "group": "S2A",
-            "timeline": "",
+            "timeline": "N/A",
             "start": "2018-07-24T12:17:57.403836",
             "stop": "2018-07-24T12:28:40.906438",
              "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[4].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
-                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Station</td><td>N/A</td></tr>" +
                          "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[4].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                          "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
                          "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
@@ -1857,14 +1857,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
            {"id": str(playback_completeness_channel_2[4].event_uuid),
             "group": "S2A",
-            "timeline": "",
+            "timeline": "N/A",
             "start": "2018-07-24T12:17:57.403836",
             "stop": "2018-07-24T12:28:40.906438",
              "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[4].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
-                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Station</td><td>N/A</td></tr>" +
                          "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[4].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                          "<tr><td>Start</td><td>2018-07-24T12:17:57.403836</td></tr>" +
                          "<tr><td>Stop</td><td>2018-07-24T12:28:40.906438</td></tr>" +
@@ -1878,14 +1878,14 @@ class TestAcquisitionView(unittest.TestCase):
             },
            {"id": str(playback_completeness_channel_2[5].event_uuid),
             "group": "S2A",
-            "timeline": "",
+            "timeline": "N/A",
             "start": "2018-07-24T12:29:02.911137",
             "stop": "2018-07-24T12:29:02.911137",
             "tooltip": "<table border='1'>" +
                          "<tr><td>UUID</td><td>" + str(original_events[5].event_uuid) + "</td></tr>" +
                          "<tr><td>Satellite</td><td>S2A</td></tr>" +
                          "<tr><td>Orbit</td><td>16122</td></tr>" +
-                         "<tr><td>Station</td><td></td></tr>" +
+                         "<tr><td>Station</td><td>N/A</td></tr>" +
                          "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[5].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                          "<tr><td>Start</td><td>2018-07-24T12:29:02.911137</td></tr>" +
                          "<tr><td>Stop</td><td>2018-07-24T12:29:02.911137</td></tr>" +
@@ -1911,7 +1911,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:03:16.140258</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:14:57.025786</td></tr>" +
@@ -1935,7 +1935,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:15:08.023123</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:15:08.023123</td></tr>" +
@@ -1959,7 +1959,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[2].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[2].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:17:48.403836</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:28:49.906438</td></tr>" +
@@ -1983,7 +1983,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[3].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16122</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[3].event_uuid) + "'><span class='bold-red'>MISSING</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-24T12:29:00.911137</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-24T12:29:00.911137</td></tr>" +
@@ -2192,7 +2192,7 @@ class TestAcquisitionView(unittest.TestCase):
 
         station = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[3]")
 
-        assert station.text == ""
+        assert station.text == "N/A"
 
         playback_type = acquisition_details_table.find_element_by_xpath("tbody/tr[last()]/td[4]")
 
@@ -2295,14 +2295,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_received = [
             {"id": str(playback_completeness_channel_2[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:33.760977",
              "stop": "2018-07-21T10:37:14.753003",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.760977</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.753003</td></tr>" +
@@ -2316,14 +2316,14 @@ class TestAcquisitionView(unittest.TestCase):
              },
             {"id": str(playback_completeness_channel_2[1].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:37:20.858708",
              "stop": "2018-07-21T10:37:26.355940",
              "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:20.858708</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:26.355940</td></tr>" +
@@ -2345,14 +2345,14 @@ class TestAcquisitionView(unittest.TestCase):
         acquisition_timeline_incomplete = [
             {"id": str(playback_completeness_channel_1[0].event_uuid),
              "group": "S2A",
-             "timeline": "",
+             "timeline": "N/A",
              "start": "2018-07-21T10:35:33.728601",
              "stop": "2018-07-21T10:37:14.719834",
               "tooltip": "<table border='1'>" +
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-orange'>INCOMPLETE</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.728601</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.719834</td></tr>" +
@@ -2377,7 +2377,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.760977</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.753003</td></tr>" +
@@ -2401,7 +2401,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[1].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[1].event_uuid) + "'><span class='bold-green'>RECEIVED</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:37:20.858708</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:26.355940</td></tr>" +
@@ -2433,7 +2433,7 @@ class TestAcquisitionView(unittest.TestCase):
                           "<tr><td>UUID</td><td>" + str(original_events[0].event_uuid) + "</td></tr>" +
                           "<tr><td>Satellite</td><td>S2A</td></tr>" +
                           "<tr><td>Orbit</td><td>16078</td></tr>" +
-                          "<tr><td>Station</td><td></td></tr>" +
+                          "<tr><td>Station</td><td>N/A</td></tr>" +
                           "<tr><td>Status</td><td><a href='/views/specific-acquisition/" + str(corrected_events[0].event_uuid) + "'><span class='bold-orange'>INCOMPLETE</span></a></td></tr>" +
                           "<tr><td>Start</td><td>2018-07-21T10:35:33.728601</td></tr>" +
                           "<tr><td>Stop</td><td>2018-07-21T10:37:14.719834</td></tr>" +

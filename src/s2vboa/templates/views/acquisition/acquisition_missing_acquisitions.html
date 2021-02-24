@@ -76,9 +76,15 @@
           {% set station_schedule_event = acquisition_events["slot_request_edrs"]|selectattr("event_uuid", "equalto", sra_schedule_uuid)|first %}
           {% set link_session = station_schedule_event.explicitRef.explicit_ref %}
           {% endif %}
+
+          <!-- Obtain station -->
+          {% set station = "N/A" %}
+          {% if station_schedule_event %}
+          {% set station = station_schedule_event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+          {% endif %}
+          
           {% set type = original_playback.eventTexts|selectattr("name", "equalto", "playback_type")|map(attribute='value')|first|string %}
           {% set orbit = original_playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
-          {% set station = original_playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
           {% set parameters_object = original_playback.eventObjects|selectattr("name", "equalto", "parameters")|first %}
           {% set parameters = original_playback.get_structured_values(parameters_object.position, parameters_object.parent_level, parameters_object.parent_position) %}
           <!--Playback Status-->

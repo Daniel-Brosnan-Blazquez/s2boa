@@ -78,17 +78,6 @@ def _generate_station_schedule_events(xpath_xml, source, engine, query, list_of_
                     "name": "STATION_SCHEDULE",
                     "back_ref": "PLANNED_PLAYBACK"
                 })
-                value = {
-                    "name": "station_schedule",
-                    "type": "object",
-                    "values": [{"name": "station",
-                                "type": "text",
-                                "value": station}]
-                }
-                engine.insert_event_value(playback.event_uuid, value)
-
-                planned_playback_correction_uuid = [event_link.event_uuid_link for event_link in playback.eventLinks if event_link.name == "TIME_CORRECTION"][0]
-                engine.insert_event_value(planned_playback_correction_uuid, value)
             # end for
         # end if
 

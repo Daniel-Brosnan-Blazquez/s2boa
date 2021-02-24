@@ -1073,7 +1073,6 @@ def _associate_acquisition_schedules(acquisition_schedule_events, planned_playba
             })
         # end if
 
-        station = None
         if mean == "OCP":
             sra_event = [event for event in sra_events if parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
             if len(sra_event) > 0:
@@ -1083,7 +1082,6 @@ def _associate_acquisition_schedules(acquisition_schedule_events, planned_playba
                     "name": "PLANNED_PLAYBACK",
                     "back_ref": "SLOT_REQUEST_EDRS"
                 })
-                station = "EDRS"
             # end if
         else:
             station_schedule_event = [event for event in station_schedule_events if parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
@@ -1094,7 +1092,6 @@ def _associate_acquisition_schedules(acquisition_schedule_events, planned_playba
                     "name": "PLANNED_PLAYBACK",
                     "back_ref": "STATION_SCHEDULE"
                 })
-                station = [value.value for value in station_schedule_event[0].eventTexts if value.name == "station"][0]
             # end if
 
             dfep_schedule_event = [event for event in dfep_schedule_events if parser.parse(planned_playback["start"]) < event.stop and parser.parse(planned_playback["stop"]) > event.start]
@@ -1105,28 +1102,8 @@ def _associate_acquisition_schedules(acquisition_schedule_events, planned_playba
                     "name": "PLANNED_PLAYBACK",
                     "back_ref": "DFEP_SCHEDULE"
                 })
-                station = [value.value for value in dfep_schedule_event[0].eventTexts if value.name == "station"][0]
             # end if
-        # end if
-
-        # Associate station to the values of the planned playback
-        if station:
-            planned_playback["values"].append({
-                "name": "station_schedule",
-                "type": "object",
-                "values": [{"name": "station",
-                            "type": "text",
-                            "value": station}]
-            })
-            planned_playback["values"].append({
-                "name": "dfep_schedule",
-                "type": "object",
-                "values": [{"name": "station",
-                            "type": "text",
-                            "value": station}]
-            })
-        # end if
-        
+        # end if        
     # end for
 
 def process_file(file_path, engine, query, reception_time, tgz_filename = None):

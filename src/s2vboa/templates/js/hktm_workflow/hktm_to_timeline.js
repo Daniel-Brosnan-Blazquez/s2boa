@@ -16,9 +16,11 @@ var hktm_timeline_events = [
     
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
     
-    {% set station = event.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
-    {% if not station %}
     {% set station = "N/A" %}
+    {% set station_schedule_uuid = event.eventLinks|selectattr("name", "equalto", "STATION_SCHEDULE")|map(attribute='event_uuid_link')|first %}
+    {% if station_schedule_uuid %}
+    {% set station_schedule = hktm_workflow_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
+    {% set station = station_schedule.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
     {% endif %}
     
     {% set orbpre_segment = [event]|convert_eboa_events_to_date_segments|intersect_timelines(orbpre_events|filter_events_by_text_value("satellite", satellite)|convert_eboa_events_to_date_segments)|first %}

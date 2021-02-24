@@ -524,6 +524,7 @@
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="planning-playback-plan">
       {% if orbpre_by_units|length > 0 and playback_by_units|length > 0 %}
+      {% set schedule_stations_by_station = planning_events["station_schedule"]|events_group_by_text_value("station") %}
       <div>
         <div>
           <h3><u>Statistics</u></h3>
@@ -558,6 +559,17 @@
         {% set orbpre = orbpre|flatten %}
         {% set playback = playback|flatten|filter_events_by_text_values("playback_type", ["NOMINAL", "REGULAR", "RT", "NRT"]) %}
 
+        {% set playbacks_no_station_schedule = playback|reject_events_with_link_name("STATION_SCHEDULE")|list %}
+        {% set playbacks_by_station = {} %}
+        {% if playbacks_no_station_schedule %}
+        {% do playbacks_by_station.update({"N/A": playbacks_no_station_schedule}) %}
+        {% endif %}
+        {% for station in schedule_stations_by_station %}
+        {% set associated_playback_uuids = schedule_stations_by_station[station]|map(attribute="eventLinks")|flatten|selectattr("name", "in", ["PLANNED_PLAYBACK"])|map(attribute="event_uuid_link")|list %}
+        {% set associated_playbacks = playback|selectattr("event_uuid", "in", associated_playback_uuids)|list %}
+        {% do playbacks_by_station.update({station: associated_playbacks}) %}
+        {% endfor %}
+        
         <div>
           <h4><u>{{ title[0] }}</u></h4>
         </div>
@@ -590,16 +602,15 @@
             <th>Minimum Duration (m)</th>
             <th>Maximum Duration (m)</th>
           </tr>
-          {% set playback_by_station = playback|events_group_by_text_value("station") %}
-          {% for station in playback_by_station %}
-          {% set used_orbits = playback_by_station[station]|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|unique|list %}
+          {% for station in playbacks_by_station %}
+          {% set used_orbits = playbacks_by_station[station]|map(attribute="eventDoubles")|flatten|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|unique|list %}
           <tr>
             <td class="highlight">{{ station }}</td>
 
-            <td>{{ (((playback_by_station[station]|get_timeline_duration) / 60) / reporting_orbits|length )|round(3) }}</td>
-            <td>{{ (((playback_by_station[station]|get_timeline_duration) / 60) / used_orbits|length )|round(3) }}</td>
-            <td>{{ ((playback_by_station[station]|get_timeline_minimum_duration) / 60)|round(3) }}</td>
-            <td>{{ ((playback_by_station[station]|get_timeline_maximum_duration) / 60)|round(3) }}</td>
+            <td>{{ (((playbacks_by_station[station]|get_timeline_duration) / 60) / reporting_orbits|length )|round(3) }}</td>
+            <td>{{ (((playbacks_by_station[station]|get_timeline_duration) / 60) / used_orbits|length )|round(3) }}</td>
+            <td>{{ ((playbacks_by_station[station]|get_timeline_minimum_duration) / 60)|round(3) }}</td>
+            <td>{{ ((playbacks_by_station[station]|get_timeline_maximum_duration) / 60)|round(3) }}</td>
           </tr>
           {% endfor %}
         </table>
@@ -631,9 +642,8 @@
 
         {% endfor %}
       </div>
-      {% set playback_by_station = planning_events["playback"]["prime_events"]|events_group_by_text_value("station") %}
-
-      {% if "N/A" in playback_by_station %}
+      {% set playbacks_no_station_schedule = planning_events["playback"]["prime_events"]|reject_events_with_link_name("STATION_SCHEDULE")|list %}
+      {% if playbacks_no_station_schedule %}
       <div id="playback-not-covered">
         <div>
           <h3 style="color:red"><u>Table of playbacks not covered by any ground station schedule</u></h3>
@@ -666,7 +676,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for playback in playback_by_station["N/A"] %}
+            {% for playback in playbacks_no_station_schedule %}
             <tr>
               {% set correction_uuid = playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
               {% if correction_uuid %}
@@ -769,11 +779,16 @@
             {% else %}
             {% set event = playback %}
             {% endif %}
+            {% set station = "N/A" %}
+            {% set station_schedule_uuid = playback.eventLinks|selectattr("name", "equalto", "STATION_SCHEDULE")|map(attribute='event_uuid_link')|first %}
+            {% if station_schedule_uuid %}
+            {% set station_schedule = planning_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
+            {% set station = station_schedule.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
+            {% endif %}
             {% set satellite = playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
             <td>{{ satellite }}</td>
             {% set orbit = playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
             <td>{{ orbit }}</td>
-            {% set station = playback.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
             <td>{{ station }}</td>
             <td>{{ event.start.isoformat() }}</td>
             <td>{{ event.stop.isoformat() }}</td>
