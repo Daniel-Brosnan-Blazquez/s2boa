@@ -91,7 +91,6 @@ def query_planning_pages():
 
     mission = filters["mission"][0]
     show = filters["show"][0]
-    mission = filters["mission"][0]
 
     # window_size is not used, here only for using the same API
     window_size = None
