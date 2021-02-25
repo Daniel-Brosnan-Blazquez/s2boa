@@ -63,7 +63,7 @@ var hktm_timeline_events = [
     {% set class_name = "fill-border-red" %}
     {% endif %}
     {
-        "id": "{{ event.event_uuid }};{{ hktm_production_event.explicitRef.explicit_ref }};{{ circulation_time_to_fos }}",
+        "id": "{{ hktm_production_event.event_uuid }}",
         "group": "{{ satellite }}",
         "timeline": "{{ station }}",
         "start": "{{ original_planned_playback_correction.start.isoformat() }}",
