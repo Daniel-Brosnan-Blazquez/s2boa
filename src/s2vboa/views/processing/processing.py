@@ -323,7 +323,7 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
                                                                     link_names = {"filter": ["PLAYBACK_VALIDITY", "TIME_CORRECTION"], "op": "in"}, 
                                                                     return_prime_events = False)
         events["planned_playback_correction"] = events_linking_to_planned_playback_events["linking_events"]["TIME_CORRECTION"]
-        events["playback_validity_channel_2"] = events_linking_to_planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"]
+        events["playback_validity_channel_2"] = [event for event in events_linking_to_planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 2)]
     # end if
 
     # PLANNED_PLAYBACK channel 2 with a link to PLAYBACK_VALIDITY events not in PLAYBACK_VALIDITY_2 or PLAYBACK_VALIDITY_3 
