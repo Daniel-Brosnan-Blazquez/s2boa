@@ -717,7 +717,7 @@ class TestHktmWorkflowView(unittest.TestCase):
         # HKTM timeline info
         hktm_timeline_info = [
             {
-                "id": str(planned_playback[0].event_uuid),
+                "id": str(hktm_production_vgs[0].event_uuid),
                 "group": "S2A",
                 "timeline": "SGS_",
                 "start": planned_playback_correction[0].start.isoformat(),
@@ -1158,7 +1158,7 @@ class TestHktmWorkflowView(unittest.TestCase):
                 "className": "fill-border-orange"
             },
             {
-                "id": str(planned_playback_2[0].event_uuid),
+                "id": str(hktm_production_vgs[0].event_uuid),
                 "group": "S2B",
                 "timeline": "SGS_",
                 "start": planned_playback_correction_2[0].start.isoformat(),
@@ -1484,7 +1484,7 @@ class TestHktmWorkflowView(unittest.TestCase):
         # HKTM timeline info
         hktm_timeline_info = [
             {
-                "id": str(planned_playback[0].event_uuid),
+                "id": str(hktm_production_vgs[0].event_uuid),
                 "group": "S2A",
                 "timeline": "SGS_",
                 "start": planned_playback_correction[0].start.isoformat(),
