@@ -2115,4 +2115,39 @@ class TestProcessingView(unittest.TestCase):
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
-        
+    def test_processing_with_rep_pass_e_vgs(self):
+
+        filename = "S2B_OPER_MPL__NPPF__20210218T120000_20210308T150000_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_MPL_ORBPRE_20210221T030153_20210303T030153_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_MPL_SPSGS__PDMC_20210221T090000_V20210222T090000_20210228T090000.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_REP_PASS_E_VGS2_20210222T193404_V20210222T191105_20210222T191846.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_REP_PASS_E_VGS2_20210222T193412_V20210222T191106_20210222T191854.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
