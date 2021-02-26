@@ -19,6 +19,7 @@ from s2vboa.views.planning import planning
 from s2vboa.views.data_allocation import data_allocation
 from s2vboa.views.hktm_workflow import hktm_workflow
 from s2vboa.views.acquisition import acquisition
+from s2vboa.views.datatake_completeness import datatake_completeness
 from s2vboa.views.processing import processing
 from s2vboa.views.tracking import tracking
 from s2vboa.views.dhus_completeness import dhus_completeness
@@ -36,6 +37,7 @@ def create_app():
     app.register_blueprint(data_allocation.bp)
     app.register_blueprint(hktm_workflow.bp)
     app.register_blueprint(acquisition.bp)
+    app.register_blueprint(datatake_completeness.bp)
     app.register_blueprint(processing.bp)
     app.register_blueprint(tracking.bp)
     app.register_blueprint(dhus_completeness.bp)

@@ -1,0 +1,77 @@
+{% extends "panel/index.html" %}
+
+<!-- Missing PLANNED_IMAGING_PROCESSING_COMPLETENESS -->
+{% set planned_imaging_processing_completeness_missing = datatake_completeness_events["planned_imaging_processing_completeness"]|filter_events_by_text_value("status", "MISSING") %}
+{% set planned_imaging_processing_completeness_l0_missing = datatake_completeness_events["planned_imaging_processing_completeness_l0"]|filter_events_by_text_value("status", "MISSING") %}
+{% set planned_imaging_processing_completeness_l1a_missing = datatake_completeness_events["planned_imaging_processing_completeness_l1a"]|filter_events_by_text_value("status", "MISSING") %}
+{% set planned_imaging_processing_completeness_l1b_missing = datatake_completeness_events["planned_imaging_processing_completeness_l1b"]|filter_events_by_text_value("status", "MISSING") %}
+{% set planned_imaging_processing_completeness_l1c_missing = datatake_completeness_events["planned_imaging_processing_completeness_l1c"]|filter_events_by_text_value("status", "MISSING") %}
+{% set planned_imaging_processing_completeness_l2a_missing = datatake_completeness_events["planned_imaging_processing_completeness_l2a"]|filter_events_by_text_value("status", "MISSING") %}
+
+<!-- Total duration (m) of the PLANNED_IMAGING_PROCESSING_COMPLETENESS events -->
+{% set planned_imaging_processing_completeness_l0_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l1a_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l1b_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l1c_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l2a_total_duration = namespace(value=0) %}
+{% for event in planned_imaging_processing_completeness %}
+{% if event in planned_imaging_processing_completeness_l0 %}
+{% set planned_imaging_processing_completeness_l0_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l0_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l1a %}
+{% set planned_imaging_processing_completeness_l1a_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1a_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l1b %}
+{% set planned_imaging_processing_completeness_l1b_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1b_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l1c %}
+{% set planned_imaging_processing_completeness_l1c_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1c_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l2a %}
+{% set planned_imaging_processing_completeness_l2a_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l2a_total_duration.value) %}
+{% endif %}
+{% endfor %}
+
+{% set planned_imaging_processing_completeness_total_duration = planned_imaging_processing_completeness_l0_total_duration.value + planned_imaging_processing_completeness_l1a_total_duration.value + planned_imaging_processing_completeness_l1b_total_duration.value + planned_imaging_processing_completeness_l1c_total_duration.value + planned_imaging_processing_completeness_l2a_total_duration.value %}
+
+<!-- Total duration (m) of the PLANNED_IMAGING_PROCESSING_COMPLETENESS events with MISSING status -->
+{% set planned_imaging_processing_completeness_l0_missing_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l1a_missing_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l1b_missing_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l1c_missing_total_duration = namespace(value=0) %}
+{% set planned_imaging_processing_completeness_l2a_missing_total_duration = namespace(value=0) %}
+{% for event in planned_imaging_processing_completeness_missing %}
+{% if event in planned_imaging_processing_completeness_l0_missing %}
+{% set planned_imaging_processing_completeness_l0_missing_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l0_missing_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l1a_missing %}
+{% set planned_imaging_processing_completeness_l1a_missing_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1a_missing_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l1b_missing %}
+{% set planned_imaging_processing_completeness_l1b_missing_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1b_missing_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l1c_missing %}
+{% set planned_imaging_processing_completeness_l1c_missing_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1c_missing_total_duration.value) %}
+{% elif event in planned_imaging_processing_completeness_l2a_missing %}
+{% set planned_imaging_processing_completeness_l2a_missing_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l2a_missing_total_duration.value) %}
+{% endif %}
+{% endfor %}
+
+{% block content %}
+<div class="row">
+  <h1 class="page-header">Data-take completeness view</h1>
+</div>
+<!-- /.row -->
+{% include "views/datatake_completeness/datatake_completeness_query.html" %}
+
+<!-- Pagination -->
+{% with route = "/views/datatake-completeness-pages", elements = datatake_completeness_events["planned_cut_imaging_correction"], filters = filters %}
+{% include "vboa/pagination.html" %}
+{% endwith %}
+
+{% include "views/datatake_completeness/datatake_completeness_summary_content.html" %}
+{# {% if datatake_completeness_events["planned_imaging_processing_completeness"]|length > 0 %}
+{% include "views/datatake_completeness/datatake_completeness_maps.html" %}
+{% include "views/datatake_completeness/datatake_completeness_timelines.html" %}
+{% include "views/datatake_completeness/datatake_completeness_issues_content.html" %}
+{% endif %}
+{% include "views/datatake_completeness/datatake_completeness_content.html" %} #}
+
+{% endblock %}
+{# {% block scripts %}
+{{ super() }}
+{% include "views/datatake_completeness/datatake_completeness_scripts.html" %}
+{% endblock %} #}
