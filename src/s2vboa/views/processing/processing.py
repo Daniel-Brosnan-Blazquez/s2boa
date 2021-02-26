@@ -297,7 +297,7 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
             kwargs_playback["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
         # end if
 
-        # Mission
+        # Playback type
         kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
                                              "type": "text",
                                              "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT"]}

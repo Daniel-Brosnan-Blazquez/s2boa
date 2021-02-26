@@ -17,6 +17,7 @@ var complete_processing_timeline = [
     {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>" + event.explicitRef.explicit_ref + "</a>" %}
+    {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
     {% set datastrip_start = processing_validity.start.isoformat() %}
     {% set datastrip_stop = processing_validity.stop.isoformat() %}
     {% set duration = (((processing_validity.stop - processing_validity.start).total_seconds()) / 60)|round(3) %}
@@ -32,7 +33,7 @@ var complete_processing_timeline = [
         "timeline": "{{ level }}",
         "start": "{{ event.start.isoformat() }}",
         "stop": "{{ event.stop.isoformat() }}",
-        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "<a href='/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}'>{{ downlink_orbit }}</a>", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a href='/views/specific-processing/{{ original_planned_playback.event_uuid }}' class=bold-green>{{ status }}</a>", "{{ datastrip }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "{{ duration }}", "{{ sad_data_info }}"),
+        "tooltip": create_processing_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "<a href='/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}'>{{ downlink_orbit }}</a>", "{{ station }}", "{{ level }}", "{{ sensing_orbit }}", "<a href='/views/specific-processing/{{ original_planned_playback.event_uuid }}' class=bold-green>{{ status }}</a>", "{{ datastrip }}", "{{ imaging_mode }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "{{ duration }}", "{{ sad_data_info }}"),
         "className": "fill-border-green"
     },
     {% endfor %}

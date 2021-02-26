@@ -7,6 +7,7 @@
     <th>Sensing orbit</th>
     <th>Datastrip status</th>
     <th>Datastrip</th>
+    <th>Imaging mode</th>
     <th>Start</th>
     <th>Stop</th>
     <th>Duration (m)</th>
@@ -29,6 +30,7 @@
     {% set station = original_isp_validity.eventTexts|selectattr("name", "equalto", "reception_station")|map(attribute='value')|first|string %}
     {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
     {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+    {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% if status not in ("INCOMPLETE", "COMPLETE") %}
     {% set sad_status = event.eventTexts|selectattr("name", "equalto", "sad_status")|map(attribute='value')|first|string %}
@@ -68,6 +70,7 @@
     <td>{{ sensing_orbit }}</td>
     <td><a href="/views/specific-processing/{{ original_planned_playback.event_uuid }}" class="{{ status_class }}">{{ status }}</a></td>
     <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ datastrip }}</a></td>
+    <td>{{ imaging_mode }}</td>
     <td>{{ datastrip_start }}</td>
     <td>{{ datastrip_stop }}</td>
     <td>{{ duration }}</td>
@@ -88,6 +91,7 @@
     <th>Sensing orbit</th>
     <th>Datastrip status</th>
     <th>Datastrip</th>
+    <th>Imaging mode</th>
     <th>Start</th>
     <th>Stop</th>
     <th>Duration (m)</th>
