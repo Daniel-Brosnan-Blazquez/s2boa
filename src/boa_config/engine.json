@@ -5,6 +5,6 @@
         "MAX_BACKUP": 0
     },
     "INGESTION_RETRIES": 2,
-    "REPLICATE_EVENT_VALUES_MODULE": "s2boa.replicate_event_values"
+    "REPLICATE_EVENT_VALUES_MODULE": "s2boa.ingestions.replicate_event_values"
 }
  

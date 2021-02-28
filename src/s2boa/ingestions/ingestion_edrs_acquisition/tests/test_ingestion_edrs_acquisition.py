@@ -897,7 +897,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "status"
             },
             {
-                "name": "footprint_details",
+                "name": "footprint_details_0",
                 "type": "object",
                 "values": [
                     {
@@ -1256,7 +1256,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "status"
             },
             {
-                "name": "footprint_details",
+                "name": "footprint_details_0",
                 "type": "object",
                 "values": [
                     {
