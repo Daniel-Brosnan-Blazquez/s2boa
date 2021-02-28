@@ -1,0 +1,207 @@
+<!-- Summary -->
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#summary-datatake-completeness">Data-take completeness summary <span class="fa fa-angle-double-down"></span></a>
+      </h3>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body panel-collapse collapse in" id="summary-datatake-completeness">
+      <!-- Pie chart for performance related to the processing -->
+      {% if datatake_completeness_events["planned_imaging_processing_completeness"]|length > 0 %}
+      <div class="row">
+        <!-- Level L0 -->
+        {% if datatake_completeness_events["planned_imaging_processing_completeness_l0"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Performance L0</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="datatake-completeness-pie-performance-l0" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L1A -->
+        {% if datatake_completeness_events["planned_imaging_processing_completeness_l1a"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Performance L1A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="datatake-completeness-pie-performance-l1a" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L1B -->
+        {% if datatake_completeness_events["planned_imaging_processing_completeness_l1b"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Performance L1B</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="datatake-completeness-pie-performance-l1b" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L1C -->
+        {% if datatake_completeness_events["planned_imaging_processing_completeness_l1c"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Performance L1C</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="datatake-completeness-pie-performance-l1c" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- Level L2A -->
+        {% if datatake_completeness_events["planned_imaging_processing_completeness_l2a"]|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Performance L2A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="datatake-completeness-pie-performance-l2a" width="400" height="300"></canvas></div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="row">
+        <!-- Datatakes -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of expected data-takes</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-datatakes">{{ datatake_completeness_events["planned_imaging"]|length }}</div>
+          </div>
+        </div>
+        <!-- MSI duration L0 -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Expected processed MSI duration (m) of L0</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-l0">{{ planned_imaging_processing_completeness_l0_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        <!-- MSI duration L1A -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Expected processed MSI duration (m) of L1A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-l1a">{{ planned_imaging_processing_completeness_l1a_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        <!-- MSI duration L1B -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Expected processed MSI duration (m) of L1B</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-l1b">{{ planned_imaging_processing_completeness_l1b_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        <!-- MSI duration L1C -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Expected processed MSI duration (m) of L1C</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-l1c">{{ planned_imaging_processing_completeness_l1c_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        <!-- MSI duration L2A -->
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Expected processed MSI duration (m) of L2A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-l2a">{{ planned_imaging_processing_completeness_l2a_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        <!-- MSI duration missing L0 -->
+        {% if planned_imaging_processing_completeness_l0_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Missing processed MSI duration (m) of L0</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-missing-l0">{{ planned_imaging_processing_completeness_l0_missing_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- MSI duration missing L1A -->
+        {% if planned_imaging_processing_completeness_l1a_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Missing processed MSI duration (m) of L1A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-missing-l1a">{{ planned_imaging_processing_completeness_l1a_missing_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- MSI duration missing L1B -->
+        {% if planned_imaging_processing_completeness_l1b_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Missing processed MSI duration (m) of L1B</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-missing-l1b">{{ planned_imaging_processing_completeness_l1b_missing_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- MSI duration missing L1C -->
+        {% if planned_imaging_processing_completeness_l1c_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Missing processed MSI duration (m) of L1C</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-missing-l1c">{{ planned_imaging_processing_completeness_l1c_missing_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- MSI duration missing L2A -->
+        {% if planned_imaging_processing_completeness_l2a_missing|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading" align="center" style="font-size: 20px"> Missing processed MSI duration (m) of L2A</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-datatake-completeness-msi-duration-missing-l2a">{{ planned_imaging_processing_completeness_l2a_missing_total_duration.value|round(3) }}</div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <!-- Suummary table -->
+      {% if planned_imaging_processing_completeness_total_duration > 0 %}
+      <div class="row">
+        <table id="summary-processing-table" align="center" class="table table-striped table-bordered table-hover table-static">
+          <tr>
+            <th>Level</th>
+            <th>Expected (m)</th>
+            <th>Missing (m)</th>
+            <th>Performance (%)</th>
+          </tr>
+          {% if planned_imaging_processing_completeness_l0_total_duration.value > 0 %}
+          <tr>
+            <td class="highlight">L0</td>
+            <td>{{ planned_imaging_processing_completeness_l0_total_duration.value|round(3) }}</td>
+            <td>{{ planned_imaging_processing_completeness_l0_missing_total_duration.value|round(3) }}</td>
+            <td>{{ (((planned_imaging_processing_completeness_l0_total_duration.value - planned_imaging_processing_completeness_l0_missing_total_duration.value) / planned_imaging_processing_completeness_l0_total_duration.value) * 100)|round(3) }}</td>
+          </tr>
+          {% endif %}
+          {% if planned_imaging_processing_completeness_l1a_total_duration.value > 0 %}
+          <tr>
+            <td class="highlight">L1A</td>
+            <td>{{ planned_imaging_processing_completeness_l1a_total_duration.value|round(3) }}</td>
+            <td>{{ planned_imaging_processing_completeness_l1a_missing_total_duration.value|round(3) }}</td>
+            <td>{{ (((planned_imaging_processing_completeness_l1a_total_duration.value - planned_imaging_processing_completeness_l1a_missing_total_duration.value) / planned_imaging_processing_completeness_l1a_total_duration.value) * 100)|round(3) }}</td>
+          </tr>
+          {% endif %}
+          {% if planned_imaging_processing_completeness_l1b_total_duration.value > 0 %}
+          <tr>
+            <td class="highlight">L1B</td>
+            <td>{{ planned_imaging_processing_completeness_l1b_total_duration.value|round(3) }}</td>
+            <td>{{ planned_imaging_processing_completeness_l1b_missing_total_duration.value|round(3) }}</td>
+            <td>{{ (((planned_imaging_processing_completeness_l1b_total_duration.value - planned_imaging_processing_completeness_l1b_missing_total_duration.value) / planned_imaging_processing_completeness_l1b_total_duration.value) * 100)|round(3) }}</td>
+          </tr>
+          {% endif %}
+          {% if planned_imaging_processing_completeness_l1c_total_duration.value > 0 %}
+          <tr>
+            <td class="highlight">L1C</td>
+            <td>{{ planned_imaging_processing_completeness_l1c_total_duration.value|round(3) }}</td>
+            <td>{{ planned_imaging_processing_completeness_l1c_missing_total_duration.value|round(3) }}</td>
+            <td>{{ (((planned_imaging_processing_completeness_l1c_total_duration.value - planned_imaging_processing_completeness_l1c_missing_total_duration.value) / planned_imaging_processing_completeness_l1c_total_duration.value) * 100)|round(3) }}</td>
+          </tr>
+          {% endif %}
+          {% if planned_imaging_processing_completeness_l2a_total_duration.value > 0 %}
+          <tr>
+            <td class="highlight">L2A</td>
+            <td>{{ planned_imaging_processing_completeness_l2a_total_duration.value|round(3) }}</td>
+            <td>{{ planned_imaging_processing_completeness_l2a_missing_total_duration.value|round(3) }}</td>
+            <td>{{ (((planned_imaging_processing_completeness_l2a_total_duration.value - planned_imaging_processing_completeness_l2a_missing_total_duration.value) / planned_imaging_processing_completeness_l2a_total_duration.value) * 100)|round(3) }}</td>
+          </tr>
+          {% endif %}
+        </table>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
