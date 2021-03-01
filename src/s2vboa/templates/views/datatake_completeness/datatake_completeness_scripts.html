@@ -1,0 +1,159 @@
+<script type="text/javascript">
+
+  {% include "js/datatake_completeness/datatake_completeness_functions.js" %}
+
+  // Pie chart for performance related to processing
+  // Level L0
+  {% if planned_imaging_processing_completeness_l0_total_duration.value > 0 %}
+  processing_data_l0 = [{{ planned_imaging_processing_completeness_l0_total_duration.value - planned_imaging_processing_completeness_l0_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l0_missing_total_duration.value }}]
+  processing_background_color = ["green", "darkred"]
+  processing_labels = ["# processed", "# missing"]
+
+  var data = {datasets: [{data: processing_data_l0,
+                          backgroundColor: processing_background_color
+                        }],
+              labels: processing_labels
+  }
+  
+  vboa.display_pie("datatake-completeness-pie-performance-l0", data)
+  {% endif %}
+  // Level L1A
+  {% if planned_imaging_processing_completeness_l1a_total_duration.value > 0 %}
+  processing_data_l1a = [{{ planned_imaging_processing_completeness_l1a_total_duration.value - planned_imaging_processing_completeness_l1a_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l1a_missing_total_duration.value }}]
+  processing_background_color = ["green", "darkred"]
+  processing_labels = ["# processed", "# missing"]
+
+  var data = {datasets: [{data: processing_data_l1a,
+                          backgroundColor: processing_background_color
+                        }],
+              labels: processing_labels
+  }
+  
+  vboa.display_pie("datatake-completeness-pie-performance-l1a", data)
+  {% endif %}
+  // Level L1B
+  {% if planned_imaging_processing_completeness_l1b_total_duration.value > 0 %}
+  processing_data_l1b = [{{ planned_imaging_processing_completeness_l1b_total_duration.value - planned_imaging_processing_completeness_l1b_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l1b_missing_total_duration.value }}]
+  processing_background_color = ["green", "darkred"]
+  processing_labels = ["# processed", "# missing"]
+
+  var data = {datasets: [{data: processing_data_l1b,
+                          backgroundColor: processing_background_color
+                        }],
+              labels: processing_labels
+  }
+  
+  vboa.display_pie("datatake-completeness-pie-performance-l1b", data)
+  {% endif %}
+  // Level L1C
+  {% if planned_imaging_processing_completeness_l1c_total_duration.value > 0 %}
+  processing_data_l1c = [{{ planned_imaging_processing_completeness_l1c_total_duration.value - planned_imaging_processing_completeness_l1c_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l1c_missing_total_duration.value }}]
+  processing_background_color = ["green", "darkred"]
+  processing_labels = ["# processed", "# missing"]
+
+  var data = {datasets: [{data: processing_data_l1c,
+                          backgroundColor: processing_background_color
+                        }],
+              labels: processing_labels
+  }
+  
+  vboa.display_pie("datatake-completeness-pie-performance-l1c", data)
+  {% endif %}
+  // Level L2A
+  {% if planned_imaging_processing_completeness_l2a_total_duration.value > 0 %}
+  processing_data_l2a = [{{ planned_imaging_processing_completeness_l2a_total_duration.value - planned_imaging_processing_completeness_l2a_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l2a_missing_total_duration.value }}]
+  processing_background_color = ["green", "darkred"]
+  processing_labels = ["# processed", "# missing"]
+
+  var data = {datasets: [{data: processing_data_l2a,
+                          backgroundColor: processing_background_color
+                        }],
+              labels: processing_labels
+  }
+  
+  vboa.display_pie("datatake-completeness-pie-performance-l2a", data)
+  {% endif %}
+  
+  {# // Map
+  {% if show["map"] %}
+  // Level L0
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l0"] %}
+  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l0"] %}
+  {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
+  {% endwith %}
+  var datatake_completeness_geometries_l0 = datatake_completeness_geometries;
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
+  {% endif %}                                                  
+
+  vboa.display_map("datatake-completeness-l0-on-map", polygons);
+  {% endif %}
+  // Level L1A
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1a"] %}
+  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1a"] %}
+  {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
+  {% endwith %}
+  var datatake_completeness_geometries_l1a = datatake_completeness_geometries;
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
+  {% endif %}                                                  
+
+  vboa.display_map("datatake-completeness-l1a-on-map", polygons);
+  {% endif %}
+  // Level L1B
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1b"] %}
+  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1b"] %}
+  {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
+  {% endwith %}
+  var datatake_completeness_geometries_l1b = datatake_completeness_geometries;
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
+  {% endif %}                                                  
+
+  vboa.display_map("datatake-completeness-l1b-on-map", polygons);
+  {% endif %}
+  // Level L1C
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1c"] %}
+  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1c"] %}
+  {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
+  {% endwith %}
+  var datatake_completeness_geometries_l1c = datatake_completeness_geometries;
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
+  {% endif %}                                                  
+
+  vboa.display_map("datatake-completeness-l1c-on-map", polygons);
+  {% endif %}
+  // Level L2A
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l2a"] %}
+  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l2a"] %}
+  {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
+  {% endwith %}
+  var datatake_completeness_geometries_l2a = datatake_completeness_geometries;
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
+  {% endif %}                                                  
+
+  vboa.display_map("datatake-completeness-l2a-on-map", polygons);
+  {% endif %}
+  {% endif %}
+
+  //Timeline
+  {% if show["timeline"] and datatake_completeness_events["planned_imaging_processing_completeness"]|length > 0 %}
+  {% with events = datatake_completeness_events["planned_imaging_processing_completeness"] %}
+  {% include "js/datatake_completeness/datatake_completeness_to_timeline.js" %}
+  {% endwith %}
+  var events = datatake_completeness_timeline;
+
+  var groups = [];
+  var items = [];
+
+  vboa.prepare_events_data_for_timeline(events, items, groups);
+  vboa.display_timeline("datatake-completeness-timeline", items, groups);
+  {% endif %} #}
+  
+  {% if sliding_window %}
+  var parameters = {"window_delay": "{{ sliding_window['window_delay'] }}",
+                    "window_size": "{{ sliding_window['window_size'] }}",
+                    "mission": "{{ sliding_window['mission'] }}"
+  }
+  var repeat_cycle = {{ sliding_window['repeat_cycle'] }}
+  vboa.update_view(parameters, repeat_cycle, "/views/sliding-datatake-completeness-parameters");
+  {% endif %}
+
+</script>

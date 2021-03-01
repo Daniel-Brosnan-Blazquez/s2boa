@@ -8,22 +8,25 @@
 {% set planned_imaging_processing_completeness_l1c_missing = datatake_completeness_events["planned_imaging_processing_completeness_l1c"]|filter_events_by_text_value("status", "MISSING") %}
 {% set planned_imaging_processing_completeness_l2a_missing = datatake_completeness_events["planned_imaging_processing_completeness_l2a"]|filter_events_by_text_value("status", "MISSING") %}
 
+<!-- Incomplete PLANNED_IMAGING_PROCESSING_COMPLETENESS -->
+{% set planned_imaging_processing_completeness_incomplete = datatake_completeness_events["planned_imaging_processing_completeness"]|filter_events_by_text_value("status", "INCOMPLETE") %}
+
 <!-- Total duration (m) of the PLANNED_IMAGING_PROCESSING_COMPLETENESS events -->
 {% set planned_imaging_processing_completeness_l0_total_duration = namespace(value=0) %}
 {% set planned_imaging_processing_completeness_l1a_total_duration = namespace(value=0) %}
 {% set planned_imaging_processing_completeness_l1b_total_duration = namespace(value=0) %}
 {% set planned_imaging_processing_completeness_l1c_total_duration = namespace(value=0) %}
 {% set planned_imaging_processing_completeness_l2a_total_duration = namespace(value=0) %}
-{% for event in planned_imaging_processing_completeness %}
-{% if event in planned_imaging_processing_completeness_l0 %}
+{% for event in datatake_completeness_events["planned_imaging_processing_completeness"] %}
+{% if event in datatake_completeness_events["planned_imaging_processing_completeness_l0"] %}
 {% set planned_imaging_processing_completeness_l0_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l0_total_duration.value) %}
-{% elif event in planned_imaging_processing_completeness_l1a %}
+{% elif event in datatake_completeness_events["planned_imaging_processing_completeness_l1a"] %}
 {% set planned_imaging_processing_completeness_l1a_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1a_total_duration.value) %}
-{% elif event in planned_imaging_processing_completeness_l1b %}
+{% elif event in datatake_completeness_events["planned_imaging_processing_completeness_l1b"] %}
 {% set planned_imaging_processing_completeness_l1b_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1b_total_duration.value) %}
-{% elif event in planned_imaging_processing_completeness_l1c %}
+{% elif event in datatake_completeness_events["planned_imaging_processing_completeness_l1c"] %}
 {% set planned_imaging_processing_completeness_l1c_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l1c_total_duration.value) %}
-{% elif event in planned_imaging_processing_completeness_l2a %}
+{% elif event in datatake_completeness_events["planned_imaging_processing_completeness_l2a"] %}
 {% set planned_imaging_processing_completeness_l2a_total_duration.value = ((((event.stop - event.start).total_seconds()) / 60) + planned_imaging_processing_completeness_l2a_total_duration.value) %}
 {% endif %}
 {% endfor %}
@@ -63,15 +66,15 @@
 {% endwith %}
 
 {% include "views/datatake_completeness/datatake_completeness_summary_content.html" %}
-{# {% if datatake_completeness_events["planned_imaging_processing_completeness"]|length > 0 %}
+{% if datatake_completeness_events["planned_imaging_processing_completeness"]|length > 0 %}
 {% include "views/datatake_completeness/datatake_completeness_maps.html" %}
-{% include "views/datatake_completeness/datatake_completeness_timelines.html" %}
+{% include "views/datatake_completeness/datatake_completeness_timeliness.html" %}
 {% include "views/datatake_completeness/datatake_completeness_issues_content.html" %}
 {% endif %}
-{% include "views/datatake_completeness/datatake_completeness_content.html" %} #}
+{% include "views/datatake_completeness/datatake_completeness_content.html" %}
 
 {% endblock %}
-{# {% block scripts %}
+{% block scripts %}
 {{ super() }}
 {% include "views/datatake_completeness/datatake_completeness_scripts.html" %}
-{% endblock %} #}
+{% endblock %}
