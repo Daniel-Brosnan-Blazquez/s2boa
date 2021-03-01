@@ -967,6 +967,11 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "name": "sensing_orbit"
             },
             {
+                "type": "text",
+                "value": "NOMINAL",
+                "name": "imaging_mode"
+            },
+            {
                 "name": "sad_status",
                 "type": "text",
                 "value": "COMPLETE"
@@ -1324,6 +1329,11 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
                 "type": "double",
                 "value": "16075.0",
                 "name": "sensing_orbit"
+            },
+            {
+                "type": "text",
+                "value": "NOMINAL",
+                "name": "imaging_mode"
             },
             {
                 "name": "sad_status",

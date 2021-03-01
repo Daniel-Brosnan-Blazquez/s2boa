@@ -835,7 +835,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                              "value": matching_status},
                             {"name": "sensing_orbit",
                              "type": "double",
-                             "value": sensing_orbit}
+                             "value": sensing_orbit},
+                            {"name": "imaging_mode",
+                             "type": "text",
+                             "value": imaging_mode}
                         ]
                     }
 
@@ -905,7 +908,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": matching_status},
                                 {"name": "sensing_orbit",
                                  "type": "double",
-                                 "value": sensing_orbit}
+                                 "value": sensing_orbit},
+                                {"name": "imaging_mode",
+                                 "type": "text",
+                                 "value": imaging_mode}
                             ]
                         }
 
@@ -973,7 +979,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                      "value": matching_status},
                                     {"name": "sensing_orbit",
                                      "type": "double",
-                                     "value": sensing_orbit}
+                                     "value": sensing_orbit},
+                                    {"name": "imaging_mode",
+                                     "type": "text",
+                                     "value": imaging_mode}
                                 ]
                             }
 
@@ -1042,7 +1051,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                      "value": matching_status},
                                     {"name": "sensing_orbit",
                                      "type": "double",
-                                     "value": sensing_orbit}
+                                     "value": sensing_orbit},
+                                    {"name": "imaging_mode",
+                                     "type": "text",
+                                     "value": imaging_mode}
                                 ]
                             }
 
@@ -1111,7 +1123,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                      "value": matching_status},
                                     {"name": "sensing_orbit",
                                      "type": "double",
-                                     "value": sensing_orbit}
+                                     "value": sensing_orbit},
+                                    {"name": "imaging_mode",
+                                     "type": "text",
+                                     "value": imaging_mode}
                                 ]
                             }
 
@@ -1232,6 +1247,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 ]
             }
 
+            if len(intersected_planned_imagings_segments) > 0:
+                isp_validity_event["values"].append(
+                    {"name": "imaging_mode",
+                     "type": "text",
+                     "value": imaging_mode})
+            # end if
+            
             isp_validity_event["values"].append(
                 {"name": "sad_status",
                  "type": "text",
@@ -1302,6 +1324,13 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": sensing_orbit}
                     ]
                 }
+
+                if len(intersected_planned_imagings_segments) > 0:
+                    isp_validity_completeness_event["values"].append(
+                        {"name": "imaging_mode",
+                         "type": "text",
+                         "value": imaging_mode})
+                # end if
 
                 isp_validity_completeness_event["values"].append(
                     {"name": "sad_status",

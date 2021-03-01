@@ -892,7 +892,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
                          "type": "double",
-                         "value": sensing_orbit}
+                         "value": sensing_orbit},
+                        {"name": "imaging_mode",
+                         "type": "text",
+                         "value": imaging_mode}
                     ]
                 }
 
@@ -965,7 +968,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                              "value": downlink_mode},
                             {"name": "sensing_orbit",
                              "type": "double",
-                             "value": sensing_orbit}
+                             "value": sensing_orbit},
+                            {"name": "imaging_mode",
+                             "type": "text",
+                             "value": imaging_mode}
                         ]
                     }
                     
@@ -1036,7 +1042,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": downlink_mode},
                                 {"name": "sensing_orbit",
                                  "type": "double",
-                                 "value": sensing_orbit}
+                                 "value": sensing_orbit},
+                                {"name": "imaging_mode",
+                                 "type": "text",
+                                 "value": imaging_mode}
                             ]
                         }
 
@@ -1108,7 +1117,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": downlink_mode},
                                 {"name": "sensing_orbit",
                                  "type": "double",
-                                 "value": sensing_orbit}
+                                 "value": sensing_orbit},
+                                {"name": "imaging_mode",
+                                 "type": "text",
+                                 "value": imaging_mode}
                             ]
                         }
                         
@@ -1180,7 +1192,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                                  "value": downlink_mode},
                                 {"name": "sensing_orbit",
                                  "type": "double",
-                                 "value": sensing_orbit}
+                                 "value": sensing_orbit},
+                                {"name": "imaging_mode",
+                                 "type": "text",
+                                 "value": imaging_mode}
                             ]
                         }
 
@@ -1281,7 +1296,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
                          "type": "double",
-                         "value": sensing_orbit}
+                         "value": sensing_orbit},
+                        {"name": "imaging_mode",
+                         "type": "text",
+                         "value": imaging_mode}
                     ]
                 }
 
@@ -1361,7 +1379,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                          "value": downlink_mode},
                         {"name": "sensing_orbit",
                          "type": "double",
-                         "value": sensing_orbit}
+                         "value": sensing_orbit},
+                        {"name": "imaging_mode",
+                         "type": "text",
+                         "value": imaging_mode}
                     ]
                 }
 
