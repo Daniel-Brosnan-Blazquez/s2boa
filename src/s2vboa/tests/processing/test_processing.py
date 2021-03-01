@@ -307,6 +307,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -342,6 +343,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -377,6 +379,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -412,6 +415,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -448,6 +452,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -470,6 +475,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -492,6 +498,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -514,6 +521,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.604</td></tr>" +
@@ -569,19 +577,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
         
-        duration = missing_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -614,19 +626,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -659,19 +675,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
         
-        duration = missing_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -704,19 +724,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
         
@@ -752,19 +776,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -797,19 +825,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -842,19 +874,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -887,19 +923,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -939,19 +979,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -984,19 +1028,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1029,19 +1077,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1074,19 +1126,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
         
@@ -1126,19 +1182,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1171,19 +1231,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1216,19 +1280,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1261,19 +1329,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2018-07-21T08:52:35.993268"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:12.226646"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "1.604"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1508,6 +1580,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l0[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.833</td></tr>" +
@@ -1545,6 +1618,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1b[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
@@ -1583,6 +1657,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1c[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
@@ -1621,6 +1696,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l2a[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
@@ -1662,6 +1738,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l0[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.833</td></tr>" +
@@ -1684,6 +1761,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1b[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
@@ -1706,6 +1784,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l1c[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
@@ -1728,6 +1807,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + processing_validity_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + processing_validity_l2a[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.717</td></tr>" +
@@ -1777,19 +1857,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2018-07-21T08:52:29"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:19"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "1.833"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1822,19 +1906,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2018-07-21T08:52:31"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "1.717"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1867,19 +1955,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2018-07-21T08:52:31"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "1.717"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1912,19 +2004,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2018-07-21T08:52:31"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "1.717"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -1964,19 +2060,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2018-07-21T08:52:29"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:19"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "1.833"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -2009,19 +2109,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2018-07-21T08:52:31"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "1.717"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -2054,19 +2158,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2018-07-21T08:52:31"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "1.717"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -2099,19 +2207,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2018-07-21T08:52:31"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2018-07-21T08:54:14"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "1.717"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
 
@@ -2357,6 +2469,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2381,6 +2494,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2405,6 +2519,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2439,6 +2554,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2463,6 +2579,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2487,6 +2604,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2521,6 +2639,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2545,6 +2664,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2569,6 +2689,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2603,6 +2724,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2627,6 +2749,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2651,6 +2774,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2692,6 +2816,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2714,6 +2839,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2736,6 +2862,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l0[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l0[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2758,6 +2885,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2780,6 +2908,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2802,6 +2931,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1b[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1b[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1b[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2824,6 +2954,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2846,6 +2977,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2868,6 +3000,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l1c[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l1c[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l1c[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2890,6 +3023,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>9.803</td></tr>" +
@@ -2912,6 +3046,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[1].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[1].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>0.925</td></tr>" +
@@ -2934,6 +3069,7 @@ class TestProcessingView(unittest.TestCase):
                 "<tr><td>Sensing orbit</td><td>20715</td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l2a[2].event_uuid) + "'>N/A</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + isp_validity_processing_completeness_l2a[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + isp_validity_processing_completeness_l2a[2].stop.isoformat() + "</td></tr>" +
                 "<tr><td>Duration (m)</td><td>1.238</td></tr>" +
@@ -2983,19 +3119,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3028,19 +3168,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3073,19 +3217,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3118,19 +3266,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3163,19 +3315,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[5]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[5]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[5]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[5]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[5]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[5]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
         
@@ -3208,19 +3364,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[6]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[6]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[6]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[6]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[6]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[6]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3253,19 +3413,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[7]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[7]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[7]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[7]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[7]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[7]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3298,19 +3462,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[8]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[8]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[8]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[8]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[8]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[8]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3343,19 +3511,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[9]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[9]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[9]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[9]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[9]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[9]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[9]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3388,19 +3560,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[10]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[10]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[10]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[10]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[10]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[10]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[10]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3433,19 +3609,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[11]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[11]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[11]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[11]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[11]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[11]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[11]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3478,19 +3658,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+        imaging_mode = missing_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_table.find_element_by_xpath("tbody/tr[12]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_table.find_element_by_xpath("tbody/tr[12]/td[9]")
+        stop = missing_table.find_element_by_xpath("tbody/tr[12]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_table.find_element_by_xpath("tbody/tr[12]/td[10]")
+        duration = missing_table.find_element_by_xpath("tbody/tr[12]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[12]/td[11]")
+        sad_coverage = missing_table.find_element_by_xpath("tbody/tr[12]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
         
@@ -3526,19 +3710,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3571,19 +3759,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3616,19 +3808,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3661,19 +3857,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3706,19 +3906,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[5]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[5]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[5]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[5]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[5]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[5]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
         
@@ -3751,19 +3955,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[6]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[6]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[6]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[6]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[6]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[6]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3795,20 +4003,24 @@ class TestProcessingView(unittest.TestCase):
         datastrip = completeness_table.find_element_by_xpath("tbody/tr[7]/td[7]")
 
         assert datastrip.text == "N/A"
+        
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[7]/td[8]")
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[7]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[7]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[7]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[7]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[7]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[7]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3841,19 +4053,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[8]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[8]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[8]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[8]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[8]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[8]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3886,19 +4102,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[9]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[9]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[9]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[9]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[9]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[9]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[9]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3931,19 +4151,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[10]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[10]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[10]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[10]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[10]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[10]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[10]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -3976,19 +4200,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[11]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[11]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[11]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[11]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[11]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[11]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[11]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4021,19 +4249,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[12]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_table.find_element_by_xpath("tbody/tr[12]/td[9]")
+        stop = completeness_table.find_element_by_xpath("tbody/tr[12]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_table.find_element_by_xpath("tbody/tr[12]/td[10]")
+        duration = completeness_table.find_element_by_xpath("tbody/tr[12]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[12]/td[11]")
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[12]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4228,19 +4460,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4273,19 +4509,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4318,19 +4558,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4363,19 +4607,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4408,19 +4656,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
         
@@ -4453,19 +4705,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4498,19 +4754,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4543,19 +4803,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4588,19 +4852,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4633,19 +4901,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4678,19 +4950,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4723,19 +4999,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+        imaging_mode = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[9]")
+        stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[10]")
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[11]")
+        sad_coverage = missing_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4771,19 +5051,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4816,19 +5100,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4861,19 +5149,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4906,19 +5198,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
 
         assert start.text == "2021-02-22T16:11:01.232404"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
 
         assert stop.text == "2021-02-22T16:20:49.409987"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
 
         assert duration.text == "9.803"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -4951,19 +5247,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
         
@@ -4996,19 +5296,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -5041,19 +5345,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -5086,19 +5394,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[9]")
 
         assert start.text == "2021-02-22T16:23:16.158836"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[10]")
 
         assert stop.text == "2021-02-22T16:24:11.642258"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[11]")
 
         assert duration.text == "0.925"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -5131,19 +5443,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -5176,19 +5492,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -5221,19 +5541,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 
@@ -5266,19 +5590,23 @@ class TestProcessingView(unittest.TestCase):
 
         assert datastrip.text == "N/A"
 
-        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[8]")
+
+        assert imaging_mode.text == "NOMINAL"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[9]")
 
         assert start.text == "2021-02-22T16:43:54.133697"
 
-        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[9]")
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[10]")
 
         assert stop.text == "2021-02-22T16:45:08.443523"
 
-        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[10]")
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[11]")
 
         assert duration.text == "1.238"
 
-        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[11]")
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[12]")
 
         assert sad_coverage.text == "2021-02-22T05:54:39.024895_2021-02-22T19:22:49.024749"
 

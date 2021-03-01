@@ -18,6 +18,9 @@ var processing_geometries_complete = [
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>" + event.explicitRef.explicit_ref + "</a>" %}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
+    {% if not imaging_mode %}
+    {% set imaging_mode = "N/A" %}
+    {% endif %}
     {% set datastrip_start = processing_validity.start.isoformat() %}
     {% set datastrip_stop = processing_validity.stop.isoformat() %}
     {% set duration = (((processing_validity.stop - processing_validity.start).total_seconds()) / 60)|round(3) %}

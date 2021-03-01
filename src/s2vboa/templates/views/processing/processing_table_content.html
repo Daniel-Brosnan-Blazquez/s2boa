@@ -31,6 +31,9 @@
     {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
     {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
+    {% if not imaging_mode %}
+    {% set imaging_mode = "N/A" %}
+    {% endif %}
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% if status not in ("INCOMPLETE", "COMPLETE") %}
     {% set sad_status = event.eventTexts|selectattr("name", "equalto", "sad_status")|map(attribute='value')|first|string %}

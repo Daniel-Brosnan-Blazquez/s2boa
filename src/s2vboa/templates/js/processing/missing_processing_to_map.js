@@ -16,6 +16,9 @@ var processing_geometries_missing = [
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>N/A</a>" %}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
+    {% if not imaging_mode %}
+    {% set imaging_mode = "N/A" %}
+    {% endif %}
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}
     {% set duration = (((event.stop - event.start).total_seconds()) / 60)|round(3) %}
