@@ -249,7 +249,7 @@ def query_hktm_workflow_events(orbpre_events, filters = None):
             planned_playback_correction_events = query.get_linked_events(**kwargs)
         # end if
 
-        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "HKTM_PRODUCTION", "HKTM_PRODUCTION_VGS", "STATION_ACQUISITION_REPORT", "DISTRIBUTION_STATUS", "DFEP_ACQUISITION_VALIDITY", "STATION_SCHEDULE"], "op": "in"}, return_prime_events = False)
+        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PLAYBACK_VALIDITY", "HKTM_PRODUCTION", "HKTM_PRODUCTION_VGS", "STATION_ACQUISITION_REPORT", "DISTRIBUTION_STATUS", "DFEP_ACQUISITION_VALIDITY", "STATION_SCHEDULE", "SLOT_REQUEST_EDRS"], "op": "in"}, return_prime_events = False)
 
         
         events["playback_correction"] += planned_playback_correction_events["prime_events"]
@@ -259,7 +259,7 @@ def query_hktm_workflow_events(orbpre_events, filters = None):
         events["station_report"] += planned_playback_events["linking_events"]["STATION_ACQUISITION_REPORT"]
         events["distribution_status"] += planned_playback_events["linking_events"]["DISTRIBUTION_STATUS"]
         events["dfep_acquisition_validity"] += planned_playback_events["linking_events"]["DFEP_ACQUISITION_VALIDITY"]
-        events["station_schedule"] += planned_playback_events["linking_events"]["STATION_SCHEDULE"]
+        events["station_schedule"] += planned_playback_events["linking_events"]["STATION_SCHEDULE"] + planned_playback_events["linking_events"]["SLOT_REQUEST_EDRS"]
     # end for
         
     return events

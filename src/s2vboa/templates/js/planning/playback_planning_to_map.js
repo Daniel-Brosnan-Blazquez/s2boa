@@ -10,7 +10,7 @@ var playback_geometries = [
     {% set satellite = playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     {% set orbit = playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
     {% set station = "N/A" %}
-    {% set station_schedule_uuid = playback.eventLinks|selectattr("name", "equalto", "STATION_SCHEDULE")|map(attribute='event_uuid_link')|first %}
+    {% set station_schedule_uuid = playback.eventLinks|selectattr("name", "in", ["STATION_SCHEDULE", "SLOT_REQUEST_EDRS"])|map(attribute='event_uuid_link')|first %}
     {% if station_schedule_uuid %}
     {% set station_schedule = planning_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
     {% set station = station_schedule.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}

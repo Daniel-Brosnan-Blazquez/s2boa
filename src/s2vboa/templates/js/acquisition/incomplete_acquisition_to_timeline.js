@@ -10,9 +10,9 @@ var incomplete_playbacks_timeline = [
     {% set corrected_planned_playback_uuid = original_playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
     {% set orbit = original_playback.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
     {% set station = "N/A" %}
-    {% set station_schedule_uuid = original_playback.eventLinks|selectattr("name", "equalto", "STATION_SCHEDULE")|map(attribute='event_uuid_link')|first %}
+    {% set station_schedule_uuid = original_playback.eventLinks|selectattr("name", "in", ["STATION_SCHEDULE", "SLOT_REQUEST_EDRS"])|map(attribute='event_uuid_link')|first %}
     {% if station_schedule_uuid %}
-    {% set station_schedule = acquisition_events["station_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
+    {% set station_schedule = acquisition_events["station_and_edrs_schedule"]|selectattr("event_uuid", "equalto", station_schedule_uuid)|first %}
     {% set station = station_schedule.eventTexts|selectattr("name", "equalto", "station")|map(attribute='value')|first|string %}
     {% endif %}
     {% set satellite = original_playback.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}

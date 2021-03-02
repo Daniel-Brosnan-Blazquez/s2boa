@@ -296,6 +296,6 @@ def query_planning_events(start_filter = None, stop_filter = None, mission = Non
     events["imaging"] = imaging_events
     events["playback"] = playback_events
 
-    events["station_schedule"] = query.get_linking_events(event_uuids = {"filter": [event.event_uuid for event in playback_events["prime_events"]], "op": "in"}, link_names = {"filter": "STATION_SCHEDULE", "op": "=="})["linking_events"]
+    events["station_schedule"] = query.get_linking_events(event_uuids = {"filter": [event.event_uuid for event in playback_events["prime_events"]], "op": "in"}, link_names = {"filter": ["STATION_SCHEDULE", "SLOT_REQUEST_EDRS"], "op": "in"})["linking_events"]
 
     return events
