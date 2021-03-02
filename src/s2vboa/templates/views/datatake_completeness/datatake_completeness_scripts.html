@@ -74,61 +74,61 @@
   vboa.display_pie("datatake-completeness-pie-performance-l2a", data)
   {% endif %}
   
-  {# // Map
+  // Map
   {% if show["map"] %}
   // Level L0
-  {% if datatake_completeness_events["planned_imaging_processing_completeness_l0"] %}
-  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l0"] %}
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l0"]|length > 0 %}
+  var polygons_l0 = []
+	{% with events = datatake_completeness_events["planned_imaging_processing_completeness_l0"] %}
   {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
   {% endwith %}
   var datatake_completeness_geometries_l0 = datatake_completeness_geometries;
-  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
-  {% endif %}                                                  
-
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons_l0);                                                  
+	var polygons = polygons_l0;
   vboa.display_map("datatake-completeness-l0-on-map", polygons);
   {% endif %}
   // Level L1A
-  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1a"] %}
-  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1a"] %}
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1a"]|length > 0 %}
+  var polygons_l1a = []
+	{% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1a"] %}
   {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
   {% endwith %}
   var datatake_completeness_geometries_l1a = datatake_completeness_geometries;
-  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
-  {% endif %}                                                  
-
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons_l1a);                                                  
+	var polygons = polygons_l1a;
   vboa.display_map("datatake-completeness-l1a-on-map", polygons);
   {% endif %}
   // Level L1B
-  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1b"] %}
-  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1b"] %}
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1b"]|length > 0 %}
+  var polygons_l1b = []
+	{% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1b"] %}
   {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
   {% endwith %}
   var datatake_completeness_geometries_l1b = datatake_completeness_geometries;
-  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
-  {% endif %}                                                  
-
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons_l1b);                                                  
+	var polygons = polygons_l1b;
   vboa.display_map("datatake-completeness-l1b-on-map", polygons);
   {% endif %}
   // Level L1C
-  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1c"] %}
-  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1c"] %}
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l1c"]|length > 0 %}
+  var polygons_l1c = []
+	{% with events = datatake_completeness_events["planned_imaging_processing_completeness_l1c"] %}
   {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
   {% endwith %}
   var datatake_completeness_geometries_l1c = datatake_completeness_geometries;
-  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
-  {% endif %}                                                  
-
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons_l1c);                                                  
+	var polygons = polygons_l1c;
   vboa.display_map("datatake-completeness-l1c-on-map", polygons);
   {% endif %}
   // Level L2A
-  {% if datatake_completeness_events["planned_imaging_processing_completeness_l2a"] %}
-  {% with events = datatake_completeness_events["planned_imaging_processing_completeness_l2a"] %}
+  {% if datatake_completeness_events["planned_imaging_processing_completeness_l2a"]|length > 0 %}
+  var polygons_l2a = []
+	{% with events = datatake_completeness_events["planned_imaging_processing_completeness_l2a"] %}
   {% include "js/datatake_completeness/datatake_completeness_to_map.js" %}
   {% endwith %}
   var datatake_completeness_geometries_l2a = datatake_completeness_geometries;
-  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons); 
-  {% endif %}                                                  
-
+  vboa.prepare_events_geometries_for_map(datatake_completeness_geometries, polygons_l2a);                                                  
+	var polygons = polygons_l2a;
   vboa.display_map("datatake-completeness-l2a-on-map", polygons);
   {% endif %}
   {% endif %}
@@ -145,7 +145,7 @@
 
   vboa.prepare_events_data_for_timeline(events, items, groups);
   vboa.display_timeline("datatake-completeness-timeline", items, groups);
-  {% endif %} #}
+  {% endif %}
   
   {% if sliding_window %}
   var parameters = {"window_delay": "{{ sliding_window['window_delay'] }}",
