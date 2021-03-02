@@ -1,9 +1,11 @@
-
 var datatake_completeness_geometries = [
     {% for event in events %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
-    {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+    {% if not level %}
+    {% set level = "N/A" %}
+    {% endif %}
+    {# {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %} #}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
     {% if not imaging_mode %}
     {% set imaging_mode = "N/A" %}
