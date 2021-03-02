@@ -456,9 +456,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))),
                 })
             # end for
-            if len(sensing_gaps_per_apid[apid_number]) > 0:
-                timelines_of_sensing_gaps.append(sensing_gaps_per_apid[apid_number])
-            # end if
+            timelines_of_sensing_gaps.append(sensing_gaps_per_apid[apid_number])
             covered_sensing_start_three_letter = apid.xpath("Gaps/Gap[1]/PreSensTime")
             covered_sensing_stop_three_letter = apid.xpath("Gaps/Gap[last()]/PostSensTime")
             if len(covered_sensing_start_three_letter) > 0 and len(covered_sensing_stop_three_letter) > 0:
@@ -630,7 +628,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # end for
 
         # Create ISP gaps for gaps smaller than a scene
-        gaps_smaller_than_scene = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(@VCID) = $vcid_number or number(@VCID) = $corresponding_vcid_number]/ISP_Status/Status[NumPackets > 0]/Gaps/Gap[(not (PreCounter = get_counter_threshold_from_apid(string(../../@APID))) and not (PostCounter = 0)) or not (PostCounter = 0)]", vcid_number = int(vcid_number), corresponding_vcid_number = int(vcid_number) + 16)
+        gaps_smaller_than_scene = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(@VCID) = $vcid_number or number(@VCID) = $corresponding_vcid_number]/ISP_Status/Status[NumPackets > 0]/Gaps/Gap[not (PreCounter = get_counter_threshold_from_apid(string(../../@APID))) or not (PostCounter = 0)]", vcid_number = int(vcid_number), corresponding_vcid_number = int(vcid_number) + 16)
 
         for gap in gaps_smaller_than_scene:
             status = "INCOMPLETE"
@@ -641,19 +639,37 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             scene_start = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PreSensTime)"))))
             scene_stop = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PostSensTime)"))))
 
+            if scene_start >= scene_stop:
+                scene_start = scene_start - datetime.timedelta(seconds=3.608)
+            # end if
+
             number_missing_scenes = math.ceil((scene_stop - scene_start).total_seconds() / 3.608)
 
             counter_start = int(gap.xpath("string(PreCounter)"))
 
             counter_stop = int(gap.xpath("string(PostCounter)"))
 
-            missing_packets = (counter_stop - counter_start) + number_missing_scenes * counter_threshold
+            if counter_start == counter_threshold:
+                missing_packets = counter_stop
+            elif counter_stop == 0:
+                missing_packets = counter_threshold - counter_start
+            else:
+                missing_packets = counter_stop - counter_start
+            # end if
 
-            seconds_from_scene_start_to_gap_start = (counter_start / counter_threshold) * 3.608
-            seconds_from_scene_stop_to_gap_stop = (counter_stop / counter_threshold) * 3.608
+            if counter_start == counter_threshold:
+                seconds_from_scene_start_to_gap_start = 0
+            else:
+                seconds_from_scene_start_to_gap_start = (counter_start / counter_threshold) * 3.608
+            # end if
+            if counter_stop == 0:
+                seconds_from_scene_start_to_gap_stop = 3.608
+            else:
+                seconds_from_scene_start_to_gap_stop = (counter_stop / counter_threshold) * 3.608
+            # end if
 
             start = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_start)
-            stop = scene_stop + datetime.timedelta(seconds=seconds_from_scene_stop_to_gap_stop)
+            stop = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_stop)
 
             isp_gap_event = {
                 "link_ref": "ISP_GAP_" + str(isp_gap_iterator),

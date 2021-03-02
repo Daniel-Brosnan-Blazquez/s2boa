@@ -141,13 +141,13 @@ def process_file(file_path, engine, query, reception_time):
                         links_dfep_schedule.append({
                             "link": str(playback.event_uuid),
                             "link_mode": "by_uuid",
-                            "name": "DFEP_SCHEDULE",
+                            "name": "DFEP_SCHEDULE_COMPLETENESS",
                             "back_ref": "PLANNED_PLAYBACK"
                         })
                         links_station_schedule.append({
                             "link": str(playback.event_uuid),
                             "link_mode": "by_uuid",
-                            "name": "STATION_SCHEDULE",
+                            "name": "STATION_SCHEDULE_COMPLETENESS",
                             "back_ref": "PLANNED_PLAYBACK"
                         })
                     # end if
@@ -183,7 +183,10 @@ def process_file(file_path, engine, query, reception_time):
                  "value": str(orbit)},
                 {"name": "satellite",
                  "type": "text",
-                 "value": sentinel}
+                 "value": sentinel},
+                {"name": "station",
+                 "type": "text",
+                 "value": "EDRS"}
             ]
         }
 

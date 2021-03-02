@@ -814,7 +814,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check ISP_GAPs events
         isp_gap_events = self.session.query(Event).join(Gauge).filter(Gauge.name.like("ISP_GAP")).all()
 
-        assert len(playback_completeness_events) == 3
+        assert len(isp_gap_events) == 5
 
         # Check specific ISP_GAP
         isp_gap_event1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
@@ -931,8 +931,8 @@ class TestDfepIngestion(unittest.TestCase):
         ]
 
         isp_gap_event3 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
-                                                                                 Event.start == "2018-07-21T08:52:37.209040",
-                                                                                 Event.stop == "2018-07-21T08:52:40.816811").all()
+                                                                                 Event.start == "2018-07-21T08:52:33.601040",
+                                                                                 Event.stop == "2018-07-21T08:52:37.209040").all()
 
         assert len(isp_gap_event3) == 1
 
@@ -1000,8 +1000,8 @@ class TestDfepIngestion(unittest.TestCase):
         ]
 
         isp_gap_event4 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
-                                                                                 Event.start == "2018-07-21T08:52:40.816811",
-                                                                                 Event.stop == "2018-07-21T08:52:42.385279").all()
+                                                                                 Event.start == "2018-07-21T08:52:37.208811",
+                                                                                 Event.stop == "2018-07-21T08:52:38.777507").all()
 
         assert len(isp_gap_event4) == 1
 
@@ -1069,10 +1069,73 @@ class TestDfepIngestion(unittest.TestCase):
         ]
 
         isp_gap_event5 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
-                                                                                 Event.start == "2018-07-21T08:52:42.385279",
-                                                                                 Event.stop == "2018-07-21T08:52:43.640235").all()
+                                                                                 Event.start == "2018-07-21T08:52:38.777279",
+                                                                                 Event.stop == "2018-07-21T08:52:40.032235").all()
 
         assert len(isp_gap_event5) == 1
+
+        assert isp_gap_event5[0].get_structured_values() == [
+            {
+                "name": "impact",
+                "type": "text",
+                "value": "SMALLER_THAN_A_SCENE"
+            },
+            {
+                "name": "band",
+                "type": "text",
+                "value": "1"
+            },
+            {
+                "name": "detector",
+                "type": "double",
+                "value": "12.0"
+            },
+            {
+                "name": "downlink_orbit",
+                "type": "double",
+                "value": "16078.0"
+            },
+            {
+                "name": "satellite",
+                "type": "text",
+                "value": "S2A"
+            },
+            {
+                "name": "reception_station",
+                "type": "text",
+                "value": "MPS_"
+            },
+            {
+                "name": "vcid",
+                "type": "double",
+                "value": "4.0"
+            },
+            {
+                "name": "playback_type",
+                "type": "text",
+                "value": "NOMINAL"
+            },
+            {
+                "name": "apid",
+                "type": "double",
+                "value": "0.0"
+            },
+            {
+                "name": "counter_start",
+                "type": "double",
+                "value": "10.0"
+            },
+            {
+                "name": "counter_stop",
+                "type": "double",
+                "value": "18.0"
+            },
+            {
+                "name": "missing_packets",
+                "type": "double",
+                "value": "8.0"
+            }
+        ]
 
     def test_insert_rep_pass_with_two_datablocks(self):
         filename = "S2A_REP_PASS_CONTAINING_TWO_DATABLOCKS.EOF"

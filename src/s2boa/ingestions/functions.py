@@ -566,7 +566,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                         "key": datastrip + "_" + "processing_validity",
                         "explicit_reference": datastrip,
                         "gauge": {
-                            "insertion_type": "EVENT_KEYS",
+                            "insertion_type": "EVENT_KEYS_with_PRIORITY",
                             "name": "PROCESSING_GAP",
                             "system": system
                         },
@@ -818,7 +818,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
             "link_ref": processing_validity_link_ref,
             "explicit_reference": datastrip,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "EVENT_KEYS_with_PRIORITY",
                 "name": "PROCESSING_VALIDITY",
                 "system": system
             },
@@ -1018,7 +1018,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                     "key": datastrip + "_" + "processing_validity",
                     "explicit_reference": datastrip,
                     "gauge": {
-                        "insertion_type": "EVENT_KEYS",
+                        "insertion_type": "EVENT_KEYS_with_PRIORITY",
                         "name": "PROCESSING_GAP",
                         "system": system
                     },
@@ -1239,7 +1239,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             "link_ref": processing_validity_link_ref,
             "explicit_reference": datastrip,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "EVENT_KEYS_with_PRIORITY",
                 "name": "PROCESSING_VALIDITY",
                 "system": system
             },
