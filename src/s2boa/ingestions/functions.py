@@ -375,7 +375,7 @@ def get_counter_threshold_from_apid(apid):
 
     return get_counter_threshold(band_detector["band"])
 
-def get_apid_numbers():
+def get_apid_numbers(channel = None):
     """
     Method to obtain the APID numbers used
 
@@ -384,16 +384,21 @@ def get_apid_numbers():
 
     """
     apids = []
-    for i in range(6):
-        for j in range (13):
-            apids.append(i*16 + j)
+    if channel == None or channel == "1":
+        for i in range(6):
+            for j in range (13):
+                apids.append(i*16 + j)
+            # end for
         # end for
-    # end for
-    for i in range(6):
-        for j in range (13):
-            apids.append((i*16 + j) + 256)
+    # end if
+    if channel == None or channel == "2":
+        for i in range(6):
+            for j in range (13):
+                apids.append((i*16 + j) + 256)
+            # end for
         # end for
-    # end for
+    # end if
+
     return apids
 
 #########
@@ -650,8 +655,7 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         if len(isp_validities) > 0:
             reception_matching_status = "MATCHED_ISP_VALIDITY"
 
-            datablock_duration = (datablock["stop"] - datablock["start"]).total_seconds()
-            filtered_isp_validities = [isp_validity for isp_validity in isp_validities if abs(isp_validity.get_duration() - datablock_duration) < 10]
+            filtered_isp_validities = [isp_validity for isp_validity in isp_validities if abs((isp_validity.start - datablock["start"]).total_seconds()) < 10 and abs((isp_validity.stop - datablock["stop"]).total_seconds()) < 10]
 
             for isp_validity in filtered_isp_validities:
 

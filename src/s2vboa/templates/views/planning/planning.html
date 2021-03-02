@@ -524,7 +524,6 @@
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="planning-playback-plan">
       {% if orbpre_by_units|length > 0 and playback_by_units|length > 0 %}
-      {% set schedule_stations_by_station = planning_events["station_schedule"]|events_group_by_text_value("station") %}
       <div>
         <div>
           <h3><u>Statistics</u></h3>
@@ -535,6 +534,12 @@
         </p>
 
         {% for unit in playback_by_units|list|sort + ["S2"] %}
+
+        {% if unit == "S2" %}
+        {% set schedule_stations_by_station = planning_events["station_schedule"]|filter_events_by_text_values("satellite", playback_by_units|list|sort)|events_group_by_text_value("station") %}
+        {% else %}
+        {% set schedule_stations_by_station = planning_events["station_schedule"]|filter_events_by_text_values("satellite", [unit])|events_group_by_text_value("station") %}
+        {% endif %}
 
         {% set orbpre = [] %}
         {% set playback = [] %}
