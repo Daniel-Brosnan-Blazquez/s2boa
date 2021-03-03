@@ -33,6 +33,7 @@
       <name>VGS2</name>
       <name>SVA1</name>
       <name>SVA_</name>
+      <name>DCS_05</name>
     </list_of_alias>
     <name>SGS_</name>
     <long_name>Svalvard</long_name>
@@ -54,6 +55,7 @@
       <name>INU_</name>
       <name>INS_</name>
       <name>IVS_</name>
+      <name>DCS_01</name>
     </list_of_alias>
     <name>INS_</name>
     <long_name>Inuvik</long_name>
@@ -99,10 +101,13 @@
     <list_of_alias>
       <name>EPAE</name>
       <name>EDRS</name>
+      <name>VGS4</name>
+      <name>DCS_02</name>
+      <name>DCS_04</name>
     </list_of_alias>
-    <name>EPAE</name>
-    <long_name>Indra Processing and Archiving Centre for EDRS</long_name>    
-    <print_name>EPAE</print_name>
+    <name>EDRS</name>
+    <long_name>European Data Relay Satellite System</long_name>    
+    <print_name>EDRS</print_name>
   </centre>
 
   <centre>

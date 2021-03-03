@@ -110,6 +110,10 @@ class TestEngine(unittest.TestCase):
                 "name": "satellite",
                 "type": "text",
                 "value": "S2A"
+            },{
+                "name": "station",
+                "type": "text",
+                "value": "EDRS"
             }
         ]
 
@@ -256,6 +260,10 @@ class TestEngine(unittest.TestCase):
                 "name": "satellite",
                 "type": "text",
                 "value": "S2A"
+            },{
+                "name": "station",
+                "type": "text",
+                "value": "EDRS"
             }
         ]
 
@@ -573,6 +581,10 @@ class TestEngine(unittest.TestCase):
                 "name": "satellite",
                 "type": "text",
                 "value": "S2A"
+            },{
+                "name": "station",
+                "type": "text",
+                "value": "EDRS"
             }
         ]
 

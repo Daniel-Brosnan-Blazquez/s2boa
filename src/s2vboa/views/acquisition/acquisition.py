@@ -326,6 +326,7 @@ def query_acquisition_events(start_filter = None, stop_filter = None, mission = 
     events["station_schedule"] = planned_playback_events["linking_events"]["STATION_SCHEDULE"]
     events["dfep_schedule"] = planned_playback_events["linking_events"]["DFEP_SCHEDULE"]
     events["slot_request_edrs"] = planned_playback_events["linking_events"]["SLOT_REQUEST_EDRS"]
+    events["station_and_edrs_schedule"] = events["station_schedule"] + events["slot_request_edrs"]
 
     ## Get PLANNED_PLAYBACK events with gaps at reception
     incomplete_playbacks = [event for event in events["playback_completeness_channel"] for value in event.eventTexts if value.name == "status" and value.value == "INCOMPLETE"]

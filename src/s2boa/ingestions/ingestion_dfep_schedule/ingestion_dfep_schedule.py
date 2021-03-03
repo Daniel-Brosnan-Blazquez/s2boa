@@ -78,6 +78,18 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
             # end for
         # end if
 
+        links_completeness = []
+        if len(playbacks["linked_events"]) > 0:
+            for playback in playbacks["linked_events"]:
+                links_completeness.append({
+                    "link": str(playback.event_uuid),
+                    "link_mode": "by_uuid",
+                    "name": "DFEP_SCHEDULE_COMPLETENESS",
+                    "back_ref": "PLANNED_PLAYBACK"
+                })
+            # end for
+        # end if
+
         # TODO: This could be a place to create an alert as the DFEP schedule would not cover correctly the planned playbacks
 
         orbit = schedule.xpath("@id")[0].split("_")[1]
@@ -114,7 +126,7 @@ def _generate_dfep_schedule_events(xpath_xml, source, engine, query, list_of_eve
                 "name": "DFEP_SCHEDULE_COMPLETENESS",
                 "system": satellite
             },
-            "links": links,
+            "links": links_completeness,
             "start": start,
             "stop": stop,
             "values": [
