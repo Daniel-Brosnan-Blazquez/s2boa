@@ -524,6 +524,37 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 }
                 list_of_lta_annotations.append(lta_archiving_annotation)
             # end if
+
+            # DHUS expectation annotations
+            if level in ["L1C", "L2A"]:
+                dhus_dissemination_status_annotation = {
+                "explicit_reference": ds_output,
+                "annotation_cnf": {
+                    "name": "DHUS_DISSEMINATION_TIME",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_dhus_annotations.append(dhus_dissemination_status_annotation)
+
+                dhus_publication_status_annotation = {
+                "explicit_reference": ds_output,
+                "annotation_cnf": {
+                    "name": "DHUS_PUBLICATION_TIME",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                    },
+                "values": [
+                    {"name": "status",
+                     "type": "text",
+                     "value": "MISSING"
+                    }]
+                }
+                list_of_dhus_publication_annotations.append(dhus_publication_status_annotation)
+            # end if
             
             # Number of components
             if number_of_granules > 0:
