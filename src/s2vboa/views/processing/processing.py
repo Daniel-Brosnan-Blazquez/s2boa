@@ -109,7 +109,7 @@ def show_specific_processing(planned_playback_uuid):
     filters = {}
     filters["limit"] = [""]
     filters["offset"] = [""]
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period
     start_filter = {
         "date": planned_playback.stop.isoformat(),
         "op": "<="
