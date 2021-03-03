@@ -96,26 +96,26 @@ def show_datatake_completeness():
 
     return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
-""" @bp.route("/specific-datatake-completeness/<string:planned_playback_uuid>")
-def show_specific_datatake_completeness(planned_playback_uuid):
-    
-    Specific datatake completeness view for one playback related to the Sentinel-2 mission.
-   
+@bp.route("/specific-datatake-completeness/<string:planned_cut_imaging_uuid>")
+def show_specific_datatake_completeness(planned_cut_imaging_uuid):
+    """
+    Specific datatake completeness view for one cut_imaging related to the Sentinel-2 mission.
+    """
     current_app.logger.debug("Specific datatake completeness view")
 
-    # Get the events of the planned playback
-    planned_playback = query.get_events(event_uuids = {"filter": planned_playback_uuid, "op": "=="})[0]
+    # Get the events of the planned cut imaging
+    planned_cut_imaging = query.get_events(event_uuids = {"filter": planned_cut_imaging_uuid, "op": "=="})[0]
     
     filters = {}
     filters["limit"] = [""]
     filters["offset"] = [""]
-    # Initialize reporting period (now - 2 days, now + 5 days)
+    # Initialize reporting period
     start_filter = {
-        "date": planned_playback.stop.isoformat(),
+        "date": planned_cut_imaging.stop.isoformat(),
         "op": "<="
     }
     stop_filter = {
-        "date": planned_playback.start.isoformat(),
+        "date": planned_cut_imaging.start.isoformat(),
         "op": ">="
     }
     mission = "S2_"
@@ -129,7 +129,7 @@ def show_specific_datatake_completeness(planned_playback_uuid):
     filters["mission"] = [mission]
     filters["show"] = [show]
 
-    return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, filters = filters, planned_playback_uuid = planned_playback_uuid) """
+    return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, filters = filters, planned_cut_imaging_uuid = planned_cut_imaging_uuid)
 
 @bp.route("/datatake-completeness-pages", methods=["POST"])
 def query_datatake_completeness_pages():
@@ -250,7 +250,7 @@ def show_sliding_datatake_completeness():
 
     return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
-def query_datatake_completeness_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None):
+def query_datatake_completeness_and_render(start_filter = None, stop_filter = None, mission = None, show = None, sliding_window = None, filters = None, planned_cut_imaging_uuid = None):
 
     datatake_completeness_events = query_datatake_completeness_events(start_filter, stop_filter, mission, filters)
 
@@ -260,13 +260,13 @@ def query_datatake_completeness_and_render(start_filter = None, stop_filter = No
     reporting_stop = start_filter["date"]
     
     template = "views/datatake_completeness/datatake_completeness.html"
-    """ if planned_playback_uuid != None:
-        template = "views/datatake-completeness/specific_datatake-completeness.html"
-    # end if """
+    if planned_cut_imaging_uuid != None:
+        template = "views/datatake_completeness/specific_datatake_completeness.html"
+    # end if
 
     return render_template(template, datatake_completeness_events=datatake_completeness_events, orbpre_events=orbpre_events, show=show, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
-def query_datatake_completeness_events(start_filter = None, stop_filter = None, mission = None, filters = None):
+def query_datatake_completeness_events(start_filter = None, stop_filter = None, mission = None, filters = None, planned_cut_imaging_uuid = None):
     """
     Query planned datatake completeness events.
     """
@@ -275,43 +275,50 @@ def query_datatake_completeness_events(start_filter = None, stop_filter = None, 
     kwargs = {}
     events = {}
     
-    # Set offset and limit for the query
-    if filters and "offset" in filters and filters["offset"][0] != "":
-        kwargs["offset"] = filters["offset"][0]
-    # end if
-    if filters and "limit" in filters and filters["limit"][0] != "":
-        kwargs["limit"] = filters["limit"][0]
-    # end if
+    if planned_cut_imaging_uuid == None:
+        # Set offset and limit for the query
+        if filters and "offset" in filters and filters["offset"][0] != "":
+            kwargs["offset"] = filters["offset"][0]
+        # end if
+        if filters and "limit" in filters and filters["limit"][0] != "":
+            kwargs["limit"] = filters["limit"][0]
+        # end if
 
-    # Set order by reception_time descending
-    kwargs["order_by"] = {"field": "start", "descending": True}
+        # Set order by reception_time descending
+        kwargs["order_by"] = {"field": "start", "descending": True}
 
-    # Start filter
-    if start_filter:
-        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
-    # end if
+        # Start filter
+        if start_filter:
+            kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
+        # end if
 
-    # Stop filter
-    if stop_filter:
-        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
-    # end if
+        # Stop filter
+        if stop_filter:
+            kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
+        # end if
 
-    # Mission
-    kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
-                                        "type": "text",
-                                        "value": {"op": "like", "filter": mission}
-                                        }]
-    
-    kwargs["gauge_names"] = {"filter": ["PLANNED_CUT_IMAGING_CORRECTION"], "op": "in"}
+        # Mission
+        kwargs["value_filters"] = [{"name": {"op": "==", "filter": "satellite"},
+                                            "type": "text",
+                                            "value": {"op": "like", "filter": mission}
+                                            }]
+        
+        kwargs["gauge_names"] = {"filter": ["PLANNED_CUT_IMAGING_CORRECTION"], "op": "in"}
 
-    # Query planned_imaging_processing_completeness
-    planned_cut_imaging_correction_events = query.get_events(**kwargs)
-    events["planned_cut_imaging_correction"] = planned_cut_imaging_correction_events
-    planned_cut_imaging_correction_links_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_cut_imaging_correction_events], "op": "in"},
-                                                                link_names = {"filter": "TIME_CORRECTION", "op": "=="},
-                                                                return_prime_events = False)
-    events["planned_cut_imaging"] = [event for event in planned_cut_imaging_correction_links_events["linked_events"]]
-    
+        # Query planned_imaging_processing_completeness
+        planned_cut_imaging_correction_events = query.get_events(**kwargs)
+        events["planned_cut_imaging_correction"] = planned_cut_imaging_correction_events
+        planned_cut_imaging_correction_links_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_cut_imaging_correction_events], "op": "in"},
+                                                                              link_names = {"filter": "TIME_CORRECTION", "op": "=="},
+                                                                              return_prime_events = False)
+        events["planned_cut_imaging"] = [event for event in planned_cut_imaging_correction_links_events["linked_events"]]
+    else:
+        events_linking_to_planned_cut_imaging_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": planned_cut_imaging_uuid, "op": "=="},
+                                                                                                   link_names = {"filter": "TIME_CORRECTION", "op": "=="}, 
+                                                                                                   return_prime_events = True)
+        events["planned_cut_imaging"] = events_linking_to_planned_cut_imaging_events["linking_events"]["PRIME"]
+        events["planned_cut_imaging_correction"] = events_linking_to_planned_cut_imaging_events["linking_events"]["TIME_CORRECTION"]
+        
     planned_cut_imaging_links_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in events["planned_cut_imaging"]], "op": "in"},
                                                                                     link_names = {"filter": ["PLANNED_COMPLETE_IMAGING", "PROCESSING_COMPLETENESS"], "op": "in"},
                                                                                     return_prime_events = False)
