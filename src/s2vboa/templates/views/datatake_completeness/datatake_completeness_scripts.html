@@ -5,7 +5,7 @@
   // Pie chart for performance related to processing
   // Level L0
   {% if planned_imaging_processing_completeness_l0_total_duration.value > 0 %}
-  processing_data_l0 = [{{ planned_imaging_processing_completeness_l0_total_duration.value - planned_imaging_processing_completeness_l0_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l0_missing_total_duration.value }}]
+  processing_data_l0 = [{{ (planned_imaging_processing_completeness_l0_total_duration.value - planned_imaging_processing_completeness_l0_missing_total_duration.value)|round(3) }}, {{ planned_imaging_processing_completeness_l0_missing_total_duration.value|round(3) }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -19,7 +19,7 @@
   {% endif %}
   // Level L1A
   {% if planned_imaging_processing_completeness_l1a_total_duration.value > 0 %}
-  processing_data_l1a = [{{ planned_imaging_processing_completeness_l1a_total_duration.value - planned_imaging_processing_completeness_l1a_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l1a_missing_total_duration.value }}]
+  processing_data_l1a = [{{ (planned_imaging_processing_completeness_l1a_total_duration.value - planned_imaging_processing_completeness_l1a_missing_total_duration.value)|round(3) }}, {{ planned_imaging_processing_completeness_l1a_missing_total_duration.value|round(3) }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -33,7 +33,7 @@
   {% endif %}
   // Level L1B
   {% if planned_imaging_processing_completeness_l1b_total_duration.value > 0 %}
-  processing_data_l1b = [{{ planned_imaging_processing_completeness_l1b_total_duration.value - planned_imaging_processing_completeness_l1b_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l1b_missing_total_duration.value }}]
+  processing_data_l1b = [{{ (planned_imaging_processing_completeness_l1b_total_duration.value - planned_imaging_processing_completeness_l1b_missing_total_duration.value)|round(3) }}, {{ planned_imaging_processing_completeness_l1b_missing_total_duration.value|round(3) }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -47,7 +47,7 @@
   {% endif %}
   // Level L1C
   {% if planned_imaging_processing_completeness_l1c_total_duration.value > 0 %}
-  processing_data_l1c = [{{ planned_imaging_processing_completeness_l1c_total_duration.value - planned_imaging_processing_completeness_l1c_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l1c_missing_total_duration.value }}]
+  processing_data_l1c = [{{ (planned_imaging_processing_completeness_l1c_total_duration.value - planned_imaging_processing_completeness_l1c_missing_total_duration.value)|round(3) }}, {{ planned_imaging_processing_completeness_l1c_missing_total_duration.value|round(3) }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
@@ -61,7 +61,7 @@
   {% endif %}
   // Level L2A
   {% if planned_imaging_processing_completeness_l2a_total_duration.value > 0 %}
-  processing_data_l2a = [{{ planned_imaging_processing_completeness_l2a_total_duration.value - planned_imaging_processing_completeness_l2a_missing_total_duration.value }}, {{ planned_imaging_processing_completeness_l2a_missing_total_duration.value }}]
+  processing_data_l2a = [{{ (planned_imaging_processing_completeness_l2a_total_duration.value - planned_imaging_processing_completeness_l2a_missing_total_duration.value)|round(3) }}, {{ planned_imaging_processing_completeness_l2a_missing_total_duration.value|round(3) }}]
   processing_background_color = ["green", "darkred"]
   processing_labels = ["# processed", "# missing"]
 
