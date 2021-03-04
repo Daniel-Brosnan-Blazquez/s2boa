@@ -107,6 +107,16 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
     # Obtain the sensing identifier
     sensing_identifier = datastrip_id[41:57]
     # Source for the main operation
+    source_indexing = {
+        "name": file_name,
+        "reception_time": reception_time,
+        "generation_time": creation_date,
+        "validity_start": reported_validity_start,
+        "validity_stop": reported_validity_stop,
+        "reported_validity_start": reported_validity_start,
+        "reported_validity_stop": reported_validity_stop,
+        "priority": 20
+    }
     source_annotations = {
         "name": file_name,
         "reception_time": reception_time,
@@ -424,6 +434,37 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
             }
             list_of_lta_annotations.append(lta_archiving_annotation)
         # end if
+
+        # DHUS expectation annotations
+        if level in ["L1C", "L2A"]:
+            dhus_dissemination_status_annotation = {
+            "explicit_reference": datastrip_id,
+            "annotation_cnf": {
+                "name": "DHUS_DISSEMINATION_TIME",
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_dhus_annotations.append(dhus_dissemination_status_annotation)
+
+            dhus_publication_status_annotation = {
+            "explicit_reference": datastrip_id,
+            "annotation_cnf": {
+                "name": "DHUS_PUBLICATION_TIME",
+                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                },
+            "values": [
+                {"name": "status",
+                 "type": "text",
+                 "value": "MISSING"
+                }]
+            }
+            list_of_dhus_publication_annotations.append(dhus_publication_status_annotation)
+        # end if
         
         # Number of components
         number_of_granules = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_GR')]"))
@@ -704,7 +745,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
               "exec": os.path.basename(__file__),
               "version": version
         },
-        "source": source_annotations,
+        "source": source_indexing,
         "annotations": list_of_annotations,
         "explicit_references": list_of_explicit_references
         }]
