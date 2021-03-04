@@ -14,21 +14,19 @@ var datatake_completeness_timeline = [
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% if status == "MISSING" %}
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+    {% set datastrip = "N/A" %}
     {% set status_class = "bold-red" %}
     {% set class_name = "fill-border-red" %}
     {% elif status == "INCOMPLETE" %}
     {% set orbit = "N/A" %}
+    {% set datastrip = event.explicitRef.explicit_ref %}
     {% set status_class = "bold-orange" %}
     {% set class_name = "fill-border-orange" %}
     {% else %}
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+    {% set datastrip = event.explicitRef.explicit_ref %}
     {% set status_class = "bold-green" %}
     {% set class_name = "fill-border-green" %}
-    {% endif %}
-    {% if status in ("COMPLETE", "INCOMPLETE") %}
-    {% set datastrip = event.explicitRef.explicit_ref %}
-    {% else %}
-    {% set datastrip = "N/A" %}
     {% endif %}
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}

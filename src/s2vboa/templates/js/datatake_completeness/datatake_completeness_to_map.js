@@ -14,24 +14,22 @@ var datatake_completeness_geometries = [
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% if status == "MISSING" %}
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+    {% set datastrip = "N/A" %}
     {% set status_class = "bold-red" %}
     {% set stroke_color = "red" %}
     {% set fill_color = "rgba(255,0,0,0.3)" %}
     {% elif status == "INCOMPLETE" %}
     {% set orbit = "N/A" %}
+    {% set datastrip = event.explicitRef.explicit_ref %}
     {% set status_class = "bold-orange" %}
     {% set stroke_color = "orange" %}
     {% set fill_color = "rgba(255,140,0,0.3)" %}
     {% else %}
     {% set orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+    {% set datastrip = event.explicitRef.explicit_ref %}
     {% set status_class = "bold-green" %}
     {% set stroke_color = "green" %}
     {% set fill_color = "rgba(0,255,0,0.3)" %}
-    {% endif %}
-    {% if status in ("COMPLETE", "INCOMPLETE") %}
-    {% set datastrip = event.explicitRef.explicit_ref %}
-    {% else %}
-    {% set datastrip = "N/A" %}
     {% endif %}
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}
