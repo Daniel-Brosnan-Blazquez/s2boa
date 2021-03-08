@@ -1785,7 +1785,6 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_timeline = self.driver.execute_script('return datatake_completeness_timeline;')
-        """ assert returned_datatake_completeness_timeline == timeline_tooltip_info """
         functions_vboa.verify_js_var(returned_datatake_completeness_timeline, timeline_tooltip_info)
 
         # Check datatake completeness missing table
@@ -2454,11 +2453,171 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
-        # Datastrip by UUID missing table
+        # Datastrip by UUID
         wait = WebDriverWait(self.driver,5)
 
         self.driver.get("http://localhost:5000/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid))
 
+        # Check summary pies
+        # L0
+        processing_data_l0_pie_info = [1.833,30.866]
+
+        returned_processing_data_l0_pie_info = self.driver.execute_script('return processing_data_l0;')
+        assert processing_data_l0_pie_info == returned_processing_data_l0_pie_info
+
+        # L1B
+        processing_data_l1b_pie_info = [1.717,30.982]
+
+        returned_processing_data_l1b_pie_info = self.driver.execute_script('return processing_data_l1b;')
+        assert processing_data_l1b_pie_info == returned_processing_data_l1b_pie_info
+
+        # L1C
+        processing_data_l1c_pie_info = [1.717,30.982]
+
+        returned_processing_data_l1c_pie_info = self.driver.execute_script('return processing_data_l1c;')
+        assert processing_data_l1c_pie_info == returned_processing_data_l1c_pie_info
+        
+        # L2A
+        processing_data_l2a_pie_info = [1.717,30.982]
+
+        returned_processing_data_l2a_pie_info = self.driver.execute_script('return processing_data_l2a;')
+        assert processing_data_l2a_pie_info == returned_processing_data_l2a_pie_info
+        
+        # Check summary expected datatakes
+        summary_expected_datatakes = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-datatakes")))
+
+        assert summary_expected_datatakes
+
+        assert summary_expected_datatakes.text == "1"
+
+        # Check summary expected MSI duration for L0
+        summary_expected_msi_duration_l0 = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-l0")))
+
+        assert summary_expected_msi_duration_l0
+
+        assert summary_expected_msi_duration_l0.text == "32.699"
+
+        # Check summary expected MSI duration for L1B
+        summary_expected_msi_duration_l1b = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-l1b")))
+
+        assert summary_expected_msi_duration_l1b
+
+        assert summary_expected_msi_duration_l1b.text == "32.699"
+
+        # Check summary expected MSI duration for L1C
+        summary_expected_msi_duration_l1c = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-l1c")))
+
+        assert summary_expected_msi_duration_l1c
+
+        assert summary_expected_msi_duration_l1c.text == "32.699"
+
+        # Check summary expected MSI duration for L2A
+        summary_expected_msi_duration_l2a = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-l2a")))
+
+        assert summary_expected_msi_duration_l2a
+
+        assert summary_expected_msi_duration_l2a.text == "32.699"
+
+        # Check summary missing MSI duration for L0
+        summary_missing_msi_duration_l0 = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-missing-l0")))
+
+        assert summary_missing_msi_duration_l0
+
+        assert summary_missing_msi_duration_l0.text == "30.866"
+
+        # Check summary missing MSI duration for L1B
+        summary_missing_msi_duration_l1b = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-missing-l1b")))
+
+        assert summary_missing_msi_duration_l1b
+
+        assert summary_missing_msi_duration_l1b.text == "30.982"
+
+        # Check summary missing MSI duration for L1C
+        summary_missing_msi_duration_l1c = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-missing-l1c")))
+
+        assert summary_missing_msi_duration_l1c
+
+        assert summary_missing_msi_duration_l1c.text == "30.982"
+
+        # Check summary missing MSI duration for L2A
+        summary_missing_msi_duration_l2a = wait.until(EC.visibility_of_element_located((By.ID,"summary-datatake-completeness-msi-duration-missing-l2a")))
+
+        assert summary_missing_msi_duration_l2a
+
+        assert summary_missing_msi_duration_l2a.text == "30.982"
+
+        # Check summary datatake completeness table
+        summary_table = self.driver.find_element_by_id("summary-datatake-completeness-table")
+
+        # Row 1
+        level = summary_table.find_element_by_xpath("tbody/tr[2]/td[1]")
+
+        assert level.text == "L0"
+
+        expected = summary_table.find_element_by_xpath("tbody/tr[2]/td[2]")
+
+        assert expected.text == "32.699"
+
+        missing = summary_table.find_element_by_xpath("tbody/tr[2]/td[3]")
+
+        assert missing.text == "30.866"
+
+        performance = summary_table.find_element_by_xpath("tbody/tr[2]/td[4]")
+
+        assert performance.text == "5.607"
+
+        # Row 2
+        level = summary_table.find_element_by_xpath("tbody/tr[3]/td[1]")
+
+        assert level.text == "L1B"
+
+        expected = summary_table.find_element_by_xpath("tbody/tr[3]/td[2]")
+
+        assert expected.text == "32.699"
+
+        missing = summary_table.find_element_by_xpath("tbody/tr[3]/td[3]")
+
+        assert missing.text == "30.982"
+
+        performance = summary_table.find_element_by_xpath("tbody/tr[3]/td[4]")
+
+        assert performance.text == "5.25"
+
+        # Row 3
+        level = summary_table.find_element_by_xpath("tbody/tr[4]/td[1]")
+
+        assert level.text == "L1C"
+
+        expected = summary_table.find_element_by_xpath("tbody/tr[4]/td[2]")
+
+        assert expected.text == "32.699"
+
+        missing = summary_table.find_element_by_xpath("tbody/tr[4]/td[3]")
+
+        assert missing.text == "30.982"
+
+        performance = summary_table.find_element_by_xpath("tbody/tr[4]/td[4]")
+
+        assert performance.text == "5.25"
+
+        # Row 4
+        level = summary_table.find_element_by_xpath("tbody/tr[5]/td[1]")
+
+        assert level.text == "L2A"
+
+        expected = summary_table.find_element_by_xpath("tbody/tr[5]/td[2]")
+
+        assert expected.text == "32.699"
+
+        missing = summary_table.find_element_by_xpath("tbody/tr[5]/td[3]")
+
+        assert missing.text == "30.982"
+
+        performance = summary_table.find_element_by_xpath("tbody/tr[5]/td[4]")
+
+        assert performance.text == "5.25"
+        
+        # Missing table
         missing_datastrip_table = self.driver.find_element_by_id("datatake-completeness-missing-table")
 
         # Row 1
@@ -2725,11 +2884,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
         
-        # Datastrip by UUID completeness table
-        wait = WebDriverWait(self.driver,5)
-
-        self.driver.get("http://localhost:5000/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid))
-
+        # Completeness table
         completeness_datastrip_table = self.driver.find_element_by_id("datatake-completeness-completeness-table")
 
         # Row 1
@@ -3127,34 +3282,5 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
-
-    def test_datatake_completeness_with_e_vgs(self):
-
-        filename = "S2B_OPER_MPL__NPPF__20210218T120000_20210308T150000_0001.EOF"
-        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
-
-        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
-
-        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
-
-        filename = "S2B_OPER_MPL_ORBPRE_20210221T030153_20210303T030153_0001.EOF"
-        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
-
-        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
-
-        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
-
-        filename = "S2B_OPER_MPL_SPSGS__PDMC_20210221T090000_V20210222T090000_20210228T090000.EOF"
-        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
-
-        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
-
-        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
-
-        wait = WebDriverWait(self.driver,5)
-
-        self.driver.get("http://localhost:5000/views/datatake-completeness")
-
-        functions.query(self.driver, wait, "S2B", start = "2021-02-18T12:00:00", stop = "2021-03-08T15:00:00", start_orbit = "20706", stop_orbit = "20720", map = True, timeline = True)
 
         
