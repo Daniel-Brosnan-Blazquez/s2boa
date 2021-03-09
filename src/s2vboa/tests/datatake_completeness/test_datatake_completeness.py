@@ -289,8 +289,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -319,8 +319,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -349,8 +349,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -379,8 +379,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L2A</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -408,12 +408,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l0[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L0",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -427,12 +427,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l1b[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L1B",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -446,12 +446,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l1c[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L1C",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -465,12 +465,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l2a[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L2A",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L2A</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -493,7 +493,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -526,7 +526,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -559,7 +559,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -592,7 +592,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -628,7 +628,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -661,7 +661,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -694,7 +694,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -727,7 +727,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -767,7 +767,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -800,7 +800,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -833,7 +833,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -866,7 +866,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -906,7 +906,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -939,7 +939,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -972,7 +972,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -1005,7 +1005,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -1270,8 +1270,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1291,8 +1291,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1313,7 +1313,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L0</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[1].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1343,8 +1343,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1364,8 +1364,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1386,7 +1386,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L1B</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[1].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1416,8 +1416,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1437,8 +1437,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1459,7 +1459,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L1C</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[1].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1489,8 +1489,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L2A</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1510,8 +1510,8 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L2A</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1532,7 +1532,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L2A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[1].event_uuid) + "'>S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1560,12 +1560,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l0[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T08:52:29",
-                "timeline": "N/A",
+                "timeline": "L0",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1579,12 +1579,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l0[2].event_uuid),
                 "start": "2018-07-21T08:54:19",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L0",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1603,7 +1603,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l0[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L0</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l0[1].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1617,12 +1617,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l1b[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T08:52:31",
-                "timeline": "N/A",
+                "timeline": "L1B",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1636,12 +1636,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l1b[2].event_uuid),
                 "start": "2018-07-21T08:54:14",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L1B",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1B</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1660,7 +1660,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1b[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L1B</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1b[1].event_uuid) + "'>S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1674,12 +1674,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l1c[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T08:52:31",
-                "timeline": "N/A",
+                "timeline": "L1C",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1693,12 +1693,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l1c[2].event_uuid),
                 "start": "2018-07-21T08:54:14",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L1C",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L1C</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1717,7 +1717,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l1c[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L1C</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l1c[1].event_uuid) + "'>S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1731,12 +1731,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l2a[0].event_uuid),
                 "start": "2018-07-21T08:36:08.255634",
                 "stop": "2018-07-21T08:52:31",
-                "timeline": "N/A",
+                "timeline": "L2A",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L2A</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[0].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1750,12 +1750,12 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "id": str(planned_imaging_processing_completeness_l2a[2].event_uuid),
                 "start": "2018-07-21T08:54:14",
                 "stop": "2018-07-21T09:08:50.195941",
-                "timeline": "N/A",
+                "timeline": "L2A",
                 "tooltip": "<table border='1'>" + 
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[2].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
-                "<tr><td>Level</td><td>N/A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Level</td><td>L2A</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-red>MISSING</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[2].event_uuid) + "'>N/A</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1774,7 +1774,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>UUID</td><td>" + str(planned_imaging_processing_completeness_l2a[1].event_uuid) + "</td></tr>" + 
                 "<tr><td>Satellite</td><td>S2A</td></tr>" + 
                 "<tr><td>Level</td><td>L2A</td></tr>" +
-                "<tr><td>Sensing orbit</td><td>16077</td></tr>" +
+                "<tr><td>Sensing orbit</td><td><a href='/eboa_nav/query-event-links/" + str(planned_cut_imaging[0].event_uuid) + "'>16077</a></td></tr>" +
                 "<tr><td>Status</td><td><a href='/views/specific-datatake-completeness/" + str(planned_cut_imaging[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
                 "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(planned_imaging_processing_completeness_l2a[1].event_uuid) + "'>S2A_OPER_MSI_L2A_DS_MPS__20180721T110122_S20180721T085229_N02.08</a></td></tr>" +
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
@@ -1797,7 +1797,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -1830,7 +1830,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -1863,7 +1863,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -1896,7 +1896,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -1929,7 +1929,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[5]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[5]/td[3]")
 
@@ -1962,7 +1962,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[6]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[6]/td[3]")
 
@@ -1995,7 +1995,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[7]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[7]/td[3]")
 
@@ -2028,7 +2028,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_table.find_element_by_xpath("tbody/tr[8]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = missing_table.find_element_by_xpath("tbody/tr[8]/td[3]")
 
@@ -2064,7 +2064,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -2097,7 +2097,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -2130,7 +2130,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -2163,7 +2163,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -2328,7 +2328,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[9]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[9]/td[3]")
 
@@ -2361,7 +2361,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[10]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[10]/td[3]")
 
@@ -2394,7 +2394,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[11]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[11]/td[3]")
 
@@ -2427,7 +2427,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_table.find_element_by_xpath("tbody/tr[12]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[12]/td[3]")
 
@@ -2627,7 +2627,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -2660,7 +2660,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -2693,7 +2693,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -2726,7 +2726,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -2759,7 +2759,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[3]")
 
@@ -2792,7 +2792,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[3]")
 
@@ -2825,7 +2825,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[3]")
 
@@ -2858,7 +2858,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[3]")
 
@@ -2894,7 +2894,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[3]")
 
@@ -2927,7 +2927,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[3]")
 
@@ -2960,7 +2960,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[3]")
 
@@ -2993,7 +2993,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[3]")
 
@@ -3158,7 +3158,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1B"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[3]")
 
@@ -3191,7 +3191,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L1C"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[3]")
 
@@ -3224,7 +3224,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L2A"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[3]")
 
@@ -3257,7 +3257,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[2]")
 
-        assert level.text == "N/A"
+        assert level.text == "L0"
 
         sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[3]")
 

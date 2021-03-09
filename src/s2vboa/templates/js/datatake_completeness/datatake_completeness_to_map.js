@@ -3,10 +3,7 @@ var datatake_completeness_geometries = [
     {% set planned_cut_imaging_uuids = event.eventLinks|selectattr("name", "equalto", "PLANNED_IMAGING")|map(attribute='event_uuid_link')|list %}
     {% set planned_cut_imaging = datatake_completeness_events["planned_cut_imaging"]|selectattr("event_uuid", "in", planned_cut_imaging_uuids)|first %}
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-    {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
-    {% if not level %}
-    {% set level = "N/A" %}
-    {% endif %}
+    {% set level = event.gauge.name[40:] %}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
     {% if not imaging_mode %}
     {% set imaging_mode = "N/A" %}
@@ -35,7 +32,7 @@ var datatake_completeness_geometries = [
     {% set datastrip_stop = event.stop.isoformat() %}
     {
         "id": "{{ event.event_uuid }}",
-        "tooltip": create_datatake_completeness_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ level }}", "{{ orbit }}", "<a href='/views/specific-datatake-completeness/{{ planned_cut_imaging.event_uuid }}' class={{ status_class }}>{{ status }}</a>", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ datastrip }}</a>", "{{ imaging_mode }}", "{{ datastrip_start }}", "{{ datastrip_stop }}"),
+        "tooltip": create_datatake_completeness_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ level }}", "<a href='/eboa_nav/query-event-links/{{ planned_cut_imaging.event_uuid }}'>{{ orbit }}</a>", "<a href='/views/specific-datatake-completeness/{{ planned_cut_imaging.event_uuid }}' class={{ status_class }}>{{ status }}</a>", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ datastrip }}</a>", "{{ imaging_mode }}", "{{ datastrip_start }}", "{{ datastrip_stop }}"),
         "geometries": [
             {% for geometry in event.eventGeometries %}
             {{ geometry.to_wkt() }},
