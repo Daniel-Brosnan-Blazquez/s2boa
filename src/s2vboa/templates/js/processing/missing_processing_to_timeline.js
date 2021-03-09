@@ -14,6 +14,12 @@ var missing_processing_timeline = [
     {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
     {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
+    {% set sad_status = event.eventTexts|selectattr("name", "equalto", "sad_status")|map(attribute='value')|first|string %}
+    {% if sad_status and sad_status == "MISSING" %}
+    {% set status = "MISSING_SAD" %}
+    {% elif sad_status and sad_status == "PARTIAL" %}
+    {% set status = "PARTIAL_SAD" %}
+    {% endif %}
     {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>N/A</a>" %}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
     {% if not imaging_mode %}
