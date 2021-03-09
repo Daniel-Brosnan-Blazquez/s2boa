@@ -2,14 +2,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#datatake-completeness-completeness">Processing completeness of the data-takes <span class="fa fa-angle-double-down"></span></a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#datatake-completeness-completeness">Processing completeness of the datatakes <span class="fa fa-angle-double-down"></span></a>
       </h3>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body panel-collapse collapse in" id="datatake-completeness-completeness">
       {% if datatake_completeness_events["planned_imaging_processing_completeness"]|length > 0 %}
       <p>
-        <b>The following table shows the processing of the data-takes</b>:
+        <b>The following table shows the processing of the datatakes</b>:
       </p>
       <!--table-->
       <table width="100%" class="table table-striped table-bordered table-hover table-search" id="datatake-completeness-completeness-table">
@@ -19,7 +19,7 @@
       </table>
       {% else %}
       <div>
-        <p id="no-datatake-completeness-data" style="text-indent: 1em">There are no data-takes during the requested period.</p>
+        <p id="no-datatake-completeness-data" style="text-indent: 1em">There are no datatakes during the requested period.</p>
       </div>
       {% endif %}
     </div>

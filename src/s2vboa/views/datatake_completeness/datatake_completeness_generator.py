@@ -32,6 +32,6 @@ def generate_report(begin, end, metadata, parameters = None):
 
     metadata["operations"][0]["report"]["generator_version"] = version
     metadata["operations"][0]["report"]["group"] = "DATATAKE_COMPLETENESS"
-    metadata["operations"][0]["report"]["group_description"] = "Group of reports dedicated for the monitoring of the data-take completeness of the Sentinel-2 constellation"
+    metadata["operations"][0]["report"]["group_description"] = "Group of reports dedicated for the monitoring of the datatake completeness of the Sentinel-2 constellation"
 
     return html_file_path
