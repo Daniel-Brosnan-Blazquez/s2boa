@@ -122,16 +122,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "MPS_",
                 "type": "text",
                 "name": "processing_centre"
-            },
-            {
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
             }
         ]
 
@@ -292,16 +282,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "processing_centre"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
-            },
-            {
                 "value": "16077.0",
                 "type": "double",
                 "name": "sensing_orbit"
@@ -352,16 +332,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "MPS_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "NO_MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -495,16 +465,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "MPS_",
                 "type": "text",
                 "name": "processing_centre"
-            },
-            {
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
             },
             {
                 "value": "16078.0",
@@ -670,16 +630,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "value": "MPS_",
                 "name": "processing_centre",
                 "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
-                "type": "text"
             }
         ]
 
@@ -711,16 +661,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "MPS_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "NO_MATCHED_ISP_VALIDITY",
                 "type": "text"
             }
         ]
@@ -832,16 +772,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
-                "type": "text"
-            },
-            {
                 "value": "16077.0",
                 "name": "sensing_orbit",
                 "type": "double"
@@ -892,16 +822,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "MPS_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "NO_MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -1083,16 +1003,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
-                "type": "text"
-            },
-            {
                 "value": "16077.0",
                 "name": "sensing_orbit",
                 "type": "double"
@@ -1218,16 +1128,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "value": "MPS_",
                 "name": "processing_centre",
-                "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
                 "type": "text"
             },
             {
@@ -1480,16 +1380,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "processing_centre"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
-            },
-            {
                 "value": "16077.0",
                 "type": "double",
                 "name": "sensing_orbit"
@@ -1552,16 +1442,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "value": "MPS_",
                 "name": "processing_centre",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
                 "type": "text"
             },
             {
@@ -1645,16 +1525,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "MPS_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -1752,16 +1622,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "MPS_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -1901,16 +1761,6 @@ class TestDpcIngestion(unittest.TestCase):
                 "name": "processing_centre"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
-            },
-            {
                 "value": "16077.0",
                 "type": "double",
                 "name": "sensing_orbit"
@@ -1965,16 +1815,6 @@ class TestDpcIngestion(unittest.TestCase):
             {
                 "value": "MPS_",
                 "name": "processing_centre",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
                 "type": "text"
             },
             {
@@ -2903,3 +2743,48 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len(link_from_isp_validity) == 1
 
+    def test_rep_pass_e_dpcs(self):
+        
+        filename = "S2A_OPER_REP_PASS_E_VGS1_20210306T055759_V20210306T053238_20210306T054018.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_eisp.ingestion_eisp", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_PASS_E_VGS1_20210306T055825_V20210306T053238_20210306T054043.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_eisp.ingestion_eisp", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS1_20210306T062459_V20210306T041303_20210306T042548.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS1_20210306T070919_V20210306T041303_20210306T042548.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS1_20210306T071122_V20210306T041303_20210306T042548.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS1_20210306T102746_V20210306T041303_20210306T042548.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        

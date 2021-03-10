@@ -614,8 +614,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         links_processing_validity = []
         links_planning_processing_completeness = []
         links_processing_reception_completeness = []
-        planning_matching_status = "NO_MATCHED_PLANNED_IMAGING"
-        reception_matching_status = "NO_MATCHED_ISP_VALIDITY"
         sensing_orbit = ""
         downlink_orbit = ""
         imaging_mode = ""
@@ -624,7 +622,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
         if len(corrected_planned_imagings) > 0:
             corrected_planned_imaging = corrected_planned_imagings[0]
             planned_imaging_uuid = [event_link.event_uuid_link for event_link in corrected_planned_imaging.eventLinks if event_link.name == "PLANNED_EVENT"][0]
-            planning_matching_status = "MATCHED_PLANNED_IMAGING"
 
             sensing_orbit_values = [value for value in corrected_planned_imaging.eventDoubles if value.name == "start_orbit"]
             sensing_orbit = str(sensing_orbit_values[0].value)
@@ -653,9 +650,20 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                                           stop_filters = [{"date": datablock["start"].isoformat(), "op": ">"}])
         # Received Imaging Completeness
         if len(isp_validities) > 0:
-            reception_matching_status = "MATCHED_ISP_VALIDITY"
 
             filtered_isp_validities = [isp_validity for isp_validity in isp_validities if abs((isp_validity.start - datablock["start"]).total_seconds()) < 10 and abs((isp_validity.stop - datablock["stop"]).total_seconds()) < 10]
+
+            if len(filtered_isp_validities) == 0:
+                filtered_isp_validities = [isp_validity for isp_validity in isp_validities if abs((isp_validity.start - datablock["start"]).total_seconds()) < 10 and isp_validity.stop > datablock["stop"]]
+            # end if
+
+            if len(filtered_isp_validities) == 0:
+                filtered_isp_validities = [isp_validity for isp_validity in isp_validities if isp_validity.start < datablock["start"] and abs((isp_validity.stop - datablock["stop"]).total_seconds()) < 10]
+            # end if
+
+            if len(filtered_isp_validities) == 0:
+                filtered_isp_validities = [isp_validity for isp_validity in isp_validities if isp_validity.start < datablock["start"] and isp_validity.stop > datablock["stop"]]
+            # end if
 
             for isp_validity in filtered_isp_validities:
 
@@ -711,14 +719,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                  "name": "processing_centre",
                  "type": "text",
                  "value": system
-             },{
-                 "name": "matching_plan_status",
-                 "type": "text",
-                 "value": planning_matching_status
-             },{
-                 "name": "matching_reception_status",
-                 "type": "text",
-                 "value": reception_matching_status
              }]
         }
         if sensing_orbit != "":
@@ -778,14 +778,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                      "name": "processing_centre",
                      "type": "text",
                      "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
                  }]
             }
             if sensing_orbit != "":
@@ -841,14 +833,6 @@ def L0_L1A_L1B_processing(source, engine, query, granule_timeline, list_of_event
                  "name": "processing_centre",
                  "type": "text",
                  "value": system
-             },{
-                 "name": "matching_plan_status",
-                 "type": "text",
-                 "value": planning_matching_status
-             },{
-                 "name": "matching_reception_status",
-                 "type": "text",
-                 "value": reception_matching_status
              }]
         }
 
@@ -1040,8 +1024,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         links_processing_validity = []
         links_planning_processing_completeness = []
         links_processing_reception_completeness = []
-        planning_matching_status = "NO_MATCHED_PLANNED_IMAGING"
-        reception_matching_status = "NO_MATCHED_ISP_VALIDITY"
         sensing_orbit = ""
         downlink_orbit = ""
         imaging_mode = ""
@@ -1050,7 +1032,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         if len(planned_cut_imagings) > 0:
             planned_imaging = planned_cut_imagings[0]
             planned_imaging_uuid = planned_imaging.event_uuid
-            planning_matching_status = "MATCHED_PLANNED_IMAGING"
             sensing_orbit_values = [value for value in planned_imaging.eventDoubles if value.name == "start_orbit"]
             sensing_orbit = str(sensing_orbit_values[0].value)
 
@@ -1073,7 +1054,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
 
         # Received Imaging Completeness
         if len(isp_validities) > 0:
-            reception_matching_status = "MATCHED_ISP_VALIDITY"
             for isp_validity in isp_validities:
                 isp_validity_uuid = isp_validity.event_uuid
 
@@ -1129,14 +1109,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                  "name": "processing_centre",
                  "type": "text",
                  "value": system
-             },{
-                 "name": "matching_plan_status",
-                 "type": "text",
-                 "value": planning_matching_status
-             },{
-                 "name": "matching_reception_status",
-                 "type": "text",
-                 "value": reception_matching_status
              }]
         }
 
@@ -1198,14 +1170,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                      "name": "processing_centre",
                      "type": "text",
                      "value": system
-                 },{
-                     "name": "matching_plan_status",
-                     "type": "text",
-                     "value": planning_matching_status
-                 },{
-                     "name": "matching_reception_status",
-                     "type": "text",
-                     "value": reception_matching_status
                  }]
             }
 
@@ -1262,14 +1226,6 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
                  "name": "processing_centre",
                  "type": "text",
                  "value": system
-             },{
-                 "name": "matching_plan_status",
-                 "type": "text",
-                 "value": planning_matching_status
-             },{
-                 "name": "matching_reception_status",
-                 "type": "text",
-                 "value": reception_matching_status
              }]
         }
 

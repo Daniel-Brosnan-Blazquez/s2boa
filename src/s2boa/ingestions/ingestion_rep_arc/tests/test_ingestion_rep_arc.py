@@ -281,16 +281,6 @@ class TestEngine(unittest.TestCase):
                 "name": "processing_centre"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
-            },
-            {
                 "value": "16077.0",
                 "type": "double",
                 "name": "sensing_orbit"
@@ -341,16 +331,6 @@ class TestEngine(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "EPA_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "NO_MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -479,16 +459,6 @@ class TestEngine(unittest.TestCase):
                 "value": "EPA_",
                 "type": "text",
                 "name": "processing_centre"
-            },
-            {
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
             },
             {
                 "value": "16078.0",
@@ -630,16 +600,6 @@ class TestEngine(unittest.TestCase):
                 "value": "EPA_",
                 "name": "processing_centre",
                 "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
-                "type": "text"
             }
         ]
 
@@ -671,16 +631,6 @@ class TestEngine(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "EPA_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "NO_MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "NO_MATCHED_ISP_VALIDITY",
                 "type": "text"
             }
         ]
@@ -815,16 +765,6 @@ class TestEngine(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "NO_MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
-                "type": "text"
-            },
-            {
                 "value": "16077.0",
                 "name": "sensing_orbit",
                 "type": "double"
@@ -875,16 +815,6 @@ class TestEngine(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "EPA_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "NO_MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -1090,16 +1020,6 @@ class TestEngine(unittest.TestCase):
             {
                 "value": "EPA_",
                 "name": "processing_centre",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
                 "type": "text"
             },
             {
@@ -1394,16 +1314,6 @@ class TestEngine(unittest.TestCase):
                 "name": "processing_centre"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
-            },
-            {
                 "value": "16077.0",
                 "type": "double",
                 "name": "sensing_orbit"
@@ -1466,16 +1376,6 @@ class TestEngine(unittest.TestCase):
             {
                 "value": "EPA_",
                 "name": "processing_centre",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
                 "type": "text"
             },
             {
@@ -1564,16 +1464,6 @@ class TestEngine(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "EPA_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -1667,16 +1557,6 @@ class TestEngine(unittest.TestCase):
             {
                 "name": "processing_centre",
                 "value": "EPA_",
-                "type": "text"
-            },
-            {
-                "name": "matching_plan_status",
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text"
-            },
-            {
-                "name": "matching_reception_status",
-                "value": "MATCHED_ISP_VALIDITY",
                 "type": "text"
             },
             {
@@ -1829,16 +1709,6 @@ class TestEngine(unittest.TestCase):
                 "name": "processing_centre"
             },
             {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "type": "text",
-                "name": "matching_plan_status"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "type": "text",
-                "name": "matching_reception_status"
-            },
-            {
                 "value": "16077.0",
                 "type": "double",
                 "name": "sensing_orbit"
@@ -1893,16 +1763,6 @@ class TestEngine(unittest.TestCase):
             {
                 "value": "EPA_",
                 "name": "processing_centre",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_PLANNED_IMAGING",
-                "name": "matching_plan_status",
-                "type": "text"
-            },
-            {
-                "value": "MATCHED_ISP_VALIDITY",
-                "name": "matching_reception_status",
                 "type": "text"
             },
             {
