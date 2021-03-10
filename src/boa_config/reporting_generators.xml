@@ -56,6 +56,20 @@
       <parameter name="type">ANOMALIES_ALERTS</parameter>
     </parameters>
   </generator>
+  <generator name="Datatake completeness generator (Complete view)" description="Generator of the datatake completeness report covering all missions">
+    <command>rboa_reporting.py -p s2vboa.views.datatake_completeness.datatake_completeness_generator</command>
+    <name_format>S2__REP__DATATAKECO_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">COMPLETE</parameter>
+    </parameters>
+  </generator>
+  <generator name="Datatake completeness generator (Anomalies/Alerts view)" description="Generator of the datatake completeness report covering all missions and reporting only anomalies and alerts">
+    <command>rboa_reporting.py -p s2vboa.views.datatake_completeness.datatake_completeness_generator</command>
+    <name_format>S2__REP__DATATAKEAA_%C_%B_%E.html</name_format>
+    <parameters>
+      <parameter name="type">ANOMALIES_ALERTS</parameter>
+    </parameters>
+  </generator>
   <generator name="Processing completeness generator (Complete view)" description="Generator of the processing completeness report covering all missions, all ground station and EDRS">
     <command>rboa_reporting.py -p s2vboa.views.processing.processing_generator</command>
     <name_format>S2__REP__PROCESSING_%C_%B_%E.html</name_format>

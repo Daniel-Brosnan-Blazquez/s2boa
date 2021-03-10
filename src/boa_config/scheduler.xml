@@ -20,6 +20,9 @@
       <task name="ACQUISITION_COMPLETENESS">
         <command>rboa_triggering.py -g "Acquisition completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
       </task>
+      <task name="DATATAKE_COMPLETENESS">
+        <command>rboa_triggering.py -g "Datatake completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
+      </task>
       <task name="PROCESSING_COMPLETENESS">
         <command>rboa_triggering.py -g "Processing completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
       </task>
@@ -73,6 +76,9 @@
       </task>
       <task name="ACQUISITION_COMPLETENESS">
         <command>rboa_triggering.py -g "Acquisition completeness generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="DATATAKE_COMPLETENESS">
+        <command>rboa_triggering.py -g "Datatake completeness generator (Complete view)" -m AUTOMATIC</command>
       </task>
       <task name="PROCESSING_COMPLETENESS">
         <command>rboa_triggering.py -g "Processing completeness generator (Complete view)" -m AUTOMATIC</command>
