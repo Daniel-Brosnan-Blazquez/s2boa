@@ -1234,7 +1234,7 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
             list_of_isp_processing_completeness_events.append(processing_reception_completeness_event)
         # end for
             
-        processing_validity_event = {
+        processing_validity_event_upper_level = {
             "key": datastrip + "_" + "processing_validity",
             "link_ref": processing_validity_link_ref,
             "explicit_reference": datastrip,
@@ -1274,95 +1274,94 @@ def L1C_L2A_processing(source, engine, query, list_of_events, processing_validit
         }
 
         if sensing_orbit != "":
-            processing_validity_event["values"].append({
+            processing_validity_event_upper_level["values"].append({
                 "name": "sensing_orbit",
                 "type": "double",
                 "value": sensing_orbit
             })
         # end if
         if downlink_orbit != "":
-            processing_validity_event["values"].append({
+            processing_validity_event_upper_level["values"].append({
                 "name": "downlink_orbit",
                 "type": "double",
                 "value": downlink_orbit
             })
         # end if
         if imaging_mode != "":
-            processing_validity_event["values"].append({
+            processing_validity_event_upper_level["values"].append({
                 "name": "imaging_mode",
                 "type": "text",
                 "value": imaging_mode
             })
         # end if
 
-        list_of_events.append(processing_validity_event)
+        list_of_events.append(processing_validity_event_upper_level)
 
-        if len(list_of_planning_processing_completeness_events) > 0:
-            completeness_event_starts = [event["start"] for event in list_of_planning_processing_completeness_events]
-            completeness_event_starts.sort()
-            completeness_event_stops = [event["stop"] for event in list_of_planning_processing_completeness_events]
-            completeness_event_stops.sort()
+    # end for
 
-            # Generate the footprint of the events
-            list_of_planning_processing_completeness_events_with_footprints = associate_footprints(list_of_planning_processing_completeness_events, satellite)
+    if len(list_of_planning_processing_completeness_events) > 0:
+        completeness_event_starts = [event["start"] for event in list_of_planning_processing_completeness_events]
+        completeness_event_starts.sort()
+        completeness_event_stops = [event["stop"] for event in list_of_planning_processing_completeness_events]
+        completeness_event_stops.sort()
 
-            planning_processing_completeness_operation = {
-                "mode": "insert",
-                "dim_signature": {
-                    "name": "COMPLETENESS_NPPF_" + satellite,
-                    "exec": level + "_" + filename,
-                    "version": version
-                },
-                "source": {
-                    "name": source["name"],
-                    "reception_time": source["reception_time"],
-                    "generation_time": source["generation_time"],
-                    "validity_start": completeness_event_starts[0],
-                    "validity_stop": completeness_event_stops[-1],
-                    "reported_validity_start": source["reported_validity_start"],
-                    "reported_validity_stop": source["reported_validity_stop"],
-                    "priority": priority
-                },
-                "events": list_of_planning_processing_completeness_events_with_footprints
-            }
+        # Generate the footprint of the events
+        list_of_planning_processing_completeness_events_with_footprints = associate_footprints(list_of_planning_processing_completeness_events, satellite)
 
-            list_of_operations.append(planning_processing_completeness_operation)
-        # end if
+        planning_processing_completeness_operation = {
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": level + "_" + filename,
+                "version": version
+            },
+            "source": {
+                "name": source["name"],
+                "reception_time": source["reception_time"],
+                "generation_time": source["generation_time"],
+                "validity_start": completeness_event_starts[0],
+                "validity_stop": completeness_event_stops[-1],
+                "reported_validity_start": source["reported_validity_start"],
+                "reported_validity_stop": source["reported_validity_stop"],
+                "priority": priority
+            },
+            "events": list_of_planning_processing_completeness_events_with_footprints
+        }
 
-        if len(list_of_isp_processing_completeness_events) > 0:
-            completeness_event_starts = [event["start"] for event in list_of_isp_processing_completeness_events]
-            completeness_event_starts.sort()
-            completeness_event_stops = [event["stop"] for event in list_of_isp_processing_completeness_events]
-            completeness_event_stops.sort()
-
-            # Generate the footprint of the events
-            list_of_isp_processing_completeness_events_with_footprints = associate_footprints(list_of_isp_processing_completeness_events, satellite)
-
-            isp_validity_processing_completeness_operation = {
-                "mode": "insert",
-                "dim_signature": {
-                    "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
-                    "exec": level + "_" + filename,
-                    "version": version
-                },
-                "source": {
-                    "name": source["name"],
-                    "reception_time": source["reception_time"],
-                    "generation_time": source["generation_time"],
-                    "validity_start": completeness_event_starts[0],
-                    "validity_stop": completeness_event_stops[-1],
-                    "reported_validity_start": source["reported_validity_start"],
-                    "reported_validity_stop": source["reported_validity_stop"],
-                    "priority": priority
-                },
-                "events": list_of_isp_processing_completeness_events_with_footprints
-            }
-
-            list_of_operations.append(isp_validity_processing_completeness_operation)
-        # end if
-
+        list_of_operations.append(planning_processing_completeness_operation)
     # end if
 
+    if len(list_of_isp_processing_completeness_events) > 0:
+        completeness_event_starts = [event["start"] for event in list_of_isp_processing_completeness_events]
+        completeness_event_starts.sort()
+        completeness_event_stops = [event["stop"] for event in list_of_isp_processing_completeness_events]
+        completeness_event_stops.sort()
+
+        # Generate the footprint of the events
+        list_of_isp_processing_completeness_events_with_footprints = associate_footprints(list_of_isp_processing_completeness_events, satellite)
+
+        isp_validity_processing_completeness_operation = {
+            "mode": "insert",
+            "dim_signature": {
+                "name": "ISP_VALIDITY_PROCESSING_COMPLETENESS_" + satellite,
+                "exec": level + "_" + filename,
+                "version": version
+            },
+            "source": {
+                "name": source["name"],
+                "reception_time": source["reception_time"],
+                "generation_time": source["generation_time"],
+                "validity_start": completeness_event_starts[0],
+                "validity_stop": completeness_event_stops[-1],
+                "reported_validity_start": source["reported_validity_start"],
+                "reported_validity_stop": source["reported_validity_stop"],
+                "priority": priority
+            },
+            "events": list_of_isp_processing_completeness_events_with_footprints
+        }
+
+        list_of_operations.append(isp_validity_processing_completeness_operation)
+    # end if
 
     return general_status
 # end def

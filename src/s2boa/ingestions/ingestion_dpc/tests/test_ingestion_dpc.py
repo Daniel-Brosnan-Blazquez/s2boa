@@ -605,9 +605,9 @@ class TestDpcIngestion(unittest.TestCase):
         
         assert len(linking_ers["linking_explicit_refs"]) == 62
 
-    def test_dpc_report_L1C_with_L0(self):
+    def test_dpc_report_L1C_with_L1B(self):
 
-        filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
+        filename = "S2A_OPER_REP_OPDPC_L0_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
@@ -620,28 +620,6 @@ class TestDpcIngestion(unittest.TestCase):
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
-
-        # Check sources
-        # L0
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             processors = {"filter": "ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
 
         # L1C
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
@@ -657,7 +635,7 @@ class TestDpcIngestion(unittest.TestCase):
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2100-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -666,8 +644,8 @@ class TestDpcIngestion(unittest.TestCase):
         
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
@@ -708,8 +686,8 @@ class TestDpcIngestion(unittest.TestCase):
         # Check planning completeness
         planning_completeness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(planning_completeness) == 1
         planning_completeness_l1c = planning_completeness[0]
@@ -747,7 +725,7 @@ class TestDpcIngestion(unittest.TestCase):
             }
         ]
 
-    def test_dpc_report_L1C_with_L0_plan(self):
+    def test_dpc_report_L1C_with_L1B_plan(self):
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
@@ -762,7 +740,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
-        filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
+        filename = "S2A_OPER_REP_OPDPC_L0_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
@@ -777,42 +755,11 @@ class TestDpcIngestion(unittest.TestCase):
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
-        # L0
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             processors = {"filter": "ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
         # L1C
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -833,7 +780,7 @@ class TestDpcIngestion(unittest.TestCase):
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2100-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -844,8 +791,8 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
@@ -911,7 +858,7 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
                     }
                 ]
             }
@@ -920,8 +867,8 @@ class TestDpcIngestion(unittest.TestCase):
         # Check planning completeness
         planning_completeness = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(planning_completeness) == 1
         planning_completeness_l1c = planning_completeness[0]
@@ -974,7 +921,7 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
                     }
                 ]
             }
@@ -982,7 +929,7 @@ class TestDpcIngestion(unittest.TestCase):
         
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
                                                            start_filters = [{"date": "2018-07-21T08:36:08.255634", "op": "=="}],
-                                                           stop_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}])
+                                                           stop_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
 
@@ -991,13 +938,13 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(missing_planning_completeness_statuses) == 1
 
         missing_planning_completeness = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
+                                                           start_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                                            stop_filters = [{"date": "2018-07-21T09:08:50.195941", "op": "=="}])
 
         assert len(missing_planning_completeness) == 1
 
 
-    def test_dpc_report_L1C_with_L0_plan_rep_pass(self):
+    def test_dpc_report_L1C_with_L1B_plan_rep_pass(self):
 
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -1020,7 +967,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
-        filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
+        filename = "S2A_OPER_REP_OPDPC_L0_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
@@ -1035,53 +982,11 @@ class TestDpcIngestion(unittest.TestCase):
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
-        # L0
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
-                                             processors = {"filter": "ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
         # L1C
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -1090,8 +995,8 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -1112,7 +1017,7 @@ class TestDpcIngestion(unittest.TestCase):
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2100-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -1124,8 +1029,8 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
@@ -1209,13 +1114,13 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
                     }
                 ]
             }
         ]
 
-    def test_dpc_report_L1C_with_L0_rep_pass(self):
+    def test_dpc_report_L1C_with_L1B_rep_pass(self):
 
         filename = "S2A_REP_PASS_NO_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -1224,7 +1129,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
-        filename = "S2A_OPER_REP_OPDPC_L0U_L0.EOF"
+        filename = "S2A_OPER_REP_OPDPC_L0_L1B.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
@@ -1239,43 +1144,11 @@ class TestDpcIngestion(unittest.TestCase):
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check sources
-        # L0
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                              dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T10:43:26.741000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                              dim_signatures = {"filter": "PROCESSING_S2A", "op": "=="},
-                                             processors = {"filter": "ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
-        sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2000-12-10 23:51:34", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-21T10:43:34", "op": "=="}],
-                                             processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
-                                             names = {"filter": "S2A_OPER_REP_OPDPC_L0U_L0.EOF", "op": "like"})
-
-        assert len(sources) == 1
-
         # L1C
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             validity_stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                               dim_signatures = {"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_S2A", "op": "=="},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -1296,7 +1169,7 @@ class TestDpcIngestion(unittest.TestCase):
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
                                              reported_validity_stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}],
                                               validity_start_filters = [{"date": "1983-01-01T00:00:00", "op": "=="}],
-                                             validity_stop_filters = [{"date": "9999-01-01T00:00:00", "op": "=="}],
+                                             validity_stop_filters = [{"date": "2100-01-01T00:00:00", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T11:00:45", "op": "=="}],
                                              processors = {"filter": "configuration_ingestion_dpc.py", "op": "like"},
                                              names = {"filter": "S2A_OPER_REP_OPDPC_L1B_L1C.EOF", "op": "like"})
@@ -1307,8 +1180,8 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
@@ -1960,7 +1833,7 @@ class TestDpcIngestion(unittest.TestCase):
         assert len(timeliness) == 1
         timeliness_l1c = timeliness[0]
 
-    def test_dpc_gaps_L1C_with_L0_plan_rep_pass(self):
+    def test_dpc_gaps_L1C_with_L1B_plan_rep_pass(self):
 
         filename = "S2A_NPPF.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -1983,7 +1856,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
-        filename = "S2A_OPER_REP_OPDPC_L0U_L0_WITH_GAPS.EOF"
+        filename = "S2A_OPER_REP_OPDPC_L0_L1B_WITH_GAPS.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
@@ -1998,22 +1871,22 @@ class TestDpcIngestion(unittest.TestCase):
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
         # Check processing validities
-        processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
+        processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
-                                                           start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                                           stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                                           start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                                           stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(processing_validities) == 1
-        processing_validity_l0 = processing_validities[0]
+        processing_validity_l1b = processing_validities[0]
 
-        assert processing_validity_l0.get_structured_values() == [
+        assert processing_validity_l1b.get_structured_values() == [
             {
                 "value": "INCOMPLETE",
                 "name": "status",
                 "type": "text"
             },
             {
-                "value": "L0",
+                "value": "L1B",
                 "name": "level",
                 "type": "text"
             },
@@ -2059,7 +1932,7 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
                     }
                 ]
             }
@@ -2067,8 +1940,8 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_VALIDITY", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:29", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+                                             start_filters = [{"date": "2018-07-21T08:52:31", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:54:14", "op": "=="}])
 
         assert len(processing_validities) == 1
         processing_validity_l1c = processing_validities[0]
@@ -2126,39 +1999,39 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.452534 27.975823, 30.392614 27.75977, 30.332896 27.543693, 30.273379 27.327592, 30.214044 27.111468, 30.1549 26.89532, 30.095949 26.679148, 30.037187 26.462953, 29.978597 26.246736, 29.920192 26.030496, 29.861972 25.814233, 29.803925 25.597949, 29.746048 25.381643, 29.688348 25.165315, 29.630823 24.948965, 29.573458 24.732595, 29.51626 24.516204, 29.45923 24.299792, 29.402366 24.083359, 29.345652 23.866907, 29.289101 23.650434, 29.23271 23.433942, 29.176471 23.21743, 29.12038 23.000899, 29.064444 22.784349, 29.008661 22.56778, 28.953019 22.351192, 28.897521 22.134586, 28.842171 21.917962, 28.786966 21.701319, 28.731891 21.484659, 26.01434 22.063948, 26.065337 22.280978, 26.1164 22.497996, 26.16756 22.715002, 26.218822 22.931994, 26.270178 23.148974, 26.321611 23.365942, 26.37315 23.582897, 26.424797 23.799838, 26.476531 24.016766, 26.52836 24.233681, 26.580303 24.450582, 26.632359 24.667468, 26.684496 24.884342, 26.736747 25.101201, 26.789118 25.318046, 26.841599 25.534876, 26.894174 25.751692, 26.946873 25.968493, 26.999698 26.185279, 27.052627 26.40205, 27.10567 26.618806, 27.158843 26.835546, 27.212151 27.052269, 27.265555 27.268979, 27.319093 27.485672, 27.372771 27.702348, 27.426579 27.919008, 27.480497 28.135652, 27.53456 28.35228, 27.58877 28.568889, 30.452534 27.975823))"
+                        "value": "POLYGON ((30.419825 27.857979, 30.359831 27.641211, 30.300019 27.42442, 30.240408 27.207604, 30.180994 26.990764, 30.12177 26.773901, 30.062725 26.557015, 30.003871 26.340105, 29.945205 26.123173, 29.886715 25.906218, 29.8284 25.689241, 29.770267 25.472241, 29.712313 25.25522, 29.654521 25.038177, 29.596901 24.821113, 29.539455 24.604027, 29.482176 24.386921, 29.425052 24.169794, 29.368095 23.952647, 29.311302 23.735479, 29.254664 23.518292, 29.198178 23.301085, 29.141851 23.083858, 29.08568 22.866612, 29.029652 22.649347, 28.973774 22.432063, 28.918046 22.214761, 28.862467 21.99744, 28.807021 21.780101, 26.083887 22.359895, 26.135173 22.577612, 26.186525 22.795319, 26.237978 23.013011, 26.289535 23.230691, 26.341189 23.448358, 26.392922 23.666012, 26.444764 23.883653, 26.496717 24.10128, 26.548761 24.318893, 26.600902 24.536493, 26.653158 24.754079, 26.705532 24.97165, 26.757991 25.189208, 26.810565 25.406751, 26.863261 25.624279, 26.916075 25.841792, 26.968981 26.059292, 27.022014 26.276775, 27.075177 26.494243, 27.128453 26.711696, 27.181839 26.929133, 27.23536 27.146555, 27.289018 27.363959, 27.342783 27.581349, 27.396678 27.798722, 27.450716 28.016078, 27.504897 28.233417, 27.559182 28.450741, 30.419825 27.857979))"
                     }
                 ]
             }
         ]
 
-        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
+        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
         assert len(processing_gaps) == 3
 
-        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
+        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:35", "op": "=="}],
+                                             start_filters = [{"date": "2018-07-21T08:52:37", "op": "=="}],
                                              stop_filters = [{"date": "2018-07-21T08:52:37.209040", "op": "=="}])
 
         assert len(processing_gaps) == 1
-        first_processing_gap_l0 = processing_gaps[0]
+        first_processing_gap_l1b = processing_gaps[0]
 
         # Check links with PROCESSING VALIDITY
-        link_to_gap = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_l0.event_uuid)], "op": "in"},
-                                                    event_uuids = {"filter": [str(first_processing_gap_l0.event_uuid)], "op": "in"},
+        link_to_gap = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_l1b.event_uuid)], "op": "in"},
+                                                    event_uuids = {"filter": [str(first_processing_gap_l1b.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_VALIDITY", "op": "like"})
 
         assert len(link_to_gap) == 1
 
-        link_from_gap = self.query_eboa.get_event_links(event_uuids = {"filter": [str(processing_validity_l0.event_uuid)], "op": "in"},
-                                                    event_uuid_links = {"filter": [str(first_processing_gap_l0.event_uuid)], "op": "in"},
+        link_from_gap = self.query_eboa.get_event_links(event_uuids = {"filter": [str(processing_validity_l1b.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(first_processing_gap_l1b.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
         assert len(link_from_gap) == 1
 
-        assert first_processing_gap_l0.get_structured_values() == [
+        assert first_processing_gap_l1b.get_structured_values() == [
             {
                 "value": "12.0",
                 "name": "detector",
@@ -2170,7 +2043,7 @@ class TestDpcIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "L0",
+                "value": "L1B",
                 "name": "level",
                 "type": "text"
             },
@@ -2192,28 +2065,28 @@ class TestDpcIngestion(unittest.TestCase):
             }
         ]
 
-        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
+        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
                                              start_filters = [{"date": "2018-07-21T08:52:37.209040", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:52:40", "op": "=="}])
+                                             stop_filters = [{"date": "2018-07-21T08:52:39", "op": "=="}])
 
         assert len(processing_gaps) == 1
-        second_processing_gap_l0 = processing_gaps[0]
+        second_processing_gap_l1b = processing_gaps[0]
 
         # Check links with PROCESSING VALIDITY
-        link_to_gap = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_l0.event_uuid)], "op": "in"},
-                                                    event_uuids = {"filter": [str(second_processing_gap_l0.event_uuid)], "op": "in"},
+        link_to_gap = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_l1b.event_uuid)], "op": "in"},
+                                                    event_uuids = {"filter": [str(second_processing_gap_l1b.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_VALIDITY", "op": "like"})
 
         assert len(link_to_gap) == 1
 
-        link_from_gap = self.query_eboa.get_event_links(event_uuids = {"filter": [str(processing_validity_l0.event_uuid)], "op": "in"},
-                                                    event_uuid_links = {"filter": [str(second_processing_gap_l0.event_uuid)], "op": "in"},
+        link_from_gap = self.query_eboa.get_event_links(event_uuids = {"filter": [str(processing_validity_l1b.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(second_processing_gap_l1b.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
         assert len(link_from_gap) == 1
 
-        assert second_processing_gap_l0.get_structured_values() == [
+        assert second_processing_gap_l1b.get_structured_values() == [
             {
                 "value": "12.0",
                 "name": "detector",
@@ -2225,7 +2098,7 @@ class TestDpcIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "L0",
+                "value": "L1B",
                 "name": "level",
                 "type": "text"
             },
@@ -2241,33 +2114,33 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.273379 27.327592, 27.426579 27.919008, 27.426579 27.919008, 30.273379 27.327592))"
+                        "value": "POLYGON ((30.289591 27.386531, 27.44127 27.978094, 27.44127 27.978094, 30.289591 27.386531))"
                     }
                 ]
             }
         ]
 
-        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06", "op": "like"},
+        processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1B_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
                                                      value_filters = [{"name": {"filter": "detector", "op": "like"}, "type": "double", "value": {"filter": "1", "op": "=="}}],
-                                                     start_filters = [{"date": "2018-07-21T08:52:42", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:52:44", "op": "=="}])
+                                                     start_filters = [{"date": "2018-07-21T08:52:41", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:52:43", "op": "=="}])
 
         assert len(processing_gaps) == 1
-        third_processing_gap_l0 = processing_gaps[0]
+        third_processing_gap_l1b = processing_gaps[0]
 
         # Check links with PROCESSING VALIDITY
-        link_to_gap = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_l0.event_uuid)], "op": "in"},
-                                                    event_uuids = {"filter": [str(third_processing_gap_l0.event_uuid)], "op": "in"},
+        link_to_gap = self.query_eboa.get_event_links(event_uuid_links = {"filter": [str(processing_validity_l1b.event_uuid)], "op": "in"},
+                                                    event_uuids = {"filter": [str(third_processing_gap_l1b.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_VALIDITY", "op": "like"})
 
         assert len(link_to_gap) == 1
 
-        link_from_gap = self.query_eboa.get_event_links(event_uuids = {"filter": [str(processing_validity_l0.event_uuid)], "op": "in"},
-                                                    event_uuid_links = {"filter": [str(third_processing_gap_l0.event_uuid)], "op": "in"},
+        link_from_gap = self.query_eboa.get_event_links(event_uuids = {"filter": [str(processing_validity_l1b.event_uuid)], "op": "in"},
+                                                    event_uuid_links = {"filter": [str(third_processing_gap_l1b.event_uuid)], "op": "in"},
                                                     link_names = {"filter": "PROCESSING_GAP", "op": "like"})
 
-        assert third_processing_gap_l0.get_structured_values() == [
+        assert third_processing_gap_l1b.get_structured_values() == [
             {
                 "value": "1.0",
                 "name": "detector",
@@ -2279,7 +2152,7 @@ class TestDpcIngestion(unittest.TestCase):
                 "type": "text"
             },
             {
-                "value": "L0",
+                "value": "L1B",
                 "name": "level",
                 "type": "text"
             },
@@ -2295,7 +2168,7 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.208661 27.091819, 27.36789 27.682651, 27.36789 27.682651, 30.208661 27.091819))"
+                        "value": "POLYGON ((30.224815 27.150765, 27.382538 27.741742, 27.382538 27.741742, 30.224815 27.150765))"
                     }
                 ]
             }
@@ -2309,7 +2182,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
-                                             start_filters = [{"date": "2018-07-21T08:52:35", "op": "=="}],
+                                             start_filters = [{"date": "2018-07-21T08:52:37", "op": "=="}],
                                              stop_filters = [{"date": "2018-07-21T08:52:37.209040", "op": "=="}])
 
         assert len(processing_gaps) == 1
@@ -2365,7 +2238,7 @@ class TestDpcIngestion(unittest.TestCase):
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
                                              start_filters = [{"date": "2018-07-21T08:52:37.209040", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:52:40", "op": "=="}])
+                                             stop_filters = [{"date": "2018-07-21T08:52:39", "op": "=="}])
 
         assert len(processing_gaps) == 1
         second_processing_gap_l1c = processing_gaps[0]
@@ -2409,7 +2282,7 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.273379 27.327592, 27.426579 27.919008, 27.426579 27.919008, 30.273379 27.327592))"
+                        "value": "POLYGON ((30.289591 27.386531, 27.44127 27.978094, 27.44127 27.978094, 30.289591 27.386531))"
                     }
                 ]
             }
@@ -2418,8 +2291,8 @@ class TestDpcIngestion(unittest.TestCase):
         processing_gaps = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_DS_MPS__20180721T104253_S20180721T085229_N02.06", "op": "like"},
                                                            gauge_names = {"filter": "PROCESSING_GAP", "op": "like"},
                                                      value_filters = [{"name": {"filter": "detector", "op": "like"}, "type": "double", "value": {"filter": "1", "op": "=="}}],
-                                                     start_filters = [{"date": "2018-07-21T08:52:42", "op": "=="}],
-                                             stop_filters = [{"date": "2018-07-21T08:52:44", "op": "=="}])
+                                                     start_filters = [{"date": "2018-07-21T08:52:41", "op": "=="}],
+                                             stop_filters = [{"date": "2018-07-21T08:52:43", "op": "=="}])
 
         assert len(processing_gaps) == 1
         third_processing_gap_l1c = processing_gaps[0]
@@ -2463,7 +2336,7 @@ class TestDpcIngestion(unittest.TestCase):
                     {
                         "name": "footprint",
                         "type": "geometry",
-                        "value": "POLYGON ((30.208661 27.091819, 27.36789 27.682651, 27.36789 27.682651, 30.208661 27.091819))"
+                        "value": "POLYGON ((30.224815 27.150765, 27.382538 27.741742, 27.382538 27.741742, 30.224815 27.150765))"
                     }
                 ]
             }

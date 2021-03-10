@@ -624,7 +624,7 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                 def get_upper_level_ers():
                     upper_level_ers = query.get_explicit_refs(annotation_cnf_names = {"filter": "SENSING_IDENTIFIER", "op": "=="},
                                                               annotation_cnf_systems = {"filter": satellite, "op": "=="},
-                                                              groups = {"filter": ["L0_DS", "L1B_DS"], "op": "in"},
+                                                              groups = {"filter": ["L1B_DS"], "op": "in"},
                                                               annotation_value_filters = [{"name": {"filter": "sensing_identifier", "op": "=="}, "type": "text", "value": {"op": "==", "filter": sensing_identifier}}])
 
                     upper_level_ers_same_satellite = [er.explicit_ref for er in upper_level_ers if er.explicit_ref[0:3] == satellite]
@@ -640,9 +640,6 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
                     upper_level_ers = get_upper_level_ers()
                 # end while
                 upper_level_er = [er for er in upper_level_ers if er[13:16] == "L1B"]
-                if len(upper_level_er) == 0:
-                    upper_level_er = [er for er in upper_level_ers if er[13:16] == "L0_"]
-                # end if
                 if len(upper_level_er) > 0:
                     er = upper_level_er[0]
 
