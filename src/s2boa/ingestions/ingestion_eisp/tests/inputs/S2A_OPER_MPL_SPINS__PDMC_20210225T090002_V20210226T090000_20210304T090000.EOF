@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Earth_Explorer_File xmlns="http://eop-cfi.esa.int/CFI">
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2A_OPER_MPL_SPINS__PDMC_20210225T090002_V20210226T090000_20210304T090000</File_Name>
+      <File_Description>Station Acquisition Plan File</File_Description>
+      <Notes/>
+      <Mission>Sentinel-2A</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL_SPINS_</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2021-02-26T09:00:00</Validity_Start>
+        <Validity_Stop>UTC=2021-03-04T09:00:00</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>PDMC</System>
+        <Creator>MPL</Creator>
+        <Creator_Version>00.01</Creator_Version>
+        <Creation_Date>UTC=2021-02-25T09:00:02</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header/>
+  </Earth_Explorer_Header>
+  <Data_Block type="xml">
+    <SCHEDULE>
+      <ACQ id="29677_01">
+        <Orbit_Number>29677</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-26T09:36:57.857</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-26T09:43:30.184</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-26T09:37:17.857</Data_Start>
+        <Data_Stop>UTC=2021-02-26T09:43:18.183</Data_Stop>
+      </ACQ>
+      <ACQ id="29682_01">
+        <Orbit_Number>29682</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-26T18:10:03.792</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-26T18:20:27.398</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-26T18:13:16.116</Data_Start>
+        <Data_Stop>UTC=2021-02-26T18:20:15.398</Data_Stop>
+      </ACQ>
+      <ACQ id="29683_01">
+        <Orbit_Number>29683</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-26T19:49:36.236</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-26T20:02:17.505</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-26T19:53:02.177</Data_Start>
+        <Data_Stop>UTC=2021-02-26T20:02:05.505</Data_Stop>
+      </ACQ>
+      <ACQ id="29684_01">
+        <Orbit_Number>29684</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-26T21:29:16.028</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-26T21:41:59.833</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-26T21:35:20.480</Data_Start>
+        <Data_Stop>UTC=2021-02-26T21:40:59.944</Data_Stop>
+      </ACQ>
+      <ACQ id="29685_01">
+        <Orbit_Number>29685</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-26T23:08:40.946</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-26T23:20:17.800</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-26T23:15:43.739</Data_Start>
+        <Data_Stop>UTC=2021-02-26T23:20:05.800</Data_Stop>
+      </ACQ>
+      <ACQ id="29686_01">
+        <Orbit_Number>29686</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T00:47:29.486</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T00:58:06.348</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T00:56:36.800</Data_Start>
+        <Data_Stop>UTC=2021-02-27T00:57:54.347</Data_Stop>
+      </ACQ>
+      <ACQ id="29687_01">
+        <Orbit_Number>29687</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T02:25:31.542</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T02:36:23.828</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T02:25:51.541</Data_Start>
+        <Data_Stop>UTC=2021-02-27T02:26:10.541</Data_Stop>
+      </ACQ>
+      <ACQ id="29688_01">
+        <Orbit_Number>29688</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T04:03:23.408</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T04:15:28.089</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T04:03:43.407</Data_Start>
+        <Data_Stop>UTC=2021-02-27T04:15:16.089</Data_Stop>
+      </ACQ>
+      <ACQ id="29689_01">
+        <Orbit_Number>29689</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T05:42:06.594</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T05:55:00.840</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T05:42:26.594</Data_Start>
+        <Data_Stop>UTC=2021-02-27T05:53:01.980</Data_Stop>
+      </ACQ>
+      <ACQ id="29690_01">
+        <Orbit_Number>29690</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T07:22:29.809</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T07:34:40.991</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T07:22:49.809</Data_Start>
+        <Data_Stop>UTC=2021-02-27T07:23:08.809</Data_Stop>
+      </ACQ>
+      <ACQ id="29691_01">
+        <Orbit_Number>29691</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T09:05:20.856</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T09:14:00.577</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T09:05:40.855</Data_Start>
+        <Data_Stop>UTC=2021-02-27T09:13:48.576</Data_Stop>
+      </ACQ>
+      <ACQ id="29696_01">
+        <Orbit_Number>29696</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T17:40:19.962</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T17:49:20.212</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T17:43:23.440</Data_Start>
+        <Data_Stop>UTC=2021-02-27T17:49:08.212</Data_Stop>
+      </ACQ>
+      <ACQ id="29697_01">
+        <Orbit_Number>29697</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T19:19:42.461</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T19:32:00.070</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T19:23:04.748</Data_Start>
+        <Data_Stop>UTC=2021-02-27T19:31:48.070</Data_Stop>
+      </ACQ>
+      <ACQ id="29698_01">
+        <Orbit_Number>29698</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T20:59:22.752</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T21:12:16.010</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T21:03:01.293</Data_Start>
+        <Data_Stop>UTC=2021-02-27T21:12:04.009</Data_Stop>
+      </ACQ>
+      <ACQ id="29699_01">
+        <Orbit_Number>29699</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-27T22:38:54.410</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-27T22:50:54.513</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-27T22:45:22.638</Data_Start>
+        <Data_Stop>UTC=2021-02-27T22:50:42.513</Data_Stop>
+      </ACQ>
+      <ACQ id="29700_01">
+        <Orbit_Number>29700</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T00:17:56.030</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T00:28:45.051</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T00:25:58.775</Data_Start>
+        <Data_Stop>UTC=2021-02-28T00:28:33.050</Data_Stop>
+      </ACQ>
+      <ACQ id="29701_01">
+        <Orbit_Number>29701</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T01:56:10.670</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T02:06:49.430</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T01:56:30.670</Data_Start>
+        <Data_Stop>UTC=2021-02-28T01:56:49.670</Data_Stop>
+      </ACQ>
+      <ACQ id="29702_01">
+        <Orbit_Number>29702</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T03:33:59.178</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T03:45:40.788</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T03:34:19.178</Data_Start>
+        <Data_Stop>UTC=2021-02-28T03:45:28.788</Data_Stop>
+      </ACQ>
+      <ACQ id="29703_01">
+        <Orbit_Number>29703</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T05:12:21.068</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T05:25:07.366</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T05:12:41.067</Data_Start>
+        <Data_Stop>UTC=2021-02-28T05:24:55.366</Data_Stop>
+      </ACQ>
+      <ACQ id="29704_01">
+        <Orbit_Number>29704</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T06:52:09.921</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T07:04:47.403</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T06:52:29.921</Data_Start>
+        <Data_Stop>UTC=2021-02-28T07:04:35.402</Data_Stop>
+      </ACQ>
+      <ACQ id="29705_01">
+        <Orbit_Number>29705</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T08:34:09.529</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T08:44:18.285</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T08:34:29.528</Data_Start>
+        <Data_Stop>UTC=2021-02-28T08:43:37.797</Data_Stop>
+      </ACQ>
+      <ACQ id="29710_01">
+        <Orbit_Number>29710</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T17:10:46.746</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T17:17:49.455</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T17:13:32.206</Data_Start>
+        <Data_Stop>UTC=2021-02-28T17:17:37.455</Data_Stop>
+      </ACQ>
+      <ACQ id="29711_01">
+        <Orbit_Number>29711</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T18:49:49.945</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T19:01:30.024</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T18:53:08.698</Data_Start>
+        <Data_Stop>UTC=2021-02-28T19:01:18.024</Data_Stop>
+      </ACQ>
+      <ACQ id="29712_01">
+        <Orbit_Number>29712</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T20:29:28.696</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T20:42:23.359</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T20:33:00.869</Data_Start>
+        <Data_Stop>UTC=2021-02-28T20:42:11.358</Data_Stop>
+      </ACQ>
+      <ACQ id="29713_01">
+        <Orbit_Number>29713</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T22:09:05.026</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T22:21:26.604</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T22:15:22.729</Data_Start>
+        <Data_Stop>UTC=2021-02-28T22:21:14.603</Data_Stop>
+      </ACQ>
+      <ACQ id="29714_01">
+        <Orbit_Number>29714</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-02-28T23:48:18.013</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-02-28T23:59:25.177</Acquisition_Stop>
+        <Data_Start>UTC=2021-02-28T23:56:06.781</Data_Start>
+        <Data_Stop>UTC=2021-02-28T23:59:13.176</Data_Stop>
+      </ACQ>
+      <ACQ id="29715_01">
+        <Orbit_Number>29715</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T01:26:47.094</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T01:37:19.626</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T01:34:07.428</Data_Start>
+        <Data_Stop>UTC=2021-03-01T01:34:26.428</Data_Stop>
+      </ACQ>
+      <ACQ id="29716_01">
+        <Orbit_Number>29716</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T03:04:38.039</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T03:15:56.656</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T03:04:58.038</Data_Start>
+        <Data_Stop>UTC=2021-03-01T03:15:44.656</Data_Stop>
+      </ACQ>
+      <ACQ id="29717_01">
+        <Orbit_Number>29717</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T04:42:43.446</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T04:55:15.062</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T04:43:03.446</Data_Start>
+        <Data_Stop>UTC=2021-03-01T04:55:03.061</Data_Stop>
+      </ACQ>
+      <ACQ id="29718_01">
+        <Orbit_Number>29718</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T06:22:01.607</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T06:34:53.154</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T06:22:21.607</Data_Start>
+        <Data_Stop>UTC=2021-03-01T06:34:41.153</Data_Stop>
+      </ACQ>
+      <ACQ id="29719_01">
+        <Orbit_Number>29719</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T08:03:16.722</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T08:14:30.056</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T08:03:36.722</Data_Start>
+        <Data_Stop>UTC=2021-03-01T08:06:19.407</Data_Stop>
+      </ACQ>
+      <ACQ id="29720_01">
+        <Orbit_Number>29720</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T09:47:39.288</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T09:53:14.071</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T09:47:59.287</Data_Start>
+        <Data_Stop>UTC=2021-03-01T09:53:02.071</Data_Stop>
+      </ACQ>
+      <ACQ id="29724_01">
+        <Orbit_Number>29724</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T16:41:46.307</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T16:45:32.613</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T16:43:42.318</Data_Start>
+        <Data_Stop>UTC=2021-03-01T16:45:20.612</Data_Stop>
+      </ACQ>
+      <ACQ id="29725_01">
+        <Orbit_Number>29725</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T18:19:59.773</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T18:30:45.753</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T18:23:14.068</Data_Start>
+        <Data_Stop>UTC=2021-03-01T18:30:33.752</Data_Stop>
+      </ACQ>
+      <ACQ id="29726_01">
+        <Orbit_Number>29726</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T19:59:34.371</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T20:12:20.804</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T20:03:01.683</Data_Start>
+        <Data_Stop>UTC=2021-03-01T20:12:08.803</Data_Stop>
+      </ACQ>
+      <ACQ id="29727_01">
+        <Orbit_Number>29727</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T21:39:13.589</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T21:51:52.739</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T21:45:21.257</Data_Start>
+        <Data_Stop>UTC=2021-03-01T21:51:15.153</Data_Stop>
+      </ACQ>
+      <ACQ id="29728_01">
+        <Orbit_Number>29728</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-01T23:18:35.868</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-01T23:30:04.979</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-01T23:26:24.301</Data_Start>
+        <Data_Stop>UTC=2021-03-01T23:29:52.979</Data_Stop>
+      </ACQ>
+      <ACQ id="29729_01">
+        <Orbit_Number>29729</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T00:57:19.666</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T01:07:54.100</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T01:06:39.629</Data_Start>
+        <Data_Stop>UTC=2021-03-02T01:07:42.100</Data_Stop>
+      </ACQ>
+      <ACQ id="29730_01">
+        <Orbit_Number>29730</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T02:35:18.224</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T02:46:16.363</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T02:35:38.224</Data_Start>
+        <Data_Stop>UTC=2021-03-02T02:46:04.363</Data_Stop>
+      </ACQ>
+      <ACQ id="29731_01">
+        <Orbit_Number>29731</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T04:13:12.520</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T04:25:24.505</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T04:13:32.519</Data_Start>
+        <Data_Stop>UTC=2021-03-02T04:25:12.505</Data_Stop>
+      </ACQ>
+      <ACQ id="29732_01">
+        <Orbit_Number>29732</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T05:52:03.777</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T06:04:58.890</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T05:52:23.776</Data_Start>
+        <Data_Stop>UTC=2021-03-02T06:04:46.890</Data_Stop>
+      </ACQ>
+      <ACQ id="29733_01">
+        <Orbit_Number>29733</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T07:32:39.280</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T07:44:38.628</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T07:32:59.280</Data_Start>
+        <Data_Stop>UTC=2021-03-02T07:36:26.703</Data_Stop>
+      </ACQ>
+      <ACQ id="29734_01">
+        <Orbit_Number>29734</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T09:15:49.783</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T09:23:52.493</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T09:16:09.783</Data_Start>
+        <Data_Stop>UTC=2021-03-02T09:23:40.492</Data_Stop>
+      </ACQ>
+      <ACQ id="29739_01">
+        <Orbit_Number>29739</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T17:50:13.812</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T17:59:44.874</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T17:53:20.879</Data_Start>
+        <Data_Stop>UTC=2021-03-02T17:59:32.874</Data_Stop>
+      </ACQ>
+      <ACQ id="29740_01">
+        <Orbit_Number>29740</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T19:29:40.329</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T19:42:07.258</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T19:33:03.782</Data_Start>
+        <Data_Stop>UTC=2021-03-02T19:41:55.257</Data_Stop>
+      </ACQ>
+      <ACQ id="29741_01">
+        <Orbit_Number>29741</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T21:09:20.662</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T21:22:11.584</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T21:13:01.742</Data_Start>
+        <Data_Stop>UTC=2021-03-02T21:21:59.583</Data_Stop>
+      </ACQ>
+      <ACQ id="29742_01">
+        <Orbit_Number>29742</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-02T22:48:50.181</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-02T23:00:42.619</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-02T22:55:23.363</Data_Start>
+        <Data_Stop>UTC=2021-03-02T23:00:30.619</Data_Stop>
+      </ACQ>
+      <ACQ id="29743_01">
+        <Orbit_Number>29743</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T00:27:47.737</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T00:38:31.946</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T00:35:56.708</Data_Start>
+        <Data_Stop>UTC=2021-03-03T00:38:19.946</Data_Stop>
+      </ACQ>
+      <ACQ id="29744_01">
+        <Orbit_Number>29744</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T02:05:57.892</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T02:16:40.419</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T02:06:17.892</Data_Start>
+        <Data_Stop>UTC=2021-03-03T02:06:36.892</Data_Stop>
+      </ACQ>
+      <ACQ id="29745_01">
+        <Orbit_Number>29745</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T03:43:46.861</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T03:55:36.270</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T03:44:06.860</Data_Start>
+        <Data_Stop>UTC=2021-03-03T03:55:24.270</Data_Stop>
+      </ACQ>
+      <ACQ id="29746_01">
+        <Orbit_Number>29746</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T05:22:15.341</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T05:35:05.120</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T05:22:35.341</Data_Start>
+        <Data_Stop>UTC=2021-03-03T05:34:53.120</Data_Stop>
+      </ACQ>
+      <ACQ id="29747_01">
+        <Orbit_Number>29747</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T07:02:15.238</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T07:14:45.406</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T07:02:35.237</Data_Start>
+        <Data_Stop>UTC=2021-03-03T07:10:28.102</Data_Stop>
+      </ACQ>
+      <ACQ id="29748_01">
+        <Orbit_Number>29748</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T08:44:31.055</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T08:54:13.273</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T08:44:51.054</Data_Start>
+        <Data_Stop>UTC=2021-03-03T08:52:26.882</Data_Stop>
+      </ACQ>
+      <ACQ id="29753_01">
+        <Orbit_Number>29753</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T17:20:36.027</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T17:28:23.001</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T17:23:29.147</Data_Start>
+        <Data_Stop>UTC=2021-03-03T17:28:11.001</Data_Stop>
+      </ACQ>
+      <ACQ id="29754_01">
+        <Orbit_Number>29754</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T18:59:47.270</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T19:11:41.547</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T19:03:07.242</Data_Start>
+        <Data_Stop>UTC=2021-03-03T19:11:29.546</Data_Stop>
+      </ACQ>
+      <ACQ id="29755_01">
+        <Orbit_Number>29755</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T20:39:26.786</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T20:52:21.972</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T20:43:00.890</Data_Start>
+        <Data_Stop>UTC=2021-03-03T20:52:09.972</Data_Stop>
+      </ACQ>
+      <ACQ id="29756_01">
+        <Orbit_Number>29756</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T22:19:01.758</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-03T22:31:16.511</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-03T22:25:24.355</Data_Start>
+        <Data_Stop>UTC=2021-03-03T22:31:04.511</Data_Stop>
+      </ACQ>
+      <ACQ id="29757_01">
+        <Orbit_Number>29757</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-03T23:58:11.359</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-04T00:09:11.936</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-04T00:06:02.393</Data_Start>
+        <Data_Stop>UTC=2021-03-04T00:08:59.936</Data_Stop>
+      </ACQ>
+      <ACQ id="29758_01">
+        <Orbit_Number>29758</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-04T01:36:35.527</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-04T01:47:09.251</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-04T01:36:55.527</Data_Start>
+        <Data_Stop>UTC=2021-03-04T01:37:14.527</Data_Stop>
+      </ACQ>
+      <ACQ id="29759_01">
+        <Orbit_Number>29759</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-04T03:14:25.047</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-04T03:25:51.170</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-04T03:14:45.046</Data_Start>
+        <Data_Stop>UTC=2021-03-04T03:25:39.170</Data_Stop>
+      </ACQ>
+      <ACQ id="29760_01">
+        <Orbit_Number>29760</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-04T04:52:35.383</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-04T05:05:12.535</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-04T04:52:55.382</Data_Start>
+        <Data_Stop>UTC=2021-03-04T05:05:00.534</Data_Stop>
+      </ACQ>
+      <ACQ id="29761_01">
+        <Orbit_Number>29761</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-04T06:32:03.370</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-04T06:44:51.476</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-04T06:32:23.369</Data_Start>
+        <Data_Stop>UTC=2021-03-04T06:44:39.475</Data_Stop>
+      </ACQ>
+      <ACQ id="29762_01">
+        <Orbit_Number>29762</Orbit_Number>
+        <Station_Id>INS_</Station_Id>
+        <Satellite_Id>S2A</Satellite_Id>
+        <Downlink_Channels>1+2</Downlink_Channels>
+        <Acquisition_Start>UTC=2021-03-04T08:13:32.711</Acquisition_Start>
+        <Acquisition_Stop>UTC=2021-03-04T08:24:26.797</Acquisition_Stop>
+        <Data_Start>UTC=2021-03-04T08:13:52.711</Data_Start>
+        <Data_Stop>UTC=2021-03-04T08:24:14.797</Data_Stop>
+      </ACQ>
+    </SCHEDULE>
+  </Data_Block>
+</Earth_Explorer_File>
