@@ -692,7 +692,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 sensing_gaps_per_apid[apid_number].append({
                     "id": apid_number,
                     "start": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PreSensTime)")))),
-                    "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))) - datetime.timedelta(seconds=3.608),
+                    "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))),
                 })
             # end for
             timelines_of_sensing_gaps.append(sensing_gaps_per_apid[apid_number])
@@ -704,7 +704,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 covered_sensing = {
                     "id": "covered_sensing",
                     "start": parser.parse(functions.convert_from_gps_to_utc(covered_sensing_start)),
-                    "stop": parser.parse(functions.convert_from_gps_to_utc(covered_sensing_stop)) + datetime.timedelta(seconds=3.608)
+                    "stop": parser.parse(functions.convert_from_gps_to_utc(covered_sensing_stop))
                 }
                 received_datablocks_per_apid[apid_number] = [segment for segment in ingestion_functions.difference_timelines([covered_sensing], sensing_gaps_per_apid[apid_number]) if segment["id"] == "covered_sensing"]
             # end if
@@ -713,11 +713,11 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Obtain the sensing gaps common to all apids
         sensing_gaps = ingestion_functions.intersect_many_timelines(timelines_of_sensing_gaps)
 
-        # Received datablocks
+        # Received datablocks (removed the scene added which will be added to every datastrip)
         covered_sensing = {
             "id": "covered_sensing",
             "start": parser.parse(corrected_sensing_start),
-            "stop": parser.parse(corrected_sensing_stop)
+            "stop": parser.parse(corrected_sensing_stop) - datetime.timedelta(seconds=3.608)
         }
         received_datablocks = [segment for segment in ingestion_functions.difference_timelines([covered_sensing], sensing_gaps) if segment["id"] == "covered_sensing"]
 
@@ -1093,7 +1093,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         corrected_planned_imagings_segments = ingestion_functions.convert_eboa_events_to_date_segments(corrected_planned_imagings)
 
         # Obtain the duration of the MSI received (Add the duration of the last scene)
-        isp_validity_timeline_duration = sum([(received_datablock["stop"] - received_datablock["start"]).total_seconds() for received_datablock in received_datablocks])
+        isp_validity_timeline_duration = sum([(received_datablock["stop"] - received_datablock["start"]).total_seconds() + 3.608 for received_datablock in received_datablocks])
         expected_number_scenes = round(isp_validity_timeline_duration / 3.608)
         expected_number_packets = expected_number_scenes * 6480
 
@@ -1116,7 +1116,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # Build the ISP_VALIDITY events
         for received_datablock in received_datablocks:
             start = received_datablock["start"]
-            stop = received_datablock["stop"]
+            # Add the last scene
+            stop = received_datablock["stop"] + datetime.timedelta(seconds=3.608)
             links_isp_validity = []
             links_isp_completeness = []
             imaging_mode = None

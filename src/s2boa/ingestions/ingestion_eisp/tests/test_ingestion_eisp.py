@@ -146,20 +146,20 @@ class TestEispIngestion(unittest.TestCase):
         # Check specific ISP_VALIDITY
         specific_isp_validity1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
                                                                                  Event.start == "2021-02-26T15:08:54.264729",
-                                                                                 Event.stop == "2021-02-26T15:17:44.607184").all()
+                                                                                 Event.stop == "2021-02-26T15:17:48.215184").all()
 
         assert len(specific_isp_validity1) == 1
 
         # Check specific ISP_VALIDITY
         specific_isp_validity2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
-                                                                                 Event.start == "2021-02-26T15:22:13.855720",
-                                                                                 Event.stop == "2021-02-26T15:22:53.541439").all()
+                                                                                 Event.start == "2021-02-26T15:22:17.463720",
+                                                                                 Event.stop == "2021-02-26T15:22:57.149439").all()
 
         assert len(specific_isp_validity2) == 1
 
         # Check specific ISP_VALIDITY
         specific_isp_validity3 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
-                                                                                 Event.start == "2021-02-26T16:32:24.848297",
+                                                                                 Event.start == "2021-02-26T16:32:28.456297",
                                                                                  Event.stop == "2021-02-26T16:35:32.452882").all()
 
         assert len(specific_isp_validity3) == 1
@@ -310,7 +310,7 @@ class TestEispIngestion(unittest.TestCase):
         # Check specific PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL
         specific_planned_isp_completeness = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
                                                                                  Event.start == "2021-02-26T15:08:54.264729",
-                                                                                 Event.stop == "2021-02-26T15:17:44.607184").all()
+                                                                                 Event.stop == "2021-02-26T15:17:48.215184").all()
 
         assert len(specific_planned_isp_completeness) == 1
 
@@ -330,14 +330,14 @@ class TestEispIngestion(unittest.TestCase):
 
         # Check specific PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL
         specific_planned_isp_completeness = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
-                                                                                 Event.start == "2021-02-26T15:22:13.855720",
-                                                                                 Event.stop == "2021-02-26T15:22:53.541439").all()
+                                                                                 Event.start == "2021-02-26T15:22:17.463720",
+                                                                                 Event.stop == "2021-02-26T15:22:57.149439").all()
 
         assert len(specific_planned_isp_completeness) == 1
 
         # Check specific PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL
         specific_planned_isp_completeness = self.session.query(Event).join(Gauge).filter(Gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
-                                                                                 Event.start == "2021-02-26T16:32:24.848297",
+                                                                                 Event.start == "2021-02-26T16:32:28.456297",
                                                                                  Event.stop == "2021-02-26T16:35:32.452882").all()
 
         assert len(specific_planned_isp_completeness) == 1
@@ -393,27 +393,27 @@ class TestEispIngestion(unittest.TestCase):
         # Check specific ISP_VALIDITY_PROCESSING_COMPLETENESS_CHANNEL
         specific_processing_isp_completeness = self.session.query(Event).join(Gauge).filter(Gauge.name.like("ISP_VALIDITY_PROCESSING_COMPLETENESS%"),
                                                                                  Event.start == "2021-02-26T15:09:00.264729",
-                                                                                 Event.stop == "2021-02-26T15:17:38.607184").all()
+                                                                                 Event.stop == "2021-02-26T15:17:42.215184").all()
 
         assert len(specific_processing_isp_completeness) == 2
 
         # Check specific ISP_VALIDITY_PROCESSING_COMPLETENESS_CHANNEL
         specific_processing_isp_completeness = self.session.query(Event).join(Gauge).filter(Gauge.name.like("ISP_VALIDITY_PROCESSING_COMPLETENESS%"),
-                                                                                 Event.start == "2021-02-26T15:22:19.855720",
-                                                                                 Event.stop == "2021-02-26T15:22:47.541439").all()
+                                                                                 Event.start == "2021-02-26T15:22:23.463720",
+                                                                                 Event.stop == "2021-02-26T15:22:51.149439").all()
 
         assert len(specific_processing_isp_completeness) == 2
 
         # Check specific ISP_VALIDITY_PROCESSING_COMPLETENESS_CHANNEL
         specific_processing_isp_completeness = self.session.query(Event).join(Gauge).filter(Gauge.name.like("ISP_VALIDITY_PROCESSING_COMPLETENESS%"),
-                                                                                 Event.start == "2021-02-26T16:32:30.848297",
+                                                                                 Event.start == "2021-02-26T16:32:34.456297",
                                                                                  Event.stop == "2021-02-26T16:35:26.452882").all()
 
         assert len(specific_processing_isp_completeness) == 2
 
         # Check specific ISP_VALIDITY_PROCESSING_COMPLETENESS_CHANNEL
         specific_processing_isp_completeness_l0 = self.session.query(Event).join(Gauge).filter(Gauge.name.like("ISP_VALIDITY_PROCESSING_COMPLETENESS_L0%"),
-                                                                                 Event.start == "2021-02-26T16:32:30.848297",
+                                                                                 Event.start == "2021-02-26T16:32:34.456297",
                                                                                  Event.stop == "2021-02-26T16:35:26.452882").all()
 
         assert len(specific_processing_isp_completeness_l0) == 1
@@ -725,7 +725,7 @@ class TestEispIngestion(unittest.TestCase):
         # Check ISP_GAP events
         isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
                                                                 Event.start == "2021-02-26T16:36:08.530370",
-                                                                Event.stop == "2021-02-26T16:36:12.137914").all()
+                                                                Event.stop == "2021-02-26T16:36:15.745914").all()
 
         assert len(isp_gaps) == 30
 
@@ -1018,7 +1018,7 @@ class TestEispIngestion(unittest.TestCase):
         # Check specific ISP completeness
         isp_completeness_1 = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1"),
                                                                                  Event.start == "2021-02-26T15:08:54.264729",
-                                                                                 Event.stop == "2021-02-26T15:17:44.607184").all()
+                                                                                 Event.stop == "2021-02-26T15:17:48.215184").all()
 
         assert len(isp_completeness_1) == 1
 
@@ -1040,8 +1040,8 @@ class TestEispIngestion(unittest.TestCase):
         assert len(link_from_plan) == 1
 
         isp_completeness_2 = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1"),
-                                                                                 Event.start == "2021-02-26T15:22:13.855720",
-                                                                                 Event.stop == "2021-02-26T15:22:53.541439").all()
+                                                                                 Event.start == "2021-02-26T15:22:17.463720",
+                                                                                 Event.stop == "2021-02-26T15:22:57.149439").all()
 
         assert len(isp_completeness_2) == 1
 
@@ -1063,7 +1063,7 @@ class TestEispIngestion(unittest.TestCase):
         assert len(link_from_plan) == 1
         
         isp_completeness_3 = self.session.query(Event).join(Gauge).filter(Gauge.name.like("PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1"),
-                                                                                 Event.start == "2021-02-26T16:32:24.848297",
+                                                                                 Event.start == "2021-02-26T16:32:28.456297",
                                                                                  Event.stop == "2021-02-26T16:35:32.452882").all()
 
         assert len(isp_completeness_3) == 1
