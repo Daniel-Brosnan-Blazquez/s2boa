@@ -146,6 +146,44 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
         planned_playback_completeness = planned_playbacks_and_playback_completeness["linking_events"]
     # end if
 
+    links_dfep_acquisition_validity = []
+    for planned_playback_uuid in planned_playback_uuids:
+        links_dfep_acquisition_validity.append({
+            "link": str(planned_playback_uuid),
+            "link_mode": "by_uuid",
+            "name": "DFEP_ACQUISITION_VALIDITY",
+            "back_ref": "PLANNED_PLAYBACK"
+        })
+    # end for
+    dfep_acquisition_validity_event = {
+        "explicit_reference": session_id,
+        "key": session_id + "_CHANNEL_" + channel,
+        "gauge": {
+            "insertion_type": "EVENT_KEYS",
+            "name": "DFEP_ACQUISITION_VALIDITY",
+            "system": station
+        },
+        "links": links_dfep_acquisition_validity,
+        "start": source["reported_validity_start"],
+        "stop": source["reported_validity_stop"],
+        "values": [
+            {"name": "downlink_orbit",
+             "type": "double",
+             "value": downlink_orbit},
+            {"name": "satellite",
+             "type": "text",
+             "value": satellite},
+            {"name": "reception_station",
+             "type": "text",
+             "value": station},
+            {"name": "channel",
+             "type": "double",
+             "value": channel}
+        ]
+    }
+    # Insert playback_validity_event
+    list_of_events.append(dfep_acquisition_validity_event)
+    
     # List for the playback completeness analysis of the plan
     list_of_playback_completeness_events = []
     
@@ -1825,80 +1863,6 @@ def _generate_pass_information(xpath_xml, source, engine, query, list_of_annotat
 
     return
 
-@debug
-def _generate_acquisition_coverage(xpath_xml, source, engine, query, list_of_events):
-    """
-    Method to generate the events for associating the planned playbacks even if there is no acquisition
-    :param xpath_xml: source of information that was xpath evaluated
-    :type xpath_xml: XPathEvaluator
-    :param source: information of the source
-    :type source: dict
-    :param engine: object to access the engine of the EBOA
-    :type engine: Engine
-    :param query: object to access the query interface of the EBOA
-    :type query: Query
-    :param list_of_events: list to store the events to be inserted into the eboa
-    :type list_of_events: list
-    """
-
-    # Obtain the satellite
-    satellite = source["name"][0:3]
-
-    # Obtain the station
-    station = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/System")[0].text
-
-    # Obtain link session ID
-    session_id = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/File_Type")[0].text + "_" + xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("UTC=",1)[1]
-
-    # Obtain downlink orbit
-    downlink_orbit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Variable_Header/Downlink_Orbit")[0].text
-
-    validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
-
-    validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
-
-    # Get planned playbacks covered by the acquisition timings
-    corrected_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK_CORRECTION"},
-                                                        gauge_systems = {"op": "==", "filter": satellite},
-                                                        start_filters = [{"date": validity_start, "op": ">="}],
-                                                        stop_filters = [{"date": validity_stop, "op": "<="}])
-
-    links = []
-    for corrected_planned_playback in corrected_planned_playbacks:
-        planned_playback_uuid = [event_link.event_uuid_link for event_link in corrected_planned_playback.eventLinks if event_link.name == "PLANNED_EVENT"][0]            
-        links.append({
-            "link": str(planned_playback_uuid),
-            "link_mode": "by_uuid",
-            "name": "DFEP_ACQUISITION_VALIDITY",
-            "back_ref": "PLANNED_PLAYBACK"
-        })
-    # end for
-    distribution_status_event = {
-        "explicit_reference": session_id,
-        "key": session_id,
-        "gauge": {
-            "insertion_type": "EVENT_KEYS",
-            "name": "DFEP_ACQUISITION_VALIDITY",
-            "system": station
-        },
-        "links": links,
-        "start": validity_start,
-        "stop": validity_stop,
-        "values": [
-            {"name": "downlink_orbit",
-             "type": "double",
-             "value": downlink_orbit},
-            {"name": "satellite",
-             "type": "text",
-             "value": satellite},
-            {"name": "reception_station",
-             "type": "text",
-             "value": station}
-        ]
-    }
-    # Insert playback_validity_event
-    list_of_events.append(distribution_status_event)
-
 def process_file(file_path, engine, query, reception_time):
     """
     Function to process the file and insert its relevant information
@@ -2031,7 +1995,7 @@ def process_file(file_path, engine, query, reception_time):
         # Extract the information of the pass
         _generate_pass_information(xpath_xml, source, engine, query, list_of_annotations, list_of_explicit_references, isp_status, acquisition_status)
 
-        functions.insert_ingestion_progress(session_progress, general_source_progress, 60)        
+        functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
     # end if
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
