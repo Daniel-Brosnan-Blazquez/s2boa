@@ -14,7 +14,12 @@ var processing_geometries_complete = [
     {% set downlink_orbit = event.eventDoubles|selectattr("name", "equalto", "downlink_orbit")|map(attribute='value')|first|string %}
     {% set station = original_isp_validity.eventTexts|selectattr("name", "equalto", "reception_station")|map(attribute='value')|first|string %}
     {% set level = event.eventTexts|selectattr("name", "equalto", "level")|map(attribute='value')|first|string %}
-    {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+    {% set sensing_orbit_values = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|list %}
+    {% if sensing_orbit_values|length > 0 %}
+    {% set sensing_orbit = sensing_orbit_values|first|int %}
+    {% else %}
+    {% set sensing_orbit = "N/A" %}
+    {% endif %}
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
     {% set datastrip = "<a href='/eboa_nav/query-event-links/" + event.event_uuid|string + "'>" + event.explicitRef.explicit_ref + "</a>" %}
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
