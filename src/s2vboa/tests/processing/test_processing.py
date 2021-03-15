@@ -12400,3 +12400,269 @@ class TestProcessingView(unittest.TestCase):
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        wait = WebDriverWait(self.driver,5)
+
+        self.driver.get("http://localhost:5000/views/processing")
+
+        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "16077", stop_orbit = "16079", map = True, timeline = True)
+
+        # Check summary pies
+        # L0
+        processing_data_l0_pie_info = [1,0]
+
+        returned_processing_data_l0_pie_info = self.driver.execute_script('return processing_data_l0;')
+        assert processing_data_l0_pie_info == returned_processing_data_l0_pie_info
+        
+        # Check summary expected playbacks
+        summary_expected_playbacks = wait.until(EC.visibility_of_element_located((By.ID,"summary-processing-playbacks")))
+
+        assert summary_expected_playbacks
+
+        assert summary_expected_playbacks.text == "1"
+
+        # Check summary expected datastrips
+        summary_expected_datastrips = wait.until(EC.visibility_of_element_located((By.ID,"summary-processing-datastrips")))
+
+        assert summary_expected_datastrips
+
+        assert summary_expected_datastrips.text == "1"
+
+        # Check summary processing table
+        summary_table = self.driver.find_element_by_id("summary-processing-table")
+
+        # Row 1
+        level = summary_table.find_element_by_xpath("tbody/tr[2]/td[1]")
+
+        assert level.text == "L0"
+
+        expected = summary_table.find_element_by_xpath("tbody/tr[2]/td[2]")
+
+        assert expected.text == "1"
+
+        missing = summary_table.find_element_by_xpath("tbody/tr[2]/td[3]")
+
+        assert missing.text == "0"
+
+        incomplete = summary_table.find_element_by_xpath("tbody/tr[2]/td[4]")
+
+        assert incomplete.text == "0"
+
+        performance = summary_table.find_element_by_xpath("tbody/tr[2]/td[5]")
+
+        assert performance.text == "100.0"
+
+        # Check whether the maps are displayed
+        map_section = self.driver.find_element_by_id("processing-on-map-section")
+
+        condition = map_section.is_displayed()
+
+        assert condition is True
+        
+        # Check map complete segments tooltip
+        planned_playback_correction = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                start_filters =[{"date": "2018-07-21T10:35:32.524661", "op":"=="}],
+                                                                stop_filters = [{"date": "2018-07-21T10:37:08.530863", "op": "=="}])
+        sad_data = self.query_eboa.get_events(gauge_names ={"filter": "SAD_DATA", "op":"=="},
+                                            start_filters =[{"date": "2018-07-20T22:00:21.024658", "op":"=="}],
+                                            stop_filters = [{"date": "2018-07-21T10:37:11.024915", "op": "=="}])
+        isp_validity = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY", "op":"=="},
+                                                start_filters =[{"date": "2018-07-21T08:52:29.993268", "op":"=="}],
+                                                stop_filters = [{"date": "2018-07-21T08:54:18.226646", "op": "=="}])
+        planned_playback = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2018-07-21T10:35:27.430000", "op":"=="}],
+                                                    stop_filters = [{"date": "2018-07-21T10:37:03.431000", "op": "=="}])
+        # L0
+        isp_validity_processing_completeness_l0 = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L0_CHANNEL_2", "op":"=="},
+                                                                                start_filters =[{"date": "2018-07-21T08:52:29", "op":"=="}],
+                                                                                stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+        processing_validity_l0 = self.query_eboa.get_events(gauge_names ={"filter": "PROCESSING_VALIDITY", "op":"=="},
+                                                            start_filters =[{"date": "2018-07-21T08:52:29", "op":"=="}],
+                                                            stop_filters = [{"date": "2018-07-21T08:54:19", "op": "=="}])
+        
+        map_l0_complete_tooltip_info = [
+            {
+                "geometries": [
+                        isp_validity_processing_completeness_l0[0].eventGeometries[0].to_wkt()
+                ],
+                "id": str(isp_validity_processing_completeness_l0[0].event_uuid),
+                "style": {
+                    "stroke_color": "green",
+                    "fill_color": "rgba(0,255,0,0.3)",
+                },
+                "tooltip": "<table border='1'>" + 
+                "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "</td></tr>" + 
+                "<tr><td>Satellite</td><td>S2A</td></tr>" + 
+                "<tr><td>Downlink orbit</td><td><a href='/views/specific-acquisition/" + str(planned_playback_correction[0].event_uuid) + "'>16078.0</a></td></tr>" +
+                "<tr><td>Station</td><td>MPS_</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td>N/A</td></tr>" +
+                "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>N/A</td></tr>" +
+                "<tr><td>Start</td><td>" + processing_validity_l0[0].start.isoformat() + "</td></tr>" +
+                "<tr><td>Stop</td><td>" + processing_validity_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.833</td></tr>" +
+                "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
+                "</table>"
+            },
+        ]
+
+        returned_processing_geometries_complete_l0 = self.driver.execute_script('return processing_geometries_complete_l0;')
+        functions_vboa.verify_js_var(returned_processing_geometries_complete_l0, map_l0_complete_tooltip_info)
+
+        # Check whether the timeline is displayed
+        timeline_section = self.driver.find_element_by_id("processing-timeline-section")
+
+        condition = timeline_section.is_displayed()
+        assert condition is True
+
+        # Check timeline segments tooltip
+        # Missing
+        missing_timeline_tooltip_info = []
+
+        returned_missing_processing_timeline = self.driver.execute_script('return missing_processing_timeline;')
+        assert missing_timeline_tooltip_info == returned_missing_processing_timeline
+        # Complete
+        complete_timeline_tooltip_info = [
+            {
+                "className": "fill-border-green",
+                "group": "S2A;MPS_",
+                "id": str(isp_validity_processing_completeness_l0[0].event_uuid),
+                "start": "2018-07-21T08:52:29",
+                "stop": "2018-07-21T08:54:19",
+                "timeline": "L0",
+                "tooltip": "<table border='1'>" + 
+                "<tr><td>UUID</td><td>" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "</td></tr>" + 
+                "<tr><td>Satellite</td><td>S2A</td></tr>" + 
+                "<tr><td>Downlink orbit</td><td><a href='/views/specific-acquisition/" + str(planned_playback_correction[0].event_uuid) + "'>16078.0</a></td></tr>" +
+                "<tr><td>Station</td><td>MPS_</td></tr>" +
+                "<tr><td>Level</td><td>L0</td></tr>" +
+                "<tr><td>Sensing orbit</td><td>N/A</td></tr>" +
+                "<tr><td>Status</td><td><a href='/views/specific-processing/" + str(planned_playback[0].event_uuid) + "' class=bold-green>COMPLETE</a></td></tr>" +
+                "<tr><td>Datastrip</td><td><a href='/eboa_nav/query-event-links/" + str(isp_validity_processing_completeness_l0[0].event_uuid) + "'>S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06</a></td></tr>" +
+                "<tr><td>Imaging mode</td><td>N/A</td></tr>" +
+                "<tr><td>Start</td><td>" + processing_validity_l0[0].start.isoformat() + "</td></tr>" +
+                "<tr><td>Stop</td><td>" + processing_validity_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.833</td></tr>" +
+                "<tr><td>SAD coverage</td><td><a href='/eboa_nav/query-event-links/" + str(sad_data[0].event_uuid) + "'>2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915</a></td></tr>" +
+                "</table>"
+            },
+        ]
+
+        returned_complete_processing_timeline = self.driver.execute_script('return complete_processing_timeline;')
+        functions_vboa.verify_js_var(returned_complete_processing_timeline, complete_timeline_tooltip_info)
+
+        # Incomplete
+        incomplete_timeline_tooltip_info = []
+
+        returned_incomplete_processing_timeline = self.driver.execute_script('return incomplete_processing_timeline;')
+        assert incomplete_timeline_tooltip_info == returned_incomplete_processing_timeline
+
+        # Check processing completeness table
+        completeness_table = self.driver.find_element_by_id("processing-completeness-table")
+
+        # Row 1
+        satellite = completeness_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        downlink_orbit = completeness_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+
+        assert downlink_orbit.text == "16078.0"
+
+        station = completeness_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "MPS_"
+
+        level = completeness_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+
+        assert level.text == "L0"
+
+        sensing_orbit = completeness_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+
+        assert sensing_orbit.text == "N/A"
+
+        datastrip_status = completeness_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert datastrip_status.text == "COMPLETE"
+
+        datastrip = completeness_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert datastrip.text == "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"
+
+        imaging_mode = completeness_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "N/A"
+
+        start = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert start.text == "2018-07-21T08:52:29"
+
+        stop = completeness_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert stop.text == "2018-07-21T08:54:19"
+
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+
+        assert duration.text == "1.833"
+
+        sad_coverage = completeness_table.find_element_by_xpath("tbody/tr[1]/td[12]")
+
+        assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
+
+        # Datastrip by UUID completeness table
+        wait = WebDriverWait(self.driver,5)
+
+        self.driver.get("http://localhost:5000/views/specific-processing/" + str(planned_playback[0].event_uuid))
+
+        completeness_datastrip_table = self.driver.find_element_by_id("processing-completeness-table")
+
+        # Row 1
+        satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+
+        assert satellite.text == "S2A"
+
+        downlink_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+
+        assert downlink_orbit.text == "16078.0"
+
+        station = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "MPS_"
+
+        level = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+
+        assert level.text == "L0"
+
+        sensing_orbit = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+
+        assert sensing_orbit.text == "N/A"
+
+        datastrip_status = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert datastrip_status.text == "COMPLETE"
+
+        datastrip = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert datastrip.text == "S2A_OPER_MSI_L0__DS_MPS__20180721T103920_S20180721T085229_N02.06"
+
+        imaging_mode = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert imaging_mode.text == "N/A"
+
+        start = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert start.text == "2018-07-21T08:52:29"
+
+        stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert stop.text == "2018-07-21T08:54:19"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+
+        assert duration.text == "1.833"
+
+        sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
+
+        assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
