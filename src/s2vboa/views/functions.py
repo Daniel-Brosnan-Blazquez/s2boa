@@ -85,6 +85,7 @@ def get_start_stop_filters(query, current_app, request, window_size, mission, fi
                                                               "value": {"op": "like", "filter": mission}
                                                           }])
 
+            orbpre_events.sort(key=lambda x: x.start)
             if len(orbpre_events) > 0:
                 orbpre_event = orbpre_events[0]
                 stop_filter = {
@@ -122,8 +123,9 @@ def get_start_stop_filters(query, current_app, request, window_size, mission, fi
                                                               "value": {"op": "like", "filter": mission}
                                                           }])
 
+            orbpre_events.sort(key=lambda x: x.start)
             if len(orbpre_events) > 0:
-                orbpre_event = orbpre_events[0]
+                orbpre_event = orbpre_events[-1]
                 start_filter = {
                     "date": orbpre_event.stop.isoformat(),
                     "op": "<="
