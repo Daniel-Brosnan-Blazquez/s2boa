@@ -1756,3 +1756,41 @@ def get_centre_name_by_alias(alias):
     # end if
 
     return name
+
+
+###########
+# Functions for helping with the ingestion of the link execution status reported by EDRS team
+###########
+def get_satellites_conf():
+    schema_path = get_resources_path() + "/satellites_schema.xsd"
+    parsed_schema = etree.parse(schema_path)
+    schema = etree.XMLSchema(parsed_schema)
+    # Get configuration
+    try:
+        satellites_xml = etree.parse(get_resources_path() + "/satellites.xml")
+    except etree.XMLSyntaxError as e:
+        logger.error("The satellites configuration file ({}) cannot be read".format(get_resources_path() + "/satellites.xml"))
+        raise satellitesConfigCannotBeRead("The satellites configuration file ({}) cannot be read".format(get_resources_path() + "/satellites.xml"))
+    # end try
+
+    valid = schema.validate(satellites_xml)
+    if not valid:
+        logger.error("The satellites configuration file ({}) does not pass the schema ({})".format(get_resources_path() + "/satellites.xml", get_schemas_path() + "/satellites_schema.xsd"))
+        raise satellitesConfigDoesNotPassSchema("The satellites configuration file ({}) does not pass the schema ({})".format(get_resources_path() + "/satellites.xml", get_schemas_path() + "/satellites_schema.xsd"))
+    # end if
+
+    satellites_xpath = etree.XPathEvaluator(satellites_xml)
+
+    return satellites_xpath
+
+def get_satellite_name_by_alias(alias):
+
+    # Get the satellites configuration
+    satellites_xpath = get_satellites_conf()
+
+    # Obtain the name related to the alias
+    names = satellites_xpath("/satellites_configuration/satellite[boolean(list_of_alias/name[$alias = text()])]", alias = alias)
+    if len(names) > 0:
+        name = names[0].xpath("name")[0].text
+    
+    return name
