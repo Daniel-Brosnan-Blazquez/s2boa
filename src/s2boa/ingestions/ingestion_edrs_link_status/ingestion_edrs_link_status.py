@@ -66,12 +66,16 @@ def process_file(file_path, engine, query, reception_time):
 
     edrs_unit = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Mission")[0].text
     session_id = xpath_xml("/Earth_Explorer_File/Data_Block/Session_ID")[0].text
+    generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
     validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
 
     source = {
+        "name": file_name,
+        "reception_time": reception_time,
+        "generation_time": generation_time,
         "validity_start": validity_start,
-        "validity_stop": validity_stop
+        "validity_stop": validity_stop,
     }
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
@@ -89,6 +93,7 @@ def process_file(file_path, engine, query, reception_time):
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 10)
     
+    # Link LINK_EXECUTION_STATUS event with the PLANNED_PLAYBACK events
     planned_playback_uuids = []
     edrs_slots = query.get_events(explicit_refs = {"op": "==", "filter": session_id},
                                       gauge_names = {"op": "==", "filter": "SLOT_REQUEST_EDRS"},
@@ -118,7 +123,7 @@ def process_file(file_path, engine, query, reception_time):
         number_of_delivered_cadu = dcsu.xpath("Number_of_delivered_CADU")[0].text
         number_of_missing_cadu = dcsu.xpath("Number_of_missing_CADU")[0].text
 
-        if (status == "SUCCESS" and int(link_session_fer) == 0 and number_of_missing_cadu == 0):
+        if (status == "SUCCESS" and link_session_fer == "0.0" and number_of_missing_cadu == "0"):
             characterized_status = "OK"
         else:
             characterized_status = "NOK"
@@ -183,6 +188,16 @@ def process_file(file_path, engine, query, reception_time):
                 }]
         })
     
+    functions.insert_ingestion_progress(session_progress, general_source_progress, 60)
+    
+    # Associate the explicit reference to the group EDRS_LINK_SESSION_IDs
+    explicit_references = []
+    explicit_reference = {
+            "name": session_id,
+            "group": "EDRS_LINK_SESSION_IDs"
+    }
+    explicit_references.append(explicit_reference)
+    
     functions.insert_ingestion_progress(session_progress, general_source_progress, 80)
 
     # Build the xml
@@ -194,6 +209,7 @@ def process_file(file_path, engine, query, reception_time):
             "version": version
         },
         "source": source,
+        "explicit_references": explicit_references,
         "events": events
     }]}
     
