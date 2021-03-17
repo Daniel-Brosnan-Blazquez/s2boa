@@ -123,7 +123,7 @@ def process_file(file_path, engine, query, reception_time):
         number_of_delivered_cadu = dcsu.xpath("Number_of_delivered_CADU")[0].text
         number_of_missing_cadu = dcsu.xpath("Number_of_missing_CADU")[0].text
 
-        if (status == "SUCCESS" and link_session_fer == "0.0" and number_of_missing_cadu == "0"):
+        if (status == "SUCCESS" and float(link_session_fer) == 0 and float(number_of_missing_cadu) == 0):
             characterized_status = "OK"
         else:
             characterized_status = "NOK"

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Earth_Explorer_File>
+   <Earth_Explorer_Header>
+      <Fixed_Header>
+         <File_Name>S2__OPER_SRA_EDRS_A_PDMC_20210226T030000_V20210226T030000_20210430T235620</File_Name>
+         <File_Description>Link Slot/Session requests/deletions/modifications by Sentinel User for EDRS OISL</File_Description>
+         <Notes>Communication schedule for Sentinel2</Notes>
+         <Mission>EDRS-A</Mission>
+         <File_Class>OPER</File_Class>
+         <File_Type>SRA_EDRS_A</File_Type>
+         <Validity_Period>
+            <Validity_Start>UTC=2021-02-26T03:00:00</Validity_Start>
+            <Validity_Stop>UTC=2021-04-30T23:56:20</Validity_Stop>
+         </Validity_Period>
+         <File_Version>0001</File_Version>
+         <Source>
+            <System>SRA_</System>
+            <Creator>SRA</Creator>
+            <Creator_Version>4.2.0</Creator_Version>
+            <Creation_Date>UTC=2021-02-26T03:00:01</Creation_Date>
+         </Source>
+      </Fixed_Header>
+      <Variable_Header/>
+   </Earth_Explorer_Header>
+   <Data_Block>
+      <List_of_Sessions count="1187">
+         <Session>
+            <Session_ID>L20210112114833856000089</Session_ID>
+            <LEO_Satellite_ID>S2A</LEO_Satellite_ID>
+            <GEO_Satellite_ID>EDRS-A</GEO_Satellite_ID>
+            <Priority>NORMAL</Priority>
+            <Start_Time>UTC=2021-02-26T10:15:45</Start_Time>
+            <Stop_Time>UTC=2021-02-26T10:28:05</Stop_Time>
+            <Duration>00:11:05</Duration>
+            <Last_Update_Time>UTC=2021-02-22T08:46:53</Last_Update_Time>
+            <LEO_Absolute_Orbit>29677</LEO_Absolute_Orbit>
+         </Session>
+      </List_of_Sessions>
+   </Data_Block>
+</Earth_Explorer_File>

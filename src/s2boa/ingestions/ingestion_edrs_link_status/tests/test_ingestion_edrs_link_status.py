@@ -47,7 +47,7 @@ class TestEngine(unittest.TestCase):
         self.query_eboa.close_session()
         self.session.close()
 
-    def test_insert_edr_report(self):
+    def test_insert_edr_report_with_failed_status(self):
         filename = "EDR_OPER_SER_SR1_OA_PDMC_20200719T012002_V20200718T235713_20200719T001700"
 
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -211,3 +211,34 @@ class TestEngine(unittest.TestCase):
                                                                                     ExplicitRefGrp.name == "EDRS_LINK_SESSION_IDs").all()
 
         assert len(definite_explicit_ref) == 1
+
+    def test_insert_edr_report_with_success_status_and_plan(self):
+
+        filename = "S2A_OPER_MPL__NPPF__20210225T120000_20210315T150000_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_MPL_ORBPRE_20210226T030234_20210308T030234_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+        
+        filename = "S2__OPER_SRA_EDRS_A_PDMC_20210226T030000_V20210226T030000_20210430T235620.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_slot_request_edrs.ingestion_slot_request_edrs", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+        
+        filename = "EDR_OPER_SER_SR1_OA_PDMC_20210226T105001_V20210226T101545_20210226T102805"
+
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_edrs_link_status.ingestion_edrs_link_status", file_path, "2018-01-01T00:00:00")
+        
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
