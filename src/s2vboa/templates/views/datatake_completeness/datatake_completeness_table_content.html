@@ -14,26 +14,43 @@
     {% for event in events|sort(attribute="gauge.name")|sort(attribute="start") %}
     {% set planned_cut_imaging_uuids = event.eventLinks|selectattr("name", "equalto", "PLANNED_IMAGING")|map(attribute='event_uuid_link')|list %}
     {% set planned_cut_imaging = datatake_completeness_events["planned_cut_imaging"]|selectattr("event_uuid", "in", planned_cut_imaging_uuids)|first %}
+
+    <!-- Obtain satellite -->
     {% set satellite = event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
+
+    <!-- Obtain level -->
     {% set level = event.gauge.name[40:] %}
+
+    <!-- Obtain imaging mode -->
     {% set imaging_mode = event.eventTexts|selectattr("name", "equalto", "imaging_mode")|map(attribute='value')|first|string %}
     {% if not imaging_mode %}
     {% set imaging_mode = "N/A" %}
     {% endif %}
+
+    <!-- Obtain status -->
     {% set status = event.eventTexts|selectattr("name", "equalto", "status")|map(attribute='value')|first|string %}
+
+    <!-- Obtain metadata of the datastrip depending on the status -->
     {% if status == "MISSING" %}
-    {% set orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
+    {% set sensing_orbit = event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
     {% set datastrip = "N/A" %}
     {% set status_class = "bold-red" %}
-    {% elif status == "INCOMPLETE" %}
-    {% set orbit = "N/A" %}
+    {% else %}
+    {% set sensing_orbit_values = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|list %}
+    {% if sensing_orbit_values|length > 0 %}
+    {% set sensing_orbit = sensing_orbit_values|first|int %}
+    {% else %}
+    {% set sensing_orbit = "N/A" %}
+    {% endif %}
     {% set datastrip = event.explicitRef.explicit_ref %}
+    {% if status == "INCOMPLETE" %}
     {% set status_class = "bold-orange" %}
     {% else %}
-    {% set orbit = event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
-    {% set datastrip = event.explicitRef.explicit_ref %}
     {% set status_class = "bold-green" %}
     {% endif %}
+    {% endif %}
+
+    <!-- Obtain start and stop -->    
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}
     
@@ -41,7 +58,7 @@
     <tr>
     <td>{{ satellite }}</td>
     <td>{{ level }}</td>
-    <td><a href="/eboa_nav/query-event-links/{{ planned_cut_imaging.event_uuid }}">{{ orbit }}</a></td>
+    <td><a href="/eboa_nav/query-event-links/{{ planned_cut_imaging.event_uuid }}">{{ sensing_orbit }}</a></td>
     <td><a href="/views/specific-datatake-completeness/{{ planned_cut_imaging.event_uuid }}" class="{{ status_class }}">{{ status }}</a></td>
     <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ datastrip }}</a></td>
     <td>{{ imaging_mode }}</td>

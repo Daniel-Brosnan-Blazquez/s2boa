@@ -72,6 +72,36 @@ def show_hktm_workflow():
 
     return query_hktm_workflow_and_render(start_filter, stop_filter, mission, filters = filters)
 
+@bp.route("/specific-hktm-workflow/<string:planned_playback_uuid>")
+def show_specific_hktm_workflow(planned_playback_uuid):
+    """
+    Specific hktm workflow view for one playback related to the Sentinel-2 mission.
+    """
+    current_app.logger.debug("Specific hktm workflow view")
+
+    # Get the events of the planned playback
+    planned_playback = query.get_events(event_uuids = {"filter": planned_playback_uuid, "op": "=="})[0]
+    
+    filters = {}
+    filters["limit"] = [""]
+    filters["offset"] = [""]
+    # Initialize reporting period
+    start_filter = {
+        "date": planned_playback.stop.isoformat(),
+        "op": "<="
+    }
+    stop_filter = {
+        "date": planned_playback.start.isoformat(),
+        "op": ">="
+    }
+    mission = "S2_"
+
+    filters["start"] = [stop_filter["date"]]
+    filters["stop"] = [start_filter["date"]]
+    filters["mission"] = [mission]
+
+    return query_hktm_workflow_and_render(start_filter, stop_filter, mission, filters = filters, planned_playback_uuid = planned_playback_uuid)
+
 @bp.route("/hktm-workflow-pages", methods=["POST"])
 def query_hktm_workflow_pages():
     """
@@ -169,7 +199,7 @@ def show_sliding_hktm_workflow():
 
     return query_hktm_workflow_and_render(start_filter, stop_filter, mission, sliding_window)
 
-def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None):
+def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, mission = None, sliding_window = None, filters = None, planned_playback_uuid = None):
 
     # Set offset and limit for the query
     offset = None
@@ -192,10 +222,13 @@ def query_hktm_workflow_and_render(start_filter = None, stop_filter = None, miss
     hktm_workflow_events = query_hktm_workflow_events(orbpre_events_limit, filters)
 
     route = "views/hktm_workflow/hktm_workflow.html"
+    if planned_playback_uuid != None:
+        route = "views/hktm_workflow/specific_hktm_workflow.html"
+    # end if
 
     return render_template(route, hktm_workflow_events=hktm_workflow_events, orbpre_events=orbpre_events, orbpre_events_limit=orbpre_events_limit, request=request, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
-def query_hktm_workflow_events(orbpre_events, filters = None):
+def query_hktm_workflow_events(orbpre_events, filters = None, planned_playback_uuid = None):
     """
     Query planned hktm workflow events.
     """
@@ -213,32 +246,36 @@ def query_hktm_workflow_events(orbpre_events, filters = None):
     
     missions = sorted(set([event.gauge.system for event in orbpre_events]))
     for mission in missions:
-        orbpre_events_mission = [event for event in orbpre_events if event.gauge.system == mission]
-        orbpre_events_mission.sort(key=lambda x: x.start)
-        query_start = orbpre_events_mission[0].start.isoformat()
-        query_stop = orbpre_events_mission[-1].stop.isoformat()
-        kwargs_playback = {}
+        if planned_playback_uuid == None:
+            orbpre_events_mission = [event for event in orbpre_events if event.gauge.system == mission]
+            orbpre_events_mission.sort(key=lambda x: x.start)
+            query_start = orbpre_events_mission[0].start.isoformat()
+            query_stop = orbpre_events_mission[-1].stop.isoformat()
+            kwargs_playback = {}
 
-        # Set order by reception_time descending
-        kwargs_playback["order_by"] = {"field": "start", "descending": True}
+            # Set order by reception_time descending
+            kwargs_playback["order_by"] = {"field": "start", "descending": True}
 
-        # Set period for the query
-        kwargs_playback["start_filters"] = [{"date": query_stop, "op": "<="}]
-        kwargs_playback["stop_filters"] = [{"date": query_start, "op": ">="}]
+            # Set period for the query
+            kwargs_playback["start_filters"] = [{"date": query_stop, "op": "<="}]
+            kwargs_playback["stop_filters"] = [{"date": query_start, "op": ">="}]
 
-        kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
-                                             "type": "text",
-                                             "value": {"op": "in", "filter": ["HKTM_SAD", "HKTM"]}
-        }]
-        kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
+            kwargs_playback["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
+                                                "type": "text",
+                                                "value": {"op": "in", "filter": ["HKTM_SAD", "HKTM"]}
+            }]
+            kwargs_playback["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
 
-        # Specify the main query parameters
-        kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
+            # Specify the main query parameters
+            kwargs_playback["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
 
-        ####
-        # Query planned playbacks
-        ####
-        planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+            ####
+            # Query planned playbacks
+            ####
+            planned_playback_correction_events = query.get_linked_events(**kwargs_playback)
+        else:
+            planned_playback_correction_events = query.get_linked_events(event_uuids = {"filter": planned_playback_uuid, "op": "=="},
+                                                                    link_names = {"filter": ["TIME_CORRECTION"], "op": "in"})
         # Mission
         if mission:
             kwargs = {"event_uuids": {"filter": [event.event_uuid for event in planned_playback_correction_events["prime_events"]], "op": "in"}}

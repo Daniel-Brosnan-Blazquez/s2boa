@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Earth_Explorer_File>
+  <Earth_Explorer_Header>
+    <Fixed_Header>
+      <File_Name>S2A_OPER_MPL__NPPF__20210225T120000_20210315T150000_0001</File_Name>
+      <File_Description/>
+      <Notes/>
+      <Mission>Sentinel2A</Mission>
+      <File_Class>OPER</File_Class>
+      <File_Type>MPL__NPPF_</File_Type>
+      <Validity_Period>
+        <Validity_Start>UTC=2021-02-25T12:00:00</Validity_Start>
+        <Validity_Stop>UTC=2021-03-15T15:00:00</Validity_Stop>
+      </Validity_Period>
+      <File_Version>0001</File_Version>
+      <Source>
+        <System>PDMC</System>
+        <Creator>MPL</Creator>
+        <Creator_Version>00.01</Creator_Version>
+        <Creation_Date>UTC=2021-02-22T13:15:30</Creation_Date>
+      </Source>
+    </Fixed_Header>
+    <Variable_Header>
+      <LogFile_Name>s2mp.log</LogFile_Name>
+    </Variable_Header>
+  </Earth_Explorer_Header>
+  <Data_Block>
+    <SPF version="2.0"/>
+    <List_of_EVRQs count="6231">
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-25T15:00:00.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MGSYQDEL</RQ_Name>
+          <RQ_Description>Delete queue request</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Ground Manual Schedule</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-25T15:00:00.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29666</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>25.7657</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="3">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DORB_NO</RQ_Parameter_Name>
+              <RQ_Parameter_Description>DORB_NO</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>29666</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DORB_ANG</RQ_Parameter_Name>
+              <RQ_Parameter_Description>DORB_ANG</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>4497</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DTTQ_TIM</RQ_Parameter_Name>
+              <RQ_Parameter_Description>DTTQ_TIM</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>2021.056.15.00.00.000</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:04:15.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPOCPRY1</RQ_Name>
+          <RQ_Description>OCP GoTo Ready Mode Request from standby mode</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>OCP Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:04:15.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>156.1561</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:10:15.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPG2STRT</RQ_Name>
+          <RQ_Description>OCP-GEO2 Start Downlink Request</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>OCP Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:10:15.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>177.8538</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="34">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>ACQ_TYPE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Type of acquisition</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>COM_TYPE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Type of Communication Mode</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>UNC_CONE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Angular size of the Uncertainty Cone for initial acquisition and reacquisition</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1000</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>STR_T_S</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Synchronisation time T0</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1298369763</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>DUR_SAS</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Duration of Spatial Acquisition Phase 1</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>26</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>PROP_DEL</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Delay from the Start Propagation to Start Phase 1</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>20</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>TRAJC_AZ</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Coarse Starting Az</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>TRAJC_EL</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Coarse Starting El</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>ABS_STRT</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Absolute start time </RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1298369643</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>ABS_STOP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Absolute stop time </RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1298370623</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_0</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_1</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_2</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_3</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_4</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_5</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_6</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_X_7</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_0</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_1</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_2</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_3</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_4</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_5</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_6</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Y_7</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_0</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_1</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_2</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_3</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_4</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_5</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_6</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>R_Z_7</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Chebychev coefficients</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:17:10.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPNOM</RQ_Name>
+          <RQ_Description>MMFU PS Playback nominal "Data stored" </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:17:10.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>202.8554</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:27:10.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPSTP</RQ_Name>
+          <RQ_Description>MMFU Playback stop </RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:27:10.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>238.5836</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="2">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_RWD</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene rewind flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>1</RQ_Parameter_Value>
+            </RQ_Parameter>
+            <RQ_Parameter>
+              <RQ_Parameter_Name>SCN_DUP</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Scene duplication flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:27:21.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPMMPBSA</RQ_Name>
+          <RQ_Description>MMFU SAD PS Playback.</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:27:21.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>239.2337</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="1">
+            <RQ_Parameter>
+              <RQ_Parameter_Name>MEM_FREE</RQ_Parameter_Name>
+              <RQ_Parameter_Description>Memory freed flag</RQ_Parameter_Description>
+              <RQ_Parameter_Representation>Raw</RQ_Parameter_Representation>
+              <RQ_Parameter_Radix/>
+              <RQ_Parameter_Unit/>
+              <RQ_Parameter_Value>0</RQ_Parameter_Value>
+            </RQ_Parameter>
+          </List_of_RQ_Parameters>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:28:18.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPOCPRY2</RQ_Name>
+          <RQ_Description>OCP GoTo Ready Mode Request from communication mode</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>OCP Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:28:18.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>242.6005</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+      <EVRQ>
+        <EVRQ_Header>
+          <EVRQ_Time>UTC=2021-02-26T10:32:18.000</EVRQ_Time>
+          <EVRQ_Type>Request</EVRQ_Type>
+          <EVRQ_Description/>
+        </EVRQ_Header>
+        <RQ>
+          <RQ_Name>MPOCPSBY</RQ_Name>
+          <RQ_Description>OCP GoTo Standby Mode Request</RQ_Description>
+          <RQ_Source>PDGS</RQ_Source>
+          <RQ_Destination>MPS</RQ_Destination>
+          <RQ_Type>OCP Orbital Angle tagged Sequence</RQ_Type>
+          <RQ_Uplink_Time/>
+          <RQ_Execution_Time>UTC=2021-02-26T10:32:18.000</RQ_Execution_Time>
+          <RQ_Absolute_orbit>29677</RQ_Absolute_orbit>
+          <RQ_Time_from_ANX/>
+          <RQ_Deg_from_ANX>256.7469</RQ_Deg_from_ANX>
+          <List_of_RQ_Parameters count="0"/>
+          <List_of_RQ_Attributes count="0"/>
+        </RQ>
+      </EVRQ>
+  </List_of_EVRQs>
+</Data_Block>
+</Earth_Explorer_File>

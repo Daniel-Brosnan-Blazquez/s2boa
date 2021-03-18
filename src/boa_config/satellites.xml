@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<satellites_configuration>  
+  <satellite>
+    <list_of_alias>
+      <name>S2A</name>
+      <name>2015-028A</name>
+    </list_of_alias>
+    <name>S2A</name>
+    <long_name>Sentinel-2A</long_name>
+    <print_name>S2A</print_name>
+  </satellite>
+
+  <satellite>
+    <list_of_alias>
+      <name>S2B</name>
+      <name>2017-013A</name>
+    </list_of_alias>
+    <name>S2B</name>
+    <long_name>Sentinel-2B</long_name>
+    <print_name>S2B</print_name>
+  </satellite>	
+</satellites_configuration>
