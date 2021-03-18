@@ -51,11 +51,25 @@ class TestOpprip(unittest.TestCase):
 
     def test_insert_opprip(self):
 
-        filename = "S2__OPER_REP_OPPRIP_PDMC_20210222T180003_V20210222T115002_20210222T175001.EOF"
+        filename = "S2__OPER_REP_OPPRIP_PDMC_20210222T180003_V20210222T115002_20210222T175001.test"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_prip.ingestion_prip", file_path, "2018-01-01T00:00:00")
-
+   
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_prip.ingestion_prip", file_path, "2021-02-23T00:00:00")
+       
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
-        
+        """
+        sources = self.query_eboa.get_sources()
+
+        assert len(sources) == 1
+
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2021-02-22T17:50:01", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2021-02-22T23:50:01", "op": "=="}],
+                                              generation_time_filters = [{"date": "2021-02-23T00:00:02", "op": "=="}],
+                                              processors = {"filter": "ingestion_prip.py", "op": "like"},
+                                              names = {"filter": "S2__OPER_REP_OPPRIP_PDMC_20210223T000002_V20210222T175001_20210222T235001.EOF", "op": "like"})
+
+        assert len(sources) == 1
+
+        """
