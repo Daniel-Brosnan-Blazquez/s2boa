@@ -1,3 +1,4 @@
+{% set original_planned_playback_correction_uuid = event.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
 {% set station_report_event_uuids = event.eventLinks|selectattr("name", "equalto", "STATION_ACQUISITION_REPORT")|map(attribute='event_uuid_link')|list %}
 {% if station_report_event_uuids|length > 0 %}
 {% set station_report_event = hktm_workflow_events["station_report"]|selectattr("event_uuid", "in", station_report_event_uuids)|first %}
@@ -44,7 +45,7 @@
 
 <tr>
   <td>{{ satellite }}</td>
-  <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ orbit }}</a></td>
+  <td><a href="/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}">{{ orbit }}</a></td>
   {% if station %}
   <td>{{ station }}</td>
   {% else %}
@@ -66,7 +67,7 @@
 {% else %}
 <tr>
   <td>{{ satellite }}</td>
-  <td><a href="/eboa_nav/query-event-links/{{ event.event_uuid }}">{{ orbit }}</a></td>
+  <td><a href="/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}">{{ orbit }}</a></td>
   {% if station %}
   <td>{{ station }}</td>
   {% else %}
