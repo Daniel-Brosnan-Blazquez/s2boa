@@ -13,7 +13,13 @@ var e2e_timeliness_tiles_published_in_dhus = [
     {% set corrected_planned_imaging = info["imaging_correction"]|selectattr("event_uuid", "equalto", corrected_planned_imaging_uuid)|first %}
 
     {% set satellite = complete_processing_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-    {% set orbit = complete_processing_event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+
+    {% set sensing_orbit_values = complete_processing_event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|list %}
+    {% if sensing_orbit_values|length > 0 %}
+    {% set sensing_orbit = sensing_orbit_values|first|int %}
+    {% else %}
+    {% set sensing_orbit = "N/A" %}
+    {% endif %}
 
     {% set tile_uuids = complete_processing_event.explicitRef.explicitRefLinks|selectattr("name", "equalto", "TILE")|map(attribute="explicit_ref_uuid_link")|list %}
 
@@ -58,7 +64,7 @@ var e2e_timeliness_tiles_published_in_dhus = [
         "group": "{{ satellite }}",
         "x": "{{ complete_processing_event.start.isoformat() }}",
         "y": "{{ mean_sensing_to_dhus_publication }}",
-        "tooltip": create_datastrip_e2e_timeliness_tooltip_text("{{ satellite }}", "{{ orbit }}", "{{ datatake }}", "<a href='/eboa_nav/query-er/{{ datastrip_uuid }}'>{{ datastrip }}</a>", "{{ mean_sensing_to_dhus_publication }}", "{{ planned_imaging.source.name }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}")
+        "tooltip": create_datastrip_e2e_timeliness_tooltip_text("{{ satellite }}", "{{ sensing_orbit }}", "{{ datatake }}", "<a href='/eboa_nav/query-er/{{ datastrip_uuid }}'>{{ datastrip }}</a>", "{{ mean_sensing_to_dhus_publication }}", "{{ planned_imaging.source.name }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}")
     },
     {% endif %}
     

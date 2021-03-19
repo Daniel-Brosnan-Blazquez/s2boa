@@ -9,7 +9,13 @@ var complete_segments = [
     {% set corrected_planned_imaging_uuid = planned_imaging.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute="event_uuid_link")|first %}
 
     {% set satellite = complete_processing_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
-    {% set orbit = complete_processing_event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|first|int %}
+
+    {% set sensing_orbit_values = complete_processing_event.eventDoubles|selectattr("name", "equalto", "sensing_orbit")|map(attribute='value')|list %}
+    {% if sensing_orbit_values|length > 0 %}
+    {% set sensing_orbit = sensing_orbit_values|first|int %}
+    {% else %}
+    {% set sensing_orbit = "N/A" %}
+    {% endif %}
 
     {% set missing_dissemination_tiles = [] %}
     {% set missing_publication_tiles = [] %}
@@ -82,7 +88,7 @@ var complete_segments = [
      
     {
         "id": "{{ complete_processing_event.event_uuid }}",
-        "tooltip": create_processing_tooltip_text("{{ satellite }}", "{{ orbit }}", "<a class='{{ status_class }}' href='/views/dhus-completeness-by-datatake/{{ corrected_planned_imaging_uuid }}'>{{ status }}</a>", "<a href='/eboa_nav/query-er-links/{{ complete_processing_event.explicitRef.explicit_ref_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ complete_processing_event.start.isoformat() }}", "{{ complete_processing_event.stop.isoformat() }}", "{{ planned_imaging.source.name }}", "{{ complete_processing_event.event_uuid }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
+        "tooltip": create_processing_tooltip_text("{{ satellite }}", "{{ sensing_orbit }}", "<a class='{{ status_class }}' href='/views/dhus-completeness-by-datatake/{{ corrected_planned_imaging_uuid }}'>{{ status }}</a>", "<a href='/eboa_nav/query-er-links/{{ complete_processing_event.explicitRef.explicit_ref_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ complete_processing_event.start.isoformat() }}", "{{ complete_processing_event.stop.isoformat() }}", "{{ planned_imaging.source.name }}", "{{ complete_processing_event.event_uuid }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
         "geometries": [
             {% for geometry in complete_processing_event.eventGeometries %}
             {{ geometry.to_wkt() }},
@@ -102,7 +108,7 @@ var complete_segments = [
     {% set geometry = tile["footprint"] %}
     {
         "id": "{{ tile['tile'] }}",
-        "tooltip": create_tile_tooltip_text("{{ satellite }}", "{{ orbit }}", "<span class='bold-red'>{{ status }}</span>", "<a href='/eboa_nav/query-er-by-name/{{ tile_name }}'>{{ tile_name }}</a>", "<a href='/eboa_nav/query-er/{{ complete_processing_event.explicitRef.explicit_ref_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ planned_imaging.source.name }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
+        "tooltip": create_tile_tooltip_text("{{ satellite }}", "{{ sensing_orbit }}", "<span class='bold-red'>{{ status }}</span>", "<a href='/eboa_nav/query-er-by-name/{{ tile_name }}'>{{ tile_name }}</a>", "<a href='/eboa_nav/query-er/{{ complete_processing_event.explicitRef.explicit_ref_uuid }}'>{{ complete_processing_event.explicitRef.explicit_ref }}</a>", "{{ planned_imaging.source.name }}", "/eboa_nav/query-event-links/{{ planned_imaging_uuid }}"),
         "geometries": [
             {{ geometry.to_wkt() }},
         ],
