@@ -55,24 +55,44 @@
         <ParentId/>
       </ArchivedProduct>
       <ArchivedProduct>
+        <Pdi-Id>S2B_OPER_MSI_L0__DS_VGS2_20210222T112736_S20210222T093615_N02.09.tar</Pdi-Id>
+        <InventoryDate>2021-02-22T17:37:12Z</InventoryDate>
+        <ParentId/>
+      </ArchivedProduct>
+      <ArchivedProduct>
+        <Pdi-Id>S2B_OPER_MSI_L1B_DS_VGS2_20210322T161759_S20210322T121730_N02.09.tar</Pdi-Id>
+        <InventoryDate>2021-02-22T17:37:12Z</InventoryDate>
+        <ParentId/>
+      </ArchivedProduct>
+      <ArchivedProduct>
+        <Pdi-Id>S2B_OPER_MSI_L1C_DS_VGS2_20210219T052736_S20210219T043615_N02.09.tar</Pdi-Id>
+        <InventoryDate>2021-02-22T17:37:12Z</InventoryDate>
+        <ParentId/>
+      </ArchivedProduct>
+      <ArchivedProduct>
+        <Pdi-Id>S2B_OPER_MSI_L1C_DS_VGS4_20210318T080123_S20210318T061751_N02.09.tar</Pdi-Id>
+        <InventoryDate>2021-02-22T17:37:12Z</InventoryDate>
+        <ParentId/>
+      </ArchivedProduct>
+      <ArchivedProduct>
         <Pdi-Id>S2A_OPER_MSI_L2A_DS_VGS2_20210222T171451_S20210222T151650_N02.09.tar</Pdi-Id>
         <InventoryDate>2021-02-22T17:37:12Z</InventoryDate>
         <ParentId/>
       </ArchivedProduct>
       <ArchivedProduct>
-        <Pdi-Id>S2B_OPER_MSI_L1C_TL_VGS2_20210222T112736_S20210222T093636_D04_N02.09.tar</Pdi-Id>
+        <Pdi-Id>S2A_OPER_MSI_L1C_TL_VGS1_20210318T070626_A029960_T47VPJ_N02.09.tar</Pdi-Id>
         <InventoryDate>2021-02-22T11:50:03Z</InventoryDate>
-        <ParentId>S2B_OPER_MSI_L1C_DS_VGS2_20210222T112736_S20210222T093615_N02.09</ParentId>
+        <ParentId>S2B_OPER_MSI_L1C_DS_VGS4_20210318T080123_S20210318T061751_N02.09</ParentId>
       </ArchivedProduct>
       <ArchivedProduct>
         <Pdi-Id>S2B_OPER_MSI_L1B_GR_VGS2_20210222T112736_S20210222T094107_D10_N02.09.tar</Pdi-Id>
         <InventoryDate>2021-02-22T11:50:03Z</InventoryDate>
-        <ParentId>S2B_OPER_MSI_L1B_DS_VGS2_20210222T112736_S20210222T093615_N02.09</ParentId>
+        <ParentId>S2B_OPER_MSI_L1B_DS_VGS2_20210322T161759_S20210322T121730_N02.09</ParentId>
       </ArchivedProduct>
       <ArchivedProduct>
-        <Pdi-Id>S2B_OPER_MSI_L1B_TC_VGS2_20210222T112736_S20210222T093832_D11_N02.09.tar</Pdi-Id>
+        <Pdi-Id>S2A_OPER_MSI_L1C_TC_VGS4_20210319T053620_A029973_T50PMU_N02.09.tar</Pdi-Id>
         <InventoryDate>2021-02-22T11:50:03Z</InventoryDate>
-        <ParentId>S2B_OPER_MSI_L1B_DS_VGS2_20210222T112736_S20210222T093615_N02.09</ParentId>
+        <ParentId>S2B_OPER_MSI_L1C_DS_VGS2_20210219T052736_S20210219T043615_N02.09</ParentId>
       </ArchivedProduct>
       <ArchivedProduct>
         <Pdi-Id>S2A_OPER_AUX_PREORB_OPOD_20210222T112447_V20210222T130210_20210222T162334.EOF</Pdi-Id>
