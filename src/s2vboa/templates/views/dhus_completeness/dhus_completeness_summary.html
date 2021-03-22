@@ -15,12 +15,6 @@
             <div class="panel-body" align="center" style="font-size: 50px; color: steelblue" id="summary-dhus-completeness-expected-msi">{{ expected_acquisition_duration }}</div>
           </div>
         </div>
-        <div class="col-xs-3">
-          <div class="panel panel-success">
-            <div class="panel-heading" align="center" style="font-size: 20px">Acquired MSI duration (m)</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-acquired-msi">{{ (expected_acquisition_duration_from_isp_completeness - missing_acquisition_duration)|round(3) }}</div>
-          </div>
-        </div>
         {% if "L1C" in parsed_levels[0] %}
         <div class="col-xs-3">
           <div class="panel panel-success">
@@ -50,14 +44,6 @@
           <div class="panel panel-success">
             <div class="panel-heading" align="center" style="font-size: 20px">Generated L2A tiles</div>
             <div class="panel-body" align="center" style="font-size: 50px; color: green" id="summary-dhus-completeness-generated-l2a-tiles">{{ generated_tiles["L2A"] }}</div>
-          </div>
-        </div>
-        {% endif %}
-        {% if missing_acquisition_duration > 0 %}
-        <div class="col-xs-3">
-          <div class="panel panel-danger">
-            <div class="panel-heading" align="center" style="font-size: 20px">Missing acquired MSI duration (m)</div>
-            <div class="panel-body" align="center" style="font-size: 50px; color: darkred" id="summary-dhus-completeness-missing-acquistion">{{ missing_acquisition_duration }}</div>
           </div>
         </div>
         {% endif %}

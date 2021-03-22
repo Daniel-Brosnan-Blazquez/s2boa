@@ -44,13 +44,14 @@ var datatake_completeness_timeline = [
     {# Obtain start and stop #}
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}
+    {% set duration = (((event.stop - event.start).total_seconds()) / 60)|round(3) %}
     {
         "id": "{{ event.event_uuid }}",
         "group": "{{ satellite }}",
         "timeline": "{{ level }}",
         "start": "{{ event.start.isoformat() }}",
         "stop": "{{ event.stop.isoformat() }}",
-        "tooltip": create_datatake_completeness_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ level }}", "<a href='/eboa_nav/query-event-links/{{ planned_cut_imaging.event_uuid }}'>{{ sensing_orbit }}</a>", "<a href='/views/specific-datatake-completeness/{{ planned_cut_imaging.event_uuid }}' class={{ status_class }}>{{ status }}</a>", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ datastrip }}</a>", "{{ imaging_mode }}", "{{ datastrip_start }}", "{{ datastrip_stop }}"),
+        "tooltip": create_datatake_completeness_tooltip_text("{{ event.event_uuid }}", "{{ satellite }}", "{{ level }}", "<a href='/eboa_nav/query-event-links/{{ planned_cut_imaging.event_uuid }}'>{{ sensing_orbit }}</a>", "<a href='/views/specific-datatake-completeness/{{ planned_cut_imaging.event_uuid }}' class={{ status_class }}>{{ status }}</a>", "<a href='/eboa_nav/query-event-links/{{ event.event_uuid }}'>{{ datastrip }}</a>", "{{ imaging_mode }}", "{{ datastrip_start }}", "{{ datastrip_stop }}", "{{ duration }}"),
         "className": "{{ class_name }}"
     },
     {% endfor %}

@@ -46,21 +46,31 @@
         </thead>
         <tbody>
           {% for corrected_imaging in info["imaging_correction"] %}
+
+          <!-- Obtain planned imaging -->
           {% set original_imaging_uuid = corrected_imaging.eventLinks|selectattr("name", "equalto", "PLANNED_EVENT")|map(attribute="event_uuid_link")|first %}
           {% set original_imaging = info["imaging"]|selectattr("event_uuid", "equalto", original_imaging_uuid)|first %}
+
+          <!-- Obtain satellite -->
           {% set satellite = original_imaging.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute="value")|first|string %}
+
+          <!-- Obtain sensing orbit -->
           {% set orbit = original_imaging.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute="value")|first|int|string %}
+
+          <!-- Obtain processing completeness -->
           {% set processing_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "PROCESSING_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
-          {% set isp_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "ISP_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
-          
+
+          <!-- Perform completeness analysis per requested level -->
           {% for level in parsed_levels[0] %}
           {% set processing_completeness_events = info["processing_completeness"][level]|selectattr("event_uuid", "in", processing_completeness_uuids)|list %}
-          {% set isp_completeness_events = info["isp_completeness"]|selectattr("event_uuid", "in", isp_completeness_uuids)|list %}
           
           {% for processing_completeness in processing_completeness_events|sort(attribute="start", reverse=True) %}
 
+          <!-- Obtain processing completeness status -->
           {% set processing_completeness_status = processing_completeness.eventTexts|selectattr("name", "equalto", "status")|map(attribute="value")|first|string %}
+          
           {% if processing_completeness_status == "MISSING" %}
+          <!-- Missing processing -->
           {% set number_of_tiles = "N/A" %}
           {% set number_of_tiles_in_dam = "N/A" %}
           {% set number_of_tiles_in_dhus = "N/A" %}
@@ -73,26 +83,12 @@
           {% set datastrip_stop = processing_completeness.stop.isoformat() %}
           {% set status_class = "bold-red" %}
 
-          {% set intersected_isp_completeness_segments = [processing_completeness]|convert_eboa_events_to_date_segments|intersect_timelines(isp_completeness_events|convert_eboa_events_to_date_segments) %}
-          {% set intersected_isp_completeness_missing_events = [] %}
-          {% for intersected_isp_completeness_segment in intersected_isp_completeness_segments %}
-          {% set intersected_isp_completeness_event = isp_completeness_events|selectattr("event_uuid", "equalto", intersected_isp_completeness_segment["id2"])|first %}
-          {% set intersected_isp_completeness_event_status = intersected_isp_completeness_event.eventTexts|selectattr("name", "equalto", "status")|map(attribute="value")|first|string %}
-          {% if intersected_isp_completeness_event_status == "MISSING" %}
-          {% do intersected_isp_completeness_missing_events.append(intersected_isp_completeness_event) %}
-          {% endif %}
-          {% endfor %}
-          
-          {% if intersected_isp_completeness_missing_events|length > 0 %}
-          {% set status = "MISSING ACQUISITION" %}
-          {% else %}
           {% set status = "MISSING PROCESSING" %}
-          {% endif %}
           
           {% include "views/dhus_completeness/dhus_completeness_content_table_rows.html" %}
           
           {% else %}
-
+          <!-- Processing performed -->
           {% set datatake_annotations = processing_completeness.explicitRef.annotations|selectattr("annotationCnf.name", "equalto", "DATATAKE")|list %}
           {% if datatake_annotations|length > 0 %}
           {% set datatake = datatake_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "datatake_identifier")|map(attribute="value")|first %}
@@ -105,7 +101,8 @@
           {% set datastrip_link = True %}
           {% set datastrip_start = processing_completeness.start.isoformat() %}
           {% set datastrip_stop = processing_completeness.stop.isoformat() %}
-          
+
+          <!-- Obtain tiles -->
           {% set tile_uuids = processing_completeness.explicitRef.explicitRefLinks|selectattr("name", "equalto", "TILE")|map(attribute="explicit_ref_uuid_link")|list %}
 
           {% set tile_infos = info["tls"][level]|selectattr("explicit_ref_uuid", "in", tile_uuids)|list %}
@@ -116,6 +113,7 @@
           {% set times_to_dhus_publication = [] %}
           {% for tile_info in tile_infos %}
 
+          <!-- Obtain DAM and DHUS annotations -->
           {% set dam_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "CATALOGING_TIME")|list %}
           {% set dhus_dissemination_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_DISSEMINATION_TIME")|list %}
           {% set dhus_publication_annotations = tile_info.annotations|selectattr("annotationCnf.name", "equalto", "DHUS_PUBLICATION_TIME")|list %}
@@ -125,22 +123,27 @@
           {% set dhus_publication_status = dhus_publication_annotations|map(attribute="annotationTexts")|flatten|selectattr("name", "equalto", "status")|map(attribute="value")|first %}
           
           {% if dhus_publication_annotations|length > 0 and "MISSING" != dhus_publication_status  %}
+          <!-- Tile published in DHUS -->
           {% do tile_data.update({"number_of_tiles_in_dam": tile_data["number_of_tiles_in_dam"] + 1}) %}
           {% do tile_data.update({"number_of_tiles_in_dhus": tile_data["number_of_tiles_in_dhus"] + 1}) %}
           {% do tile_data.update({"number_of_tiles_published_in_dhus": tile_data["number_of_tiles_published_in_dhus"] + 1}) %}
           {% elif dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
+          <!-- Tile not published in DHUS -->
           {% do tile_data.update({"number_of_tiles_in_dam": tile_data["number_of_tiles_in_dam"] + 1}) %}
           {% do tile_data.update({"number_of_tiles_in_dhus": tile_data["number_of_tiles_in_dhus"] + 1}) %}
           {% elif dam_publication_annotations|length > 0 and "MISSING" != dam_publication_status %}
+          <!-- Tile not disseminated to DHUS -->
           {% do tile_data.update({"number_of_tiles_in_dam": tile_data["number_of_tiles_in_dam"] + 1}) %}
           {% endif %}
 
+          <!-- Obtain DHUS publication time -->
           {% if dhus_publication_annotations|length > 0 and "MISSING" != dhus_publication_status  %}
           {% set dhus_publication_time_datetime = dhus_publication_annotations|map(attribute="annotationTimestamps")|flatten|selectattr("name", "equalto", "dhus_publication_time")|map(attribute="value")|sort|first %}
           {% set dhus_publication_time = dhus_publication_time_datetime|string %}
           {% do times_to_dhus_publication.append(((dhus_publication_time_datetime - corrected_imaging.stop).total_seconds() / 60)) %}
           {% endif %}
-          
+
+          <!-- Obtain DHUS dissemination time -->
           {% if dhus_dissemination_annotations|length > 0 and "MISSING" != dhus_dissemination_status  %}
           {% set dhus_dissemination_time_datetime = dhus_dissemination_annotations|map(attribute="annotationTimestamps")|flatten|selectattr("name", "equalto", "dhus_dissemination_time")|map(attribute="value")|sort|first %}
           {% set dhus_dissemination_time = dhus_dissemination_time_datetime|string %}
@@ -149,12 +152,14 @@
 
           {% endfor %}
 
+          <!-- Obtain the average DHUS publication time for the datastrip -->
           {% if times_to_dhus_publication|length > 0 %}
           {% set mean_time_to_dhus_publication = (times_to_dhus_publication|sum / times_to_dhus_publication|length)|round(3) %}
           {% else %}
           {% set mean_time_to_dhus_publication = "N/A" %}
           {% endif %}
-          
+
+          <!-- Obtain the average dissemination time to DHUS for the datastrip -->
           {% if times_to_dhus|length > 0 %}
           {% set mean_time_to_dhus = (times_to_dhus|sum / times_to_dhus|length)|round(3) %}
           {% else %}

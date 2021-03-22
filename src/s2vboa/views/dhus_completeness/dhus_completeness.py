@@ -291,13 +291,12 @@ def query_dhus_completeness_events(start_filter, stop_filter, mission, levels, f
     planned_imaging_correction_events = query.get_events(**kwargs)
     planned_nominal_imaging_correction_events = [event for event in planned_imaging_correction_events for value in event.eventTexts if value.name == "imaging_mode" and value.value == "NOMINAL"]
     planned_imaging_correction_and_linked_events = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_nominal_imaging_correction_events], "op": "in"}, link_names = {"filter": ["TIME_CORRECTION"], "op": "in"}, return_prime_events = False)
-    planned_imaging_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_imaging_correction_and_linked_events["linked_events"]], "op": "in"}, link_names = {"filter": ["ISP_COMPLETENESS", "PROCESSING_COMPLETENESS"], "op": "in"}, return_prime_events = False)
+    planned_imaging_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_imaging_correction_and_linked_events["linked_events"]], "op": "in"}, link_names = {"filter": ["PROCESSING_COMPLETENESS"], "op": "in"}, return_prime_events = False)
 
     info = {}
     info["imaging_correction_limit"] = planned_imaging_correction_events
     info["imaging_correction"] = planned_nominal_imaging_correction_events
     info["imaging"] = planned_imaging_correction_and_linked_events["linked_events"]
-    info["isp_completeness"] = [event for event in planned_imaging_events["linking_events"]["ISP_COMPLETENESS"] if event.gauge.name == "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1"]
 
     info["processing_completeness"] = {}
     info["tls"] = {}

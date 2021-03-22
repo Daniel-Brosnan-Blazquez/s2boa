@@ -46,9 +46,9 @@
       <weekday>wednesday</weekday>
     </date>
     <tasks>
-      <task name="DHUS_COMPLETENESS">
+      <!--task name="DHUS_COMPLETENESS">
         <command>rboa_triggering.py -g "Data availability in DHUS generator (Complete view)" -m AUTOMATIC</command>
-      </task>
+      </task-->
       <task name="SENSING_DATA_VOLUMES">
         <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>
       </task>

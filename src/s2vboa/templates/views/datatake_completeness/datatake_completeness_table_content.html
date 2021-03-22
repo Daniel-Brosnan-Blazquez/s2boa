@@ -8,6 +8,7 @@
     <th>Imaging mode</th>
     <th>Start</th>
     <th>Stop</th>
+    <th>Duration (m)</th>
     </tr>
 </thead>
 <tbody>
@@ -53,6 +54,7 @@
     <!-- Obtain start and stop -->    
     {% set datastrip_start = event.start.isoformat() %}
     {% set datastrip_stop = event.stop.isoformat() %}
+    {% set duration = (((event.stop - event.start).total_seconds()) / 60)|round(3) %}
     
     <!--Values-->
     <tr>
@@ -64,6 +66,7 @@
     <td>{{ imaging_mode }}</td>
     <td>{{ datastrip_start }}</td>
     <td>{{ datastrip_stop }}</td>
+    <td>{{ duration }}</td>
     </tr>
     {% endfor %}
 </tbody>
@@ -77,5 +80,6 @@
     <th>Imaging mode</th>
     <th>Start</th>
     <th>Stop</th>
+    <th>Duration (m)</th>
     </tr>
 </tfoot>

@@ -255,6 +255,19 @@
       <source_type>S2B_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
+  <rule>
+    <source_mask>EDR_OPER_SER_..........._........T......_V........T......_........T......</source_mask>
+    <source_type>EDR_OPER_SER</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_link_status_report.ingestion_edrs_link_status -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
+    </dependencies>
+  </rule>
   <!-- Rules with no dependencies -->
   <rule skip="true">
     <source_mask>S2._OPER_REP_OPDC___MPC__........T......_V........T......_........T.......*</source_mask>
@@ -320,5 +333,19 @@
   <rule skip="true">
     <source_mask>S2__OPER_REP_OPDPC__...._........T......_V........T......_........T.......*</source_mask>
     <source_type>S2__REP_OPDPC</source_type>
+  </rule>
+  <rule>
+    <source_mask>S2__OPER_REP_OPPRIP_...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>REP_OPPRIP</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_prip.ingestion_prip -f </command>
+    </tool>
+  </rule>
+  <rule>
+    <source_mask>S2._OPER_REP_WEPRIP_...._........T......_V........T......_........T.......*</source_mask>
+    <source_type>REP_WEPRIP</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_weprip.ingestion_weprip -f </command>
+    </tool>
   </rule>
 </triggering_rules>

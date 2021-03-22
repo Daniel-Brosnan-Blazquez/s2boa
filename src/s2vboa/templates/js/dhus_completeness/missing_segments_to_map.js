@@ -7,24 +7,7 @@ var missing_segments = [
 
     {% set corrected_planned_imaging_uuid = planned_imaging.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute="event_uuid_link")|first %}
     
-    {% set isp_completeness_uuids = planned_imaging.eventLinks|selectattr("name", "equalto", "ISP_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
-    {% set isp_completeness_events = info["isp_completeness"]|selectattr("event_uuid", "in", isp_completeness_uuids)|list %}
-    
-    {% set intersected_isp_completeness_segments = [missing_processing_event]|convert_eboa_events_to_date_segments|intersect_timelines(isp_completeness_events|convert_eboa_events_to_date_segments) %}
-    {% set intersected_isp_completeness_missing_events = [] %}
-    {% for intersected_isp_completeness_segment in intersected_isp_completeness_segments %}
-    {% set intersected_isp_completeness_event = isp_completeness_events|selectattr("event_uuid", "equalto", intersected_isp_completeness_segment["id2"])|first %}
-    {% set intersected_isp_completeness_event_status = intersected_isp_completeness_event.eventTexts|selectattr("name", "equalto", "status")|map(attribute="value")|first|string %}
-    {% if intersected_isp_completeness_event_status == "MISSING" %}
-    {% do intersected_isp_completeness_missing_events.append(intersected_isp_completeness_event) %}
-    {% endif %}
-    {% endfor %}
-
-    {% if intersected_isp_completeness_missing_events|length > 0 %}
-    {% set status = "MISSING ACQUISITION" %}
-    {% else %}
     {% set status = "MISSING PROCESSING" %}
-    {% endif %}
 
     {% set satellite = missing_processing_event.eventTexts|selectattr("name", "equalto", "satellite")|map(attribute='value')|first|string %}
     {% set orbit = missing_processing_event.eventDoubles|selectattr("name", "equalto", "start_orbit")|map(attribute='value')|first|int %}
