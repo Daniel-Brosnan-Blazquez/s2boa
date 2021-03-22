@@ -296,6 +296,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
         ]
@@ -326,6 +327,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
         ]
@@ -356,6 +358,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
         ]
@@ -386,6 +389,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
         ]
@@ -419,6 +423,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
             {
@@ -438,6 +443,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
             {
@@ -457,6 +463,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },     
             {
@@ -476,6 +483,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>32.699</td></tr>"
                 "</table>"
             },
         ]
@@ -1277,6 +1285,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.346</td></tr>"
                 "</table>"
             },
             {
@@ -1298,6 +1307,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.52</td></tr>"
                 "</table>"
             },
             {
@@ -1319,6 +1329,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.833</td></tr>"
                 "</table>"
             },
         ]
@@ -1350,6 +1361,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.379</td></tr>"
                 "</table>"
             },
             {
@@ -1371,6 +1383,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.603</td></tr>"
                 "</table>"
             },
             {
@@ -1392,6 +1405,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>"
                 "</table>"
             },
         ]
@@ -1423,6 +1437,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.379</td></tr>"
                 "</table>"
             },
             {
@@ -1444,6 +1459,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.603</td></tr>"
                 "</table>"
             },
             {
@@ -1465,6 +1481,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>"
                 "</table>"
             },
         ]
@@ -1496,6 +1513,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.379</td></tr>"
                 "</table>"
             },
             {
@@ -1517,6 +1535,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.603</td></tr>"
                 "</table>"
             },
             {
@@ -1538,6 +1557,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>"
                 "</table>"
             },
         ]
@@ -1571,6 +1591,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.346</td></tr>"
                 "</table>"
             },
             {
@@ -1590,6 +1611,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.52</td></tr>"
                 "</table>"
             },
             {
@@ -1609,6 +1631,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l0[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l0[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.833</td></tr>"
                 "</table>"
             },
             {
@@ -1628,6 +1651,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.379</td></tr>"
                 "</table>"
             },
             {
@@ -1647,6 +1671,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.603</td></tr>"
                 "</table>"
             },
             {
@@ -1666,6 +1691,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1b[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1b[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>"
                 "</table>"
             },
             {
@@ -1685,6 +1711,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.379</td></tr>"
                 "</table>"
             },
             {
@@ -1704,6 +1731,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.603</td></tr>"
                 "</table>"
             },
             {
@@ -1723,6 +1751,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l1c[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l1c[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>"
                 "</table>"
             },
             {
@@ -1742,6 +1771,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[0].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[0].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>16.379</td></tr>"
                 "</table>"
             },
             {
@@ -1761,6 +1791,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[2].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[2].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>14.603</td></tr>"
                 "</table>"
             },
             {
@@ -1780,6 +1811,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
                 "<tr><td>Imaging mode</td><td>NOMINAL</td></tr>" +
                 "<tr><td>Start</td><td>" + planned_imaging_processing_completeness_l2a[1].start.isoformat() + "</td></tr>" +
                 "<tr><td>Stop</td><td>" + planned_imaging_processing_completeness_l2a[1].stop.isoformat() + "</td></tr>" +
+                "<tr><td>Duration (m)</td><td>1.717</td></tr>"
                 "</table>"
             },
         ]
@@ -1823,6 +1855,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:29"
 
+        duration = missing_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert duration.text == "16.346"
+
         # Row 2
         satellite = missing_table.find_element_by_xpath("tbody/tr[2]/td[1]")
 
@@ -1855,6 +1891,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = missing_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 3
         satellite = missing_table.find_element_by_xpath("tbody/tr[3]/td[1]")
@@ -1889,6 +1929,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:31"
 
+        duration = missing_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+
+        assert duration.text == "16.379"
+
         # Row 4
         satellite = missing_table.find_element_by_xpath("tbody/tr[4]/td[1]")
 
@@ -1921,6 +1965,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = missing_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 5
         satellite = missing_table.find_element_by_xpath("tbody/tr[5]/td[1]")
@@ -1955,6 +2003,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = missing_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 6
         satellite = missing_table.find_element_by_xpath("tbody/tr[6]/td[1]")
 
@@ -1987,6 +2039,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = missing_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+
+        assert duration.text == "14.603"
 
         # Row 7
         satellite = missing_table.find_element_by_xpath("tbody/tr[7]/td[1]")
@@ -2021,6 +2077,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = missing_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 8
         satellite = missing_table.find_element_by_xpath("tbody/tr[8]/td[1]")
 
@@ -2053,6 +2113,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_table.find_element_by_xpath("tbody/tr[8]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = missing_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+
+        assert duration.text == "14.52"
         
         # Check processing completeness table
         completeness_table = self.driver.find_element_by_id("datatake-completeness-completeness-table")
@@ -2090,6 +2154,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:29"
 
+        duration = completeness_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert duration.text == "16.346"
+
         # Row 2
         satellite = completeness_table.find_element_by_xpath("tbody/tr[2]/td[1]")
 
@@ -2122,6 +2190,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = completeness_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 3
         satellite = completeness_table.find_element_by_xpath("tbody/tr[3]/td[1]")
@@ -2156,6 +2228,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:31"
 
+        duration = completeness_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+
+        assert duration.text == "16.379"
+
         # Row 4
         satellite = completeness_table.find_element_by_xpath("tbody/tr[4]/td[1]")
 
@@ -2188,6 +2264,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = completeness_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 5
         satellite = completeness_table.find_element_by_xpath("tbody/tr[5]/td[1]")
@@ -2222,6 +2302,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:19"
 
+        duration = completeness_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+
+        assert duration.text == "1.833"
+
         # Row 6
         satellite = completeness_table.find_element_by_xpath("tbody/tr[6]/td[1]")
 
@@ -2254,6 +2338,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
         assert stop.text == "2018-07-21T08:54:14"
+
+        duration = completeness_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+
+        assert duration.text == "1.717"
 
         # Row 7
         satellite = completeness_table.find_element_by_xpath("tbody/tr[7]/td[1]")
@@ -2288,6 +2376,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
+        duration = completeness_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+
+        assert duration.text == "1.717"
+
         # Row 8
         satellite = completeness_table.find_element_by_xpath("tbody/tr[8]/td[1]")
 
@@ -2320,6 +2412,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_table.find_element_by_xpath("tbody/tr[8]/td[8]")
 
         assert stop.text == "2018-07-21T08:54:14"
+
+        duration = completeness_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+
+        assert duration.text == "1.717"
 
         # Row 9
         satellite = completeness_table.find_element_by_xpath("tbody/tr[9]/td[1]")
@@ -2354,6 +2450,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = completeness_table.find_element_by_xpath("tbody/tr[9]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 10
         satellite = completeness_table.find_element_by_xpath("tbody/tr[10]/td[1]")
 
@@ -2386,6 +2486,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_table.find_element_by_xpath("tbody/tr[10]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = completeness_table.find_element_by_xpath("tbody/tr[10]/td[9]")
+
+        assert duration.text == "14.603"
 
         # Row 11
         satellite = completeness_table.find_element_by_xpath("tbody/tr[11]/td[1]")
@@ -2420,6 +2524,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = completeness_table.find_element_by_xpath("tbody/tr[11]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 12
         satellite = completeness_table.find_element_by_xpath("tbody/tr[12]/td[1]")
 
@@ -2452,6 +2560,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_table.find_element_by_xpath("tbody/tr[12]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+        
+        duration = completeness_table.find_element_by_xpath("tbody/tr[12]/td[9]")
+
+        assert duration.text == "14.52"
 
         # Datastrip by UUID
         wait = WebDriverWait(self.driver,5)
@@ -2653,6 +2765,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:29"
 
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert duration.text == "16.346"
+
         # Row 2
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[1]")
 
@@ -2685,6 +2801,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 3
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[1]")
@@ -2719,6 +2839,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:31"
 
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+
+        assert duration.text == "16.379"
+
         # Row 4
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[1]")
 
@@ -2751,6 +2875,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 5
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[1]")
@@ -2785,6 +2913,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 6
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[1]")
 
@@ -2817,6 +2949,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+
+        assert duration.text == "14.603"
 
         # Row 7
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[1]")
@@ -2851,6 +2987,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 8
         satellite = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[1]")
 
@@ -2883,6 +3023,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = missing_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+
+        assert duration.text == "14.52"
         
         # Completeness table
         completeness_datastrip_table = self.driver.find_element_by_id("datatake-completeness-completeness-table")
@@ -2920,6 +3064,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:29"
 
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert duration.text == "16.346"
+
         # Row 2
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[1]")
 
@@ -2952,6 +3100,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 3
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[1]")
@@ -2986,6 +3138,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:52:31"
 
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+
+        assert duration.text == "16.379"
+
         # Row 4
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[1]")
 
@@ -3018,6 +3174,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
         assert stop.text == "2018-07-21T08:52:31"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+
+        assert duration.text == "16.379"
 
         # Row 5
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[1]")
@@ -3052,6 +3212,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:19"
 
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+
+        assert duration.text == "1.833"
+
         # Row 6
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[1]")
 
@@ -3084,6 +3248,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
         assert stop.text == "2018-07-21T08:54:14"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+
+        assert duration.text == "1.717"
 
         # Row 7
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[1]")
@@ -3118,6 +3286,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T08:54:14"
 
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+
+        assert duration.text == "1.717"
+
         # Row 8
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[1]")
 
@@ -3150,6 +3322,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[8]")
 
         assert stop.text == "2018-07-21T08:54:14"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[8]/td[9]")
+
+        assert duration.text == "1.717"
 
         # Row 9
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[1]")
@@ -3184,6 +3360,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[9]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 10
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[1]")
 
@@ -3216,6 +3396,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[10]/td[9]")
+
+        assert duration.text == "14.603"
 
         # Row 11
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[1]")
@@ -3250,6 +3434,10 @@ class TestDatatakeCompletenessView(unittest.TestCase):
 
         assert stop.text == "2018-07-21T09:08:50.195941"
 
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[11]/td[9]")
+
+        assert duration.text == "14.603"
+
         # Row 12
         satellite = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[1]")
 
@@ -3282,5 +3470,9 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         stop = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[8]")
 
         assert stop.text == "2018-07-21T09:08:50.195941"
+
+        duration = completeness_datastrip_table.find_element_by_xpath("tbody/tr[12]/td[9]")
+
+        assert duration.text == "14.52"
 
         
