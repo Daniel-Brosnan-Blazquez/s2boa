@@ -10,18 +10,10 @@
 <!-- Expected acquired MSI duration from planning -->
 {% set expected_acquisition_duration = ((info["imaging"]|get_timeline_duration) / 60)|round(3) %}
 
-<!-- Expected acquired MSI duration from ISP completeness events -->
-{% set expected_acquisition_duration_from_isp_completeness = ((info["isp_completeness"]|get_timeline_duration) / 60)|round(3) %}
-
 <!-- Expected processing duration -->
 {% set expected_processing_duration = {} %}
 {% do expected_processing_duration.update({"L1C": ((info["processing_completeness"]["L1C"]|get_timeline_duration) / 60)|round(3)}) %}
 {% do expected_processing_duration.update({"L2A": ((info["processing_completeness"]["L2A"]|get_timeline_duration) / 60)|round(3)}) %}
-
-<!-- Missing acquisition duration -->
-{% set acquisition_with_no_isp_completeness_uuids = info["imaging"]|reject_events_with_link_name("ISP_COMPLETENESS")|map(attribute="event_uuid")|list %}
-{% set acquisition_with_missing_isp_completeness_event_uuids = info["isp_completeness"]|map(attribute="eventTexts")|flatten|selectattr("name", "equalto", "status")|selectattr("value", "equalto", "MISSING")|map(attribute="event_uuid")|list|sort|unique|list %}
-{% set missing_acquisition_duration = (((info["isp_completeness"]|selectattr("event_uuid", "in", acquisition_with_missing_isp_completeness_event_uuids)|list|get_timeline_duration) / 60) + ((info["imaging"]|selectattr("event_uuid", "in", acquisition_with_no_isp_completeness_uuids)|list|get_timeline_duration) / 60))|round(3) %}
 
 <!-- Missing processing duration -->
 {% set acquisition_with_processing_completeness_uuids = {} %}

@@ -157,13 +157,6 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert summary_expected_msi.text == "33.033"
 
-        # Check summary acquired msi
-        summary_acquired_msi = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-acquired-msi")))
-
-        assert summary_acquired_msi
-
-        assert summary_acquired_msi.text == "1.804"
-
         # Check summary processed to l1c msi
         summary_processed_l1c_msi = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-processed-to-l1c-msi")))
 
@@ -191,13 +184,6 @@ class TestDhusCompletenessView(unittest.TestCase):
         assert summary_generated_l2a_tiles
 
         assert summary_generated_l2a_tiles.text == "0"
-
-        # Check summary missing acquistion
-        summary_missing_acquistion = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-missing-acquistion")))
-
-        assert summary_missing_acquistion
-
-        assert summary_missing_acquistion.text == "30.895"
 
         # Check summary missing processing l1c
         summary_missing_processing_l1c = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-missing-processing-l1c")))
@@ -235,7 +221,7 @@ class TestDhusCompletenessView(unittest.TestCase):
         assert summary_missing_l1c_tiles_published_dhus.text == "3"
 
         # Check number of elements in summary
-        assert len(summary_expected_msi.find_elements_by_xpath("../../../div")) == 12
+        assert len(summary_expected_msi.find_elements_by_xpath("../../../div")) == 10
 
         # Check whether the map is displayed
         map_section = self.driver.find_element_by_id("dhus-completeness-on-map-section")
@@ -274,7 +260,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:36:08.255634</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T08:52:31</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>16.379</td></tr>" + 
@@ -296,7 +282,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:54:14</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T09:08:50.195941</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>14.603</td></tr>" + 
@@ -327,7 +313,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:36:08.255634</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T09:08:50.195941</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>32.699</td></tr>" + 
@@ -482,7 +468,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -612,7 +598,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[3]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[3]/td[8]")
 
@@ -677,7 +663,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[4]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
@@ -745,7 +731,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -875,7 +861,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[3]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[3]/td[8]")
 
@@ -940,7 +926,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[4]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[4]/td[8]")
 
@@ -1012,7 +998,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_datatake_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_datatake_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -1304,7 +1290,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_datatake_table.find_element_by_xpath("tbody/tr[5]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_datatake_table.find_element_by_xpath("tbody/tr[5]/td[8]")
 
@@ -1377,7 +1363,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_datatake_table.find_element_by_xpath("tbody/tr[6]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_datatake_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
@@ -1453,7 +1439,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_datatake_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_datatake_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -1818,7 +1804,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_datatake_table.find_element_by_xpath("tbody/tr[6]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_datatake_table.find_element_by_xpath("tbody/tr[6]/td[8]")
 
@@ -1891,7 +1877,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_datatake_table.find_element_by_xpath("tbody/tr[7]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_datatake_table.find_element_by_xpath("tbody/tr[7]/td[8]")
 
@@ -1966,13 +1952,6 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert summary_expected_msi.text == "33.033"
 
-        # Check summary acquired msi
-        summary_acquired_msi = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-acquired-msi")))
-
-        assert summary_acquired_msi
-
-        assert summary_acquired_msi.text == "0.0"
-
         # Check summary processed to l1c msi
         summary_processed_l1c_msi = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-processed-to-l1c-msi")))
 
@@ -2001,13 +1980,6 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert summary_generated_l2a_tiles.text == "0"
 
-        # Check summary missing acquistion
-        summary_missing_acquistion = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-missing-acquistion")))
-
-        assert summary_missing_acquistion
-
-        assert summary_missing_acquistion.text == "32.699"
-
         # Check summary missing processing l1c
         summary_missing_processing_l1c = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-missing-processing-l1c")))
 
@@ -2023,7 +1995,7 @@ class TestDhusCompletenessView(unittest.TestCase):
         assert summary_missing_processing_l2a.text == "32.699"
 
         # Check number of elements in summary
-        assert len(summary_expected_msi.find_elements_by_xpath("../../../div")) == 9
+        assert len(summary_expected_msi.find_elements_by_xpath("../../../div")) == 7
 
         # Check whether the map is displayed
         map_section = self.driver.find_element_by_id("dhus-completeness-on-map-section")
@@ -2059,7 +2031,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:36:08.255634</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T09:08:50.195941</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>32.699</td></tr>" + 
@@ -2089,7 +2061,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:36:08.255634</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T09:08:50.195941</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>32.699</td></tr>" + 
@@ -2169,7 +2141,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -2234,7 +2206,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[2]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
@@ -2302,7 +2274,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -2367,7 +2339,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[2]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
@@ -2441,13 +2413,6 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert summary_expected_msi.text == "33.033"
 
-        # Check summary acquired msi
-        summary_acquired_msi = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-acquired-msi")))
-
-        assert summary_acquired_msi
-
-        assert summary_acquired_msi.text == "1.804"
-
         # Check summary processed to l1c msi
         summary_processed_l1c_msi = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-processed-to-l1c-msi")))
 
@@ -2476,13 +2441,6 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         assert summary_generated_l2a_tiles.text == "0"
 
-        # Check summary missing acquistion
-        summary_missing_acquistion = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-missing-acquistion")))
-
-        assert summary_missing_acquistion
-
-        assert summary_missing_acquistion.text == "30.895"
-
         # Check summary missing processing l1c
         summary_missing_processing_l1c = wait.until(EC.visibility_of_element_located((By.ID,"summary-dhus-completeness-missing-processing-l1c")))
 
@@ -2498,7 +2456,7 @@ class TestDhusCompletenessView(unittest.TestCase):
         assert summary_missing_processing_l2a.text == "32.699"
 
         # Check number of elements in summary
-        assert len(summary_expected_msi.find_elements_by_xpath("../../../div")) == 9
+        assert len(summary_expected_msi.find_elements_by_xpath("../../../div")) == 7
 
         # Check whether the map is displayed
         map_section = self.driver.find_element_by_id("dhus-completeness-on-map-section")
@@ -2534,7 +2492,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:36:08.255634</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T09:08:50.195941</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>32.699</td></tr>" + 
@@ -2564,7 +2522,7 @@ class TestDhusCompletenessView(unittest.TestCase):
                 "<tr><td>Satellite</td><td>S2A</td></tr><tr>" + 
                 "<td>Orbit</td><td>16077</td></tr>" + 
                 "<tr><td>Datastrip</td><td>N/A</td></tr>" + 
-                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING ACQUISITION</a></td></tr>" + 
+                "<tr><td>Status</td><td><a class='bold-red' href='/views/dhus-completeness-by-datatake/" + str(planned_imaging_correction[0].event_uuid) + "'>MISSING PROCESSING</a></td></tr>" + 
                 "<tr><td>Start</td><td>2018-07-21T08:36:08.255634</td></tr>" + 
                 "<tr><td>Stop</td><td>2018-07-21T09:08:50.195941</td></tr>" + 
                 "<tr><td>Duration(m)</td><td>32.699</td></tr>" + 
@@ -2644,7 +2602,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -2709,7 +2667,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = missing_table.find_element_by_xpath("tbody/tr[2]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = missing_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 
@@ -2777,7 +2735,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[1]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[1]/td[8]")
 
@@ -2842,7 +2800,7 @@ class TestDhusCompletenessView(unittest.TestCase):
 
         status = complete_table.find_element_by_xpath("tbody/tr[2]/td[7]")
 
-        assert status.text == "MISSING ACQUISITION"
+        assert status.text == "MISSING PROCESSING"
 
         tiles = complete_table.find_element_by_xpath("tbody/tr[2]/td[8]")
 

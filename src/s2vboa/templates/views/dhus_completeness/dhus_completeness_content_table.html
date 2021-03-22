@@ -60,13 +60,9 @@
           <!-- Obtain processing completeness -->
           {% set processing_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "PROCESSING_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
 
-          <!-- Obtain ISP completeness -->
-          {% set isp_completeness_uuids = original_imaging.eventLinks|selectattr("name", "equalto", "ISP_COMPLETENESS")|map(attribute="event_uuid_link")|list %}
-
           <!-- Perform completeness analysis per requested level -->
           {% for level in parsed_levels[0] %}
           {% set processing_completeness_events = info["processing_completeness"][level]|selectattr("event_uuid", "in", processing_completeness_uuids)|list %}
-          {% set isp_completeness_events = info["isp_completeness"]|selectattr("event_uuid", "in", isp_completeness_uuids)|list %}
           
           {% for processing_completeness in processing_completeness_events|sort(attribute="start", reverse=True) %}
 
@@ -87,21 +83,7 @@
           {% set datastrip_stop = processing_completeness.stop.isoformat() %}
           {% set status_class = "bold-red" %}
 
-          {% set intersected_isp_completeness_segments = [processing_completeness]|convert_eboa_events_to_date_segments|intersect_timelines(isp_completeness_events|convert_eboa_events_to_date_segments) %}
-          {% set intersected_isp_completeness_missing_events = [] %}
-          {% for intersected_isp_completeness_segment in intersected_isp_completeness_segments %}
-          {% set intersected_isp_completeness_event = isp_completeness_events|selectattr("event_uuid", "equalto", intersected_isp_completeness_segment["id2"])|first %}
-          {% set intersected_isp_completeness_event_status = intersected_isp_completeness_event.eventTexts|selectattr("name", "equalto", "status")|map(attribute="value")|first|string %}
-          {% if intersected_isp_completeness_event_status == "MISSING" %}
-          {% do intersected_isp_completeness_missing_events.append(intersected_isp_completeness_event) %}
-          {% endif %}
-          {% endfor %}
-          
-          {% if intersected_isp_completeness_missing_events|length > 0 %}
-          {% set status = "MISSING ACQUISITION" %}
-          {% else %}
           {% set status = "MISSING PROCESSING" %}
-          {% endif %}
           
           {% include "views/dhus_completeness/dhus_completeness_content_table_rows.html" %}
           
