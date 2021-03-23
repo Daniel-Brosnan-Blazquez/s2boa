@@ -18,6 +18,8 @@
   
   vboa.display_pie("hktm-workflow-pie-processing-status", data)
 
+  {% if hktm_workflow_events["hktm_production_vgs"]|length > 0 %}
+
   var distribution_data = [{{ hktm_workflow_events["hktm_production_vgs"]|length - missing_hktm_circulation_to_fos|length - hktm_incompletely_distributed|length }}, {{ missing_hktm_circulation_to_fos|length }}, {{ hktm_incompletely_distributed|length }}]
   var distribution_background_color = ["green", "gold", "gold"]
   var distribution_labels = ["# distributed to FOS", "# not distributed to FOS", "# incompletely distributed to FOS"]
@@ -29,6 +31,7 @@
   labels: distribution_labels
   }
   vboa.display_pie("hktm-workflow-pie-distribution-status", data)
+  {% endif %}
   {% endif %}
 
   <!-- HKTM circulated to FOS -->

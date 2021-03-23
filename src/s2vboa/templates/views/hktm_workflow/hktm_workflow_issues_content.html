@@ -24,6 +24,7 @@
             <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
+            <th>Distribution status</th>
             <th>Completeness status</th>
             <th>HKTM product</th>
             <th>PDMC-FOS time</th>
@@ -48,11 +49,15 @@
           {% set status_class = [] %}          
           {% include "views/hktm_workflow/hktm_workflow_status.html" %}          
 
+          {% set distribution_status = [] %}
+          {% set distribution_status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_distribution_status.html" %}
+
           {% set completeness_status = [] %}
           {% set completeness_status_class = [] %}          
           {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
           
-          {% if status[0] != "OK" or (completeness_status[0] != "OK" and completeness_status[0] != "N/A") %}
+          {% if status[0] != "OK" or (distribution_status[0] != "OK" and distribution_status[0] != "N/A") %}
           {% include "views/hktm_workflow/hktm_workflow_content_table.html" %}
           {% endif %}
           {% endfor %}
@@ -64,6 +69,7 @@
             <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
+            <th>Distribution status</th>
             <th>Completeness status</th>
             <th>HKTM Product</th>
             <th>PDMC-FOS time</th>
