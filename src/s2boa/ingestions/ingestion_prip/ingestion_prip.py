@@ -170,7 +170,6 @@ def process_file(file_path, engine, query, reception_time):
         # Link true colour to datastrips
         elif "_TC_" in pdi_id_without_extension:
 
-
             explicit_reference = {
                 "group": level + "_TC",
                 "links": [{

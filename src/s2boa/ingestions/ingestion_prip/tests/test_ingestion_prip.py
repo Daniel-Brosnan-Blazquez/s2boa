@@ -54,7 +54,6 @@ class TestOpprip(unittest.TestCase):
         filename = "S2__OPER_REP_OPPRIP_PDMC_20210222T180003_V20210222T115002_20210222T175001.test"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
 
-   
         exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_prip.ingestion_prip", file_path, "2021-02-23T00:00:00")
        
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
@@ -88,17 +87,49 @@ class TestOpprip(unittest.TestCase):
             }]
 
         # Check explicit references
+        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_DS_%", "op": "like"})
+        
+        assert len(prip_granules_explicit_refs) == 6
+
         prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_GR_%", "op": "like"})
         
         assert len(prip_granules_explicit_refs) == 2
 
+        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TL_%", "op": "like"})
+        
+        assert len(prip_granules_explicit_refs) == 1
+
+        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TC_%", "op": "like"})
+        
+        assert len(prip_granules_explicit_refs) == 1
+
+        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%AUX%", "op": "like"})
+        
+        assert len(prip_granules_explicit_refs) == 3
+
+        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%HKTM%", "op": "like"})
+        
+        assert len(prip_granules_explicit_refs) == 1
+
+
+        # Check linked explicit references
         prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_TL_VGS1_20210318T070626_A029960_T47VPJ_N02.09", "op": "=="})
 
         assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
 
-        assert prip_linked_explicit_refs["linking_explicit_refs"][0] == "S2B_OPER_MSI_L1C_DS_VGS4_20210318T080123_S20210318T061751_N02.09"
-        
+        assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L1C_DS_VGS4_20210318T080123_S20210318T061751_N02.09"
 
-        
+        prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_TC_VGS4_20210319T053620_A029973_T50PMU_N02.09", "op": "=="})
 
+        assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
+
+        assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L1C_DS_VGS2_20210219T052736_S20210219T043615_N02.09"
+
+        prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2B_OPER_MSI_L0__DS_VGS2_20210222T112736_S20210222T093615_N02.09", "op": "=="})
+
+        assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
+
+        assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L0__GR_VGS2_20210222T112736_S20210222T093828_D02_N02.09"
+        
+ 
         
