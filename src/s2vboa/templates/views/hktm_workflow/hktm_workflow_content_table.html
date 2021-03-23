@@ -57,6 +57,7 @@
   <td class="bold-red">N/A</td>
   {% endif %}
   <td><a href="/views/specific-hktm-workflow/{{ event.event_uuid }}" class="{{ status_class[0] }}">{{ status[0] }}</td>
+  <td class="{{ distribution_status_class[0] }}">{{ distribution_status[0] }}</td>
   <td class="{{ completeness_status_class[0] }}">{{ completeness_status[0] }}</td>
   <td><a href="/eboa_nav/query-er/{{ hktm_production_vgs_event.explicit_ref_uuid }}">{{ [hktm_production_vgs_event]|map(attribute="explicitRef.explicit_ref")|first }}</a></td>
   <td class="{{ circulation_time_to_fos_class }}">{{ circulation_time_to_fos }}</td>
@@ -79,6 +80,7 @@
   <td class="bold-red">N/A</td>
   {% endif %}
   <td class="{{ status_class[0] }}">{{ status[0] }}</td>
+  <td class="{{ distribution_status_class[0] }}">{{ distribution_status[0] }}</td>
   <td class="{{ completeness_status_class[0] }}">{{ completeness_status[0] }}</td>
   <td class="bold-red">N/A</td>
   <td class="bold-red">N/A</td>

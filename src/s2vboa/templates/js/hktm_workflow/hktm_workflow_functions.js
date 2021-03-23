@@ -1,5 +1,5 @@
 /* Function to create the text for the tooltip of the dissemination information*/
-function create_hktm_workflow_tooltip_text(hktm_product, satellite, orbit, station, status, completeness_status, anx_time, pdmc_fos_time, delta_to_fos, product_size){
+function create_hktm_workflow_tooltip_text(hktm_product, satellite, orbit, station, status, distribution_status, completeness_status, anx_time, pdmc_fos_time, delta_to_fos, product_size){
     
     return "<table border='1'>" +
             "<tr><td>HKTM Product</td><td>" + hktm_product + "</td></tr>" +
@@ -7,6 +7,7 @@ function create_hktm_workflow_tooltip_text(hktm_product, satellite, orbit, stati
             "<tr><td>Orbit</td><td>" + orbit + "</td></tr>" +
             "<tr><td>Station</td><td>" + station + "</td></tr>" +
             "<tr><td>Status</td><td>" + status + "</td></tr>" +
+            "<tr><td>Distribution status</td><td>" + distribution_status + "</td></tr>" +
             "<tr><td>Completeness status</td><td>" + completeness_status + "</td></tr>" +
             "<tr><td>ANX time</td><td>" + anx_time + "</td></tr>" +
             "<tr><td>PDMC-FOS time</td><td>" + pdmc_fos_time + "</td></tr>" +

@@ -24,6 +24,7 @@
             <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
+            <th>Distribution status</th>
             <th>Completeness status</th>
             <th>HKTM product</th>
             <th>PDMC-FOS time</th>
@@ -55,6 +56,10 @@
           {% set status_class = [] %}
           {% include "views/hktm_workflow/hktm_workflow_status.html" %}
 
+          {% set distribution_status = [] %}
+          {% set distribution_status_class = [] %}          
+          {% include "views/hktm_workflow/hktm_workflow_distribution_status.html" %}
+
           {% set completeness_status = [] %}
           {% set completeness_status_class = [] %}          
           {% include "views/hktm_workflow/hktm_workflow_completeness_status.html" %}
@@ -74,6 +79,7 @@
             <td>{{ orbpre_event["start"].isoformat() }}</td>
             <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
             <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
+            <td class="bold-orange">HKTM PLAYBACK NOT PLANNED</td>
             <td>N/A</td>
             <td>N/A</td>
             <td>N/A</td>
@@ -89,6 +95,7 @@
             <th>Station</th>
             <th>ANX time</th>
             <th>Status</th>
+            <th>Distribution status</th>
             <th>Completeness status</th>
             <th>HKTM Product</th>
             <th>PDMC-FOS time</th>
