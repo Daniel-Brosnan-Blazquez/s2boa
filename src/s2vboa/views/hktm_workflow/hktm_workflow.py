@@ -10,6 +10,7 @@ import sys
 import json
 import datetime
 from dateutil import parser
+import re
 
 # Import flask utilities
 from flask import Blueprint, flash, g, current_app, redirect, render_template, request, url_for
@@ -291,10 +292,12 @@ def query_hktm_workflow_events(orbpre_events, filters = None, planned_playback_u
         
         events["playback_correction"] += planned_playback_correction_events["prime_events"]
         events["playback"] += planned_playback_correction_events["linked_events"]
-        events["playback_validity"] += planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"]
+        playback_validity_3 = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] if event.gauge.name == "PLAYBACK_VALIDITY_3"]
+        events["playback_validity"] += playback_validity_3
         events["hktm_production_vgs"] += planned_playback_events["linking_events"]["HKTM_PRODUCTION_VGS"]
         events["station_report"] += planned_playback_events["linking_events"]["STATION_ACQUISITION_REPORT"]
-        events["distribution_status"] += planned_playback_events["linking_events"]["DISTRIBUTION_STATUS"]
+        playback_hktm_distribution_status_channel_1 = [event for event in planned_playback_events["linking_events"]["DISTRIBUTION_STATUS"] if re.search("HKTM", event.gauge.name)]
+        events["distribution_status"] += playback_hktm_distribution_status_channel_1
         events["dfep_acquisition_validity"] += planned_playback_events["linking_events"]["DFEP_ACQUISITION_VALIDITY"]
         events["station_schedule"] += planned_playback_events["linking_events"]["STATION_SCHEDULE"] + planned_playback_events["linking_events"]["SLOT_REQUEST_EDRS"]
     # end for
