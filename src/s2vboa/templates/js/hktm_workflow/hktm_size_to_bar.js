@@ -50,7 +50,7 @@ var hktm_size_events = [
         "group": "{{ satellite }}",
         "x": "{{ orbpre_event.start.isoformat() }}",
         "y": "{{ product_size_to_fos }}",
-        "tooltip": create_hktm_workflow_tooltip_text("<a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a>", "{{ satellite }}", "<a href='/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}'>{{ orbit }}</a>", "{{ station }}", "<span class='{{ status_class[0] }}'>{{ status[0] }}</span>", "<span class='{{ completeness_status_class[0] }}'>{{ completeness_status[0] }}</span>","{{ orbpre_event.start.isoformat() }}", "{{ circulation_time_to_fos }}", "<span class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</span>", "{{ product_size_to_fos }}")
+        "tooltip": create_hktm_workflow_tooltip_text("<a href='/eboa_nav/query-er/{{ hktm_production_event.explicit_ref_uuid }}'>{{ hktm_production_event.explicitRef.explicit_ref }}</a>", "{{ satellite }}", "<a href='/views/specific-acquisition/{{ original_planned_playback_correction_uuid }}'>{{ orbit }}</a>", "{{ station }}", "<a href='/views/specific-hktm-workflow/{{ event.event_uuid }}' class='{{ status_class[0] }}'>{{ status[0] }}</a>", "<span class='{{ completeness_status_class[0] }}'>{{ completeness_status[0] }}</span>","{{ orbpre_event.start.isoformat() }}", "{{ circulation_time_to_fos }}", "<span class='{{ delta_to_fos_class }}'>{{ delta_to_fos }}</span>", "{{ product_size_to_fos }}")
     },
     {% endif %}
     {% endif %}
