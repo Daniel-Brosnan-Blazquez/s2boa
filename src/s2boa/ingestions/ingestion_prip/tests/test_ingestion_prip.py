@@ -59,17 +59,46 @@ class TestOpprip(unittest.TestCase):
        
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
-        """
         sources = self.query_eboa.get_sources()
 
         assert len(sources) == 1
 
-        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2021-02-22T17:50:01", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2021-02-22T23:50:01", "op": "=="}],
-                                              generation_time_filters = [{"date": "2021-02-23T00:00:02", "op": "=="}],
+        sources = self.query_eboa.get_sources(validity_start_filters = [{"date": "2021-02-22T11:50:02", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2021-02-22T17:50:01", "op": "=="}],
+                                              generation_time_filters = [{"date": "2021-02-22T18:00:03", "op": "=="}],
                                               processors = {"filter": "ingestion_prip.py", "op": "like"},
-                                              names = {"filter": "S2__OPER_REP_OPPRIP_PDMC_20210223T000002_V20210222T175001_20210222T235001.EOF", "op": "like"})
+                                              names = {"filter": "S2__OPER_REP_OPPRIP_PDMC_20210222T180003_V20210222T115002_20210222T175001.test", "op": "like"})
 
         assert len(sources) == 1
 
-        """
+        # Check annotations
+        prip_annotations = self.query_eboa.get_annotations()
+
+        assert len(prip_annotations) == 15
+
+        prip_annotation_archiving_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PRIP_ARCHIVING_TIME"},
+                                                     explicit_refs = {"op": "like", "filter": "S2B_OPER_GIP_R2EQOG_MPC__20210222T083100_V20210223T233000_21000101T000000_B05"})
+
+        assert len(prip_annotation_archiving_time) == 1
+        
+        assert prip_annotation_archiving_time[0].get_structured_values() == [
+            {'type': 'timestamp',
+             'name': 'prip_archiving_time',
+             'value': '2021-02-22T15:27:48'
+            }]
+
+        # Check explicit references
+        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_GR_%", "op": "like"})
+        
+        assert len(prip_granules_explicit_refs) == 2
+
+        prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_TL_VGS1_20210318T070626_A029960_T47VPJ_N02.09", "op": "=="})
+
+        assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
+
+        assert prip_linked_explicit_refs["linking_explicit_refs"][0] == "S2B_OPER_MSI_L1C_DS_VGS4_20210318T080123_S20210318T061751_N02.09"
+        
+
+        
+
+        
