@@ -17,6 +17,7 @@
             <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="hktm-workflow-pie-processing-status" width="400" height="300"></canvas></div>
           </div>
         </div>
+        {% if hktm_workflow_events["hktm_production_vgs"]|length > 0 %}
         <!-- Pie chart for distribution status -->
         <div class="col-xs-3">
           <div class="panel panel-primary">
@@ -24,6 +25,7 @@
             <div class="panel-body" align="center" style="font-size: 50px; color: steelblue"><canvas id="hktm-workflow-pie-distribution-status" width="400" height="300"></canvas></div>
           </div>
         </div>
+        {% endif %}
       </div>
       {% if hktm_circulated_to_fos|length > 0 %}
       <div class="row">
