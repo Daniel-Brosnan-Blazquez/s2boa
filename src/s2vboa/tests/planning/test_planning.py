@@ -112,6 +112,18 @@ class TestPlanningView(unittest.TestCase):
 
         functions.query(self.driver, wait, "S2A", start = "2018-07-20T00:00:14", stop = "2018-07-21T23:55:14", start_orbit = "16066", stop_orbit = "16072", timeline = True, table_details = True, evolution = True, map = True)
 
+        # Check alerts table
+
+        alerts_table = self.driver.find_element_by_id("associated-planning-alerts-details-table")
+
+        assert alerts_table
+
+        # Check number of alerts
+
+        number_alerts = len(alerts_table.find_elements_by_xpath("tbody/tr"))
+
+        assert number_alerts == 6
+        
         #Check table no playback exists
 
         playback_not_covered = self.driver.find_element_by_id("playback-not-covered")
@@ -221,6 +233,12 @@ class TestPlanningView(unittest.TestCase):
         time_stop = header_table.find_element_by_xpath("tbody/tr[th[text() = 'Time information']]/td[2]")
 
         assert time_stop.text == "2018-07-31T23:59:59"
+
+        # Check alerts table
+
+        no_alerts_table = self.driver.find_element_by_id("no-planning-alerts-data")
+
+        assert no_alerts_table
 
         #Summary
 
