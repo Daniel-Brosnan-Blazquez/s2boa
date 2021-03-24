@@ -860,7 +860,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "stop": stop.isoformat(),
                 "values": completeness_event_values,
                 "alerts": [{
-                    "message": "The planned playback over orbit {} is not covered by any station schedule".format(int(start_orbit)),
+                    "message": "The {} planned playback (with timings: {}_{}) over orbit {} is not covered by any station schedule".format(downlink_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                     "generator": os.path.basename(__file__),
                     "notification_time": station_schedule_alert_notification_time.isoformat(),
                     "alert_cnf": {
@@ -890,7 +890,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "stop": stop.isoformat(),
                     "values": completeness_event_values,
                     "alerts": [{
-                        "message": "The {} planned playback over orbit {}, expected to be received through channel 1, has not been received".format(downlink_mode, int(start_orbit)),
+                        "message": "The {} planned playback (with timings: {}_{}) over orbit {}, expected to be received through channel 1, has not been received".format(downlink_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                         "generator": os.path.basename(__file__),
                         "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                         "alert_cnf": {
@@ -920,7 +920,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "stop": stop.isoformat(),
                     "values": completeness_event_values,
                     "alerts": [{
-                        "message": "The {} planned playback over orbit {}, expected to be received through channel 2, has not been received".format(downlink_mode, int(start_orbit)),
+                        "message": "The {} planned playback (with timings: {}_{}) over orbit {}, expected to be received through channel 2, has not been received".format(downlink_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                         "generator": os.path.basename(__file__),
                         "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                         "alert_cnf": {
@@ -962,7 +962,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "stop": stop.isoformat(),
                 "values": completeness_event_values,
                 "alerts": [{
-                    "message": "The part of the {} planned imaging over orbit {} corresponding to channel 1 has not been received".format(imaging_mode, int(start_orbit)),
+                    "message": "The part of the {} planned imaging (with timings: {}_{}) over orbit {} corresponding to channel 1 has not been received".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                     "generator": os.path.basename(__file__),
                     "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                     "alert_cnf": {
@@ -990,7 +990,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "stop": stop.isoformat(),
                 "values": completeness_event_values,
                 "alerts": [{
-                    "message": "The part of the {} planned imaging over orbit {} corresponding to channel 2 has not been received".format(imaging_mode, int(start_orbit)),
+                    "message": "The part of the {} planned imaging (with timings: {}_{}) over orbit {} corresponding to channel 2 has not been received".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                     "generator": os.path.basename(__file__),
                     "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                     "alert_cnf": {
@@ -1019,7 +1019,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "stop": stop.isoformat(),
                 "values": completeness_event_values,
                 "alerts": [{
-                    "message": "The L0 processing for the {} planned imaging over orbit {} has not been performed".format(imaging_mode, int(start_orbit)),
+                    "message": "The L0 processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                     "generator": os.path.basename(__file__),
                     "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                     "alert_cnf": {
@@ -1047,7 +1047,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 "stop": stop.isoformat(),
                 "values": completeness_event_values,
                 "alerts": [{
-                    "message": "The L1B processing for the {} planned imaging over orbit {} has not been performed".format(imaging_mode, int(start_orbit)),
+                    "message": "The L1B processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                     "generator": os.path.basename(__file__),
                     "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                     "alert_cnf": {
@@ -1076,7 +1076,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "stop": stop.isoformat(),
                     "values": completeness_event_values,
                     "alerts": [{
-                        "message": "The L1A processing for the {} planned imaging over orbit {} has not been performed".format(imaging_mode, int(start_orbit)),
+                        "message": "The L1A processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                         "generator": os.path.basename(__file__),
                         "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                         "alert_cnf": {
@@ -1106,7 +1106,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "stop": stop.isoformat(),
                     "values": completeness_event_values,
                     "alerts": [{
-                        "message": "The L1C processing for the {} planned imaging over orbit {} has not been performed".format(imaging_mode, int(start_orbit)),
+                        "message": "The L1C processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                         "generator": os.path.basename(__file__),
                         "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                         "alert_cnf": {
@@ -1136,7 +1136,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     "stop": stop.isoformat(),
                     "values": completeness_event_values,
                     "alerts": [{
-                        "message": "The L2A processing for the {} planned imaging over orbit {} has not been performed".format(imaging_mode, int(start_orbit)),
+                        "message": "The L2A processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
                         "generator": os.path.basename(__file__),
                         "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
                         "alert_cnf": {

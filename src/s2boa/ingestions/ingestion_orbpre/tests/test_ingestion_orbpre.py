@@ -461,7 +461,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_station_schedule) == 1
 
-        assert alerts_station_schedule[0].message == "The planned playback over orbit 16066 is not covered by any station schedule"
+        assert alerts_station_schedule[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066 is not covered by any station schedule"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op": "=="}
@@ -475,7 +475,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_playback) == 1
 
-        assert alerts_playback[0].message == "The NOMINAL planned playback over orbit 16066, expected to be received through channel 1, has not been received"
+        assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 1, has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op": "=="}
@@ -489,7 +489,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_playback) == 1
 
-        assert alerts_playback[0].message == "The NOMINAL planned playback over orbit 16066, expected to be received through channel 2, has not been received"
+        assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 2, has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1", "op": "=="}
@@ -503,7 +503,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_imaging) == 1
 
-        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging over orbit 16066 corresponding to channel 1 has not been received"
+        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 1 has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2", "op": "=="}
@@ -517,7 +517,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_imaging) == 1
 
-        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging over orbit 16066 corresponding to channel 2 has not been received"
+        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 2 has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "=="}
@@ -531,7 +531,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l0_processing) == 1
 
-        assert alerts_l0_processing[0].message == "The L0 processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l0_processing[0].message == "The L0 processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A", "op": "=="}
@@ -545,7 +545,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l1a_processing) == 1
 
-        assert alerts_l1a_processing[0].message == "The L1A processing for the SUN_CAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l1a_processing[0].message == "The L1A processing for the SUN_CAL planned imaging (with timings: 2018-07-20T14:10:02.951732_2018-07-20T14:16:10.071190) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "=="}
@@ -559,7 +559,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l1b_processing) == 1
 
-        assert alerts_l1b_processing[0].message == "The L1B processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l1b_processing[0].message == "The L1B processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "=="}
@@ -573,7 +573,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l1c_processing) == 1
 
-        assert alerts_l1c_processing[0].message == "The L1C processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l1c_processing[0].message == "The L1C processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "=="}
@@ -587,7 +587,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l2a_processing) == 1
 
-        assert alerts_l2a_processing[0].message == "The L2A processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l2a_processing[0].message == "The L2A processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         if previous_logging_level:
             os.environ["EBOA_LOG_LEVEL"] = previous_logging_level
@@ -637,7 +637,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_station_schedule) == 1
 
-        assert alerts_station_schedule[0].message == "The planned playback over orbit 16066 is not covered by any station schedule"
+        assert alerts_station_schedule[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066 is not covered by any station schedule"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op": "=="}
@@ -651,7 +651,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_playback) == 1
 
-        assert alerts_playback[0].message == "The NOMINAL planned playback over orbit 16066, expected to be received through channel 1, has not been received"
+        assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 1, has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op": "=="}
@@ -665,7 +665,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_playback) == 1
 
-        assert alerts_playback[0].message == "The NOMINAL planned playback over orbit 16066, expected to be received through channel 2, has not been received"
+        assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 2, has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1", "op": "=="}
@@ -679,7 +679,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_imaging) == 1
 
-        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging over orbit 16066 corresponding to channel 1 has not been received"
+        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 1 has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2", "op": "=="}
@@ -693,7 +693,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_imaging) == 1
 
-        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging over orbit 16066 corresponding to channel 2 has not been received"
+        assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 2 has not been received"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "=="}
@@ -707,7 +707,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l0_processing) == 1
 
-        assert alerts_l0_processing[0].message == "The L0 processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l0_processing[0].message == "The L0 processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A", "op": "=="}
@@ -721,7 +721,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l1a_processing) == 1
 
-        assert alerts_l1a_processing[0].message == "The L1A processing for the SUN_CAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l1a_processing[0].message == "The L1A processing for the SUN_CAL planned imaging (with timings: 2018-07-20T14:10:02.951732_2018-07-20T14:16:10.071190) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "=="}
@@ -735,7 +735,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l1b_processing) == 1
 
-        assert alerts_l1b_processing[0].message == "The L1B processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l1b_processing[0].message == "The L1B processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "=="}
@@ -749,7 +749,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l1c_processing) == 1
 
-        assert alerts_l1c_processing[0].message == "The L1C processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l1c_processing[0].message == "The L1C processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         filters = {}
         filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "=="}
@@ -763,7 +763,7 @@ class TestOrbpre(unittest.TestCase):
 
         assert len(alerts_l2a_processing) == 1
 
-        assert alerts_l2a_processing[0].message == "The L2A processing for the NOMINAL planned imaging over orbit 16066 has not been performed"
+        assert alerts_l2a_processing[0].message == "The L2A processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
         if previous_logging_level:
             os.environ["EBOA_LOG_LEVEL"] = previous_logging_level
