@@ -731,14 +731,14 @@ class TestEispIngestion(unittest.TestCase):
 
         # Check ISP_GAP events
         isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
-                                                                Event.start == "2021-02-26T16:36:08.530370",
-                                                                Event.stop == "2021-02-26T16:36:08.555601").all()
+                                                                Event.start == "2021-02-26T16:36:12.138370",
+                                                                Event.stop == "2021-02-26T16:36:12.163373").all()
 
         assert len(isp_gaps) == 1
 
         assert isp_gaps[0].get_structured_values() == [
             {
-                "value": "SMALLER_THAN_A_SCENE",
+                "value": "BETWEEN_MSI",
                 "name": "impact",
                 "type": "text"
             },
@@ -838,6 +838,100 @@ class TestEispIngestion(unittest.TestCase):
             }
         ]
 
+    def test_insert_rep_pass_with_gap_counter_start_greater_than_counter_stop(self):
+
+        filename = "S2A_OPER_REP_PASS_E_VGS2_20210324T102332_V20210324T100320_20210324T101018.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_eisp.ingestion_eisp", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        # Check number of events generated
+        events = self.session.query(Event).all()
+
+        assert len(events) == 146
+
+        # Check ISP_VALIDITY events
+        isp_validities = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY").all()
+
+        assert len(isp_validities) == 1
+
+        # Check ISP_GAP events
+        isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP").all()
+
+        assert len(isp_gaps) == 135
+
+        # Check ISP_GAP event with counter start greater than counter stop
+        isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
+                                                                Event.start == "2021-03-24T08:42:53.825904",
+                                                                Event.stop == "2021-03-24T08:42:54.860137").all()
+
+        assert len(isp_gaps) == 1
+
+        assert isp_gaps[0].get_structured_values() == [
+            {
+                "value": "BETWEEN_MSI",
+                "name": "impact",
+                "type": "text"
+            },
+            {
+                "value": "4",
+                "name": "band",
+                "type": "text"
+            },
+            {
+                "value": "4.0",
+                "name": "detector",
+                "type": "double"
+            },
+            {
+                "value": "30049.0",
+                "name": "downlink_orbit",
+                "type": "double"
+            },
+            {
+                "value": "S2A",
+                "name": "satellite",
+                "type": "text"
+            },
+            {
+                "value": "SGS_",
+                "name": "reception_station",
+                "type": "text"
+            },
+            {
+                "value": "20.0",
+                "name": "vcid",
+                "type": "double"
+            },
+            {
+                "value": "NOMINAL",
+                "name": "playback_type",
+                "type": "text"
+            },
+            {
+                "value": "291.0",
+                "name": "apid",
+                "type": "double"
+            },
+            {
+                "value": "135.0",
+                "name": "counter_start",
+                "type": "double"
+            },
+            {
+                "value": "33.0",
+                "name": "counter_stop",
+                "type": "double"
+            },
+            {
+                "value": "41.0",
+                "name": "missing_packets",
+                "type": "double"
+            }
+        ]
+        
     def test_insert_rep_pass_no_data(self):
         filename = "S2A_REP_PASS_NO_DATA.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename

@@ -880,7 +880,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             isp_gap_iterator += 1
         # end for
 
-        # Create ISP gaps for gaps smaller than a scene
+        # Create ISP gaps for gaps between MSI
         gaps_smaller_than_scene = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(@VCID) = $vcid_number]/ISP_Status/Status[NumPackets > 0]/Gaps/Gap[not (PreCounter = get_counter_threshold_from_apid(string(../../@APID))) or not (PostCounter = 0)]", vcid_number = int(vcid_number))
 
         for gap in gaps_smaller_than_scene:
@@ -889,40 +889,39 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             band_detector = functions.get_band_detector(apid_number)
 
             counter_threshold = functions.get_counter_threshold(band_detector["band"])
-            scene_start = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PreSensTime)"))))
-            scene_stop = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PostSensTime)"))))
 
-            if scene_start >= scene_stop:
-                scene_start = scene_start - datetime.timedelta(seconds=3.608)
-            # end if
+            # Get sensing timings
+            pre_scene_start = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PreSensTime)"))))
+            post_scene_start = parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(gap.xpath("string(PostSensTime)"))))
 
-            number_missing_scenes = math.ceil((scene_stop - scene_start).total_seconds() / 3.608)
-
+            # Get counters
             counter_start = int(gap.xpath("string(PreCounter)"))
-
             counter_stop = int(gap.xpath("string(PostCounter)"))
 
             if counter_start == counter_threshold:
                 missing_packets = counter_stop
             elif counter_stop == 0:
                 missing_packets = counter_threshold - counter_start
+            elif pre_scene_start < post_scene_start:
+                missing_packets = counter_threshold - counter_start + counter_stop
             else:
                 missing_packets = counter_stop - counter_start
             # end if
 
             if counter_start == counter_threshold:
-                seconds_from_scene_start_to_gap_start = 0
+                seconds_from_pre_scene_start_to_gap_start = 3.608
             else:
-                seconds_from_scene_start_to_gap_start = (counter_start / counter_threshold) * 3.608
+                seconds_from_pre_scene_start_to_gap_start = (counter_start / counter_threshold) * 3.608
             # end if
             if counter_stop == 0:
-                seconds_from_scene_start_to_gap_stop = 3.608
+                seconds_from_post_scene_start_to_gap_stop = 0
             else:
-                seconds_from_scene_start_to_gap_stop = (counter_stop / counter_threshold) * 3.608
+                seconds_from_post_scene_start_to_gap_stop = (counter_stop / counter_threshold) * 3.608
             # end if
 
-            start = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_start)
-            stop = scene_start + datetime.timedelta(seconds=seconds_from_scene_start_to_gap_stop)
+            # Set timings of the ISP_GAP
+            start = pre_scene_start + datetime.timedelta(seconds=seconds_from_pre_scene_start_to_gap_start)
+            stop = post_scene_start + datetime.timedelta(seconds=seconds_from_post_scene_start_to_gap_stop)
             
             isp_gap_event = {
                 "link_ref": "ISP_GAP_" + str(isp_gap_iterator),
@@ -945,7 +944,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "values": [
                     {"name": "impact",
                      "type": "text",
-                     "value": "SMALLER_THAN_A_SCENE"},
+                     "value": "BETWEEN_MSI"},
                     {"name": "band",
                      "type": "text",
                      "value": band_detector["band"]},
