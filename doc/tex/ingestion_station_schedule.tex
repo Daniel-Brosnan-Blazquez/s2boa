@@ -14,13 +14,13 @@ This module uses the following \acrshort{dim} signatures:
 
 \begin{itemize} 
 
-\item \textbf{STATION\_SCHEDULE\_WWW\_XXX}: data corresponding to station schedule information associated to a specific station and satellite received from the Mission Planning.
+\item \textbf{STATION\_SCHEDULE\_SSS\_XXX}: data corresponding to station schedule information associated to a specific station and satellite received from the Mission Planning.
 
 \item \textbf{COMPLETENESS\_NPPF\_XXX}: data corresponding to the definition of planning completeness used for analysis. \textbf{Priority is equal to 10}.
   
 \end{itemize}
 
-Where XXX is the corresponding satellite id and WWW to the station ID.
+Where XXX is the corresponding satellite id and SSS to the station ID.
 
 The figure \ref{fg:structure_ingestion_station_schedule} shows a simplified diagram of the structure of events inserted (associated structure of values not included for simplicity).
 
@@ -37,7 +37,7 @@ The table \ref{tb:description_events_ingestion_station_schedule} shows the descr
 \begin{landscape}
 \begin{longtable}{|M{0.15\linewidth}|M{0.05\linewidth}|M{0.10\linewidth}|M{0.10\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|M{0.15\linewidth}|}
 \hline \textbf{Gauge name} & \textbf{Gauge system} & \textbf{DIM signature} & \textbf{Insertion mode} & \textbf{Description} & \textbf{Start} & \textbf{Stop} \\ \hline
-\textbf{STATION\_SCHEDULE} & XXX & STATION\_SCHEDULE\_WWW\_XXX & INSERT\_and\_ERASE\_per\_EVENT\_with\_PRIORITY (insert) & Event for representing the \textbf{station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
+\textbf{STATION\_SCHEDULE} & XXX & STATION\_SCHEDULE\_SSS\_XXX & INSERT\_and\_ERASE\_per\_EVENT\_with\_PRIORITY (insert) & Event for representing the \textbf{station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
 \textbf{STATION\_SCHEDULE\_COMPLETENESS} & XXX & \- COMPLETENESS\_NPPF\_XXX & INSERT\_and\_ERASE & Event for representing the \textbf{expectation of the Station schedule} & UTC value inside the Data\_start node & UTC value inside the Data\_stop node  \\ \hline
 \caption{Table describing the events associated to the ingestion}
 \label{tb:description_events_ingestion_station_schedule}
