@@ -138,6 +138,13 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
         corrected_planning_events.append(corrected_planning_event)
 
         # Build completeness events
+        # Alerts for station schedule are notified 5 days before the operation starts or now
+        station_schedule_alert_notification_time = corrected_start - datetime.timedelta(days=5)
+        if station_schedule_alert_notification_time < datetime.datetime.now() and corrected_start > datetime.datetime.now():
+            station_schedule_alert_notification_time = datetime.datetime.now()
+        # end if
+        # Alerts for the planning operations are notified after 10 hours of their execution
+
         completeness_event_values = planning_event_values + [
             {"name": "status",
              "type": "text",
@@ -195,7 +202,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
-                "values": completeness_event_values
+                "values": completeness_event_values,
+                "alerts": [{
+                    "message": "The {} planned playback (with timings: {}_{}) over orbit {} is not covered by any station schedule".format(downlink_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                    "generator": os.path.basename(__file__),
+                    "notification_time": station_schedule_alert_notification_time.isoformat(),
+                    "alert_cnf": {
+                        "name": "ALERT-0001: MISSING STATION SCHEDULE",
+                        "severity": "fatal",
+                        "description": "Alert refers to the missing coverage of any station schedule for the corresponding planned playback",
+                        "group": "S2_PLANNING"
+                    }
+                }]
             }
             list_of_completeness_events.append(completeness_event)
             
@@ -214,7 +232,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
-                    "values": completeness_event_values
+                    "values": completeness_event_values,
+                    "alerts": [{
+                        "message": "The {} planned playback (with timings: {}_{}) over orbit {}, expected to be received through channel 1, has not been received".format(downlink_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                        "generator": os.path.basename(__file__),
+                        "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                        "alert_cnf": {
+                            "name": "ALERT-0010: MISSING PLANNED PLAYBACK CH 1",
+                            "severity": "fatal",
+                            "description": "Alert refers to the missing execution of the corresponding planned playback through the channel 1",
+                            "group": "S2_PLANNING"
+                        }
+                    }]
                 }
                 list_of_completeness_events.append(completeness_event)
             # end if
@@ -233,7 +262,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
-                    "values": completeness_event_values
+                    "values": completeness_event_values,
+                    "alerts": [{
+                        "message": "The {} planned playback (with timings: {}_{}) over orbit {}, expected to be received through channel 2, has not been received".format(downlink_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                        "generator": os.path.basename(__file__),
+                        "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                        "alert_cnf": {
+                            "name": "ALERT-0011: MISSING PLANNED PLAYBACK CH 2",
+                            "severity": "fatal",
+                            "description": "Alert refers to the missing execution of the corresponding planned playback through the channel 2",
+                            "group": "S2_PLANNING"
+                        }
+                    }]
                 }
                 list_of_completeness_events.append(completeness_event)
             # end if
@@ -246,7 +286,10 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 start = corrected_stop - datetime.timedelta(seconds=12)
                 stop = corrected_stop - datetime.timedelta(seconds=6)
             # end if
-            
+
+            # Obtain imaging mode
+            imaging_mode = [value.value for value in planning_event.eventTexts if value.name == "imaging_mode"][0]
+
             completeness_event = {
                 "gauge": {
                     "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
@@ -261,7 +304,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
-                "values": completeness_event_values
+                "values": completeness_event_values,
+                "alerts": [{
+                    "message": "The part of the {} planned imaging (with timings: {}_{}) over orbit {} corresponding to channel 1 has not been received".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                    "generator": os.path.basename(__file__),
+                    "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                    "alert_cnf": {
+                        "name": "ALERT-0020: MISSING PLANNED IMAGING CH 1",
+                        "severity": "fatal",
+                        "description": "Alert refers to the missing reception of the corresponding planned imaging through channel 1",
+                        "group": "S2_PLANNING"
+                    }
+                }]
             }
             list_of_completeness_events.append(completeness_event)
             completeness_event = {
@@ -278,11 +332,21 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
-                "values": completeness_event_values
+                "values": completeness_event_values,
+                "alerts": [{
+                    "message": "The part of the {} planned imaging (with timings: {}_{}) over orbit {} corresponding to channel 2 has not been received".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                    "generator": os.path.basename(__file__),
+                    "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                    "alert_cnf": {
+                        "name": "ALERT-0021: MISSING PLANNED IMAGING CH 2",
+                        "severity": "fatal",
+                        "description": "Alert refers to the missing reception of the corresponding planned imaging through channel 2",
+                        "group": "S2_PLANNING"
+                    }
+                }]
             }
             list_of_completeness_events.append(completeness_event)
 
-            imaging_mode = [value.value for value in planning_event.eventTexts if value.name == "imaging_mode"][0]
             completeness_event = {
                 "gauge": {
                     "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
@@ -297,7 +361,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
-                "values": completeness_event_values
+                "values": completeness_event_values,
+                "alerts": [{
+                    "message": "The L0 processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                    "generator": os.path.basename(__file__),
+                    "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                    "alert_cnf": {
+                        "name": "ALERT-0030: MISSING L0 PROCESSING",
+                        "severity": "fatal",
+                        "description": "Alert refers to the missing L0 processing of the corresponding planned imaging",
+                        "group": "S2_PLANNING"
+                    }
+                }]
             }
             list_of_completeness_events.append(completeness_event)
             completeness_event = {
@@ -314,7 +389,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                 }],
                 "start": start.isoformat(),
                 "stop": stop.isoformat(),
-                "values": completeness_event_values
+                "values": completeness_event_values,
+                "alerts": [{
+                    "message": "The L1B processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                    "generator": os.path.basename(__file__),
+                    "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                    "alert_cnf": {
+                        "name": "ALERT-0032: MISSING L1B PROCESSING",
+                        "severity": "fatal",
+                        "description": "Alert refers to the missing L1B processing of the corresponding planned imaging",
+                        "group": "S2_PLANNING"
+                    }
+                }]
             }
             list_of_completeness_events.append(completeness_event)
             if imaging_mode in ["SUN_CAL", "DARK_CAL_CSM_OPEN", "DARK_CAL_CSM_CLOSE", "VICARIOUS_CAL", "RAW", "TEST"]:
@@ -332,7 +418,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
-                    "values": completeness_event_values
+                    "values": completeness_event_values,
+                    "alerts": [{
+                        "message": "The L1A processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                        "generator": os.path.basename(__file__),
+                        "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                        "alert_cnf": {
+                            "name": "ALERT-0031: MISSING L1A PROCESSING",
+                            "severity": "fatal",
+                            "description": "Alert refers to the missing L1A processing of the corresponding planned imaging",
+                            "group": "S2_PLANNING"
+                        }
+                    }]
                 }
                 list_of_completeness_events.append(completeness_event)
             # end if
@@ -351,7 +448,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
-                    "values": completeness_event_values
+                    "values": completeness_event_values,
+                    "alerts": [{
+                        "message": "The L1C processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                        "generator": os.path.basename(__file__),
+                        "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                        "alert_cnf": {
+                            "name": "ALERT-0033: MISSING L1C PROCESSING",
+                            "severity": "fatal",
+                            "description": "Alert refers to the missing L1C processing of the corresponding planned imaging",
+                            "group": "S2_PLANNING"
+                        }
+                    }]
                 }
                 list_of_completeness_events.append(completeness_event)
             # end if
@@ -370,7 +478,18 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
                     }],
                     "start": start.isoformat(),
                     "stop": stop.isoformat(),
-                    "values": completeness_event_values
+                    "values": completeness_event_values,
+                    "alerts": [{
+                        "message": "The L2A processing for the {} planned imaging (with timings: {}_{}) over orbit {} has not been performed".format(imaging_mode, corrected_start.isoformat(), corrected_stop.isoformat(), int(start_orbit)),
+                        "generator": os.path.basename(__file__),
+                        "notification_time": (corrected_start + datetime.timedelta(hours=10)).isoformat(),
+                        "alert_cnf": {
+                            "name": "ALERT-0034: MISSING L2A PROCESSING",
+                            "severity": "fatal",
+                            "description": "Alert refers to the missing L2A processing of the corresponding planned imaging",
+                            "group": "S2_PLANNING"
+                        }
+                    }]
                 }
                 list_of_completeness_events.append(completeness_event)
             # end if

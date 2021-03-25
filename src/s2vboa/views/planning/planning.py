@@ -21,6 +21,9 @@ from eboa.engine.query import Query
 import eboa.engine.engine as eboa_engine
 from eboa.engine.engine import Engine
 
+# Import vboa functions
+from eboa.engine import functions as eboa_functions
+
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
@@ -296,6 +299,10 @@ def query_planning_events(start_filter = None, stop_filter = None, mission = Non
     events["imaging"] = imaging_events
     events["playback"] = playback_events
 
-    events["station_schedule"] = query.get_linking_events(event_uuids = {"filter": [event.event_uuid for event in playback_events["prime_events"]], "op": "in"}, link_names = {"filter": ["STATION_SCHEDULE", "SLOT_REQUEST_EDRS"], "op": "in"})["linking_events"]
+    events_linking_to_playbacks = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in playback_events["prime_events"]], "op": "in"}, link_names = {"filter": ["STATION_SCHEDULE", "SLOT_REQUEST_EDRS", "STATION_SCHEDULE_COMPLETENESS"], "op": "in"})["linking_events"]
+
+    events["station_schedule"] = events_linking_to_playbacks["STATION_SCHEDULE"] + events_linking_to_playbacks["SLOT_REQUEST_EDRS"]
+
+    events["station_schedule_completeness"] = eboa_functions.extract_events_with_alerts_to_be_notified(events_linking_to_playbacks["STATION_SCHEDULE_COMPLETENESS"])
 
     return events

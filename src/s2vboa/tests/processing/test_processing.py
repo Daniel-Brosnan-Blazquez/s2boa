@@ -317,7 +317,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l0 = self.driver.execute_script('return processing_geometries_missing_l0;') 
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
 
         # L1B
         isp_validity_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_2", "op":"=="},
@@ -353,7 +353,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l0 = self.driver.execute_script('return processing_geometries_missing_l1b;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l0, map_l1b_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l0, map_l1b_missing_tooltip_info)
 
         # L1C
         isp_validity_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_2", "op":"=="},
@@ -389,7 +389,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1c = self.driver.execute_script('return processing_geometries_missing_l1c;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
 
         # L2A
         isp_validity_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_2", "op":"=="},
@@ -425,7 +425,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l2a = self.driver.execute_script('return processing_geometries_missing_l2a;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("processing-timeline-section")
@@ -531,7 +531,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_missing_processing_timeline = self.driver.execute_script('return missing_processing_timeline;')
-        functions_vboa.verify_js_var(returned_missing_processing_timeline, missing_timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_missing_processing_timeline, missing_timeline_tooltip_info)
         
         # Complete
         complete_timeline_tooltip_info = []
@@ -1590,7 +1590,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_complete_l0 = self.driver.execute_script('return processing_geometries_complete_l0;')
-        functions_vboa.verify_js_var(returned_processing_geometries_complete_l0, map_l0_complete_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_complete_l0, map_l0_complete_tooltip_info)
 
         # L1B
         isp_validity_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_2", "op":"=="},
@@ -1628,7 +1628,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_complete_l1b = self.driver.execute_script('return processing_geometries_complete_l1b;')
-        functions_vboa.verify_js_var(returned_processing_geometries_complete_l1b, map_l1b_complete_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_complete_l1b, map_l1b_complete_tooltip_info)
 
         # L1C
         isp_validity_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_2", "op":"=="},
@@ -1667,7 +1667,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_complete_l1c = self.driver.execute_script('return processing_geometries_complete_l1c;')
-        functions_vboa.verify_js_var(returned_processing_geometries_complete_l1c, map_l1c_complete_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_complete_l1c, map_l1c_complete_tooltip_info)
 
         # L2A
         isp_validity_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_2", "op":"=="},
@@ -1706,7 +1706,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_complete_l2a = self.driver.execute_script('return processing_geometries_complete_l2a;')
-        functions_vboa.verify_js_var(returned_processing_geometries_complete_l2a, map_l2a_complete_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_complete_l2a, map_l2a_complete_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("processing-timeline-section")
@@ -1817,7 +1817,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_complete_processing_timeline = self.driver.execute_script('return complete_processing_timeline;')
-        functions_vboa.verify_js_var(returned_complete_processing_timeline, complete_timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_complete_processing_timeline, complete_timeline_tooltip_info)
 
         # Incomplete
         incomplete_timeline_tooltip_info = []
@@ -2529,7 +2529,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l0 = self.driver.execute_script('return processing_geometries_missing_l0;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
 
         # L1B
         isp_validity_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_2", "op":"=="},
@@ -2614,7 +2614,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1b = self.driver.execute_script('return processing_geometries_missing_l1b;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1b, map_l1b_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1b, map_l1b_missing_tooltip_info)
 
         # L1C
         isp_validity_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_2", "op":"=="},
@@ -2699,7 +2699,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1c = self.driver.execute_script('return processing_geometries_missing_l1c;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
 
         # L2A
         isp_validity_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_2", "op":"=="},
@@ -2784,7 +2784,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l2a = self.driver.execute_script('return processing_geometries_missing_l2a;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("processing-timeline-section")
@@ -3079,7 +3079,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_missing_processing_timeline = self.driver.execute_script('return missing_processing_timeline;')
-        functions_vboa.verify_js_var(returned_missing_processing_timeline, missing_timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_missing_processing_timeline, missing_timeline_tooltip_info)
 
         # Incomplete
         incomplete_timeline_tooltip_info = []
@@ -5910,7 +5910,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l0 = self.driver.execute_script('return processing_geometries_missing_l0;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
 
         # L1B
         isp_validity_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_2", "op":"=="},
@@ -5995,7 +5995,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1b = self.driver.execute_script('return processing_geometries_missing_l1b;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1b, map_l1b_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1b, map_l1b_missing_tooltip_info)
 
         # L1C
         isp_validity_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_2", "op":"=="},
@@ -6080,7 +6080,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1c = self.driver.execute_script('return processing_geometries_missing_l1c;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
 
         # L2A
         isp_validity_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_2", "op":"=="},
@@ -6165,7 +6165,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l2a = self.driver.execute_script('return processing_geometries_missing_l2a;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("processing-timeline-section")
@@ -6460,7 +6460,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_missing_processing_timeline = self.driver.execute_script('return missing_processing_timeline;')
-        functions_vboa.verify_js_var(returned_missing_processing_timeline, missing_timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_missing_processing_timeline, missing_timeline_tooltip_info)
 
         # Incomplete
         incomplete_timeline_tooltip_info = []
@@ -9290,7 +9290,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l0 = self.driver.execute_script('return processing_geometries_missing_l0;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l0, map_l0_missing_tooltip_info)
 
         # L1B
         isp_validity_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1B_CHANNEL_2", "op":"=="},
@@ -9375,7 +9375,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1b = self.driver.execute_script('return processing_geometries_missing_l1b;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1b, map_l1b_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1b, map_l1b_missing_tooltip_info)
 
         # L1C
         isp_validity_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L1C_CHANNEL_2", "op":"=="},
@@ -9460,7 +9460,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l1c = self.driver.execute_script('return processing_geometries_missing_l1c;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l1c, map_l1c_missing_tooltip_info)
 
         # L2A
         isp_validity_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "ISP_VALIDITY_PROCESSING_COMPLETENESS_L2A_CHANNEL_2", "op":"=="},
@@ -9545,7 +9545,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_missing_l2a = self.driver.execute_script('return processing_geometries_missing_l2a;')
-        functions_vboa.verify_js_var(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_missing_l2a, map_l2a_missing_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("processing-timeline-section")
@@ -9840,7 +9840,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_missing_processing_timeline = self.driver.execute_script('return missing_processing_timeline;')
-        functions_vboa.verify_js_var(returned_missing_processing_timeline, missing_timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_missing_processing_timeline, missing_timeline_tooltip_info)
 
         # Incomplete
         incomplete_timeline_tooltip_info = []
@@ -12509,7 +12509,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_processing_geometries_complete_l0 = self.driver.execute_script('return processing_geometries_complete_l0;')
-        functions_vboa.verify_js_var(returned_processing_geometries_complete_l0, map_l0_complete_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_processing_geometries_complete_l0, map_l0_complete_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("processing-timeline-section")
@@ -12551,7 +12551,7 @@ class TestProcessingView(unittest.TestCase):
         ]
 
         returned_complete_processing_timeline = self.driver.execute_script('return complete_processing_timeline;')
-        functions_vboa.verify_js_var(returned_complete_processing_timeline, complete_timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_complete_processing_timeline, complete_timeline_tooltip_info)
 
         # Incomplete
         incomplete_timeline_tooltip_info = []

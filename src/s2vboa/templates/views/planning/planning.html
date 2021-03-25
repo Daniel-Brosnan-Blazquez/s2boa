@@ -156,6 +156,9 @@
 {% include "vboa/pagination.html" %}
 {% endwith %}
 
+{% set alerts = planning_events["station_schedule_completeness"]|map(attribute="alerts")|list|flatten %}
+{% include "views/planning/planning_alerts_content.html" %}
+
 {% set orbpre_by_units = orbpre_events|events_group_by_text_value("satellite") %}
 {% set imaging_by_units = planning_events["imaging"]["prime_events"]|events_group_by_text_value("satellite") %}
 {% set playback_by_units = planning_events["playback"]["prime_events"]|events_group_by_text_value("satellite") %}

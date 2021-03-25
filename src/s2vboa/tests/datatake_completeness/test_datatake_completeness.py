@@ -302,7 +302,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l0 = self.driver.execute_script('return datatake_completeness_geometries_l0;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l0, map_l0_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l0, map_l0_missing_tooltip_info)
 
         # L1B
         planned_imaging_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op":"=="})
@@ -333,7 +333,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l1b = self.driver.execute_script('return datatake_completeness_geometries_l1b;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l1b, map_l1b_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l1b, map_l1b_missing_tooltip_info)
 
         # L1C
         planned_imaging_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op":"=="})
@@ -364,7 +364,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l1c = self.driver.execute_script('return datatake_completeness_geometries_l1c;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l1c, map_l1c_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l1c, map_l1c_missing_tooltip_info)
 
         # L2A
         planned_imaging_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op":"=="})
@@ -395,7 +395,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l2a = self.driver.execute_script('return datatake_completeness_geometries_l2a;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l2a, map_l2a_missing_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l2a, map_l2a_missing_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("datatake-completeness-timeline-section")
@@ -489,7 +489,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_timeline = self.driver.execute_script('return datatake_completeness_timeline;')
-        functions_vboa.verify_js_var(returned_datatake_completeness_timeline, timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_timeline, timeline_tooltip_info)
 
         # Check datatake completeness missing table
         missing_table = self.driver.find_element_by_id("datatake-completeness-missing-table")
@@ -1335,7 +1335,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l0 = self.driver.execute_script('return datatake_completeness_geometries_l0;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l0, map_l0_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l0, map_l0_tooltip_info)
 
         # L1B
         planned_imaging_processing_completeness_l1b = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op":"=="},
@@ -1411,7 +1411,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l1b = self.driver.execute_script('return datatake_completeness_geometries_l1b;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l1b, map_l1b_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l1b, map_l1b_tooltip_info)
 
         # L1C
         planned_imaging_processing_completeness_l1c = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op":"=="},
@@ -1487,7 +1487,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l1c = self.driver.execute_script('return datatake_completeness_geometries_l1c;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l1c, map_l1c_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l1c, map_l1c_tooltip_info)
 
         # L2A
         planned_imaging_processing_completeness_l2a = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op":"=="},
@@ -1563,7 +1563,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_geometries_l2a = self.driver.execute_script('return datatake_completeness_geometries_l2a;') 
-        functions_vboa.verify_js_var(returned_datatake_completeness_geometries_l2a, map_l2a_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_geometries_l2a, map_l2a_tooltip_info)
 
         # Check whether the timeline is displayed
         timeline_section = self.driver.find_element_by_id("datatake-completeness-timeline-section")
@@ -1817,7 +1817,7 @@ class TestDatatakeCompletenessView(unittest.TestCase):
         ]
 
         returned_datatake_completeness_timeline = self.driver.execute_script('return datatake_completeness_timeline;')
-        functions_vboa.verify_js_var(returned_datatake_completeness_timeline, timeline_tooltip_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_datatake_completeness_timeline, timeline_tooltip_info)
 
         # Check datatake completeness missing table
         missing_table = self.driver.find_element_by_id("datatake-completeness-missing-table")

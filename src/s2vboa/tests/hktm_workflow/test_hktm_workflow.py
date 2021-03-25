@@ -1264,7 +1264,7 @@ class TestHktmWorkflowView(unittest.TestCase):
         ]
         
         returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
-        functions_vboa.verify_js_var(returned_hktm_timeline_events, hktm_timeline_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_hktm_timeline_events, hktm_timeline_info)
         
     def test_hktm_workflow_with_missing(self):
 
@@ -1650,5 +1650,496 @@ class TestHktmWorkflowView(unittest.TestCase):
         ]
         
         returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
-        functions_vboa.verify_js_var(returned_hktm_timeline_events, hktm_timeline_info)
+        functions_vboa.assert_equal_list_dictionaries(returned_hktm_timeline_events, hktm_timeline_info)
+    
+    def test_hktm_workflow_with_ophktm_and_planning_and_rep_pass_with_gaps(self):
+
+        filename = "S2B_OPER_MPL__NPPF__20201001T120000_20201019T150000_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_MPL_ORBPRE_20201015T030112_20201025T030112_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_MPL_SPSGS__PDMC_20201014T090002_V20201015T090000_20201021T090000.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_REP_PASS_E_VGS2_20201015T125515_V20201015T124814_20201015T125511_WITH_GAPS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_vgs_acquisition.ingestion_vgs_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2B_OPER_REP_OPHKTM_VGS2_20201015T131302_V20201015T125641_20201015T125641.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_ophktm.ingestion_ophktm", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        wait = WebDriverWait(self.driver,5)
+
+        self.driver.get("http://localhost:5000/views/hktm-workflow")
+
+        functions.query(self.driver, wait, "S2B", start = "2020-10-15T00:00:17", stop = "2020-10-15T23:55:17", start_orbit = "18852", stop_orbit = "18858", timeline = True, table_details = True, evolution = True, map = True)
+
+        # Check summary expected
+        summary_expected = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-expected")))
+
+        assert summary_expected
+
+        assert summary_expected.text == "3"
+
+        # Check summary generated
+        summary_generated = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-generated")))
+
+        assert summary_generated
+
+        assert summary_generated.text == "1"
+
+        # Check summary missing production
+        summary_missing_production = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-missing-production")))
+
+        assert summary_missing_production
+
+        assert summary_missing_production.text == "2"
+
+        # Check summary missing circulation
+        summary_missing_production = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-missing-circulation")))
+
+        assert summary_missing_production
+
+        assert summary_missing_production.text == "1"
+
+        # Check summary missing data pdgs
+        summary_missing_production = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-workflow-missing-data-pdgs")))
+
+        assert summary_missing_production
+
+        assert summary_missing_production.text == "2"
+
+        # Check if table with issues appears
+        issues_hktm_table = wait.until(EC.visibility_of_element_located((By.ID,"hktm-workflow-issues-hktm-table_wrapper")))
+
+        assert issues_hktm_table
         
+        # General table
+        general_table = self.driver.find_element_by_id("hktm-workflow-list-hktm-table")
+
+        # Row 1
+        satellite = general_table.find_element_by_xpath("tbody/tr[1]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[1]/td[2]")
+
+        assert orbit.text == "18858"
+
+        station = general_table.find_element_by_xpath("tbody/tr[1]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[1]/td[4]")
+
+        assert anx_time.text == "2020-10-15T18:54:40.931594"
+
+        status = general_table.find_element_by_xpath("tbody/tr[1]/td[5]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert distribution_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[1]/td[8]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[1]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[1]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[1]/td[11]")
+
+        assert comments.text == ""
+
+        # Row 2
+        satellite = general_table.find_element_by_xpath("tbody/tr[2]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[2]/td[2]")
+
+        assert orbit.text == "18857"
+
+        station = general_table.find_element_by_xpath("tbody/tr[2]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[2]/td[4]")
+
+        assert anx_time.text == "2020-10-15T17:13:58.892870"
+
+        status = general_table.find_element_by_xpath("tbody/tr[2]/td[5]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[2]/td[6]")
+
+        assert distribution_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[2]/td[7]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[2]/td[8]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[2]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[2]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[2]/td[11]")
+
+        assert comments.text == ""
+
+        # Row 3
+        satellite = general_table.find_element_by_xpath("tbody/tr[3]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[3]/td[2]")
+
+        assert orbit.text == "18856"
+
+        station = general_table.find_element_by_xpath("tbody/tr[3]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[3]/td[4]")
+
+        assert anx_time.text == "2020-10-15T15:33:16.850267"
+
+        status = general_table.find_element_by_xpath("tbody/tr[3]/td[5]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[3]/td[6]")
+
+        assert distribution_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[3]/td[7]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[3]/td[8]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[3]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[3]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[3]/td[11]")
+
+        assert comments.text == ""
+
+        # Row 4
+        satellite = general_table.find_element_by_xpath("tbody/tr[4]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[4]/td[2]")
+
+        assert orbit.text == "18855"
+
+        station = general_table.find_element_by_xpath("tbody/tr[4]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[4]/td[4]")
+
+        assert anx_time.text == "2020-10-15T13:52:34.882710"
+
+        status = general_table.find_element_by_xpath("tbody/tr[4]/td[5]")
+
+        assert status.text == "PENDING ACQUISITION"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[4]/td[6]")
+
+        assert distribution_status.text == "N/A"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[4]/td[7]")
+
+        assert completeness_status.text == "N/A"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[4]/td[8]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[4]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[4]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[4]/td[11]")
+
+        assert comments.text == ""
+
+        # Row 5
+        satellite = general_table.find_element_by_xpath("tbody/tr[5]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[5]/td[2]")
+
+        assert orbit.text == "18854"
+
+        station = general_table.find_element_by_xpath("tbody/tr[5]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[5]/td[4]")
+
+        assert anx_time.text == "2020-10-15T12:11:52.978670"
+
+        status = general_table.find_element_by_xpath("tbody/tr[5]/td[5]")
+
+        assert status.text == "MISSING CIRCULATION TO FOS"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[5]/td[6]")
+
+        assert distribution_status.text == "N/A"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[5]/td[7]")
+
+        assert completeness_status.text == "NOK"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[5]/td[8]")
+
+        assert hktm_product.text == "S2B_OPER_PRD_HKTM___20201015T125434_20201015T125511_0001"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[5]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[5]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[5]/td[11]")
+
+        assert comments.text == ""
+
+        # Row 6
+        satellite = general_table.find_element_by_xpath("tbody/tr[6]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[6]/td[2]")
+
+        assert orbit.text == "18853"
+
+        station = general_table.find_element_by_xpath("tbody/tr[6]/td[3]")
+
+        assert station.text == "SGS_"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[6]/td[4]")
+
+        assert anx_time.text == "2020-10-15T10:31:11.089630"
+
+        status = general_table.find_element_by_xpath("tbody/tr[6]/td[5]")
+
+        assert status.text == "PENDING ACQUISITION"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[6]/td[6]")
+
+        assert distribution_status.text == "N/A"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[6]/td[7]")
+
+        assert completeness_status.text == "N/A"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[6]/td[8]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[6]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[6]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[6]/td[11]")
+
+        assert comments.text == ""
+
+        # Row 7
+        satellite = general_table.find_element_by_xpath("tbody/tr[7]/td[1]")
+
+        assert satellite.text == "S2B"
+
+        orbit = general_table.find_element_by_xpath("tbody/tr[7]/td[2]")
+
+        assert orbit.text == "18852"
+
+        station = general_table.find_element_by_xpath("tbody/tr[7]/td[3]")
+
+        assert station.text == "N/A"
+
+        anx_time = general_table.find_element_by_xpath("tbody/tr[7]/td[4]")
+
+        assert anx_time.text == "2020-10-15T08:50:29.168713"
+
+        status = general_table.find_element_by_xpath("tbody/tr[7]/td[5]")
+
+        assert status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        distribution_status = general_table.find_element_by_xpath("tbody/tr[7]/td[6]")
+
+        assert distribution_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        completeness_status = general_table.find_element_by_xpath("tbody/tr[7]/td[7]")
+
+        assert completeness_status.text == "HKTM PLAYBACK NOT PLANNED"
+
+        hktm_product = general_table.find_element_by_xpath("tbody/tr[7]/td[8]")
+
+        assert hktm_product.text == "N/A"
+
+        pdmc_fos_time = general_table.find_element_by_xpath("tbody/tr[7]/td[9]")
+
+        assert pdmc_fos_time.text == "N/A"
+
+        time_fos = general_table.find_element_by_xpath("tbody/tr[7]/td[10]")
+
+        assert time_fos.text == "N/A"
+
+        comments = general_table.find_element_by_xpath("tbody/tr[7]/td[11]")
+
+        assert comments.text == ""
+
+        hktm_production_vgs = self.query_eboa.get_events(gauge_names ={"filter": "HKTM_PRODUCTION_VGS", "op":"=="})
+        planned_playback_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2020-10-15T11:05:06.135000", "op":"=="}],
+                                                    stop_filters = [{"date": "2020-10-15T11:05:06.135000", "op": "=="}])
+        planned_playback_correction_1 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                   start_filters =[{"date": "2020-10-15T11:05:16.311091", "op":"=="}],
+                                                                   stop_filters = [{"date": "2020-10-15T11:05:16.311091", "op": "=="}])
+        planned_playback_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2020-10-15T12:45:00.763000", "op":"=="}],
+                                                    stop_filters = [{"date": "2020-10-15T12:45:00.763000", "op": "=="}])
+        planned_playback_correction_2 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                   start_filters =[{"date": "2020-10-15T12:45:10.889278", "op":"=="}],
+                                                                   stop_filters = [{"date": "2020-10-15T12:45:10.889278", "op": "=="}])
+        planned_playback_3 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK", "op":"=="},
+                                                    start_filters =[{"date": "2020-10-15T14:24:25.437000", "op":"=="}],
+                                                    stop_filters = [{"date": "2020-10-15T14:24:25.437000", "op": "=="}])
+        planned_playback_correction_3 = self.query_eboa.get_events(gauge_names ={"filter": "PLANNED_PLAYBACK_CORRECTION", "op":"=="},
+                                                                   start_filters =[{"date": "2020-10-15T14:24:35.530000", "op":"=="}],
+                                                                   stop_filters = [{"date": "2020-10-15T14:24:35.530000", "op": "=="}])
+        
+        # HKTM timeline info
+        hktm_timeline_info = [
+            {
+                "id": str(planned_playback_1[0].event_uuid),
+                "group": "S2B",
+                "timeline": "SGS_",
+                "start": planned_playback_correction_1[0].start.isoformat(),
+                "stop": (planned_playback_correction_1[0].start + (planned_playback_correction_1[0].start.resolution * 1000000)*600).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2B</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/views/specific-acquisition/" + str(planned_playback_correction_1[0].event_uuid) + "'>18853</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><a href='/views/specific-hktm-workflow/" + str(planned_playback_1[0].event_uuid) + "' class='bold-orange'>PENDING ACQUISITION</a></td></tr>" +
+                "<tr><td>Distribution status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-10-15T10:31:11.089630</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-orange"
+            },
+            {
+                "id": str(hktm_production_vgs[0].event_uuid),
+                "group": "S2B",
+                "timeline": "SGS_",
+                "start": planned_playback_correction_2[0].start.isoformat(),
+                "stop": (planned_playback_correction_2[0].start + (planned_playback_correction_2[0].start.resolution * 1000000)*600).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td><a href='/eboa_nav/query-er/" + str(hktm_production_vgs[0].explicitRef.explicit_ref_uuid) + "'>S2B_OPER_PRD_HKTM___20201015T125434_20201015T125511_0001</a></td></tr>" +
+                "<tr><td>Satellite</td><td>S2B</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/views/specific-acquisition/" + str(planned_playback_correction_2[0].event_uuid) + "'>18854</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><a href='/views/specific-hktm-workflow/" + str(planned_playback_2[0].event_uuid) + "' class='bold-red'>MISSING CIRCULATION TO FOS</a></td></tr>" +
+                "<tr><td>Distribution status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class='bold-red'>NOK</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-10-15T12:11:52.978670</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-red"
+            },
+            {
+                "id": str(planned_playback_3[0].event_uuid),
+                "group": "S2B",
+                "timeline": "SGS_",
+                "start": planned_playback_correction_3[0].start.isoformat(),
+                "stop": (planned_playback_correction_3[0].start + (planned_playback_correction_3[0].start.resolution * 1000000)*600).isoformat(),
+                "tooltip": "<table border='1'>" +
+                "<tr><td>HKTM Product</td><td>N/A</td></tr>" +
+                "<tr><td>Satellite</td><td>S2B</td></tr>" +
+                "<tr><td>Orbit</td><td><a href='/views/specific-acquisition/" + str(planned_playback_correction_3[0].event_uuid) + "'>18855</a></td></tr>" +
+                "<tr><td>Station</td><td>SGS_</td></tr>" +
+                "<tr><td>Status</td><td><a href='/views/specific-hktm-workflow/" + str(planned_playback_3[0].event_uuid) + "' class='bold-orange'>PENDING ACQUISITION</a></td></tr>" +
+                "<tr><td>Distribution status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>Completeness status</td><td><span class=''>N/A</span></td></tr>" +
+                "<tr><td>ANX time</td><td>2020-10-15T13:52:34.882710</td></tr>" +
+                "<tr><td>PDMC-FOS time</td><td>N/A</td></tr>" +
+                "<tr><td>Delta to FOS (m)</td><td><span class='bold-red'>N/A</span></td></tr>" +
+                "<tr><td>Product size (B)</td><td>N/A</td></tr>" +
+                "</table>",
+                "className": "fill-border-orange"
+            },
+        ]
+        
+        returned_hktm_timeline_events = self.driver.execute_script('return hktm_timeline_events;')
+        
+        functions_vboa.assert_equal_list_dictionaries(returned_hktm_timeline_events, hktm_timeline_info)
