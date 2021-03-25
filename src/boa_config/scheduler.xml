@@ -2,12 +2,12 @@
   <rule name="WEEKLY">
     <!-- periodicity is set to 1 week -->
     <periodicity>7</periodicity>
-    <!-- window_delay is set to 2 hours -->
-    <window_delay>0.083333333</window_delay>
+    <!-- window_delay is set to 3 hours -->
+    <window_delay>0.125</window_delay>
     <!-- window_size is set to 1 week -->
     <window_size>7</window_size>
     <date>
-      <time>08:00:00</time>
+      <time>09:00:00</time>
       <weekday>wednesday</weekday>
     </date>
     <tasks>
@@ -20,12 +20,6 @@
       <task name="ACQUISITION_COMPLETENESS">
         <command>rboa_triggering.py -g "Acquisition completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
       </task>
-      <task name="DATATAKE_COMPLETENESS">
-        <command>rboa_triggering.py -g "Datatake completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
-      </task>
-      <task name="PROCESSING_COMPLETENESS">
-        <command>rboa_triggering.py -g "Processing completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
-      </task>
       <task name="HKTM_WORKFLOW">
         <command>rboa_triggering.py -g "HKTM workflow status generator (Complete view)" -m AUTOMATIC</command>
       </task>
@@ -37,12 +31,12 @@
   <rule name="WEEKLY_SENSING">
     <!-- periodicity is set to 1 week -->
     <periodicity>7</periodicity>
-    <!-- window_delay is set to 8 hours -->
-    <window_delay>0.333333333</window_delay>
+    <!-- window_delay is set to 9 hours -->
+    <window_delay>0.375</window_delay>
     <!-- window_size is set to 1 week -->
     <window_size>7</window_size>
     <date>
-      <time>08:00:00</time>
+      <time>09:00:00</time>
       <weekday>wednesday</weekday>
     </date>
     <tasks>
@@ -52,17 +46,23 @@
       <task name="SENSING_DATA_VOLUMES">
         <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>
       </task>
+      <task name="DATATAKE_COMPLETENESS">
+        <command>rboa_triggering.py -g "Datatake completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
+      </task>
+      <task name="PROCESSING_COMPLETENESS">
+        <command>rboa_triggering.py -g "Processing completeness generator (Anomalies/Alerts view)" -m AUTOMATIC</command>
+      </task>
     </tasks>
   </rule>
   <rule name="DAILY">
     <!-- periodicity is set to 1 day -->
     <periodicity>1</periodicity>
-    <!-- window_delay is set to 2 hours -->
-    <window_delay>0.083333333</window_delay>
+    <!-- window_delay is set to 3 hours -->
+    <window_delay>0.125</window_delay>
     <!-- window_size is set to 1 day -->
     <window_size>1</window_size>
     <date>
-      <time>08:00:00</time>
+      <time>09:00:00</time>
     </date>
     <tasks>
       <task name="BOA_HEALTH">
@@ -77,12 +77,6 @@
       <task name="ACQUISITION_COMPLETENESS">
         <command>rboa_triggering.py -g "Acquisition completeness generator (Complete view)" -m AUTOMATIC</command>
       </task>
-      <task name="DATATAKE_COMPLETENESS">
-        <command>rboa_triggering.py -g "Datatake completeness generator (Complete view)" -m AUTOMATIC</command>
-      </task>
-      <task name="PROCESSING_COMPLETENESS">
-        <command>rboa_triggering.py -g "Processing completeness generator (Complete view)" -m AUTOMATIC</command>
-      </task>
       <task name="HKTM_WORKFLOW">
         <command>rboa_triggering.py -g "HKTM workflow status generator (Complete view)" -m AUTOMATIC</command>
       </task>
@@ -94,12 +88,12 @@
   <rule name="DAILY_SENSING">
     <!-- periodicity is set to 1 day -->
     <periodicity>1</periodicity>
-    <!-- window_delay is set to 8 hours -->
-    <window_delay>0.333333333</window_delay>
+    <!-- window_delay is set to 9 hours -->
+    <window_delay>0.375</window_delay>
     <!-- window_size is set to 1 day -->
     <window_size>1</window_size>
     <date>
-      <time>08:00:00</time>
+      <time>09:00:00</time>
     </date>
     <tasks>
       <task name="DHUS_COMPLETENESS">
@@ -107,6 +101,28 @@
       </task>
       <task name="SENSING_DATA_VOLUMES">
         <command>rboa_triggering.py -g "Sensing data volumes generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="DATATAKE_COMPLETENESS">
+        <command>rboa_triggering.py -g "Datatake completeness generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+      <task name="PROCESSING_COMPLETENESS">
+        <command>rboa_triggering.py -g "Processing completeness generator (Complete view)" -m AUTOMATIC</command>
+      </task>
+    </tasks>
+  </rule>
+  <rule name="DAILY_SENSING_ONE_DAY_BEFORE">
+    <!-- periodicity is set to 1 day -->
+    <periodicity>1</periodicity>
+    <!-- window_delay is set to 1 day and 9 hours -->
+    <window_delay>1.375</window_delay>
+    <!-- window_size is set to 1 day -->
+    <window_size>1</window_size>
+    <date>
+      <time>09:00:00</time>
+    </date>
+    <tasks>
+      <task name="DHUS_COMPLETENESS">
+        <command>rboa_triggering.py -g "Data availability in DHUS generator (Complete view)" -m AUTOMATIC</command>
       </task>
     </tasks>
   </rule>
