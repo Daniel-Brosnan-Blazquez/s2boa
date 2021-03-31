@@ -1399,7 +1399,7 @@ def process_file(file_path, engine, query, reception_time, tgz_filename = None):
         source_with_priority["priority"] = 10
 
         data["operations"].append({
-            "mode": "insert",
+            "mode": "insert_and_erase_with_equal_or_lower_priority",
             "dim_signature": {
                 "name": "COMPLETENESS_NPPF_" + satellite,
                 "exec": os.path.basename(__file__),

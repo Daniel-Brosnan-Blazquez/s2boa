@@ -1821,7 +1821,7 @@ class TestEngine(unittest.TestCase):
                 "type": "double"
             },
             {
-                "value": "reception",
+                "value": "processing",
                 "name": "source",
                 "type": "text"
             },
@@ -1876,7 +1876,7 @@ class TestEngine(unittest.TestCase):
                 "type": "double"
             },
             {
-                "value": "processing",
+                "value": "reception",
                 "name": "source",
                 "type": "text"
             },
@@ -1931,7 +1931,7 @@ class TestEngine(unittest.TestCase):
                 "type": "double"
             },
             {
-                "value": "reception",
+                "value": "processing",
                 "name": "source",
                 "type": "text"
             },
@@ -1984,7 +1984,7 @@ class TestEngine(unittest.TestCase):
                 "type": "double"
             },
             {
-                "value": "processing",
+                "value": "reception",
                 "name": "source",
                 "type": "text"
             },

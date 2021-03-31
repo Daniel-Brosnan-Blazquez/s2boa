@@ -159,7 +159,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
         "explicit_reference": session_id,
         "key": session_id + "_CHANNEL_" + channel,
         "gauge": {
-            "insertion_type": "EVENT_KEYS",
+            "insertion_type": "SIMPLE_UPDATE",
             "name": "DFEP_ACQUISITION_VALIDITY",
             "system": station
         },
@@ -223,7 +223,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                     "explicit_reference": session_id,
                     "key": session_id + "_CHANNEL_" + channel,
                     "gauge": {
-                        "insertion_type": "EVENT_KEYS",
+                        "insertion_type": "SIMPLE_UPDATE",
                         "name": "PLAYBACK_GAP",
                         "system": station
                     },
@@ -383,7 +383,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "PLAYBACK_VALIDITY_" + vcid_number,
                 "system": station
             },
@@ -430,7 +430,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "PLAYBACK_HKTM_DISTRIBUTION_STATUS_CHANNEL_" + channel,
                 "system": station
             },
@@ -480,7 +480,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "PLAYBACK_ISP_DISTRIBUTION_STATUS_CHANNEL_" + channel,
                 "system": station
             },
@@ -613,7 +613,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "SAD_DATA",
                 "system": station
             },
@@ -741,7 +741,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "explicit_reference": session_id,
                     "key": session_id + "_CHANNEL_" + channel,
                     "gauge": {
-                        "insertion_type": "EVENT_KEYS",
+                        "insertion_type": "SIMPLE_UPDATE",
                         "name": "ISP_GAP",
                         "system": station
                     },
@@ -820,7 +820,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "explicit_reference": session_id,
                 "key": session_id + "_CHANNEL_" + channel,
                 "gauge": {
-                    "insertion_type": "EVENT_KEYS",
+                    "insertion_type": "SIMPLE_UPDATE",
                     "name": "ISP_GAP",
                     "system": station
                 },
@@ -928,7 +928,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "explicit_reference": session_id,
                 "key": session_id + "_CHANNEL_" + channel,
                 "gauge": {
-                    "insertion_type": "EVENT_KEYS",
+                    "insertion_type": "SIMPLE_UPDATE",
                     "name": "ISP_GAP",
                     "system": station
                 },
@@ -1018,7 +1018,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "RAW_ISP_VALIDITY",
                 "system": station
             },
@@ -1608,7 +1608,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "explicit_reference": session_id,
                 "key": session_id + "_CHANNEL_" + channel,
                 "gauge": {
-                    "insertion_type": "EVENT_KEYS",
+                    "insertion_type": "SIMPLE_UPDATE",
                     "name": "ISP_VALIDITY",
                     "system": station
                 },

@@ -124,7 +124,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
                     "explicit_reference": session_id,
                     "key": session_id + "_CHANNEL_" + channel,
                     "gauge": {
-                        "insertion_type": "EVENT_KEYS",
+                        "insertion_type": "SIMPLE_UPDATE",
                         "name": "PLAYBACK_GAP",
                         "system": "EDRS"
                     },
@@ -270,7 +270,7 @@ def _generate_acquisition_data_information(xpath_xml, source, engine, query, lis
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "PLAYBACK_VALIDITY_" + vcid_number,
                 "system": "EDRS"
             },
@@ -396,7 +396,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "SAD_DATA",
                 "system": "EDRS"
             },
@@ -474,7 +474,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "explicit_reference": session_id,
                 "key": session_id + "_CHANNEL_" + channel,
                 "gauge": {
-                    "insertion_type": "EVENT_KEYS",
+                    "insertion_type": "SIMPLE_UPDATE",
                     "name": "ISP_GAP",
                     "system": "EDRS"
                 },
@@ -548,7 +548,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "explicit_reference": session_id,
                 "key": session_id + "_CHANNEL_" + channel,
                 "gauge": {
-                    "insertion_type": "EVENT_KEYS",
+                    "insertion_type": "SIMPLE_UPDATE",
                     "name": "ISP_GAP",
                     "system": "EDRS"
                 },
@@ -623,7 +623,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                 "explicit_reference": session_id,
                 "key": session_id + "_CHANNEL_" + channel,
                 "gauge": {
-                    "insertion_type": "EVENT_KEYS",
+                    "insertion_type": "SIMPLE_UPDATE",
                     "name": "ISP_GAP",
                     "system": "EDRS"
                 },
@@ -696,7 +696,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             "explicit_reference": session_id,
             "key": session_id + "_CHANNEL_" + channel,
             "gauge": {
-                "insertion_type": "EVENT_KEYS",
+                "insertion_type": "SIMPLE_UPDATE",
                 "name": "RAW_ISP_VALIDITY",
                 "system": "EDRS"
             },
@@ -1248,7 +1248,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "explicit_reference": session_id,
                     "key": session_id + "_CHANNEL_" + channel,
                     "gauge": {
-                        "insertion_type": "EVENT_KEYS",
+                        "insertion_type": "SIMPLE_UPDATE",
                         "name": "ISP_VALIDITY",
                         "system": "EDRS"
                     },
