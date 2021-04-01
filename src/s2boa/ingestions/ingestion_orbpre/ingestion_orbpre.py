@@ -762,7 +762,7 @@ def process_file(file_path, engine, query, reception_time):
                 "validity_stop": validity_stop_corrected,
                 "reported_validity_start": validity_start,
                 "reported_validity_stop": reported_validity_stop,
-                "priority": 20
+                "priority": 10
             },
             "events": list_of_completeness_events_with_footprint
         })
