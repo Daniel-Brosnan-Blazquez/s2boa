@@ -171,7 +171,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             # DFEP schedule completeness
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                     "name": "DFEP_SCHEDULE_COMPLETENESS",
                     "system": planning_event.gauge.system
                 },
@@ -190,7 +190,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             # Station schedule completeness
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_per_EVENT_with_PRIORITY",
                     "name": "STATION_SCHEDULE_COMPLETENESS",
                     "system": planning_event.gauge.system
                 },

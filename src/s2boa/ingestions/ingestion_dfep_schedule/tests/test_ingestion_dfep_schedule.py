@@ -76,12 +76,12 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                                       reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                                      validity_start_filters = [{"date": "2018-07-21T10:35:27.609000", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2018-07-21T10:37:39.611000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-20T09:00:10", "op": "=="}],
+                                                      validity_start_filters = [{"date": "2018-07-20T11:03:27.014", "op": "=="}],
+                                                      validity_stop_filters = [{"date": "2018-07-26T00:47:15.402", "op": "=="}],
+                                                      generation_time_filters = [{"date": "2018-07-20T09:00:10", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                              processors = {"filter": "event_1_ingestion_dfep_schedule.py", "op": "like"},
-                                              names = {"filter": "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF", "op": "like"})
+                                                      processors = {"filter": "ingestion_dfep_schedule.py", "op": "like"},
+                                                      names = {"filter": "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF", "op": "like"})
 
         assert len(definite_source) == 1
 
@@ -177,12 +177,12 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                                       reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                                      validity_start_filters = [{"date": "2018-07-21T10:35:27.609000", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2018-07-21T10:37:39.611000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-20T09:00:10", "op": "=="}],
+                                                      validity_start_filters = [{"date": "2018-07-20T11:03:27.014", "op": "=="}],
+                                                      validity_stop_filters = [{"date": "2018-07-26T00:47:15.402", "op": "=="}],
+                                                      generation_time_filters = [{"date": "2018-07-20T09:00:10", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                              processors = {"filter": "event_1_ingestion_dfep_schedule.py", "op": "like"},
-                                              names = {"filter": "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF", "op": "like"})
+                                                      processors = {"filter": "ingestion_dfep_schedule.py", "op": "like"},
+                                                      names = {"filter": "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF", "op": "like"})
 
         assert len(definite_source) == 1
         
@@ -441,12 +441,12 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T09:00:00", "op": "=="}],
                                                       reported_validity_stop_filters = [{"date": "2018-07-26T09:00:00", "op": "=="}],
-                                                      validity_start_filters = [{"date": "2018-07-21T10:35:27.609000", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2018-07-21T10:37:39.611000", "op": "=="}],
-                                              generation_time_filters = [{"date": "2018-07-20T09:00:10", "op": "=="}],
+                                                      validity_start_filters = [{"date": "2018-07-20T11:03:27.014", "op": "=="}],
+                                                      validity_stop_filters = [{"date": "2018-07-26T00:47:15.402", "op": "=="}],
+                                                      generation_time_filters = [{"date": "2018-07-20T09:00:10", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                              processors = {"filter": "event_1_ingestion_dfep_schedule.py", "op": "like"},
-                                              names = {"filter": "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF", "op": "like"})
+                                                      processors = {"filter": "ingestion_dfep_schedule.py", "op": "like"},
+                                                      names = {"filter": "S2A_OPER_MPL_FSMPS__PDMC_20180719T090010_RIPPED.EOF", "op": "like"})
 
         assert len(definite_source) == 1
         

@@ -76,11 +76,11 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T02:46:57", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2018-07-21T03:05:05", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T03:00:00", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                              processors = {"filter": "event_1_ingestion_slot_request_edrs.py", "op": "like"},
+                                              processors = {"filter": "ingestion_slot_request_edrs.py", "op": "like"},
                                               names = {"filter": "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF", "op": "like"})
 
         assert len(definite_source) == 1
@@ -231,11 +231,11 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T02:46:57", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2018-07-21T03:05:05", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T03:00:00", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                              processors = {"filter": "event_1_ingestion_slot_request_edrs.py", "op": "like"},
+                                              processors = {"filter": "ingestion_slot_request_edrs.py", "op": "like"},
                                               names = {"filter": "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF", "op": "like"})
 
         assert len(definite_source) == 1
@@ -552,11 +552,11 @@ class TestEngine(unittest.TestCase):
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
-                                              validity_start_filters = [{"date": "2018-07-21T02:46:57", "op": "=="}],
-                                              validity_stop_filters = [{"date": "2018-07-21T03:05:05", "op": "=="}],
+                                              validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
+                                              validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],
                                               generation_time_filters = [{"date": "2018-07-21T03:00:00", "op": "=="}],
                                                       dim_signatures = {"filter": "COMPLETENESS_NPPF_S2A", "op": "=="},
-                                              processors = {"filter": "event_1_ingestion_slot_request_edrs.py", "op": "like"},
+                                              processors = {"filter": "ingestion_slot_request_edrs.py", "op": "like"},
                                               names = {"filter": "S2__OPER_SRA_EDRS_A_PDMC_20180720T030000_RIPPED.EOF", "op": "like"})
 
         assert len(definite_source) == 1

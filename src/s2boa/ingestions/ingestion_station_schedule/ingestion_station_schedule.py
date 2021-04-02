@@ -208,6 +208,7 @@ def process_file(file_path, engine, query, reception_time):
     satellite = file_name[0:3]
     generation_time = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Source/Creation_Date")[0].text.split("=")[1]
     reported_validity_start = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Start")[0].text.split("=")[1]
+    validity_start = (parser.parse(xpath_xml("/Earth_Explorer_File/Data_Block/SCHEDULE/ACQ[1]/Acquisition_Start")[0].text.split("=")[1]) - datetime.timedelta(minutes=10)).isoformat()
     reported_validity_stop = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/Validity_Period/Validity_Stop")[0].text.split("=")[1]
     station = xpath_xml("/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header/File_Type")[0].text[6:]
 
@@ -216,7 +217,7 @@ def process_file(file_path, engine, query, reception_time):
         "reception_time": reception_time,
         "generation_time": generation_time,
         "reported_validity_start": reported_validity_start,
-        "validity_start": (parser.parse(xpath_xml("/Earth_Explorer_File/Data_Block/SCHEDULE/ACQ[1]/Acquisition_Start")[0].text.split("=")[1]) - datetime.timedelta(minutes=10)).isoformat(),
+        "validity_start": validity_start,
         "validity_stop": reported_validity_stop
     }
 
@@ -256,29 +257,25 @@ def process_file(file_path, engine, query, reception_time):
     functions.insert_ingestion_progress(session_progress, general_source_progress, 95)
 
     if len(list_of_completeness_events) > 0:
-        iterator = 1
-        for event in list_of_completeness_events:
-            data["operations"].append({
-                "mode": "insert",
-                "dim_signature": {
-                    "name": "COMPLETENESS_NPPF_" + satellite,
-                    "exec": "event_" + str(iterator) + "_" + os.path.basename(__file__),
-                    "version": version
-                },
-                "source": {
-                    "name": file_name,
-                    "reception_time": reception_time,
-                    "generation_time": generation_time,
-                    "reported_validity_start": reported_validity_start,
-                    "reported_validity_stop": reported_validity_stop,
-                    "validity_start": event["start"],
-                    "validity_stop": event["stop"],
-                    "priority": 30
-                },
-                "events": [event]
-            })
-            iterator += 1
-        # end for
+        data["operations"].append({
+            "mode": "insert",
+            "dim_signature": {
+                "name": "COMPLETENESS_NPPF_" + satellite,
+                "exec": os.path.basename(__file__),
+                "version": version
+            },
+            "source": {
+                "name": file_name,
+                "reception_time": reception_time,
+                "generation_time": generation_time,
+                "reported_validity_start": reported_validity_start,
+                "reported_validity_stop": reported_validity_stop,
+                "validity_start": validity_start,
+                "validity_stop": reported_validity_stop,
+                "priority": 30
+            },
+            "events": list_of_completeness_events
+        })
     # end if
     
     functions.insert_ingestion_progress(session_progress, general_source_progress, 100)
