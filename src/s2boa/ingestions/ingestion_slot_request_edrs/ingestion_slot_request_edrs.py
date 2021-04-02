@@ -230,9 +230,6 @@ def process_file(file_path, engine, query, reception_time):
             ]
         }
 
-        # Insert slot_event
-        ingestion_functions.insert_event_for_ingestion(slot_dfep_schedule_completeness_event, source, list_of_completeness_events[sentinel])
-
         # Station schedule completeness event
         slot_station_schedule_completeness_event = {
             "explicit_reference": session_id,
@@ -266,8 +263,8 @@ def process_file(file_path, engine, query, reception_time):
             ]
         }
 
-        # Insert slot_event
-        ingestion_functions.insert_event_for_ingestion(slot_station_schedule_completeness_event, source, list_of_completeness_events[sentinel])
+        # Insert completeness events
+        list_of_completeness_events[sentinel].append([slot_dfep_schedule_completeness_event, slot_station_schedule_completeness_event])
 
     # end for
 
@@ -290,20 +287,29 @@ def process_file(file_path, engine, query, reception_time):
 
     for satellite in list_of_completeness_events:
         if len(list_of_completeness_events[satellite]) > 0:
-
-            source_with_priority = source.copy()
-            source_with_priority["priority"] = 30
-            
-            data["operations"].append({
-                "mode": "insert",
-                "dim_signature": {
-                    "name": "COMPLETENESS_NPPF_" + satellite,
-                    "exec": os.path.basename(__file__),
-                    "version": version
-                },
-                "source": source_with_priority,
-                "events": list_of_completeness_events[satellite]
-            })
+            iterator = 1
+            for completeness_events in list_of_completeness_events[satellite]:            
+                data["operations"].append({
+                    "mode": "insert",
+                    "dim_signature": {
+                        "name": "COMPLETENESS_NPPF_" + satellite,
+                        "exec": "event_" + str(iterator) + "_" + os.path.basename(__file__),
+                        "version": version
+                    },
+                    "source": {
+                        "name": file_name,
+                        "reception_time": reception_time,
+                        "generation_time": generation_time,
+                        "reported_validity_start": validity_start,
+                        "reported_validity_stop": validity_stop,
+                        "validity_start": completeness_events[0]["start"],
+                        "validity_stop": completeness_events[0]["stop"],
+                        "priority": 30
+                    },
+                    "events": completeness_events
+                })
+                iterator += 1
+            # end for
         # end if
     # end for
     
