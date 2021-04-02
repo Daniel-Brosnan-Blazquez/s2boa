@@ -63,7 +63,8 @@ class TestEngine(unittest.TestCase):
 
         # Check that the validity period of the input is correctly taken
         source_period = self.session.query(Source).filter(Source.validity_start == "2020-07-18T23:57:13",
-                                                          Source.validity_stop == "2020-07-19T00:17:00").all()
+                                                          Source.validity_stop == "2020-07-19T00:17:00",
+                                                          Source.name == "EDR_OPER_SER_SR1_OA_PDMC_20200719T012002_V20200718T235713_20200719T001700").all()
 
         assert len(source_period) == 1
 
@@ -250,7 +251,8 @@ class TestEngine(unittest.TestCase):
 
         # Check that the validity period of the input is correctly taken
         source_period = self.session.query(Source).filter(Source.validity_start == "2021-02-26T10:15:45",
-                                                          Source.validity_stop == "2021-02-26T10:28:05").all()
+                                                          Source.validity_stop == "2021-02-26T10:28:05",
+                                                          Source.name == "EDR_OPER_SER_SR1_OA_PDMC_20210226T105001_V20210226T101545_20210226T102805").all()
 
         assert len(source_period) == 1
 

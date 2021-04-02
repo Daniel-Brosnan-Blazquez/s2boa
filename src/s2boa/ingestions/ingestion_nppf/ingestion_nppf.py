@@ -827,7 +827,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             # DFEP schedule completeness
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                     "name": "DFEP_SCHEDULE_COMPLETENESS",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -846,7 +846,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             # Station schedule completeness
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                     "name": "STATION_SCHEDULE_COMPLETENESS",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -876,7 +876,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if downlink_mode != "SAD":
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                        "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                         "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -906,7 +906,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if downlink_mode != "HKTM":
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                        "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                         "name": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -948,7 +948,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                     "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -976,7 +976,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             list_of_completeness_events.append(completeness_event)
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                     "name": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -1005,7 +1005,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
 
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                     "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -1033,7 +1033,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             list_of_completeness_events.append(completeness_event)
             completeness_event = {
                 "gauge": {
-                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                    "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                     "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B",
                     "system": planning_event["gauge"]["system"]
                 },
@@ -1062,7 +1062,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if imaging_mode in ["SUN_CAL", "DARK_CAL_CSM_OPEN", "DARK_CAL_CSM_CLOSE", "VICARIOUS_CAL", "RAW", "TEST"]:
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                        "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                         "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -1092,7 +1092,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if imaging_mode in ["NOMINAL", "VICARIOUS_CAL", "TEST"]:
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                        "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                         "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -1122,7 +1122,7 @@ def _correct_planning_events(orbpre_events, planning_events, list_of_completenes
             if imaging_mode in ["NOMINAL"]:
                 completeness_event = {
                     "gauge": {
-                        "insertion_type": "INSERT_and_ERASE_with_PRIORITY",
+                        "insertion_type": "INSERT_and_ERASE_with_EQUAL_or_LOWER_PRIORITY",
                         "name": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A",
                         "system": planning_event["gauge"]["system"]
                     },
@@ -1399,7 +1399,7 @@ def process_file(file_path, engine, query, reception_time, tgz_filename = None):
         source_with_priority["priority"] = 10
 
         data["operations"].append({
-            "mode": "insert_and_erase_with_equal_or_lower_priority",
+            "mode": "insert",
             "dim_signature": {
                 "name": "COMPLETENESS_NPPF_" + satellite,
                 "exec": os.path.basename(__file__),
