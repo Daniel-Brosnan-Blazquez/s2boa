@@ -770,3 +770,48 @@ class TestOrbpre(unittest.TestCase):
         else:
             del os.environ["EBOA_LOG_LEVEL"]
         # end if
+
+    def test_obrpre_with_plan_and_an_empty_plan(self):
+
+        previous_logging_level = None
+        if "EBOA_LOG_LEVEL" in os.environ:
+            previous_logging_level = os.environ["EBOA_LOG_LEVEL"]
+        # end if
+
+        # Set log level to INFO to avoid the value get_footprint_command
+        os.environ["EBOA_LOG_LEVEL"] = "INFO"
+        
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_NPPF_EMPTY.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+
+        # Check events
+        gauges = self.query_eboa.get_gauges(dim_signatures = {"filter": "NPPF_S2A", "op": "=="})
+        events = self.query_eboa.get_events(gauge_uuids = {"filter": [gauge.gauge_uuid for gauge in gauges], "op": "in"})
+
+        assert len(events) == 0
+
+        gauges = self.query_eboa.get_gauges(dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "=="})
+        events = self.query_eboa.get_events(gauge_uuids = {"filter": [gauge.gauge_uuid for gauge in gauges], "op": "in"})
+
+        assert len(events) == 0
+
+

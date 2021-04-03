@@ -1375,21 +1375,19 @@ def process_file(file_path, engine, query, reception_time, tgz_filename = None):
         "events": list_of_events
     }]}
 
-    if len(list_of_corrected_events) > 0:
-        # Generate the footprint of the events
-        list_of_corrected_events_with_footprint = functions.associate_footprints(list_of_corrected_events, satellite)
+    # Generate the footprint of the events
+    list_of_corrected_events_with_footprint = functions.associate_footprints(list_of_corrected_events, satellite)
 
-        data["operations"].append({
-            "mode": "insert_and_erase",
-            "dim_signature": {
-                "name": "CORRECTED_NPPF_" + satellite,
-                "exec": os.path.basename(__file__),
-                "version": version
-            },
-            "source": source,
-            "events": list_of_corrected_events_with_footprint
-        })
-    # end if
+    data["operations"].append({
+        "mode": "insert_and_erase",
+        "dim_signature": {
+            "name": "CORRECTED_NPPF_" + satellite,
+            "exec": os.path.basename(__file__),
+            "version": version
+        },
+        "source": source,
+        "events": list_of_corrected_events_with_footprint
+    })
 
     if len(list_of_completeness_events) > 0:
         # Generate the footprint of the events
