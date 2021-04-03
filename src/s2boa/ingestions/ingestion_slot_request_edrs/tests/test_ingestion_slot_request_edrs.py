@@ -216,7 +216,7 @@ class TestEngine(unittest.TestCase):
         #Check sources
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 6
+        assert len(sources) == 7
 
         definite_source = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2018-07-20T03:00:00", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2018-08-31T23:32:57", "op": "=="}],

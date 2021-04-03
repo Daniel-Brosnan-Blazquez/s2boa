@@ -1429,7 +1429,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check sources
         sources = self.session.query(Source).all()
 
-        assert len(sources) == 8
+        assert len(sources) == 9
         
         sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
                                                     Source.reported_validity_stop == "2018-07-21T10:37:39",
@@ -1520,7 +1520,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check sources
         sources = self.session.query(Source).all()
 
-        assert len(sources) == 7
+        assert len(sources) == 8
         
         source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T01:47:36",
                                                     Source.reported_validity_stop == "2018-07-21T01:47:51",
@@ -1641,7 +1641,7 @@ class TestDfepIngestion(unittest.TestCase):
         # Check sources
         sources = self.session.query(Source).all()
 
-        assert len(sources) == 8
+        assert len(sources) == 9
 
         sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T10:35:27",
                                                     Source.reported_validity_stop == "2018-07-21T10:37:39",

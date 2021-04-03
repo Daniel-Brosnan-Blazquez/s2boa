@@ -191,7 +191,7 @@ class TestAi(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 9
+        assert len(sources) == 10
 
         sources = self.query_eboa.get_sources(reported_validity_start_filters = [{"date": "2020-01-29T01:05:02", "op": "=="}],
                                               reported_validity_stop_filters = [{"date": "2020-01-29T07:05:01", "op": "=="}],

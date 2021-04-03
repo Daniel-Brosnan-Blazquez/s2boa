@@ -2537,7 +2537,7 @@ class TestDpcIngestion(unittest.TestCase):
 
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 11
+        assert len(sources) == 12
         
         # Check production playback validity
         production_playback_validities = self.query_eboa.get_events(explicit_refs = {"filter": "S2A_OPER_PRD_HKTM___20200129T032508_20200129T032513_0001", "op": "like"},

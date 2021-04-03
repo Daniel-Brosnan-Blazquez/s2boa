@@ -1146,7 +1146,7 @@ class TestEdrsAcquisitionIngestion(unittest.TestCase):
         # Check sources
         sources = self.session.query(Source).all()
 
-        assert len(sources) == 10
+        assert len(sources) == 11
         
         source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-21T07:28:23",
                                                    Source.reported_validity_stop == "2018-07-21T07:37:55",
