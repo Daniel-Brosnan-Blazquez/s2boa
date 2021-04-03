@@ -50,7 +50,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-17T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
@@ -124,7 +124,7 @@ class TestOrbpre(unittest.TestCase):
             }
         ]            
 
-    def test_obrpre_with_plan(self):
+    def test_orbpre_with_plan(self):
 
         previous_logging_level = None
         if "EBOA_LOG_LEVEL" in os.environ:
@@ -151,11 +151,11 @@ class TestOrbpre(unittest.TestCase):
         #Check sources
         sources = self.query_eboa.get_sources()
 
-        assert len(sources) == 4
+        assert len(sources) == 5
 
         definite_source1 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-17T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
@@ -164,7 +164,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source2 = self.query_eboa.get_sources(validity_start_filters = [{"date": "2018-07-21T09:50:51.776833", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-21T11:31:33.673527", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-17T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "CORRECTED_NPPF_S2A", "op": "like"})
@@ -173,7 +173,7 @@ class TestOrbpre(unittest.TestCase):
 
         definite_source3 = self.query_eboa.get_sources(names = {"filter": "S2A_NPPF.EOF", "op": "like"})
 
-        assert len(definite_source3) == 1
+        assert len(definite_source3) == 2
         
         #Check events
         events = self.query_eboa.get_events()
@@ -275,7 +275,7 @@ class TestOrbpre(unittest.TestCase):
             del os.environ["EBOA_LOG_LEVEL"]
         # end if
 
-    def test_obrpre_with_plan_first_orbpre(self):
+    def test_orbpre_with_plan_first_orbpre(self):
 
         previous_logging_level = None
         if "EBOA_LOG_LEVEL" in os.environ:
@@ -308,7 +308,7 @@ class TestOrbpre(unittest.TestCase):
                                                        reported_validity_stop_filters = [{"date": "2018-07-30T03:02:21", "op": "=="}],
                                                        validity_start_filters = [{"date": "2018-07-20T03:02:21", "op": "=="}],
                                                        validity_stop_filters = [{"date": "2018-07-30T04:42:21", "op": "=="}],
-                                                       generation_time_filters = [{"date": "2018-07-15T03:02:18", "op": "=="}],
+                                                       generation_time_filters = [{"date": "2018-07-17T03:02:18", "op": "=="}],
                                                        processors = {"filter": "ingestion_orbpre.py", "op": "like"},
                                                        names = {"filter": "S2A_ORBPRE.EOF", "op": "like"},
                                                        dim_signatures = {"filter": "ORBPRE", "op": "like"})
@@ -419,7 +419,7 @@ class TestOrbpre(unittest.TestCase):
             del os.environ["EBOA_LOG_LEVEL"]
         # end if
 
-    def test_alerts_obrpre_with_plan_all_operations(self):
+    def test_alerts_orbpre_with_plan_all_operations(self):
 
         previous_logging_level = None
         if "EBOA_LOG_LEVEL" in os.environ:
@@ -595,7 +595,7 @@ class TestOrbpre(unittest.TestCase):
             del os.environ["EBOA_LOG_LEVEL"]
         # end if
         
-    def test_alerts_obrpre_with_plan_all_operations_last_plan(self):
+    def test_alerts_orbpre_with_plan_all_operations_last_plan(self):
 
         previous_logging_level = None
         if "EBOA_LOG_LEVEL" in os.environ:
@@ -771,7 +771,7 @@ class TestOrbpre(unittest.TestCase):
             del os.environ["EBOA_LOG_LEVEL"]
         # end if
 
-    def test_obrpre_with_plan_and_an_empty_plan(self):
+    def test_orbpre_with_plan_and_an_empty_plan(self):
 
         previous_logging_level = None
         if "EBOA_LOG_LEVEL" in os.environ:

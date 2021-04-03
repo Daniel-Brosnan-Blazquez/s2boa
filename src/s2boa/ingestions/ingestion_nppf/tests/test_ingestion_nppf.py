@@ -68,11 +68,11 @@ class TestEngine(unittest.TestCase):
         assert len(events) == 38
 
         # Check that the validity period of the input has taken into consideration the deletion queue
-        source = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-20T11:00:00.000",
+        sources = self.session.query(Source).filter(Source.reported_validity_start == "2018-07-20T11:00:00.000",
                                                    Source.validity_start == "2018-07-20T13:40:00.000",
                                                    Source.validity_stop == "2018-08-06T14:00:00").all()
 
-        assert len(source) == 1
+        assert len(sources) == 2
 
         # Check XBAND playback operations
         xband_operations = self.query_eboa.get_events(gauge_names = {"filter": "PLANNED_PLAYBACK_MEAN", "op": "like"},
@@ -953,7 +953,7 @@ class TestEngine(unittest.TestCase):
 
         # Check that the validity period of the input has taken into consideration the deletion queue
         sources = self.session.query(Source).filter(Source.generation_time == "2018-07-17T11:41:50").all()
-        assert len(sources) == 1
+        assert len(sources) == 2
 
     def test_playback_mean_not_ending(self):
         filename = "S2A_NPPF_PLAYBACK_MEAN_NOT_ENDING.EOF"
@@ -983,4 +983,4 @@ class TestEngine(unittest.TestCase):
         # Check that the validity period of the input has taken into consideration the deletion queue
         sources = self.session.query(Source).filter(Source.generation_time == "2018-07-20T11:00:00",
                                                     Source.reported_generation_time == "2018-07-24T11:41:50").all()
-        assert len(sources) == 1
+        assert len(sources) == 2
