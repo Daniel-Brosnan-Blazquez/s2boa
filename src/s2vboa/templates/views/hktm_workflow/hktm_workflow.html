@@ -18,6 +18,9 @@
 <!-- Incompletely distributed -->
 {% set hktm_incompletely_distributed = hktm_workflow_events["distribution_status"]|filter_events_by_text_value("completeness_status", "NOK")|list %}
 
+<!-- No distributed -->
+{% set hktm_with_no_distribution_status = hktm_workflow_events["playback"]|reject_events_with_link_name("DISTRIBUTION_STATUS")|list %}
+
 <!-- HKTM circulation to FOS -->
 {% set hktm_circulated_to_fos = hktm_workflow_events["hktm_production_vgs"]|map(attribute="explicitRef")|unique|list|filter_references_by_annotation_text_value("CIRCULATION_TIME", "destination", "FOS_")|list %}
 

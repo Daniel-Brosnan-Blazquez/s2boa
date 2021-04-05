@@ -1,4 +1,4 @@
-<!-- Summary -->
+  <!-- Summary -->
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -104,6 +104,14 @@
           <div class="panel panel-warning">
             <div class="panel-heading" align="center" style="font-size: 20px">Number of HKTM incompletely distributed</div>
             <div class="panel-body" align="center" style="font-size: 50px; color: gold" id="summary-hktm-incompletely-distributed">{{ hktm_incompletely_distributed|length }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if hktm_with_no_distribution_status|length > 0 %}
+        <div class="col-xs-3">
+          <div class="panel panel-warning">
+            <div class="panel-heading" align="center" style="font-size: 20px">Number of HKTM with no distribution status</div>
+            <div class="panel-body" align="center" style="font-size: 50px; color: gold" id="summary-hktm-no-distributed">{{ hktm_with_no_distribution_status|length }}</div>
           </div>
         </div>
         {% endif %}

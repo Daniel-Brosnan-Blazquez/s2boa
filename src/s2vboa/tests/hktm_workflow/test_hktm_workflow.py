@@ -141,6 +141,13 @@ class TestHktmWorkflowView(unittest.TestCase):
 
         assert summary_missing_data_pdgs.text == "1"
 
+        # Check summary no distributed
+        summary_no_distributed = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-no-distributed")))
+
+        assert summary_no_distributed
+
+        assert summary_no_distributed.text == "1"
+
         # Issues table
         issues_table = self.driver.find_element_by_id("hktm-workflow-issues-hktm-table")
 
@@ -852,6 +859,13 @@ class TestHktmWorkflowView(unittest.TestCase):
         assert summary_missing_production
 
         assert summary_missing_production.text == "2"
+
+        # Check summary no distributed
+        summary_no_distributed = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-no-distributed")))
+
+        assert summary_no_distributed
+
+        assert summary_no_distributed.text == "3"
 
         # Check if table with issues appears
         issues_hktm_table = wait.until(EC.visibility_of_element_located((By.ID,"hktm-workflow-issues-hktm-table_wrapper")))
@@ -1729,6 +1743,13 @@ class TestHktmWorkflowView(unittest.TestCase):
         assert summary_missing_production
 
         assert summary_missing_production.text == "2"
+
+        # Check summary no distributed
+        summary_no_distributed = wait.until(EC.visibility_of_element_located((By.ID,"summary-hktm-no-distributed")))
+
+        assert summary_no_distributed
+
+        assert summary_no_distributed.text == "3"
 
         # Check if table with issues appears
         issues_hktm_table = wait.until(EC.visibility_of_element_located((By.ID,"hktm-workflow-issues-hktm-table_wrapper")))
