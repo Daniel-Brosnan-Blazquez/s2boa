@@ -137,23 +137,8 @@ def process_file(file_path, engine, query, reception_time):
             }
         list_of_annotations.append(archiving_to_prip_annotation)
 
-        # Link granules to datastrips
-        if "_GR_" in pdi_id_without_extension:
-
-            explicit_reference = {
-                "group": level + "_GR",
-                "links": [{
-                    "back_ref": "DATASTRIP",
-                    "link": parent_id,
-                    "name": "GRANULE"
-                    }
-                ],
-                "name": pdi_id_without_extension
-            }
-            list_of_explicit_references.append(explicit_reference)
-        
         # Link tiles to datastrips
-        elif "_TL_" in pdi_id_without_extension:
+        if "_TL_" in pdi_id_without_extension:
 
             explicit_reference = {
                 "group": level + "_TL",
@@ -182,6 +167,21 @@ def process_file(file_path, engine, query, reception_time):
             }
             list_of_explicit_references.append(explicit_reference)       
 
+        # # Link granules to datastrips
+        # elif "_GR_" in pdi_id_without_extension:
+
+        #     explicit_reference = {
+        #         "group": level + "_GR",
+        #         "links": [{
+        #             "back_ref": "DATASTRIP",
+        #             "link": parent_id,
+        #             "name": "GRANULE"
+        #             }
+        #         ],
+        #         "name": pdi_id_without_extension
+        #     }
+        #     list_of_explicit_references.append(explicit_reference)
+        
         # Associate group to datastrips
         elif "_DS_" in pdi_id_without_extension:
 

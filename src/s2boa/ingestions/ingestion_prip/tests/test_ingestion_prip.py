@@ -87,29 +87,29 @@ class TestOpprip(unittest.TestCase):
             }]
 
         # Check explicit references
-        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_DS_%", "op": "like"})
+        prip_ds_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_DS_%", "op": "like"})
         
-        assert len(prip_granules_explicit_refs) == 6
+        assert len(prip_ds_explicit_refs) == 6
 
-        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_GR_%", "op": "like"})
+        # prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_GR_%", "op": "like"})
         
-        assert len(prip_granules_explicit_refs) == 2
+        # assert len(prip_granules_explicit_refs) == 2
 
-        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TL_%", "op": "like"})
+        prip_tiles_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TL_%", "op": "like"})
         
-        assert len(prip_granules_explicit_refs) == 1
+        assert len(prip_tiles_explicit_refs) == 1
 
-        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TC_%", "op": "like"})
+        prip_tcs_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TC_%", "op": "like"})
         
-        assert len(prip_granules_explicit_refs) == 1
+        assert len(prip_tcs_explicit_refs) == 1
 
-        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%AUX%", "op": "like"})
+        prip_aux_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%AUX%", "op": "like"})
         
-        assert len(prip_granules_explicit_refs) == 3
+        assert len(prip_aux_explicit_refs) == 3
 
-        prip_granules_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%HKTM%", "op": "like"})
+        prip_hktms_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%HKTM%", "op": "like"})
         
-        assert len(prip_granules_explicit_refs) == 1
+        assert len(prip_hktms_explicit_refs) == 1
 
 
         # Check linked explicit references
@@ -125,11 +125,11 @@ class TestOpprip(unittest.TestCase):
 
         assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L1C_DS_VGS2_20210219T052736_S20210219T043615_N02.09"
 
-        prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2B_OPER_MSI_L0__DS_VGS2_20210222T112736_S20210222T093615_N02.09", "op": "=="})
+        # prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2B_OPER_MSI_L0__DS_VGS2_20210222T112736_S20210222T093615_N02.09", "op": "=="})
 
-        assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
+        # assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
 
-        assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L0__GR_VGS2_20210222T112736_S20210222T093828_D02_N02.09"
+        # assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L0__GR_VGS2_20210222T112736_S20210222T093828_D02_N02.09"
         
  
         
