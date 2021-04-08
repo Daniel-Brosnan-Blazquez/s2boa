@@ -227,6 +227,10 @@
     <source_mask>S2._OPER_REP_ARC____MPC__........T......_V........T......_........T.......EOF</source_mask>
     <source_type>REP_ARC</source_type>
   </rule>
+  <rule skip="true" report="true">
+    <source_mask>S2._OPER_REP_ARC____VGSR_........T......_V........T......_........T.......EOF</source_mask>
+    <source_type>REP_ARC</source_type>
+  </rule>
   <rule>
     <source_mask>S2._OPER_REP_ARC____...._........T......_V........T......_........T.......EOF</source_mask>
     <source_type>REP_ARC</source_type>
