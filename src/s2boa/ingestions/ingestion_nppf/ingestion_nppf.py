@@ -3,7 +3,7 @@ Ingestion module for the NPPF files of Sentinel-2
 
 Written by DEIMOS Space S.L. (dibb)
 
-module eboa
+module s2boa
 """
 # Import python utilities
 import os
