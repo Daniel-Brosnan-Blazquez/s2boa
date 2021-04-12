@@ -9,7 +9,7 @@ module s2vboa
 import os
 
 # Import flask utilities
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 
@@ -33,6 +33,7 @@ def create_app():
     """
     app = vboa.create_app()
 
+    # Register the specific views
     app.register_blueprint(planning.bp)
     app.register_blueprint(data_allocation.bp)
     app.register_blueprint(hktm_workflow.bp)
@@ -45,12 +46,19 @@ def create_app():
     app.register_blueprint(archive_data_volumes.bp)
     app.register_blueprint(detailed_processing_timeliness.bp)
 
+    # Register the specific templates folder
     s2vboa_templates_folder = os.path.dirname(__file__) + "/templates"
-
     templates_loader = jinja2.ChoiceLoader([
         jinja2.FileSystemLoader(s2vboa_templates_folder),
         app.jinja_loader
     ])
     app.jinja_loader = templates_loader
+
+    # Register the specific static folder
+    s2vboa_static_folder = os.path.dirname(__file__) + "/static"
+    @app.route('/s2_static_images/<path:filename>')
+    def s2_static(filename):
+        return send_from_directory(s2vboa_static_folder + "/images", filename)
+    # end def
     
     return app
