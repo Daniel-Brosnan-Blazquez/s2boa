@@ -263,7 +263,7 @@
     <source_mask>EDR_OPER_SER_..........._........T......_V........T......_........T......</source_mask>
     <source_type>EDR_OPER_SER</source_type>
     <tool>
-      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_link_status_report.ingestion_edrs_link_status -f </command>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_edrs_link_status.ingestion_edrs_link_status -f </command>
     </tool>
     <dependencies>
       <source_type>S2A_MPL__NPPF</source_type>
