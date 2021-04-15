@@ -11,6 +11,7 @@ import json
 import datetime
 import re
 from dateutil import parser
+import pdb
 
 # Import flask utilities
 from flask import Blueprint, flash, g, current_app, redirect, render_template, request, url_for
@@ -189,13 +190,13 @@ def query_data_allocation_and_render(start_filter = None, stop_filter = None, mi
 
     return render_template(template, data_allocation_structure=data_allocation_structure, orbpre_events=orbpre_events, reporting_start=reporting_start, reporting_stop=reporting_stop, sliding_window=sliding_window, filters = filters)
 
-def build_data_allocation_structure(start_filter = None, stop_filter = None, mission = None, filters = None):
+def build_data_allocation_structure(start_filter, stop_filter, mission, filters = None):
     """
     Build data allocation structure.
     """
-    current_app.logger.debug("Build data allocation structure")
 
     kwargs = {}
+    events = {}
     
     # Set offset and limit for the query
     if filters and "offset" in filters and filters["offset"][0] != "":
@@ -209,72 +210,132 @@ def build_data_allocation_structure(start_filter = None, stop_filter = None, mis
     kwargs["order_by"] = {"field": "start", "descending": True}
 
     # Start filter
-    if start_filter:
-        kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
-    # end if
+    kwargs["start_filters"] = [{"date": start_filter["date"], "op": start_filter["op"]}]
 
     # Stop filter
-    if stop_filter:
-        kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
-    # end if
+    kwargs["stop_filters"] = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
 
-    # Mission and playback type (because satellit.value != playback_type.value)
-    kwargs["value_filters"] = [{"name": {"op": "in", "filter": ["satellite", "playback_type"]},
-                                        "type": "text",
-                                        "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT", mission]}
-                                        }]
-
+    # Playback type
+    kwargs["value_filters"] = [{"name": {"op": "==", "filter": "playback_type"},
+                                "type": "text",
+                                "value": {"op": "in", "filter": ["NOMINAL", "REGULAR", "RT"]}
+                                }]
+    
     kwargs["gauge_names"] = {"filter": ["PLANNED_PLAYBACK_CORRECTION"], "op": "in"}
 
-    # Specify the main query parameters
-    kwargs["link_names"] = {"filter": ["TIME_CORRECTION"], "op": "in"}
-
     # Query corrected planned playbacks and planned playbacks
-    planned_playback_correction_events = query.get_linked_events(**kwargs)
+    planned_playback_correction_events = query.get_events(**kwargs)
 
-    # Query playback validity and last scenes replayed
-    planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events["linked_events"]], "op": "in"}, 
-                                                                          link_names = {"filter": ["PLAYBACK_VALIDITY", "LAST_REPLAYED_SCENE_AT_START", "LAST_REPLAYED_SCENE_AT_STOP"], "op": "in"}, 
+    planned_playback_correction_events_filtered_by_satellite = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events], "op": "in"},
+                                                                                       link_names = {"filter": "TIME_CORRECTION", "op": "=="},
+                                                                                       value_filters = [{"name": {"op": "==", "filter": "satellite"},
+                                                                                                         "type": "text",
+                                                                                                         "value": {"op": "like", "filter": mission}}
+                                                                                                        ])
+
+    # Query playback validity, last scenes replayed and memory occupation events
+    planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events_filtered_by_satellite["linked_events"]], "op": "in"}, 
+                                                                          link_names = {"filter": ["PLAYBACK_VALIDITY", "LAST_REPLAYED_SCENE_AT_START", "LAST_REPLAYED_SCENE_AT_STOP",
+                                                                                                   "NOMINAL_MEMORY_OCCUPATION_AT_START", "NOMINAL_MEMORY_OCCUPATION_AT_STOP",
+                                                                                                   "NRT_MEMORY_OCCUPATION_AT_START", "NRT_MEMORY_OCCUPATION_AT_STOP"], "op": "in"}, 
                                                                           return_prime_events = False)
     
-    events = {}
-    events["corrected_planned_playback"] = planned_playback_correction_events["prime_events"]
-    events["planned_playback"] = planned_playback_correction_events["linked_events"]
+    events["corrected_planned_playback"] = planned_playback_correction_events_filtered_by_satellite["prime_events"]
+    events["planned_playback"] = planned_playback_correction_events_filtered_by_satellite["linked_events"]
     events["playback_validity"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 2)]
     events["last_replayed_scene"] = planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_START"] + planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_STOP"]
 
     # Query isp validity linked to the playback validity events
     isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
     events["isp_validity"] = query.get_events(event_uuids = {"filter": isp_validity_event_uuids, "op": "in"})
-    
+
+    # Query raw isp validity linked to the playback validity events
+    raw_isp_validity_event_uuids = [link.event_uuid_link for event in events["isp_validity"] for link in event.eventLinks if link.name == "RAW_ISP_VALIDITY"]
+    events["raw_isp_validity"] = query.get_events(event_uuids = {"filter": raw_isp_validity_event_uuids, "op": "in"})
+
     # Obtain first isp validity with status complete
     # Note: if this is not available, the algorithm cannot start
     structure = {}
     structure["events"] = events
+    structure["data_allocation"] = {}
     events["planned_cut_imaging"] = {}
 
     isp_validity_with_status_complete = [event for event in events["isp_validity"] for value in event.eventTexts if value.name == "status" and value.value == "COMPLETE"]
-    
+
+    events["planned_cut_imaging_correction"] = []
+    events["planned_cut_imaging"] = []
+
+    # Start filter for memory occupation
+    start_filters_memory_occupation = [{"date": start_filter["date"], "op": start_filter["op"]}]
+
+    # Stop filter for memory occupation
+    stop_filters_memory_occupation = [{"date": stop_filter["date"], "op": stop_filter["op"]}]
+
     if len(isp_validity_with_status_complete) > 0:
         isp_validity_with_status_complete.sort(key = lambda x: x.start)
         first_isp_validity_with_status_complete = isp_validity_with_status_complete[0]
-    
+
         # Query planned cut imaging linked to the first isp validity event with status complete
-        planned_cut_imaging_linking_to_first_isp_validity = query.get_linking_events(event_uuids = {"filter": str(isp_validity_with_status_complete[0].event_uuid), "op": "=="},
+        planned_cut_imaging_linking_to_first_isp_validity = query.get_linking_events(event_uuids = {"filter": str(first_isp_validity_with_status_complete.event_uuid), "op": "=="},
                                                                                      link_names = {"filter": "PLANNED_IMAGING", "op": "=="}, 
                                                                                      return_prime_events = False)
-    
-        # Query associated planned cut imaging correction linked to the planned cut imaging event
-        associated_planned_cut_imaging_correction = query.get_linking_events(event_uuids = {"filter": str(planned_cut_imaging_linking_to_first_isp_validity["linking_events"][0].event_uuid), "op": "=="},
-                                                                             link_names = {"filter": "TIME_CORRECTION", "op": "=="}, 
-                                                                             return_prime_events = False)
 
-        # Query corrected planned cut imaging
-        # Note: start_filter is associated to the stop of the coverage of the window
-        events["planned_cut_imaging"] = query.get_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
-                                                         start_filters = [{"date": associated_planned_cut_imaging_correction["linking_events"][0].start.isoformat(), "op": ">="}],
-                                                         stop_filters = [{"date": start_filter["date"], "op": "<="}])
+        if len(planned_cut_imaging_linking_to_first_isp_validity["linking_events"]) > 0:
+            # Query associated planned cut imaging correction linked to the planned cut imaging event
+            associated_planned_cut_imaging_correction = query.get_linking_events(event_uuids = {"filter": str(planned_cut_imaging_linking_to_first_isp_validity["linking_events"][0].event_uuid), "op": "=="},
+                                                                                 link_names = {"filter": "TIME_CORRECTION", "op": "=="}, 
+                                                                                 return_prime_events = False)
+
+            if len(associated_planned_cut_imaging_correction["linking_events"]) > 0:
+                # Query corrected planned cut imaging
+                # Note: stop_filter is associated to the stop of the coverage of the window (start_filter value as they are swapped)
+                planned_cut_imaging_correction = query.get_linked_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
+                                                                         start_filters = [{"date": start_filter["date"], "op": "<="}],
+                                                                         stop_filters = [{"date": associated_planned_cut_imaging_correction["linking_events"][0].start.isoformat(), "op": ">="}],
+                                                                         link_names = {"filter": "TIME_CORRECTION", "op": "=="})
+
+                events["planned_cut_imaging_correction"] = planned_cut_imaging_correction["prime_events"]
+                events["planned_cut_imaging"] = planned_cut_imaging_correction["linked_events"]
+            # end if
+        # end if
+
+        # Start filter for memory occupation
+        start_filters_memory_occupation = [{"date": start_filter["date"], "op": "<="}]
+        
+        # Stop filter for memory occupation
+        stop_filters_memory_occupation = [{"date": isp_validity_with_status_complete[0].start.isoformat(), "op": ">="}]
 
     # end if
+
+    # Query memory occupation events with number of scenes equal to 0
+    # during the corresponding period
+    events["nominal_memory_occupation_0"] = query.get_events(gauge_names = {"filter": "NOMINAL_MEMORY_OCCUPATION", "op": "=="},
+                                                             value_filters = [{"name": {"op": "==", "filter": "satellite"},
+                                                                               "type": "text",
+                                                                               "value": {"op": "like", "filter": mission}
+                                                                               },
+                                                                              {"name": {"op": "==", "filter": "number_of_scenes"},
+                                                                               "type": "double",
+                                                                               "value": {"op": "==", "filter": "0"}}
+                                                                               ],
+                                                             start_filters = start_filters_memory_occupation,
+                                                             stop_filters = stop_filters_memory_occupation)
+    events["nrt_memory_occupation_0"] = query.get_events(gauge_names = {"filter": "NRT_MEMORY_OCCUPATION", "op": "=="},
+                                                             value_filters = [{"name": {"op": "==", "filter": "satellite"},
+                                                                               "type": "text",
+                                                                               "value": {"op": "like", "filter": mission}
+                                                                               },
+                                                                              {"name": {"op": "==", "filter": "number_of_scenes"},
+                                                                               "type": "double",
+                                                                               "value": {"op": "==", "filter": "0"}}
+                                                                               ],
+                                                             start_filters = start_filters_memory_occupation,
+                                                             stop_filters = stop_filters_memory_occupation)
+
+    
+    ######
+    # Data allocation algorithm
+    ######
+    #pdb.set_trace()
 
     return structure
