@@ -307,14 +307,14 @@ def query_processing_events(start_filter = None, stop_filter = None, mission = N
  
         # Query planned playbacks
         planned_playback_correction_events = query.get_events(**kwargs_playback)
-        events["planned_playback_correction"] = planned_playback_correction_events
-        planned_playback_correction_events_filtered_by_playback_type = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events], "op": "in"},
+
+        planned_playback_correction_events_filtered_by_satellite = query.get_linked_events(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events], "op": "in"},
                                                                                                link_names = {"filter": "TIME_CORRECTION", "op": "=="},
                                                                                                value_filters = [{"name": {"op": "==", "filter": "satellite"},
                                                                                                                  "type": "text",
                                                                                                                  "value": {"op": "like", "filter": mission}}
                                             ])
-        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events_filtered_by_playback_type["linked_events"]], "op": "in"}, 
+        planned_playback_events = query.get_linking_events_group_by_link_name(event_uuids = {"filter": [event.event_uuid for event in planned_playback_correction_events_filtered_by_satellite["linked_events"]], "op": "in"}, 
                                                                               link_names = {"filter": ["PLAYBACK_VALIDITY"], "op": "in"}, 
                                                                               return_prime_events = False)
         events["playback_validity_channel_2"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 2)]
