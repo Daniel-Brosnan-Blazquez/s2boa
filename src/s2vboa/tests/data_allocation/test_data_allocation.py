@@ -138,7 +138,9 @@ class TestDataAllocationController(unittest.TestCase):
         assert structure == {"events": {"corrected_planned_playback": [],
                                         "isp_validity": [],
                                         "last_replayed_scene": [],
+                                        "nominal_memory_occupation": [],
                                         "nominal_memory_occupation_0": [],
+                                        "nrt_memory_occupation": [],
                                         "nrt_memory_occupation_0": [],
                                         "planned_cut_imaging": [],
                                         "planned_cut_imaging_correction": [],
@@ -182,5 +184,3 @@ class TestDataAllocationController(unittest.TestCase):
         mission = "S2_"
 
         structure = data_allocation.build_data_allocation_structure(start_filter, stop_filter, mission)
-
-        print(structure)

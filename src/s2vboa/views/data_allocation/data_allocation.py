@@ -244,6 +244,8 @@ def build_data_allocation_structure(start_filter, stop_filter, mission, filters 
     events["planned_playback"] = planned_playback_correction_events_filtered_by_satellite["linked_events"]
     events["playback_validity"] = [event for event in planned_playback_events["linking_events"]["PLAYBACK_VALIDITY"] for value in event.eventDoubles if (value.name == "channel" and value.value == 2)]
     events["last_replayed_scene"] = planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_START"] + planned_playback_events["linking_events"]["LAST_REPLAYED_SCENE_AT_STOP"]
+    events["nominal_memory_occupation"] = planned_playback_events["linking_events"]["NOMINAL_MEMORY_OCCUPATION_AT_START"] + planned_playback_events["linking_events"]["NOMINAL_MEMORY_OCCUPATION_AT_STOP"]
+    events["nrt_memory_occupation"] = planned_playback_events["linking_events"]["NRT_MEMORY_OCCUPATION_AT_START"] + planned_playback_events["linking_events"]["NRT_MEMORY_OCCUPATION_AT_STOP"]
 
     # Query isp validity linked to the playback validity events
     isp_validity_event_uuids = [link.event_uuid_link for event in events["playback_validity"] for link in event.eventLinks if link.name == "ISP_VALIDITY"]
