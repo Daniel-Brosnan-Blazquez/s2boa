@@ -32,6 +32,8 @@ from eboa.datamodel.base import Session, engine, Base
 from eboa.engine.errors import UndefinedEventLink, DuplicatedEventLinkRef, WrongPeriod, SourceAlreadyIngested, WrongValue, OddNumberOfCoordinates, EboaResourcesPathNotAvailable, WrongGeometry
 from eboa.debugging import debug
 
+# Import controller
+from s2vboa.views.data_allocation import data_allocation
 
 class TestDataAllocationView(unittest.TestCase):
     options = Options()
@@ -62,22 +64,22 @@ class TestDataAllocationView(unittest.TestCase):
     def tearDownClass(self):
         self.driver.quit()
 
-    def test_data_allocation_no_data(self):
+    # def test_data_allocation_no_data(self):
 
-        wait = WebDriverWait(self.driver,5)
+    #     wait = WebDriverWait(self.driver,5)
 
-        self.driver.get("http://localhost:5000/views/data-allocation")
+    #     self.driver.get("http://localhost:5000/views/data-allocation")
 
-        functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "16077", stop_orbit = "16079", map = True, timeline = True)
+    #     functions.query(self.driver, wait, "S2A", start = "2018-07-01T00:00:00", stop = "2018-07-31T23:59:59", start_orbit = "16077", stop_orbit = "16079", map = True, timeline = True)
 
-        # Check header generated
-        header_no_data = wait.until(EC.visibility_of_element_located((By.ID,"header-no-data")))
+    #     # Check header generated
+    #     header_no_data = wait.until(EC.visibility_of_element_located((By.ID,"header-no-data")))
 
-        assert header_no_data
+    #     assert header_no_data
 
-        div_no_data = wait.until(EC.visibility_of_element_located((By.ID,"no-data-allocation-structure")))
+    #     div_no_data = wait.until(EC.visibility_of_element_located((By.ID,"no-data-allocation-structure")))
 
-        assert div_no_data
+    #     assert div_no_data
     
     def test_data_allocation(self):
 
@@ -102,3 +104,83 @@ class TestDataAllocationView(unittest.TestCase):
 
         assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
 
+
+class TestDataAllocationController(unittest.TestCase):
+
+    def setUp(self):
+        # Create the engine to manage the data
+        self.engine_eboa = Engine()
+        self.query_eboa = Query()
+
+        # Clear all tables before executing the test
+        self.query_eboa.clear_db()
+
+    def tearDown(self):
+        # Close connections to the DDBB
+        self.engine_eboa.close_session()
+        self.query_eboa.close_session()
+
+    def test_data_allocation_controller_no_data(self):
+
+        # Initialize reporting period (now - 1 days, now)
+        start_filter = {
+            "date": "2030-01-01T00:00:00",
+            "op": "<="
+        }
+        stop_filter = {
+            "date": "2000-01-01T00:00:00",
+            "op": ">="
+        }
+        mission = "S2_"
+
+        structure = data_allocation.build_data_allocation_structure(start_filter, stop_filter, mission)
+
+        assert structure == {"events": {"corrected_planned_playback": [],
+                                        "isp_validity": [],
+                                        "last_replayed_scene": [],
+                                        "nominal_memory_occupation_0": [],
+                                        "nrt_memory_occupation_0": [],
+                                        "planned_cut_imaging": [],
+                                        "planned_cut_imaging_correction": [],
+                                        "planned_playback": [],
+                                        "playback_validity": [],
+                                        "raw_isp_validity": []},
+                             "data_allocation": {}}
+
+    def test_data_allocation_controller(self):
+
+        filename = "S2A_NPPF.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_ORBPRE.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_REP_PASS_NO_GAPS.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dfep_acquisition.ingestion_dfep_acquisition", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        # Initialize reporting period (now - 1 days, now)
+        start_filter = {
+            "date": "2030-01-01T00:00:00",
+            "op": "<="
+        }
+        stop_filter = {
+            "date": "2000-01-01T00:00:00",
+            "op": ">="
+        }
+        mission = "S2_"
+
+        structure = data_allocation.build_data_allocation_structure(start_filter, stop_filter, mission)
+
+        print(structure)
