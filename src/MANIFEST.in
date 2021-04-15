@@ -1,1 +1,2 @@
 graft s2vboa/templates
+graft s2vboa/static
