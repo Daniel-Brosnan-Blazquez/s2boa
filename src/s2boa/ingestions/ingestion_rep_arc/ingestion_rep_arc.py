@@ -469,8 +469,6 @@ def process_file(file_path, engine, query, reception_time, wait_previous_levels 
         # Number of components
         number_of_granules = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_GR')]"))
         number_of_tiles = len(xpath_xml("/Earth_Explorer_File/Data_Block/List_of_ItemMetadata/ItemMetadata[contains(CentralIndex/FileType, '_TL')]"))
-        print(number_of_granules)
-        print(number_of_tiles)
         if number_of_granules > 0:
             number_of_granules_annotation = {
                 "explicit_reference": datastrip_id,
