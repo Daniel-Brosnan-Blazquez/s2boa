@@ -73,7 +73,7 @@ class TestOpprip(unittest.TestCase):
         # Check annotations
         prip_annotations = self.query_eboa.get_annotations()
 
-        assert len(prip_annotations) == 15
+        assert len(prip_annotations) == 13
 
         prip_annotation_archiving_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PRIP_ARCHIVING_TIME"},
                                                      explicit_refs = {"op": "like", "filter": "S2B_OPER_GIP_R2EQOG_MPC__20210222T083100_V20210223T233000_21000101T000000_B05"})

@@ -1,10 +1,10 @@
 #################################################################
 #
-# Generate BOA image
+# Generate S2BOA image
 #
 # Written by DEIMOS Space S.L. (dibb)
 #
-# module boa
+# module s2boa
 #################################################################
 
 USAGE="Usage: `basename $0` -e path_to_eboa_src -v path_to_vboa_src -d path_to_dockerfile -p path_to_dockerfile_pkg -o path_to_orc_packets -f path_to_eopcfi -u uid_host_user_to_map [-t path_to_tailored] [-a app] [-c boa_tailoring_configuration_path] [-l version]"
@@ -79,7 +79,7 @@ do
     fi
 done
 
-APP_CONTAINER="boa_app"
+APP_CONTAINER="boa_app_$APP"
 
 # Generate docker image
 $PATH_TO_VBOA/generate_docker_image.sh $PATH_TO_EBOA_CALL $PATH_TO_VBOA_CALL $PATH_TO_TAILORED_CALL $PATH_TO_DOCKERFILE_CALL $PATH_TO_DOCKERFILE_PKG_CALL $APP_CALL $PATH_TO_ORC_CALL $PATH_TO_BOA_TAILORING_CONFIGURATION_CALL $UID_HOST_USER_TO_MAP_CALL $VERSION_CALL

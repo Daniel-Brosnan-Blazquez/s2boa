@@ -127,16 +127,18 @@ def process_file(file_path, engine, query, reception_time):
                 }]
         
         # Generate annotation
-        archiving_to_prip_annotation = {
-            "explicit_reference": pdi_id_without_extension,
-            "annotation_cnf": {
-                "name": "PRIP_ARCHIVING_TIME",
-                "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
-                },
-            "values": prip_values
-            }
-        list_of_annotations.append(archiving_to_prip_annotation)
-
+        if "_GR_" not in pdi_id_without_extension:
+            archiving_to_prip_annotation = {
+                "explicit_reference": pdi_id_without_extension,
+                "annotation_cnf": {
+                    "name": "PRIP_ARCHIVING_TIME",
+                    "insertion_type": "INSERT_and_ERASE_with_PRIORITY"
+                    },
+                "values": prip_values
+                }
+            list_of_annotations.append(archiving_to_prip_annotation)
+        # end if
+        
         # Link tiles to datastrips
         if "_TL_" in pdi_id_without_extension:
 
@@ -210,7 +212,7 @@ def process_file(file_path, engine, query, reception_time):
             list_of_explicit_references.append(explicit_reference)
 
         # Associate group to AUXILIARY data
-        else: 
+        elif "_AUX_" in pdi_id_without_extension:
             explicit_reference = {
                 "group": "AUXILIARY_DATA",
                 "name": pdi_id_without_extension
