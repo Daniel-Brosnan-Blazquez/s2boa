@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Earth_Explorer_File xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Earth_Explorer_Header>
+<Fixed_Header>
+<File_Name>S2A_OPER_REP__SUP___20201128T134025_20201128T134611_0001</File_Name>
+<File_Description>FOS and Spacecraft Unavailability Report</File_Description>
+<Notes />
+<Mission>Sentinel-2A</Mission>
+<File_Class>OPER</File_Class>
+<File_Type>REP__SUP__</File_Type>
+<Validity_Period><Validity_Start>UTC=2020-11-28T13:40:25</Validity_Start>
+<Validity_Stop>UTC=2020-11-28T13:46:11</Validity_Stop>
+</Validity_Period>
+<File_Version>0001</File_Version>
+<Source>
+<System>FOS</System>
+<Creator>MCS</Creator>
+<Creator_Version>1.0</Creator_Version>
+<Creation_Date>UTC=2020-11-28T18:10:54</Creation_Date>
+</Source>
+</Fixed_Header>
+<Variable_Header />
+</Earth_Explorer_Header>
+<Data_Block Type="xml">
+<Unavailability_Reference>11015</Unavailability_Reference>
+<Unavailability_Type>Return to Operations</Unavailability_Type>
+<Comment>Outage due to GS2_OCP-04 TAPCO RESETThe affected subsystems are detailed in this file. We regret any inconvenience this may have caused.</Comment>
+<List_Of_Subsystem_Unavailabilities count="1">
+<Subsystem_Unavailability>
+<Subsystem>OCP</Subsystem>
+<StartTime>UTC=2020-11-28T13:40:25</StartTime>
+<StartDOY>333</StartDOY>
+<StartOrbit>28392</StartOrbit>
+<StartAnxOffset>2885</StartAnxOffset>
+<EndTime>UTC=2020-11-28T13:46:11</EndTime>
+<EndDOY>333</EndDOY>
+<EndOrbit>28392</EndOrbit>
+<EndAnxOffset>3231</EndAnxOffset>
+<Type>UNPLANNED</Type>
+<Comment>Outage due to GS2_OCP-04 TAPCO RESET Outage due to GS2_OCP-04 TAPCO RESET</Comment>
+</Subsystem_Unavailability>
+</List_Of_Subsystem_Unavailabilities>
+</Data_Block>
+</Earth_Explorer_File>
