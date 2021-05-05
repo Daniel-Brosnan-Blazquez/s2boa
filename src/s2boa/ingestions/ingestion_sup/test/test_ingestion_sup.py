@@ -1,5 +1,5 @@
 """
-Automated tests for the ingestion of the REP_OPPRIP files
+Automated tests for the ingestion of the REP__SUP files
 
 Written by DEIMOS Space S.L. (miaf)
 
@@ -31,7 +31,7 @@ from eboa.datamodel.annotations import Annotation, AnnotationCnf, AnnotationText
 # Import ingestion
 import eboa.ingestion.eboa_ingestion as ingestion
 
-class TestOpprip(unittest.TestCase):
+class TestRepSup(unittest.TestCase):
     def setUp(self):
         # Create the engine to manage the data
         self.engine_eboa = Engine()

@@ -1,5 +1,5 @@
 """
-Ingestion module for the REP_OPPRIP files of Sentinel-2
+Ingestion module for the REP__SUP files of Sentinel-2
 
 Written by DEIMOS Space S.L. (miaf)
 
@@ -77,7 +77,7 @@ def process_file(file_path, engine, query, reception_time):
         reported_validity_stop = datetime.datetime.max.isoformat()
     # end if 
     
-    #Obtain the unavailability reference
+    # Obtain the unavailability reference
     unavailability_reference = xpath_xml("/Earth_Explorer_File/Data_Block/Unavailability_Reference")[0].text
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
@@ -115,7 +115,7 @@ def process_file(file_path, engine, query, reception_time):
         # Obtain the key
         key = satellite + "-" + subsystem + "-" + unavailability_reference 
 
-        #Obtain the unabailability comment
+        # Obtain the unabailability comment
         comment = subsystem_unavailability.xpath("Comment")[0].text
 
         # Values for the event
@@ -147,8 +147,6 @@ def process_file(file_path, engine, query, reception_time):
         # If subsystem is MSI / MMFU-A / MMFU-B link to PLANNED_CUT_IMAGING through the PLANNED_CUT_IMAGING_CORRECTION events
         if ("MSI" in subsystem) or ("MMFU" in subsystem):
             system_unavailability_links = []
-            linking_planned_cut_imaging_to_planned_cut_imaging_correction = {}
-            planned_cut_imaging = []
 
             # Obtain the planned cut imaging events impacted by the system unavailability
             linking_planned_cut_imaging_to_planned_cut_imaging_correction = query.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
@@ -231,6 +229,8 @@ def process_file(file_path, engine, query, reception_time):
                 "values": subsystem_unavailability_values
                 }
         list_of_events.append(subsystem_unavailability_event)
+
+    # end for
 
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
 
