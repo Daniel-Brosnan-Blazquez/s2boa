@@ -1,5 +1,5 @@
 """
-Ingestion module for the REP_OPPRIP files of Sentinel-2
+Ingestion module for the REP__SUP files of Sentinel-2
 
 Written by DEIMOS Space S.L. (miaf)
 
@@ -77,7 +77,7 @@ def process_file(file_path, engine, query, reception_time):
         reported_validity_stop = datetime.datetime.max.isoformat()
     # end if 
     
-    #Obtain the unavailability reference
+    # Obtain the unavailability reference
     unavailability_reference = xpath_xml("/Earth_Explorer_File/Data_Block/Unavailability_Reference")[0].text
 
     # Get the general source entry (processor = None, version = None, DIM signature = PENDING_SOURCES)
@@ -115,7 +115,7 @@ def process_file(file_path, engine, query, reception_time):
         # Obtain the key
         key = satellite + "-" + subsystem + "-" + unavailability_reference 
 
-        #Obtain the unabailability comment
+        # Obtain the unabailability comment
         comment = subsystem_unavailability.xpath("Comment")[0].text
 
         # Values for the event
@@ -146,9 +146,7 @@ def process_file(file_path, engine, query, reception_time):
         # Obtain the unavailability links
         # If subsystem is MSI / MMFU-A / MMFU-B link to PLANNED_CUT_IMAGING through the PLANNED_CUT_IMAGING_CORRECTION events
         if ("MSI" in subsystem) or ("MMFU" in subsystem):
-            satellite_unavailability_links = []
-            linking_planned_cut_imaging_to_planned_cut_imaging_correction = {}
-            planned_cut_imaging = []
+            system_unavailability_links = []
 
             # Obtain the planned cut imaging events impacted by the system unavailability
             linking_planned_cut_imaging_to_planned_cut_imaging_correction = query.get_linking_events(gauge_names = {"filter": "PLANNED_CUT_IMAGING_CORRECTION", "op": "=="},
@@ -160,46 +158,61 @@ def process_file(file_path, engine, query, reception_time):
         
             if len(linking_planned_cut_imaging_to_planned_cut_imaging_correction["linking_events"]) > 0:
                 planned_cut_imaging = linking_planned_cut_imaging_to_planned_cut_imaging_correction["linking_events"]
-                for event in planned_cut_imaging:
-                    satellite_unavailability_links.append({
-                        "link": str(event.event_uuid),
+                for link in planned_cut_imaging:
+                    system_unavailability_links.append({
+                        "link": str(link.event_uuid),
                         "link_mode": "by_uuid",
-                        "name": "SATELLITE_UNAVAILABILITY",
+                        "name": "SYSTEM_UNAVAILABILITY",
                         "back_ref": "PLANNED_CUT_IMAGING"
                     })
                 # end for
             # end if
         # end if
     
-        # If subsystem is X-BAND or OCP link to PLANNED_PLAYBACK through the PLANNED_PLAYBACK_CORRECTION events with playback_mean XBAND or OCP.
-        if ("X-BAND" in subsystem) or ("OCP" in subsystem):
-            satellite_unavailability_links = []
+        # If subsystem is X-BAND link to PLANNED_PLAYBACK with playback_mean X_BAND
+        if "X-BAND" in subsystem:
+            xband_planned_playbacks = []
+            system_unavailability_links = []
 
-            if "X-BAND" in subsystem:
-                playback_mean = "XBAND"
-            else:
-                playbak_mean = "OCP"
-            # end if
+            xband_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK"},
+                                            gauge_systems = {"op": "==", "filter": satellite},
+                                            start_filters = [{"date": end_time, "op": "<"}], 
+                                            stop_filters = [{"date": start_time, "op": ">"}])
 
-            linking_planned_playback_correction_to_planned_playbacks = query.get_linking_events(gauge_names = {"filter": "PLANNED_PLAYBACK_CORRECTION", "op": "=="},
-                                                                            gauge_systems = {"filter": satellite, "op": "=="},
-                                                                            start_filters = [{"date": end_time, "op": "<"}], 
-                                                                            stop_filters = [{"date": start_time, "op": ">"}], 
-                                                                            link_names = {"filter": "PLANNED_PLAYBACK", "op": "=="},
-                                                                            return_prime_events = False)
-
-            if len(linking_planned_playback_correction_to_planned_playbacks["linking_events"]) > 0:
-                planned_playbacks = linking_planned_playback_correction_to_planned_playbacks["linking_events"]
-                link_planned_playbacks = [planned_playback for planned_playback in planned_playbacks for event_text in planned_playback.eventTexts if event_text.name == "playback_mean" and event_text.value == playback_mean]
-                for event in link_planned_playbacks:
-                    satellite_unavailability_links.append({
-                        "link": str(event.event_uuid),
+            if len(xband_planned_playbacks) > 0:
+                planned_X_BAND_playbacks = [planned_playback for planned_playback in xband_planned_playbacks for event_text in planned_playback.eventTexts if event_text.name == "playback_mean" and event_text.value == "XBAND"]
+                for link in planned_X_BAND_playbacks:
+                    system_unavailability_links.append({
+                        "link": str(link.event_uuid),
                         "link_mode": "by_uuid",
-                        "name": "SATELLITE_UNAVAILABILITY",
+                        "name": "SYSTEM_UNAVAILABILITY",
                         "back_ref": "PLANNED_PLAYBACK"
                     })
                 # end for
             # end if 
+        # end if
+
+        # If subsystem is OCP link to PLANNED_PLAYBACK with playback_mean OCP
+        if "OCP" in subsystem:
+            system_unavailability_links = []
+            ocp_planned_playbacks = []
+
+            ocp_planned_playbacks = query.get_events(gauge_names = {"op": "==", "filter": "PLANNED_PLAYBACK"},
+                                            gauge_systems = {"op": "==", "filter": satellite},
+                                            start_filters = [{"date": end_time, "op": "<"}], 
+                                            stop_filters = [{"date": start_time, "op": ">"}])
+
+            if len(ocp_planned_playbacks) > 0:
+                planned_OCP_playbacks = [planned_playback for planned_playback in ocp_planned_playbacks for event_text in planned_playback.eventTexts if event_text.name == "playback_mean" and event_text.value == "OCP"]
+                for link in planned_OCP_playbacks:
+                    system_unavailability_links.append({
+                        "link": str(link.event_uuid),
+                        "link_mode": "by_uuid",
+                        "name": "SYSTEM_UNAVAILABILITY",
+                        "back_ref": "PLANNED_PLAYBACK"
+                    })
+                # end for
+            # end if  
         # end if
 
         # Generate event
@@ -207,22 +220,24 @@ def process_file(file_path, engine, query, reception_time):
                 "key": key,
                 "gauge": {
                     "insertion_type": "EVENT_KEYS",
-                    "name": "SATELLITE_UNAVAILABILITY",
+                    "name": "SYSTEM_UNAVAILABILITY",
                     "system": satellite
                 },
-                "links": satellite_unavailability_links,
+                "links": system_unavailability_links,
                 "start": start_time,
                 "stop": end_time,
                 "values": subsystem_unavailability_values
                 }
         list_of_events.append(subsystem_unavailability_event)
 
+    # end for
+
     functions.insert_ingestion_progress(session_progress, general_source_progress, 70)
 
     data = {"operations": [{
                 "mode": "insert",
                 "dim_signature": {
-                    "name": "SATELLITE_UNAVAILABILITY",
+                    "name": "SYSTEM_UNAVAILABILITY",
                     "exec": os.path.basename(__file__),
                     "version": version
                 },
