@@ -48,7 +48,7 @@ class TestRepSup(unittest.TestCase):
         self.engine_eboa.close_session()
         self.query_eboa.close_session()
         self.session.close()
-
+    
     def test_insert_repsup_with_unknown_validity_stop(self):
 
         filename = "S2A_OPER_REP__SUP___20201128T134025_99999999T999999_0001.EOF"
@@ -76,7 +76,7 @@ class TestRepSup(unittest.TestCase):
 
         assert len(sup_events) == 1
 
-        sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2A", "op": "=="},
                                                     sources = {"filter": "S2A_OPER_REP__SUP___20201128T134025_99999999T999999_0001.EOF", "op": "=="},
                                                     start_filters = [{"date": "2020-11-28T13:40:25", "op": "=="}])
@@ -135,7 +135,7 @@ class TestRepSup(unittest.TestCase):
 
         assert len(sup_events) == 1     # Only one event remaining
 
-        sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2A", "op": "=="},
                                                     sources = {"filter": "S2A_OPER_REP__SUP___20201128T134025_20201128T134611_0001.EOF", "op": "=="},
                                                     start_filters = [{"date": "2020-11-28T13:40:25", "op": "=="}])
@@ -166,7 +166,7 @@ class TestRepSup(unittest.TestCase):
                     }]
 
     # Check links
-    def test_insert_repsups_with_links(self):
+    def test_insert_repsups_with_links_and_alerts(self):
         
         filename = "S2B_OPER_MPL__NPPF__20201112T120000_20201130T150000_0001.EOF"
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
@@ -193,7 +193,7 @@ class TestRepSup(unittest.TestCase):
         sources = self.query_eboa.get_sources()
 
         # Number of rep_sup events
-        sup_events = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        sup_events = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2B", "op": "=="},
                                                     sources = {"filter": "S2B_OPER_REP__SUP___20201126T130000_20201127T103000_0001.test", "op": "=="})
         
@@ -203,7 +203,7 @@ class TestRepSup(unittest.TestCase):
 
         # Values of the different inserted events
         # XBAND event
-        xband_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        xband_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2B", "op": "=="},
                                                     sources = {"filter": "S2B_OPER_REP__SUP___20201126T130000_20201127T103000_0001.test", "op": "=="},
                                                     start_filters = [{"date": "2020-11-26T13:00:00", "op": "=="}])
@@ -233,7 +233,7 @@ class TestRepSup(unittest.TestCase):
                     }]
 
         # OCP event
-        ocp_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        ocp_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2B", "op": "=="},
                                                     sources = {"filter": "S2B_OPER_REP__SUP___20201126T130000_20201127T103000_0001.test", "op": "=="},
                                                     start_filters = [{"date": "2020-11-26T22:45:00", "op": "=="}])
@@ -263,7 +263,7 @@ class TestRepSup(unittest.TestCase):
                     }]
 
         # MSI event
-        msi_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        msi_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2B", "op": "=="},
                                                     sources = {"filter": "S2B_OPER_REP__SUP___20201126T130000_20201127T103000_0001.test", "op": "=="},
                                                     start_filters = [{"date": "2020-11-26T15:00:00", "op": "=="}])
@@ -293,7 +293,7 @@ class TestRepSup(unittest.TestCase):
                     }]
 
         # MMFU event
-        mmfu_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="},
+        mmfu_sup_event = self.query_eboa.get_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="},
                                                     gauge_systems = {"filter": "S2B", "op": "=="},
                                                     sources = {"filter": "S2B_OPER_REP__SUP___20201126T130000_20201127T103000_0001.test", "op": "=="},
                                                     start_filters = [{"date": "2020-11-26T19:00:00", "op": "=="}])
@@ -323,7 +323,7 @@ class TestRepSup(unittest.TestCase):
                     }]
 
         #Number of linking events
-        xband_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="}, 
+        xband_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-26T22:45:00", "op": "=="}], 
                                                                     stop_filters = [{"date": "2020-11-26T23:00:00", "op": "=="}], 
@@ -331,7 +331,7 @@ class TestRepSup(unittest.TestCase):
         
         assert len(xband_linking_events["linking_events"]) == 2
 
-        ocp_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="}, 
+        ocp_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-26T22:45:00", "op": "=="}], 
                                                                     stop_filters = [{"date": "2020-11-26T23:00:00", "op": "=="}], 
@@ -339,7 +339,7 @@ class TestRepSup(unittest.TestCase):
         
         assert len(ocp_linking_events["linking_events"]) == 2
 
-        msi_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="}, 
+        msi_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-26T15:00:00", "op": "=="}], 
                                                                     stop_filters = [{"date": "2020-11-26T16:30:00", "op": "=="}], 
@@ -347,27 +347,123 @@ class TestRepSup(unittest.TestCase):
         
         assert len(msi_linking_events["linking_events"]) == 5
 
-        mmfu_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SYSTEM_UNAVAILABILITY", "op": "=="}, 
+        mmfu_linking_events = self.query_eboa.get_linking_events(gauge_names = {"filter": "SATELLITE_UNAVAILABILITY", "op": "=="}, 
                                                                     gauge_systems = {"filter": "S2B", "op": "=="}, 
                                                                     start_filters = [{"date": "2020-11-26T19:00:00", "op": "=="}], 
                                                                     stop_filters = [{"date": "2020-11-26T20:30:00", "op": "=="}], 
                                                                     link_names = {"filter": "PLANNED_CUT_IMAGING", "op": "=="})
         
         assert len(mmfu_linking_events["linking_events"]) == 4
-      
 
         
+        # Check number of alerts generated
+        event_alerts = self.query_eboa.get_event_alerts()
 
-   
+        assert len(event_alerts) == 224
 
+        # Check number of alerts for each impacted subsystem
+
+        # XBAND alerts
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
+        filters["names"] = {"filter": "ALERT-0102: X-BAND UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_playback) == 2
+
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
+        filters["start_filters"] = [{"date": "2020-11-26T13:12:46.901000", "op": "=="}]
+        filters["notification_time_filters"] = [{"date": "2020-11-26T13:12:46.901000", "op": "=="}]
+        filters["names"] = {"filter": "ALERT-0102: X-BAND UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_playback) == 1
+
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
+        filters["start_filters"] = [{"date": "2020-11-26T13:16:32.504000", "op": "=="}]
+        filters["notification_time_filters"] = [{"date": "2020-11-26T13:16:32.504000", "op": "=="}]
+        filters["names"] = {"filter": "ALERT-0102: X-BAND UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_playback) == 1
+
+        # OCP alerts
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
+        filters["names"] = {"filter": "ALERT-0103: OCP UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_playback) == 2
+
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
+        filters["start_filters"] = [{"date": "2020-11-26T22:58:26.786000", "op": "=="}]
+        filters["notification_time_filters"] = [{"date": "2020-11-26T22:58:26.786000", "op": "=="}]
+        filters["names"] = {"filter": "ALERT-0103: OCP UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_playback) == 1
+
+        # MSI alerts
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING", "op": "=="}
+        filters["names"] = {"filter": "ALERT-0101: MSI UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_cut_imaging) == 5
+
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING", "op": "=="}
+        filters["start_filters"] = [{"date": "2020-11-26T15:16:54.991000", "op": "=="}]
+        filters["notification_time_filters"] = [{"date": "2020-11-26T15:16:54.991000", "op": "=="}]
+        filters["names"] = {"filter": "ALERT-0101: MSI UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_cut_imaging) == 1
+
+        #MMFU alerts
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING", "op": "=="}
+        filters["names"] = {"filter": "ALERT-0100: MMFU UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_cut_imaging) == 4
+
+        filters = {}
+        filters["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING", "op": "=="}
+        filters["start_filters"] = [{"date": "2020-11-26T20:07:45.536000", "op": "=="}]
+        filters["notification_time_filters"] = [{"date": "2020-11-26T20:07:45.536000", "op": "=="}]
+        filters["names"] = {"filter": "ALERT-0100: MMFU UNAVAILABILITY", "op": "=="}
+        filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
+        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
+        alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
+
+        assert len(alerts_planned_cut_imaging) == 1
         
-
-
-
-
-
-
-
-
-    
-
