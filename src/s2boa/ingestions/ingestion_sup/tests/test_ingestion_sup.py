@@ -368,7 +368,7 @@ class TestRepSup(unittest.TestCase):
         filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
         filters["names"] = {"filter": "ALERT-0102: X-BAND UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
 
@@ -380,7 +380,7 @@ class TestRepSup(unittest.TestCase):
         filters["notification_time_filters"] = [{"date": "2020-11-26T13:12:46.901000", "op": "=="}]
         filters["names"] = {"filter": "ALERT-0102: X-BAND UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
 
@@ -392,7 +392,7 @@ class TestRepSup(unittest.TestCase):
         filters["notification_time_filters"] = [{"date": "2020-11-26T13:16:32.504000", "op": "=="}]
         filters["names"] = {"filter": "ALERT-0102: X-BAND UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
 
@@ -403,7 +403,7 @@ class TestRepSup(unittest.TestCase):
         filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK", "op": "=="}
         filters["names"] = {"filter": "ALERT-0103: OCP UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
 
@@ -415,7 +415,7 @@ class TestRepSup(unittest.TestCase):
         filters["notification_time_filters"] = [{"date": "2020-11-26T22:58:26.786000", "op": "=="}]
         filters["names"] = {"filter": "ALERT-0103: OCP UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_playback = self.query_eboa.get_event_alerts(filters)
 
@@ -426,7 +426,7 @@ class TestRepSup(unittest.TestCase):
         filters["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING", "op": "=="}
         filters["names"] = {"filter": "ALERT-0101: MSI UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
 
@@ -438,7 +438,7 @@ class TestRepSup(unittest.TestCase):
         filters["notification_time_filters"] = [{"date": "2020-11-26T15:16:54.991000", "op": "=="}]
         filters["names"] = {"filter": "ALERT-0101: MSI UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
 
@@ -449,7 +449,7 @@ class TestRepSup(unittest.TestCase):
         filters["gauge_names"] = {"filter": "PLANNED_CUT_IMAGING", "op": "=="}
         filters["names"] = {"filter": "ALERT-0100: MMFU UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
 
@@ -461,7 +461,7 @@ class TestRepSup(unittest.TestCase):
         filters["notification_time_filters"] = [{"date": "2020-11-26T20:07:45.536000", "op": "=="}]
         filters["names"] = {"filter": "ALERT-0100: MMFU UNAVAILABILITY", "op": "=="}
         filters["groups"] = {"filter": "S2_UNAVAILABILITY", "op": "=="}
-        filters["severities"] = {"filter": "critical", "op": "=="}
+        filters["severities"] = {"filter": "fatal", "op": "=="}
         filters["generators"] = {"filter": "ingestion_sup.py", "op": "=="}
         alerts_planned_cut_imaging = self.query_eboa.get_event_alerts(filters)
 

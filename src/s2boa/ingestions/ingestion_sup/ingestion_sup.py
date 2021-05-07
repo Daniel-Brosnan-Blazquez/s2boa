@@ -179,7 +179,7 @@ def process_file(file_path, engine, query, reception_time):
                             "notification_time": event.start.isoformat(),
                             "alert_cnf": {
                                 "name": "ALERT-0100: MMFU UNAVAILABILITY",
-                                "severity": "critical",
+                                "severity": "fatal",
                                 "description": "Alert refers to the unavailability of the MMFU for the corresponding planned imaging",
                                 "group": "S2_UNAVAILABILITY"
                             },
@@ -198,7 +198,7 @@ def process_file(file_path, engine, query, reception_time):
                             "notification_time": event.start.isoformat(),
                             "alert_cnf": {
                                 "name": "ALERT-0101: MSI UNAVAILABILITY",
-                                "severity": "critical",
+                                "severity": "fatal",
                                 "description": "Alert refers to the unavailability of the MSI for the corresponding planned imaging",
                                 "group": "S2_UNAVAILABILITY"
                             },
@@ -254,7 +254,7 @@ def process_file(file_path, engine, query, reception_time):
                             "notification_time": event.start.isoformat(),
                             "alert_cnf": {
                                 "name": "ALERT-0102: X-BAND UNAVAILABILITY",
-                                "severity": "critical",
+                                "severity": "fatal",
                                 "description": "Alert refers to the unavailability of the X-BAND for the corresponding planned playback",
                                 "group": "S2_UNAVAILABILITY"
                             },
@@ -273,7 +273,7 @@ def process_file(file_path, engine, query, reception_time):
                             "notification_time": event.start.isoformat(),
                             "alert_cnf": {
                                 "name": "ALERT-0103: OCP UNAVAILABILITY",
-                                "severity": "critical",
+                                "severity": "fatal",
                                 "description": "Alert refers to the unavailability of the OCP for the corresponding planned playback",
                                 "group": "S2_UNAVAILABILITY"
                             },
