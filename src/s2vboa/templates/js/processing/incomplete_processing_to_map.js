@@ -26,9 +26,17 @@ var processing_geometries_incomplete = [
     {% if not imaging_mode %}
     {% set imaging_mode = "N/A" %}
     {% endif %}
+
+    {% if processing_validity %}
     {% set datastrip_start = processing_validity.start.isoformat() %}
     {% set datastrip_stop = processing_validity.stop.isoformat() %}
     {% set duration = (((processing_validity.stop - processing_validity.start).total_seconds()) / 60)|round(3) %}
+    {% else %}
+    {% set datastrip_start = event.start.isoformat() %}
+    {% set datastrip_stop = event.stop.isoformat() %}
+    {% set duration = (((event.stop - event.start).total_seconds()) / 60)|round(3) %}
+    {% endif %}
+
     {% set sad_data_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "SAD_DATA")|map(attribute='event_uuid_link')|list %}
     {% set sad_data_info = "N/A" %}
     {% if sad_data_uuids|length > 0 %}

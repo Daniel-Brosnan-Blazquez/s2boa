@@ -70,6 +70,17 @@
       <source_type>S2A_MPL_ORBPRE</source_type>
     </dependencies>
   </rule>
+  <rule>
+    <source_mask>S2A_OPER_MPL__SUP___........T......_........T......_.....*</source_mask>
+    <source_type>S2A_MPL__SUP</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_sup.ingestion_sup -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2A_MPL__NPPF</source_type>
+      <source_type>S2A_MPL_ORBPRE</source_type>
+    </dependencies>
+  </rule>
   <rule skip="true">
     <source_mask>S2A_OPER_REP_OPDPC__MPC__........T......_V........T......_........T.......*</source_mask>
     <source_type>S2A_REP_OPDPC</source_type>
@@ -176,6 +187,17 @@
     <source_type>S2B_MPL_FS</source_type>
     <tool>
       <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_dfep_schedule.ingestion_dfep_schedule -f </command>
+    </tool>
+    <dependencies>
+      <source_type>S2B_MPL__NPPF</source_type>
+      <source_type>S2B_MPL_ORBPRE</source_type>
+    </dependencies>
+  </rule>
+  <rule>
+    <source_mask>S2B_OPER_MPL__SUP___........T......_........T......_.....*</source_mask>
+    <source_type>S2B_MPL__SUP</source_type>
+    <tool>
+      <command>eboa_ingestion.py -p s2boa.ingestions.ingestion_sup.ingestion_sup -f </command>
     </tool>
     <dependencies>
       <source_type>S2B_MPL__NPPF</source_type>

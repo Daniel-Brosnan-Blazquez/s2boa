@@ -2,7 +2,7 @@
     "LOG": {
         "LEVEL": "INFO",
         "MAX_BYTES": 50000000,
-        "MAX_BACKUP": 0
+        "MAX_BACKUP": 30
     },
     "INGESTION_RETRIES": 2,
     "REPLICATE_EVENT_VALUES_MODULE": "s2boa.ingestions.replicate_event_values"

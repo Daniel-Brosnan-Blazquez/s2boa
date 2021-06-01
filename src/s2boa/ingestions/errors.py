@@ -3,7 +3,7 @@ Errors definition for the ingestions module
 
 Written by DEIMOS Space S.L. (dibb)
 
-module eboa
+module s1boa
 """
 class Error(Exception):
     """Base class for exceptions in this module."""

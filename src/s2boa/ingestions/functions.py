@@ -1501,6 +1501,8 @@ def associate_footprints(events, satellite, orbpre_events = None, return_polygon
         logger.debug("There are no events for associating footprints")
         return []
     # end if
+    events.sort(key=lambda x:x["start"])    
+    
     logger.debug("There are {} events for associating footprints".format(len(events)))
 
     logger.debug("The events for associating footprints cover from {} to {}".format(events[0]["start"], events[-1]["stop"]))
@@ -1511,8 +1513,6 @@ def associate_footprints(events, satellite, orbpre_events = None, return_polygon
 
     swath_definition_file_path = eboa_functions.get_resources_path() + "/SDF_MSI.xml"
 
-    events.sort(key=lambda x:x["start"])    
-    
     (number_of_orbpre_events, orbpre_file_path) = build_orbpre_file(events[0]["start"], events[-1]["stop"], satellite, orbpre_events)
 
     if number_of_orbpre_events > 1:
