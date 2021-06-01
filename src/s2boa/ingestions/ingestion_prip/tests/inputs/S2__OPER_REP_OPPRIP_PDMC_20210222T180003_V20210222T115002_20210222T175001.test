@@ -99,6 +99,16 @@
         <InventoryDate>2021-02-22T14:11:54Z</InventoryDate>
         <ParentId/>
       </ArchivedProduct>
+      <ArchivedProduct>
+        <Pdi-Id>S2A_OPER_MSI_L1C_TC_VGS2_20210527T183441_A030967_T19QGE_N03.00.tar</Pdi-Id>
+        <InventoryDate>2021-05-27T19:11:35Z</InventoryDate>
+        <ParentId/>
+      </ArchivedProduct>
+      <ArchivedProduct>
+        <Pdi-Id>S2A_OPER_MSI_L1C_TC_VGS2_20210527T183441_A030967_T19QGF_N03.00.tar</Pdi-Id>
+        <InventoryDate>2021-05-27T19:11:36Z</InventoryDate>
+        <ParentId/>
+      </ArchivedProduct>
     </List_Of_ArchivedProducts>
   </Data_Block>
 </Earth_Explorer_File>

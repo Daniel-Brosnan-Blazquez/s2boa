@@ -14,6 +14,7 @@ import json
 import sys
 import tempfile
 import re
+import pdb
 
 # Import xml parser
 from lxml import etree
@@ -142,32 +143,36 @@ def process_file(file_path, engine, query, reception_time):
         # Link tiles to datastrips
         if "_TL_" in pdi_id_without_extension:
 
-            explicit_reference = {
-                "group": level + "_TL",
-                "links": [{
-                    "back_ref": "DATASTRIP",
-                    "link": parent_id,
-                    "name": "TILE"
-                    }
-                ],
-                "name": pdi_id_without_extension
-            }
-            list_of_explicit_references.append(explicit_reference)
+            if parent_id is not None:
+                explicit_reference = {
+                    "group": level + "_TL",
+                    "links": [{
+                        "back_ref": "DATASTRIP",
+                        "link": parent_id,
+                        "name": "TILE"
+                        }
+                    ],
+                    "name": pdi_id_without_extension
+                }
+                list_of_explicit_references.append(explicit_reference)
+            # end if
 
         # Link true colour to datastrips
         elif "_TC_" in pdi_id_without_extension:
 
-            explicit_reference = {
-                "group": level + "_TC",
-                "links": [{
-                    "back_ref": "DATASTRIP",
-                    "link": parent_id,
-                    "name": "TCI"
-                    }
-                ],
-                "name": pdi_id_without_extension
-            }
-            list_of_explicit_references.append(explicit_reference)       
+            if parent_id is not None:
+                explicit_reference = {
+                    "group": level + "_TC",
+                    "links": [{
+                        "back_ref": "DATASTRIP",
+                        "link": parent_id,
+                        "name": "TCI"
+                        }
+                    ],
+                    "name": pdi_id_without_extension
+                }
+                list_of_explicit_references.append(explicit_reference)  
+            # end if     
 
         # # Link granules to datastrips
         # elif "_GR_" in pdi_id_without_extension:

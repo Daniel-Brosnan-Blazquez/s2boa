@@ -73,7 +73,7 @@ class TestOpprip(unittest.TestCase):
         # Check annotations
         prip_annotations = self.query_eboa.get_annotations()
 
-        assert len(prip_annotations) == 13
+        assert len(prip_annotations) == 15
 
         prip_annotation_archiving_time = self.query_eboa.get_annotations(annotation_cnf_names = {"op": "like", "filter": "PRIP_ARCHIVING_TIME"},
                                                      explicit_refs = {"op": "like", "filter": "S2B_OPER_GIP_R2EQOG_MPC__20210222T083100_V20210223T233000_21000101T000000_B05"})
@@ -101,7 +101,7 @@ class TestOpprip(unittest.TestCase):
 
         prip_tcs_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%_TC_%", "op": "like"})
         
-        assert len(prip_tcs_explicit_refs) == 1
+        assert len(prip_tcs_explicit_refs) == 3
 
         prip_aux_explicit_refs = self.query_eboa.get_explicit_refs(explicit_refs = {"filter": "%AUX%", "op": "like"})
         
@@ -130,6 +130,17 @@ class TestOpprip(unittest.TestCase):
         # assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 1
 
         # assert prip_linked_explicit_refs["linking_explicit_refs"][0].explicit_ref == "S2B_OPER_MSI_L0__GR_VGS2_20210222T112736_S20210222T093828_D02_N02.09"
+
+
+        # Check that the module is not  linking the explicit references if the parent id node is empty
+        prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_TC_VGS2_20210527T183441_A030967_T19QGF_N03.00", "op": "=="})
+
+        assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 0
+
+        prip_linked_explicit_refs = self.query_eboa.get_linking_explicit_refs(explicit_refs = {"filter": "S2A_OPER_MSI_L1C_TC_VGS2_20210527T183441_A030967_T19QGE_N03.00", "op": "=="})
+
+        assert len(prip_linked_explicit_refs["linking_explicit_refs"]) == 0
+
         
  
         
