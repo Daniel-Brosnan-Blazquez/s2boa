@@ -14,7 +14,6 @@ import json
 import sys
 import tempfile
 import re
-import pdb
 
 # Import xml parser
 from lxml import etree
