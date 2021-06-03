@@ -687,13 +687,23 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             received_datablocks_per_apid[apid_number] = []
             band_detector = functions.get_band_detector(apid_number)
             counter_threshold = functions.get_counter_threshold(band_detector["band"])
-            sensing_gaps = apid.xpath("Gaps/Gap[dates_difference(three_letter_to_iso_8601(string(PostSensTime)),three_letter_to_iso_8601(string(PreSensTime))) > 4 and number(PreCounter) = $counter_threshold and number(PostCounter) = 0]", counter_threshold=counter_threshold)
+            sensing_gaps = apid.xpath("Gaps/Gap[dates_difference(three_letter_to_iso_8601(string(PostSensTime)),three_letter_to_iso_8601(string(PreSensTime))) > 4]")
 
             for sensing_gap in sensing_gaps:
                 sensing_gaps_per_apid[apid_number].append({
                     "id": apid_number,
                     "start": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PreSensTime)")))),
                     "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))) - datetime.timedelta(seconds=0.001),
+                })
+            # end for
+
+            sensing_gaps = apid.xpath("Gaps/Gap[boolean(following-sibling::Gap) and dates_difference(three_letter_to_iso_8601(string(following-sibling::Gap/PreSensTime)), three_letter_to_iso_8601(string(PostSensTime))) > 4]")
+
+            for sensing_gap in sensing_gaps:
+                sensing_gaps_per_apid[apid_number].append({
+                    "id": apid_number,
+                    "start": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))),
+                    "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(following-sibling::Gap/PreSensTime)")))),
                 })
             # end for
 
@@ -706,7 +716,8 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
                     "stop": parser.parse(functions.convert_from_gps_to_utc(sensing_stop)) - datetime.timedelta(seconds=0.001),
                 })                
             # end if
-                
+
+            sensing_gaps_per_apid[apid_number].sort(key=lambda segment: segment["start"])
             timelines_of_sensing_gaps.append(sensing_gaps_per_apid[apid_number])
             covered_sensing_start_three_letter = apid.xpath("Gaps/Gap[1]/PreSensTime")
             covered_sensing_stop_three_letter = apid.xpath("Gaps/Gap[last()]/PostSensTime")
@@ -893,7 +904,7 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
         # end for
 
         # Create ISP gaps for gaps between MSI
-        gaps_smaller_than_scene = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(@VCID) = $vcid_number]/ISP_Status/Status[NumPackets > 0]/Gaps/Gap[not (PreCounter = get_counter_threshold_from_apid(string(../../@APID))) or not (PostCounter = 0)]", vcid_number = int(vcid_number))
+        gaps_smaller_than_scene = xpath_xml("/Earth_Explorer_File/Data_Block/*[contains(name(),'data_C')]/Status[number(@VCID) = $vcid_number]/ISP_Status/Status[NumPackets > 0]/Gaps/Gap[(not (PreCounter = get_counter_threshold_from_apid(string(../../@APID))) or not (PostCounter = 0)) and not(dates_difference(three_letter_to_iso_8601(string(PostSensTime)),three_letter_to_iso_8601(string(PreSensTime))) > 4)]", vcid_number = int(vcid_number))
 
         for gap in gaps_smaller_than_scene:
             status = "INCOMPLETE"

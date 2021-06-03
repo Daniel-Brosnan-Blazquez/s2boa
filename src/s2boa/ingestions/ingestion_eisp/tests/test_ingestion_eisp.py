@@ -850,7 +850,7 @@ class TestEispIngestion(unittest.TestCase):
         # Check number of events generated
         events = self.session.query(Event).all()
 
-        assert len(events) == 146
+        assert len(events) == 148
 
         # Check ISP_VALIDITY events
         isp_validities = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY").all()
@@ -860,7 +860,7 @@ class TestEispIngestion(unittest.TestCase):
         # Check ISP_GAP events
         isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP").all()
 
-        assert len(isp_gaps) == 135
+        assert len(isp_gaps) == 137
 
         # Check ISP_GAP event with counter start greater than counter stop
         isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
@@ -1379,3 +1379,65 @@ class TestEispIngestion(unittest.TestCase):
                                                                 Event.stop == "2021-05-27T07:32:00.072492").all()
 
         assert len(isp_gaps) == 63
+
+    def test_insert_rep_pass_with_sensing_gap_with_counters_different_than_threshold_0(self):
+
+        filename = "S2A_OPER_REP_PASS_E_VGS1_20210527T183042_V20210527T181326_20210527T181745.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_eisp.ingestion_eisp", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        # Check number of events generated
+        events = self.session.query(Event).all()
+
+        assert len(events) == 133
+
+        # Check number of annotations generated
+        annotations = self.session.query(Annotation).all()
+
+        assert len(annotations) == 1
+
+        # Check LINK_DETAILS events
+        link_details = self.session.query(Annotation).join(AnnotationCnf).filter(AnnotationCnf.name == "LINK_DETAILS_CH2").all()
+
+        assert len(link_details) == 1
+
+        # Check ISP_VALIDITY events
+        isp_validities = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY").all()
+
+        assert len(isp_validities) == 3
+
+        # Check specific ISP_VALIDITY
+        specific_isp_validity1 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
+                                                                                 Event.start == "2021-05-27T15:10:57.928935",
+                                                                                 Event.stop == "2021-05-27T15:14:48.826561").all()
+
+        assert len(specific_isp_validity1) == 1
+
+        # Check specific ISP_VALIDITY
+        specific_isp_validity2 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
+                                                                                 Event.start == "2021-05-27T15:14:59.648649",
+                                                                                 Event.stop == "2021-05-27T15:17:49.215156").all()
+
+        assert len(specific_isp_validity2) == 1
+
+        # Check specific ISP_VALIDITY
+        specific_isp_validity3 = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_VALIDITY",
+                                                                                 Event.start == "2021-05-27T15:22:18.462699",
+                                                                                 Event.stop == "2021-05-27T15:22:29.287243").all()
+
+        assert len(specific_isp_validity3) == 1
+
+        # Check ISP_GAP events
+        isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP").all()
+
+        assert len(isp_gaps) == 115
+
+        # Check ISP_GAP events
+        isp_gaps = self.session.query(Event).join(Gauge).filter(Gauge.name == "ISP_GAP",
+                                                                Event.start < "2021-05-27T15:10:57.928935",
+                                                                Event.stop > "2021-05-27T15:14:48.826561").all()
+
+        assert len(isp_gaps) == 0
