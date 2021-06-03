@@ -688,13 +688,25 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             band_detector = functions.get_band_detector(apid_number)
             counter_threshold = functions.get_counter_threshold(band_detector["band"])
             sensing_gaps = apid.xpath("Gaps/Gap[dates_difference(three_letter_to_iso_8601(string(PostSensTime)),three_letter_to_iso_8601(string(PreSensTime))) > 4 and number(PreCounter) = $counter_threshold and number(PostCounter) = 0]", counter_threshold=counter_threshold)
+
             for sensing_gap in sensing_gaps:
                 sensing_gaps_per_apid[apid_number].append({
                     "id": apid_number,
                     "start": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PreSensTime)")))),
-                    "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))),
+                    "stop": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(sensing_gap.xpath("string(PostSensTime)")))) - datetime.timedelta(seconds=0.001),
                 })
             # end for
+
+            # Introduce gaps for the last scenes if they are not available
+            last_gap_post_sens_time = apid.xpath("Gaps/Gap[last()]/PostSensTime")
+            if len(last_gap_post_sens_time) > 0 and functions.three_letter_to_iso_8601(last_gap_post_sens_time[0].text) < sensing_stop:
+                sensing_gaps_per_apid[apid_number].append({
+                    "id": apid_number,
+                    "start": parser.parse(functions.convert_from_gps_to_utc(functions.three_letter_to_iso_8601(last_gap_post_sens_time[0].text))),
+                    "stop": parser.parse(functions.convert_from_gps_to_utc(sensing_stop)) - datetime.timedelta(seconds=0.001),
+                })                
+            # end if
+                
             timelines_of_sensing_gaps.append(sensing_gaps_per_apid[apid_number])
             covered_sensing_start_three_letter = apid.xpath("Gaps/Gap[1]/PreSensTime")
             covered_sensing_stop_three_letter = apid.xpath("Gaps/Gap[last()]/PostSensTime")
@@ -729,10 +741,10 @@ def _generate_received_data_information(xpath_xml, source, engine, query, list_o
             else:
                 gaps = received_datablocks
             # end if
-            # end if
+
             for gap in gaps:
                 start = gap["start"]
-                stop = gap["stop"]
+                stop = gap["stop"] + datetime.timedelta(seconds=3.608)
                 status = "INCOMPLETE"
                 band_detector = functions.get_band_detector(apid_number)
 
