@@ -449,141 +449,141 @@ class TestOrbpre(unittest.TestCase):
         assert len(event_alerts) == 55
 
         # Check number of alerts generated
-        filters = {}
-        filters["gauge_names"] = {"filter": "STATION_SCHEDULE_COMPLETENESS", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-15T14:02:38.392053", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0001: MISSING STATION SCHEDULE", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_station_schedule = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "STATION_SCHEDULE_COMPLETENESS", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-15T14:02:38.392053", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0001: MISSING STATION SCHEDULE", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_station_schedule = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_station_schedule) == 1
 
         assert alerts_station_schedule[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066 is not covered by any station schedule"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0010: MISSING PLANNED PLAYBACK CH 1", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_playback = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0010: MISSING PLANNED PLAYBACK CH 1", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_playback = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_playback) == 1
 
         assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 1, has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0011: MISSING PLANNED PLAYBACK CH 2", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_playback = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0011: MISSING PLANNED PLAYBACK CH 2", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_playback = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_playback) == 1
 
         assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 2, has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0020: MISSING PLANNED IMAGING CH 1", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_imaging = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0020: MISSING PLANNED IMAGING CH 1", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_imaging = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_imaging) == 1
 
         assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 1 has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0021: MISSING PLANNED IMAGING CH 2", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_imaging = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0021: MISSING PLANNED IMAGING CH 2", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_imaging = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_imaging) == 1
 
         assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 2 has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0030: MISSING L0 PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_l0_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0030: MISSING L0 PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_l0_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l0_processing) == 1
 
         assert alerts_l0_processing[0].message == "The L0 processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:10:12.951732", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:10:02.951732", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0031: MISSING L1A PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_l1a_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:10:12.951732", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:10:02.951732", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0031: MISSING L1A PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_l1a_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l1a_processing) == 1
 
         assert alerts_l1a_processing[0].message == "The L1A processing for the SUN_CAL planned imaging (with timings: 2018-07-20T14:10:02.951732_2018-07-20T14:16:10.071190) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0032: MISSING L1B PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_l1b_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0032: MISSING L1B PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_l1b_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l1b_processing) == 1
 
         assert alerts_l1b_processing[0].message == "The L1B processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0033: MISSING L1C PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_l1c_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0033: MISSING L1C PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_l1c_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l1c_processing) == 1
 
         assert alerts_l1c_processing[0].message == "The L1C processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0034: MISSING L2A PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
-        alerts_l2a_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0034: MISSING L2A PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_orbpre.py", "op": "=="}
+        alerts_l2a_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l2a_processing) == 1
 
@@ -625,141 +625,141 @@ class TestOrbpre(unittest.TestCase):
         assert len(event_alerts) == 55
 
         # Check number of alerts generated
-        filters = {}
-        filters["gauge_names"] = {"filter": "STATION_SCHEDULE_COMPLETENESS", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-15T14:02:38.392053", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0001: MISSING STATION SCHEDULE", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_station_schedule = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "STATION_SCHEDULE_COMPLETENESS", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-15T14:02:38.392053", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0001: MISSING STATION SCHEDULE", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_station_schedule = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_station_schedule) == 1
 
         assert alerts_station_schedule[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066 is not covered by any station schedule"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0010: MISSING PLANNED PLAYBACK CH 1", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_playback = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_1", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0010: MISSING PLANNED PLAYBACK CH 1", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_playback = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_playback) == 1
 
         assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 1, has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0011: MISSING PLANNED PLAYBACK CH 2", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_playback = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_PLAYBACK_COMPLETENESS_CHANNEL_2", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:02:47.392053", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:02:38.392053", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0011: MISSING PLANNED PLAYBACK CH 2", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_playback = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_playback) == 1
 
         assert alerts_playback[0].message == "The NOMINAL planned playback (with timings: 2018-07-20T14:02:38.392053_2018-07-20T14:14:20.241401) over orbit 16066, expected to be received through channel 2, has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0020: MISSING PLANNED IMAGING CH 1", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_imaging = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_1", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0020: MISSING PLANNED IMAGING CH 1", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_imaging = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_imaging) == 1
 
         assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 1 has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0021: MISSING PLANNED IMAGING CH 2", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_imaging = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_ISP_COMPLETENESS_CHANNEL_2", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0021: MISSING PLANNED IMAGING CH 2", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_imaging = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_imaging) == 1
 
         assert alerts_imaging[0].message == "The part of the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 corresponding to channel 2 has not been received"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0030: MISSING L0 PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_l0_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L0", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0030: MISSING L0 PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_l0_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l0_processing) == 1
 
         assert alerts_l0_processing[0].message == "The L0 processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:10:12.951732", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:10:02.951732", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0031: MISSING L1A PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_l1a_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1A", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:10:12.951732", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:10:02.951732", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0031: MISSING L1A PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_l1a_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l1a_processing) == 1
 
         assert alerts_l1a_processing[0].message == "The L1A processing for the SUN_CAL planned imaging (with timings: 2018-07-20T14:10:02.951732_2018-07-20T14:16:10.071190) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0032: MISSING L1B PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_l1b_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1B", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0032: MISSING L1B PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_l1b_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l1b_processing) == 1
 
         assert alerts_l1b_processing[0].message == "The L1B processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0033: MISSING L1C PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_l1c_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L1C", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0033: MISSING L1C PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_l1c_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l1c_processing) == 1
 
         assert alerts_l1c_processing[0].message == "The L1C processing for the NOMINAL planned imaging (with timings: 2018-07-20T14:07:32.793311_2018-07-20T14:08:58.407047) over orbit 16066 has not been performed"
 
-        filters = {}
-        filters["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "=="}
-        filters["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
-        filters["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
-        filters["names"] = {"filter": "ALERT-0034: MISSING L2A PROCESSING", "op": "=="}
-        filters["groups"] = {"filter": "S2_PLANNING", "op": "=="}
-        filters["severities"] = {"filter": "fatal", "op": "=="}
-        filters["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
-        alerts_l2a_processing = self.query_eboa.get_event_alerts(filters)
+        kwargs = {}
+        kwargs["gauge_names"] = {"filter": "PLANNED_IMAGING_PROCESSING_COMPLETENESS_L2A", "op": "=="}
+        kwargs["start_filters"] = [{"date": "2018-07-20T14:07:42.793311", "op": "=="}]
+        kwargs["notification_time_filters"] = [{"date": "2018-07-21T00:07:32.793311", "op": "=="}]
+        kwargs["names"] = {"filter": "ALERT-0034: MISSING L2A PROCESSING", "op": "=="}
+        kwargs["groups"] = {"filter": "S2_PLANNING", "op": "=="}
+        kwargs["severities"] = {"filter": "fatal", "op": "=="}
+        kwargs["generators"] = {"filter": "ingestion_nppf.py", "op": "=="}
+        alerts_l2a_processing = self.query_eboa.get_event_alerts(**kwargs)
 
         assert len(alerts_l2a_processing) == 1
 
