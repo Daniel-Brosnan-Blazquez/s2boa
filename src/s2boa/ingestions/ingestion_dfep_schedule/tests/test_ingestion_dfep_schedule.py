@@ -31,7 +31,7 @@ from eboa.datamodel.annotations import Annotation, AnnotationCnf, AnnotationText
 # Import ingestion
 import eboa.ingestion.eboa_ingestion as ingestion
 
-class TestEngine(unittest.TestCase):
+class TestDfepSchedule(unittest.TestCase):
     def setUp(self):
         # Create the engine to manage the data
         self.engine_eboa = Engine()
