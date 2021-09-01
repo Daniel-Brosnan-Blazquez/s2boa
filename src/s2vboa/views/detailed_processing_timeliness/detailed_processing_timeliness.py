@@ -24,10 +24,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("detailed_processing_timeliness", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/detailed-processing-timeliness", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_detailed_processing_timeliness():
     """
     Detailed Processing Timeliness view for the Sentinel-2 mission.

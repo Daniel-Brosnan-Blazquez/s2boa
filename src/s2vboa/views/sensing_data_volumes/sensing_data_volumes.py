@@ -24,10 +24,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("sensing_data_volumes", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/sensing-data-volumes", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sensing_data_volumes():
     """
     Sensing data volumes view for the Sentinel-2 mission.
@@ -82,6 +87,8 @@ def show_sensing_data_volumes():
     return query_datastrips_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sensing-data-volumes-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_sensing_data_volumes_pages():
     """
     Sensing data volumes view for the Sentinel-2 mission using pages.
@@ -99,6 +106,8 @@ def query_sensing_data_volumes_pages():
     return query_datastrips_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sliding-sensing-data-volumes-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_sensing_data_volumes_parameters():
     """
     Sensing data volumes sliding view for the Sentinel-2 mission.
@@ -132,6 +141,8 @@ def show_sliding_sensing_data_volumes_parameters():
     return query_datastrip_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
 @bp.route("/sliding-sensing-data-volumes", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_sensing_data_volumes():
     """
     Sensing data volumes sliding view for the Sentinel-2 mission.

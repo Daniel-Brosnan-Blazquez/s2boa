@@ -26,10 +26,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("data-allocation", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/data-allocation", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_data_allocation():
     """
     Data Allocation view for the Sentinel-2 mission.
@@ -80,6 +85,8 @@ def show_data_allocation():
     return query_data_allocation_and_render(start_filter, stop_filter, mission, filters = filters)
 
 @bp.route("/data-allocation-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_data_allocation_pages():
     """
     Data allocation view for the Sentinel-2 mission using pages.
@@ -97,6 +104,8 @@ def query_data_allocation_pages():
     return query_data_allocation_and_render(start_filter, stop_filter, mission, filters = filters)
 
 @bp.route("/sliding-data-allocation-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_data_allocation_parameters():
     """
     Data allocation sliding view for the Sentinel-2 mission.
@@ -127,6 +136,8 @@ def show_sliding_data_allocation_parameters():
     return query_data_allocation_and_render(start_filter, stop_filter, mission, sliding_window)
 
 @bp.route("/sliding-data-allocation", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_data_allocation():
     """
     Data allocation sliding view for the Sentinel-2 mission.

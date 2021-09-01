@@ -27,10 +27,15 @@ from eboa.engine import functions as eboa_functions
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("planning", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/planning", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_planning():
     """
     Planning view for the Sentinel-2 mission.
@@ -85,6 +90,8 @@ def show_planning():
     return query_planning_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/planning-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_planning_pages():
     """
     Planning view for the Sentinel-2 mission using pages.
@@ -102,6 +109,8 @@ def query_planning_pages():
     return query_planning_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sliding-planning-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_planning_parameters():
     """
     Planning view for the Sentinel-2 mission.
@@ -135,6 +144,8 @@ def show_sliding_planning_parameters():
     return query_planning_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
 @bp.route("/sliding-planning", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_planning():
     """
     Planning view for the Sentinel-2 mission.

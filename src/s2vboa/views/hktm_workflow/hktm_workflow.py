@@ -25,10 +25,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("hktm_workflow", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/hktm-workflow", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_hktm_workflow():
     """
     HKTM Workflow view for the Sentinel-2 mission.
@@ -74,6 +79,8 @@ def show_hktm_workflow():
     return query_hktm_workflow_and_render(start_filter, stop_filter, mission, filters = filters)
 
 @bp.route("/specific-hktm-workflow/<string:planned_playback_uuid>")
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_specific_hktm_workflow(planned_playback_uuid):
     """
     Specific hktm workflow view for one playback related to the Sentinel-2 mission.
@@ -104,6 +111,8 @@ def show_specific_hktm_workflow(planned_playback_uuid):
     return query_hktm_workflow_and_render(start_filter, stop_filter, mission, filters = filters, planned_playback_uuid = planned_playback_uuid)
 
 @bp.route("/hktm-workflow-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_hktm_workflow_pages():
     """
     Hktm Workflow view for the Sentinel-2 mission using pages.
@@ -120,6 +129,8 @@ def query_hktm_workflow_pages():
     return query_hktm_workflow_and_render(start_filter, stop_filter, mission, filters = filters)
 
 @bp.route("/sliding-hktm-workflow-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_hktm_workflow_parameters():
     """
     Hktm Workflow sliding view for the Sentinel-2 mission.
@@ -150,6 +161,8 @@ def show_sliding_hktm_workflow_parameters():
     return query_hktm_workflow_and_render(start_filter, stop_filter, mission, sliding_window)
 
 @bp.route("/sliding-hktm-workflow", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_hktm_workflow():
     """
     Hktm Workflow sliding view for the Sentinel-2 mission.

@@ -25,10 +25,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("processing", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/processing", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_processing():
     """
     Processing view for the Sentinel-2 mission.
@@ -97,6 +102,8 @@ def show_processing():
     return query_processing_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/specific-processing/<string:planned_playback_uuid>")
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_specific_processing(planned_playback_uuid):
     """
     Specific processing view for one playback related to the Sentinel-2 mission.
@@ -132,6 +139,8 @@ def show_specific_processing(planned_playback_uuid):
     return query_processing_and_render(start_filter, stop_filter, mission, show, filters = filters, planned_playback_uuid = planned_playback_uuid)
 
 @bp.route("/processing-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_processing_pages():
     """
     Processing view for the Sentinel-2 mission using pages.
@@ -149,6 +158,8 @@ def query_processing_pages():
     return query_processing_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sliding-processing-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_processing_parameters():
     """
     Processing sliding view for the Sentinel-2 mission.
@@ -196,6 +207,8 @@ def show_sliding_processing_parameters():
     return query_processing_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
 @bp.route("/sliding-processing", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_processing():
     """
     Processing sliding view for the Sentinel-2 mission.

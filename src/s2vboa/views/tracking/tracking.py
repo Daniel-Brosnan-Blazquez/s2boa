@@ -27,11 +27,16 @@ from s2boa.ingestions import functions as s2boa_functions
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("tracking", __name__, url_prefix="/views")
 query = Query()
 engine = Engine()
 
 @bp.route("/tracking", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_tracking():
     """
     Tracking view for the Sentinel-2 mission.
@@ -77,6 +82,8 @@ def show_tracking():
     return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window=None)
 
 @bp.route("/sliding-tracking-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_tracking_parameters():
     """
     Tracking sliding view for the Sentinel-2 mission.
@@ -110,6 +117,8 @@ def show_sliding_tracking_parameters():
     return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
 
 @bp.route("/sliding-tracking", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_tracking():
     """
     Tracking sliding view for the Sentinel-2 mission.
@@ -164,6 +173,8 @@ def show_sliding_tracking():
     return render_template("views/tracking/tracking.html", reporting_start=reporting_start, reporting_stop=reporting_stop, mission=mission, sliding_window = sliding_window)
 
 @bp.route("/query-tracking")
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_tracking():
     """
     Tracking sliding view for the Sentinel-2 mission.

@@ -24,10 +24,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("dhus-completeness", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/dhus-completeness", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_dhus_completeness():
     """
     DHUS completeness view for the Sentinel-2 mission.
@@ -83,6 +88,8 @@ def show_dhus_completeness():
     return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, filters = filters)
 
 @bp.route("/dhus-completeness-by-datatake/<string:corrected_planned_imaging_uuid>")
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_specific_datatake(corrected_planned_imaging_uuid):
     """
     Specific dhus completeness view for one datatake related to the Sentinel-2 mission.
@@ -118,6 +125,8 @@ def show_specific_datatake(corrected_planned_imaging_uuid):
     return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, filters = filters, corrected_planned_imaging_uuid = corrected_planned_imaging_uuid)
 
 @bp.route("/dhus-completeness-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_dhus_completeness_pages():
     """
     DHUS completeness view for the Sentinel-2 mission using pages.
@@ -135,6 +144,8 @@ def query_dhus_completeness_pages():
     return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, filters = filters)
 
 @bp.route("/sliding-dhus-completeness-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_dhus_completeness_parameters():
     """
     DHUS completeness sliding view for the Sentinel-2 mission.
@@ -171,6 +182,8 @@ def show_sliding_dhus_completeness_parameters():
     return query_dhus_completeness_and_render(start_filter, stop_filter, mission, levels, sliding_window)
 
 @bp.route("/sliding-dhus-completeness", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_dhus_completeness():
     """
     DHUS completeness sliding view for the Sentinel-2 mission.

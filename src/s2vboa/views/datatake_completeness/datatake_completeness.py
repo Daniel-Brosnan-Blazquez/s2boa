@@ -25,10 +25,15 @@ from eboa.engine.engine import Engine
 # Import views functions
 from s2vboa.views import functions as s2vboa_functions
 
+# Import vboa security
+from vboa.security import auth_required, roles_accepted
+
 bp = Blueprint("datatake-completeness", __name__, url_prefix="/views")
 query = Query()
 
 @bp.route("/datatake-completeness", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_datatake_completeness():
     """
     Datatake completeness view for the Sentinel-2 mission.
@@ -97,6 +102,8 @@ def show_datatake_completeness():
     return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/specific-datatake-completeness/<string:planned_cut_imaging_uuid>")
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_specific_datatake_completeness(planned_cut_imaging_uuid):
     """
     Specific datatake completeness view for one cut_imaging related to the Sentinel-2 mission.
@@ -132,6 +139,8 @@ def show_specific_datatake_completeness(planned_cut_imaging_uuid):
     return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, filters = filters, planned_cut_imaging_uuid = planned_cut_imaging_uuid)
 
 @bp.route("/datatake-completeness-pages", methods=["POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def query_datatake_completeness_pages():
     """
     Datatake completeness view for the Sentinel-2 mission using pages.
@@ -149,6 +158,8 @@ def query_datatake_completeness_pages():
     return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, filters = filters)
 
 @bp.route("/sliding-datatake-completeness-parameters", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_datatake_completeness_parameters():
     """
     Datatake completeness sliding view for the Sentinel-2 mission.
@@ -196,6 +207,8 @@ def show_sliding_datatake_completeness_parameters():
     return query_datatake_completeness_and_render(start_filter, stop_filter, mission, show, sliding_window)
 
 @bp.route("/sliding-datatake-completeness", methods=["GET", "POST"])
+@auth_required()
+@roles_accepted("administrator", "service_administrator", "operator", "analyst", "operator_observer", "observer")
 def show_sliding_datatake_completeness():
     """
     Datatake completeness sliding view for the Sentinel-2 mission.
