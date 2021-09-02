@@ -1,0 +1,57 @@
+{"operations": [{
+    "mode": "insert",
+    "users": [
+        {
+            "email": "administrator@s2boa.com",
+            "username": "administrator",
+            "password": "$2b$12$j6yK81aESQTlfZrbL9fCZ.2C7vs5Gev6zh1ES48LiooiWiC5zmys2",
+            "roles": ["administrator"]
+        },{
+            "email": "service_administrator@s2boa.com",
+            "username": "service_administrator",
+            "password": "$2b$12$GyHXaVpyENgh/45CVLWMgO5dEqIiW9/VfD8XAWXHK24OMkfDC6mka",
+            "roles": ["service_administrator"]
+        },{
+            "email": "operator@s2boa.com",
+            "username": "operator",
+            "password": "$2b$12$aT6MnKlrBKqIwkB1j26NouU4PgPW8BuYUtSko9MhIDb5ASSyqdUgi",
+            "roles": ["operator"]
+        },{
+            "email": "analyst@s2boa.com",
+            "username": "analyst",
+            "password": "$2b$12$QLYyCJWE8t2CNijSk.xvRu9K6vb2jnC7Sz0ilkTd2MbU2jfdHqcuG",
+            "roles": ["analyst"]
+        },{
+            "email": "operator_observer@s2boa.com",
+            "username": "operator_observer",
+            "password": "$2b$12$11oWIk9EOEI0kXWpZBJhIuCEKNHbzYuFNd/cDgIxm3j.g8D1YTB2i",
+            "roles": ["operator_observer"]
+        },{
+            "email": "observer@s2boa.com",
+            "username": "observer",
+            "password": "$2b$12$W1uRcqMqsynx1446KCVTM.FFSpiJh0k7XGDf0HjyLDJ21qVcSNBTq",
+            "roles": ["observer"]
+        }
+    ],
+    "roles": [
+        {
+            "name": "administrator",
+            "description": "Administrator of the system. All operations allowed."
+        },{
+            "name": "service_administrator",
+            "description": "Administrator of the service. All operations allowed, except management of users."
+        },{
+            "name": "operator",
+            "description": "Operator of the service. All operations allowed, except management of users and management of services."
+        },{
+            "name": "analyst",
+            "description": "Analyst of the service. Read access to data (including EBOA navigation) and write access to include justifications."
+        },{
+            "name": "operator_observer",
+            "description": "Operator of the service. Read access to data (including EBOA navigation)."
+        },{
+            "name": "observer",
+            "description": "Read access to specfic views."
+        }
+    ]
+}]}
