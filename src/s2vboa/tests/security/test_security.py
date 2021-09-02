@@ -7,8 +7,6 @@ module s2boa
 """
 # Import python utilities
 import unittest
-import subprocess
-from subprocess import PIPE
 import json
 import os
 import io
@@ -26,9 +24,7 @@ class TestSecurity(unittest.TestCase):
 
         # Obtain the paths of the files containing decorators like "@.*route"
         module_path = os.path.dirname(s2vboa.__file__)
-        print(module_path)
-        command = 'PYFILES=`find {} -name "*py"`; grep -sl "^[ \t]*@.*route" $PYFILES'.format(module_path)
-        path_files = subprocess.run(command, shell=True, stdout=PIPE).stdout.decode()
+        path_files = security_functions.obtain_python_files_with_route_decorator(module_path)
         
         # Expected dict and the actual dict of my app
         dict_app_security_actual = security_functions.set_dict_app_security(path_files)

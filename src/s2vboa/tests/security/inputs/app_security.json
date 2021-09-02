@@ -1,6 +1,71 @@
 {
     "authentication_required": [
         {
+            "method_name": "show_acquisition",
+            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+            "route": "/acquisition"
+        },
+        {
+            "method_name": "show_specific_acquisition",
+            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+            "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+        },
+        {
+            "method_name": "query_acquisition_pages",
+            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+            "route": "/acquisition-pages"
+        },
+        {
+            "method_name": "show_sliding_acquisition_parameters",
+            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+            "route": "/sliding-acquisition-parameters"
+        },
+        {
+            "method_name": "show_sliding_acquisition",
+            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+            "route": "/sliding-acquisition"
+        },
+        {
+            "method_name": "show_archive_data_volumes",
+            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+            "route": "/archive-data-volumes"
+        },
+        {
+            "method_name": "query_archive_data_volumes_pages",
+            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+            "route": "/archive-data-volumes-pages"
+        },
+        {
+            "method_name": "show_sliding_archive_data_volumes_parameters",
+            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+            "route": "/sliding-archive-data-volumes-parameters"
+        },
+        {
+            "method_name": "show_sliding_archive_data_volumes",
+            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+            "route": "/sliding-archive-data-volumes"
+        },
+        {
+            "method_name": "show_data_allocation",
+            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+            "route": "/data-allocation"
+        },
+        {
+            "method_name": "query_data_allocation_pages",
+            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+            "route": "/data-allocation-pages"
+        },
+        {
+            "method_name": "show_sliding_data_allocation_parameters",
+            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+            "route": "/sliding-data-allocation-parameters"
+        },
+        {
+            "method_name": "show_sliding_data_allocation",
+            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+            "route": "/sliding-data-allocation"
+        },
+        {
             "method_name": "show_datatake_completeness",
             "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
             "route": "/datatake-completeness"
@@ -26,74 +91,9 @@
             "route": "/sliding-datatake-completeness"
         },
         {
-            "method_name": "show_data_allocation",
-            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-            "route": "/data-allocation"
-        },
-        {
-            "method_name": "query_data_allocation_pages",
-            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-            "route": "/data-allocation-pages"
-        },
-        {
-            "method_name": "show_sliding_data_allocation_parameters",
-            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-            "route": "/sliding-data-allocation-parameters"
-        },
-        {
-            "method_name": "show_sliding_data_allocation",
-            "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-            "route": "/sliding-data-allocation"
-        },
-        {
-            "method_name": "show_processing",
-            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-            "route": "/processing"
-        },
-        {
-            "method_name": "show_specific_processing",
-            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-            "route": "/specific-processing/<string:planned_playback_uuid>"
-        },
-        {
-            "method_name": "query_processing_pages",
-            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-            "route": "/processing-pages"
-        },
-        {
-            "method_name": "show_sliding_processing_parameters",
-            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-            "route": "/sliding-processing-parameters"
-        },
-        {
-            "method_name": "show_sliding_processing",
-            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-            "route": "/sliding-processing"
-        },
-        {
-            "method_name": "show_hktm_workflow",
-            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-            "route": "/hktm-workflow"
-        },
-        {
-            "method_name": "show_specific_hktm_workflow",
-            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-            "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-        },
-        {
-            "method_name": "query_hktm_workflow_pages",
-            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-            "route": "/hktm-workflow-pages"
-        },
-        {
-            "method_name": "show_sliding_hktm_workflow_parameters",
-            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-            "route": "/sliding-hktm-workflow-parameters"
-        },
-        {
-            "method_name": "show_sliding_hktm_workflow",
-            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-            "route": "/sliding-hktm-workflow"
+            "method_name": "show_detailed_processing_timeliness",
+            "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+            "route": "/detailed-processing-timeliness"
         },
         {
             "method_name": "show_dhus_completeness",
@@ -121,24 +121,29 @@
             "route": "/sliding-dhus-completeness"
         },
         {
-            "method_name": "show_sensing_data_volumes",
-            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-            "route": "/sensing-data-volumes"
+            "method_name": "show_hktm_workflow",
+            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+            "route": "/hktm-workflow"
         },
         {
-            "method_name": "query_sensing_data_volumes_pages",
-            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-            "route": "/sensing-data-volumes-pages"
+            "method_name": "show_specific_hktm_workflow",
+            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+            "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
         },
         {
-            "method_name": "show_sliding_sensing_data_volumes_parameters",
-            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-            "route": "/sliding-sensing-data-volumes-parameters"
+            "method_name": "query_hktm_workflow_pages",
+            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+            "route": "/hktm-workflow-pages"
         },
         {
-            "method_name": "show_sliding_sensing_data_volumes",
-            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-            "route": "/sliding-sensing-data-volumes"
+            "method_name": "show_sliding_hktm_workflow_parameters",
+            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+            "route": "/sliding-hktm-workflow-parameters"
+        },
+        {
+            "method_name": "show_sliding_hktm_workflow",
+            "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+            "route": "/sliding-hktm-workflow"
         },
         {
             "method_name": "show_planning",
@@ -161,34 +166,49 @@
             "route": "/sliding-planning"
         },
         {
-            "method_name": "show_detailed_processing_timeliness",
-            "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-            "route": "/detailed-processing-timeliness"
+            "method_name": "show_processing",
+            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+            "route": "/processing"
         },
         {
-            "method_name": "show_acquisition",
-            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-            "route": "/acquisition"
+            "method_name": "show_specific_processing",
+            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+            "route": "/specific-processing/<string:planned_playback_uuid>"
         },
         {
-            "method_name": "show_specific_acquisition",
-            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-            "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            "method_name": "query_processing_pages",
+            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+            "route": "/processing-pages"
         },
         {
-            "method_name": "query_acquisition_pages",
-            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-            "route": "/acquisition-pages"
+            "method_name": "show_sliding_processing_parameters",
+            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+            "route": "/sliding-processing-parameters"
         },
         {
-            "method_name": "show_sliding_acquisition_parameters",
-            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-            "route": "/sliding-acquisition-parameters"
+            "method_name": "show_sliding_processing",
+            "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+            "route": "/sliding-processing"
         },
         {
-            "method_name": "show_sliding_acquisition",
-            "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-            "route": "/sliding-acquisition"
+            "method_name": "show_sensing_data_volumes",
+            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+            "route": "/sensing-data-volumes"
+        },
+        {
+            "method_name": "query_sensing_data_volumes_pages",
+            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+            "route": "/sensing-data-volumes-pages"
+        },
+        {
+            "method_name": "show_sliding_sensing_data_volumes_parameters",
+            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+            "route": "/sliding-sensing-data-volumes-parameters"
+        },
+        {
+            "method_name": "show_sliding_sensing_data_volumes",
+            "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+            "route": "/sliding-sensing-data-volumes"
         },
         {
             "method_name": "show_tracking",
@@ -209,26 +229,6 @@
             "method_name": "query_tracking",
             "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
             "route": "/query-tracking"
-        },
-        {
-            "method_name": "show_archive_data_volumes",
-            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-            "route": "/archive-data-volumes"
-        },
-        {
-            "method_name": "query_archive_data_volumes_pages",
-            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-            "route": "/archive-data-volumes-pages"
-        },
-        {
-            "method_name": "show_sliding_archive_data_volumes_parameters",
-            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-            "route": "/sliding-archive-data-volumes-parameters"
-        },
-        {
-            "method_name": "show_sliding_archive_data_volumes",
-            "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-            "route": "/sliding-archive-data-volumes"
         }
     ],
     "authentication_not_required": [
@@ -241,6 +241,71 @@
     "roles": {
         "administrator": [
             {
+                "method_name": "show_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition"
+            },
+            {
+                "method_name": "show_specific_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            },
+            {
+                "method_name": "query_acquisition_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition-pages"
+            },
+            {
+                "method_name": "show_sliding_acquisition_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition-parameters"
+            },
+            {
+                "method_name": "show_sliding_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition"
+            },
+            {
+                "method_name": "show_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes"
+            },
+            {
+                "method_name": "query_archive_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes"
+            },
+            {
+                "method_name": "show_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation"
+            },
+            {
+                "method_name": "query_data_allocation_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation-pages"
+            },
+            {
+                "method_name": "show_sliding_data_allocation_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation-parameters"
+            },
+            {
+                "method_name": "show_sliding_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation"
+            },
+            {
                 "method_name": "show_datatake_completeness",
                 "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
                 "route": "/datatake-completeness"
@@ -266,74 +331,9 @@
                 "route": "/sliding-datatake-completeness"
             },
             {
-                "method_name": "show_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation"
-            },
-            {
-                "method_name": "query_data_allocation_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation-pages"
-            },
-            {
-                "method_name": "show_sliding_data_allocation_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation-parameters"
-            },
-            {
-                "method_name": "show_sliding_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation"
-            },
-            {
-                "method_name": "show_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing"
-            },
-            {
-                "method_name": "show_specific_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/specific-processing/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_processing_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing-pages"
-            },
-            {
-                "method_name": "show_sliding_processing_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing-parameters"
-            },
-            {
-                "method_name": "show_sliding_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing"
-            },
-            {
-                "method_name": "show_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow"
-            },
-            {
-                "method_name": "show_specific_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_hktm_workflow_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow-pages"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow-parameters"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow"
+                "method_name": "show_detailed_processing_timeliness",
+                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+                "route": "/detailed-processing-timeliness"
             },
             {
                 "method_name": "show_dhus_completeness",
@@ -361,24 +361,29 @@
                 "route": "/sliding-dhus-completeness"
             },
             {
-                "method_name": "show_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes"
+                "method_name": "show_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow"
             },
             {
-                "method_name": "query_sensing_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes-pages"
+                "method_name": "show_specific_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes-parameters"
+                "method_name": "query_hktm_workflow_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow-pages"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes"
+                "method_name": "show_sliding_hktm_workflow_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow-parameters"
+            },
+            {
+                "method_name": "show_sliding_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow"
             },
             {
                 "method_name": "show_planning",
@@ -401,34 +406,49 @@
                 "route": "/sliding-planning"
             },
             {
-                "method_name": "show_detailed_processing_timeliness",
-                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-                "route": "/detailed-processing-timeliness"
+                "method_name": "show_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing"
             },
             {
-                "method_name": "show_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition"
+                "method_name": "show_specific_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/specific-processing/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_specific_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+                "method_name": "query_processing_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing-pages"
             },
             {
-                "method_name": "query_acquisition_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition-pages"
+                "method_name": "show_sliding_processing_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing-parameters"
             },
             {
-                "method_name": "show_sliding_acquisition_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition-parameters"
+                "method_name": "show_sliding_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing"
             },
             {
-                "method_name": "show_sliding_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition"
+                "method_name": "show_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes"
+            },
+            {
+                "method_name": "query_sensing_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes"
             },
             {
                 "method_name": "show_tracking",
@@ -449,30 +469,75 @@
                 "method_name": "query_tracking",
                 "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
                 "route": "/query-tracking"
-            },
-            {
-                "method_name": "show_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes"
-            },
-            {
-                "method_name": "query_archive_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes-pages"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes-parameters"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes"
             }
         ],
         "service_administrator": [
             {
+                "method_name": "show_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition"
+            },
+            {
+                "method_name": "show_specific_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            },
+            {
+                "method_name": "query_acquisition_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition-pages"
+            },
+            {
+                "method_name": "show_sliding_acquisition_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition-parameters"
+            },
+            {
+                "method_name": "show_sliding_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition"
+            },
+            {
+                "method_name": "show_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes"
+            },
+            {
+                "method_name": "query_archive_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes"
+            },
+            {
+                "method_name": "show_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation"
+            },
+            {
+                "method_name": "query_data_allocation_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation-pages"
+            },
+            {
+                "method_name": "show_sliding_data_allocation_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation-parameters"
+            },
+            {
+                "method_name": "show_sliding_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation"
+            },
+            {
                 "method_name": "show_datatake_completeness",
                 "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
                 "route": "/datatake-completeness"
@@ -498,74 +563,9 @@
                 "route": "/sliding-datatake-completeness"
             },
             {
-                "method_name": "show_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation"
-            },
-            {
-                "method_name": "query_data_allocation_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation-pages"
-            },
-            {
-                "method_name": "show_sliding_data_allocation_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation-parameters"
-            },
-            {
-                "method_name": "show_sliding_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation"
-            },
-            {
-                "method_name": "show_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing"
-            },
-            {
-                "method_name": "show_specific_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/specific-processing/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_processing_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing-pages"
-            },
-            {
-                "method_name": "show_sliding_processing_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing-parameters"
-            },
-            {
-                "method_name": "show_sliding_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing"
-            },
-            {
-                "method_name": "show_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow"
-            },
-            {
-                "method_name": "show_specific_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_hktm_workflow_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow-pages"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow-parameters"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow"
+                "method_name": "show_detailed_processing_timeliness",
+                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+                "route": "/detailed-processing-timeliness"
             },
             {
                 "method_name": "show_dhus_completeness",
@@ -593,24 +593,29 @@
                 "route": "/sliding-dhus-completeness"
             },
             {
-                "method_name": "show_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes"
+                "method_name": "show_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow"
             },
             {
-                "method_name": "query_sensing_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes-pages"
+                "method_name": "show_specific_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes-parameters"
+                "method_name": "query_hktm_workflow_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow-pages"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes"
+                "method_name": "show_sliding_hktm_workflow_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow-parameters"
+            },
+            {
+                "method_name": "show_sliding_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow"
             },
             {
                 "method_name": "show_planning",
@@ -633,34 +638,49 @@
                 "route": "/sliding-planning"
             },
             {
-                "method_name": "show_detailed_processing_timeliness",
-                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-                "route": "/detailed-processing-timeliness"
+                "method_name": "show_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing"
             },
             {
-                "method_name": "show_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition"
+                "method_name": "show_specific_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/specific-processing/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_specific_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+                "method_name": "query_processing_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing-pages"
             },
             {
-                "method_name": "query_acquisition_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition-pages"
+                "method_name": "show_sliding_processing_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing-parameters"
             },
             {
-                "method_name": "show_sliding_acquisition_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition-parameters"
+                "method_name": "show_sliding_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing"
             },
             {
-                "method_name": "show_sliding_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition"
+                "method_name": "show_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes"
+            },
+            {
+                "method_name": "query_sensing_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes"
             },
             {
                 "method_name": "show_tracking",
@@ -681,30 +701,75 @@
                 "method_name": "query_tracking",
                 "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
                 "route": "/query-tracking"
-            },
-            {
-                "method_name": "show_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes"
-            },
-            {
-                "method_name": "query_archive_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes-pages"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes-parameters"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes"
             }
         ],
         "operator": [
             {
+                "method_name": "show_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition"
+            },
+            {
+                "method_name": "show_specific_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            },
+            {
+                "method_name": "query_acquisition_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition-pages"
+            },
+            {
+                "method_name": "show_sliding_acquisition_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition-parameters"
+            },
+            {
+                "method_name": "show_sliding_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition"
+            },
+            {
+                "method_name": "show_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes"
+            },
+            {
+                "method_name": "query_archive_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes"
+            },
+            {
+                "method_name": "show_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation"
+            },
+            {
+                "method_name": "query_data_allocation_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation-pages"
+            },
+            {
+                "method_name": "show_sliding_data_allocation_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation-parameters"
+            },
+            {
+                "method_name": "show_sliding_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation"
+            },
+            {
                 "method_name": "show_datatake_completeness",
                 "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
                 "route": "/datatake-completeness"
@@ -730,74 +795,9 @@
                 "route": "/sliding-datatake-completeness"
             },
             {
-                "method_name": "show_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation"
-            },
-            {
-                "method_name": "query_data_allocation_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation-pages"
-            },
-            {
-                "method_name": "show_sliding_data_allocation_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation-parameters"
-            },
-            {
-                "method_name": "show_sliding_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation"
-            },
-            {
-                "method_name": "show_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing"
-            },
-            {
-                "method_name": "show_specific_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/specific-processing/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_processing_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing-pages"
-            },
-            {
-                "method_name": "show_sliding_processing_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing-parameters"
-            },
-            {
-                "method_name": "show_sliding_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing"
-            },
-            {
-                "method_name": "show_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow"
-            },
-            {
-                "method_name": "show_specific_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_hktm_workflow_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow-pages"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow-parameters"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow"
+                "method_name": "show_detailed_processing_timeliness",
+                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+                "route": "/detailed-processing-timeliness"
             },
             {
                 "method_name": "show_dhus_completeness",
@@ -825,24 +825,29 @@
                 "route": "/sliding-dhus-completeness"
             },
             {
-                "method_name": "show_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes"
+                "method_name": "show_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow"
             },
             {
-                "method_name": "query_sensing_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes-pages"
+                "method_name": "show_specific_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes-parameters"
+                "method_name": "query_hktm_workflow_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow-pages"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes"
+                "method_name": "show_sliding_hktm_workflow_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow-parameters"
+            },
+            {
+                "method_name": "show_sliding_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow"
             },
             {
                 "method_name": "show_planning",
@@ -865,34 +870,49 @@
                 "route": "/sliding-planning"
             },
             {
-                "method_name": "show_detailed_processing_timeliness",
-                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-                "route": "/detailed-processing-timeliness"
+                "method_name": "show_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing"
             },
             {
-                "method_name": "show_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition"
+                "method_name": "show_specific_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/specific-processing/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_specific_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+                "method_name": "query_processing_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing-pages"
             },
             {
-                "method_name": "query_acquisition_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition-pages"
+                "method_name": "show_sliding_processing_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing-parameters"
             },
             {
-                "method_name": "show_sliding_acquisition_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition-parameters"
+                "method_name": "show_sliding_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing"
             },
             {
-                "method_name": "show_sliding_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition"
+                "method_name": "show_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes"
+            },
+            {
+                "method_name": "query_sensing_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes"
             },
             {
                 "method_name": "show_tracking",
@@ -913,30 +933,75 @@
                 "method_name": "query_tracking",
                 "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
                 "route": "/query-tracking"
-            },
-            {
-                "method_name": "show_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes"
-            },
-            {
-                "method_name": "query_archive_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes-pages"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes-parameters"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes"
             }
         ],
         "analyst": [
             {
+                "method_name": "show_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition"
+            },
+            {
+                "method_name": "show_specific_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            },
+            {
+                "method_name": "query_acquisition_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition-pages"
+            },
+            {
+                "method_name": "show_sliding_acquisition_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition-parameters"
+            },
+            {
+                "method_name": "show_sliding_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition"
+            },
+            {
+                "method_name": "show_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes"
+            },
+            {
+                "method_name": "query_archive_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes"
+            },
+            {
+                "method_name": "show_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation"
+            },
+            {
+                "method_name": "query_data_allocation_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation-pages"
+            },
+            {
+                "method_name": "show_sliding_data_allocation_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation-parameters"
+            },
+            {
+                "method_name": "show_sliding_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation"
+            },
+            {
                 "method_name": "show_datatake_completeness",
                 "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
                 "route": "/datatake-completeness"
@@ -962,74 +1027,9 @@
                 "route": "/sliding-datatake-completeness"
             },
             {
-                "method_name": "show_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation"
-            },
-            {
-                "method_name": "query_data_allocation_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation-pages"
-            },
-            {
-                "method_name": "show_sliding_data_allocation_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation-parameters"
-            },
-            {
-                "method_name": "show_sliding_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation"
-            },
-            {
-                "method_name": "show_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing"
-            },
-            {
-                "method_name": "show_specific_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/specific-processing/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_processing_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing-pages"
-            },
-            {
-                "method_name": "show_sliding_processing_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing-parameters"
-            },
-            {
-                "method_name": "show_sliding_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing"
-            },
-            {
-                "method_name": "show_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow"
-            },
-            {
-                "method_name": "show_specific_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_hktm_workflow_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow-pages"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow-parameters"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow"
+                "method_name": "show_detailed_processing_timeliness",
+                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+                "route": "/detailed-processing-timeliness"
             },
             {
                 "method_name": "show_dhus_completeness",
@@ -1057,24 +1057,29 @@
                 "route": "/sliding-dhus-completeness"
             },
             {
-                "method_name": "show_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes"
+                "method_name": "show_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow"
             },
             {
-                "method_name": "query_sensing_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes-pages"
+                "method_name": "show_specific_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes-parameters"
+                "method_name": "query_hktm_workflow_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow-pages"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes"
+                "method_name": "show_sliding_hktm_workflow_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow-parameters"
+            },
+            {
+                "method_name": "show_sliding_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow"
             },
             {
                 "method_name": "show_planning",
@@ -1097,34 +1102,49 @@
                 "route": "/sliding-planning"
             },
             {
-                "method_name": "show_detailed_processing_timeliness",
-                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-                "route": "/detailed-processing-timeliness"
+                "method_name": "show_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing"
             },
             {
-                "method_name": "show_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition"
+                "method_name": "show_specific_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/specific-processing/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_specific_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+                "method_name": "query_processing_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing-pages"
             },
             {
-                "method_name": "query_acquisition_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition-pages"
+                "method_name": "show_sliding_processing_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing-parameters"
             },
             {
-                "method_name": "show_sliding_acquisition_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition-parameters"
+                "method_name": "show_sliding_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing"
             },
             {
-                "method_name": "show_sliding_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition"
+                "method_name": "show_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes"
+            },
+            {
+                "method_name": "query_sensing_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes"
             },
             {
                 "method_name": "show_tracking",
@@ -1145,30 +1165,75 @@
                 "method_name": "query_tracking",
                 "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
                 "route": "/query-tracking"
-            },
-            {
-                "method_name": "show_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes"
-            },
-            {
-                "method_name": "query_archive_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes-pages"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes-parameters"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes"
             }
         ],
         "operator_observer": [
             {
+                "method_name": "show_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition"
+            },
+            {
+                "method_name": "show_specific_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            },
+            {
+                "method_name": "query_acquisition_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition-pages"
+            },
+            {
+                "method_name": "show_sliding_acquisition_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition-parameters"
+            },
+            {
+                "method_name": "show_sliding_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition"
+            },
+            {
+                "method_name": "show_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes"
+            },
+            {
+                "method_name": "query_archive_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes"
+            },
+            {
+                "method_name": "show_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation"
+            },
+            {
+                "method_name": "query_data_allocation_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation-pages"
+            },
+            {
+                "method_name": "show_sliding_data_allocation_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation-parameters"
+            },
+            {
+                "method_name": "show_sliding_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation"
+            },
+            {
                 "method_name": "show_datatake_completeness",
                 "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
                 "route": "/datatake-completeness"
@@ -1194,74 +1259,9 @@
                 "route": "/sliding-datatake-completeness"
             },
             {
-                "method_name": "show_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation"
-            },
-            {
-                "method_name": "query_data_allocation_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation-pages"
-            },
-            {
-                "method_name": "show_sliding_data_allocation_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation-parameters"
-            },
-            {
-                "method_name": "show_sliding_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation"
-            },
-            {
-                "method_name": "show_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing"
-            },
-            {
-                "method_name": "show_specific_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/specific-processing/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_processing_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing-pages"
-            },
-            {
-                "method_name": "show_sliding_processing_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing-parameters"
-            },
-            {
-                "method_name": "show_sliding_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing"
-            },
-            {
-                "method_name": "show_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow"
-            },
-            {
-                "method_name": "show_specific_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_hktm_workflow_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow-pages"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow-parameters"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow"
+                "method_name": "show_detailed_processing_timeliness",
+                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+                "route": "/detailed-processing-timeliness"
             },
             {
                 "method_name": "show_dhus_completeness",
@@ -1289,24 +1289,29 @@
                 "route": "/sliding-dhus-completeness"
             },
             {
-                "method_name": "show_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes"
+                "method_name": "show_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow"
             },
             {
-                "method_name": "query_sensing_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes-pages"
+                "method_name": "show_specific_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes-parameters"
+                "method_name": "query_hktm_workflow_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow-pages"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes"
+                "method_name": "show_sliding_hktm_workflow_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow-parameters"
+            },
+            {
+                "method_name": "show_sliding_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow"
             },
             {
                 "method_name": "show_planning",
@@ -1329,34 +1334,49 @@
                 "route": "/sliding-planning"
             },
             {
-                "method_name": "show_detailed_processing_timeliness",
-                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-                "route": "/detailed-processing-timeliness"
+                "method_name": "show_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing"
             },
             {
-                "method_name": "show_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition"
+                "method_name": "show_specific_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/specific-processing/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_specific_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+                "method_name": "query_processing_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing-pages"
             },
             {
-                "method_name": "query_acquisition_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition-pages"
+                "method_name": "show_sliding_processing_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing-parameters"
             },
             {
-                "method_name": "show_sliding_acquisition_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition-parameters"
+                "method_name": "show_sliding_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing"
             },
             {
-                "method_name": "show_sliding_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition"
+                "method_name": "show_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes"
+            },
+            {
+                "method_name": "query_sensing_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes"
             },
             {
                 "method_name": "show_tracking",
@@ -1377,30 +1397,75 @@
                 "method_name": "query_tracking",
                 "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
                 "route": "/query-tracking"
-            },
-            {
-                "method_name": "show_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes"
-            },
-            {
-                "method_name": "query_archive_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes-pages"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes-parameters"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes"
             }
         ],
         "observer": [
             {
+                "method_name": "show_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition"
+            },
+            {
+                "method_name": "show_specific_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+            },
+            {
+                "method_name": "query_acquisition_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/acquisition-pages"
+            },
+            {
+                "method_name": "show_sliding_acquisition_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition-parameters"
+            },
+            {
+                "method_name": "show_sliding_acquisition",
+                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
+                "route": "/sliding-acquisition"
+            },
+            {
+                "method_name": "show_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes"
+            },
+            {
+                "method_name": "query_archive_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/archive-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_archive_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
+                "route": "/sliding-archive-data-volumes"
+            },
+            {
+                "method_name": "show_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation"
+            },
+            {
+                "method_name": "query_data_allocation_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/data-allocation-pages"
+            },
+            {
+                "method_name": "show_sliding_data_allocation_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation-parameters"
+            },
+            {
+                "method_name": "show_sliding_data_allocation",
+                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
+                "route": "/sliding-data-allocation"
+            },
+            {
                 "method_name": "show_datatake_completeness",
                 "module_name": "/s2vboa/src/s2vboa/views/datatake_completeness/datatake_completeness.py",
                 "route": "/datatake-completeness"
@@ -1426,74 +1491,9 @@
                 "route": "/sliding-datatake-completeness"
             },
             {
-                "method_name": "show_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation"
-            },
-            {
-                "method_name": "query_data_allocation_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/data-allocation-pages"
-            },
-            {
-                "method_name": "show_sliding_data_allocation_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation-parameters"
-            },
-            {
-                "method_name": "show_sliding_data_allocation",
-                "module_name": "/s2vboa/src/s2vboa/views/data_allocation/data_allocation.py",
-                "route": "/sliding-data-allocation"
-            },
-            {
-                "method_name": "show_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing"
-            },
-            {
-                "method_name": "show_specific_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/specific-processing/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_processing_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/processing-pages"
-            },
-            {
-                "method_name": "show_sliding_processing_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing-parameters"
-            },
-            {
-                "method_name": "show_sliding_processing",
-                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
-                "route": "/sliding-processing"
-            },
-            {
-                "method_name": "show_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow"
-            },
-            {
-                "method_name": "show_specific_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
-            },
-            {
-                "method_name": "query_hktm_workflow_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/hktm-workflow-pages"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow-parameters"
-            },
-            {
-                "method_name": "show_sliding_hktm_workflow",
-                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
-                "route": "/sliding-hktm-workflow"
+                "method_name": "show_detailed_processing_timeliness",
+                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
+                "route": "/detailed-processing-timeliness"
             },
             {
                 "method_name": "show_dhus_completeness",
@@ -1521,24 +1521,29 @@
                 "route": "/sliding-dhus-completeness"
             },
             {
-                "method_name": "show_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes"
+                "method_name": "show_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow"
             },
             {
-                "method_name": "query_sensing_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sensing-data-volumes-pages"
+                "method_name": "show_specific_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/specific-hktm-workflow/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes-parameters"
+                "method_name": "query_hktm_workflow_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/hktm-workflow-pages"
             },
             {
-                "method_name": "show_sliding_sensing_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
-                "route": "/sliding-sensing-data-volumes"
+                "method_name": "show_sliding_hktm_workflow_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow-parameters"
+            },
+            {
+                "method_name": "show_sliding_hktm_workflow",
+                "module_name": "/s2vboa/src/s2vboa/views/hktm_workflow/hktm_workflow.py",
+                "route": "/sliding-hktm-workflow"
             },
             {
                 "method_name": "show_planning",
@@ -1561,34 +1566,49 @@
                 "route": "/sliding-planning"
             },
             {
-                "method_name": "show_detailed_processing_timeliness",
-                "module_name": "/s2vboa/src/s2vboa/views/detailed_processing_timeliness/detailed_processing_timeliness.py",
-                "route": "/detailed-processing-timeliness"
+                "method_name": "show_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing"
             },
             {
-                "method_name": "show_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition"
+                "method_name": "show_specific_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/specific-processing/<string:planned_playback_uuid>"
             },
             {
-                "method_name": "show_specific_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/specific-acquisition/<string:corrected_planned_playback_uuid>"
+                "method_name": "query_processing_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/processing-pages"
             },
             {
-                "method_name": "query_acquisition_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/acquisition-pages"
+                "method_name": "show_sliding_processing_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing-parameters"
             },
             {
-                "method_name": "show_sliding_acquisition_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition-parameters"
+                "method_name": "show_sliding_processing",
+                "module_name": "/s2vboa/src/s2vboa/views/processing/processing.py",
+                "route": "/sliding-processing"
             },
             {
-                "method_name": "show_sliding_acquisition",
-                "module_name": "/s2vboa/src/s2vboa/views/acquisition/acquisition.py",
-                "route": "/sliding-acquisition"
+                "method_name": "show_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes"
+            },
+            {
+                "method_name": "query_sensing_data_volumes_pages",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sensing-data-volumes-pages"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes_parameters",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes-parameters"
+            },
+            {
+                "method_name": "show_sliding_sensing_data_volumes",
+                "module_name": "/s2vboa/src/s2vboa/views/sensing_data_volumes/sensing_data_volumes.py",
+                "route": "/sliding-sensing-data-volumes"
             },
             {
                 "method_name": "show_tracking",
@@ -1609,26 +1629,6 @@
                 "method_name": "query_tracking",
                 "module_name": "/s2vboa/src/s2vboa/views/tracking/tracking.py",
                 "route": "/query-tracking"
-            },
-            {
-                "method_name": "show_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes"
-            },
-            {
-                "method_name": "query_archive_data_volumes_pages",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/archive-data-volumes-pages"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes_parameters",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes-parameters"
-            },
-            {
-                "method_name": "show_sliding_archive_data_volumes",
-                "module_name": "/s2vboa/src/s2vboa/views/archive_data_volumes/archive_data_volumes.py",
-                "route": "/sliding-archive-data-volumes"
             }
         ]
     }
