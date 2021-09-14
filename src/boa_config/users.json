@@ -34,6 +34,7 @@
         },{
             "email": "Daniele.Giordani@esa.int",
             "username": "daniele.giordani",
+            "group": "RHEA",
             "password": "$2b$12$UNZnBOB7zBfLFHJKnlMl9eqppalBfla/ofawYI2PG.8INy9Lz3xO6",
             "roles": ["operator_observer"]
         }
