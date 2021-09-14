@@ -12666,3 +12666,69 @@ class TestProcessingView(unittest.TestCase):
         sad_coverage = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[12]")
 
         assert sad_coverage.text == "2018-07-20T22:00:21.024658_2018-07-21T10:37:11.024915"
+
+    def test_processing_isp_channel_2_shorter_than_channel_1(self):
+
+        filename = "S2A_OPER_MPL__NPPF__20210812T120000_20210830T150000_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_nppf.ingestion_nppf", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_MPL_ORBPRE_20210816T030155_20210826T030155_0001.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_orbpre.ingestion_orbpre", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_MPL_SPSGS__PDMC_20210815T090001_V20210816T090000_20210822T090000.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_station_schedule.ingestion_station_schedule", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+        
+        filename = "S2A_OPER_REP_PASS_E_VGS2_20210816T111632_V20210816T105434_20210816T110338.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_eisp.ingestion_eisp", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_PASS_E_VGS2_20210816T111707_V20210816T105322_20210816T110300.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_eisp.ingestion_eisp", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        filename = "S2A_OPER_REP_OPDPC__VGS2_20210818T144335_V20210816T093652_20210816T094239.EOF"
+        file_path = os.path.dirname(os.path.abspath(__file__)) + "/inputs/" + filename
+
+        exit_status = ingestion.command_process_file("s2boa.ingestions.ingestion_dpc.ingestion_dpc_l1c_l2a_no_wait", file_path, "2018-01-01T00:00:00")
+
+        assert len([item for item in exit_status if item["status"] != eboa_engine.exit_codes["OK"]["status"]]) == 0
+
+        wait = WebDriverWait(self.driver,5)
+
+        self.driver.get("http://localhost:5000/views/processing")
+
+        functions.query(self.driver, wait, "S2A", start = "2014-07-01T00:00:00", stop = "2022-07-31T23:59:59", map = True, timeline = True)
+
+        completeness_datastrip_table = self.driver.find_element_by_id("processing-completeness-table")
+
+        # Row 1
+        datastrip_status = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[6]")
+
+        assert datastrip_status.text == "COMPLETE"
+
+        datastrip = completeness_datastrip_table.find_element_by_xpath("tbody/tr[1]/td[7]")
+
+        assert datastrip.text == "S2A_OPER_MSI_L0__DS_VGS2_20210818T142958_S20210816T093652_N03.01"
+
+        # Number of rows
+        number_of_rows = completeness_datastrip_table.find_elements_by_xpath("tbody/tr")
+
+        assert len(number_of_rows) == 8

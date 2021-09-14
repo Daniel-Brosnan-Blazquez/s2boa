@@ -2,9 +2,9 @@
 var missing_processing_timeline = [
     {% for event in events %}
     {% set original_isp_validity_uuids = event.eventLinks|selectattr("name", "equalto", "ISP_VALIDITY")|map(attribute='event_uuid_link')|list %}
-    {% set original_isp_validity = processing_events["isp_validity_channel_2"]|selectattr("event_uuid", "in", original_isp_validity_uuids)|first %}
+    {% set original_isp_validity = processing_events["isp_validity"]|selectattr("event_uuid", "in", original_isp_validity_uuids)|first %}
     {% set original_playback_validity_uuids = original_isp_validity.eventLinks|selectattr("name", "equalto", "PLAYBACK_VALIDITY")|map(attribute='event_uuid_link')|list %}
-    {% set original_playback_validity = processing_events["playback_validity_channel_2"]|selectattr("event_uuid", "in", original_playback_validity_uuids)|first %}
+    {% set original_playback_validity = processing_events["playback_validity"]|selectattr("event_uuid", "in", original_playback_validity_uuids)|first %}
     {% set original_planned_playback_uuids = original_playback_validity.eventLinks|selectattr("name", "equalto", "PLANNED_PLAYBACK")|map(attribute='event_uuid_link')|list %}
     {% set original_planned_playback = processing_events["playback"]|selectattr("event_uuid", "in", original_planned_playback_uuids)|first %}
     {% set original_planned_playback_correction_uuid = original_planned_playback.eventLinks|selectattr("name", "equalto", "TIME_CORRECTION")|map(attribute='event_uuid_link')|first %}
