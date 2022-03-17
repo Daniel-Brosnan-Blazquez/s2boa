@@ -24,7 +24,7 @@ from astropy.time import Time
 # Import helpers
 import eboa.ingestion.functions as ingestion_functions
 import eboa.engine.functions as eboa_functions
-from eboa.engine.functions import get_resources_path
+from eboa.engine.functions import get_resources_path, get_schemas_path
 
 # Import eboa query
 from eboa.engine.query import Query
