@@ -15,6 +15,8 @@ import jinja2
 
 # Import vboa
 import vboa
+
+# Import views
 from s2vboa.views.planning import planning
 from s2vboa.views.data_allocation import data_allocation
 from s2vboa.views.hktm_workflow import hktm_workflow
